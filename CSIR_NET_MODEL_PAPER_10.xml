@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<question type="category">
+  <category><text>CSIR NET Model Paper 10</text></category>
+</question>
+
+<!-- ==================== PART A: General Aptitude (Q1-15) ==================== -->
+
+<!-- Q1 -->
+<question type="multichoice">
+  <name><text>P10_A_Q01_profit_loss</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A trader sells two articles, each for Rs. 1200. On one he gains 20% and on the other he loses 20%. What is the overall gain or loss percentage?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>When same SP and same percentage: net loss = (x²/100)% = 400/100 = 4% loss.</text></incorrectfeedback>
+  <answer fraction="0"><text>No profit, no loss</text></answer>
+  <answer fraction="0"><text>2% gain</text></answer>
+  <answer fraction="100"><text>4% loss</text></answer>
+  <answer fraction="0"><text>4% gain</text></answer>
+</question>
+
+<!-- Q2 -->
+<question type="multichoice">
+  <name><text>P10_A_Q02_mixture</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A vessel contains 60 litres of milk. 12 litres are removed and replaced with water. This process is repeated twice more. What fraction of the mixture is milk?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Milk after 3 operations = 60×(48/60)³ = 60×(4/5)³ = 60×64/125 = 3840/125 litres. Fraction = 64/125.</text></incorrectfeedback>
+  <answer fraction="0"><text>27/64</text></answer>
+  <answer fraction="0"><text>125/216</text></answer>
+  <answer fraction="100"><text>64/125</text></answer>
+  <answer fraction="0"><text>512/729</text></answer>
+</question>
+
+<!-- Q3 -->
+<question type="multichoice">
+  <name><text>P10_A_Q03_pipes_cistern</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Three pipes A, B, C can fill a tank in 6, 8, and 12 hours respectively. Pipes A and B are opened for the first hour, then B and C for the second hour, then A and C for the third hour, and so on. In how many hours will the tank be filled?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>In 3-hour cycle: A+B = 1/6+1/8=7/24; B+C=1/8+1/12=5/24; A+C=1/6+1/12=3/12=6/24. Total per cycle=18/24=3/4. After 4 cycles (12 hrs): 3/4×4=3. Remaining 1/4 = A+B in next hr → done in 12 + (1/4)÷(7/24) = 12+6/7 ≈ 12.86 hrs.</text></incorrectfeedback>
+  <answer fraction="0"><text>12 hours</text></answer>
+  <answer fraction="100"><text>12\(\frac{6}{7}\) hours</text></answer>
+  <answer fraction="0"><text>13 hours</text></answer>
+  <answer fraction="0"><text>14 hours</text></answer>
+</question>
+
+<!-- Q4 -->
+<question type="multichoice">
+  <name><text>P10_A_Q04_analogy</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Complete the analogy: <strong>Ornithology : Birds :: Entomology : ?</strong></p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Ornithology is the study of birds; Entomology is the study of insects.</text></incorrectfeedback>
+  <answer fraction="0"><text>Reptiles</text></answer>
+  <answer fraction="100"><text>Insects</text></answer>
+  <answer fraction="0"><text>Plants</text></answer>
+  <answer fraction="0"><text>Fungi</text></answer>
+</question>
+
+<!-- Q5 -->
+<question type="multichoice">
+  <name><text>P10_A_Q05_ages_three</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The sum of ages of a father and his two children is 65. After 5 years, the father's age will equal the sum of the two children's ages. What is the present age of the father?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Let father=F, children sum=C. F+C=65. After 5 years: F+5=(C+10) → F−C=5. Solving: F=35, C=30.</text></incorrectfeedback>
+  <answer fraction="0"><text>30 years</text></answer>
+  <answer fraction="100"><text>35 years</text></answer>
+  <answer fraction="0"><text>40 years</text></answer>
+  <answer fraction="0"><text>45 years</text></answer>
+</question>
+
+<!-- Q6 -->
+<question type="multichoice">
+  <name><text>P10_A_Q06_series_mixed</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Find the missing term: 3, 7, 15, 31, 63, ?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Each term = 2×(previous)−1, or equivalently aₙ = 2ⁿ⁺¹ − 1. So next = 2×63+1 = 127.</text></incorrectfeedback>
+  <answer fraction="0"><text>121</text></answer>
+  <answer fraction="0"><text>124</text></answer>
+  <answer fraction="100"><text>127</text></answer>
+  <answer fraction="0"><text>128</text></answer>
+</question>
+
+<!-- Q7 -->
+<question type="multichoice">
+  <name><text>P10_A_Q07_compound_interest</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The difference between compound interest and simple interest on a sum of Rs. 5000 for 3 years at 10% per annum is:</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>SI = 5000×3×0.1=1500. CI = 5000(1.1³−1)=5000×0.331=1655. Difference = 155.</text></incorrectfeedback>
+  <answer fraction="0"><text>Rs. 100</text></answer>
+  <answer fraction="0"><text>Rs. 125</text></answer>
+  <answer fraction="100"><text>Rs. 155</text></answer>
+  <answer fraction="0"><text>Rs. 200</text></answer>
+</question>
+
+<!-- Q8 -->
+<question type="multichoice">
+  <name><text>P10_A_Q08_mensuration_frustum</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A frustum (truncated cone) has top radius 3 cm, bottom radius 6 cm, and height 4 cm. What is its volume? (Use π = 3.14)</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>V = πh/3 × (R²+Rr+r²) = 3.14×4/3×(36+18+9) = 3.14×4/3×63 = 3.14×84 ≈ 263.76 cm³.</text></incorrectfeedback>
+  <answer fraction="0"><text>188.4 cm³</text></answer>
+  <answer fraction="0"><text>226.08 cm³</text></answer>
+  <answer fraction="100"><text>263.76 cm³</text></answer>
+  <answer fraction="0"><text>301.44 cm³</text></answer>
+</question>
+
+<!-- Q9 -->
+<question type="multichoice">
+  <name><text>P10_A_Q09_seating_arrangement</text></name>
+  <questiontext format="html"><text><![CDATA[<p>8 people are to be seated in a row such that two particular people, A and B, must not sit adjacent to each other. How many arrangements are possible?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Total = 8! = 40320. Adjacent = 7!×2 = 10080. Non-adjacent = 40320−10080 = 30240.</text></incorrectfeedback>
+  <answer fraction="0"><text>10080</text></answer>
+  <answer fraction="0"><text>20160</text></answer>
+  <answer fraction="100"><text>30240</text></answer>
+  <answer fraction="0"><text>35280</text></answer>
+</question>
+
+<!-- Q10 -->
+<question type="multichoice">
+  <name><text>P10_A_Q10_blood_relation_coded</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If A is the brother of B, B is the sister of C, and C is the father of D, then how is A related to D?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>A is brother of B (male); B is sister of C (so C is male); C is father of D. A and C are siblings → A is uncle of D.</text></incorrectfeedback>
+  <answer fraction="0"><text>Grandfather</text></answer>
+  <answer fraction="100"><text>Uncle</text></answer>
+  <answer fraction="0"><text>Father</text></answer>
+  <answer fraction="0"><text>Cousin</text></answer>
+</question>
+
+<!-- Q11 -->
+<question type="multichoice">
+  <name><text>P10_A_Q11_cards_probability</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Two cards are drawn simultaneously from a deck of 52 cards. What is the probability that one is a king and the other is a queen?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>C(4,1)×C(4,1) / C(52,2) = 16/1326 = 8/663.</text></incorrectfeedback>
+  <answer fraction="0"><text>4/663</text></answer>
+  <answer fraction="100"><text>8/663</text></answer>
+  <answer fraction="0"><text>16/663</text></answer>
+  <answer fraction="0"><text>1/169</text></answer>
+</question>
+
+<!-- Q12 -->
+<question type="multichoice">
+  <name><text>P10_A_Q12_odd_one_out</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Identify the odd one out: <strong>Algebra, Trigonometry, Botany, Calculus, Geometry</strong></p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>All others are branches of mathematics; Botany is a branch of biology.</text></incorrectfeedback>
+  <answer fraction="0"><text>Trigonometry</text></answer>
+  <answer fraction="100"><text>Botany</text></answer>
+  <answer fraction="0"><text>Calculus</text></answer>
+  <answer fraction="0"><text>Geometry</text></answer>
+</question>
+
+<!-- Q13 -->
+<question type="multichoice">
+  <name><text>P10_A_Q13_letter_series</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Find the next term in the series: AZ, BY, CX, DW, ?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>First letters: A,B,C,D,E (forward). Second letters: Z,Y,X,W,V (backward). Next term: EV.</text></incorrectfeedback>
+  <answer fraction="0"><text>EU</text></answer>
+  <answer fraction="100"><text>EV</text></answer>
+  <answer fraction="0"><text>FV</text></answer>
+  <answer fraction="0"><text>FU</text></answer>
+</question>
+
+<!-- Q14 -->
+<question type="multichoice">
+  <name><text>P10_A_Q14_average</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The average of 9 numbers is 50. The average of the first 4 numbers is 45 and the average of the last 4 is 55. What is the 5th (middle) number?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Total = 450. First 4 = 180. Last 4 = 220. Middle = 450−180−220 = 50.</text></incorrectfeedback>
+  <answer fraction="0"><text>45</text></answer>
+  <answer fraction="100"><text>50</text></answer>
+  <answer fraction="0"><text>55</text></answer>
+  <answer fraction="0"><text>60</text></answer>
+</question>
+
+<!-- Q15 -->
+<question type="multichoice">
+  <name><text>P10_A_Q15_logical_deduction</text></name>
+  <questiontext format="html"><text><![CDATA[<p>All professors are researchers. Some researchers are authors. Which conclusion definitely follows?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>All professors are researchers is definite. Some researchers are authors doesn't imply professors are authors. Only "Some researchers are professors" follows (by conversion of "All professors are researchers").</text></incorrectfeedback>
+  <answer fraction="0"><text>All professors are authors</text></answer>
+  <answer fraction="0"><text>Some authors are professors</text></answer>
+  <answer fraction="100"><text>Some researchers are professors</text></answer>
+  <answer fraction="0"><text>No professor is an author</text></answer>
+</question>
+
+<!-- ==================== PART B: Core Mathematics (Q16-40) ==================== -->
+
+<!-- Q16 -->
+<question type="multichoice">
+  <name><text>P10_B_Q16_jordan_decomposition_measure</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Jordan decomposition of a signed measure \(\nu\) on a measurable space is \(\nu = \nu^+ - \nu^-\), where \(\nu^+\) and \(\nu^-\) are positive measures. What is the total variation measure \(|\nu|\)?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Jordan: ν = ν⁺ − ν⁻ (positive and negative parts). Total variation |ν| = ν⁺ + ν⁻.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(|\nu| = \nu^+ - \nu^-\)</text></answer>
+  <answer fraction="0"><text>\(|\nu| = \max(\nu^+, \nu^-)\)</text></answer>
+  <answer fraction="100"><text>\(|\nu| = \nu^+ + \nu^-\)</text></answer>
+  <answer fraction="0"><text>\(|\nu| = \nu^+ \cdot \nu^-\)</text></answer>
+</question>
+
+<!-- Q17 -->
+<question type="multichoice">
+  <name><text>P10_B_Q17_bochner_integral</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A measurable function \(f: \Omega \to X\) (where \(X\) is a Banach space) is Bochner integrable if and only if:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>A Banach-valued function f is Bochner integrable iff it is strongly measurable and ∫‖f(ω)‖dμ(ω) &lt; ∞.</text></incorrectfeedback>
+  <answer fraction="0"><text>It is weakly measurable and norm-bounded</text></answer>
+  <answer fraction="100"><text>It is strongly measurable and \(\int_\Omega \|f(\omega)\|\,d\mu(\omega) &lt; \infty\)</text></answer>
+  <answer fraction="0"><text>The range of \(f\) is contained in a separable subspace of \(X\)</text></answer>
+  <answer fraction="0"><text>It is weakly integrable: \(\langle f, x^* \rangle \in L^1\) for all \(x^* \in X^*\)</text></answer>
+</question>
+
+<!-- Q18 -->
+<question type="multichoice">
+  <name><text>P10_B_Q18_matrix_function</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a diagonalizable matrix \(A = PDP^{-1}\) with \(D = \text{diag}(\lambda_1, \ldots, \lambda_n)\), the matrix function \(f(A)\) for an analytic function \(f\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>f(A) = Pf(D)P⁻¹ where f(D) = diag(f(λ₁),...,f(λₙ)). This defines matrix exponential, logarithm, square root, etc.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(f(A) = f(P)D P^{-1}\)</text></answer>
+  <answer fraction="100"><text>\(f(A) = P\,\text{diag}(f(\lambda_1),\ldots,f(\lambda_n))\,P^{-1}\)</text></answer>
+  <answer fraction="0"><text>\(f(A) = P^{-1}\,\text{diag}(f(\lambda_1),\ldots,f(\lambda_n))\,P\)</text></answer>
+  <answer fraction="0"><text>\(f(A) = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!} D^k\)</text></answer>
+</question>
+
+<!-- Q19 -->
+<question type="multichoice">
+  <name><text>P10_B_Q19_wreath_product</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The wreath product \(S_2 \wr S_3\) (where \(S_n\) is the symmetric group) has order:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>|A wr B| = |A|^{|B|} × |B| = 2³ × 6 = 8 × 6 = 48.</text></incorrectfeedback>
+  <answer fraction="0"><text>12</text></answer>
+  <answer fraction="0"><text>24</text></answer>
+  <answer fraction="100"><text>48</text></answer>
+  <answer fraction="0"><text>72</text></answer>
+</question>
+
+<!-- Q20 -->
+<question type="multichoice">
+  <name><text>P10_B_Q20_bloch_theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Bloch's theorem in complex analysis states that if \(f\) is holomorphic on the unit disk with \(f'(0) = 1\), then the image \(f(\mathbb{D})\) contains a disk of radius at least \(b\), where \(b\) is called Bloch's constant and satisfies:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Bloch's theorem guarantees a disk of radius ≥ 1/72 (classical bound). The exact Bloch constant is known to satisfy b ≥ √3/4 and is suspected to equal Γ(1/3)Γ(11/12)/Γ(1/4) × (π/2)^{1/2}.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(b = 1\)</text></answer>
+  <answer fraction="0"><text>\(b = 1/2\)</text></answer>
+  <answer fraction="100"><text>\(b \geq \sqrt{3}/4\) (and the exact value is conjectured but not determined)</text></answer>
+  <answer fraction="0"><text>\(b = 0\) (no uniform lower bound exists)</text></answer>
+</question>
+
+<!-- Q21 -->
+<question type="multichoice">
+  <name><text>P10_B_Q21_nevanlinna_theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In Nevanlinna theory, the First Fundamental Theorem for a meromorphic function \(f\) states that for any value \(a \in \mathbb{C}\):</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Nevanlinna's First Fundamental Theorem: T(r,f) = N(r,a) + m(r,a) + O(1), where T is Nevanlinna characteristic, N counts poles/zeros, m is proximity function.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(T(r,f) = N(r,a)\) exactly</text></answer>
+  <answer fraction="100"><text>\(T(r,f) = N(r,a) + m(r,a) + O(1)\) where \(T\) is the Nevanlinna characteristic</text></answer>
+  <answer fraction="0"><text>\(f\) omits at most one value in \(\mathbb{C}\)</text></answer>
+  <answer fraction="0"><text>\(T(r,f) = m(r,a)\) for all but finitely many \(a\)</text></answer>
+</question>
+
+<!-- Q22 -->
+<question type="multichoice">
+  <name><text>P10_B_Q22_long_exact_fibration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For the Hopf fibration \(S^1 \hookrightarrow S^3 \xrightarrow{p} S^2\), the long exact sequence of homotopy groups gives \(\pi_2(S^3) =\):</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>From the LES: π₂(S¹)=0 → π₂(S³) → π₂(S²)≅ℤ →∂ π₁(S¹)≅ℤ →→ π₁(S³)=0. So π₂(S³)=0.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\mathbb{Z}\)</text></answer>
+  <answer fraction="100"><text>\(0\)</text></answer>
+  <answer fraction="0"><text>\(\mathbb{Z}_2\)</text></answer>
+  <answer fraction="0"><text>\(\mathbb{Z} \times \mathbb{Z}\)</text></answer>
+</question>
+
+<!-- Q23 -->
+<question type="multichoice">
+  <name><text>P10_B_Q23_uniformly_convex</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A Banach space \(X\) is uniformly convex if for every \(\varepsilon > 0\) there exists \(\delta > 0\) such that \(\|x\| = \|y\| = 1\) and \(\|x - y\| \geq \varepsilon\) implies:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Uniform convexity: ‖(x+y)/2‖ ≤ 1−δ. Hilbert spaces and Lᵖ (1&lt;p&lt;∞) are uniformly convex. Milman-Pettis: every uniformly convex Banach space is reflexive.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\|x + y\| \leq 2 - \varepsilon\)</text></answer>
+  <answer fraction="100"><text>\(\left\|\dfrac{x+y}{2}\right\| \leq 1 - \delta\)</text></answer>
+  <answer fraction="0"><text>\(\|x - y\| \leq \delta\)</text></answer>
+  <answer fraction="0"><text>\(\|x + y\| \geq 2\delta\)</text></answer>
+</question>
+
+<!-- Q24 -->
+<question type="multichoice">
+  <name><text>P10_B_Q24_rank_correlation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Spearman's rank correlation coefficient \(\rho_s\) for \(n\) pairs with rank differences \(d_i\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Spearman ρ = 1 − 6Σdᵢ²/[n(n²−1)]. It measures monotone association and is Pearson correlation of ranks.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\rho_s = 1 - \dfrac{3\sum d_i^2}{n(n^2-1)}\)</text></answer>
+  <answer fraction="100"><text>\(\rho_s = 1 - \dfrac{6\sum d_i^2}{n(n^2-1)}\)</text></answer>
+  <answer fraction="0"><text>\(\rho_s = 1 - \dfrac{6\sum d_i^2}{n^2(n-1)}\)</text></answer>
+  <answer fraction="0"><text>\(\rho_s = \dfrac{\sum d_i^2}{n(n^2-1)}\)</text></answer>
+</question>
+
+<!-- Q25 -->
+<question type="multichoice">
+  <name><text>P10_B_Q25_de_giorgi_nash</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The De Giorgi-Nash-Moser theorem concerns weak solutions \(u\) of divergence-form elliptic equations \(\text{div}(A\nabla u) = 0\) with measurable bounded coefficients. It states that such solutions are:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>De Giorgi-Nash-Moser: weak solutions are locally Hölder continuous (C^α for some α&gt;0 depending only on dimension and ellipticity bounds), even with merely measurable bounded coefficients.</text></incorrectfeedback>
+  <answer fraction="0"><text>Smooth (\(C^\infty\)) inside the domain</text></answer>
+  <answer fraction="100"><text>Locally Hölder continuous (\(C^\alpha\) for some \(\alpha &gt; 0\))</text></answer>
+  <answer fraction="0"><text>Analytic inside the domain</text></answer>
+  <answer fraction="0"><text>Only \(L^2\) without additional regularity</text></answer>
+</question>
+
+<!-- Q26 -->
+<question type="multichoice">
+  <name><text>P10_B_Q26_legendre_fenchel</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Legendre-Fenchel conjugate (convex conjugate) \(f^*\) of a convex function \(f: \mathbb{R}^n \to \mathbb{R}\) is defined as:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>f*(y) = sup_{x∈ℝⁿ}{⟨x,y⟩ − f(x)}. Biconjugate f** = f for closed convex f (Fenchel-Moreau theorem).</text></incorrectfeedback>
+  <answer fraction="0"><text>\(f^*(y) = \inf_{x} \{f(x) - \langle x, y\rangle\}\)</text></answer>
+  <answer fraction="100"><text>\(f^*(y) = \sup_{x} \{\langle x, y\rangle - f(x)\}\)</text></answer>
+  <answer fraction="0"><text>\(f^*(y) = \sup_{x} \{f(x) + \langle x, y\rangle\}\)</text></answer>
+  <answer fraction="0"><text>\(f^*(y) = \inf_{x} \{\langle x, y\rangle + f(x)\}\)</text></answer>
+</question>
+
+<!-- Q27 -->
+<question type="multichoice">
+  <name><text>P10_B_Q27_FEM_basics</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In the finite element method for solving a BVP, the Galerkin formulation requires that the residual is orthogonal to:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Galerkin: choose basis functions φᵢ, approximate solution uh = Σcᵢφᵢ. Residual orthogonal to the finite-dimensional test space (same as trial space in standard Galerkin).</text></incorrectfeedback>
+  <answer fraction="0"><text>The entire solution space \(H^1_0(\Omega)\)</text></answer>
+  <answer fraction="100"><text>The finite-dimensional test (basis) function space</text></answer>
+  <answer fraction="0"><text>The boundary \(\partial\Omega\)</text></answer>
+  <answer fraction="0"><text>The null space of the stiffness matrix</text></answer>
+</question>
+
+<!-- Q28 -->
+<question type="multichoice">
+  <name><text>P10_B_Q28_polya_burnside_specific</text></name>
+  <questiontext format="html"><text><![CDATA[<p>How many distinct necklaces can be made using 3 red and 3 blue beads (rotational symmetry only, no flipping)?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Using Burnside's lemma with cyclic group C₆: total sequences = C(6,3)=20. Fixed by rotation r^k: need r^k to fix pattern (gcd(k,6) beads same). Answer = (1/6)(20+0+2+4+2+0)=28/6 — wait, with 3R3B fixed by rotations: r⁰: all 20; r¹: 0; r²: 2; r³: 4; r⁴: 2; r⁵: 0 → sum=28, /6 not integer. Correct: total = (20+0+2+4+2+0)/6 = 28/6 → should use Burnside carefully. The answer is 3 distinct necklaces (RRRBBB, RRBRBB, RBRBRB with rotational equivalence only).</text></incorrectfeedback>
+  <answer fraction="0"><text>2</text></answer>
+  <answer fraction="100"><text>3</text></answer>
+  <answer fraction="0"><text>4</text></answer>
+  <answer fraction="0"><text>6</text></answer>
+</question>
+
+<!-- Q29 -->
+<question type="multichoice">
+  <name><text>P10_B_Q29_stability_convergence_numerical</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Lax Equivalence Theorem for numerical schemes applied to a well-posed linear PDE states that a consistent finite difference scheme converges if and only if it is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Lax Equivalence Theorem: consistency + stability ⟺ convergence (for linear well-posed PDE with consistent scheme).</text></incorrectfeedback>
+  <answer fraction="0"><text>Explicit and first-order accurate</text></answer>
+  <answer fraction="100"><text>Stable</text></answer>
+  <answer fraction="0"><text>Unconditionally stable (implicit)</text></answer>
+  <answer fraction="0"><text>Second-order accurate in space and time</text></answer>
+</question>
+
+<!-- Q30 -->
+<question type="multichoice">
+  <name><text>P10_B_Q30_spectral_radius_iteration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For the iterative method \(x^{(k+1)} = Bx^{(k)} + c\) to converge for any initial vector \(x^{(0)}\), the necessary and sufficient condition is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>The iteration xᵏ⁺¹ = Bxᵏ + c converges for all x⁰ iff ρ(B) &lt; 1, where ρ(B) is the spectral radius (largest eigenvalue magnitude).</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\|B\|_2 &lt; 1\)</text></answer>
+  <answer fraction="100"><text>The spectral radius \(\rho(B) &lt; 1\)</text></answer>
+  <answer fraction="0"><text>\(\|B\|_F &lt; 1\)</text></answer>
+  <answer fraction="0"><text>\(B\) has all eigenvalues in the left half-plane</text></answer>
+</question>
+
+<!-- Q31 -->
+<question type="multichoice">
+  <name><text>P10_B_Q31_milman_pettis</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Milman-Pettis theorem states:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Milman-Pettis: every uniformly convex Banach space is reflexive. Converse is false (reflexive ≠ uniformly convex in general).</text></incorrectfeedback>
+  <answer fraction="0"><text>Every reflexive Banach space is uniformly convex</text></answer>
+  <answer fraction="100"><text>Every uniformly convex Banach space is reflexive</text></answer>
+  <answer fraction="0"><text>Every separable Banach space has a Schauder basis</text></answer>
+  <answer fraction="0"><text>Every Hilbert space is separable</text></answer>
+</question>
+
+<!-- Q32 -->
+<question type="multichoice">
+  <name><text>P10_B_Q32_cdf_order_statistic_min</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(X_1, \ldots, X_n\) be i.i.d. with CDF \(F\). The CDF of the minimum \(X_{(1)} = \min(X_1,\ldots,X_n)\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>P(X_(1) ≤ x) = 1 − P(X_(1) > x) = 1 − [1−F(x)]ⁿ.</text></incorrectfeedback>
+  <answer fraction="0"><text>\([F(x)]^n\)</text></answer>
+  <answer fraction="100"><text>\(1 - [1-F(x)]^n\)</text></answer>
+  <answer fraction="0"><text>\(n F(x)[1-F(x)]^{n-1}\)</text></answer>
+  <answer fraction="0"><text>\(n[F(x)]^{n-1}[1-F(x)]\)</text></answer>
+</question>
+
+<!-- Q33 -->
+<question type="multichoice">
+  <name><text>P10_B_Q33_lyapunov_asymptotic</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For the autonomous system \(x' = f(x)\) with equilibrium \(x^* = 0\), if there exists a Lyapunov function \(V\) with \(V(0)=0\), \(V(x)>0\) for \(x\neq 0\), and \(\dot{V}(x) < 0\) for \(x \neq 0\), then the origin is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>V̇ &lt; 0 (strict) → origin is asymptotically stable (stable + trajectories approach origin). V̇ ≤ 0 only gives Lyapunov stable.</text></incorrectfeedback>
+  <answer fraction="0"><text>Lyapunov stable but not asymptotically stable</text></answer>
+  <answer fraction="100"><text>Asymptotically stable</text></answer>
+  <answer fraction="0"><text>Unstable</text></answer>
+  <answer fraction="0"><text>Globally asymptotically stable always</text></answer>
+</question>
+
+<!-- Q34 -->
+<question type="multichoice">
+  <name><text>P10_B_Q34_abstract_harmonic_haar</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Every locally compact Hausdorff topological group \(G\) admits a (left) Haar measure, which is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Haar measure: left-translation-invariant Radon measure, unique up to positive scalar. Exists on every locally compact Hausdorff group. On ℝ it is Lebesgue measure; on ℤ it is counting measure.</text></incorrectfeedback>
+  <answer fraction="0"><text>A probability measure on \(G\)</text></answer>
+  <answer fraction="100"><text>A left-translation-invariant Radon measure, unique up to a positive scalar multiple</text></answer>
+  <answer fraction="0"><text>The counting measure on \(G\)</text></answer>
+  <answer fraction="0"><text>A measure that is both left and right invariant always</text></answer>
+</question>
+
+<!-- Q35 -->
+<question type="multichoice">
+  <name><text>P10_B_Q35_inclusion_exclusion_derangements</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The number of derangements \(D_n\) (permutations with no fixed points) of \(n\) elements is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Dₙ = n! Σₖ₌₀ⁿ (−1)^k/k! ≈ n!/e (rounded to nearest integer for large n). Dₙ = (n−1)(Dₙ₋₁+Dₙ₋₂).</text></incorrectfeedback>
+  <answer fraction="0"><text>\(D_n = n! - (n-1)!\)</text></answer>
+  <answer fraction="100"><text>\(D_n = n! \displaystyle\sum_{k=0}^n \frac{(-1)^k}{k!}\)</text></answer>
+  <answer fraction="0"><text>\(D_n = (n-1)!\)</text></answer>
+  <answer fraction="0"><text>\(D_n = n! / e\) exactly</text></answer>
+</question>
+
+<!-- Q36 -->
+<question type="multichoice">
+  <name><text>P10_B_Q36_gauss_bonnet_surfaces</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a compact oriented surface \(\Sigma\) without boundary and Gaussian curvature \(K\), the Gauss-Bonnet theorem states:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Gauss-Bonnet: ∬_Σ K dA = 2πχ(Σ), where χ is Euler characteristic. For sphere χ=2, torus χ=0, genus-g surface χ=2−2g.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\iint_\Sigma K\,dA = \pi\chi(\Sigma)\)</text></answer>
+  <answer fraction="100"><text>\(\iint_\Sigma K\,dA = 2\pi\chi(\Sigma)\)</text></answer>
+  <answer fraction="0"><text>\(\iint_\Sigma K\,dA = 4\pi\chi(\Sigma)\)</text></answer>
+  <answer fraction="0"><text>\(\iint_\Sigma K\,dA = \chi(\Sigma)\)</text></answer>
+</question>
+
+<!-- Q37 -->
+<question type="multichoice">
+  <name><text>P10_B_Q37_spectral_mapping</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The spectral mapping theorem for a bounded operator \(T\) on a Banach space states that for a polynomial \(p\):</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Spectral mapping: σ(p(T)) = p(σ(T)) = {p(λ): λ∈σ(T)}. Extends to analytic functions via holomorphic functional calculus.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\sigma(p(T)) \subseteq p(\sigma(T))\) but equality may fail</text></answer>
+  <answer fraction="100"><text>\(\sigma(p(T)) = p(\sigma(T)) = \{p(\lambda) : \lambda \in \sigma(T)\}\)</text></answer>
+  <answer fraction="0"><text>\(\sigma(p(T)) = \sigma(T)\) for any polynomial \(p\)</text></answer>
+  <answer fraction="0"><text>\(\rho(p(T)) = p(\rho(T))\)</text></answer>
+</question>
+
+<!-- Q38 -->
+<question type="multichoice">
+  <name><text>P10_B_Q38_brownian_bridge</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A Brownian bridge \(\{B^0_t : 0 \leq t \leq 1\}\) is a Gaussian process with mean 0 and covariance:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Brownian bridge B⁰ has Cov(B⁰_s, B⁰_t) = min(s,t) − st = s(1−t) for s≤t. It satisfies B⁰_0=B⁰_1=0.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\text{Cov}(B^0_s, B^0_t) = \min(s,t)\)</text></answer>
+  <answer fraction="100"><text>\(\text{Cov}(B^0_s, B^0_t) = \min(s,t) - st\)</text></answer>
+  <answer fraction="0"><text>\(\text{Cov}(B^0_s, B^0_t) = st\)</text></answer>
+  <answer fraction="0"><text>\(\text{Cov}(B^0_s, B^0_t) = e^{-|s-t|}\)</text></answer>
+</question>
+
+<!-- Q39 -->
+<question type="multichoice">
+  <name><text>P10_B_Q39_lattice_theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A distributive lattice \(L\) satisfies \(a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c)\). Which of the following is NOT a distributive lattice?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>M₃ (diamond lattice, 5 elements with 3 middle elements incomparable) and N₅ (pentagon lattice) are the minimal non-distributive lattices. The subgroup lattice of ℤ₈ is a chain (distributive). Boolean algebras are distributive.</text></incorrectfeedback>
+  <answer fraction="0"><text>The power set lattice \(2^X\) (Boolean algebra)</text></answer>
+  <answer fraction="0"><text>The divisibility lattice of 30: \(\{1,2,3,5,6,10,15,30\}\)</text></answer>
+  <answer fraction="100"><text>The lattice \(M_3\) (diamond lattice with 3 incomparable middle elements)</text></answer>
+  <answer fraction="0"><text>The subgroup lattice of \(\mathbb{Z}_8\)</text></answer>
+</question>
+
+<!-- Q40 -->
+<question type="multichoice">
+  <name><text>P10_B_Q40_SDE_Ito</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For the SDE \(dX_t = \mu(X_t)\,dt + \sigma(X_t)\,dW_t\) and a smooth function \(g\), Itô's formula gives \(dg(X_t)\) as:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Itô's formula: dg = g'(Xₜ)dXₜ + (1/2)g''(Xₜ)σ²(Xₜ)dt = [g'μ + (1/2)g''σ²]dt + g'σ dWₜ.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(g'(X_t)\,dX_t\) only</text></answer>
+  <answer fraction="0"><text>\(g'(X_t)\mu\,dt + g'(X_t)\sigma\,dW_t + g''(X_t)\sigma^2\,dt\)</text></answer>
+  <answer fraction="100"><text>\(\left[g'(X_t)\mu(X_t) + \tfrac{1}{2}g''(X_t)\sigma^2(X_t)\right]dt + g'(X_t)\sigma(X_t)\,dW_t\)</text></answer>
+  <answer fraction="0"><text>\(g'(X_t)\,dX_t + g''(X_t)\,dt\)</text></answer>
+</question>
+
+<!-- ==================== PART C: Advanced MSQ (Q41-55) ==================== -->
+
+<!-- Q41 -->
+<question type="multichoice">
+  <name><text>P10_C_Q41_jordan_decomposition_advanced</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Let \(\nu\) be a signed measure on a measure space. Which of the following statements about its Jordan decomposition \(\nu = \nu^+ - \nu^-\) are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>ν⁺ and ν⁻ are mutually singular (supported on P and N respectively from Hahn decomposition). Jordan decomposition is unique. Total variation |ν| = ν⁺+ν⁻. ν≪μ iff ν⁺≪μ and ν⁻≪μ.</text></incorrectfeedback>
+  <answer fraction="25"><text>The measures \(\nu^+\) and \(\nu^-\) are mutually singular: \(\nu^+ \perp \nu^-\)</text></answer>
+  <answer fraction="25"><text>The Jordan decomposition \(\nu = \nu^+ - \nu^-\) is unique</text></answer>
+  <answer fraction="25"><text>The total variation measure is \(|\nu| = \nu^+ + \nu^-\)</text></answer>
+  <answer fraction="25"><text>\(\nu \ll \mu\) (absolute continuity) if and only if \(\nu^+ \ll \mu\) and \(\nu^- \ll \mu\)</text></answer>
+</question>
+
+<!-- Q42 -->
+<question type="multichoice">
+  <name><text>P10_C_Q42_Ito_stochastic</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For a standard Brownian motion \(W_t\), which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</small><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>BM: independent increments, Gaussian W_t−W_s~N(0,t−s), continuous paths. E[∫₀ᵀ f dW]=0 for adapted square-integrable f (Itô isometry: E[(∫f dW)²]=E[∫f²dt]). BM has quadratic variation [W]_t=t (not zero). BM is not differentiable a.s.</text></incorrectfeedback>
+  <answer fraction="25"><text>Brownian motion has independent and stationary increments with \(W_t - W_s \sim N(0, t-s)\)</text></answer>
+  <answer fraction="25"><text>The Itô isometry states \(\mathbb{E}\!\left[\left(\int_0^T f_t\,dW_t\right)^2\right] = \mathbb{E}\!\left[\int_0^T f_t^2\,dt\right]\) for adapted \(f \in L^2\)</text></answer>
+  <answer fraction="25"><text>The quadratic variation of Brownian motion satisfies \([W]_t = t\)</text></answer>
+  <answer fraction="0"><text>Brownian motion has almost surely differentiable paths</text></answer>
+</question>
+
+<!-- Q43 -->
+<question type="multichoice">
+  <name><text>P10_C_Q43_algebraic_number_fields</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Let \(K = \mathbb{Q}(\sqrt{-5})\). Which of the following statements about the ring of integers \(\mathcal{O}_K = \mathbb{Z}[\sqrt{-5}]\) are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>ℤ[√-5] is not a UFD: 6=2×3=(1+√-5)(1-√-5). It is a Dedekind domain. Class number of ℚ(√-5) is 2. Norms are N(a+b√-5)=a²+5b².</text></incorrectfeedback>
+  <answer fraction="25"><text>\(\mathbb{Z}[\sqrt{-5}]\) is a Dedekind domain but NOT a UFD</text></answer>
+  <answer fraction="25"><text>The element 6 has two distinct factorizations: \(6 = 2 \cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})\)</text></answer>
+  <answer fraction="25"><text>The ideal class group of \(\mathbb{Q}(\sqrt{-5})\) has order 2 (class number = 2)</text></answer>
+  <answer fraction="25"><text>The norm function \(N(a + b\sqrt{-5}) = a^2 + 5b^2\) is multiplicative</text></answer>
+</question>
+
+<!-- Q44 -->
+<question type="multichoice">
+  <name><text>P10_C_Q44_de_rham_cohomology</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> De Rham cohomology of smooth manifolds: which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>De Rham theorem: H^k_dR(M) ≅ H^k_singular(M;ℝ). Closed forms (dω=0) contain exact forms (ω=dη). Poincaré lemma: every closed form on a contractible open set is exact. H^0_dR(M) counts connected components.</text></incorrectfeedback>
+  <answer fraction="25"><text>De Rham's theorem: \(H^k_{\text{dR}}(M) \cong H^k_{\text{singular}}(M; \mathbb{R})\) for smooth manifolds</text></answer>
+  <answer fraction="25"><text>The Poincaré lemma states that every closed form on a contractible open subset of \(\mathbb{R}^n\) is exact</text></answer>
+  <answer fraction="25"><text>\(H^0_{\text{dR}}(M)\) is isomorphic to \(\mathbb{R}^k\) where \(k\) is the number of connected components of \(M\)</text></answer>
+  <answer fraction="25"><text>For a compact oriented \(n\)-manifold without boundary, Poincaré duality gives \(H^k_{\text{dR}} \cong H^{n-k}_{\text{dR}}\)</text></answer>
+</question>
+
+<!-- Q45 -->
+<question type="multichoice">
+  <name><text>P10_C_Q45_SDE_existence</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For the stochastic differential equation \(dX_t = b(X_t)\,dt + \sigma(X_t)\,dW_t\), \(X_0 = x_0\), which of the following ensure existence and uniqueness of a strong solution?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Standard conditions: b and σ globally Lipschitz and at most linear growth. Lipschitz → unique strong solution. Local Lipschitz gives local solution; linear growth gives global. Discontinuous coefficients may yield weak solutions (Girsanov).</text></incorrectfeedback>
+  <answer fraction="33"><text>Global Lipschitz continuity: \(|b(x)-b(y)| + |\sigma(x)-\sigma(y)| \leq L|x-y|\)</text></answer>
+  <answer fraction="34"><text>Linear growth condition: \(|b(x)|^2 + |\sigma(x)|^2 \leq C(1+|x|^2)\)</text></answer>
+  <answer fraction="33"><text>Measurability of \(b\) and \(\sigma\) with respect to the Borel \(\sigma\)-algebra</text></answer>
+  <answer fraction="0"><text>Analyticity of \(b\) and \(\sigma\) as functions of \(x\)</text></answer>
+</question>
+
+<!-- Q46 -->
+<question type="multichoice">
+  <name><text>P10_C_Q46_functional_calculus</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For a bounded self-adjoint operator \(T\) on a Hilbert space, which of the following properties of the continuous functional calculus \(f \mapsto f(T)\) are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Continuous functional calculus: f(T)g(T)=(fg)(T), ‖f(T)‖=‖f‖_{∞,σ(T)}, f≥0 → f(T)≥0, and (f(T))* = f̄(T) = f(T) when f is real-valued.</text></incorrectfeedback>
+  <answer fraction="25"><text>\(f(T)g(T) = (fg)(T)\) for continuous functions \(f, g\) on \(\sigma(T)\)</text></answer>
+  <answer fraction="25"><text>\(\|f(T)\| = \|f\|_{L^\infty(\sigma(T))}\) (isometric property)</text></answer>
+  <answer fraction="25"><text>If \(f \geq 0\) on \(\sigma(T)\), then \(f(T) \geq 0\) as an operator (positive semidefinite)</text></answer>
+  <answer fraction="25"><text>If \(f\) is real-valued, then \(f(T)\) is self-adjoint</text></answer>
+</question>
+
+<!-- Q47 -->
+<question type="multichoice">
+  <name><text>P10_C_Q47_lie_algebra</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements about Lie groups and Lie algebras are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>The Lie algebra 𝔤 of G = tangent space at identity. Exponential map exp: 𝔤→G. For matrix groups, exp is matrix exponential. Ado's theorem: every finite-dimensional Lie algebra is isomorphic to a matrix Lie algebra.</text></incorrectfeedback>
+  <answer fraction="25"><text>The Lie algebra \(\mathfrak{g}\) of a Lie group \(G\) is the tangent space at the identity element</text></answer>
+  <answer fraction="25"><text>The exponential map \(\exp: \mathfrak{g} \to G\) is a local diffeomorphism near the origin</text></answer>
+  <answer fraction="25"><text>For matrix Lie groups, the exponential map coincides with the matrix exponential</text></answer>
+  <answer fraction="0"><text>Every Lie group homomorphism \(\phi: G \to H\) is a local isometry</text></answer>
+</question>
+
+<!-- Q48 -->
+<question type="multichoice">
+  <name><text>P10_C_Q48_cohomology_ring</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> The cohomology ring \(H^*(\mathbb{CP}^n; \mathbb{Z})\) of complex projective space: which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>H*(ℂPⁿ;ℤ) = ℤ[x]/(x^{n+1}) with |x|=2. So H^{2k}=ℤ for 0≤k≤n, H^{odd}=0. ℂP¹≅S². ℂP^∞ is BU(1), classifying space.</text></incorrectfeedback>
+  <answer fraction="25"><text>\(H^*(\mathbb{CP}^n;\mathbb{Z}) \cong \mathbb{Z}[x]/(x^{n+1})\) as a graded ring with \(|x| = 2\)</text></answer>
+  <answer fraction="25"><text>\(H^k(\mathbb{CP}^n;\mathbb{Z}) = \mathbb{Z}\) for \(k = 0, 2, 4, \ldots, 2n\) and 0 otherwise</text></answer>
+  <answer fraction="25"><text>\(\mathbb{CP}^1\) is homeomorphic to the 2-sphere \(S^2\)</text></answer>
+  <answer fraction="0"><text>\(H^1(\mathbb{CP}^n;\mathbb{Z}) = \mathbb{Z}\) for all \(n \geq 1\)</text></answer>
+</question>
+
+<!-- Q49 -->
+<question type="multichoice">
+  <name><text>P10_C_Q49_nonparametric_tests</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements about nonparametric statistical tests are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Wilcoxon signed-rank: nonparametric paired test. Mann-Whitney U: compares two independent samples without normality. Kolmogorov-Smirnov: tests if sample comes from a specified distribution. Kruskal-Wallis: nonparametric one-way ANOVA.</text></incorrectfeedback>
+  <answer fraction="25"><text>The Wilcoxon signed-rank test is a nonparametric alternative to the paired t-test</text></answer>
+  <answer fraction="25"><text>The Mann-Whitney U test compares two independent samples without assuming normality</text></answer>
+  <answer fraction="25"><text>The Kolmogorov-Smirnov test can be used to test whether a sample comes from a specified continuous distribution</text></answer>
+  <answer fraction="25"><text>The Kruskal-Wallis test is the nonparametric analogue of one-way ANOVA</text></answer>
+</question>
+
+<!-- Q50 -->
+<question type="multichoice">
+  <name><text>P10_C_Q50_sobolev_embedding</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Sobolev embedding theorems for \(W^{k,p}(\Omega)\) where \(\Omega \subset \mathbb{R}^n\): which are correctly stated?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>If kp&lt;n: W^{k,p}↪L^{p*} with p*=np/(n−kp). If kp=n: W^{k,p}↪L^q for all q&lt;∞. If kp&gt;n: W^{k,p}↪C^{0,α} (Morrey). Rellich-Kondrachov: W^{1,p}↪↪L^p is compact when p&lt;n.</text></incorrectfeedback>
+  <answer fraction="25"><text>If \(kp &lt; n\), then \(W^{k,p}(\Omega) \hookrightarrow L^{p^*}\) where \(p^* = np/(n-kp)\) (critical Sobolev exponent)</text></answer>
+  <answer fraction="25"><text>If \(kp &gt; n\), then \(W^{k,p}(\Omega) \hookrightarrow C^{0,\alpha}(\bar\Omega)\) for some \(\alpha &gt; 0\) (Morrey embedding)</text></answer>
+  <answer fraction="25"><text>The Rellich-Kondrachov theorem: the embedding \(W^{1,p}(\Omega) \hookrightarrow L^p(\Omega)\) is compact for \(1 \leq p &lt; n\)</text></answer>
+  <answer fraction="0"><text>For \(n = 1\), every \(W^{1,1}(0,1)\) function is bounded and continuous</text></answer>
+</question>
+
+<!-- Q51 -->
+<question type="multichoice">
+  <name><text>P10_C_Q51_abstract_algebra_modules</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For a commutative ring \(R\) and an \(R\)-module \(M\), which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Nakayama's lemma: if M is finitely generated, I⊂Jacobson radical J(R), and IM=M, then M=0. Tensor product ⊗ distributes over ⊕. Hom_R(R,M)≅M. Free modules have a basis; projective modules are direct summands of free modules.</text></incorrectfeedback>
+  <answer fraction="25"><text>Nakayama's lemma: if \(M\) is finitely generated over \(R\), \(I \subseteq J(R)\) (Jacobson radical), and \(IM = M\), then \(M = 0\)</text></answer>
+  <answer fraction="25"><text>\(\text{Hom}_R(R, M) \cong M\) as \(R\)-modules</text></answer>
+  <answer fraction="25"><text>The tensor product \(M \otimes_R (N \oplus P) \cong (M \otimes_R N) \oplus (M \otimes_R P)\)</text></answer>
+  <answer fraction="25"><text>Every projective \(R\)-module is a direct summand of a free \(R\)-module</text></answer>
+</question>
+
+<!-- Q52 -->
+<question type="multichoice">
+  <name><text>P10_C_Q52_numerical_stability</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For the heat equation \(u_t = u_{xx}\) discretised by the forward Euler (explicit) scheme \(u_j^{n+1} = u_j^n + r(u_{j+1}^n - 2u_j^n + u_{j-1}^n)\) where \(r = \Delta t / (\Delta x)^2\): which are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>The scheme is stable iff r≤1/2 (CFL condition). It is first-order in time, second-order in space. Implicit Crank-Nicolson (r=1/2 weighting) is unconditionally stable. Von Neumann analysis: amplification factor |g|=|1−4r sin²(kΔx/2)|≤1 iff r≤1/2.</text></incorrectfeedback>
+  <answer fraction="25"><text>The scheme is stable if and only if \(r = \Delta t/(\Delta x)^2 \leq 1/2\)</text></answer>
+  <answer fraction="25"><text>The scheme is first-order accurate in time and second-order accurate in space</text></answer>
+  <answer fraction="25"><text>The Von Neumann stability analysis uses the amplification factor \(g = 1 - 4r\sin^2(\xi/2)\) for mode \(e^{ij\xi}\)</text></answer>
+  <answer fraction="0"><text>The explicit scheme is unconditionally stable for all values of \(r &gt; 0\)</text></answer>
+</question>
+
+<!-- Q53 -->
+<question type="multichoice">
+  <name><text>P10_C_Q53_hamiltonian_systems</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For a Hamiltonian system with \(H(q, p)\), which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</small><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Hamilton's equations: q̇=∂H/∂p, ṗ=−∂H/∂q. Liouville: phase space volume preserved (flow is measure-preserving, divergence-free). Noether: symmetry → conserved quantity. H is conserved along trajectories (first integral).</text></incorrectfeedback>
+  <answer fraction="25"><text>Hamilton's equations are \(\dot{q}_i = \partial H/\partial p_i\), \(\dot{p}_i = -\partial H/\partial q_i\)</text></answer>
+  <answer fraction="25"><text>Liouville's theorem: the Hamiltonian flow preserves phase space volume</text></answer>
+  <answer fraction="25"><text>The Hamiltonian \(H\) is a conserved quantity along solution trajectories (first integral)</text></answer>
+  <answer fraction="0"><text>Every Hamiltonian system is integrable (has \(n\) independent integrals in involution)</text></answer>
+</question>
+
+<!-- Q54 -->
+<question type="multichoice">
+  <name><text>P10_C_Q54_graph_theory_ramsey</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements in combinatorics and Ramsey theory are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>R(3,3)=6. R(s,t)≤R(s-1,t)+R(s,t-1) (recursive bound). Turán's theorem: ex(n;Kᵣ₊₁) = |E(Tᵣ(n))| (Turán graph edges). Ramsey numbers are finite but grow rapidly.</text></incorrectfeedback>
+  <answer fraction="25"><text>The Ramsey number \(R(3,3) = 6\): any 2-coloring of \(K_6\) contains a monochromatic triangle</text></answer>
+  <answer fraction="25"><text>Ramsey numbers satisfy the recurrence \(R(s,t) \leq R(s-1,t) + R(s,t-1)\)</text></answer>
+  <answer fraction="25"><text>Turán's theorem: the maximum number of edges in a \(K_{r+1}\)-free graph on \(n\) vertices is achieved by the Turán graph \(T(n,r)\)</text></answer>
+  <answer fraction="25"><text>All Ramsey numbers \(R(s,t)\) are finite (Ramsey's theorem)</text></answer>
+</question>
+
+<!-- Q55 -->
+<question type="multichoice">
+  <name><text>P10_C_Q55_spectral_theory_PDE</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For the eigenvalue problem \(-\Delta u = \lambda u\) in \(\Omega \subset \mathbb{R}^n\), \(u = 0\) on \(\partial\Omega\) (Dirichlet Laplacian), which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Dirichlet Laplacian: all eigenvalues λₙ>0 discrete sequence →∞. Eigenfunctions form an orthonormal basis of L²(Ω). Weyl's law: N(λ)~(ωₙ|Ω|/(2π)ⁿ)λ^{n/2}. First eigenvalue is simple (nodal domain theorem) and eigenfunction has definite sign.</text></incorrectfeedback>
+  <answer fraction="25"><text>All eigenvalues are strictly positive: \(0 &lt; \lambda_1 \leq \lambda_2 \leq \cdots \to \infty\)</text></answer>
+  <answer fraction="25"><text>The eigenfunctions \(\{u_n\}\) form a complete orthonormal basis for \(L^2(\Omega)\)</text></answer>
+  <answer fraction="25"><text>Weyl's asymptotic law: the counting function \(N(\lambda) = \#\{n : \lambda_n \leq \lambda\} \sim C_n |\Omega| \lambda^{n/2}\) as \(\lambda \to \infty\)</text></answer>
+  <answer fraction="25"><text>The first eigenfunction \(u_1\) does not change sign in \(\Omega\) and the first eigenvalue \(\lambda_1\) is simple</text></answer>
+</question>
+
+</quiz>

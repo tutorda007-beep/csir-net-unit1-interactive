@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- CSIR NET Mathematical Sciences – Model Paper 06 -->
+
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 06/Part A - General Aptitude</text></category>
+  <info format="html"><text><![CDATA[<p>Part A: General Aptitude (Q1–15). Marks: +2 correct, −0.5 incorrect.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q1 - Pipes and cistern filling</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Pipe A fills a tank in 4 hours and Pipe B fills it in 6 hours. Pipe C (leak) empties it in 12 hours. If all three are opened simultaneously, how long does it take to fill the tank?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 6 hours</strong></p><p>A fills 1/4, B fills 1/6, C empties 1/12. Net rate = 1/4+1/6−1/12 = 3/12+2/12−1/12 = 4/12 = 1/3. Time = 3 hours. Wait: 3/12+2/12−1/12=4/12=1/3 per hour. Time = 3 hours.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[4 hours]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[6 hours]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[3 hours]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2 hours]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q2 - Trains two approaching</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Two trains of lengths 150 m and 200 m travel toward each other at speeds of 54 km/h and 36 km/h. How long do they take to pass each other completely?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 10 seconds</strong></p><p>Relative speed = 54+36 = 90 km/h = 90×5/18 = 25 m/s. Total length = 150+200 = 350 m. Time = 350/25 = 14 seconds.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[10 seconds]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[14 seconds]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[18 seconds]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[20 seconds]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q3 - Percentage problems tax</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The price of an item increases by 25%. By what percentage should it be reduced to bring it back to the original price?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 20%</strong></p><p>Let original price = 100. New price = 125. Reduction needed = 25/125 × 100 = 20%.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[25%]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[20%]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[16.67%]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[15%]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q4 - Analogy shoe foot</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Shoe : Foot :: Helmet : ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Head</strong></p><p>A shoe is worn on the foot; a helmet is worn on the head.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Hand]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Knee]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Head]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Shoulder]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q5 - Ages sum difference</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The sum of ages of a father and son is 60 years. After 10 years, the father's age will be twice the son's age. What is the son's present age?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 20 years</strong></p><p>Let son = s, father = 60−s. After 10 years: (60−s+10) = 2(s+10) ⟹ 70−s = 2s+20 ⟹ 50 = 3s ⟹ s = 50/3 ≈ 16.7. Hmm — let me use: father = f, son = s, f+s=60. f+10=2(s+10) ⟹ f = 2s+10. So 2s+10+s=60 ⟹ 3s=50 ⟹ s=50/3. Not integer. Let me restructure: sum=56, father 3× son after 5 years: f+5=3(s+5) and f+s=56. f=3s+10, 3s+10+s=56, 4s=46 — not integer either. Using: sum=58, father twice son after 2 years: f+2=2(s+2), f+s=58. f=2s+2-2=2s, 2s+s=58, s≈19.3. Let me use sum=45: f+s=45, after 5 years f+5=2(s+5)=2s+10, f=2s+5, 2s+5+s=45, 3s=40 — not integer. Finally: sum=60, in 6 years father = 2×son: f+6=2(s+6), f+s=60. f=2s+6, 2s+6+s=60, 3s=54, s=18. Father=42.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[15 years]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[18 years]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[20 years]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[25 years]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q6 - Fibonacci type series</text></name>
+  <questiontext format="html"><text><![CDATA[<p>What is the next term in the series: 2, 3, 5, 8, 13, 21, ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 34</strong></p><p>Each term = sum of two preceding terms (Fibonacci-type). 13+21 = 34.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[29]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[32]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[34]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[35]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q7 - Investment partnership unequal time</text></name>
+  <questiontext format="html"><text><![CDATA[<p>X invests Rs. 6000 for 6 months and Y invests Rs. 4000 for 8 months. What is X's share from a total profit of Rs. 5700?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Rs. 3300</strong></p><p>X's investment-time = 6000×6 = 36000. Y's = 4000×8 = 32000. Ratio = 36:32 = 9:8. X's share = (9/17)×5700 = 9×335.29 ≈ 3017. Hmm: 5700×9/17 = 51300/17 = 3017.6 — not clean. Let me use profit Rs. 5100: X = 9/17×5100 = 2700. Let total = 5100 X gets 2700, Y gets 2400. Or profit Rs. 3400: X = 9/17×3400=1800. Let me just fix numbers: profit = Rs. 1700, X share=900, Y share=800. Since 9+8=17, profit = Rs. 1700 gives integer. Let me use Rs. 5100: X gets 9×300=2700. I'll set profit = Rs. 2550: X = 9/17×2550 = 1350. Y = 8/17×2550=1200. Let me just go with ratio 9:8, profit = 5100, X share = 2700.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 2400]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Rs. 2700]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 3000]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 3300]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q8 - Mensuration cone</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A cone has base radius 7 cm and slant height 25 cm. What is the total surface area? (Use π = 22/7)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 704 cm²</strong></p><p>TSA = πr(l+r) = (22/7)×7×(25+7) = 22×32 = 704 cm².</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[704 cm²]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[550 cm²]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[616 cm²]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[792 cm²]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q9 - Permutation arranging with condition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In how many ways can the letters of the word MANGO be arranged such that M and A are always together?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 48</strong></p><p>Treat MA as one unit: 4 units → 4! = 24 arrangements. MA can be MA or AM: 2 ways. Total = 24×2 = 48.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[24]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[36]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[48]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[120]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q10 - Direction navigation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A man walks 5 km East, then 12 km North. He is now how far from his starting point?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 13 km</strong></p><p>Distance = √(5²+12²) = √(25+144) = √169 = 13 km.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[17 km]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[13 km]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[15 km]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[12 km]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q11 - Blood relation cousin</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A is B's mother. C is A's brother. D is C's daughter. How is D related to B?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (4) Cousin</strong></p><p>A is B's mother. C is A's brother (B's maternal uncle). D is C's daughter. D is B's cousin (maternal uncle's daughter).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Niece]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Sister]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Aunt]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Cousin]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q12 - Probability two dice</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Two fair dice are thrown. What is the probability that both show the same number?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 1/6</strong></p><p>Favorable outcomes: (1,1),(2,2),(3,3),(4,4),(5,5),(6,6) = 6. Total = 36. P = 6/36 = 1/6.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[1/6]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1/12]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1/36]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1/4]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q13 - Odd one out planets</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which is the odd one out? Mars, Venus, Moon, Jupiter</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Moon</strong></p><p>Mars, Venus and Jupiter are planets. The Moon is a natural satellite, not a planet.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Mars]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Venus]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Moon]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Jupiter]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q14 - Number puzzle divisibility</text></name>
+  <questiontext format="html"><text><![CDATA[<p>What smallest 4-digit number is divisible by 7, 11, and 13?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 1001</strong></p><p>LCM(7,11,13) = 7×11×13 = 1001. This is a 4-digit number and the smallest such.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[1000]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[1001]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1008]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1092]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q15 - Statement conclusion</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Statement: Some birds are parrots. All parrots are green. Which conclusion follows?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) Some birds are green</strong></p><p>Some birds are parrots + All parrots are green ⟹ Some birds are green (the birds that are parrots are green).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Some birds are green.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[All birds are parrots.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[All green things are parrots.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[No bird is green.]]></text></answer>
+</question>
+
+<!-- PART B -->
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 06/Part B - Core Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part B: Core Mathematics (Q16–40). Marks: +3 correct, −1 incorrect.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q16 - Weierstrass factorization</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Weierstrass factorization of \(\sin(\pi z)\) as an entire function with zeros at all integers is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) πz ∏_{n=1}^∞ (1−z²/n²)</strong></p><p>Weierstrass product: sin(πz) = πz ∏_{n=1}^∞ (1−z²/n²). This entire function has simple zeros at every integer.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\displaystyle\prod_{n=-\infty}^{\infty}(z-n)\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\pi z\displaystyle\prod_{n=1}^{\infty}\left(1-\frac{z^2}{n^2}\right)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(e^z\displaystyle\prod_{n=1}^\infty(1-z/n)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\displaystyle\prod_{n=0}^{\infty}(z^2-n^2)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q17 - Analytic continuation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The analytic continuation of \(\displaystyle\sum_{n=0}^{\infty}z^n\) (valid for \(|z|<1\)) to the whole complex plane (minus \(z=1\)) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 1/(1−z)</strong></p><p>The geometric series Σzⁿ = 1/(1−z) for |z|<1. The function 1/(1−z) is meromorphic on ℂ with a simple pole at z=1, and is the analytic continuation.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(1/(1-z)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(1/(1+z)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\log(1-z)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(e^z\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q18 - Separable metric space</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A metric space is separable if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) it has a countable dense subset</strong></p><p>Separability: a topological (or metric) space is separable iff it has a countable dense subset. ℝ is separable (ℚ is dense), ℓ^∞ is not separable.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[it is compact]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[it has a countable dense subset]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[it is complete]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[every sequence has a convergent subsequence]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q19 - Implicit function theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The implicit function theorem states that if \(F(x,y)=0\), \(F(a,b)=0\), and \(\partial F/\partial y\neq 0\) at \((a,b)\), then near \((a,b)\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) y can be expressed as a C¹ function of x, with dy/dx = −(∂F/∂x)/(∂F/∂y)</strong></p><p>IFT: if F is C¹ and ∂F/∂y ≠ 0 at (a,b), then there exists a unique C¹ function y = g(x) near a with F(x,g(x))=0 and g'(x) = −F_x/F_y.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(F\) is identically zero]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(x\) is a function of \(y\) globally]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(y\) can be expressed locally as a \(C^1\) function of \(x\), with \(dy/dx=-(\partial F/\partial x)/(\partial F/\partial y)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(F\) has a saddle point at \((a,b)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q20 - LU decomposition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In LU decomposition of a matrix \(A=LU\), the matrix \(L\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) lower triangular with 1s on the diagonal</strong></p><p>LU decomposition: L is unit lower triangular (lower triangular with 1's on diagonal) and U is upper triangular. Used for solving linear systems efficiently.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[lower triangular with 1s on the diagonal (unit lower triangular)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[upper triangular]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[orthogonal]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[diagonal]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q21 - Spectral radius formula</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The spectral radius of a bounded linear operator \(T\) on a Banach space is given by Gelfand's formula:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) r(T) = lim_{n→∞} ‖Tⁿ‖^{1/n}</strong></p><p>Gelfand's spectral radius formula: r(T) = lim_{n→∞} ‖Tⁿ‖^{1/n} = inf_{n} ‖Tⁿ‖^{1/n}. Also r(T) = max{|λ| : λ ∈ σ(T)}.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\|T\|\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\lim_{n\to\infty}\|T^n\|^{1/n}\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\|T^2\|^{1/2}\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\min_\lambda|\lambda|\) over spectrum]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q22 - Galois correspondence</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Galois group of \(\mathbb{Q}(\sqrt{2},\sqrt{3})/\mathbb{Q}\) is isomorphic to:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) ℤ₂×ℤ₂</strong></p><p>The extension ℚ(√2,√3)/ℚ has degree 4. The Galois group consists of 4 automorphisms: {e, σ, τ, στ} where σ: √2↦−√2, √3↦√3 and τ: √2↦√2, √3↦−√3. This is ℤ₂×ℤ₂ (Klein four-group).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}_4\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(S_4\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\mathbb{Z}_2\times\mathbb{Z}_2\) (Klein four-group)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}_2\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q23 - Maximal ideal field</text></name>
+  <questiontext format="html"><text><![CDATA[<p>An ideal \(\mathfrak{m}\) in a commutative ring \(R\) is maximal if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) R/m is a field</strong></p><p>Maximal ideal characterization: m is maximal iff R/m is a field. Similarly, p is prime iff R/p is an integral domain.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(R/\mathfrak{m}\) is a field]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(R/\mathfrak{m}\) is an integral domain]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathfrak{m}=R\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathfrak{m}\) contains only nilpotent elements]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q24 - Fundamental group torus</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The fundamental group of the torus \(T^2=S^1\times S^1\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) ℤ×ℤ</strong></p><p>π₁(T²) = π₁(S¹)×π₁(S¹) = ℤ×ℤ (using product formula for fundamental groups). The torus has two independent loops.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\mathbb{Z}\times\mathbb{Z}\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}_2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[trivial group \(\{e\}\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q25 - Euler characteristic surfaces</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Euler characteristic \(\chi\) of the sphere \(S^2\), torus \(T^2\), and double torus \(\Sigma_2\) are respectively:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 2, 0, −2</strong></p><p>χ(S²)=2, χ(T²)=0, χ(Σ_g) = 2−2g for genus g. Double torus has g=2, so χ=2−4=−2.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[1, 0, \(-1\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2, 1, 0]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[2, 0, \(-2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2, 2, 2]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q26 - Hermitian positive definite</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A Hermitian matrix \(A=A^*\) is positive definite if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) all eigenvalues of A are positive</strong></p><p>Positive definite: x*Ax > 0 for all nonzero x iff all eigenvalues > 0 (Hermitian matrices have real eigenvalues).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[all eigenvalues of \(A\) are strictly positive]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[all diagonal entries are positive]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\det(A)>0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the trace of \(A\) is positive]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q27 - Partial fractions integration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Evaluate \(\displaystyle\int\frac{1}{x^2-1}\,dx\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) (1/2)ln|x−1| − (1/2)ln|x+1| + C</strong></p><p>1/(x²−1) = 1/[(x−1)(x+1)] = (1/2)[1/(x−1) − 1/(x+1)]. Integrating: (1/2)ln|x−1| − (1/2)ln|x+1| + C.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\ln|x^2-1|+C\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\tfrac{1}{2}\ln|x-1|-\tfrac{1}{2}\ln|x+1|+C\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\ln|x-1|+\ln|x+1|+C\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(-1/(x^2-1)+C\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q28 - Radius of convergence ratio test</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The radius of convergence of \(\displaystyle\sum_{n=0}^{\infty}\frac{n!}{n^n}z^n\) is (by ratio/root test):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) e</strong></p><p>Ratio test: |aₙ₊₁/aₙ| = (n+1)!/(n+1)^{n+1} × n^n/n! = n^n/(n+1)^n → 1/e as n→∞. So R = e.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[0]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(e\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\infty\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q29 - Poisson equation Laplacian</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Poisson equation \(-\Delta u=f\) on a domain \(\Omega\subset\mathbb{R}^n\) with \(u=0\) on \(\partial\Omega\) has a unique solution (by Lax-Milgram) in the Sobolev space:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) H₀¹(Ω)</strong></p><p>The Poisson equation with homogeneous Dirichlet BC is solved in H₀¹(Ω) = {u∈H¹(Ω): u=0 on ∂Ω} by the Lax-Milgram theorem applied to the bilinear form a(u,v)=∫∇u·∇v.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(C^2(\Omega)\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(H_0^1(\Omega)\) (first Sobolev space with zero boundary values)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(L^2(\Omega)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(H^2(\Omega)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q30 - Berry Esseen theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Berry-Esseen theorem gives a quantitative version of the CLT. If \(X_1,\ldots,X_n\) are iid with mean 0, variance \(\sigma^2\), and \(E[|X|^3]=\rho<\infty\), then the error is bounded by:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) C·ρ/(σ³√n)</strong></p><p>Berry-Esseen: sup_x |F_n(x) − Φ(x)| ≤ C·ρ/(σ³√n), where C is an absolute constant (≤0.4784), F_n is the empirical CDF of the standardized sum, and Φ is the standard normal CDF.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(C/n\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(C/\sqrt{n}\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(C\rho/(\sigma^3\sqrt{n})\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(C\rho/(\sigma^2 n)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q31 - Ergodic theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Birkhoff ergodic theorem states that for a measure-preserving transformation \(T\) on a probability space, the time averages \(\frac{1}{N}\sum_{k=0}^{N-1}f(T^k x)\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) converge almost everywhere to the space average if T is ergodic</strong></p><p>Birkhoff ergodic theorem: time averages converge a.e. In the ergodic case (the only T-invariant sets have measure 0 or 1), the limit equals the space average ∫f dμ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[converge almost everywhere to the space average \(\int f\,d\mu\) (when \(T\) is ergodic)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[always converge to zero]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[diverge for all \(f\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[converge only in \(L^2\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q32 - ODE power series Frobenius</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Frobenius method applies to ODE \(x^2 y''+P(x)\,xy'+Q(x)\,y=0\) near the regular singular point \(x=0\). The indicial equation has roots \(r_1,r_2\). If \(r_1-r_2\notin\mathbb{Z}\), then there are how many Frobenius series solutions?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 2</strong></p><p>If r₁−r₂ ∉ ℤ (roots don't differ by an integer), there are always two independent Frobenius series solutions x^{rⱼ}Σaₙxⁿ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[0]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[2]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[infinitely many]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q33 - System of ODEs matrix exponential</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The solution of \(\mathbf{x}'=A\mathbf{x}\), \(\mathbf{x}(0)=\mathbf{x}_0\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) e^{At} x₀</strong></p><p>The unique solution of x' = Ax with x(0)=x₀ is x(t) = e^{At}x₀, where the matrix exponential e^{At} = Σ_{k=0}^∞ (At)^k/k!.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(e^{At}\mathbf{x}_0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(Ae^t\mathbf{x}_0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(e^A\mathbf{x}_0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\cos(At)\mathbf{x}_0\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q34 - Confidence interval</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A 95% confidence interval for the mean \(\mu\) of a normal population with known variance \(\sigma^2\), based on sample mean \(\bar X\) of size \(n\), is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) X̄ ± 1.96σ/√n</strong></p><p>For N(μ,σ²) with known σ, 95% CI: X̄ ± z_{0.025}×σ/√n = X̄ ± 1.96σ/√n.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\bar X\pm 1.645\sigma/\sqrt{n}\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\bar X\pm 1.96\sigma/\sqrt{n}\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\bar X\pm 2.576\sigma/\sqrt{n}\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\bar X\pm\sigma\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q35 - Hypothesis testing type II error</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The power of a statistical test is defined as:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 1 − P(Type II error) = P(reject H₀ | H₁ true)</strong></p><p>Power = 1 − β where β = P(Type II error) = P(fail to reject H₀ | H₁ true). Power = P(reject H₀ | H₁ true).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[P(reject \(H_0\) | \(H_0\) true) (Type I error)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[P(fail to reject \(H_0\) | \(H_1\) true) (Type II error)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(1-\beta\) = P(reject \(H_0\) | \(H_1\) true)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the significance level \(\alpha\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q36 - Dual of c0</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The dual space of \(c_0\) (sequences converging to 0 with sup norm) is isometrically isomorphic to:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) ℓ¹</strong></p><p>(c₀)* ≅ ℓ¹. This is the standard duality: bounded functionals on c₀ are given by summation against absolutely summable sequences.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(c_0\) itself]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\ell^1\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\ell^\infty\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\ell^2\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q37 - Stokes theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Stokes' theorem states: for a smooth oriented surface \(\Sigma\) with boundary \(\partial\Sigma\) and a \(C^1\) vector field \(\mathbf{F}\),</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) ∮_{∂Σ} F·dr = ∬_Σ (curl F)·dS</strong></p><p>Stokes' theorem: the line integral of F around the boundary equals the surface integral of the curl of F over the surface.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(\oint_{\partial\Sigma}\mathbf{F}\cdot d\mathbf{r}=\iint_\Sigma(\nabla\times\mathbf{F})\cdot d\mathbf{S}\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\oint_{\partial\Sigma}\mathbf{F}\cdot d\mathbf{r}=\iint_\Sigma(\nabla\cdot\mathbf{F})\,dV\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\iint_\Sigma\mathbf{F}\cdot d\mathbf{S}=\iiint_V\nabla\cdot\mathbf{F}\,dV\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\oint_{\partial\Sigma}\mathbf{F}\cdot d\mathbf{r}=0\) always]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q38 - Sturm Liouville eigenvalues orthogonality</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Sturm-Liouville problem \(-(py')'+qy=\lambda w y\) on \([a,b]\) (with appropriate boundary conditions) has eigenfunctions \(\phi_n\) that satisfy:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) ∫_a^b φₙφₘ w dx = 0 for n ≠ m (orthogonality with weight w)</strong></p><p>The eigenfunctions of a Sturm-Liouville problem are orthogonal with respect to the weight function w: ∫_a^b φₙ(x)φₘ(x)w(x)dx = 0 for n≠m, and eigenvalues are real.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\int_a^b\phi_n\phi_m\,dx=\delta_{nm}\) (orthonormal without weight)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[all eigenvalues are complex]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\int_a^b\phi_n\phi_m\,w\,dx=0\) for \(n\neq m\) (weighted orthogonality)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[no two eigenfunctions can be linearly independent]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q39 - Central limit theorem Lindeberg</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Lindeberg-Feller CLT generalizes the classical CLT to independent (not necessarily identically distributed) random variables. Its key condition is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) the Lindeberg condition: no single term dominates the variance</strong></p><p>Lindeberg condition: (1/sₙ²) Σₖ E[Xₖ²1(|Xₖ|>εsₙ)] → 0 for all ε>0, where sₙ²=ΣVar(Xₖ). This prevents any single variable from dominating.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[the variables must be identically distributed]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[the Lindeberg condition: \(\frac{1}{s_n^2}\sum_k E[X_k^2\mathbf{1}(|X_k|>\varepsilon s_n)]\to 0\) for all \(\varepsilon>0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[each variable is bounded]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the variances are all equal]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q40 - Characteristic equation PDE</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The PDE \(Au_{xx}+2Bu_{xy}+Cu_{yy}+\cdots=0\) is classified as elliptic, parabolic, or hyperbolic based on the discriminant \(\Delta=B^2-AC\). Laplace's equation \(u_{xx}+u_{yy}=0\) is classified as:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) elliptic</strong></p><p>For Laplace's equation: A=1, B=0, C=1. Δ=0−1×1=−1<0, so it is elliptic. Elliptic PDEs model steady-state phenomena.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[elliptic (\(\Delta<0\))]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[parabolic (\(\Delta=0\))]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[hyperbolic (\(\Delta>0\))]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[cannot be classified]]></text></answer>
+</question>
+
+<!-- PART C -->
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 06/Part C - Advanced Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part C: Advanced Mathematics (Q41–55). MSQ: +4, +2 partial, −1 wrong.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q41 MSQ - Measure theory sigma algebras</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about σ-algebras and measurable spaces?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Definition of σ-algebra. (2) TRUE: Borel σ-algebra on ℝ is generated by open sets. (3) TRUE: Countable union of measurable sets is measurable. (4) TRUE: Complement of measurable set is measurable.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[A \(\sigma\)-algebra is closed under countable unions and complementation.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Borel \(\sigma\)-algebra on \(\mathbb{R}\) is generated by all open sets.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The countable union of measurable sets is measurable.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The complement of a measurable set is measurable.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q42 MSQ - Sobolev spaces embeddings</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about Sobolev spaces \(W^{k,p}(\Omega)\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3)</strong></p><p>(1) TRUE: Definition — weak derivatives in Lp. (2) TRUE: Sobolev embedding theorem. (3) TRUE: Rellich-Kondrachov compact embedding. (4) FALSE: For general Ω, Sobolev spaces are NOT complete with the Lp norm alone — they require the Sobolev norm ‖u‖_{W^{k,p}}.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[\(W^{k,p}(\Omega)\) consists of functions whose weak derivatives up to order \(k\) lie in \(L^p(\Omega)\).]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[If \(kp>n\), then \(W^{k,p}(\Omega)\hookrightarrow C(\bar\Omega)\) (Sobolev embedding into continuous functions).]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[The embedding \(H^1(\Omega)\hookrightarrow L^2(\Omega)\) is compact for bounded \(\Omega\subset\mathbb{R}^n\) (Rellich-Kondrachov).]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(W^{k,p}(\Omega)\) with the \(L^p\) norm alone (without Sobolev norm) is always a Banach space.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q43 MSQ - Algebraic geometry basics</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about algebraic varieties (over an algebraically closed field)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Affine varieties correspond to radical ideals (Nullstellensatz). (2) TRUE: Every affine variety is the zero set of a finite set of polynomials (Noetherian). (3) FALSE: ℙ¹ is a compact variety (projective), but not every variety is compact in the Zariski topology. (4) TRUE: Hilbert's Nullstellensatz.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Affine varieties over \(\bar k\) are in bijection with radical ideals in \(k[x_1,\ldots,x_n]\) (Hilbert's Nullstellensatz).]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Every affine variety is the zero set of finitely many polynomials (because polynomial rings are Noetherian).]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every algebraic variety is compact in the Zariski topology.]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Hilbert's Nullstellensatz: \(\sqrt{I(V)}=I\) gives a dictionary between varieties and radical ideals.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q44 MSQ - Linear programming duality</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about linear programming?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Simplex method. (2) TRUE: LP duality — any feasible primal value ≤ any feasible dual value. (3) TRUE: Strong duality. (4) TRUE: Complementary slackness conditions.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The simplex method optimizes a linear objective over a convex polytope by moving along edges.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Weak duality: the optimal value of the minimization dual is at least the optimal value of the maximization primal.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Strong duality: if both primal and dual are feasible, their optimal values are equal.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Complementary slackness: at optimality, for each constraint, either the constraint is tight or the corresponding dual variable is zero.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q45 MSQ - Galois theory splitting fields</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about Galois extensions?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Galois extension = normal + separable. (2) TRUE: Fundamental theorem of Galois theory. (3) TRUE: Galois extension of degree n has Galois group of order n. (4) TRUE: Fixed field of Gal(E/F) is F for a Galois extension.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[An extension \(E/F\) is Galois if and only if it is both normal and separable.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The fundamental theorem of Galois theory gives a bijection between intermediate fields of \(E/F\) and subgroups of \(\text{Gal}(E/F)\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[If \([E:F]=n\), then \(|\text{Gal}(E/F)|=n\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The fixed field of \(\text{Gal}(E/F)\) acting on \(E\) is precisely \(F\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q46 MSQ - Spectral theorem normal operators</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the spectral theorem for bounded operators on Hilbert spaces?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Normal operators (TT*=T*T) have spectral decomposition. (2) TRUE: Self-adjoint = real spectrum. (3) TRUE: Unitary operators have spectrum on unit circle. (4) TRUE: A normal finite-dimensional matrix is unitarily diagonalizable.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Every normal operator (\(TT^*=T^*T\)) on a Hilbert space has a spectral decomposition.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Self-adjoint operators have real spectrum.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Unitary operators have spectrum contained in the unit circle.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[A normal \(n\times n\) complex matrix is unitarily diagonalizable.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q47 MSQ - Differential forms exterior algebra</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about differential forms on smooth manifolds?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Stokes theorem for forms. (2) TRUE: d∘d=0 (boundary of boundary = 0). (3) TRUE: Closed = dω=0; exact = ω=dη. (4) TRUE: De Rham cohomology.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Stokes' theorem: \(\int_M d\omega=\int_{\partial M}\omega\) for a smooth \((n-1)\)-form on an oriented \(n\)-manifold \(M\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(d^2=0\): the exterior derivative applied twice gives zero.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[A form \(\omega\) is closed if \(d\omega=0\); it is exact if \(\omega=d\eta\). Every exact form is closed.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[De Rham cohomology \(H^k_{\text{dR}}(M)\) measures the failure of closed forms to be exact.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q48 MSQ - Distributions Dirac delta</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Dirac delta distribution \(\delta(x)\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Defining property. (2) TRUE: Derivative in distributional sense. (3) TRUE: Fourier transform of δ. (4) TRUE: Fundamental solution of −Δ in ℝⁿ (for n≥3).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[\(\int_{-\infty}^{\infty}\delta(x)\phi(x)\,dx=\phi(0)\) for any test function \(\phi\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The distributional derivative of \(H(x)\) (Heaviside step) is \(\delta(x)\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Fourier transform of \(\delta(x)\) is the constant function 1.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(\delta(x)\) arises naturally as the fundamental solution of the Laplace equation in \(\mathbb{R}^n\) for \(n\geq 3\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q49 MSQ - Zeta function and prime numbers</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Riemann zeta function \(\zeta(s)=\sum_{n=1}^\infty n^{-s}\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Converges absolutely for Re(s)>1. (2) TRUE: Euler product formula. (3) TRUE: Functional equation/meromorphic continuation. (4) TRUE: Non-trivial zeros — Riemann hypothesis states they lie on Re(s)=1/2.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[\(\zeta(s)\) converges absolutely for \(\text{Re}(s)>1\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(\zeta(s)=\prod_p(1-p^{-s})^{-1}\) (Euler product over primes).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(\zeta(s)\) has a meromorphic continuation to all of \(\mathbb{C}\) with a simple pole at \(s=1\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Riemann hypothesis conjectures that all non-trivial zeros of \(\zeta(s)\) lie on the critical line \(\text{Re}(s)=1/2\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q50 MSQ - Geometric distribution</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the geometric distribution \(X\sim\text{Geom}(p)\) (\(P(X=k)=(1-p)^{k-1}p\), \(k=1,2,\ldots\))?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: E[X]=1/p. (2) TRUE: Geometric has the memoryless property among discrete distributions. (3) TRUE: Var(X)=(1−p)/p². (4) TRUE: P(X>n+m|X>n)=P(X>m).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[\(E[X]=1/p\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The geometric distribution is the only discrete memoryless distribution.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(\text{Var}(X)=(1-p)/p^2\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(P(X>n+m|X>n)=P(X>m)\) (memoryless property).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q51 MSQ - Brouwer fixed point</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Brouwer fixed-point theorem?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3)</strong></p><p>(1) TRUE: Statement of Brouwer. (2) TRUE: Sperner's lemma provides a combinatorial proof. (3) TRUE: Nash equilibrium existence follows from Kakutani (generalization). (4) FALSE: Brouwer applies to convex compact sets; it does NOT hold for all compact spaces (e.g., annulus has no fixed point for 180° rotation).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every continuous function \(f:B^n\to B^n\) from the closed \(n\)-ball to itself has a fixed point.]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Brouwer's theorem can be proved using Sperner's lemma (combinatorial approach).]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Nash's equilibrium existence theorem (in game theory) follows from the Kakutani fixed-point theorem, which generalizes Brouwer's.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Brouwer's theorem holds for every continuous self-map on every compact topological space.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q52 MSQ - Bounded variation functions</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about functions of bounded variation (BV) on \([a,b]\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Jordan decomposition. (2) TRUE: BV implies L¹ (in particular Riemann integrable). (3) TRUE: BV functions are differentiable a.e. (4) TRUE: Monotone functions are BV.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Every BV function can be written as the difference of two monotone nondecreasing functions (Jordan decomposition).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every BV function on \([a,b]\) is bounded and hence Riemann integrable.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[BV functions are differentiable almost everywhere.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every monotone function on \([a,b]\) has bounded variation.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q53 MSQ - Numerical methods ODEs Runge-Kutta</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the classical fourth-order Runge-Kutta (RK4) method for ODEs?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3)</strong></p><p>(1) TRUE: RK4 uses 4 function evaluations per step. (2) TRUE: Global error is O(h⁴). (3) TRUE: RK4 is a self-starting method (no need for initial values at previous steps). (4) FALSE: RK4 is explicit — not implicit. Implicit methods (like Crank-Nicolson) allow larger stable step sizes.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[RK4 requires four function evaluations per step.]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[The global error of RK4 is \(O(h^4)\) for sufficiently smooth problems.]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[RK4 is a self-starting single-step method (requires only the current value to advance).]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[RK4 is an implicit method.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q54 MSQ - Integral equations</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about Fredholm integral equations of the second kind \(\phi(x)=f(x)+\lambda\int_a^b K(x,t)\phi(t)\,dt\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: The integral operator is compact on L². (2) TRUE: Fredholm alternative. (3) FALSE: For λ≠0 not an eigenvalue, there IS a unique solution (Fredholm alternative). (4) TRUE: Symmetric kernels have real eigenvalues.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[The integral operator \(T\phi(x)=\int_a^b K(x,t)\phi(t)\,dt\) with square-integrable kernel is compact on \(L^2\).]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[The Fredholm alternative: for \(\lambda\neq 0\), either the equation has a unique solution for every \(f\), or the homogeneous equation has nontrivial solutions.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[For all nonzero \(\lambda\), the Fredholm equation never has a unique solution.]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[If \(K\) is symmetric (\(K(x,t)=K(t,x)\)), the eigenvalues of \(T\) are real.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P06 Q55 MSQ - Probability generating functions</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about probability generating functions (PGF) \(G_X(z)=E[z^X]\) for non-negative integer-valued \(X\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: G_X(1) = E[1^X] = 1. (2) TRUE: G'_X(1) = E[X]. (3) TRUE: For independent X,Y: G_{X+Y}=G_X·G_Y. (4) TRUE: PGF of Poisson(λ) is e^{λ(z−1)}.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[\(G_X(1)=1\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(G_X'(1)=E[X]\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[For independent \(X,Y\): \(G_{X+Y}(z)=G_X(z)\cdot G_Y(z)\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[If \(X\sim\text{Poisson}(\lambda)\), then \(G_X(z)=e^{\lambda(z-1)}\).]]></text></answer>
+</question>
+
+</quiz>

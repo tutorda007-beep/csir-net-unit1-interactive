@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- CSIR NET Mathematical Sciences – Model Paper 08 -->
+
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 08/Part A - General Aptitude</text></category>
+  <info format="html"><text><![CDATA[<p>Part A: General Aptitude (Q1–15). Marks: +2 correct, −0.5 incorrect.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q1 - Percentage mixture alloy</text></name>
+  <questiontext format="html"><text><![CDATA[<p>An alloy contains copper and zinc in the ratio 7:3. How much zinc must be added to 100 kg of the alloy to make the ratio 7:4?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 10 kg</strong></p><p>Initial: copper = 70 kg, zinc = 30 kg. New ratio 7:4 means for 70 kg copper, zinc should be 40 kg. Zinc to be added = 40−30 = 10 kg.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[5 kg]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[10 kg]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[15 kg]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[20 kg]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q2 - Speed distance two cities</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A car travels from city A to city B at 60 km/h and returns at 40 km/h. What is the average speed for the entire journey?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 48 km/h</strong></p><p>Average speed = 2v₁v₂/(v₁+v₂) = 2×60×40/(60+40) = 4800/100 = 48 km/h.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[50 km/h]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[45 km/h]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[48 km/h]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[52 km/h]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q3 - Loss selling below CP</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If an article is sold for Rs. 240 at a loss of 20%, what was the cost price?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) Rs. 300</strong></p><p>SP = CP × (1 − L/100) ⟹ 240 = CP × 0.8 ⟹ CP = 240/0.8 = Rs. 300.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Rs. 300]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 280]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 320]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 288]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q4 - Analogy Mountain Valley</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Mountain : Valley :: Peak : ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Trough</strong></p><p>A valley is the lowest point relative to a mountain; a trough is the lowest point relative to a peak (in waves).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Hill]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Trough]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Cliff]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Ridge]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q5 - Ages present future</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A mother is 3 times as old as her daughter. After 12 years, she will be twice as old. What is the daughter's present age?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 12</strong></p><p>Let daughter = d, mother = 3d. After 12: 3d+12 = 2(d+12) ⟹ 3d+12 = 2d+24 ⟹ d = 12.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[10]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[12]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[15]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[9]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q6 - Number series pattern cubes</text></name>
+  <questiontext format="html"><text><![CDATA[<p>What is the next number in the series? 1, 8, 27, 64, 125, ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (4) 216</strong></p><p>The series is 1³, 2³, 3³, 4³, 5³, 6³ = 216.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[144]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[196]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[200]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[216]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q7 - Partnership capital ratio</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Three partners A, B, C start a business with Rs. 20000, Rs. 30000, and Rs. 50000 respectively. At the end of the year, the profit is Rs. 36000. What is C's share?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Rs. 18000</strong></p><p>Ratio = 20:30:50 = 2:3:5. Total parts = 10. C's share = (5/10)×36000 = Rs. 18000.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 10000]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 15000]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Rs. 18000]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 20000]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q8 - Volume hemisphere</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A hemispherical bowl of radius 6 cm is filled with water. What is the volume of water? (Use π = 3.14)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 452.16 cm³</strong></p><p>Volume of hemisphere = (2/3)πr³ = (2/3)×3.14×216 = (2/3)×678.24 = 452.16 cm³.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[904.32 cm³]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[452.16 cm³]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[226.08 cm³]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[678.24 cm³]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q9 - Probability bag marbles</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A bag contains 5 red, 4 blue, and 3 green marbles. If two marbles are drawn at random without replacement, what is the probability that both are red?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 5/33</strong></p><p>P = C(5,2)/C(12,2) = 10/66 = 5/33.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[5/33]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[5/12]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1/6]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[25/144]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q10 - Direction walking compass</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Mohan walks 10 km North, then 6 km East, then 10 km South. How far is he from his starting point and in which direction?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 6 km East</strong></p><p>10 km North and 10 km South cancel. Net: 6 km East from starting point.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[6 km West]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[6 km East]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[10 km North-East]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[10 km South]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q11 - Blood relation grandmother</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Ravi's mother's brother's son is Ravi's:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Cousin</strong></p><p>Mother's brother = maternal uncle. Uncle's son = Ravi's maternal cousin.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Brother]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Nephew]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Cousin]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Uncle]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q12 - Divisibility largest number</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The largest 3-digit number that is exactly divisible by 12, 18, and 24 is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (4) 936</strong></p><p>LCM(12,18,24) = 72. Largest 3-digit multiple of 72: 999/72 = 13.87... So 13×72 = 936.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[990]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[972]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[960]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[936]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q13 - Odd one out shapes</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which is the odd one out? Square, Rectangle, Triangle, Rhombus</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Triangle</strong></p><p>Square, Rectangle, and Rhombus are all four-sided quadrilaterals. Triangle has three sides — it is the odd one out.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Square]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rectangle]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Triangle]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rhombus]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q14 - Permutation four digit</text></name>
+  <questiontext format="html"><text><![CDATA[<p>How many 4-digit numbers can be formed using the digits 1, 2, 3, 5 without repetition, such that the number is divisible by 5?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 6</strong></p><p>For divisibility by 5, the units digit must be 5. Remaining 3 places can be filled with 1,2,3 in 3! = 6 ways.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[3]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[6]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[12]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[24]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q15 - Logical syllogism</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If all A are B and no B is C, then:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) No A is C</strong></p><p>All A ⊆ B, and B ∩ C = ∅. Since all A are in B and B has no overlap with C, A has no overlap with C. So no A is C.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[No A is C.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Some A is C.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[All C is A.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Some B is A.]]></text></answer>
+</question>
+
+<!-- PART B -->
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 08/Part B - Core Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part B: Core Mathematics (Q16–40). Marks: +3 correct, −1 incorrect.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q16 - Metric space total boundedness</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A metric space \((X,d)\) is totally bounded if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) for every ε>0, X can be covered by finitely many balls of radius ε</strong></p><p>Total boundedness: for every ε>0, there exists a finite ε-net (finite cover by ε-balls). A metric space is compact iff it is complete AND totally bounded.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[it is bounded (diameter is finite)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[for every \(\varepsilon>0\), \(X\) can be covered by finitely many balls of radius \(\varepsilon\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[every sequence has a convergent subsequence]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[every Cauchy sequence converges]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q17 - Dini theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Dini's theorem states that if \(f_n\to f\) pointwise on a compact space \(K\), each \(f_n\) is continuous, \(f\) is continuous, and \((f_n)\) is monotone, then:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) fₙ → f uniformly on K</strong></p><p>Dini's theorem: pointwise monotone convergence of continuous functions to a continuous limit on a compact set implies uniform convergence.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(f_n\to f\) uniformly on \(K\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the convergence is only pointwise, not uniform]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f_n\) is constant for large \(n\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f=0\) on \(K\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q18 - Divergence theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Gauss (Divergence) theorem relates a surface integral to a volume integral: for a smooth vector field \(\mathbf{F}\) and a region \(V\) with boundary \(\partial V\),</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) ∯_{∂V} F·n dS = ∭_V (∇·F) dV</strong></p><p>Gauss's theorem (divergence theorem): the flux of F through the closed surface ∂V equals the volume integral of div F over V.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\oiint_{\partial V}\mathbf{F}\cdot\mathbf{n}\,dS=\iiint_V(\nabla\times\mathbf{F})\,dV\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\oiint_{\partial V}\mathbf{F}\cdot\mathbf{n}\,dS=\iiint_V(\nabla\cdot\mathbf{F})\,dV\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\oiint_{\partial V}\mathbf{F}\cdot\mathbf{n}\,dS=0\) always]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\iiint_V\mathbf{F}\,dV=\oiint_{\partial V}\mathbf{F}\cdot\mathbf{n}\,dS\cdot|\mathbf{F}|\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q19 - Lagrange multipliers</text></name>
+  <questiontext format="html"><text><![CDATA[<p>To maximize \(f(x,y)\) subject to the constraint \(g(x,y)=0\), the Lagrange condition at a critical point is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) ∇f = λ∇g for some multiplier λ</strong></p><p>Lagrange's method: at a constrained extremum, ∇f = λ∇g (the gradients are proportional), along with g(x,y)=0. The multiplier λ is the Lagrange multiplier.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\nabla f=0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\nabla g=0\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\nabla f=\lambda\nabla g\) for some scalar \(\lambda\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f+g=0\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q20 - Kernel image rank</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a linear map \(T:V\to W\) between finite-dimensional vector spaces, the rank-nullity theorem states:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) dim V = dim(ker T) + dim(im T)</strong></p><p>Rank-nullity: dim(ker T) + dim(im T) = dim(V). Here rank(T) = dim(im T) and nullity(T) = dim(ker T).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(\dim V=\dim(\ker T)+\dim(\operatorname{im}T)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dim W=\dim(\ker T)+\dim(\operatorname{im}T)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dim V=\dim(\ker T)\cdot\dim(\operatorname{im}T)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dim V+\dim W=\dim(\ker T)+\dim(\operatorname{im}T)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q21 - Gram matrix positive semidefinite</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Gram matrix \(G_{ij}=\langle v_i,v_j\rangle\) of a set of vectors \(\{v_1,\ldots,v_n\}\) in an inner product space is always:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) positive semi-definite and Hermitian</strong></p><p>The Gram matrix is always positive semi-definite (x*Gx = ‖Σxᵢvᵢ‖² ≥ 0) and Hermitian (G_{ij} = G̅_{ji}). It is positive definite iff the vectors are linearly independent.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[positive definite always]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[positive semi-definite and Hermitian]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[always invertible]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[diagonal]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q22 - Conjugacy class equation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a finite group \(G\), the class equation is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) |G| = |Z(G)| + Σ [G : C_G(gᵢ)]</strong></p><p>The class equation partitions G into conjugacy classes: |G| = |Z(G)| + Σ_{conjugacy classes of size>1} |G|/|C_G(g)| where C_G(g) is the centralizer of g. Z(G) consists of singleton conjugacy classes.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(|G|=|Z(G)|\cdot|G/Z(G)|\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(|G|=\sum_i|\text{conjugacy class of }g_i|\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(|G|=|Z(G)|+\sum_{i}[G:C_G(g_i)]\) (sum over non-central conjugacy classes)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(|G|=2|Z(G)|\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q23 - Orbit stabilizer theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The orbit-stabilizer theorem states that for a group \(G\) acting on a set \(X\) and \(x\in X\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) |G| = |Orb(x)| × |Stab(x)|</strong></p><p>Orbit-stabilizer theorem: |G| = |G·x| × |G_x| where G·x is the orbit and G_x = {g ∈ G : g·x = x} is the stabilizer of x. This is a special case of Lagrange's theorem.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(|G|=|\text{Orb}(x)|\times|\text{Stab}(x)|\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(|G|=|\text{Orb}(x)|+|\text{Stab}(x)|\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(|\text{Orb}(x)|=|\text{Stab}(x)|\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(|G|=|X|\cdot|\text{Stab}(x)|\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q24 - Holomorphic maps conformal</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A holomorphic function \(f\) is conformal (angle-preserving) at a point \(z_0\) if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) f'(z₀) ≠ 0</strong></p><p>Conformal maps preserve both angles and orientation. A holomorphic function is conformal precisely at points where f'(z₀) ≠ 0 (the derivative is nonzero).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(z_0)=0\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(f'(z_0)\neq 0\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f'(z_0)=1\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(|f(z_0)|=1\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q25 - Residue theorem higher order pole</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The residue of \(f(z)=\dfrac{e^z}{(z-1)^3}\) at \(z=1\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) e/2</strong></p><p>Residue at a pole of order m: Res = (1/(m−1)!) lim_{z→1} d^{m-1}/dz^{m-1} [(z−1)^m f(z)]. Here m=3: Res = (1/2!) d²/dz² [e^z]|_{z=1} = e/2.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(e\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(e/2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(e/6\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(2e\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q26 - Locally compact spaces</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A topological space \(X\) is locally compact if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) every point has a compact neighborhood</strong></p><p>Local compactness: every point has a neighborhood whose closure is compact. ℝⁿ is locally compact but not compact; compact spaces are locally compact.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[it is compact]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[every open cover has a finite subcover]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[every point has a compact neighborhood]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[every closed set is compact]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q27 - Fourier series convergence pointwise</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Dirichlet's theorem on Fourier series states that if \(f\) is piecewise smooth and periodic, then the Fourier series converges at each point \(x\) to:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) [f(x+) + f(x-)]/2 (average of left and right limits)</strong></p><p>Dirichlet's theorem: at each point of continuity, the Fourier series converges to f(x). At a jump discontinuity, it converges to the average of the left and right limits.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(x)\) everywhere]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\frac{f(x^+)+f(x^-)}{2}\) (average of one-sided limits)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[0 at every point]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[does not converge at any point]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q28 - Bounded variation and Stieltjes integral</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Riemann-Stieltjes integral \(\int_a^b f\,dg\) exists if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) f is continuous and g has bounded variation</strong></p><p>The Riemann-Stieltjes integral ∫f dg exists if f is continuous and g is of bounded variation on [a,b]. The value equals Σf(xᵢ)[g(xᵢ)−g(xᵢ₋₁)] in the limit.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(f\) is continuous and \(g\) has bounded variation]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) and \(g\) are both differentiable]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(g\) is continuous and \(f\) is monotone]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\cdot g\) is Riemann integrable]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q29 - Poisson process</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A Poisson process with rate \(\lambda\) satisfies: the number of arrivals \(N(t)\) in \([0,t]\) has distribution:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Poisson(λt)</strong></p><p>N(t) ~ Poisson(λt): P(N(t)=k) = e^{-λt}(λt)^k/k!. The expected number of arrivals in [0,t] is λt.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\text{Poisson}(\lambda)\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\text{Poisson}(\lambda t)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(N(0,\lambda t)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\text{Binomial}(t,\lambda)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q30 - Ancillary statistic</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A statistic \(V(X)\) is said to be ancillary for parameter \(\theta\) if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) the distribution of V does not depend on θ</strong></p><p>An ancillary statistic has a distribution free of the parameter θ. Example: the range of a normal sample is ancillary for the mean but not for the variance.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[the distribution of \(V\) does not depend on \(\theta\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(V\) is a sufficient statistic for \(\theta\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(E[V]=\theta\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(V\) minimizes the variance]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q31 - Cholesky decomposition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Cholesky decomposition of a symmetric positive definite matrix \(A\) gives \(A=LL^T\) where:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) L is a lower triangular matrix with positive diagonal entries</strong></p><p>Cholesky decomposition: A = LLᵀ where L is lower triangular with positive diagonal entries. Exists and is unique for symmetric positive definite matrices. Useful for solving linear systems efficiently.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(L\) is orthogonal]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(L\) is upper triangular]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(L\) is lower triangular with positive diagonal entries]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(L\) is a diagonal matrix]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q32 - QR decomposition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In the QR decomposition \(A=QR\) of an \(m\times n\) matrix with \(m\geq n\), \(Q\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) m×m orthogonal (unitary) and R is m×n upper triangular</strong></p><p>QR: Q is m×m orthogonal (columns are orthonormal), R is m×n upper triangular. Obtained via Gram-Schmidt. Used for solving least-squares problems.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(m\times m\) orthogonal and \(R\) is \(m\times n\) upper triangular]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(m\times n\) with orthonormal columns and \(R\) is \(n\times n\) symmetric]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(m\times m\) lower triangular]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[diagonal]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q33 - Poincare inequality</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Poincaré inequality on a bounded domain \(\Omega\subset\mathbb{R}^n\) states that for \(u\in H_0^1(\Omega)\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) ∫_Ω u² dx ≤ C ∫_Ω |∇u|² dx</strong></p><p>Poincaré inequality: for functions in H₀¹(Ω) (zero boundary conditions), ‖u‖_{L²} ≤ C‖∇u‖_{L²}. This is crucial in the existence theory for elliptic PDEs via Lax-Milgram.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\int|\nabla u|^2\leq C\int u^2\)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\int_\Omega u^2\,dx\leq C\int_\Omega|\nabla u|^2\,dx\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\int_\Omega u^2\,dx=\int_\Omega|\nabla u|^2\,dx\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(u=0\) on \(\Omega\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q34 - PDE elliptic maximum principle</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The strong maximum principle for the Laplace equation \(\Delta u=0\) in a bounded domain \(\Omega\) states:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) if u achieves its maximum at an interior point, then u is constant</strong></p><p>Strong maximum principle: a non-constant harmonic function in a connected domain cannot achieve its maximum (or minimum) at an interior point. Equivalently, the max/min are always attained on the boundary ∂Ω.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[if \(u\) achieves its maximum at an interior point of \(\Omega\), then \(u\) is constant on \(\Omega\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(u\) always achieves its maximum in the interior of \(\Omega\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the maximum of \(u\) is always zero]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(u\geq 0\) everywhere in \(\Omega\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q35 - Cauchy problem well-posedness</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Cauchy-Kowalevski theorem guarantees a local analytic solution to the Cauchy problem for a PDE if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) the data and coefficients are analytic and the initial surface is non-characteristic</strong></p><p>Cauchy-Kowalevski theorem: if the PDE coefficients and initial data are real-analytic, and the initial surface is non-characteristic, then a unique local real-analytic solution exists.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[the data are smooth (\(C^\infty\))]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the PDE is linear]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[the PDE coefficients and initial data are real-analytic, and the initial surface is non-characteristic]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the PDE is elliptic]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q36 - Random walk symmetric</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a symmetric random walk on \(\mathbb{Z}\) (steps ±1 with equal probability 1/2), which of the following is TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) the walk returns to 0 with probability 1 (recurrent)</strong></p><p>The symmetric random walk on ℤ is recurrent — it returns to the origin with probability 1 (Pólya's theorem). In ℤ³ and higher dimensions, the walk is transient.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[the walk is transient (returns to 0 with probability less than 1)]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[the walk is recurrent (returns to 0 with probability 1)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the walk converges to a limiting distribution]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the walk reaches every integer in finite time with probability 0]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q37 - Completeness L2 space</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Riesz-Fischer theorem states that \(L^2([a,b])\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) complete (a Hilbert space)</strong></p><p>Riesz-Fischer: L²([a,b]) is complete — every Cauchy sequence in L² converges in L². This makes L²([a,b]) a Hilbert space. (Note: convergence is in norm, not pointwise.)</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[separable but not complete]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[finite-dimensional]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[complete (every Cauchy sequence converges in \(L^2\) norm) — a Hilbert space]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[not a normed space]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q38 - Dual space Lp</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For \(1<p<\infty\), the dual space of \(L^p(\mu)\) is isometrically isomorphic to:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) L^q(μ) where 1/p + 1/q = 1</strong></p><p>(L^p)* ≅ L^q for 1<p<∞ where 1/p+1/q=1. Bounded linear functionals on L^p are represented by L^q functions via fₑ(g) = ∫fg dμ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(L^p(\mu)\) itself]]></text></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(L^q(\mu)\) where \(1/p+1/q=1\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(L^\infty(\mu)\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(L^1(\mu)\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q39 - Matrix norm inequalities</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For an \(n\times n\) matrix \(A\), the relationship between the Frobenius norm \(\|A\|_F=\sqrt{\sum_{i,j}a_{ij}^2}\) and the spectral norm \(\|A\|_2\) (largest singular value) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) ‖A‖₂ ≤ ‖A‖_F ≤ √n ‖A‖₂</strong></p><p>‖A‖₂ = σ₁ (largest singular value). ‖A‖_F = √(Σσᵢ²). Since σ₁ ≤ ‖A‖_F and ‖A‖_F = √(Σσᵢ²) ≤ √(n·σ₁²) = √n·σ₁, we get ‖A‖₂ ≤ ‖A‖_F ≤ √n·‖A‖₂.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(\|A\|_2\leq\|A\|_F\leq\sqrt{n}\,\|A\|_2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\|A\|_F\leq\|A\|_2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\|A\|_F=\|A\|_2\) always]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\|A\|_2\leq n\,\|A\|_F\)]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q40 - Exponential family canonical form</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Normal distribution \(N(\mu,\sigma^2)\) with known \(\sigma^2\) belongs to the exponential family. The natural (canonical) parameter is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) μ/σ²</strong></p><p>For N(μ,σ²) with known σ², the density is f(x;μ) ∝ exp(μx/σ² − μ²/(2σ²)), so the natural parameter η = μ/σ² and T(x) = x is the sufficient statistic.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(\mu/\sigma^2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mu\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(1/\sigma^2\)]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\sigma^2\)]]></text></answer>
+</question>
+
+<!-- PART C -->
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 08/Part C - Advanced Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part C: Advanced Mathematics (Q41–55). MSQ: +4, +2 partial, −1 wrong.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q41 MSQ - Stochastic processes martingales</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about martingales?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Definition of martingale. (2) TRUE: Optional stopping theorem. (3) TRUE: Martingale convergence theorem. (4) TRUE: Doob's L² inequality for martingales.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[A stochastic process \((M_n)\) is a martingale if \(E[M_{n+1}|\mathcal{F}_n]=M_n\) a.s.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[For a martingale stopped at a bounded stopping time \(\tau\), \(E[M_\tau]=E[M_0]\) (optional stopping).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[An \(L^2\)-bounded martingale converges almost surely and in \(L^2\) (martingale convergence theorem).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Doob's maximal inequality: \(P(\max_{k\leq n}M_k\geq\lambda)\leq E[M_n^+]/\lambda\) for a non-negative submartingale.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q42 MSQ - Cardinality and set theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about cardinalities of infinite sets?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: |ℕ| = ℵ₀ (countably infinite). (2) TRUE: Cantor's diagonal argument. (3) TRUE: |P(ℕ)| = |ℝ| = 2^ℵ₀. (4) TRUE: Cantor-Schröder-Bernstein.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The set of natural numbers \(\mathbb{N}\) and the set of rational numbers \(\mathbb{Q}\) have the same cardinality \(\aleph_0\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The set \(\mathbb{R}\) is uncountable (Cantor's diagonal argument).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The power set \(\mathcal{P}(\mathbb{N})\) has the same cardinality as \(\mathbb{R}\): \(|\mathcal{P}(\mathbb{N})|=2^{\aleph_0}=|\mathbb{R}|\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Cantor-Schröder-Bernstein theorem: if \(|A|\leq|B|\) and \(|B|\leq|A|\), then \(|A|=|B|\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q43 MSQ - Analytic number theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about prime numbers and the prime number theorem?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: PNT: π(x)~x/ln x. (2) TRUE: Infinitely many primes (Euclid). (3) TRUE: Dirichlet's theorem on primes in AP. (4) TRUE: Twin prime conjecture is open.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The prime number theorem: \(\pi(x)\sim x/\ln x\) as \(x\to\infty\) (where \(\pi(x)\) counts primes \(\leq x\)).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[There are infinitely many prime numbers (Euclid's theorem).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Dirichlet's theorem: for \(\gcd(a,d)=1\), the arithmetic progression \(a, a+d, a+2d,\ldots\) contains infinitely many primes.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The twin prime conjecture (infinitely many pairs of primes \((p,p+2)\)) remains unproven.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q44 MSQ - Fixed point theorems</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about fixed point theorems?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Banach contraction. (2) TRUE: Brouwer on compact convex sets. (3) TRUE: Schauder for compact maps. (4) TRUE: Tarski for complete lattices.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Banach contraction principle: a strict contraction on a complete metric space has a unique fixed point.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Brouwer: every continuous map from a compact convex set to itself has a fixed point.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Schauder: a continuous compact map from a convex closed bounded subset of a Banach space to itself has a fixed point.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Tarski: every monotone function on a complete lattice has a fixed point.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q45 MSQ - Differential equations power series</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about power series solutions of ODEs?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Ordinary point → power series solution. (2) TRUE: Frobenius method for regular singular points. (3) TRUE: Bessel equation has regular singular point at 0. (4) TRUE: At an ordinary point, the power series converges in the largest disk free of singularities.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[At an ordinary point, a linear ODE has two independent power series solutions.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[At a regular singular point, the Frobenius method gives at least one solution of the form \(x^r\sum a_n x^n\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Bessel equation \(x^2y''+xy'+(x^2-n^2)y=0\) has a regular singular point at \(x=0\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The radius of convergence of a power series solution around an ordinary point equals the distance to the nearest singularity.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q46 MSQ - Weak topology functional analysis</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the weak topology on a Banach space \(X\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Weak convergence means f(xₙ)→f(x) for all f∈X*. (2) TRUE: Strong convergence implies weak convergence. (3) FALSE: In infinite-dimensional spaces, a weakly convergent sequence need NOT be norm convergent (e.g., Hilbert space eₙ→0 weakly but ‖eₙ‖=1). (4) TRUE: Banach-Alaoglu: the dual unit ball is weak* compact.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[\(x_n\xrightarrow{w} x\) (weakly) iff \(f(x_n)\to f(x)\) for every \(f\in X^*\).]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Strong (norm) convergence implies weak convergence.]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[In every infinite-dimensional Banach space, weak convergence implies norm convergence.]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[The closed unit ball of the dual \(X^*\) is compact in the weak* topology (Banach-Alaoglu theorem).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q47 MSQ - Differential geometry curvature</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about curvature of curves and surfaces?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Gauss-Bonnet. (2) TRUE: Gaussian curvature K = κ₁κ₂. (3) TRUE: Theorema Egregium (intrinsic). (4) TRUE: Constant negative curvature on hyperbolic plane.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The Gauss-Bonnet theorem: \(\int_M K\,dA+\int_{\partial M}\kappa_g\,ds=2\pi\chi(M)\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Gaussian curvature \(K=\kappa_1\kappa_2\) (product of principal curvatures) is an intrinsic invariant (Gauss's Theorema Egregium).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Gaussian curvature is preserved by isometries (Theorema Egregium).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The hyperbolic plane has constant negative Gaussian curvature \(K=-1\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q48 MSQ - Functional analysis closed graph</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Closed Graph Theorem?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Statement of CGT. (2) TRUE: Graph is closed iff xₙ→x and Txₙ→y implies y=Tx. (3) TRUE: CGT follows from OMT/Baire. (4) TRUE: Unbounded operators can have closed graphs (e.g., differentiation on appropriate domain).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[If \(T:X\to Y\) is a linear operator between Banach spaces and its graph is closed, then \(T\) is bounded (Closed Graph Theorem).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The graph of \(T\) is closed iff: \(x_n\to x\) and \(Tx_n\to y\) implies \(y=Tx\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Closed Graph Theorem follows from the Open Mapping Theorem and the Baire category theorem.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Unbounded operators (like differentiation on \(L^2\)) can still have closed graphs when defined on appropriate dense domains.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q49 MSQ - Probability inequalities</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about classical probability inequalities?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Markov's inequality. (2) TRUE: Chebyshev's inequality. (3) TRUE: Jensen's inequality. (4) TRUE: Chernoff bounds for sums of independent variables.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Markov's inequality: \(P(X\geq a)\leq E[X]/a\) for non-negative \(X\) and \(a>0\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Chebyshev's inequality: \(P(|X-\mu|\geq k\sigma)\leq 1/k^2\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Jensen's inequality: for convex \(\phi\), \(\phi(E[X])\leq E[\phi(X)]\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Chernoff bounds give exponentially decaying tail probabilities for sums of independent bounded random variables.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q50 MSQ - Symplectic geometry Hamiltonian</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about Hamiltonian mechanics and symplectic geometry?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3)</strong></p><p>(1) TRUE: Hamilton's equations. (2) TRUE: Liouville theorem — phase space volume preserved. (3) TRUE: Poisson bracket {H,H}=0 so H is conserved. (4) FALSE: Symplectic manifolds are always even-dimensional (the form ω is non-degenerate on even-dim manifolds).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Hamilton's equations are \(\dot q_i=\partial H/\partial p_i\) and \(\dot p_i=-\partial H/\partial q_i\).]]></text></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Liouville's theorem: Hamiltonian flow preserves phase space volume.]]></text></answer>
+  <answer fraction="33" format="html"><text><![CDATA[The Hamiltonian \(H\) is conserved along its own flow (\(\{H,H\}=0\)).]]></text></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Symplectic manifolds can be odd-dimensional.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q51 MSQ - Abstract harmonic analysis</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Fourier analysis on locally compact abelian groups?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Characters (homomorphisms to T) form the Pontryagin dual. (2) TRUE: Pontryagin duality for LCA groups. (3) TRUE: Fourier inversion on ℝ. (4) TRUE: Plancherel on LCA groups.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The Pontryagin dual \(\hat G\) of an LCA group \(G\) consists of continuous homomorphisms \(G\to\mathbb{T}\) (characters).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Pontryagin duality: \(\hat{\hat{G}}\cong G\) for any LCA group \(G\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Fourier inversion holds on \(\mathbb{R}\): \(f(x)=\int\hat f(\xi)e^{2\pi ix\xi}\,d\xi\) (under appropriate conditions).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Plancherel theorem extends to LCA groups: the Fourier transform is an isometry on \(L^2\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q52 MSQ - Algebraic structures lattices</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about lattices as algebraic structures?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Lattice = partially ordered set with all finite meets and joins. (2) TRUE: Boolean algebra is a complemented distributive lattice. (3) TRUE: Modular lattices arise in group theory (subgroup lattices). (4) TRUE: The lattice of subspaces of a vector space is modular.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[A lattice is a partially ordered set in which every pair of elements has a least upper bound (join) and greatest lower bound (meet).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[A Boolean algebra is a complemented distributive lattice.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The lattice of normal subgroups of a group is a modular lattice.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The lattice of subspaces of a vector space is modular.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q53 MSQ - Generalized functions and Schwartz space</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Schwartz space \(\mathcal{S}(\mathbb{R})\) and tempered distributions?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: S consists of rapidly decreasing smooth functions. (2) TRUE: Fourier transform maps S to S bijectively. (3) TRUE: Tempered distributions are continuous functionals on S. (4) TRUE: The Fourier transform extends to tempered distributions.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The Schwartz space \(\mathcal{S}(\mathbb{R})\) consists of smooth functions that decay (along with all derivatives) faster than any polynomial.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Fourier transform is a bijection on \(\mathcal{S}(\mathbb{R})\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Tempered distributions are continuous linear functionals on \(\mathcal{S}(\mathbb{R})\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Fourier transform extends naturally to tempered distributions.]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q54 MSQ - Combinatorics generating functions</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about generating functions?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: OGF of sequences. (2) TRUE: EGF used for counting permutations/labeled structures. (3) TRUE: Catalan numbers via OGF. (4) TRUE: Convolution of OGFs.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The ordinary generating function (OGF) of a sequence \((a_n)\) is \(A(x)=\sum_{n\geq 0}a_n x^n\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Exponential generating functions (EGFs) \(\sum a_n x^n/n!\) are natural for counting labeled structures.]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The Catalan numbers \(C_n=\frac{1}{n+1}\binom{2n}{n}\) have generating function \(C(x)=\frac{1-\sqrt{1-4x}}{2x}\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[If \(A(x)\) and \(B(x)\) are OGFs of \((a_n)\) and \((b_n)\), then \(A(x)B(x)\) is the OGF of the convolution \(c_n=\sum_{k=0}^n a_k b_{n-k}\).]]></text></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P08 Q55 MSQ - Functional calculus bounded operators</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about functional calculus for bounded self-adjoint operators \(A\) on a Hilbert space?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: f(A) is defined for continuous f on σ(A). (2) TRUE: Homomorphism property. (3) TRUE: ‖f(A)‖ = sup_{λ∈σ(A)} |f(λ)|. (4) TRUE: f(A)g(A)=g(A)f(A) for all continuous f,g.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[For a bounded self-adjoint operator \(A\), \(f(A)\) is well-defined for every continuous function \(f\) on the spectrum \(\sigma(A)\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The map \(f\mapsto f(A)\) is a \(*\)-algebra homomorphism from \(C(\sigma(A))\) to \(B(H)\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(\|f(A)\|=\sup_{\lambda\in\sigma(A)}|f(\lambda)|\).]]></text></answer>
+  <answer fraction="25" format="html"><text><![CDATA[For any two continuous functions \(f,g\) on \(\sigma(A)\), \(f(A)\) and \(g(A)\) commute.]]></text></answer>
+</question>
+
+</quiz>

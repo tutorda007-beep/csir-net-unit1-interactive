@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- CSIR NET Mathematical Sciences – Model Paper 01 -->
+
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 01/Part A - General Aptitude</text></category>
+  <info format="html"><text><![CDATA[<p>Part A: General Aptitude (Q1–15). Marks: +2 correct, −0.5 incorrect. Attempt any 12.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q1 - Profit percentage</text></name>
+  <questiontext format="html"><text><![CDATA[<p>An article is bought for Rs. 480 and sold for Rs. 600. What is the profit percentage?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 25%</strong></p><p>Profit = 600 − 480 = 120. Profit% = (120/480) × 100 = 25%.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[20%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[25%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[30%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[15%]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q2 - Time and work pipes</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Pipe A fills a tank in 12 hours and Pipe B empties it in 18 hours. If both pipes are open simultaneously, how long will it take to fill the tank?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 36 hours</strong></p><p>Net rate = 1/12 − 1/18 = 3/36 − 2/36 = 1/36. Time = 36 hours.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[24 hours]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[30 hours]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[36 hours]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[48 hours]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q3 - Simple interest</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A principal of Rs. 4000 earns Rs. 1200 as simple interest in 3 years. What is the annual rate of interest?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 10%</strong></p><p>SI = PRT/100 ⟹ 1200 = 4000 × R × 3/100 ⟹ R = 10%.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[10%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[8%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[12%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[15%]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q4 - Analogy Planet:Solar System</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Planet : Solar System :: Cell : ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Body</strong></p><p>A planet is a component of a solar system; a cell is a component of a body (organism).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Nucleus]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Body]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Tissue]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Molecule]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q5 - Age problem father son</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A father is 30 years older than his son. Five years ago, the father was four times the age of his son. What is the son's present age?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 15 years</strong></p><p>Let son's age = x. Father's age = x+30. Five years ago: x+30−5 = 4(x−5) ⟹ x+25 = 4x−20 ⟹ 3x = 45 ⟹ x = 15.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[10 years]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[15 years]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[20 years]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[12 years]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q6 - Letter series A C F J</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Find the next letter in the series: A, C, F, J, O, ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) U</strong></p><p>Gaps: +2, +3, +4, +5, +6. A(1)+2=C(3)+3=F(6)+4=J(10)+5=O(15)+6=U(21).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[U]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[T]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[V]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[S]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q7 - Speed distance time</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A car travels from city A to city B at 60 km/h and returns at 40 km/h. What is the average speed for the entire journey?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 48 km/h</strong></p><p>Average speed = 2xy/(x+y) = 2×60×40/(60+40) = 4800/100 = 48 km/h.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[50 km/h]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[48 km/h]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[46 km/h]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[52 km/h]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q8 - Seating arrangement circular</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In how many ways can 6 people be seated around a circular table?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 120</strong></p><p>Circular arrangements = (n−1)! = 5! = 120.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[720]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[60]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[120]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[360]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q9 - Blood relation nephew</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A man points to a woman and says "Her mother is the only daughter of my mother." How is the woman related to the man?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) Niece</strong></p><p>Only daughter of the man's mother = the man's sister. The woman's mother is the man's sister, so the woman is the man's niece.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Niece]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Daughter]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Sister]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Cousin]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q10 - Data sufficiency area</text></name>
+  <questiontext format="html"><text><![CDATA[<p>What is the area of a right triangle if: (I) the hypotenuse is 10 cm, (II) one leg is 6 cm?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (4) Both I and II together are sufficient</strong></p><p>With hypotenuse 10 and one leg 6: other leg = √(100−36)=8. Area = (1/2)×6×8 = 24 cm².</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[I alone is sufficient]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[II alone is sufficient]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Either I or II alone is sufficient]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Both I and II together are sufficient]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q11 - Ratio mixture</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A mixture of 60 litres contains milk and water in the ratio 3:2. How much water must be added to make the ratio 3:4?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 24 litres</strong></p><p>Milk = 36 L, Water = 24 L. After adding x L water: 36/(24+x)=3/4 ⟹ 144=72+3x ⟹ x=24.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[12 litres]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[18 litres]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[24 litres]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[30 litres]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q12 - Direction puzzle</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A man walks 10 km South, then 6 km East, then 10 km North. How far is he from the starting point?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 6 km</strong></p><p>South 10, then North 10 cancels. Net displacement: 6 km East. Distance = 6 km.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[10 km]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[6 km]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[4 km]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[8 km]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q13 - Probability cards</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a face card (Jack, Queen, or King)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 3/13</strong></p><p>Face cards: 4 Jacks + 4 Queens + 4 Kings = 12. P = 12/52 = 3/13.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[3/13]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1/4]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1/13]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[4/13]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q14 - Number pattern squares</text></name>
+  <questiontext format="html"><text><![CDATA[<p>What comes next: 1, 4, 9, 16, 25, ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 36</strong></p><p>Pattern: n² for n=1,2,3,4,5,6. Next: 6²=36.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[30]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[32]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[36]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[35]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q15 - Odd one out tool</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which is the odd one out? Violin, Guitar, Flute, Sitar, Veena</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Flute</strong></p><p>Violin, Guitar, Sitar, and Veena are all string instruments. Flute is a wind instrument.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Violin]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Guitar]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Flute]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Sitar]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- PART B: Core Mathematics -->
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 01/Part B - Core Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part B: Core Mathematics (Q16–40). Marks: +3 correct, −1 incorrect. Attempt any 20.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q16 - Convergence of sequence</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The sequence \(a_n = \left(1 + \dfrac{1}{n}\right)^n\) converges to:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) e</strong></p><p>This is the definition of Euler's number: \(\lim_{n\to\infty}\left(1+\frac{1}{n}\right)^n = e \approx 2.718.\)</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(e\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\pi\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q17 - Cauchy sequence in Q</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Every Cauchy sequence in \(\mathbb{R}\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) converges in ℝ</strong></p><p>ℝ is complete: every Cauchy sequence in ℝ converges to a real limit. This is the completeness axiom of ℝ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[converges in \(\mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[is bounded but may not converge]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[has a convergent subsequence only]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[converges to 0]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q18 - Uniform continuity</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following functions is uniformly continuous on \((0,1)\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) f(x) = x²</strong></p><p>f(x)=x² is continuous on the closed bounded interval [0,1], hence uniformly continuous on (0,1). f(x)=1/x and f(x)=tan(πx/2) blow up near boundary points. f(x)=sin(1/x) oscillates rapidly near 0.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(x)=1/x\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(f(x)=x^2\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(x)=\tan(\pi x/2)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(x)=\sin(1/x)\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q19 - Riemann integral existence</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A bounded function \(f:[a,b]\to\mathbb{R}\) is Riemann integrable if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) the set of discontinuities of f has measure zero</strong></p><p>By Lebesgue's theorem, a bounded function is Riemann integrable iff it is continuous almost everywhere (i.e., its discontinuity set has Lebesgue measure zero).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[f is continuous everywhere on \([a,b]\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[f is monotone on \([a,b]\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[the set of discontinuities of \(f\) has Lebesgue measure zero]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[f is differentiable almost everywhere]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q20 - Intermediate value theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If \(f:[0,1]\to\mathbb{R}\) is continuous with \(f(0)=−3\) and \(f(1)=5\), by the Intermediate Value Theorem, there exists \(c\in(0,1)\) such that \(f(c)=\):</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 0</strong></p><p>IVT guarantees f attains every value between f(0)=−3 and f(1)=5. Since −3 < 0 < 5, there exists c with f(c)=0. The value 6 is outside the range [−3,5]; −4 is also outside.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[6]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(-4\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[7]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q21 - Determinant property</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If \(A\) is an \(n\times n\) matrix, then \(\det(kA) =\) ?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) kⁿ det(A)</strong></p><p>Each row of kA is k times the corresponding row of A. Factoring k from each of the n rows: det(kA) = kⁿ det(A).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(k\,\det(A)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(k^2\det(A)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(k^n\det(A)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\det(A)\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q22 - Eigenvalue of transpose</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If \(\lambda\) is an eigenvalue of a square matrix \(A\), then which of the following is also an eigenvalue of \(A\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) λ is an eigenvalue of Aᵀ</strong></p><p>det(Aᵀ − λI) = det((A − λI)ᵀ) = det(A − λI). So A and Aᵀ have the same characteristic polynomial and hence the same eigenvalues.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(\lambda\) is an eigenvalue of \(A^T\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\lambda+1\) is an eigenvalue of \(A\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(2\lambda\) is an eigenvalue of \(A\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\lambda^2\) is an eigenvalue of \(A^T\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q23 - Rank nullity theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a linear map \(T: \mathbb{R}^5 \to \mathbb{R}^3\), if \(\mathrm{rank}(T) = 2\), what is the nullity of \(T\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 3</strong></p><p>Rank-Nullity Theorem: rank(T) + nullity(T) = dim(domain) = 5. So nullity = 5 − 2 = 3.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[5]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q24 - Diagonalizability condition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A real symmetric matrix is always:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) diagonalizable with real eigenvalues</strong></p><p>By the Spectral Theorem, every real symmetric matrix is orthogonally diagonalizable with all eigenvalues real.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[invertible]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[diagonalizable with real eigenvalues]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[positive definite]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[nilpotent]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q25 - Order of group element</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In the group \(\mathbb{Z}_{12}\) (integers mod 12 under addition), what is the order of the element 8?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 3</strong></p><p>Order of 8 in ℤ₁₂ = 12/gcd(8,12) = 12/4 = 3. Check: 8+8+8=24≡0 (mod 12). ✓</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[4]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[6]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q26 - Lagrange theorem groups</text></name>
+  <questiontext format="html"><text><![CDATA[<p>By Lagrange's theorem, if \(H\) is a subgroup of a finite group \(G\), then \(|H|\) divides \(|G|\). Which of the following is a possible order for a subgroup of a group of order 24?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 8</strong></p><p>Divisors of 24 are: 1,2,3,4,6,8,12,24. So 8 divides 24. The number 7 does not divide 24.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[5]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[7]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[8]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[9]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q27 - Normal subgroup</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A subgroup \(N\) of group \(G\) is normal if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) gNg⁻¹ = N for all g∈G</strong></p><p>This is the definition of a normal subgroup. It ensures the quotient G/N is a well-defined group.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(N\) is abelian]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(gNg^{-1}=N\) for all \(g\in G\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(N\) has index 2 in \(G\) (not always)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(N\) is the center of \(G\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q28 - Cauchy-Riemann equations</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Cauchy-Riemann equations for \(f(z)=u(x,y)+iv(x,y)\) are:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) u_x = v_y and u_y = −v_x</strong></p><p>The CR equations are necessary and sufficient (with continuity of partials) for f to be holomorphic.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(u_x=v_y\) and \(u_y=-v_x\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(u_x=v_x\) and \(u_y=v_y\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(u_x=-v_y\) and \(u_y=v_x\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(u_x=u_y\) and \(v_x=v_y\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q29 - Cauchy integral formula</text></name>
+  <questiontext format="html"><text><![CDATA[<p>By Cauchy's integral formula, if \(f\) is holomorphic inside and on a simple closed contour \(C\) and \(a\) is inside \(C\), then:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) f(a) = (1/2πi)∮_C f(z)/(z−a) dz</strong></p><p>This is Cauchy's integral formula, a cornerstone of complex analysis.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(a)=\oint_C f(z)\,dz\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(f(a)=\dfrac{1}{2\pi i}\oint_C \dfrac{f(z)}{z-a}\,dz\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(a)=\dfrac{1}{2\pi i}\oint_C f(z)(z-a)\,dz\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(a)=\dfrac{1}{\pi i}\oint_C \dfrac{f(z)}{z-a}\,dz\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q30 - Residue theorem application</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The residue of \(f(z) = \dfrac{e^z}{z^2}\) at \(z=0\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 1</strong></p><p>Laurent expansion: e^z/z² = (1 + z + z²/2! + ...)/z² = 1/z² + 1/z + 1/2 + ... The coefficient of 1/z is 1, so Res = 1.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(e\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(1/2\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q31 - Open sets topology</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In the standard topology on \(\mathbb{R}\), which of the following sets is open?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) (0,1)</strong></p><p>(0,1) is an open interval = open set. [0,1] is closed (contains boundary), {0,1} is discrete (closed), ℚ is neither open nor closed in ℝ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\([0,1]\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\((0,1)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\{0,1\}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Q}\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q32 - Compactness in R</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following subsets of \(\mathbb{R}\) is compact?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) [0,1]</strong></p><p>By Heine-Borel, compact subsets of ℝ are exactly the closed and bounded sets. [0,1] is closed and bounded. (0,1) is not closed. ℝ is unbounded. ℤ is closed but unbounded.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\((0,1)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\([0,1]\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q33 - ODE linear second order</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The general solution of \(y'' - 5y' + 6y = 0\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) c₁e²ˣ + c₂e³ˣ</strong></p><p>Characteristic equation: r² − 5r + 6 = 0 ⟹ (r−2)(r−3)=0 ⟹ r=2,3. General solution: c₁e²ˣ + c₂e³ˣ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(c_1 e^{2x}+c_2 e^{3x}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(c_1 e^{-2x}+c_2 e^{-3x}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(c_1 e^{5x}+c_2 e^{6x}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\((c_1+c_2 x)e^{5x/2}\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q34 - Heat equation solution</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The heat equation \(u_t = k\,u_{xx}\) on the real line with initial condition \(u(x,0)=f(x)\) has solution given by convolution with the heat kernel. The heat kernel \(K(x,t)\) for \(t>0\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) K(x,t) = (1/√(4πkt)) exp(−x²/(4kt))</strong></p><p>This is the fundamental solution (Green's function) of the heat equation on ℝ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{1}{\sqrt{2\pi kt}}\exp\!\left(-\dfrac{x^2}{2kt}\right)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\dfrac{1}{\sqrt{4\pi kt}}\exp\!\left(-\dfrac{x^2}{4kt}\right)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{1}{2\pi kt}\exp\!\left(-\dfrac{x^2}{kt}\right)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\exp\!\left(-\dfrac{x^2}{4kt}\right)\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q35 - Normal distribution</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If \(X\sim N(\mu,\sigma^2)\), what is \(P(\mu-\sigma < X < \mu+\sigma)\) approximately?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 0.6827</strong></p><p>For a normal distribution, approximately 68.27% of values lie within 1 standard deviation of the mean (the 68-95-99.7 rule).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[0.9545]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[0.6827]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[0.9973]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[0.5000]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q36 - Bayes theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A disease affects 1% of a population. A test has 95% sensitivity (true positive rate) and 90% specificity (true negative rate). If a person tests positive, what is the probability they have the disease (approximately)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) ≈ 8.7%</strong></p><p>P(D)=0.01, P(+|D)=0.95, P(+|no D)=0.10. P(+)=0.01×0.95+0.99×0.10=0.0095+0.099=0.1085. P(D|+)=0.0095/0.1085≈0.0875≈8.7%.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[≈ 95%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[≈ 8.7%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[≈ 50%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[≈ 1%]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q37 - Metric space connectedness</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following metric spaces is connected?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) ℝ with the standard metric</strong></p><p>ℝ is connected (cannot be split into two disjoint nonempty open sets). ℚ is totally disconnected. Discrete metric on any set with ≥2 elements is disconnected. ℤ with standard metric is disconnected.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Q}\) with standard metric]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\{0,1\}\) with discrete metric]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\mathbb{R}\) with standard metric]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}\) with standard metric]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q38 - Power series radius</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The radius of convergence of the power series \(\displaystyle\sum_{n=0}^{\infty} \frac{x^n}{n!}\) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (4) ∞</strong></p><p>By ratio test: |a_{n+1}/a_n| = |x|/(n+1) → 0 for all x. So the series converges for all x∈ℝ (this is eˣ). Radius = ∞.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[e]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\infty\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q39 - Integral test</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The series \(\displaystyle\sum_{n=1}^{\infty} \frac{1}{n^p}\) converges if and only if:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) p > 1</strong></p><p>The p-series converges for p > 1 and diverges for p ≤ 1 (by the integral test: ∫₁^∞ x^{−p}dx converges iff p > 1).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(p \geq 1\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(p > 1\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(p > 0\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(p \geq 2\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q40 - Ring characteristic</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The characteristic of the ring \(\mathbb{Z}_6\) (integers mod 6) is:</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 6</strong></p><p>The characteristic of ℤₙ is n. 6·1 = 6 ≡ 0 (mod 6), and no smaller positive integer k satisfies k·1 ≡ 0 (mod 6).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[6]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- PART C: Advanced Mathematics (MSQ) -->
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper 01/Part C - Advanced Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part C: Advanced Mathematics (Q41–55). MSQ: +4 full credit, +2 partial, −1 wrong. Attempt any 10.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q41 MSQ - Real analysis sequences</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following statements about sequences in \(\mathbb{R}\) are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Every bounded sequence in ℝ has a convergent subsequence (Bolzano-Weierstrass). (2) TRUE: Every convergent sequence is Cauchy and bounded. (3) FALSE: A Cauchy sequence in ℚ need not converge in ℚ (e.g., approximations to √2). (4) TRUE: lim sup and lim inf always exist (in [-∞,+∞]) for any bounded sequence.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every bounded sequence in \(\mathbb{R}\) has a convergent subsequence.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Every convergent sequence in \(\mathbb{R}\) is bounded.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every Cauchy sequence in \(\mathbb{Q}\) converges in \(\mathbb{Q}\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[For any bounded sequence \((a_n)\), both \(\limsup a_n\) and \(\liminf a_n\) exist as real numbers.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q42 MSQ - Linear algebra eigenvalues</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(A\) be an \(n\times n\) real matrix. Which of the following are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: tr(A) = sum of eigenvalues. (2) TRUE: det(A) = product of eigenvalues. (3) TRUE: If A is real symmetric, all eigenvalues are real. (4) TRUE: A and Aᵀ have the same characteristic polynomial hence same eigenvalues.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The trace of \(A\) equals the sum of its eigenvalues.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The determinant of \(A\) equals the product of its eigenvalues.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[If \(A\) is real symmetric, all its eigenvalues are real.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(A\) and \(A^T\) have the same eigenvalues.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q43 MSQ - Group theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following statements about groups are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Every subgroup of index 2 is normal (since it has only 2 cosets). (2) TRUE: Every cyclic group is abelian. (3) FALSE: S₃ is non-abelian with order 6. (4) TRUE: A group of prime order p is cyclic and isomorphic to ℤₚ.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every subgroup of index 2 in a group \(G\) is normal.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Every cyclic group is abelian.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every group of order 6 is abelian.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Every group of prime order is cyclic.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q44 MSQ - Complex analysis holomorphic</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(f\) be holomorphic on the open unit disk \(\mathbb{D}\). Which of the following are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Holomorphic functions are infinitely differentiable (analytic). (2) TRUE: If f is holomorphic and |f|=constant on D, then f is constant (by open mapping theorem / CR equations). (3) TRUE: Liouville's theorem. (4) TRUE: Identity theorem: zeros of a non-zero holomorphic function are isolated.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[\(f\) is infinitely differentiable (complex analytic).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[If \(|f|\) is constant on \(\mathbb{D}\), then \(f\) is constant.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[A bounded entire function must be constant.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The zeros of a non-identically-zero holomorphic function on \(\mathbb{D}\) are isolated.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q45 MSQ - Topology compactness</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about compact topological spaces?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3)</strong></p><p>(1) TRUE: Continuous image of a compact set is compact. (2) TRUE: A closed subset of a compact space is compact. (3) TRUE: A compact subset of a Hausdorff space is closed. (4) FALSE: An open subset of a compact space need not be compact (e.g., (0,1) ⊂ [0,1]).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[The continuous image of a compact space is compact.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[A closed subset of a compact space is compact.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[A compact subset of a Hausdorff space is closed.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every open subset of a compact space is compact.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q46 MSQ - ODE uniqueness</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Consider the IVP \(y'=f(x,y),\; y(x_0)=y_0\). Which conditions guarantee existence and uniqueness of a solution?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (2),(4)</strong></p><p>(1) FALSE: Continuity of f alone guarantees existence (Peano) but not uniqueness. (2) TRUE: Lipschitz condition in y is sufficient for uniqueness (Picard-Lindelöf). (3) FALSE: Boundedness alone is not sufficient. (4) TRUE: Continuous partial derivative ∂f/∂y implies Lipschitz locally, giving local existence and uniqueness.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) is continuous in both \(x\) and \(y\) (Peano condition).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[\(f\) satisfies a Lipschitz condition in \(y\) uniformly in \(x\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) is bounded on a rectangle containing \((x_0,y_0)\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[\(\partial f/\partial y\) is continuous near \((x_0,y_0)\).]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q47 MSQ - Measure theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about Lebesgue measure on \(\mathbb{R}\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Any countable set has measure zero. (2) TRUE: Lebesgue measure is translation invariant. (3) FALSE: The Cantor set has measure zero but is uncountable (not countable). (4) TRUE: Every open set in ℝ is a countable union of disjoint open intervals.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every countable subset of \(\mathbb{R}\) has Lebesgue measure zero.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Lebesgue measure is translation invariant.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The Cantor set is countable (since it has measure zero).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Every open set in \(\mathbb{R}\) is a countable union of disjoint open intervals.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q48 MSQ - Rings and ideals</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following statements about rings are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Every field is an integral domain (no zero divisors). (2) TRUE: Every PID is a UFD. (3) TRUE: In ℤ, every ideal is principal (generated by one element). (4) TRUE: The quotient R/I is a field iff I is a maximal ideal.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Every field is an integral domain.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every principal ideal domain (PID) is a unique factorization domain (UFD).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every ideal in \(\mathbb{Z}\) is a principal ideal.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[For a commutative ring \(R\) with unity and ideal \(I\), \(R/I\) is a field if and only if \(I\) is maximal.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q49 MSQ - Fourier series</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For a function \(f\in L^2[-\pi,\pi]\) with Fourier series \(f(x)\sim \sum_{n=-\infty}^{\infty} c_n e^{inx}\), which are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(3),(4)</strong></p><p>(1) TRUE: Parseval's identity: ∑|cₙ|² = (1/2π)||f||². (2) FALSE: The Fourier series converges pointwise a.e. (Carleson 1966), but not necessarily everywhere. (3) TRUE: Riemann-Lebesgue lemma. (4) TRUE: Fourier series converges in L²-norm (mean-square).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</small><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Parseval's identity holds: \(\displaystyle\sum_{n=-\infty}^{\infty}|c_n|^2 = \frac{1}{2\pi}\int_{-\pi}^{\pi}|f(x)|^2\,dx\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The Fourier series converges pointwise everywhere to \(f\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[The Fourier coefficients \(c_n \to 0\) as \(|n|\to\infty\) (Riemann-Lebesgue lemma).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[The Fourier series of \(f\) converges to \(f\) in \(L^2[-\pi,\pi]\) norm.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q50 MSQ - PDE classification</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about second-order linear PDEs \(Au_{xx}+Bu_{xy}+Cu_{yy}+\ldots=0\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: B²−4AC > 0 ↔ hyperbolic (e.g., wave equation). (2) TRUE: B²−4AC = 0 ↔ parabolic (e.g., heat equation). (3) TRUE: B²−4AC < 0 ↔ elliptic (e.g., Laplace equation). (4) TRUE: Elliptic PDEs satisfy the maximum principle.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[The PDE is hyperbolic if \(B^2 - 4AC > 0\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The PDE is parabolic if \(B^2 - 4AC = 0\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[The PDE is elliptic if \(B^2 - 4AC < 0\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Elliptic PDEs satisfy the maximum principle.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q51 MSQ - Normed spaces</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about normed spaces?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Every finite-dimensional normed space is complete (Banach). (2) TRUE: ℓ² is a Hilbert space (complete inner product space). (3) FALSE: C[0,1] with sup-norm is complete (Banach), but not a Hilbert space (the parallelogram law fails for general functions). (4) TRUE: A normed space is complete iff every absolutely convergent series converges.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every finite-dimensional normed space over \(\mathbb{R}\) is complete.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[\(\ell^2\) (square-summable sequences) is a Hilbert space.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(C[0,1]\) with the sup-norm is a Hilbert space.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[A normed space is a Banach space if and only if every absolutely convergent series converges.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q52 MSQ - Probability distributions</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are TRUE about the Poisson distribution with parameter \(\lambda > 0\)?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: E[X]=λ. (2) TRUE: Var[X]=λ. (3) TRUE: Poisson is the limit of Bin(n,p) as n→∞, p→0, np→λ. (4) TRUE: Sum of independent Poisson(λ₁) and Poisson(λ₂) is Poisson(λ₁+λ₂).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[\(E[X] = \lambda\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[\(\mathrm{Var}[X] = \lambda\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Poisson\((\lambda)\) is the limiting distribution of \(\mathrm{Binomial}(n,\lambda/n)\) as \(n\to\infty\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[If \(X\sim\mathrm{Poisson}(\lambda_1)\) and \(Y\sim\mathrm{Poisson}(\lambda_2)\) independently, then \(X+Y\sim\mathrm{Poisson}(\lambda_1+\lambda_2)\).]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q53 MSQ - Convergence theorems</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following convergence theorems for Lebesgue integration are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3)</strong></p><p>(1) TRUE: Dominated Convergence Theorem (DCT). (2) TRUE: Monotone Convergence Theorem (MCT) for non-negative increasing sequences. (3) TRUE: Fatou's lemma. (4) FALSE: Uniform convergence is sufficient but not necessary for interchanging limit and integral.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[If \(|f_n|\leq g\) with \(g\) integrable, and \(f_n\to f\) a.e., then \(\int f_n\to\int f\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[If \(0\leq f_n\nearrow f\) a.e., then \(\int f_n\nearrow\int f\) (possibly \(+\infty\)).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[\(\int\liminf f_n\,d\mu \leq \liminf\int f_n\,d\mu\) for non-negative measurable \(f_n\) (Fatou's lemma).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Pointwise convergence alone is sufficient to interchange \(\lim\) and \(\int\).]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q54 MSQ - Matrix decompositions</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following about matrix decompositions are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(3),(4)</strong></p><p>(1) TRUE: Every matrix has a QR decomposition (by Gram-Schmidt or Householder). (2) TRUE: Schur's theorem: every square matrix is unitarily similar to an upper triangular matrix. (3) TRUE: Jordan normal form: over ℂ, every matrix is similar to a Jordan matrix. (4) TRUE: Spectral theorem for normal matrices.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="25" format="html"><text><![CDATA[Every real matrix \(A\) with linearly independent columns has a QR decomposition \(A=QR\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every complex square matrix is unitarily similar to an upper triangular matrix (Schur decomposition).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every complex square matrix is similar (over \(\mathbb{C}\)) to a Jordan normal form matrix.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="25" format="html"><text><![CDATA[Every normal matrix (\(AA^*=A^*A\)) is unitarily diagonalizable.]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>P01 Q55 MSQ - Residues and contour integration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following about residues and contour integrals are TRUE?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Correct: (1),(2),(4)</strong></p><p>(1) TRUE: Residue theorem. (2) TRUE: Residue at a simple pole z=a is lim_{z→a}(z−a)f(z). (3) FALSE: Res[f,a] at a pole of order m is the coefficient of (z−a)^{−1} in the Laurent series, which may be nonzero even for higher-order poles. (4) TRUE: ∫₋∞^∞ e^{−x²}dx = √π (by contour integration or Gaussian integral).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[\(\oint_C f(z)\,dz = 2\pi i\sum_k \mathrm{Res}[f, z_k]\) (residue theorem, sum over poles inside \(C\)).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[The residue of \(f\) at a simple pole \(z=a\) is \(\lim_{z\to a}(z-a)f(z)\).]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The residue at a pole of order \(m>1\) is always zero.]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[\(\displaystyle\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}\).]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+</quiz>

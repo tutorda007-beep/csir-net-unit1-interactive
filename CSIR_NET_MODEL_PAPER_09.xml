@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<question type="category">
+  <category><text>CSIR NET Model Paper 09</text></category>
+</question>
+
+<!-- ==================== PART A: General Aptitude (Q1-15) ==================== -->
+
+<!-- Q1 -->
+<question type="multichoice">
+  <name><text>P09_A_Q01_percentage_successive</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A shopkeeper marks his goods 40% above cost price and allows two successive discounts of 10% and 15%. What is his net profit or loss percentage?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Incorrect. MP = 140, after 10%: 126, after 15%: 107.1. Net profit = 7.1%.</text></incorrectfeedback>
+  <answer fraction="0"><text>5% profit</text></answer>
+  <answer fraction="0"><text>4% loss</text></answer>
+  <answer fraction="100"><text>7.1% profit</text></answer>
+  <answer fraction="0"><text>2% loss</text></answer>
+</question>
+
+<!-- Q2 -->
+<question type="multichoice">
+  <name><text>P09_A_Q02_train_speed</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A 300 m long train passes a stationary pole in 15 seconds. How long will it take to cross a bridge 450 m long?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Speed = 300/15 = 20 m/s. Distance = 300+450 = 750 m. Time = 750/20 = 37.5 s.</text></incorrectfeedback>
+  <answer fraction="0"><text>30 seconds</text></answer>
+  <answer fraction="0"><text>35 seconds</text></answer>
+  <answer fraction="100"><text>37.5 seconds</text></answer>
+  <answer fraction="0"><text>40 seconds</text></answer>
+</question>
+
+<!-- Q3 -->
+<question type="multichoice">
+  <name><text>P09_A_Q03_work_efficiency</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A can do a piece of work in 18 days, B in 12 days. A starts the work and after every 3 days, they work together for 1 day. In how many days will the work be completed?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>In 4-day cycle: A does 3×(1/18)+1×(1/12+1/18) = 3/18+5/36 = 6/36+5/36=11/36. After 3 cycles (12 days): 33/36. Remaining 3/36=1/12 done by A: 1/12÷1/18=1.5 days. Total ≈ 13.5 days.</text></incorrectfeedback>
+  <answer fraction="0"><text>13 days</text></answer>
+  <answer fraction="100"><text>13.5 days</text></answer>
+  <answer fraction="0"><text>14 days</text></answer>
+  <answer fraction="0"><text>15 days</text></answer>
+</question>
+
+<!-- Q4 -->
+<question type="multichoice">
+  <name><text>P09_A_Q04_analogy</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Identify the correct analogy: <strong>Barometer : Pressure :: Seismograph : ?</strong></p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>A barometer measures pressure; a seismograph measures earthquakes.</text></incorrectfeedback>
+  <answer fraction="0"><text>Temperature</text></answer>
+  <answer fraction="0"><text>Humidity</text></answer>
+  <answer fraction="100"><text>Earthquakes</text></answer>
+  <answer fraction="0"><text>Wind speed</text></answer>
+</question>
+
+<!-- Q5 -->
+<question type="multichoice">
+  <name><text>P09_A_Q05_ages</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The ratio of ages of P and Q is 3:5. After 10 years, the ratio will be 5:7. What is the present age of Q?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>3x+10)/(5x+10)=5/7 → 21x+70=25x+50 → 4x=20 → x=5. Q=5×5=25 years.</text></incorrectfeedback>
+  <answer fraction="0"><text>20 years</text></answer>
+  <answer fraction="0"><text>22 years</text></answer>
+  <answer fraction="100"><text>25 years</text></answer>
+  <answer fraction="0"><text>30 years</text></answer>
+</question>
+
+<!-- Q6 -->
+<question type="multichoice">
+  <name><text>P09_A_Q06_number_series</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Find the next term: 2, 5, 10, 17, 26, ?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Pattern: n²+1. 1+1=2, 4+1=5, 9+1=10, 16+1=17, 25+1=26, 36+1=37.</text></incorrectfeedback>
+  <answer fraction="0"><text>35</text></answer>
+  <answer fraction="100"><text>37</text></answer>
+  <answer fraction="0"><text>38</text></answer>
+  <answer fraction="0"><text>40</text></answer>
+</question>
+
+<!-- Q7 -->
+<question type="multichoice">
+  <name><text>P09_A_Q07_simple_interest</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A sum of money doubles itself at simple interest in 8 years. In how many years will it become 5 times itself?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Doubles in 8 years → rate = 100/8 = 12.5% p.a. To become 5 times: interest = 4P, T = 4P/(P×12.5/100) = 32 years.</text></incorrectfeedback>
+  <answer fraction="0"><text>24 years</text></answer>
+  <answer fraction="0"><text>28 years</text></answer>
+  <answer fraction="100"><text>32 years</text></answer>
+  <answer fraction="0"><text>40 years</text></answer>
+</question>
+
+<!-- Q8 -->
+<question type="multichoice">
+  <name><text>P09_A_Q08_mensuration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The perimeter of a semicircle is 72 cm. What is its area? (Use π = 22/7)</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Perimeter of semicircle = πr + 2r = r(π+2) = 72. r×(36/7) = 72 → r = 14. Area = πr²/2 = (22/7)×196/2 = 308 cm².</text></incorrectfeedback>
+  <answer fraction="0"><text>154 cm²</text></answer>
+  <answer fraction="0"><text>231 cm²</text></answer>
+  <answer fraction="100"><text>308 cm²</text></answer>
+  <answer fraction="0"><text>462 cm²</text></answer>
+</question>
+
+<!-- Q9 -->
+<question type="multichoice">
+  <name><text>P09_A_Q09_direction</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Ravi starts facing North. He turns 135° clockwise, then 90° anticlockwise, then 45° clockwise. Which direction is he now facing?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>North(0°) → +135° = SE(135°) → −90° = NE(45°) → +45° = East(90°).</text></incorrectfeedback>
+  <answer fraction="0"><text>North-East</text></answer>
+  <answer fraction="100"><text>East</text></answer>
+  <answer fraction="0"><text>South-East</text></answer>
+  <answer fraction="0"><text>South</text></answer>
+</question>
+
+<!-- Q10 -->
+<question type="multichoice">
+  <name><text>P09_A_Q10_blood_relation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Pointing to a photograph, Meena says, "She is the daughter of my grandfather's only son." How is the person in the photograph related to Meena?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Grandfather's only son = Meena's father. Father's daughter = Meena's sister.</text></incorrectfeedback>
+  <answer fraction="0"><text>Cousin</text></answer>
+  <answer fraction="0"><text>Niece</text></answer>
+  <answer fraction="100"><text>Sister</text></answer>
+  <answer fraction="0"><text>Mother</text></answer>
+</question>
+
+<!-- Q11 -->
+<question type="multichoice">
+  <name><text>P09_A_Q11_probability</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A bag contains 4 red, 5 blue, and 6 green balls. Two balls are drawn at random without replacement. What is the probability that both are of different colours?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Total C(15,2)=105. Same colour: C(4,2)+C(5,2)+C(6,2)=6+10+15=31. Different colours = 105−31=74. P = 74/105.</text></incorrectfeedback>
+  <answer fraction="0"><text>31/105</text></answer>
+  <answer fraction="100"><text>74/105</text></answer>
+  <answer fraction="0"><text>2/3</text></answer>
+  <answer fraction="0"><text>3/5</text></answer>
+</question>
+
+<!-- Q12 -->
+<question type="multichoice">
+  <name><text>P09_A_Q12_odd_one_out</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Identify the odd one out: <strong>Mercury, Venus, Earth, Moon, Mars</strong></p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Moon is a natural satellite, not a planet. All others are planets in the solar system.</text></incorrectfeedback>
+  <answer fraction="0"><text>Mercury</text></answer>
+  <answer fraction="0"><text>Venus</text></answer>
+  <answer fraction="100"><text>Moon</text></answer>
+  <answer fraction="0"><text>Mars</text></answer>
+</question>
+
+<!-- Q13 -->
+<question type="multichoice">
+  <name><text>P09_A_Q13_coding</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In a certain code, STUDENT is written as VWXGHQW. How is TEACHER written in the same code?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Each letter shifted by +3: T→W, E→H, A→D, C→F, H→K, E→H, R→U → WHDFKHU.</text></incorrectfeedback>
+  <answer fraction="0"><text>VHDFKHU</text></answer>
+  <answer fraction="100"><text>WHDFKHU</text></answer>
+  <answer fraction="0"><text>WHEGKHU</text></answer>
+  <answer fraction="0"><text>XHDFKHU</text></answer>
+</question>
+
+<!-- Q14 -->
+<question type="multichoice">
+  <name><text>P09_A_Q14_lcm_hcf</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The HCF of two numbers is 16 and their LCM is 480. If one number is 96, what is the other number?</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Product of two numbers = HCF × LCM = 16 × 480 = 7680. Other number = 7680/96 = 80.</text></incorrectfeedback>
+  <answer fraction="0"><text>64</text></answer>
+  <answer fraction="100"><text>80</text></answer>
+  <answer fraction="0"><text>90</text></answer>
+  <answer fraction="0"><text>120</text></answer>
+</question>
+
+<!-- Q15 -->
+<question type="multichoice">
+  <name><text>P09_A_Q15_syllogism</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Statements: All flowers are trees. No tree is a stone.<br>Conclusions: (I) No flower is a stone. (II) Some stones are flowers.</p>]]></text></questiontext>
+  <defaultgrade>2</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>All flowers are trees, no tree is a stone → no flower is a stone (I follows). Conclusion II does not follow.</text></incorrectfeedback>
+  <answer fraction="100"><text>Only Conclusion I follows</text></answer>
+  <answer fraction="0"><text>Only Conclusion II follows</text></answer>
+  <answer fraction="0"><text>Both conclusions follow</text></answer>
+  <answer fraction="0"><text>Neither conclusion follows</text></answer>
+</question>
+
+<!-- ==================== PART B: Core Mathematics (Q16-40) ==================== -->
+
+<!-- Q16 -->
+<question type="multichoice">
+  <name><text>P09_B_Q16_semicontinuity</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A function \(f: \mathbb{R} \to \mathbb{R}\) is lower semicontinuous at \(x_0\) if \(\liminf_{x \to x_0} f(x) \geq f(x_0)\). Which of the following is lower semicontinuous everywhere on \(\mathbb{R}\)?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>f(x)=0 for x≠0, f(0)=1 is upper semicontinuous at 0 (not lower). f(x)=|x| is continuous hence both. The indicator of [0,∞) is lower semicontinuous. The floor function ⌊x⌋ is upper semicontinuous.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(f(x) = \lfloor x \rfloor\) (floor function)</text></answer>
+  <answer fraction="100"><text>Indicator function \(f(x) = \mathbf{1}_{[0,\infty)}(x)\)</text></answer>
+  <answer fraction="0"><text>\(f(x) = 0\) for \(x \neq 0\), \(f(0) = 1\)</text></answer>
+  <answer fraction="0"><text>\(f(x) = \lceil x \rceil\) (ceiling function)</text></answer>
+</question>
+
+<!-- Q17 -->
+<question type="multichoice">
+  <name><text>P09_B_Q17_vitali_convergence</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Vitali Convergence Theorem states that if \(\{f_n\}\) is a sequence in \(L^1(\mu)\) where \(\mu\) is finite, and \(f_n \to f\) in measure, then \(\|f_n - f\|_1 \to 0\) if and only if \(\{f_n\}\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>The Vitali Convergence Theorem characterizes L¹ convergence via uniform integrability of the sequence.</text></incorrectfeedback>
+  <answer fraction="0"><text>Uniformly bounded</text></answer>
+  <answer fraction="100"><text>Uniformly integrable</text></answer>
+  <answer fraction="0"><text>Equicontinuous</text></answer>
+  <answer fraction="0"><text>Monotone increasing</text></answer>
+</question>
+
+<!-- Q18 -->
+<question type="multichoice">
+  <name><text>P09_B_Q18_hahn_decomposition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Hahn Decomposition Theorem states that for a signed measure \(\nu\) on a measurable space \((X, \mathcal{F})\), there exist sets \(P\) and \(N\) such that:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Hahn decomposition: X = P ∪ N with P positive set, N negative set for ν, and P ∩ N = ∅.</text></incorrectfeedback>
+  <answer fraction="100"><text>\(X = P \cup N\), \(P \cap N = \emptyset\), \(P\) is positive and \(N\) is negative for \(\nu\)</text></answer>
+  <answer fraction="0"><text>\(X = P \cup N\), and \(\nu(P) = \nu(N)\)</text></answer>
+  <answer fraction="0"><text>\(\nu\) can be written as \(\nu = \nu^+ - \nu^-\) with both measures finite</text></answer>
+  <answer fraction="0"><text>There exists a positive measure \(\mu\) such that \(\nu \ll \mu\)</text></answer>
+</question>
+
+<!-- Q19 -->
+<question type="multichoice">
+  <name><text>P09_B_Q19_pseudoinverse</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Moore-Penrose pseudoinverse \(A^+\) of a matrix \(A \in \mathbb{R}^{m \times n}\) with SVD \(A = U\Sigma V^T\) is given by:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>If A = UΣVᵀ then A⁺ = VΣ⁺Uᵀ where Σ⁺ replaces each nonzero σᵢ by 1/σᵢ.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(A^+ = U\Sigma^{-1}V^T\)</text></answer>
+  <answer fraction="100"><text>\(A^+ = V\Sigma^+ U^T\)</text></answer>
+  <answer fraction="0"><text>\(A^+ = (A^T A)^{-1} A^T\) always</text></answer>
+  <answer fraction="0"><text>\(A^+ = V^T \Sigma U\)</text></answer>
+</question>
+
+<!-- Q20 -->
+<question type="multichoice">
+  <name><text>P09_B_Q20_companion_matrix</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The companion matrix of the polynomial \(p(\lambda) = \lambda^3 - 6\lambda^2 + 11\lambda - 6\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Companion matrix has last column [6, -11, 6]ᵀ and subdiagonal identity. Its characteristic polynomial equals p(λ).</text></incorrectfeedback>
+  <answer fraction="100">\(\begin{pmatrix}0&0&6\\1&0&-11\\0&1&6\end{pmatrix}\)</answer>
+  <answer fraction="0">\(\begin{pmatrix}6&-11&6\\1&0&0\\0&1&0\end{pmatrix}\)</answer>
+  <answer fraction="0">\(\begin{pmatrix}0&1&0\\0&0&1\\6&-11&6\end{pmatrix}\)</answer>
+  <answer fraction="0">\(\begin{pmatrix}1&-6&11\\0&1&-6\\0&0&1\end{pmatrix}\)</answer>
+</question>
+
+<!-- Q21 -->
+<question type="multichoice">
+  <name><text>P09_B_Q21_group_presentation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The group with presentation \(\langle a, b \mid a^4 = b^2 = e,\, bab^{-1} = a^{-1} \rangle\) is isomorphic to:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>This is the dihedral group D₄ (symmetries of square) of order 8.</text></incorrectfeedback>
+  <answer fraction="0"><text>The cyclic group \(\mathbb{Z}_8\)</text></answer>
+  <answer fraction="0"><text>The quaternion group \(Q_8\)</text></answer>
+  <answer fraction="100"><text>The dihedral group \(D_4\)</text></answer>
+  <answer fraction="0"><text>The Klein four-group \(\mathbb{Z}_2 \times \mathbb{Z}_2\)</text></answer>
+</question>
+
+<!-- Q22 -->
+<question type="multichoice">
+  <name><text>P09_B_Q22_dedekind_domain</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A Dedekind domain is an integral domain that is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Dedekind domain: Noetherian, integrally closed, every nonzero prime ideal is maximal. Examples: rings of integers in number fields.</text></incorrectfeedback>
+  <answer fraction="0"><text>Noetherian, integrally closed, and a UFD</text></answer>
+  <answer fraction="100"><text>Noetherian, integrally closed, and every nonzero prime ideal is maximal</text></answer>
+  <answer fraction="0"><text>A PID with exactly one maximal ideal</text></answer>
+  <answer fraction="0"><text>A UFD in which every ideal is principal</text></answer>
+</question>
+
+<!-- Q23 -->
+<question type="multichoice">
+  <name><text>P09_B_Q23_jensens_formula</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Jensen's formula relates the zeros \(a_1, \ldots, a_n\) of an analytic function \(f\) inside \(|z| = r\) to:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Jensen's formula: log|f(0)| = Σlog(|aₖ|/r) + (1/2π)∫₀²π log|f(re^{iθ})|dθ.</text></incorrectfeedback>
+  <answer fraction="0"><text>The maximum modulus of \(f\) on \(|z| = r\)</text></answer>
+  <answer fraction="100"><text>The mean value of \(\log|f|\) on the circle \(|z| = r\)</text></answer>
+  <answer fraction="0"><text>The residues of \(f\) at its poles</text></answer>
+  <answer fraction="0"><text>The winding number of \(f\) around 0</text></answer>
+</question>
+
+<!-- Q24 -->
+<question type="multichoice">
+  <name><text>P09_B_Q24_montel_theorem</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Montel's theorem states that a family \(\mathcal{F}\) of holomorphic functions on a domain \(\Omega\) is normal (every sequence has a locally uniformly convergent subsequence) if and only if \(\mathcal{F}\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Montel's theorem: a family of holomorphic functions is normal iff it is locally uniformly bounded (equivalently locally equibounded).</text></incorrectfeedback>
+  <answer fraction="0"><text>Equicontinuous on \(\Omega\)</text></answer>
+  <answer fraction="100"><text>Locally uniformly bounded on \(\Omega\)</text></answer>
+  <answer fraction="0"><text>Uniformly convergent on \(\Omega\)</text></answer>
+  <answer fraction="0"><text>Consisting of univalent (one-to-one) functions</text></answer>
+</question>
+
+<!-- Q25 -->
+<question type="multichoice">
+  <name><text>P09_B_Q25_stone_cech</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Stone-Čech compactification \(\beta X\) of a completely regular Hausdorff space \(X\) is characterised by the property that every bounded continuous \(f: X \to \mathbb{R}\) extends to:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Universal property of βX: every bounded continuous real-valued function on X extends uniquely to a continuous function on βX.</text></incorrectfeedback>
+  <answer fraction="0"><text>A homeomorphism on \(\beta X\)</text></answer>
+  <answer fraction="100"><text>A unique continuous function \(\tilde{f}: \beta X \to \mathbb{R}\)</text></answer>
+  <answer fraction="0"><text>An analytic function on \(\beta X\)</text></answer>
+  <answer fraction="0"><text>A uniformly continuous function on \(X\) only</text></answer>
+</question>
+
+<!-- Q26 -->
+<question type="multichoice">
+  <name><text>P09_B_Q26_gronwall_inequality</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Grönwall's inequality states: if \(u(t) \leq \alpha(t) + \int_0^t \beta(s)u(s)\,ds\) with \(\beta \geq 0\), then:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Grönwall: u(t) ≤ α(t) + ∫β·u gives u(t) ≤ α(t)exp(∫₀ᵗ β(s)ds). Used to establish uniqueness of ODE solutions.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(u(t) \leq \alpha(t) + \int_0^t \beta(s)\alpha(s)\,ds\)</text></answer>
+  <answer fraction="100"><text>\(u(t) \leq \alpha(t)\exp\!\left(\int_0^t \beta(s)\,ds\right)\)</text></answer>
+  <answer fraction="0"><text>\(u(t) \leq \|\alpha\|_\infty \cdot e^{\|\beta\|_1 t}\)</text></answer>
+  <answer fraction="0"><text>\(u(t) \leq \alpha(0) e^{\beta t}\) only if \(\alpha\) is constant</text></answer>
+</question>
+
+<!-- Q27 -->
+<question type="multichoice">
+  <name><text>P09_B_Q27_schauder_basis</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A Schauder basis \(\{e_n\}\) for a Banach space \(X\) is a sequence such that every \(x \in X\) can be written uniquely as \(x = \sum_{n=1}^\infty c_n e_n\). Which space has the Haar system as a Schauder basis?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>The Haar system forms a Schauder basis for Lᵖ[0,1] for 1 ≤ p &lt; ∞.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(C[0,1]\) with supremum norm</text></answer>
+  <answer fraction="100"><text>\(L^p[0,1]\) for \(1 \leq p &lt; \infty\)</text></answer>
+  <answer fraction="0"><text>\(L^\infty[0,1]\)</text></answer>
+  <answer fraction="0"><text>The space of bounded variation functions \(BV[0,1]\)</text></answer>
+</question>
+
+<!-- Q28 -->
+<question type="multichoice">
+  <name><text>P09_B_Q28_eberlein_smulian</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Eberlein-Šmulian theorem states that in a Banach space, a set is relatively weakly compact if and only if it is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Eberlein-Šmulian: In a Banach space, relative weak compactness ⟺ relative weak sequential compactness (every sequence has a weakly convergent subsequence).</text></incorrectfeedback>
+  <answer fraction="0"><text>Norm-bounded and closed</text></answer>
+  <answer fraction="0"><text>Weakly closed and norm-bounded</text></answer>
+  <answer fraction="100"><text>Relatively weakly sequentially compact</text></answer>
+  <answer fraction="0"><text>Equicontinuous as a family of functionals</text></answer>
+</question>
+
+<!-- Q29 -->
+<question type="multichoice">
+  <name><text>P09_B_Q29_delta_method</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If \(\sqrt{n}(X_n - \mu) \xrightarrow{d} N(0, \sigma^2)\) and \(g\) is differentiable with \(g'(\mu) \neq 0\), then by the Delta Method:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Delta method: √n(g(Xₙ)−g(μ)) →ᵈ N(0, [g'(μ)]²σ²).</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\sqrt{n}(g(X_n) - g(\mu)) \xrightarrow{d} N(0, \sigma^2)\)</text></answer>
+  <answer fraction="100"><text>\(\sqrt{n}(g(X_n) - g(\mu)) \xrightarrow{d} N(0, [g'(\mu)]^2\sigma^2)\)</text></answer>
+  <answer fraction="0"><text>\(\sqrt{n}(g(X_n) - g(\mu)) \xrightarrow{d} N(0, g''(\mu)\sigma^2)\)</text></answer>
+  <answer fraction="0"><text>\(g(X_n) \xrightarrow{p} g(\mu)\) only</text></answer>
+</question>
+
+<!-- Q30 -->
+<question type="multichoice">
+  <name><text>P09_B_Q30_wilcoxon_test</text></name>
+  <questiontext format="html"><text><![CTML[<p>The Wilcoxon signed-rank test is a nonparametric alternative to the:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Wilcoxon signed-rank test is used instead of the paired t-test when normality cannot be assumed.</text></incorrectfeedback>
+  <answer fraction="0"><text>Chi-square goodness-of-fit test</text></answer>
+  <answer fraction="0"><text>Two-sample independent t-test</text></answer>
+  <answer fraction="100"><text>Paired t-test</text></answer>
+  <answer fraction="0"><text>F-test for equality of variances</text></answer>
+</question>
+
+<!-- Q31 -->
+<question type="multichoice">
+  <name><text>P09_B_Q31_jacobi_iteration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For the system \(Ax = b\), the Jacobi iterative method converges if:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Jacobi iteration converges if A is strictly diagonally dominant: |aᵢᵢ| > Σⱼ≠ᵢ|aᵢⱼ| for all i.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(A\) is positive definite</text></answer>
+  <answer fraction="0"><text>The spectral radius \(\rho(A) &lt; 1\)</text></answer>
+  <answer fraction="100"><text>\(A\) is strictly diagonally dominant</text></answer>
+  <answer fraction="0"><text>\(A\) is symmetric</text></answer>
+</question>
+
+<!-- Q32 -->
+<question type="multichoice">
+  <name><text>P09_B_Q32_finite_difference</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The central difference approximation for \(f''(x)\) with step size \(h\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Central difference: f''(x) ≈ [f(x+h) − 2f(x) + f(x−h)]/h² with error O(h²).</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\dfrac{f(x+h) - f(x)}{h^2}\)</text></answer>
+  <answer fraction="0"><text>\(\dfrac{f(x+h) - 2f(x-h) + f(x)}{h^2}\)</text></answer>
+  <answer fraction="100"><text>\(\dfrac{f(x+h) - 2f(x) + f(x-h)}{h^2}\)</text></answer>
+  <answer fraction="0"><text>\(\dfrac{f(x+2h) - f(x-2h)}{4h^2}\)</text></answer>
+</question>
+
+<!-- Q33 -->
+<question type="multichoice">
+  <name><text>P09_B_Q33_ramsey_theory</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Ramsey number \(R(3,3)\) equals:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>R(3,3)=6: any 2-colouring of edges of K₆ contains a monochromatic K₃. K₅ can be 2-coloured with no monochromatic triangle.</text></incorrectfeedback>
+  <answer fraction="0"><text>5</text></answer>
+  <answer fraction="100"><text>6</text></answer>
+  <answer fraction="0"><text>8</text></answer>
+  <answer fraction="0"><text>9</text></answer>
+</question>
+
+<!-- Q34 -->
+<question type="multichoice">
+  <name><text>P09_B_Q34_mobius_inversion</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Möbius inversion formula states: if \(g(n) = \sum_{d \mid n} f(d)\), then:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Möbius inversion: g = f * 1 implies f = g * μ, so f(n) = Σ_{d|n} μ(d)g(n/d).</text></incorrectfeedback>
+  <answer fraction="0"><text>\(f(n) = \sum_{d \mid n} g(d)\)</text></answer>
+  <answer fraction="100"><text>\(f(n) = \sum_{d \mid n} \mu(d)\,g(n/d)\)</text></answer>
+  <answer fraction="0"><text>\(f(n) = \sum_{d \mid n} \phi(d)\,g(d)\)</text></answer>
+  <answer fraction="0"><text>\(f(n) = \mu(n)\sum_{d \mid n} g(d)\)</text></answer>
+</question>
+
+<!-- Q35 -->
+<question type="multichoice">
+  <name><text>P09_B_Q35_paracompact</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A topological space is paracompact if every open cover has a locally finite open refinement. Which of the following is always paracompact?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Every metric space is paracompact (Stone's theorem). Compact spaces are paracompact. Not all Hausdorff spaces are paracompact.</text></incorrectfeedback>
+  <answer fraction="0"><text>Every Hausdorff space</text></answer>
+  <answer fraction="0"><text>Every first countable space</text></answer>
+  <answer fraction="100"><text>Every metric space</text></answer>
+  <answer fraction="0"><text>Every separable space</text></answer>
+</question>
+
+<!-- Q36 -->
+<question type="multichoice">
+  <name><text>P09_B_Q36_fiber_bundle</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A fiber bundle \(F \hookrightarrow E \xrightarrow{p} B\) with base \(B\), total space \(E\), and fiber \(F\) gives a long exact sequence of homotopy groups. What is the connecting map \(\partial: \pi_n(B) \to \pi_{n-1}(F)\)?</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>The long exact sequence of a fibration: … → πₙ(F) → πₙ(E) → πₙ(B) →∂ πₙ₋₁(F) → … arises from the homotopy lifting property.</text></incorrectfeedback>
+  <answer fraction="0"><text>It is always the zero map</text></answer>
+  <answer fraction="100"><text>It arises from the homotopy lifting property of the fibration</text></answer>
+  <answer fraction="0"><text>It equals the induced map on homology groups</text></answer>
+  <answer fraction="0"><text>It is defined only when \(B\) is simply connected</text></answer>
+</question>
+
+<!-- Q37 -->
+<question type="multichoice">
+  <name><text>P09_B_Q37_gauss_seidel</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Compared to Jacobi iteration, the Gauss-Seidel method for solving \(Ax = b\):</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Gauss-Seidel uses updated values immediately. It generally converges faster than Jacobi and uses only one storage array. For symmetric positive definite A, Gauss-Seidel converges.</text></incorrectfeedback>
+  <answer fraction="0"><text>Requires more storage and is generally slower</text></answer>
+  <answer fraction="100"><text>Uses updated component values immediately and generally converges faster</text></answer>
+  <answer fraction="0"><text>Always converges when Jacobi converges but not vice versa</text></answer>
+  <answer fraction="0"><text>Requires the matrix to be positive definite, unlike Jacobi</text></answer>
+</question>
+
+<!-- Q38 -->
+<question type="multichoice">
+  <name><text>P09_B_Q38_polya_enumeration</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Pólya's enumeration theorem counts distinct colorings of an object under a symmetry group \(G\) acting on positions. The number of distinct colorings using \(m\) colors is given by the cycle index \(Z(G)\) evaluated at:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Pólya: number of colorings = Z(G; m, m, …, m) = Z(G) with each sₖ replaced by m.</text></incorrectfeedback>
+  <answer fraction="0"><text>Each variable \(s_k\) replaced by \(k\)</text></answer>
+  <answer fraction="100"><text>Each variable \(s_k\) replaced by \(m\)</text></answer>
+  <answer fraction="0"><text>Each variable \(s_k\) replaced by \(m^k\)</text></answer>
+  <answer fraction="0"><text>Each variable \(s_k\) replaced by \(1\)</text></answer>
+</question>
+
+<!-- Q39 -->
+<question type="multichoice">
+  <name><text>P09_B_Q39_anova</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In a one-way ANOVA with \(k\) groups and total \(N\) observations, the F-statistic is the ratio of:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>F = MSB/MSW = [SSB/(k−1)] / [SSW/(N−k)]. Degrees of freedom: between k−1, within N−k.</text></incorrectfeedback>
+  <answer fraction="0"><text>Total sum of squares to error sum of squares</text></answer>
+  <answer fraction="100"><text>Mean square between groups \(\text{MSB} = \text{SSB}/(k-1)\) to mean square within groups \(\text{MSW} = \text{SSW}/(N-k)\)</text></answer>
+  <answer fraction="0"><text>Sum of squares between to degrees of freedom \(N-1\)</text></answer>
+  <answer fraction="0"><text>Error variance to total variance</text></answer>
+</question>
+
+<!-- Q40 -->
+<question type="multichoice">
+  <name><text>P09_B_Q40_newton_cotes</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Simpson's 1/3 rule for numerical integration over \([a, b]\) with midpoint \(m = (a+b)/2\) is:</p>]]></text></questiontext>
+  <defaultgrade>3</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Simpson's 1/3 rule: ∫ₐᵇf dx ≈ (b−a)/6 × [f(a) + 4f(m) + f(b)]. Exact for polynomials of degree ≤ 3.</text></incorrectfeedback>
+  <answer fraction="0"><text>\(\dfrac{b-a}{4}\,[f(a) + 2f(m) + f(b)]\)</text></answer>
+  <answer fraction="100"><text>\(\dfrac{b-a}{6}\,[f(a) + 4f(m) + f(b)]\)</text></answer>
+  <answer fraction="0"><text>\(\dfrac{b-a}{3}\,[f(a) + f(m) + f(b)]\)</text></answer>
+  <answer fraction="0"><text>\(\dfrac{b-a}{8}\,[f(a) + 3f(m) + 3f(m) + f(b)]\)</text></answer>
+</question>
+
+<!-- ==================== PART C: Advanced MSQ (Q41-55) ==================== -->
+
+<!-- Q41 -->
+<question type="multichoice">
+  <name><text>P09_C_Q41_uniform_integrability</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> A family \(\{f_\alpha\}\) in \(L^1(\mu)\) is uniformly integrable if and only if which of the following hold? (Select all that apply)</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>UI equivalent conditions: sup∫|fα|<∞ (bounded in L¹), for every ε>0 there exists δ>0 such that μ(E)<δ → sup∫_E|fα|<ε, and the family is tight (for every ε>0 there exists compact K with sup∫_{K^c}|fα|<ε in finite measure space).</text></incorrectfeedback>
+  <answer fraction="33"><text>The family is bounded in \(L^1\): \(\sup_\alpha \int |f_\alpha|\,d\mu &lt; \infty\)</text></answer>
+  <answer fraction="34"><text>For every \(\varepsilon &gt; 0\) there exists \(\delta &gt; 0\) such that \(\mu(E) &lt; \delta \Rightarrow \sup_\alpha \int_E |f_\alpha|\,d\mu &lt; \varepsilon\)</text></answer>
+  <answer fraction="33"><text>For every \(\varepsilon &gt; 0\) there exists \(M &gt; 0\) such that \(\sup_\alpha \int_{\{|f_\alpha| &gt; M\}} |f_\alpha|\,d\mu &lt; \varepsilon\)</text></answer>
+  <answer fraction="0"><text>Every subsequence has a pointwise convergent sub-subsequence</text></answer>
+</question>
+
+<!-- Q42 -->
+<question type="multichoice">
+  <name><text>P09_C_Q42_reflexive_banach</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements about reflexive Banach spaces are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Reflexive: X ≅ X** via canonical map. Every bounded sequence has a weakly convergent subsequence (Eberlein-Šmulian). Lᵖ is reflexive for 1<p<∞. L¹ and L∞ are NOT reflexive.</text></incorrectfeedback>
+  <answer fraction="25"><text>A Banach space \(X\) is reflexive iff the canonical map \(J: X \to X^{**}\) is surjective</text></answer>
+  <answer fraction="25"><text>In a reflexive Banach space, every bounded sequence has a weakly convergent subsequence</text></answer>
+  <answer fraction="25"><text>\(L^p(\mu)\) is reflexive for \(1 &lt; p &lt; \infty\)</text></answer>
+  <answer fraction="25"><text>A closed subspace of a reflexive space is reflexive</text></answer>
+</question>
+
+<!-- Q43 -->
+<question type="multichoice">
+  <name><text>P09_C_Q43_injective_projective_modules</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements about projective and injective modules are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Projective: direct summand of free module, every epi splits. Injective: Baer's criterion. Over a field, every module is both projective and injective (free = projective = injective for vector spaces).</text></incorrectfeedback>
+  <answer fraction="25"><text>Every free module is projective</text></answer>
+  <answer fraction="25"><text>A module \(P\) is projective iff every short exact sequence \(0 \to A \to B \to P \to 0\) splits</text></answer>
+  <answer fraction="25"><text>Over a field, every module (vector space) is both projective and injective</text></answer>
+  <answer fraction="25"><text>A module \(Q\) is injective iff it is a direct summand of every module that contains it</text></answer>
+</question>
+
+<!-- Q44 -->
+<question type="multichoice">
+  <name><text>P09_C_Q44_riemann_surface</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements about Riemann surfaces are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>A Riemann surface is a connected 1-dimensional complex manifold. The Riemann sphere ℂ∪{∞} is compact. The uniformization theorem: every simply connected Riemann surface is conformally equivalent to ℂ, the disk, or ℂ∪{∞}.</text></incorrectfeedback>
+  <answer fraction="25"><text>Every Riemann surface is a 2-dimensional real manifold</text></answer>
+  <answer fraction="25"><text>The Riemann sphere \(\mathbb{C} \cup \{\infty\}\) is a compact Riemann surface of genus 0</text></answer>
+  <answer fraction="25"><text>By the Uniformization Theorem, every simply connected Riemann surface is conformally equivalent to \(\mathbb{C}\), \(\mathbb{D}\), or \(\mathbb{P}^1\)</text></answer>
+  <answer fraction="0"><text>Every Riemann surface admits a holomorphic function with no zeros</text></answer>
+</question>
+
+<!-- Q45 -->
+<question type="multichoice">
+  <name><text>P09_C_Q45_comparison_principle_PDE</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following comparison/maximum principles are correctly stated?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Weak maximum principle for harmonic functions: max on closure equals max on boundary. Parabolic max principle: max over domain is achieved on the parabolic boundary. Comparison principle for ODE: if u'≤f(t,u) and v'≥f(t,v) with u(0)≤v(0) then u≤v.</text></incorrectfeedback>
+  <answer fraction="25"><text>For a harmonic function on a bounded domain, the maximum is attained on the boundary</text></answer>
+  <answer fraction="25"><text>For the heat equation \(u_t = \Delta u\), the maximum of \(u\) over \(\Omega_T = \Omega \times (0,T)\) is attained on the parabolic boundary</text></answer>
+  <answer fraction="25"><text>If \(Lu \leq 0 \leq Lv\) for an elliptic operator \(L\) and \(u \geq v\) on \(\partial\Omega\), then \(u \geq v\) in \(\Omega\)</text></answer>
+  <answer fraction="25"><text>Grönwall's inequality provides a quantitative comparison for integral inequalities involving ODE solutions</text></answer>
+</question>
+
+<!-- Q46 -->
+<question type="multichoice">
+  <name><text>P09_C_Q46_valuation_rings</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Which of the following statements about valuation rings are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Valuation ring: for every x in fraction field K, either x∈V or x⁻¹∈V. Every valuation ring is a local ring. Discrete valuation rings (DVRs) are PIDs. ℤ_(p) = {a/b: p∤b} is a DVR.</text></incorrectfeedback>
+  <answer fraction="25"><text>A valuation ring \(V\) in a field \(K\) satisfies: for every \(x \in K\setminus\{0\}\), either \(x \in V\) or \(x^{-1} \in V\)</text></answer>
+  <answer fraction="25"><text>Every valuation ring is a local ring</text></answer>
+  <answer fraction="25"><text>A discrete valuation ring (DVR) is a principal ideal domain with exactly one nonzero prime ideal</text></answer>
+  <answer fraction="25"><text>The ring \(\mathbb{Z}_{(p)} = \{a/b \in \mathbb{Q} : p \nmid b\}\) is a DVR with uniformizer \(p\)</text></answer>
+</question>
+
+<!-- Q47 -->
+<question type="multichoice">
+  <name><text>P09_C_Q47_empirical_process</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Let \(\mathbb{F}_n\) be the empirical CDF of i.i.d. samples from \(F\). Which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Glivenko-Cantelli: sup|Fₙ−F|→0 a.s. DKW inequality: P(sup|Fₙ−F|>ε)≤2e^{−2nε²}. The empirical process √n(Fₙ−F) converges weakly to a Brownian bridge.</text></incorrectfeedback>
+  <answer fraction="25"><text>Glivenko-Cantelli theorem: \(\sup_x |\mathbb{F}_n(x) - F(x)| \to 0\) almost surely</text></answer>
+  <answer fraction="25"><text>The Dvoretzky-Kiefer-Wolfowitz inequality: \(P\!\left(\sup_x |\mathbb{F}_n(x)-F(x)| &gt; \varepsilon\right) \leq 2e^{-2n\varepsilon^2}\)</text></answer>
+  <answer fraction="25"><text>The empirical process \(\sqrt{n}(\mathbb{F}_n - F)\) converges weakly to a Brownian bridge</text></answer>
+  <answer fraction="0"><text>The empirical CDF \(\mathbb{F}_n\) is always differentiable</text></answer>
+</question>
+
+<!-- Q48 -->
+<question type="multichoice">
+  <name><text>P09_C_Q48_bootstrap</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> In the bootstrap method for statistical inference, which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Bootstrap: resample with replacement from original sample. Consistent for smooth statistics. Bootstrap CI methods include percentile, BCa. Parametric bootstrap samples from a fitted parametric model.</text></incorrectfeedback>
+  <answer fraction="25"><text>The nonparametric bootstrap draws samples with replacement from the observed data</text></answer>
+  <answer fraction="25"><text>The bootstrap is consistent for estimating the distribution of smooth functionals of the empirical CDF</text></answer>
+  <answer fraction="25"><text>Bootstrap confidence intervals can be constructed using the percentile method or the bias-corrected and accelerated (BCa) method</text></answer>
+  <answer fraction="25"><text>The parametric bootstrap simulates data from the parametric model fitted to the observed data</text></answer>
+</question>
+
+<!-- Q49 -->
+<question type="multichoice">
+  <name><text>P09_C_Q49_urysohn_metrization</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> The Urysohn Metrization Theorem and related results: which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Urysohn metrization: every second countable regular (T₃) space is metrizable. A compact Hausdorff space is normal. Nagata-Smirnov: metrizable iff T₁, regular, and has a σ-locally finite base.</text></incorrectfeedback>
+  <answer fraction="25"><text>Every second countable regular (T\(_3\)) Hausdorff space is metrizable</text></answer>
+  <answer fraction="25"><text>Every compact Hausdorff space is normal (T\(_4\))</text></answer>
+  <answer fraction="25"><text>A space is metrizable iff it is \(T_1\), regular, and has a \(\sigma\)-locally finite base (Nagata-Smirnov theorem)</text></answer>
+  <answer fraction="0"><text>Every normal space is metrizable</text></answer>
+</question>
+
+<!-- Q50 -->
+<question type="multichoice">
+  <name><text>P09_C_Q50_schauder_estimates</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Schauder estimates for elliptic PDE \(Lu = f\) in Hölder spaces: which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Interior Schauder estimates: ‖u‖_{C^{2,α}(Ω')} ≤ C(‖u‖_{C⁰(Ω)}+‖f‖_{C^{0,α}(Ω)}). Global estimates require C^{2,α} boundary. Solutions are as smooth as data allows (elliptic regularity).</text></incorrectfeedback>
+  <answer fraction="33"><text>Interior Schauder estimates bound \(\|u\|_{C^{2,\alpha}(\Omega')}\) in terms of \(\|u\|_{C^0(\Omega)}\) and \(\|f\|_{C^{0,\alpha}(\Omega)}\) for \(\Omega' \Subset \Omega\)</text></answer>
+  <answer fraction="34"><text>Global Schauder estimates require the boundary \(\partial\Omega\) to be of class \(C^{2,\alpha}\)</text></answer>
+  <answer fraction="33"><text>Elliptic regularity: if \(f \in C^{k,\alpha}\) and \(L\) has \(C^{k,\alpha}\) coefficients, then \(u \in C^{k+2,\alpha}\)</text></answer>
+  <answer fraction="0"><text>Schauder estimates hold for all \(L^p\) spaces without any regularity on coefficients</text></answer>
+</question>
+
+<!-- Q51 -->
+<question type="multichoice">
+  <name><text>P09_C_Q51_algebraic_topology_CW</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> For a CW complex \(X\), which of the following properties of cellular homology are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Cellular = singular homology on CW complexes. Chain group C_n generated by n-cells. Boundary maps computable via degree theory. Euler characteristic = alternating sum of Betti numbers = alternating sum of cell counts.</text></incorrectfeedback>
+  <answer fraction="25"><text>Cellular homology of a CW complex equals its singular homology</text></answer>
+  <answer fraction="25"><text>The cellular chain group \(C_n(X)\) is free abelian with one generator for each \(n\)-cell</text></answer>
+  <answer fraction="25"><text>The cellular boundary map \(\partial_n: C_n \to C_{n-1}\) is computed using the degrees of attaching maps</text></answer>
+  <answer fraction="25"><text>The Euler characteristic \(\chi(X) = \sum_n (-1)^n \text{rank}(C_n) = \sum_n (-1)^n \text{rank}(H_n(X))\)</text></answer>
+</question>
+
+<!-- Q52 -->
+<question type="multichoice">
+  <name><text>P09_C_Q52_positive_semidefinite_cone</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Let \(\mathcal{S}^n_+\) denote the cone of \(n \times n\) positive semidefinite matrices. Which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>PSD cone is convex, closed. Its dual cone is itself (self-dual). Sum of PSD matrices is PSD. The set of PD matrices is an open subset of symmetric matrices. Rank-1 PSD matrices are extreme rays.</text></incorrectfeedback>
+  <answer fraction="25"><text>The set \(\mathcal{S}^n_+\) is a closed convex cone in the space of symmetric matrices</text></answer>
+  <answer fraction="25"><text>The cone \(\mathcal{S}^n_+\) is self-dual: its dual cone equals itself under the trace inner product</text></answer>
+  <answer fraction="25"><text>The sum of two positive semidefinite matrices is positive semidefinite</text></answer>
+  <answer fraction="25"><text>The set of positive definite matrices is an open dense subset of \(\mathcal{S}^n_+\)</text></answer>
+</question>
+
+<!-- Q53 -->
+<question type="multichoice">
+  <name><text>P09_C_Q53_amalgamated_products</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> The amalgamated free product \(G = A *_C B\) (where \(C\) is a common subgroup of \(A\) and \(B\)) satisfies which of the following?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Amalgamated product is the pushout in the category of groups. When C={e}, it is the free product A*B. Seifert-van Kampen: π₁(X∪Y) = π₁(X)*_{π₁(X∩Y)}π₁(Y). Elements have normal forms as alternating products from A\C and B\C.</text></incorrectfeedback>
+  <answer fraction="25"><text>When \(C = \{e\}\), the amalgamated product \(A *_C B\) is the free product \(A * B\)</text></answer>
+  <answer fraction="25"><text>The Seifert-van Kampen theorem expresses \(\pi_1(X \cup Y)\) as an amalgamated free product when \(X \cap Y\) is path-connected</text></answer>
+  <answer fraction="25"><text>Every element of \(A *_C B\) has a unique normal form as an alternating product of elements from \(A \setminus C\) and \(B \setminus C\)</text></answer>
+  <answer fraction="0"><text>The amalgamated free product \(A *_C B\) is always a finite group when \(A\) and \(B\) are finite</text></answer>
+</question>
+
+<!-- Q54 -->
+<question type="multichoice">
+  <name><text>P09_C_Q54_weak_formulation_PDE</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> The weak formulation of the Dirichlet problem \(-\Delta u = f\) in \(\Omega\), \(u = 0\) on \(\partial\Omega\): which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>Weak form: find u∈H₀¹ such that ∫∇u·∇v = ∫fv for all v∈H₀¹. Lax-Milgram gives unique existence when bilinear form is coercive and bounded. By elliptic regularity: if f∈L², then u∈H². Test functions are compactly supported smooth functions.</text></incorrectfeedback>
+  <answer fraction="25"><text>The weak solution \(u \in H_0^1(\Omega)\) satisfies \(\int_\Omega \nabla u \cdot \nabla v\,dx = \int_\Omega f v\,dx\) for all \(v \in H_0^1(\Omega)\)</text></answer>
+  <answer fraction="25"><text>Existence and uniqueness follow from the Lax-Milgram theorem applied to the coercive bilinear form \(a(u,v) = \int \nabla u \cdot \nabla v\)</text></answer>
+  <answer fraction="25"><text>If \(f \in L^2(\Omega)\), elliptic regularity gives \(u \in H^2(\Omega)\) when \(\partial\Omega\) is smooth</text></answer>
+  <answer fraction="25"><text>Smooth compactly supported functions \(C_c^\infty(\Omega)\) serve as valid test functions in the weak formulation</text></answer>
+</question>
+
+<!-- Q55 -->
+<question type="multichoice">
+  <name><text>P09_C_Q55_inclexcl_advanced</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>[MSQ]</strong> Let \(\phi(n)\) denote Euler's totient. Which of the following are TRUE?</p>]]></text></questiontext>
+  <defaultgrade>4</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers>
+  <correctfeedback><text>Correct!</text></correctfeedback>
+  <partiallycorrectfeedback><text>Partially correct.</text></partiallycorrectfeedback>
+  <incorrectfeedback><text>φ(n) = n∏(1−1/p) over primes p|n. Σ_{d|n}φ(d)=n (inclusion-exclusion). φ is multiplicative. φ(p^k)=p^k−p^{k−1}.</text></incorrectfeedback>
+  <answer fraction="25"><text>\(\phi(n) = n \prod_{p \mid n} \left(1 - \frac{1}{p}\right)\) where the product is over distinct prime divisors of \(n\)</text></answer>
+  <answer fraction="25"><text>\(\sum_{d \mid n} \phi(d) = n\) for all positive integers \(n\)</text></answer>
+  <answer fraction="25"><text>Euler's totient function is multiplicative: \(\gcd(m,n)=1 \Rightarrow \phi(mn) = \phi(m)\phi(n)\)</text></answer>
+  <answer fraction="25"><text>\(\phi(p^k) = p^k - p^{k-1}\) for any prime \(p\) and \(k \geq 1\)</text></answer>
+</question>
+
+</quiz>
