@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 1 — Linear Algebra, Metric Spaces, Quiz</title>
+<style>
+:root{
+  --la-dk:#b71c1c;--la-md:#e53935;--la-lt:#ffebee;
+  --ms-dk:#37474f;--ms-md:#546e7a;--ms-lt:#eceff1;
+  --qu-dk:#1a237e;--qu-md:#3949ab;--qu-lt:#e8eaf6;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#1a237e,#283593,#3949ab);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#1c2333;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#607d8b;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#64b5f6);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#64b5f6);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:140px;height:140px;top:-40px;right:-20px;border-radius:50%;background:rgba(255,255,255,.08)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.1;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:var(--card-h,#37474f)}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul{padding-left:18px}
+.card .fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-top-color:#e53935;border-left:4px solid #e53935;border-radius:4px 10px 10px 4px;background:#fff8f8}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;color:#fff}
+.rtbl td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px;line-height:1.55}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.rtbl tr:hover td{background:#f0f4ff}
+.mcq-title{font-size:15px;font-weight:800;margin:22px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f);display:flex;align-items:center;gap:8px}
+.mcq{background:#fff;border-radius:10px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;padding:9px 14px;gap:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.mcq-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.mcq-lbl{font-size:11px;font-weight:600;color:#555;flex:1}
+.mcq-d{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:13px 15px 11px}
+.mcq-q{font-size:13px;font-weight:500;margin-bottom:11px;line-height:1.65;color:#1a1a2e}
+.opts{display:grid;gap:6px;margin-bottom:11px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;border:1.5px solid #e8e8e8;cursor:pointer;font-size:12px;transition:all .15s;background:#fafafa;line-height:1.5}
+.opt:hover{border-color:var(--mcq-c);background:var(--mcq-lt)}.opt.sel{border-color:var(--mcq-c);background:var(--mcq-lt)}
+.opt-l{font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8e8e8;flex-shrink:0;margin-top:1px}
+.btn-ans{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11.5px;font-weight:700;transition:all .2s;background:var(--mcq-dk,#37474f);color:#fff}
+.btn-ans:hover{opacity:.85;transform:translateY(-1px)}.btn-ans.open{background:#607d8b}
+.ans-box{display:none;margin-top:11px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
+.ans-box.show{display:block}
+.ans-top{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-size:13px;font-weight:700}
+.ans-exp{padding:11px 14px;background:#e8eaf6;font-size:12px;color:#1a237e;line-height:1.7;border-top:1px solid #c5cae9}
+.ans-exp b{color:#0d47a1}
+
+/* INTERACTIVE DIAGRAMS */
+.viz-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;border:1px solid #e8e8e8}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:14px;color:#1a237e;display:flex;align-items:center;gap:8px}
+.viz-box p{font-size:12px;color:#555;margin-top:8px;line-height:1.6}
+.viz-ctrl{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.viz-btn{padding:6px 14px;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .2s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+
+/* QUIZ */
+.quiz-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 3px 12px rgba(0,0,0,.1);margin-bottom:16px}
+.quiz-q-num{font-size:11px;font-weight:700;color:#9e9e9e;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.quiz-q-text{font-size:14px;font-weight:600;margin-bottom:14px;color:#1a1a2e;line-height:1.65}
+.quiz-opts{display:grid;gap:7px}
+.quiz-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;border:2px solid #e8e8e8;cursor:pointer;font-size:12.5px;transition:all .15s;background:#fafafa}
+.quiz-opt:hover{border-color:#3949ab;background:#f0f4ff}
+.quiz-opt.sel{border-color:#3949ab;background:#e8eaf6}
+.quiz-opt.correct{border-color:#2e7d32;background:#e8f5e9;pointer-events:none}
+.quiz-opt.wrong{border-color:#b71c1c;background:#ffebee;pointer-events:none}
+.quiz-opt-l{font-weight:800;font-size:12px;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e0e0e0;flex-shrink:0}
+.quiz-submit{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;border:none;padding:10px 28px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;transition:all .2s}
+.quiz-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.quiz-submit:disabled{background:#9e9e9e;transform:none;box-shadow:none;cursor:not-allowed}
+.quiz-fb{display:none;margin-top:12px;padding:11px 14px;border-radius:8px;font-size:12.5px;font-weight:600;line-height:1.6}
+.quiz-fb.ok{background:#e8f5e9;color:#1b5e20;border-left:4px solid #2e7d32}
+.quiz-fb.no{background:#ffebee;color:#b71c1c;border-left:4px solid #c62828}
+.score-panel{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;border-radius:16px;padding:28px;text-align:center;margin-top:20px;display:none}
+.score-big{font-size:52px;font-weight:900;line-height:1}
+.score-label{font-size:14px;opacity:.85;margin:8px 0 4px}
+.score-grade{font-size:22px;font-weight:800;margin-top:10px}
+.score-bar-bg{background:rgba(255,255,255,.2);border-radius:20px;height:12px;margin:14px 0}
+.score-bar{background:#69f0ae;border-radius:20px;height:12px;transition:width 1.2s ease}
+.score-msg{font-size:13px;opacity:.85;margin-top:10px}
+.reset-btn{margin-top:16px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:8px 22px;border-radius:24px;font-size:12px;font-weight:700;cursor:pointer}
+.reset-btn:hover{background:rgba(255,255,255,.3)}
+
+/* PROGRESS TRACKER */
+.trk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+.trk-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.07);display:flex;flex-direction:column;gap:8px}
+.trk-name{font-size:12.5px;font-weight:700;color:#1a237e}
+.trk-bar-bg{height:8px;border-radius:20px;background:#e0e0e0}
+.trk-bar{height:8px;border-radius:20px;transition:width .8s ease}
+.trk-status{font-size:11px;color:#9e9e9e;display:flex;justify-content:space-between}
+.trk-check{display:flex;gap:6px;flex-wrap:wrap}
+.trk-chk{width:22px;height:22px;border-radius:50%;border:2px solid #e0e0e0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;transition:all .2s;background:#fafafa;color:#9e9e9e}
+.trk-chk.done{background:var(--c,#1a237e);border-color:var(--c,#1a237e);color:#fff}
+.notes-area{width:100%;border:1.5px solid #e0e0e0;border-radius:8px;padding:10px;font-size:12px;font-family:inherit;resize:vertical;min-height:100px;outline:none;transition:border-color .2s}
+.notes-area:focus{border-color:#3949ab}
+
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#1a237e;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Math — Unit 1</div>
+  <div class="hdr-s">Linear Algebra · Metric Spaces · Quiz · Tracker</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit1_Part2.html">← Part 2</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit1_Part1.html">Part 1</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Part 3 Topics</div>
+  <div class="nav-item active" style="--ac:#ef9a9a;--dc:#ef9a9a" onclick="show('la',this)">
+    <div class="nav-dot"></div>6. Linear Algebra
+  </div>
+  <div class="nav-item" style="--ac:#b0bec5;--dc:#b0bec5" onclick="show('ms',this)">
+    <div class="nav-dot"></div>7. Metric Spaces
+  </div>
+  <div class="nav-grp">Practice &amp; Track</div>
+  <div class="nav-item" style="--ac:#90caf9;--dc:#90caf9" onclick="show('quiz',this)">
+    <div class="nav-dot"></div>Mixed Quiz (10 Qs)
+  </div>
+  <div class="nav-item" style="--ac:#a5d6a7;--dc:#a5d6a7" onclick="show('trk',this)">
+    <div class="nav-dot"></div>Progress Tracker
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit1_Part1.html'">
+    <div class="nav-dot" style="background:#64b5f6"></div>Part 1: Set Theory / ℝ
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit1_Part2.html'">
+    <div class="nav-dot" style="background:#ffa726"></div>Part 2: Sequences / Cont / RI
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ====================================================
+     LINEAR ALGEBRA
+     ==================================================== -->
+<div id="la" class="section active" style="--mcq-c:var(--la-md);--mcq-dk:var(--la-dk);--mcq-lt:var(--la-lt)">
+
+  <div class="sec-banner" style="background:linear-gradient(135deg,#7f0000,#b71c1c,#e53935)">
+    <div class="banner-num">6</div>
+    <h2>Linear Algebra</h2>
+    <p>Vector Spaces · Basis &amp; Dimension · Eigenvalues · Cayley-Hamilton · Rank-Nullity · Inner Product Spaces</p>
+  </div>
+
+  <!-- INTERACTIVE DIAGRAM: Matrix Transformation -->
+  <div class="viz-box">
+    <h3>📊 Interactive: Eigenvalue Visualizer (2×2 Matrix)</h3>
+    <svg id="eig-svg" width="100%" height="240" viewBox="0 0 620 240" style="background:#fff8f8;border-radius:8px;display:block">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#e53935"/>
+        </marker>
+        <marker id="arr2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+        </marker>
+        <marker id="arr3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#2e7d32"/>
+        </marker>
+      </defs>
+      <!-- Grid -->
+      <g stroke="#f5e6e6" stroke-width="0.8">
+        <line x1="310" y1="10" x2="310" y2="230"/><line x1="10" y1="120" x2="610" y2="120"/>
+        <line x1="360" y1="10" x2="360" y2="230"/><line x1="260" y1="10" x2="260" y2="230"/>
+        <line x1="410" y1="10" x2="410" y2="230"/><line x1="210" y1="10" x2="210" y2="230"/>
+        <line x1="460" y1="10" x2="460" y2="230"/><line x1="160" y1="10" x2="160" y2="230"/>
+        <line x1="510" y1="10" x2="510" y2="230"/><line x1="110" y1="10" x2="110" y2="230"/>
+        <line x1="310" y1="70" x2="610" y2="70"/><line x1="10" y1="70" x2="310" y2="70"/>
+        <line x1="310" y1="170" x2="610" y2="170"/><line x1="10" y1="170" x2="310" y2="170"/>
+      </g>
+      <!-- Axes -->
+      <line x1="10" y1="120" x2="610" y2="120" stroke="#b71c1c" stroke-width="1.5"/>
+      <line x1="310" y1="10" x2="310" y2="230" stroke="#b71c1c" stroke-width="1.5"/>
+      <text x="605" y="116" fill="#b71c1c" font-size="11" font-weight="700">x</text>
+      <text x="314" y="14" fill="#b71c1c" font-size="11" font-weight="700">y</text>
+      <!-- Eigenvectors drawn by JS -->
+      <g id="eig-g"></g>
+      <!-- Matrix label -->
+      <text id="mat-lbl" x="20" y="30" fill="#555" font-size="12" font-family="Courier New">A = [[?, ?],[?, ?]]</text>
+      <text id="eig-lbl" x="20" y="50" fill="#555" font-size="11">Select a matrix to see eigenvectors</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="showEig(2,0,0,3,'[[2,0],[0,3]]',2,3,'[1,0]','[0,1]')">Diagonal A</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showEig(3,1,0,3,'[[3,1],[0,3]]',3,3,'[1,0]','[1,0]')">Defective A</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showEig(1,2,2,1,'[[1,2],[2,1]]',3,-1,'[1,1]','[1,-1]')">Symmetric A</button>
+      <button class="viz-btn" style="background:#6a1b9a;color:#fff" onclick="showEig(0,-1,1,0,'[[0,-1],[1,0]]',0,0,'','')">Rotation (no real λ)</button>
+    </div>
+    <p id="eig-desc" style="font-size:12px;color:#b71c1c;margin-top:8px">Select a matrix to visualize eigenvectors. Red arrow = λ₁ eigenvector, Blue = λ₂ eigenvector.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--la-dk)"><span>Foundations</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--la-md)">
+      <h3>Vector Spaces <span class="badge b-basic">Basic</span></h3>
+      <p>A set V over field F with + and · satisfying 8 axioms (closure, associativity, identity, inverse, distributivity).</p>
+      <ul>
+        <li>ℝⁿ, ℂⁿ, Mₙₓₙ (matrices), Pₙ (polynomials), C[a,b] (functions) are all vector spaces.</li>
+        <li><b>Subspace</b>: non-empty subset closed under + and scalar ·</li>
+        <li>Intersection of subspaces = subspace; union need NOT be</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--la-md)">
+      <h3>Basis &amp; Dimension <span class="badge b-basic">Basic</span></h3>
+      <p>A set B = {v₁,…,vₙ} is a <b>basis</b> if: (1) B is linearly independent; (2) B spans V.</p>
+      <div class="fm">dim(V) = number of elements in any basis</div>
+      <ul>
+        <li>Every basis of V has the same cardinality</li>
+        <li>dim(ℝⁿ) = n; dim(Mₙₓₙ) = n²; dim(Pₙ) = n+1</li>
+        <li>dim(U+W) = dim(U)+dim(W) − dim(U∩W)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--la-md)">
+      <h3>Rank-Nullity Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">rank(T) + nullity(T) = dim(domain)</div>
+      <p>For T:ℝⁿ→ℝᵐ (m×n matrix A): rank(A) + null(A) = n.</p>
+      <ul>
+        <li><b>rank(A)</b> = dim(column space) = dim(row space)</li>
+        <li><b>nullity(A)</b> = dim(null space) = dim of solution space of Ax=0</li>
+        <li>rank(A) = rank(Aᵀ) always</li>
+        <li>rank(AB) ≤ min(rank A, rank B)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--la-md)">
+      <h3>Eigenvalues &amp; Eigenvectors <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Av = λv,  v ≠ 0  ⟺  det(A−λI) = 0</div>
+      <ul>
+        <li>Characteristic polynomial: p(λ) = det(A−λI)</li>
+        <li>Eigenvalues = roots of p(λ)</li>
+        <li>Eigenvectors form eigenspaces (subspaces!)</li>
+        <li>Distinct eigenvalues ⟹ eigenvectors are linearly independent</li>
+        <li>Trace = Σλᵢ, Det = Πλᵢ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--la-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--la-dk);--thm-bg:var(--la-lt)">
+      <h3>Cayley-Hamilton Theorem <span class="badge b-adv">Advanced</span></h3>
+      <p>Every square matrix satisfies its own characteristic equation. If p(λ) = det(A−λI), then <b>p(A) = 0</b>.</p>
+      <div class="fm">Example: A = [[1,2],[2,1]], p(λ) = λ²−2λ−3  ⟹  A²−2A−3I = 0</div>
+      <p>Use to: compute A⁻¹ (if det≠0), find high powers Aⁿ, check minimal polynomial.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--la-dk);--thm-bg:var(--la-lt)">
+      <h3>Diagonalization <span class="badge b-adv">Advanced</span></h3>
+      <p>A is <b>diagonalizable</b> iff A has n linearly independent eigenvectors. Then A = PDP⁻¹ where D=diag(λ₁,…,λₙ), P=[v₁|…|vₙ].</p>
+      <ul>
+        <li>Symmetric real matrices are always diagonalizable (Spectral Theorem)</li>
+        <li>n distinct eigenvalues ⟹ diagonalizable</li>
+        <li>Not all matrices are diagonalizable (e.g., Jordan blocks)</li>
+        <li>If diagonalizable: Aⁿ = PDⁿP⁻¹ (easy computation!)</li>
+      </ul>
+    </div>
+    <div class="card thm" style="--card-top:var(--la-dk);--thm-bg:var(--la-lt)">
+      <h3>Inner Product Spaces — Key Facts <span class="badge b-adv">Advanced</span></h3>
+      <ul>
+        <li><b>Gram-Schmidt</b>: convert any basis to orthonormal basis</li>
+        <li><b>Cauchy-Schwarz</b>: |⟨u,v⟩| ≤ ‖u‖·‖v‖</li>
+        <li><b>Parseval's identity</b>: ‖f‖² = Σ|⟨f,eₙ⟩|² for orthonormal {eₙ}</li>
+        <li>Normal matrices: AA* = A*A ⟹ unitarily diagonalizable</li>
+        <li>Hermitian A: eigenvalues are real; eigenvectors for distinct eigenvalues are orthogonal</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--la-dk)"><span>Quick Reference</span></div>
+  <div class="card" style="--card-top:var(--la-md);padding:0;overflow:hidden">
+    <table class="rtbl">
+      <thead><tr style="background:var(--la-dk)"><th>Property</th><th>2×2 Matrix A</th><th>Formula</th></tr></thead>
+      <tbody>
+        <tr><td><b>Trace</b></td><td>a+d for [[a,b],[c,d]]</td><td>tr(A) = Σ eigenvalues</td></tr>
+        <tr><td><b>Determinant</b></td><td>ad−bc</td><td>det(A) = Π eigenvalues</td></tr>
+        <tr><td><b>Characteristic poly</b></td><td>p(λ) = λ²−tr(A)λ+det(A)</td><td>det(A−λI)</td></tr>
+        <tr><td><b>Inverse (if exists)</b></td><td>(1/det)·[[d,−b],[−c,a]]</td><td>A⁻¹ = adj(A)/det(A)</td></tr>
+        <tr><td><b>Rank</b></td><td>0, 1, or 2</td><td>= # nonzero rows in row echelon</td></tr>
+        <tr><td><b>Nullity</b></td><td>= 2 − rank</td><td>rank + nullity = n</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--la-md);color:var(--la-dk)">🎯 CSIR NET Questions — Linear Algebra</div>
+
+  <div class="mcq" style="border-left-color:var(--la-md)">
+    <div class="mcq-hdr" style="background:var(--la-lt)">
+      <div class="mcq-num" style="background:var(--la-dk)">1</div>
+      <span class="mcq-lbl">Rank-Nullity</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Let T: ℝ⁵ → ℝ³ be a linear transformation with rank(T) = 2. Then nullity(T) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>5</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('la1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="la1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — 3</div>
+        <div class="ans-exp">By <b>Rank-Nullity Theorem</b>: rank(T) + nullity(T) = dim(domain) = 5. So nullity = 5 − 2 = <b>3</b>. Note: rank(T) ≤ min(5,3) = 3 ✓. The null space is 3-dimensional (solution space of Ax=0 for 5-variable, 3-equation system).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--la-md)">
+    <div class="mcq-hdr" style="background:var(--la-lt)">
+      <div class="mcq-num" style="background:var(--la-dk)">2</div>
+      <span class="mcq-lbl">Eigenvalue from Trace/Det</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For matrix A = [[3,1],[0,3]], the eigenvalues are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3 and 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3 and 3 (repeated)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1 and 3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2 and 4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('la2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="la2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — λ=3 (repeated)</div>
+        <div class="ans-exp">det(A−λI) = (3−λ)(3−λ)−0 = (3−λ)² = 0 ⟹ <b>λ=3 (multiplicity 2)</b>. This is a <b>defective matrix</b> (Jordan block): eigenspace = span{[1,0]ᵀ} has dim 1, but algebraic multiplicity = 2. Not diagonalizable over ℝ. Check: trace=6=3+3 ✓, det=9=3×3 ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--la-md)">
+    <div class="mcq-hdr" style="background:var(--la-lt)">
+      <div class="mcq-num" style="background:var(--la-dk)">3</div>
+      <span class="mcq-lbl">Cayley-Hamilton</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If the characteristic polynomial of A is p(λ) = λ² − 5λ + 6, then by Cayley-Hamilton:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>A² = 5A − 6I</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A² = 5A + 6I</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A = 5I − 6A²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A² = 6A − 5I</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('la3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="la3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (A)</div>
+        <div class="ans-exp"><b>Cayley-Hamilton:</b> p(A) = 0. So A² − 5A + 6I = 0, which gives <b>A² = 5A − 6I</b>. This lets you express all higher powers: A³ = A·A² = A(5A−6I) = 5A²−6A = 5(5A−6I)−6A = 19A−30I, etc. Also, A⁻¹ = (5I − A)/6 (if det ≠ 0 = 6).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--la-md)">
+    <div class="mcq-hdr" style="background:var(--la-lt)">
+      <div class="mcq-num" style="background:var(--la-dk)">4</div>
+      <span class="mcq-lbl">Diagonalizability</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A real symmetric matrix:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>May have complex eigenvalues</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Is always diagonalizable over ℝ with orthogonal eigenvectors</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Has determinant equal to 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Has rank equal to its order</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('la4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="la4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B)</div>
+        <div class="ans-exp"><b>Spectral Theorem for real symmetric matrices (A=Aᵀ)</b>: (1) All eigenvalues are REAL; (2) Eigenvectors for distinct eigenvalues are ORTHOGONAL; (3) A is ORTHOGONALLY DIAGONALIZABLE: A = PDP^T where P is orthogonal (P^T = P⁻¹). This is the heart of principal component analysis (PCA) and has immense CSIR exam weight.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--la-md)">
+    <div class="mcq-hdr" style="background:var(--la-lt)">
+      <div class="mcq-num" style="background:var(--la-dk)">5</div>
+      <span class="mcq-lbl">Linear Independence</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The set {v₁, v₂, v₃} ⊆ ℝ³ is linearly dependent if:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>None of the vectors is the zero vector</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The determinant of the matrix with columns v₁,v₂,v₃ is zero</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>v₁·v₂ = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>v₁ + v₂ + v₃ = 0 is the only relation</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('la5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="la5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B)</div>
+        <div class="ans-exp">Three vectors in ℝ³ are linearly dependent ⟺ <b>det[v₁|v₂|v₃] = 0</b> ⟺ they lie in the same plane (coplanar). A is wrong (non-zero vectors can still be dependent). C (orthogonal) doesn't imply dependence. D describes a specific dependent relation, but "only such relation" = {0} would be independent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--la-md)">
+    <div class="mcq-hdr" style="background:var(--la-lt)">
+      <div class="mcq-num" style="background:var(--la-dk)">6</div>
+      <span class="mcq-lbl">Dimension Formula</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If U and W are subspaces of a vector space V with dim U = 4, dim W = 3, dim(U+W) = 6, then dim(U∩W) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>3</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('la6',this)">▶ Show Answer</button>
+      <div class="ans-box" id="la6">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — 1</div>
+        <div class="ans-exp">By <b>dimension formula</b>: dim(U+W) = dim(U) + dim(W) − dim(U∩W). So 6 = 4 + 3 − dim(U∩W), which gives <b>dim(U∩W) = 1</b>. The intersection is a 1-dimensional subspace (a line through the origin). This formula is the vector space analogue of |A∪B| = |A|+|B|−|A∩B|.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip">
+    <h3>📌 Key Tips — Linear Algebra</h3>
+    <ul>
+      <li><b>Trace = sum of eigenvalues</b>, <b>Det = product</b>. For 2×2: char poly = λ²−tr·λ+det.</li>
+      <li><b>Rank+Nullity = n</b> always. Memorize this formula!</li>
+      <li><b>Cayley-Hamilton</b>: p(A)=0 → use to compute powers of A and A⁻¹.</li>
+      <li><b>Symmetric ⟹ always diagonalizable over ℝ</b> with real eigenvalues and orthogonal eigenvectors.</li>
+      <li><b>Distinct eigenvalues ⟹ LI eigenvectors</b> (sufficient for diagonalizability).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ====================================================
+     METRIC SPACES
+     ==================================================== -->
+<div id="ms" class="section" style="--mcq-c:var(--ms-md);--mcq-dk:var(--ms-dk);--mcq-lt:var(--ms-lt)">
+
+  <div class="sec-banner" style="background:linear-gradient(135deg,#263238,#37474f,#546e7a)">
+    <div class="banner-num">7</div>
+    <h2>Metric Spaces</h2>
+    <p>Open/Closed Sets · Completeness · Compactness · Connectedness · Baire Category · Contraction Mapping</p>
+  </div>
+
+  <!-- INTERACTIVE DIAGRAM: Open Ball -->
+  <div class="viz-box">
+    <h3>📊 Interactive: Open Ball &amp; Topology Visualizer</h3>
+    <svg id="ms-svg" width="100%" height="240" viewBox="0 0 620 240" style="background:#eceff1;border-radius:8px;display:block">
+      <text x="310" y="125" text-anchor="middle" fill="#546e7a" font-size="13" font-weight="600">Click below to explore metric space concepts</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#37474f;color:#fff" onclick="showBall()">Open Ball B(x,r)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showOpenClosed()">Open vs Closed</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showCompact()">Compact Set</button>
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="showContraction()">Contraction Map</button>
+    </div>
+    <p id="ms-desc" style="font-size:12px;color:#37474f;margin-top:8px">Explore topological concepts in metric spaces. Use buttons above to visualize key ideas.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ms-dk)"><span>Foundations</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ms-md)">
+      <h3>Metric Space Definition <span class="badge b-basic">Basic</span></h3>
+      <p>A <b>metric</b> on X is d: X×X → ℝ satisfying:</p>
+      <ol style="padding-left:18px;font-size:12.5px">
+        <li>d(x,y) ≥ 0; d(x,y)=0 ⟺ x=y &nbsp;(positivity)</li>
+        <li>d(x,y) = d(y,x) &nbsp;(symmetry)</li>
+        <li>d(x,z) ≤ d(x,y) + d(y,z) &nbsp;(triangle inequality)</li>
+      </ol>
+      <p style="margin-top:8px">Examples: Euclidean d₂, discrete, p-adic, sup metric on C[a,b].</p>
+    </div>
+    <div class="card" style="--card-top:var(--ms-md)">
+      <h3>Open &amp; Closed Sets <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Open ball: B(x,r) = {y ∈ X : d(x,y) &lt; r}</div>
+      <p><b>Open set G</b>: ∀x∈G, ∃r&gt;0: B(x,r) ⊆ G</p>
+      <p><b>Closed set F</b>: F = X\G for some open G, OR: every limit point of F is in F.</p>
+      <ul>
+        <li>∅ and X are both open AND closed</li>
+        <li>Arbitrary unions of open sets = open</li>
+        <li>Finite intersections of open sets = open</li>
+        <li>In ℝ: open intervals (a,b) open; [a,b] closed; [a,b) = neither!</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ms-md)">
+      <h3>Completeness <span class="badge b-inter">Intermediate</span></h3>
+      <p>A metric space (X,d) is <b>complete</b> if every Cauchy sequence converges (to a point in X).</p>
+      <ul>
+        <li>ℝ and ℂ are complete; ℚ is NOT</li>
+        <li>Every compact metric space is complete</li>
+        <li>C[a,b] with sup norm is complete (Banach space)</li>
+        <li>L²[a,b] (with L² norm) is complete (Hilbert space)</li>
+        <li>(0,1) is NOT complete: 1/n → 0 ∉ (0,1)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ms-md)">
+      <h3>Compactness <span class="badge b-inter">Intermediate</span></h3>
+      <p><b>Compact</b>: every open cover has a finite subcover.</p>
+      <p><b>In ℝⁿ (Heine-Borel)</b>: compact ⟺ closed AND bounded</p>
+      <ul>
+        <li>Compact ⟹ complete AND totally bounded</li>
+        <li>Continuous image of compact set is compact</li>
+        <li>Continuous function on compact set is uniformly continuous</li>
+        <li>Compact ⟹ sequentially compact (BW in general metric spaces)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ms-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--ms-dk);--thm-bg:var(--ms-lt)">
+      <h3>Banach Contraction Mapping Theorem <span class="badge b-adv">Advanced</span></h3>
+      <p>Let (X,d) be a <b>complete</b> metric space. If T:X→X is a <b>contraction</b> (∃k&lt;1: d(Tx,Ty) ≤ k·d(x,y) for all x,y), then:</p>
+      <ul>
+        <li>T has a <b>unique fixed point</b> x* (T(x*)=x*)</li>
+        <li>The iterates Tⁿ(x₀) converge to x* for ANY starting x₀</li>
+      </ul>
+      <p>Applications: IVP existence (Picard iteration), Newton's method convergence, computer graphics.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ms-dk);--thm-bg:var(--ms-lt)">
+      <h3>Baire Category Theorem <span class="badge b-adv">Advanced</span></h3>
+      <p>A complete metric space is of the <b>second category</b> (cannot be written as countable union of nowhere dense sets).</p>
+      <p>Equivalently: countable intersection of dense open sets is dense.</p>
+      <ul>
+        <li>ℝ is a complete metric space ⟹ second category</li>
+        <li>Proves: continuous nowhere-differentiable functions are "generic"</li>
+        <li>Proves: ℝ cannot be covered by countably many nowhere-dense sets</li>
+      </ul>
+    </div>
+    <div class="card thm" style="--card-top:var(--ms-dk);--thm-bg:var(--ms-lt)">
+      <h3>Connectedness <span class="badge b-inter">Intermediate</span></h3>
+      <p>A metric space is <b>connected</b> if it cannot be written as disjoint union of two non-empty open sets.</p>
+      <ul>
+        <li>In ℝ: connected ⟺ is an interval</li>
+        <li>Continuous image of connected set is connected (generalizes IVT)</li>
+        <li>Path-connected ⟹ connected (converse fails for topologist's sine curve)</li>
+        <li>ℝ\{0} is NOT connected; ℝ\ℚ is NOT connected</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ms-dk)"><span>Complete Reference Table</span></div>
+  <div class="card" style="--card-top:var(--ms-md);padding:0;overflow:hidden">
+    <table class="rtbl">
+      <thead><tr style="background:var(--ms-dk)"><th>Space</th><th>Complete?</th><th>Compact?</th><th>Connected?</th></tr></thead>
+      <tbody>
+        <tr><td><b>ℝ (Euclidean)</b></td><td>✅ Yes</td><td>❌ No (unbounded)</td><td>✅ Yes</td></tr>
+        <tr><td><b>[a,b] ⊂ ℝ</b></td><td>✅ Yes (closed)</td><td>✅ Yes (closed+bounded)</td><td>✅ Yes (interval)</td></tr>
+        <tr><td><b>(a,b) ⊂ ℝ</b></td><td>❌ No (not closed)</td><td>❌ No</td><td>✅ Yes</td></tr>
+        <tr><td><b>ℚ (rationals)</b></td><td>❌ No</td><td>❌ No</td><td>❌ No</td></tr>
+        <tr><td><b>ℝ² (Euclidean)</b></td><td>✅ Yes</td><td>❌ No</td><td>✅ Yes</td></tr>
+        <tr><td><b>C[a,b] (sup norm)</b></td><td>✅ Yes (Banach)</td><td>❌ No (∞-dim)</td><td>✅ Yes</td></tr>
+        <tr><td><b>l² (sequences)</b></td><td>✅ Yes (Hilbert)</td><td>❌ No</td><td>✅ Yes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ms-md);color:var(--ms-dk)">🎯 CSIR NET Questions — Metric Spaces</div>
+
+  <div class="mcq" style="border-left-color:var(--ms-md)">
+    <div class="mcq-hdr" style="background:var(--ms-lt)">
+      <div class="mcq-num" style="background:var(--ms-dk)">1</div>
+      <span class="mcq-lbl">Completeness</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following metric spaces is NOT complete?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>ℝ with the usual metric</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>C[0,1] with the sup norm metric</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>ℚ with the usual metric</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>ℝ² with the Euclidean metric</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ms1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ms1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — ℚ</div>
+        <div class="ans-exp"><b>ℚ is NOT complete:</b> the sequence 3, 3.1, 3.14, 3.141, 3.1415, … (decimal approximations of π) is Cauchy in ℚ but converges to π ∉ ℚ. ℝ, ℝ², and C[0,1] with sup norm are all complete (Banach spaces). Completeness of ℝ is equivalent to the Least Upper Bound Property!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ms-md)">
+    <div class="mcq-hdr" style="background:var(--ms-lt)">
+      <div class="mcq-num" style="background:var(--ms-dk)">2</div>
+      <span class="mcq-lbl">Compactness in ℝ</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">By the Heine-Borel theorem, a subset K ⊆ ℝⁿ is compact if and only if:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>K is bounded</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>K is closed</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>K is closed and bounded</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>K is connected</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ms2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ms2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — Closed and bounded</div>
+        <div class="ans-exp"><b>Heine-Borel Theorem (ℝⁿ):</b> compact ⟺ closed AND bounded. This is specific to ℝⁿ — fails in general metric spaces! In infinite-dimensional Banach spaces, closed+bounded does NOT imply compact. Example: unit ball in l² is closed and bounded but NOT compact.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ms-md)">
+    <div class="mcq-hdr" style="background:var(--ms-lt)">
+      <div class="mcq-num" style="background:var(--ms-dk)">3</div>
+      <span class="mcq-lbl">Contraction Mapping</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Banach Contraction Principle states: if T is a contraction on a complete metric space, then:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>T has at least one fixed point</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>T has exactly one fixed point</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>T has no fixed point</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>T may or may not have a fixed point</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ms3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ms3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — Exactly one fixed point</div>
+        <div class="ans-exp"><b>Uniqueness:</b> if T(x*)=x* and T(y*)=y*, then d(x*,y*)=d(Tx*,Ty*)≤k·d(x*,y*). Since k&lt;1: d(x*,y*)=0 ⟹ x*=y*. <b>Existence:</b> start anywhere x₀, iterate Tⁿ(x₀) → x* by completeness (Cauchy: d(Tⁿx₀,Tᵐx₀) ≤ kᵐ/(1−k)·d(Tx₀,x₀) → 0).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ms-md)">
+    <div class="mcq-hdr" style="background:var(--ms-lt)">
+      <div class="mcq-num" style="background:var(--ms-dk)">4</div>
+      <span class="mcq-lbl">Open Sets</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">In ℝ with the usual metric, which of the following is an open set?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>[0, 1]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>[0, 1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>(0, 1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>{0, 1}</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ms4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ms4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — (0,1)</div>
+        <div class="ans-exp">An open set: every point has a neighborhood entirely in the set. <b>(0,1)</b>: for any x∈(0,1), take r=min(x,1−x)&gt;0; B(x,r)=(x−r,x+r)⊆(0,1) ✓. <b>[0,1]</b>: point 0 has no such r (any ball reaches negative reals). <b>[0,1)</b>: same problem at 0. <b>{0,1}</b>: discrete set, not open.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ms-md)">
+    <div class="mcq-hdr" style="background:var(--ms-lt)">
+      <div class="mcq-num" style="background:var(--ms-dk)">5</div>
+      <span class="mcq-lbl">Connectedness</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following subsets of ℝ is connected?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>ℚ (rational numbers)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>ℝ \ {0} (reals minus origin)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>[0,1] ∪ [2,3]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>[0,1] (closed interval)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ms5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ms5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (D) — [0,1]</div>
+        <div class="ans-exp">In ℝ: <b>connected ⟺ is an interval</b>. [0,1] is an interval ✓. ℚ = ℚ∩(−∞,√2) ∪ ℚ∩(√2,∞) — disconnected. ℝ\{0} = (−∞,0)∪(0,∞) — two disjoint open sets, disconnected. [0,1]∪[2,3] = two disjoint closed sets — disconnected.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip">
+    <h3>📌 Key Tips — Metric Spaces</h3>
+    <ul>
+      <li><b>Complete ≠ Compact</b>: ℝ is complete but not compact. [0,1] is both.</li>
+      <li><b>Heine-Borel only in ℝⁿ</b>: closed+bounded=compact only in finite-dimensional Euclidean space!</li>
+      <li><b>Cauchy + complete = convergent</b>. In incomplete spaces, Cauchy sequences can fail to converge.</li>
+      <li><b>Connected in ℝ = interval</b>. Any set that can be split by a "gap" is disconnected.</li>
+      <li><b>Banach contraction</b>: needs (1) complete space, (2) k&lt;1. Cannot have k=1.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ====================================================
+     MIXED QUIZ
+     ==================================================== -->
+<div id="quiz" class="section">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d1b6a,#1a237e,#283593)">
+    <div class="banner-num">★</div>
+    <h2>CSIR NET Mixed Quiz</h2>
+    <p>10 questions from all 7 topics — timed exam practice</p>
+  </div>
+
+  <div id="quiz-body">
+    <!-- Q1 -->
+    <div class="quiz-card" id="qc1">
+      <div class="quiz-q-num">Question 1 / 10 &nbsp;|&nbsp; Topic: Set Theory</div>
+      <div class="quiz-q-text">The Cantor set is:</div>
+      <div class="quiz-opts" id="qo1">
+        <div class="quiz-opt" onclick="selectQ(1,'A',this)"><span class="quiz-opt-l">A</span>Countable and open</div>
+        <div class="quiz-opt" onclick="selectQ(1,'B',this)"><span class="quiz-opt-l">B</span>Uncountable, closed, and has measure zero</div>
+        <div class="quiz-opt" onclick="selectQ(1,'C',this)"><span class="quiz-opt-l">C</span>Countable and has measure 1</div>
+        <div class="quiz-opt" onclick="selectQ(1,'D',this)"><span class="quiz-opt-l">D</span>An open dense set</div>
+      </div>
+      <div class="quiz-fb" id="qf1"></div>
+    </div>
+    <!-- Q2 -->
+    <div class="quiz-card" id="qc2">
+      <div class="quiz-q-num">Question 2 / 10 &nbsp;|&nbsp; Topic: Real Numbers</div>
+      <div class="quiz-q-text">A bounded above non-empty subset of ℝ:</div>
+      <div class="quiz-opts" id="qo2">
+        <div class="quiz-opt" onclick="selectQ(2,'A',this)"><span class="quiz-opt-l">A</span>Always has a maximum</div>
+        <div class="quiz-opt" onclick="selectQ(2,'B',this)"><span class="quiz-opt-l">B</span>Has a supremum (by the LUB property of ℝ)</div>
+        <div class="quiz-opt" onclick="selectQ(2,'C',this)"><span class="quiz-opt-l">C</span>Has a supremum only if the set is finite</div>
+        <div class="quiz-opt" onclick="selectQ(2,'D',this)"><span class="quiz-opt-l">D</span>Is always closed</div>
+      </div>
+      <div class="quiz-fb" id="qf2"></div>
+    </div>
+    <!-- Q3 -->
+    <div class="quiz-card" id="qc3">
+      <div class="quiz-q-num">Question 3 / 10 &nbsp;|&nbsp; Topic: Sequences</div>
+      <div class="quiz-q-text">If {aₙ} and {bₙ} both converge, and aₙ ≤ bₙ for all n, then:</div>
+      <div class="quiz-opts" id="qo3">
+        <div class="quiz-opt" onclick="selectQ(3,'A',this)"><span class="quiz-opt-l">A</span>lim aₙ &lt; lim bₙ (strictly)</div>
+        <div class="quiz-opt" onclick="selectQ(3,'B',this)"><span class="quiz-opt-l">B</span>lim aₙ ≤ lim bₙ</div>
+        <div class="quiz-opt" onclick="selectQ(3,'C',this)"><span class="quiz-opt-l">C</span>lim aₙ = lim bₙ always</div>
+        <div class="quiz-opt" onclick="selectQ(3,'D',this)"><span class="quiz-opt-l">D</span>The sequences must be equal</div>
+      </div>
+      <div class="quiz-fb" id="qf3"></div>
+    </div>
+    <!-- Q4 -->
+    <div class="quiz-card" id="qc4">
+      <div class="quiz-q-num">Question 4 / 10 &nbsp;|&nbsp; Topic: Continuity</div>
+      <div class="quiz-q-text">f(x) = x·sin(1/x) for x ≠ 0, f(0) = 0. Then f is:</div>
+      <div class="quiz-opts" id="qo4">
+        <div class="quiz-opt" onclick="selectQ(4,'A',this)"><span class="quiz-opt-l">A</span>Not continuous at 0</div>
+        <div class="quiz-opt" onclick="selectQ(4,'B',this)"><span class="quiz-opt-l">B</span>Continuous at 0 but not differentiable there</div>
+        <div class="quiz-opt" onclick="selectQ(4,'C',this)"><span class="quiz-opt-l">C</span>Differentiable at 0</div>
+        <div class="quiz-opt" onclick="selectQ(4,'D',this)"><span class="quiz-opt-l">D</span>Uniformly continuous on ℝ</div>
+      </div>
+      <div class="quiz-fb" id="qf4"></div>
+    </div>
+    <!-- Q5 -->
+    <div class="quiz-card" id="qc5">
+      <div class="quiz-q-num">Question 5 / 10 &nbsp;|&nbsp; Topic: Riemann Integration</div>
+      <div class="quiz-q-text">∫₀^π sin(x) dx equals:</div>
+      <div class="quiz-opts" id="qo5">
+        <div class="quiz-opt" onclick="selectQ(5,'A',this)"><span class="quiz-opt-l">A</span>0</div>
+        <div class="quiz-opt" onclick="selectQ(5,'B',this)"><span class="quiz-opt-l">B</span>1</div>
+        <div class="quiz-opt" onclick="selectQ(5,'C',this)"><span class="quiz-opt-l">C</span>2</div>
+        <div class="quiz-opt" onclick="selectQ(5,'D',this)"><span class="quiz-opt-l">D</span>π</div>
+      </div>
+      <div class="quiz-fb" id="qf5"></div>
+    </div>
+    <!-- Q6 -->
+    <div class="quiz-card" id="qc6">
+      <div class="quiz-q-num">Question 6 / 10 &nbsp;|&nbsp; Topic: Linear Algebra</div>
+      <div class="quiz-q-text">If A is an n×n matrix with det(A) = 0, then:</div>
+      <div class="quiz-opts" id="qo6">
+        <div class="quiz-opt" onclick="selectQ(6,'A',this)"><span class="quiz-opt-l">A</span>A has no eigenvalues</div>
+        <div class="quiz-opt" onclick="selectQ(6,'B',this)"><span class="quiz-opt-l">B</span>0 is an eigenvalue of A</div>
+        <div class="quiz-opt" onclick="selectQ(6,'C',this)"><span class="quiz-opt-l">C</span>All eigenvalues of A are zero</div>
+        <div class="quiz-opt" onclick="selectQ(6,'D',this)"><span class="quiz-opt-l">D</span>A has full rank</div>
+      </div>
+      <div class="quiz-fb" id="qf6"></div>
+    </div>
+    <!-- Q7 -->
+    <div class="quiz-card" id="qc7">
+      <div class="quiz-q-num">Question 7 / 10 &nbsp;|&nbsp; Topic: Metric Spaces</div>
+      <div class="quiz-q-text">In a metric space, a Cauchy sequence that has a convergent subsequence:</div>
+      <div class="quiz-opts" id="qo7">
+        <div class="quiz-opt" onclick="selectQ(7,'A',this)"><span class="quiz-opt-l">A</span>Diverges</div>
+        <div class="quiz-opt" onclick="selectQ(7,'B',this)"><span class="quiz-opt-l">B</span>Converges to the same limit as the subsequence</div>
+        <div class="quiz-opt" onclick="selectQ(7,'C</span>May or may not converge</div>
+        <div class="quiz-opt" onclick="selectQ(7,'D',this)"><span class="quiz-opt-l">D</span>Is bounded but not convergent</div>
+      </div>
+      <div class="quiz-fb" id="qf7"></div>
+    </div>
+    <!-- Q8 -->
+    <div class="quiz-card" id="qc8">
+      <div class="quiz-q-num">Question 8 / 10 &nbsp;|&nbsp; Topic: Set Theory</div>
+      <div class="quiz-q-text">The power set of a set with n elements has cardinality:</div>
+      <div class="quiz-opts" id="qo8">
+        <div class="quiz-opt" onclick="selectQ(8,'A',this)"><span class="quiz-opt-l">A</span>n</div>
+        <div class="quiz-opt" onclick="selectQ(8,'B',this)"><span class="quiz-opt-l">B</span>2n</div>
+        <div class="quiz-opt" onclick="selectQ(8,'C',this)"><span class="quiz-opt-l">C</span>2ⁿ</div>
+        <div class="quiz-opt" onclick="selectQ(8,'D',this)"><span class="quiz-opt-l">D</span>n²</div>
+      </div>
+      <div class="quiz-fb" id="qf8"></div>
+    </div>
+    <!-- Q9 -->
+    <div class="quiz-card" id="qc9">
+      <div class="quiz-q-num">Question 9 / 10 &nbsp;|&nbsp; Topic: Real Numbers</div>
+      <div class="quiz-q-text">Between any two distinct real numbers, there exist:</div>
+      <div class="quiz-opts" id="qo9">
+        <div class="quiz-opt" onclick="selectQ(9,'A',this)"><span class="quiz-opt-l">A</span>Exactly one rational number</div>
+        <div class="quiz-opt" onclick="selectQ(9,'B',this)"><span class="quiz-opt-l">B</span>No irrational numbers</div>
+        <div class="quiz-opt" onclick="selectQ(9,'C',this)"><span class="quiz-opt-l">C</span>Infinitely many rationals and infinitely many irrationals</div>
+        <div class="quiz-opt" onclick="selectQ(9,'D',this)"><span class="quiz-opt-l">D</span>Only finitely many real numbers</div>
+      </div>
+      <div class="quiz-fb" id="qf9"></div>
+    </div>
+    <!-- Q10 -->
+    <div class="quiz-card" id="qc10">
+      <div class="quiz-q-num">Question 10 / 10 &nbsp;|&nbsp; Topic: Linear Algebra</div>
+      <div class="quiz-q-text">If A is a 3×3 matrix with eigenvalues 1, 2, and 3, then det(A) equals:</div>
+      <div class="quiz-opts" id="qo10">
+        <div class="quiz-opt" onclick="selectQ(10,'A',this)"><span class="quiz-opt-l">A</span>6</div>
+        <div class="quiz-opt" onclick="selectQ(10,'B',this)"><span class="quiz-opt-l">B</span>3</div>
+        <div class="quiz-opt" onclick="selectQ(10,'C',this)"><span class="quiz-opt-l">C</span>1</div>
+        <div class="quiz-opt" onclick="selectQ(10,'D',this)"><span class="quiz-opt-l">D</span>9</div>
+      </div>
+      <div class="quiz-fb" id="qf10"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:10px">
+      <button class="quiz-submit" id="quiz-sub" onclick="submitQuiz()">Submit All Answers</button>
+    </div>
+  </div>
+
+  <div class="score-panel" id="score-panel">
+    <div class="score-label">Your Score</div>
+    <div class="score-big" id="score-big">0/10</div>
+    <div class="score-bar-bg"><div class="score-bar" id="score-bar" style="width:0"></div></div>
+    <div class="score-grade" id="score-grade"></div>
+    <div class="score-msg" id="score-msg"></div>
+    <button class="reset-btn" onclick="resetQuiz()">Try Again</button>
+  </div>
+</div>
+
+<!-- ====================================================
+     PROGRESS TRACKER
+     ==================================================== -->
+<div id="trk" class="section">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1b4332,#2d6a4f,#40916c)">
+    <div class="banner-num">✓</div>
+    <h2>Progress Tracker</h2>
+    <p>Track your preparation across all 7 topics of CSIR NET Unit 1 Analysis</p>
+  </div>
+
+  <div class="trk-grid">
+    <!-- Topic 1 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#1565c0">1. Set Theory</div>
+      <div class="trk-check" id="st-checks">
+        <div class="trk-chk" style="--c:#1565c0" title="Definitions" onclick="toggleChk(this)">D</div>
+        <div class="trk-chk" style="--c:#1565c0" title="Operations" onclick="toggleChk(this)">O</div>
+        <div class="trk-chk" style="--c:#1565c0" title="Cardinality" onclick="toggleChk(this)">C</div>
+        <div class="trk-chk" style="--c:#1565c0" title="Cantor Set" onclick="toggleChk(this)">K</div>
+        <div class="trk-chk" style="--c:#1565c0" title="MCQs" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#1565c0" id="st-bar"></div></div>
+      <div class="trk-status"><span id="st-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+    <!-- Topic 2 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#2e7d32">2. Real Numbers</div>
+      <div class="trk-check" id="rn-checks">
+        <div class="trk-chk" style="--c:#2e7d32" onclick="toggleChk(this)">D</div>
+        <div class="trk-chk" style="--c:#2e7d32" onclick="toggleChk(this)">S</div>
+        <div class="trk-chk" style="--c:#2e7d32" onclick="toggleChk(this)">C</div>
+        <div class="trk-chk" style="--c:#2e7d32" onclick="toggleChk(this)">A</div>
+        <div class="trk-chk" style="--c:#2e7d32" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#2e7d32" id="rn-bar"></div></div>
+      <div class="trk-status"><span id="rn-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+    <!-- Topic 3 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#e65100">3. Sequences &amp; Series</div>
+      <div class="trk-check" id="ss-checks">
+        <div class="trk-chk" style="--c:#e65100" onclick="toggleChk(this)">B</div>
+        <div class="trk-chk" style="--c:#e65100" onclick="toggleChk(this)">W</div>
+        <div class="trk-chk" style="--c:#e65100" onclick="toggleChk(this)">T</div>
+        <div class="trk-chk" style="--c:#e65100" onclick="toggleChk(this)">P</div>
+        <div class="trk-chk" style="--c:#e65100" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#e65100" id="ss-bar"></div></div>
+      <div class="trk-status"><span id="ss-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+    <!-- Topic 4 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#6a1b9a">4. Continuity &amp; Diff.</div>
+      <div class="trk-check" id="cd-checks">
+        <div class="trk-chk" style="--c:#6a1b9a" onclick="toggleChk(this)">E</div>
+        <div class="trk-chk" style="--c:#6a1b9a" onclick="toggleChk(this)">U</div>
+        <div class="trk-chk" style="--c:#6a1b9a" onclick="toggleChk(this)">I</div>
+        <div class="trk-chk" style="--c:#6a1b9a" onclick="toggleChk(this)">M</div>
+        <div class="trk-chk" style="--c:#6a1b9a" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#6a1b9a" id="cd-bar"></div></div>
+      <div class="trk-status"><span id="cd-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+    <!-- Topic 5 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#006064">5. Riemann Integration</div>
+      <div class="trk-check" id="ri-checks">
+        <div class="trk-chk" style="--c:#006064" onclick="toggleChk(this)">D</div>
+        <div class="trk-chk" style="--c:#006064" onclick="toggleChk(this)">L</div>
+        <div class="trk-chk" style="--c:#006064" onclick="toggleChk(this)">F</div>
+        <div class="trk-chk" style="--c:#006064" onclick="toggleChk(this)">A</div>
+        <div class="trk-chk" style="--c:#006064" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#006064" id="ri-bar"></div></div>
+      <div class="trk-status"><span id="ri-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+    <!-- Topic 6 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#b71c1c">6. Linear Algebra</div>
+      <div class="trk-check" id="la-checks">
+        <div class="trk-chk" style="--c:#b71c1c" onclick="toggleChk(this)">V</div>
+        <div class="trk-chk" style="--c:#b71c1c" onclick="toggleChk(this)">R</div>
+        <div class="trk-chk" style="--c:#b71c1c" onclick="toggleChk(this)">E</div>
+        <div class="trk-chk" style="--c:#b71c1c" onclick="toggleChk(this)">C</div>
+        <div class="trk-chk" style="--c:#b71c1c" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#b71c1c" id="la-bar"></div></div>
+      <div class="trk-status"><span id="la-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+    <!-- Topic 7 -->
+    <div class="trk-card">
+      <div class="trk-name" style="color:#37474f">7. Metric Spaces</div>
+      <div class="trk-check" id="ms-checks">
+        <div class="trk-chk" style="--c:#37474f" onclick="toggleChk(this)">D</div>
+        <div class="trk-chk" style="--c:#37474f" onclick="toggleChk(this)">C</div>
+        <div class="trk-chk" style="--c:#37474f" onclick="toggleChk(this)">K</div>
+        <div class="trk-chk" style="--c:#37474f" onclick="toggleChk(this)">B</div>
+        <div class="trk-chk" style="--c:#37474f" onclick="toggleChk(this)">Q</div>
+      </div>
+      <div class="trk-bar-bg"><div class="trk-bar" style="background:#37474f" id="ms-bar"></div></div>
+      <div class="trk-status"><span id="ms-pct">0%</span><span>5 checkpoints</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:#1a237e;margin-bottom:14px">
+    <h3>Overall Preparation</h3>
+    <div class="trk-bar-bg" style="height:14px;margin:10px 0">
+      <div class="trk-bar" style="background:linear-gradient(90deg,#1565c0,#43a047,#fb8c00);height:14px" id="total-bar"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#555">
+      <span id="total-pct" style="font-weight:700;color:#1a237e;font-size:16px">0% Complete</span>
+      <span id="total-done">0 / 35 checkpoints</span>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:#2e7d32">
+    <h3>Study Notes</h3>
+    <textarea class="notes-area" id="notes-area" placeholder="Write your study notes here (e.g., formulas to remember, topics to revise, doubts to ask...)&#10;&#10;This content is saved automatically as you type."></textarea>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="stob" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function show(id, el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const b=document.getElementById(id);
+  const o=b.classList.toggle('show');
+  btn.textContent=o?'▼ Hide Answer':'▶ Show Answer';
+  btn.classList.toggle('open',o);
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('stob').classList.toggle('on',window.scrollY>200);
+});
+
+// ===== EIGENVALUE VISUALIZER =====
+function showEig(a,b,c,d,lbl,l1,l2,v1,v2){
+  const g=document.getElementById('eig-g');
+  const cx=310, cy=120, sc=50;
+  g.innerHTML='';
+
+  document.getElementById('mat-lbl').textContent='A = '+lbl;
+
+  if(l1===0 && l2===0){
+    // Rotation: no real eigenvalues
+    document.getElementById('eig-lbl').textContent='Rotation matrix: No real eigenvalues! (λ = ±i)';
+    const c2=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c2.setAttribute('cx',cx); c2.setAttribute('cy',cy); c2.setAttribute('r',60);
+    c2.setAttribute('fill','none'); c2.setAttribute('stroke','#e53935'); c2.setAttribute('stroke-width','2');
+    c2.setAttribute('stroke-dasharray','8,4');
+    g.appendChild(c2);
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',cx); t.setAttribute('y',cy+90); t.setAttribute('text-anchor','middle');
+    t.setAttribute('fill','#e53935'); t.setAttribute('font-size','11');
+    t.textContent='Complex eigenvalues: no real eigenvectors';
+    g.appendChild(t);
+    return;
+  }
+
+  // Draw eigenvectors
+  const vecs=[
+    {v:v1,l:l1,color:'#e53935',lbl:'λ₁='+l1},
+    {v:v2,l:l2,color:'#1565c0',lbl:'λ₂='+l2}
+  ];
+
+  vecs.forEach(({v,l,color,lbl:vl})=>{
+    if(!v) return;
+    const parts=v.replace('[','').replace(']','').split(',').map(Number);
+    if(parts.length<2) return;
+    const [vx,vy]=parts;
+    const len=Math.sqrt(vx*vx+vy*vy);
+    const nx=vx/len, ny=vy/len;
+    const x2=cx+nx*80, y2=cy-ny*80;
+    const xn=cx-nx*80, yn=cy+ny*80;
+
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',xn); line.setAttribute('y1',yn);
+    line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+    line.setAttribute('stroke',color); line.setAttribute('stroke-width','2.5');
+    g.appendChild(line);
+
+    const arr=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    arr.setAttribute('cx',x2); arr.setAttribute('cy',y2); arr.setAttribute('r',5);
+    arr.setAttribute('fill',color);
+    g.appendChild(arr);
+
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',x2+8); t.setAttribute('y',y2+4);
+    t.setAttribute('fill',color); t.setAttribute('font-size','11'); t.setAttribute('font-weight','700');
+    t.textContent=vl+' v=['+v+']';
+    g.appendChild(t);
+  });
+
+  document.getElementById('eig-lbl').textContent=
+    `Eigenvalues: λ₁=${l1}, λ₂=${l2} | tr=${a+d} | det=${a*d-b*c}`;
+  document.getElementById('eig-desc').textContent=
+    `Matrix ${lbl}: Eigenvectors are shown as lines through origin. Red=λ₁=${l1}, Blue=λ₂=${l2}. Each eigenvector direction is preserved (only scaled) by A.`;
+}
+
+// ===== METRIC SPACE VISUALIZER =====
+function showBall(){
+  const svg=document.getElementById('ms-svg');
+  svg.innerHTML=`
+    <rect width="620" height="240" fill="#eceff1"/>
+    <circle cx="310" cy="120" r="3" fill="#37474f"/>
+    <circle cx="310" cy="120" r="70" fill="rgba(55,71,79,0.15)" stroke="#546e7a" stroke-width="2" stroke-dasharray="6,3"/>
+    <circle cx="310" cy="120" r="40" fill="rgba(21,101,192,0.15)" stroke="#1565c0" stroke-width="2"/>
+    <text x="310" y="116" text-anchor="middle" fill="#37474f" font-size="11" font-weight="700">x</text>
+    <text x="350" y="90" fill="#546e7a" font-size="11">B(x, r₂)</text>
+    <text x="360" y="115" fill="#1565c0" font-size="11">B(x, r₁)</text>
+    <line x1="310" y1="120" x2="350" y2="120" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="328" y="112" fill="#546e7a" font-size="10">r₁</text>
+    <line x1="310" y1="120" x2="310" y2="50" stroke="#37474f" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="315" y="90" fill="#37474f" font-size="10">r₂</text>
+    <text x="310" y="220" text-anchor="middle" fill="#546e7a" font-size="12" font-weight="700">Open Ball B(x,r) = {y : d(x,y) &lt; r} — all points strictly inside radius r</text>
+  `;
+  document.getElementById('ms-desc').textContent='Open ball B(x,r): all points y with d(x,y) < r. Inner blue ball (r₁ < r₂) shows a smaller neighborhood. An open set is a set where every point has some open ball around it entirely within the set.';
+}
+
+function showOpenClosed(){
+  const svg=document.getElementById('ms-svg');
+  svg.innerHTML=`
+    <rect width="620" height="240" fill="#eceff1"/>
+    <text x="140" y="40" text-anchor="middle" fill="#1565c0" font-size="13" font-weight="800">Open (a,b)</text>
+    <line x1="60" y1="80" x2="220" y2="80" stroke="#b0bec5" stroke-width="2"/>
+    <circle cx="60" cy="80" r="6" fill="#fff" stroke="#1565c0" stroke-width="2.5"/>
+    <circle cx="220" cy="80" r="6" fill="#fff" stroke="#1565c0" stroke-width="2.5"/>
+    <line x1="60" y1="80" x2="220" y2="80" stroke="#1565c0" stroke-width="4"/>
+    <text x="60" y="100" fill="#1565c0" font-size="11" text-anchor="middle">a</text>
+    <text x="220" y="100" fill="#1565c0" font-size="11" text-anchor="middle">b</text>
+    <text x="140" y="125" fill="#555" font-size="10.5" text-anchor="middle">Endpoints NOT included (hollow circles)</text>
+
+    <text x="450" y="40" text-anchor="middle" fill="#2e7d32" font-size="13" font-weight="800">Closed [a,b]</text>
+    <line x1="350" y1="80" x2="550" y2="80" stroke="#b0bec5" stroke-width="2"/>
+    <circle cx="350" cy="80" r="6" fill="#2e7d32" stroke="#2e7d32" stroke-width="2.5"/>
+    <circle cx="550" cy="80" r="6" fill="#2e7d32" stroke="#2e7d32" stroke-width="2.5"/>
+    <line x1="350" y1="80" x2="550" y2="80" stroke="#2e7d32" stroke-width="4"/>
+    <text x="350" y="100" fill="#2e7d32" font-size="11" text-anchor="middle">a</text>
+    <text x="550" y="100" fill="#2e7d32" font-size="11" text-anchor="middle">b</text>
+    <text x="450" y="125" fill="#555" font-size="10.5" text-anchor="middle">Endpoints included (filled circles)</text>
+
+    <text x="310" y="180" text-anchor="middle" fill="#b71c1c" font-size="12" font-weight="700">[a,b) and (a,b] are NEITHER open nor closed in ℝ</text>
+    <text x="310" y="210" text-anchor="middle" fill="#546e7a" font-size="11">ℝ itself and ∅ are BOTH open AND closed (clopen sets)</text>
+  `;
+  document.getElementById('ms-desc').textContent='Open set: every boundary point is excluded. Closed set: all boundary/limit points are included. A set can be both (clopen: ∅ and ℝ), either, or neither ([a,b))!';
+}
+
+function showCompact(){
+  const svg=document.getElementById('ms-svg');
+  svg.innerHTML=`
+    <rect width="620" height="240" fill="#eceff1"/>
+    <ellipse cx="200" cy="120" rx="120" ry="70" fill="rgba(33,150,243,0.15)" stroke="#1565c0" stroke-width="2"/>
+    <text x="200" y="60" text-anchor="middle" fill="#1565c0" font-size="12" font-weight="700">Compact Set K</text>
+    <text x="200" y="78" text-anchor="middle" fill="#1565c0" font-size="10">(Closed + Bounded in ℝⁿ)</text>
+    <circle cx="155" cy="110" r="4" fill="#1565c0"/><circle cx="185" cy="95" r="4" fill="#1565c0"/>
+    <circle cx="220" cy="130" r="4" fill="#1565c0"/><circle cx="240" cy="105" r="4" fill="#1565c0"/>
+    <circle cx="170" cy="140" r="4" fill="#1565c0"/><circle cx="210" cy="148" r="4" fill="#1565c0"/>
+    <text x="200" y="170" text-anchor="middle" fill="#1565c0" font-size="10">Every sequence has a convergent subseq ✓</text>
+    <text x="200" y="185" text-anchor="middle" fill="#1565c0" font-size="10">Every open cover has finite subcover ✓</text>
+
+    <text x="470" y="60" text-anchor="middle" fill="#b71c1c" font-size="12" font-weight="700">Non-Compact</text>
+    <line x1="350" y1="120" x2="600" y2="120" stroke="#b71c1c" stroke-width="2"/>
+    <text x="355" y="110" fill="#b71c1c" font-size="11">−∞</text>
+    <text x="585" y="110" fill="#b71c1c" font-size="11">+∞</text>
+    <text x="470" y="150" text-anchor="middle" fill="#b71c1c" font-size="10">ℝ: closed but NOT bounded → not compact</text>
+    <circle cx="400" cy="120" r="4" fill="#fff" stroke="#b71c1c" stroke-width="2"/>
+    <text x="400" y="135" fill="#b71c1c" font-size="9" text-anchor="middle">(a,b): bounded not closed</text>
+  `;
+  document.getElementById('ms-desc').textContent='Compact set (Heine-Borel in ℝⁿ): closed AND bounded. Every sequence has convergent subsequence (B-W). Continuous image of compact set is compact. Continuous functions on compact sets are bounded and uniformly continuous.';
+}
+
+function showContraction(){
+  const svg=document.getElementById('ms-svg');
+  svg.innerHTML=`
+    <rect width="620" height="240" fill="#eceff1"/>
+    <line x1="50" y1="190" x2="570" y2="190" stroke="#546e7a" stroke-width="2"/>
+    <line x1="50" y1="190" x2="50" y2="20" stroke="#546e7a" stroke-width="2"/>
+    <text x="575" y="194" fill="#546e7a" font-size="11">x</text>
+    <text x="44" y="18" fill="#546e7a" font-size="11">T(x)</text>
+    <line x1="50" y1="190" x2="570" y2="20" stroke="#90a4ae" stroke-width="1" stroke-dasharray="5,4"/>
+    <text x="530" y="35" fill="#90a4ae" font-size="10">y=x</text>
+    <path d="M50,150 C150,130 300,120 570,100" fill="none" stroke="#2e7d32" stroke-width="2.5"/>
+    <text x="400" y="115" fill="#2e7d32" font-size="11" font-weight="700">y=T(x) (contraction)</text>
+    <circle cx="290" cy="130" r="5" fill="#e53935"/>
+    <text x="295" y="125" fill="#e53935" font-size="10.5" font-weight="700">x* = T(x*)</text>
+    <text x="295" y="140" fill="#e53935" font-size="10">Fixed Point</text>
+    <circle cx="100" cy="158" r="4" fill="#1565c0"/>
+    <text x="105" y="153" fill="#1565c0" font-size="9">x₀</text>
+    <circle cx="170" cy="148" r="4" fill="#1565c0"/>
+    <text x="175" y="143" fill="#1565c0" font-size="9">T(x₀)</text>
+    <circle cx="220" cy="142" r="4" fill="#1565c0"/>
+    <text x="225" y="137" fill="#1565c0" font-size="9">T²(x₀)</text>
+    <path d="M100,190 L100,158" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+    <path d="M100,158 L170,158" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+    <path d="M170,190 L170,148" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+    <path d="M170,148 L220,148" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="310" y="215" text-anchor="middle" fill="#546e7a" font-size="11" font-weight="700">Iterates Tⁿ(x₀) → x* (unique fixed point) for ANY starting x₀</text>
+  `;
+  document.getElementById('ms-desc').textContent='Banach Contraction: T maps complete space into itself with d(Tx,Ty) ≤ k·d(x,y), k < 1. Iterates Tⁿ(x₀) converge to unique fixed point x* = T(x*). The "cobweb" diagram shows convergence to x*.';
+}
+
+// ===== QUIZ LOGIC =====
+const answers = {1:'B',2:'B',3:'B',4:'B',5:'C',6:'B',7:'B',8:'C',9:'C',10:'A'};
+const explanations = {
+  1:'The Cantor set is formed by removing middle-thirds iteratively. It is uncountable (same cardinality as ℝ), closed (perfect set), and has Lebesgue measure 0.',
+  2:'By the Least Upper Bound (LUB) axiom of ℝ, every non-empty set bounded above has a supremum. The supremum need not be in the set (so maximum may not exist, e.g., (0,1) has sup=1 but no max).',
+  3:'Limit of inequalities: aₙ ≤ bₙ for all n ⟹ lim aₙ ≤ lim bₙ. The inequality is NOT strict even if aₙ < bₙ for all n. Example: aₙ=0, bₙ=1/n; limits are 0 ≤ 0 (not strictly).',
+  4:'|x·sin(1/x)| ≤ |x| → 0 as x→0, so f is continuous at 0. But f\'(0) = lim sin(1/x) as x→0, which does not exist. So continuous but NOT differentiable at 0.',
+  5:'∫₀^π sin(x) dx = [−cos(x)]₀^π = −cos(π) − (−cos(0)) = −(−1) + 1 = 2.',
+  6:'det(A) = product of eigenvalues. If det(A)=0, then at least one eigenvalue is 0. Specifically, det(A−0·I)=det(A)=0 ⟹ 0 IS an eigenvalue.',
+  7:'A Cauchy sequence {xₙ} with a subsequence converging to L: for any ε>0, pick N so m,n>N ⟹ d(xₙ,xₘ)<ε/2, and pick subsequence term xₙₖ with d(xₙₖ,L)<ε/2 and nₖ>N. Then d(xₙ,L) ≤ d(xₙ,xₙₖ)+d(xₙₖ,L) < ε.',
+  8:'Each element can be in or out of a subset: 2 choices per element × n elements = 2ⁿ subsets total.',
+  9:'By the Archimedean property and density: between any two reals a < b, there are infinitely many rationals (density of ℚ in ℝ) and infinitely many irrationals (density of ℝ\\ℚ in ℝ).',
+  10:'det(A) = product of eigenvalues = 1 × 2 × 3 = 6.'
+};
+
+let userAns={};
+function selectQ(n, opt, el){
+  document.querySelectorAll(`#qo${n} .quiz-opt`).forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  userAns[n]=opt;
+}
+
+function submitQuiz(){
+  const sub=document.getElementById('quiz-sub');
+  if(Object.keys(userAns).length<10){
+    alert('Please answer all 10 questions before submitting!');
+    return;
+  }
+  sub.disabled=true;
+  let score=0;
+  for(let i=1;i<=10;i++){
+    const correct=answers[i];
+    const given=userAns[i];
+    const opts=document.querySelectorAll(`#qo${i} .quiz-opt`);
+    opts.forEach(o=>{
+      const lbl=o.querySelector('.quiz-opt-l').textContent;
+      if(lbl===correct) o.classList.add('correct');
+      else if(lbl===given && given!==correct) o.classList.add('wrong');
+      o.style.pointerEvents='none';
+    });
+    const fb=document.getElementById(`qf${i}`);
+    fb.style.display='block';
+    if(given===correct){
+      score++;
+      fb.className='quiz-fb ok';
+      fb.textContent='✓ Correct! '+explanations[i];
+    } else {
+      fb.className='quiz-fb no';
+      fb.textContent='✗ Correct answer: '+correct+'. '+explanations[i];
+    }
+  }
+  const panel=document.getElementById('score-panel');
+  panel.style.display='block';
+  document.getElementById('score-big').textContent=score+'/10';
+  const pct=score*10;
+  document.getElementById('score-bar').style.width=pct+'%';
+  const grades=['F','F','F','F','D','C','B','A','A+','A++','A★★'];
+  document.getElementById('score-grade').textContent=grades[score];
+  const msgs=['Keep studying!','Review all topics.','Good start!','Getting there!','Not bad!','Average — push harder!','Good performance!','Great job!','Excellent!','Outstanding!','Perfect! CSIR ready!'];
+  document.getElementById('score-msg').textContent=msgs[score];
+  panel.scrollIntoView({behavior:'smooth'});
+}
+
+function resetQuiz(){
+  userAns={};
+  for(let i=1;i<=10;i++){
+    document.querySelectorAll(`#qo${i} .quiz-opt`).forEach(o=>{
+      o.classList.remove('sel','correct','wrong');
+      o.style.pointerEvents='';
+    });
+    const fb=document.getElementById(`qf${i}`);
+    fb.style.display='none'; fb.textContent='';
+  }
+  document.getElementById('quiz-sub').disabled=false;
+  document.getElementById('score-panel').style.display='none';
+  document.getElementById('score-bar').style.width='0';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== PROGRESS TRACKER =====
+function toggleChk(el){
+  el.classList.toggle('done');
+  updateTracker();
+}
+function updateTracker(){
+  const topics=['st','rn','ss','cd','ri','la','ms'];
+  let total=0,done=0;
+  topics.forEach(t=>{
+    const checks=document.querySelectorAll(`#${t}-checks .trk-chk`);
+    const d=document.querySelectorAll(`#${t}-checks .trk-chk.done`).length;
+    const pct=Math.round(d/checks.length*100);
+    document.getElementById(`${t}-bar`).style.width=pct+'%';
+    document.getElementById(`${t}-pct`).textContent=pct+'%';
+    total+=checks.length; done+=d;
+  });
+  const tp=Math.round(done/total*100);
+  document.getElementById('total-bar').style.width=tp+'%';
+  document.getElementById('total-pct').textContent=tp+'% Complete';
+  document.getElementById('total-done').textContent=done+' / '+total+' checkpoints';
+}
+
+// Notes auto-save
+const notes=document.getElementById('notes-area');
+if(notes){
+  notes.value=localStorage.getItem('csir_notes')||'';
+  notes.addEventListener('input',()=>localStorage.setItem('csir_notes',notes.value));
+}
+</script>
+</body>
+</html>

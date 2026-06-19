@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Mathematics — Unit 1 Interactive Guide</title>
+<style>
+:root{
+  --nav-w:230px; --hdr:58px;
+  --st-dk:#1565c0;--st-md:#1e88e5;--st-lt:#e3f2fd;
+  --rn-dk:#2e7d32;--rn-md:#43a047;--rn-lt:#e8f5e9;
+  --ss-dk:#e65100;--ss-md:#fb8c00;--ss-lt:#fff3e0;
+  --cd-dk:#6a1b9a;--cd-md:#8e44ad;--cd-lt:#f3e5f5;
+  --ri-dk:#006064;--ri-md:#00acc1;--ri-lt:#e0f7fa;
+  --la-dk:#b71c1c;--la-md:#e53935;--la-lt:#ffebee;
+  --ms-dk:#37474f;--ms-md:#546e7a;--ms-lt:#eceff1;
+  --qz-dk:#e65100;--qz-md:#ff8f00;--qz-lt:#fff8e1;
+  --hm-dk:#1a237e;--hm-md:#3949ab;--hm-lt:#e8eaf6;
+  --ok:#1b5e20;--ok-lt:#e8f5e9;--er:#b71c1c;--er-lt:#ffebee;
+  --bg:#f4f6f8;--white:#fff;--gray1:#f9fafb;--gray2:#eceff1;
+  --gray3:#b0bec5;--gray4:#607d8b;--gray5:#37474f;--text:#212121;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#1a237e,#283593,#3949ab);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-title{font-size:17px;font-weight:800;letter-spacing:.3px}
+.hdr-sub{font-size:11px;opacity:.8;margin-left:14px;font-style:italic}
+.hdr-badge{margin-left:auto;background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.25)}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#1c2333;overflow-y:auto;z-index:100;padding-bottom:24px}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:#3a4a5c;border-radius:2px}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#607d8b;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px;text-decoration:none}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#64b5f6);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0;transition:all .2s}
+.nav-item.active .nav-dot{background:var(--ac,#64b5f6);box-shadow:0 0 6px var(--ac,#64b5f6)}
+.nav-score{margin-left:auto;font-size:10px;background:rgba(255,255,255,.1);border-radius:10px;padding:1px 7px;color:#b0bec5}
+
+/* MAIN */
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+
+/* SECTION HEADER BANNER */
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before,.sec-banner::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
+.sec-banner::before{width:140px;height:140px;top:-40px;right:-20px;background:rgba(255,255,255,.08)}
+.sec-banner::after{width:80px;height:80px;bottom:-20px;right:80px;background:rgba(255,255,255,.05)}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.1;line-height:1;z-index:0}
+
+/* CARD GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+
+/* CARD */
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:var(--card-h,#37474f)}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul{padding-left:18px}
+.card .fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-top-color:var(--ri-md);border-left:4px solid var(--ri-md);border-radius:4px 10px 10px 4px;background:var(--ri-lt)}
+
+/* BADGE */
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}
+.b-inter{background:#fff3e0;color:#e65100}
+.b-adv{background:#f3e5f5;color:#6a1b9a}
+.b-csir{background:#e8eaf6;color:#1a237e}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px;color:var(--div-c,#37474f)}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+
+/* REF TABLE */
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#fff}
+.rtbl td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px;line-height:1.55}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.rtbl tr:hover td{background:#f0f4ff}
+
+/* MCQ */
+.mcq-title{font-size:15px;font-weight:800;margin:22px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f);display:flex;align-items:center;gap:8px}
+.mcq{background:#fff;border-radius:10px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;padding:9px 14px;gap:10px;background:var(--mcq-lt,#f9f9f9);border-bottom:1px solid rgba(0,0,0,.05)}
+.mcq-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.mcq-lbl{font-size:11px;font-weight:600;color:#555;flex:1}
+.mcq-d{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:13px 15px 11px}
+.mcq-q{font-size:13px;font-weight:500;margin-bottom:11px;line-height:1.65;color:#1a1a2e}
+.opts{display:grid;gap:6px;margin-bottom:11px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;border:1.5px solid #e8e8e8;cursor:pointer;font-size:12px;transition:all .15s;background:#fafafa;line-height:1.5}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:var(--mcq-lt,#f5f5f5)}
+.opt.sel{border-color:var(--mcq-c);background:var(--mcq-lt)}
+.opt-l{font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8e8e8;flex-shrink:0;margin-top:1px}
+.btn-ans{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11.5px;font-weight:700;transition:all .2s;background:var(--mcq-dk,#37474f);color:#fff}
+.btn-ans:hover{opacity:.85;transform:translateY(-1px)}
+.btn-ans.open{background:#607d8b}
+.ans-box{display:none;margin-top:11px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
+.ans-box.show{display:block}
+.ans-top{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-size:13px;font-weight:700}
+.ans-exp{padding:11px 14px;background:#e8eaf6;font-size:12px;color:#1a237e;line-height:1.7;border-top:1px solid #c5cae9}
+.ans-exp b{color:#0d47a1}
+
+/* HOME CARDS */
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+.hcard{border-radius:12px;padding:18px 20px;color:#fff;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;min-height:110px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.hcard:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.hcard-num{position:absolute;bottom:-8px;right:8px;font-size:56px;font-weight:900;opacity:.14;line-height:1}
+.hcard h3{font-size:14px;font-weight:800;margin-bottom:5px}
+.hcard p{font-size:11px;opacity:.88;line-height:1.5}
+.hcard-go{margin-top:10px;display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:3px 12px;font-size:10.5px;font-weight:700}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.stat-num{font-size:28px;font-weight:900;color:var(--hm-dk)}
+.stat-lbl{font-size:11px;color:var(--gray4);margin-top:3px;font-weight:500}
+
+/* SCORE / QUIZ */
+.quiz-submit-wrap{text-align:center;margin:22px 0}
+.btn-sub{padding:12px 40px;font-size:14px;font-weight:800;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(135deg,#e65100,#ff8f00);color:#fff;box-shadow:0 4px 12px rgba(230,81,0,.35);transition:all .2s}
+.btn-sub:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(230,81,0,.45)}
+.score-box{display:none;background:#fff;border-radius:14px;padding:28px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1);margin-bottom:20px}
+.score-box.show{display:block}
+.score-ring{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 14px;font-weight:900;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.s-num{font-size:34px;line-height:1;color:#fff}
+.s-tot{font-size:11px;color:rgba(255,255,255,.8)}
+.s-grade{font-size:19px;font-weight:800;margin-bottom:5px}
+.s-msg{font-size:12.5px;color:#555}
+
+/* TRACKER */
+.trk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px}
+.trk-card{background:#fff;border-radius:10px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-bottom:3px solid var(--gray2)}
+.trk-name{font-size:11.5px;font-weight:700;margin-bottom:6px;color:#424242}
+.pbar-wrap{background:#f0f0f0;border-radius:10px;height:7px;margin:6px 0;overflow:hidden}
+.pbar{height:100%;border-radius:10px;background:linear-gradient(90deg,#43a047,#66bb6a);transition:width .5s ease}
+.trk-stat{font-size:20px;font-weight:900;color:var(--hm-dk)}
+.trk-lbl{font-size:9.5px;color:var(--gray3);text-transform:uppercase;letter-spacing:.5px}
+
+/* SCROLL TOP */
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:var(--hm-dk);color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+
+/* FORMULA QUICK REF */
+.fqr{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.fchip{background:var(--mcq-lt,#f0f0f0);color:var(--mcq-dk,#333);border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:600;border:1px solid rgba(0,0,0,.07);font-family:'Courier New',monospace}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-title">CSIR NET Mathematics — Unit 1: Analysis</div>
+  <div class="hdr-sub">Basic → CSIR Standard | Topic-wise Interactive Learning</div>
+  <div class="hdr-badge">7 Topics · 41 MCQs · Live Quiz</div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="nav-grp">Navigation</div>
+  <div class="nav-item active" style="--ac:#64b5f6;--dc:#64b5f6" data-sec="home" onclick="show('home',this)">
+    <div class="nav-dot"></div>Home / Overview
+  </div>
+
+  <div class="nav-grp">Unit 1 Topics</div>
+  <div class="nav-item" style="--ac:#42a5f5;--dc:#42a5f5" data-sec="st" onclick="show('st',this)">
+    <div class="nav-dot"></div>1. Set Theory
+  </div>
+  <div class="nav-item" style="--ac:#66bb6a;--dc:#66bb6a" data-sec="rn" onclick="show('rn',this)">
+    <div class="nav-dot"></div>2. Real Numbers
+  </div>
+  <div class="nav-item" style="--ac:#ffa726;--dc:#ffa726" data-sec="ss" onclick="location.href='CSIR_NET_Unit1_Part2.html'">
+    <div class="nav-dot"></div>3. Sequences &amp; Series
+  </div>
+  <div class="nav-item" style="--ac:#ce93d8;--dc:#ce93d8" data-sec="cd" onclick="location.href='CSIR_NET_Unit1_Part2.html#cd'">
+    <div class="nav-dot"></div>4. Continuity &amp; Diff.
+  </div>
+  <div class="nav-item" style="--ac:#4dd0e1;--dc:#4dd0e1" data-sec="ri" onclick="location.href='CSIR_NET_Unit1_Part2.html#ri'">
+    <div class="nav-dot"></div>5. Riemann Integration
+  </div>
+  <div class="nav-item" style="--ac:#ef9a9a;--dc:#ef9a9a" data-sec="la" onclick="location.href='CSIR_NET_Unit1_Part3.html'">
+    <div class="nav-dot"></div>6. Linear Algebra
+  </div>
+  <div class="nav-item" style="--ac:#90a4ae;--dc:#90a4ae" data-sec="ms" onclick="location.href='CSIR_NET_Unit1_Part3.html#ms'">
+    <div class="nav-dot"></div>7. Metric Spaces
+  </div>
+
+  <div class="nav-grp">Practice</div>
+  <div class="nav-item" style="--ac:#ffca28;--dc:#ffca28" data-sec="quiz" onclick="location.href='CSIR_NET_Unit1_Part3.html#quiz'">
+    <div class="nav-dot"></div>CSIR Mixed Quiz
+  </div>
+  <div class="nav-item" style="--ac:#a5d6a7;--dc:#a5d6a7" data-sec="trk" onclick="location.href='CSIR_NET_Unit1_Part3.html#trk'">
+    <div class="nav-dot"></div>Progress Tracker
+  </div>
+
+  <div class="nav-grp">Files</div>
+  <div class="nav-item" style="--ac:#ffa726;--dc:#ffa726" onclick="location.href='CSIR_NET_Unit1_Part2.html'">
+    <div class="nav-dot"></div>Part 2 →
+  </div>
+  <div class="nav-item" style="--ac:#ef9a9a;--dc:#ef9a9a" onclick="location.href='CSIR_NET_Unit1_Part3.html'">
+    <div class="nav-dot"></div>Part 3 →
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ========== HOME ========== -->
+<div id="home" class="section active">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a237e,#283593,#3949ab)">
+    <div class="banner-num">★</div>
+    <h2>CSIR NET Mathematics — Unit 1</h2>
+    <p>Complete interactive learning guide from Basic Definitions to CSIR-Standard Problems &nbsp;|&nbsp; 7 Topics &nbsp;|&nbsp; 41 Solved MCQs &nbsp;|&nbsp; Mixed Quiz &nbsp;|&nbsp; Progress Tracker</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">7</div><div class="stat-lbl">Core Topics</div></div>
+    <div class="stat-card"><div class="stat-num">41</div><div class="stat-lbl">CSIR MCQs</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Difficulty Levels</div></div>
+    <div class="stat-card"><div class="stat-num">10</div><div class="stat-lbl">Mixed Quiz Qs</div></div>
+  </div>
+
+  <div class="divider" style="--div-c:#1a237e"><span>Click any topic to start learning</span></div>
+
+  <div class="home-grid">
+    <div class="hcard" style="background:linear-gradient(135deg,#1565c0,#1e88e5)" onclick="show('st',document.querySelector('[data-sec=st]'))">
+      <div class="hcard-num">1</div>
+      <h3>Set Theory</h3>
+      <p>Countability · Cardinality · Cantor Set · Power Sets</p>
+      <div class="hcard-go">Start →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#2e7d32,#43a047)" onclick="show('rn',document.querySelector('[data-sec=rn]'))">
+      <div class="hcard-num">2</div>
+      <h3>Real Number System</h3>
+      <p>Completeness · Archimedean · Sup &amp; Inf · Density</p>
+      <div class="hcard-go">Start →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#e65100,#fb8c00)" onclick="location.href='CSIR_NET_Unit1_Part2.html'">
+      <div class="hcard-num">3</div>
+      <h3>Sequences &amp; Series</h3>
+      <p>Convergence · B-W Theorem · Cauchy · Power Series</p>
+      <div class="hcard-go">Open Part 2 →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#6a1b9a,#9c27b0)" onclick="location.href='CSIR_NET_Unit1_Part2.html'">
+      <div class="hcard-num">4</div>
+      <h3>Continuity &amp; Diff.</h3>
+      <p>IVT · EVT · MVT · Uniform Continuity · Weierstrass</p>
+      <div class="hcard-go">Open Part 2 →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#006064,#00acc1)" onclick="location.href='CSIR_NET_Unit1_Part2.html'">
+      <div class="hcard-num">5</div>
+      <h3>Riemann Integration</h3>
+      <p>Darboux Sums · FTC · Lebesgue Criterion · Dirichlet</p>
+      <div class="hcard-go">Open Part 2 →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#b71c1c,#e53935)" onclick="location.href='CSIR_NET_Unit1_Part3.html'">
+      <div class="hcard-num">6</div>
+      <h3>Linear Algebra</h3>
+      <p>Rank-Nullity · Eigenvalues · Spectral Thm · Cayley-Hamilton</p>
+      <div class="hcard-go">Open Part 3 →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#37474f,#546e7a)" onclick="location.href='CSIR_NET_Unit1_Part3.html'">
+      <div class="hcard-num">7</div>
+      <h3>Metric Spaces</h3>
+      <p>Completeness · Compactness · Baire · Banach FPT</p>
+      <div class="hcard-go">Open Part 3 →</div>
+    </div>
+    <div class="hcard" style="background:linear-gradient(135deg,#e65100,#ff8f00)" onclick="location.href='CSIR_NET_Unit1_Part3.html'">
+      <div class="hcard-num">Q</div>
+      <h3>CSIR Mixed Quiz</h3>
+      <p>10 mixed questions · All topics · Instant scoring</p>
+      <div class="hcard-go">Open Part 3 →</div>
+    </div>
+  </div>
+
+  <div class="card tip" style="margin-top:8px">
+    <h3>💡 How to Use This Guide (3-Part Series)</h3>
+    <p><b>This File (Part 1):</b> Home · Set Theory · Real Numbers</p>
+    <p><b><a href="CSIR_NET_Unit1_Part2.html" style="color:#e65100">Part 2</a>:</b> Sequences &amp; Series · Continuity &amp; Differentiability · Riemann Integration</p>
+    <p><b><a href="CSIR_NET_Unit1_Part3.html" style="color:#b71c1c">Part 3</a>:</b> Linear Algebra · Metric Spaces · Mixed Quiz · Progress Tracker</p>
+    <hr style="margin:10px 0;border:none;border-top:1px solid #e0f7fa">
+    <p><b>Step 1:</b> Click any topic in the sidebar or cards above. Topics 3–7 open in Part 2 or Part 3.</p>
+    <p><b>Step 2:</b> Read <span class="badge b-basic">Basic</span> concepts first, then <span class="badge b-inter">Intermediate</span> theorems, then <span class="badge b-adv">Advanced</span> CSIR results.</p>
+    <p><b>Step 3:</b> For MCQs — select an option first, then click <b>"Show Answer"</b> to reveal explanation.</p>
+    <p><b>Step 4:</b> Take the Mixed Quiz in Part 3 and target <b>80%+</b></p>
+  </div>
+
+  <div style="display:flex;gap:12px;margin-top:14px">
+    <a href="CSIR_NET_Unit1_Part2.html" style="flex:1;display:block;background:linear-gradient(135deg,#e65100,#fb8c00);color:#fff;border-radius:10px;padding:14px 18px;text-decoration:none;text-align:center;font-weight:800;font-size:13px;box-shadow:0 4px 12px rgba(230,81,0,.3)">
+      Part 2 → Sequences · Continuity · Riemann
+    </a>
+    <a href="CSIR_NET_Unit1_Part3.html" style="flex:1;display:block;background:linear-gradient(135deg,#b71c1c,#e53935);color:#fff;border-radius:10px;padding:14px 18px;text-decoration:none;text-align:center;font-weight:800;font-size:13px;box-shadow:0 4px 12px rgba(183,28,28,.3)">
+      Part 3 → Linear Algebra · Metric Spaces · Quiz
+    </a>
+  </div>
+</div>
+
+<!-- ========== SET THEORY ========== -->
+<div id="st" class="section" style="--mcq-c:var(--st-md);--mcq-dk:var(--st-dk);--mcq-lt:var(--st-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d47a1,#1565c0,#1e88e5)">
+    <div class="banner-num">1</div>
+    <h2>Set Theory</h2>
+    <p>Countability · Cardinality · Cantor Set · Power Sets · Operations · Schroder-Bernstein</p>
+  </div>
+
+  <!-- Interactive Venn Diagram -->
+  <div class="card" style="--card-top:var(--st-md);margin-bottom:16px">
+    <h3>📊 Interactive: Set Operations Visualizer</h3>
+    <svg id="venn-svg" width="100%" height="200" viewBox="0 0 600 200" style="display:block;background:#e3f2fd;border-radius:8px">
+      <defs>
+        <clipPath id="ca"><ellipse cx="220" cy="100" rx="130" ry="80"/></clipPath>
+        <clipPath id="cb"><ellipse cx="380" cy="100" rx="130" ry="80"/></clipPath>
+      </defs>
+      <!-- Universe box -->
+      <rect x="10" y="10" width="580" height="180" rx="10" fill="none" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="30" y="30" fill="#1565c0" font-size="12" font-weight="700">U (Universal Set)</text>
+      <!-- Circles -->
+      <ellipse cx="220" cy="100" rx="130" ry="80" fill="rgba(30,136,229,0.22)" stroke="#1565c0" stroke-width="2"/>
+      <ellipse cx="380" cy="100" rx="130" ry="80" fill="rgba(46,125,50,0.22)" stroke="#2e7d32" stroke-width="2"/>
+      <!-- Intersection highlight -->
+      <ellipse id="int-hl" cx="220" cy="100" rx="130" ry="80" fill="rgba(230,81,0,0.35)" clip-path="url(#cb)" style="display:none"/>
+      <!-- Labels -->
+      <text x="160" y="96" fill="#0d47a1" font-size="16" font-weight="800">A</text>
+      <text x="420" y="96" fill="#1b5e20" font-size="16" font-weight="800">B</text>
+      <text x="298" y="96" fill="#bf360c" font-size="13" font-weight="700" text-anchor="middle" id="int-lbl">A ∩ B</text>
+      <text x="298" y="115" fill="#bf360c" font-size="10" text-anchor="middle" id="int-sub">Intersection</text>
+      <!-- Result label -->
+      <text id="op-lbl" x="300" y="185" fill="#1a237e" font-size="12" font-weight="700" text-anchor="middle"></text>
+    </svg>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+      <button onclick="vennOp('union')" style="padding:5px 14px;background:#1565c0;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">A ∪ B (Union)</button>
+      <button onclick="vennOp('inter')" style="padding:5px 14px;background:#e65100;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">A ∩ B (Intersection)</button>
+      <button onclick="vennOp('diff')" style="padding:5px 14px;background:#2e7d32;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">A \ B (Difference)</button>
+      <button onclick="vennOp('sym')" style="padding:5px 14px;background:#6a1b9a;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">A △ B (Symmetric)</button>
+      <button onclick="vennOp('comp')" style="padding:5px 14px;background:#37474f;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">Aᶜ (Complement)</button>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--st-dk)"><span>Basic Concepts</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--st-md)">
+      <h3>Sets &amp; Notation <span class="badge b-basic">Basic</span></h3>
+      <p>A <b>set</b> is a well-defined collection of distinct objects. Notation: A = {1, 2, 3} or A = {x : property}.</p>
+      <ul>
+        <li><b>x ∈ A</b> — x is a member of A</li>
+        <li><b>A ⊆ B</b> — A is a subset of B (every element of A is in B)</li>
+        <li><b>A ⊂ B</b> — proper subset (A ⊆ B and A ≠ B)</li>
+        <li><b>∅</b> — empty set (∅ ⊆ A for any A)</li>
+        <li><b>ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ⊂ ℂ</b></li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--st-md)">
+      <h3>Set Operations <span class="badge b-basic">Basic</span></h3>
+      <ul>
+        <li><b>Union:</b> A ∪ B = {x : x ∈ A or x ∈ B}</li>
+        <li><b>Intersection:</b> A ∩ B = {x : x ∈ A and x ∈ B}</li>
+        <li><b>Complement:</b> Aᶜ = {x ∈ U : x ∉ A}</li>
+        <li><b>Difference:</b> A \ B = {x : x ∈ A, x ∉ B}</li>
+        <li><b>Symmetric diff:</b> A △ B = (A\B) ∪ (B\A)</li>
+      </ul>
+      <div class="fm">De Morgan: (A∪B)ᶜ = Aᶜ∩Bᶜ &nbsp;|&nbsp; (A∩B)ᶜ = Aᶜ∪Bᶜ</div>
+    </div>
+    <div class="card" style="--card-top:var(--st-md)">
+      <h3>Power Set <span class="badge b-basic">Basic</span></h3>
+      <p><b>𝒫(A)</b> = collection of ALL subsets of A (including ∅ and A itself).</p>
+      <div class="fm">If |A| = n  →  |𝒫(A)| = 2ⁿ</div>
+      <p><b>Example:</b> A = {1,2}: 𝒫(A) = {∅, {1}, {2}, {1,2}} → |𝒫(A)| = 4 = 2²</p>
+      <p>Key: <b>|𝒫(ℕ)| = cardinality of ℝ</b> (uncountable).</p>
+    </div>
+    <div class="card" style="--card-top:var(--st-md)">
+      <h3>Countable vs Uncountable <span class="badge b-inter">Intermediate</span></h3>
+      <p>A set is <b>countable</b> if it is finite OR has a bijection with ℕ.</p>
+      <ul>
+        <li><b>Countable:</b> ℕ, ℤ, ℚ, ℕ×ℕ, all finite subsets of ℕ</li>
+        <li><b>Uncountable:</b> ℝ, (0,1), 𝒫(ℕ), ℝ\ℚ</li>
+        <li>Countable ∪ countable = countable</li>
+        <li>Countable ∩ (anything) = at most countable</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--st-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--st-dk);--thm-bg:#e3f2fd">
+      <h3>Cantor's Diagonal Argument <span class="badge b-adv">Advanced</span></h3>
+      <p><b>Theorem:</b> ℝ is <b>uncountable</b>.</p>
+      <p><b>Proof idea:</b> Assume (0,1) is countable — list all reals as x₁, x₂, x₃, … Define y by choosing the n-th decimal digit of y to differ from the n-th decimal digit of xₙ. Then y ∈ (0,1) but y ≠ xₙ for all n. <b>Contradiction!</b></p>
+    </div>
+    <div class="card thm" style="--card-top:var(--st-dk);--thm-bg:#e3f2fd">
+      <h3>Cantor Set Properties <span class="badge b-adv">Advanced</span></h3>
+      <p>The <b>middle-thirds Cantor set C</b> is constructed by repeatedly removing the open middle third of each remaining interval from [0,1].</p>
+      <ul>
+        <li><b>Closed &amp; bounded</b> in [0,1]</li>
+        <li><b>Nowhere dense</b> — contains NO open interval</li>
+        <li><b>Uncountable</b> — has cardinality of ℝ = 2^ℵ₀</li>
+        <li><b>Perfect</b> — every point is a limit point</li>
+        <li><b>Lebesgue measure = 0</b> (a "large" yet "thin" set)</li>
+      </ul>
+    </div>
+    <div class="card thm" style="--card-top:var(--st-dk);--thm-bg:#e3f2fd">
+      <h3>Schroder-Bernstein Theorem <span class="badge b-adv">Advanced</span></h3>
+      <p>If injections f:A→B and g:B→A both exist, then there is a <b>bijection</b> h:A→B, so |A| = |B|.</p>
+      <p>Used to prove: |(0,1)| = |ℝ| = |𝒫(ℕ)|</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--st-dk)"><span>Quick Reference — Countability Table</span></div>
+  <div class="card" style="--card-top:var(--st-md);padding:0;overflow:hidden">
+    <table class="rtbl">
+      <thead><tr style="background:var(--st-dk)"><th>Set</th><th>Countable?</th><th>Cardinality</th><th>Key Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>ℕ</b> (Naturals)</td><td>✅ Yes</td><td>ℵ₀</td><td>Smallest infinite cardinal</td></tr>
+        <tr><td><b>ℤ</b> (Integers)</td><td>✅ Yes</td><td>ℵ₀</td><td>Bijection: 0,1,-1,2,-2,…</td></tr>
+        <tr><td><b>ℚ</b> (Rationals)</td><td>✅ Yes</td><td>ℵ₀</td><td>Diagonal enumeration of fractions</td></tr>
+        <tr><td>Algebraic Numbers</td><td>✅ Yes</td><td>ℵ₀</td><td>Roots of integer polynomials</td></tr>
+        <tr><td><b>ℝ</b> (Reals)</td><td>❌ No</td><td>𝔠 = 2^ℵ₀</td><td>Proved by Cantor diagonal</td></tr>
+        <tr><td>(0,1) ⊂ ℝ</td><td>❌ No</td><td>𝔠</td><td>Same cardinality as ℝ</td></tr>
+        <tr><td><b>𝒫(ℕ)</b> Power set</td><td>❌ No</td><td>𝔠</td><td>Bijection with ℝ via binary</td></tr>
+        <tr><td>Cantor Set C</td><td>❌ No</td><td>𝔠</td><td>Uncountable but measure 0</td></tr>
+        <tr><td>Finite subsets of ℕ</td><td>✅ Yes</td><td>ℵ₀</td><td>Countable union of finite sets</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--st-md);color:var(--st-dk)">🎯 CSIR NET Questions — Set Theory</div>
+
+  <!-- MCQ 1 -->
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">1</div>
+      <span class="mcq-lbl">Countability of Sets</span>
+      <span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following sets is <b>UNCOUNTABLE</b>?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>The set of all integers ℤ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The set of all rational numbers ℚ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The set of all real numbers ℝ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The set of all algebraic numbers</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="st1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — The set of all real numbers ℝ</div>
+        <div class="ans-exp">By <b>Cantor's diagonal argument</b>, ℝ is uncountable. ℤ and ℚ are countably infinite (bijection with ℕ). Algebraic numbers are countable (countable union of finite sets — roots of each integer polynomial). <b>Only ℝ is uncountable</b> among these.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ 2 -->
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">2</div>
+      <span class="mcq-lbl">Power Set Cardinality</span>
+      <span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If a set A has <b>n elements</b>, the number of elements in its power set 𝒫(A) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>n</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2n</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2ⁿ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>n!</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="st2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — 2ⁿ</div>
+        <div class="ans-exp">𝒫(A) contains ALL subsets of A including ∅ and A itself. For each element, independently include it (2 choices per element), so total = <b>2ⁿ</b>. Example: |A|=3 → |𝒫(A)|=8. For n=0: 𝒫(∅)={∅}, so |𝒫(∅)|=1=2⁰. ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ 3 -->
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">3</div>
+      <span class="mcq-lbl">Cantor Set</span>
+      <span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Cantor set C (middle-thirds construction) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Countable and nowhere dense</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Countable and dense in [0,1]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Uncountable and nowhere dense</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Uncountable and dense in [0,1]</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="st3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — Uncountable and nowhere dense</div>
+        <div class="ans-exp">The Cantor set has <b>cardinality of ℝ (uncountable)</b> yet Lebesgue measure = 0. It is <b>nowhere dense</b> (contains no open interval) and its complement in [0,1] is open and dense. It is NOT dense in [0,1] (D is wrong). It is a perfect set (every point is a limit point).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ 4 -->
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">4</div>
+      <span class="mcq-lbl">Set Operations</span>
+      <span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If A ⊂ B (A is a proper subset of B), then A ∪ B equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>A</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>B</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A ∩ B</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A \ B</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="st4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — B</div>
+        <div class="ans-exp">Since A ⊂ B, every element of A is already in B. So <b>A ∪ B = B</b> (no new elements added). Also A ∩ B = A when A ⊂ B. Standard identity: if A ⊆ B then A ∪ B = B and A ∩ B = A.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ 5 -->
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">5</div>
+      <span class="mcq-lbl">Countability of Subsets</span>
+      <span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which statement about countable sets is <b>CORRECT</b>?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>The union of countably many countable sets is uncountable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The Cartesian product ℕ × ℕ is uncountable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The set of all finite subsets of ℕ is countable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The set of all infinite subsets of ℕ is countable</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="st5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — Finite subsets of ℕ is countable</div>
+        <div class="ans-exp">Finite subsets of ℕ: for each n, subsets of size n are countable; countable union of countable sets is countable. <b>A is FALSE</b>: countable union of countable = countable. <b>B is FALSE</b>: ℕ×ℕ ≅ ℕ (countable). <b>D is FALSE</b>: infinite subsets of ℕ are in bijection with 𝒫(ℕ) = uncountable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip"><h3>📌 Key Tips — Set Theory</h3>
+    <ul>
+      <li><b>Countable ≠ Finite</b>: ℤ and ℚ are infinite but countable.</li>
+      <li><b>Cantor set trap</b>: uncountable yet measure zero — seemingly contradictory. Know it!</li>
+      <li><b>Power set</b>: |𝒫(A)| = 2ⁿ. Also |𝒫(ℕ)| = |ℝ| = 2^ℵ₀.</li>
+      <li><b>De Morgan's laws</b> appear in probability and topology too — memorize them.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========== REAL NUMBERS ========== -->
+<div id="rn" class="section" style="--mcq-c:var(--rn-md);--mcq-dk:var(--rn-dk);--mcq-lt:var(--rn-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047)">
+    <div class="banner-num">2</div>
+    <h2>Real Number System</h2>
+    <p>Field Axioms · Order · Absolute Value · Supremum · Infimum · Completeness · Archimedean Property</p>
+  </div>
+
+  <!-- Interactive Number Line -->
+  <div class="card" style="--card-top:var(--rn-md);margin-bottom:16px">
+    <h3>📊 Interactive: Supremum &amp; Infimum on Number Line</h3>
+    <svg id="nl-svg" width="100%" height="130" viewBox="0 0 600 130" style="display:block;background:#e8f5e9;border-radius:8px">
+      <!-- Number line -->
+      <line x1="40" y1="65" x2="570" y2="65" stroke="#2e7d32" stroke-width="2"/>
+      <polygon points="568,60 580,65 568,70" fill="#2e7d32"/>
+      <!-- Tick marks -->
+      <g stroke="#2e7d32" stroke-width="1.5" fill="#2e7d32" font-size="11">
+        <line x1="80" y1="58" x2="80" y2="72"/><text x="80" y="86" text-anchor="middle">0</text>
+        <line x1="175" y1="58" x2="175" y2="72"/><text x="175" y="86" text-anchor="middle">1/4</text>
+        <line x1="270" y1="58" x2="270" y2="72"/><text x="270" y="86" text-anchor="middle">1/2</text>
+        <line x1="365" y1="58" x2="365" y2="72"/><text x="365" y="86" text-anchor="middle">3/4</text>
+        <line x1="460" y1="58" x2="460" y2="72"/><text x="460" y="86" text-anchor="middle">1</text>
+      </g>
+      <!-- Set S = {1 - 1/n} points -->
+      <g id="nl-pts"></g>
+      <!-- Sup marker -->
+      <line id="sup-line" x1="460" y1="30" x2="460" y2="75" stroke="#e53935" stroke-width="2" stroke-dasharray="5,3"/>
+      <text id="sup-lbl" x="460" y="24" fill="#e53935" font-size="11" font-weight="700" text-anchor="middle">sup = 1</text>
+      <text id="sup-note" x="460" y="110" fill="#e53935" font-size="10" text-anchor="middle">not in S</text>
+      <!-- Inf marker -->
+      <line id="inf-line" x1="80" y1="30" x2="80" y2="75" stroke="#1565c0" stroke-width="2" stroke-dasharray="5,3"/>
+      <text id="inf-lbl" x="80" y="24" fill="#1565c0" font-size="11" font-weight="700" text-anchor="middle">inf = 0</text>
+      <text id="inf-note" x="80" y="110" fill="#1565c0" font-size="10" text-anchor="middle">not in S</text>
+    </svg>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+      <button onclick="nlShow('1-1n')" style="padding:5px 14px;background:#2e7d32;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">S = {1−1/n}</button>
+      <button onclick="nlShow('1n')" style="padding:5px 14px;background:#1565c0;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">S = {1/n}</button>
+      <button onclick="nlShow('n2')" style="padding:5px 14px;background:#e65100;color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer">S = (0,1) open interval</button>
+    </div>
+    <p id="nl-desc" style="font-size:12px;color:#2e7d32;margin-top:8px;font-weight:600">S = {1−1/n : n∈ℕ} = {0, 1/2, 2/3, 3/4, …} → sup=1 (not in S), inf=0 (not in S, min=0 exists).</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--rn-dk)"><span>Basic Concepts</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--rn-md)">
+      <h3>Field &amp; Order Axioms <span class="badge b-basic">Basic</span></h3>
+      <p>ℝ is an <b>ordered field</b>: satisfies commutativity, associativity, distributivity, identity and inverse elements for both + and ×, plus order (trichotomy).</p>
+      <ul>
+        <li>If a &lt; b and c &gt; 0, then <b>ac &lt; bc</b></li>
+        <li>If a &lt; b and c &lt; 0, then <b>ac &gt; bc</b> (flips!)</li>
+        <li>ℤ is <b>not</b> a field (no 1/2 ∈ ℤ)</li>
+        <li>ℚ is a field but <b>not complete</b></li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--rn-md)">
+      <h3>Absolute Value <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">|x| = x if x ≥ 0, &nbsp; −x if x &lt; 0</div>
+      <ul>
+        <li><b>Triangle Inequality:</b> |x + y| ≤ |x| + |y|</li>
+        <li><b>Reverse:</b> | |x| − |y| | ≤ |x − y|</li>
+        <li>|xy| = |x||y|</li>
+        <li>|x| &lt; r ⟺ −r &lt; x &lt; r (ε-δ proofs!)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--rn-md)">
+      <h3>Supremum &amp; Infimum <span class="badge b-inter">Intermediate</span></h3>
+      <p><b>sup S</b> = least upper bound (LUB) = smallest M with s ≤ M for all s ∈ S.</p>
+      <p><b>inf S</b> = greatest lower bound (GLB) = largest m with m ≤ s for all s ∈ S.</p>
+      <ul>
+        <li>sup S ∈ S ⟺ S has a <b>maximum</b></li>
+        <li>inf S ∈ S ⟺ S has a <b>minimum</b></li>
+        <li>inf(−S) = −sup(S)</li>
+      </ul>
+      <div class="fm">sup{1 − 1/n : n∈ℕ} = 1 &nbsp;(but 1 ∉ S)</div>
+    </div>
+    <div class="card" style="--card-top:var(--rn-md)">
+      <h3>Bounded Sets <span class="badge b-basic">Basic</span></h3>
+      <p>S ⊆ ℝ is <b>bounded above</b> if ∃M ∈ ℝ: s ≤ M for all s ∈ S.</p>
+      <p>S is <b>bounded below</b> if ∃m ∈ ℝ: m ≤ s for all s ∈ S.</p>
+      <p>S is <b>bounded</b> if bounded both above and below.</p>
+      <ul>
+        <li>(0,1) is bounded above by 1, below by 0</li>
+        <li>ℕ is bounded below by 1, but NOT above</li>
+        <li>ℤ is neither bounded above nor below</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--rn-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--rn-dk);--thm-bg:var(--rn-lt)">
+      <h3>Completeness Axiom (LUB Property) <span class="badge b-adv">Advanced</span></h3>
+      <p>Every non-empty subset S of ℝ that is <b>bounded above</b> has a supremum in ℝ.</p>
+      <div class="fm">S ≠ ∅, S bounded above ⟹ sup S ∈ ℝ exists</div>
+      <p><b>This DEFINES ℝ</b> and distinguishes it from ℚ! In ℚ: S = {x ∈ ℚ : x² &lt; 2} is bounded above, but sup S = √2 ∉ ℚ — the LUB does not exist in ℚ.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--rn-dk);--thm-bg:var(--rn-lt)">
+      <h3>Archimedean Property <span class="badge b-inter">Intermediate</span></h3>
+      <p>For every real x &gt; 0, there exists n ∈ ℕ such that <b>n &gt; x</b>.</p>
+      <p><b>Equivalently:</b> for every ε &gt; 0, ∃n ∈ ℕ with 1/n &lt; ε.</p>
+      <p>This means ℕ is <b>unbounded above</b> in ℝ. Follows from Completeness Axiom. Used in virtually every ε-δ proof.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--rn-dk);--thm-bg:var(--rn-lt)">
+      <h3>Density Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <p>Between any two distinct real numbers a &lt; b, there exists BOTH a <b>rational</b> q ∈ ℚ AND an <b>irrational</b> r ∈ ℝ\ℚ with a &lt; q &lt; b and a &lt; r &lt; b.</p>
+      <p>In fact, infinitely many of each. So ℚ is <b>dense</b> in ℝ, and ℝ\ℚ is also <b>dense</b> in ℝ.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--rn-dk);--thm-bg:var(--rn-lt)">
+      <h3>Nested Intervals Theorem <span class="badge b-adv">Advanced</span></h3>
+      <p>If [a₁,b₁] ⊇ [a₂,b₂] ⊇ [a₃,b₃] ⊇ … is a nested sequence of closed bounded intervals with (bₙ − aₙ) → 0, then ∩[aₙ,bₙ] contains <b>exactly one point</b>.</p>
+      <p>Fails for open intervals: ∩(0, 1/n) = ∅.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--rn-dk)"><span>Quick Reference</span></div>
+  <div class="card" style="--card-top:var(--rn-md);padding:0;overflow:hidden">
+    <table class="rtbl">
+      <thead><tr style="background:var(--rn-dk)"><th>Property</th><th>Statement</th><th>Key Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Triangle Inequality</b></td><td>|x + y| ≤ |x| + |y|</td><td>Equality iff x, y same sign</td></tr>
+        <tr><td><b>AM–GM</b></td><td>(a+b)/2 ≥ √(ab) for a,b ≥ 0</td><td>Equality iff a = b</td></tr>
+        <tr><td><b>Bernoulli</b></td><td>(1+x)ⁿ ≥ 1+nx for x ≥ −1, n ∈ ℕ</td><td>Used in limit proofs</td></tr>
+        <tr><td><b>Completeness</b></td><td>Every Cauchy sequence in ℝ converges</td><td>Fails in ℚ</td></tr>
+        <tr><td><b>Archimedean</b></td><td>∀x &gt; 0, ∃n ∈ ℕ: n &gt; x</td><td>ℕ is unbounded in ℝ</td></tr>
+        <tr><td><b>Density of ℚ</b></td><td>Between any a &lt; b lies q ∈ ℚ</td><td>Also an irrational exists there</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--rn-md);color:var(--rn-dk)">🎯 CSIR NET Questions — Real Numbers</div>
+
+  <div class="mcq" style="border-left-color:var(--rn-md)">
+    <div class="mcq-hdr" style="background:var(--rn-lt)">
+      <div class="mcq-num" style="background:var(--rn-dk)">1</div>
+      <span class="mcq-lbl">Archimedean Property</span>
+      <span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Archimedean property of ℝ states that for any real x &gt; 0, there exists n ∈ ℕ such that:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>n &gt; x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>n &lt; x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>n = x²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>n · x &lt; 1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rn1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="rn1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (A) — n &gt; x</div>
+        <div class="ans-exp">The Archimedean property says ℕ is unbounded above: <b>for every x &gt; 0, ∃n ∈ ℕ with n &gt; x</b>. Equivalent: for every ε &gt; 0, ∃n with 1/n &lt; ε. This is used in virtually every epsilon-delta proof to bound denominators.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rn-md)">
+    <div class="mcq-hdr" style="background:var(--rn-lt)">
+      <div class="mcq-num" style="background:var(--rn-dk)">2</div>
+      <span class="mcq-lbl">Supremum</span>
+      <span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The supremum of S = {1 − 1/n : n ∈ ℕ} is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Does not exist</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rn2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="rn2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — 1</div>
+        <div class="ans-exp">S = {0, 1/2, 2/3, 3/4, …}. Each element &lt; 1, so <b>1 is an upper bound</b>. For any ε &gt; 0, choose n &gt; 1/ε; then 1 − 1/n &gt; 1 − ε, so no number less than 1 is an upper bound. Hence <b>sup S = 1</b>. Note: 1 ∉ S, so the maximum does <b>not</b> exist.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rn-md)">
+    <div class="mcq-hdr" style="background:var(--rn-lt)">
+      <div class="mcq-num" style="background:var(--rn-dk)">3</div>
+      <span class="mcq-lbl">Infimum</span>
+      <span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The infimum of S = {1/n : n ∈ ℕ} is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Does not exist</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>−∞</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rn3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="rn3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — 0</div>
+        <div class="ans-exp">Since 1/n &gt; 0 for all n, <b>0 is a lower bound</b>. For any ε &gt; 0, by Archimedean property ∃n with 1/n &lt; ε, so no positive number is a lower bound. Hence <b>inf S = 0</b>. Note: 0 ∉ S — the minimum does not exist.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rn-md)">
+    <div class="mcq-hdr" style="background:var(--rn-lt)">
+      <div class="mcq-num" style="background:var(--rn-dk)">4</div>
+      <span class="mcq-lbl">Completeness Axiom</span>
+      <span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A non-empty subset S of ℝ has a supremum if and only if:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>S is finite</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>S is bounded above</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>S is closed</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>S contains its least upper bound</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rn4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="rn4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — S is bounded above</div>
+        <div class="ans-exp"><b>Completeness Axiom</b>: every non-empty S ⊆ ℝ bounded above has a supremum in ℝ. The sup need NOT belong to S (e.g., sup{1/n} = 0 ∉ S). This property fails in ℚ — it is the DEFINING difference between ℝ and ℚ.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rn-md)">
+    <div class="mcq-hdr" style="background:var(--rn-lt)">
+      <div class="mcq-num" style="background:var(--rn-dk)">5</div>
+      <span class="mcq-lbl">Density Theorem</span>
+      <span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Between any two distinct real numbers a &lt; b, there exists:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Only rational numbers</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Only irrational numbers</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>No number at all</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Both a rational and an irrational number</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rn5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="rn5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (D) — Both a rational and an irrational</div>
+        <div class="ans-exp"><b>Density Theorem</b>: between any a &lt; b exist infinitely many rationals AND infinitely many irrationals. For rationals: use Archimedean to find n with 1/n &lt; b−a, then find m ∈ ℤ with m/n ∈ (a,b). For irrationals: a + (b−a)/√2 type construction works.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip"><h3>📌 Key Tips — Real Numbers</h3>
+    <ul>
+      <li><b>ℝ vs ℚ:</b> The key difference is <b>completeness (LUB)</b>. ℚ has all field and order axioms but lacks completeness.</li>
+      <li><b>sup ≠ max:</b> sup S always exists if S is bounded above. max S exists only if sup S ∈ S.</li>
+      <li><b>Archimedean:</b> "ℕ is unbounded" and "1/n → 0" — two equivalent powerful statements used in every ε-δ proof.</li>
+      <li><b>CSIR classic:</b> Is √2 ∈ ℚ? No — it is the prototypical irrational number, showing ℚ is incomplete.</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<!-- Scroll-to-top -->
+<button class="stop" id="stob" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function show(id, navEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  if (window.visitedSections) window.visitedSections.add(id);
+}
+
+function toggle(id, btn) {
+  const box = document.getElementById(id);
+  const open = box.classList.toggle('show');
+  btn.textContent = open ? '▼ Hide Answer' : '▶ Show Answer';
+  btn.classList.toggle('open', open);
+}
+
+function selOpt(el) {
+  el.closest('.opts').querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('stob').classList.toggle('on', window.scrollY > 200);
+});
+
+window.visitedSections = new Set(['home']);
+
+// ===== NUMBER LINE =====
+function nlShow(type){
+  const pts = document.getElementById('nl-pts');
+  pts.innerHTML='';
+  const x0=80, scale=380; // 0 at x0, 1 at x0+scale
+  const ns='http://www.w3.org/2000/svg';
+  const configs={
+    '1-1n':{fn:n=>1-1/n,max:12,sup:1,inf:0,supIn:false,infIn:true,
+      desc:"S={1−1/n}={0, 1/2, 2/3, 3/4, …} | sup=1 (not in S, no max) | inf=min=0 (in S, S has minimum)"},
+    '1n':  {fn:n=>1/n,  max:10,sup:1,inf:0,supIn:true, infIn:false,
+      desc:"S={1/n}={1, 1/2, 1/3, …} | sup=max=1 (in S) | inf=0 (not in S, no minimum)"},
+    'n2':  {fn:x=>x,   max:0, sup:1,inf:0,supIn:false,infIn:false,
+      desc:"S=(0,1) open interval | sup=1 (not in S, no max) | inf=0 (not in S, no min)"}
+  };
+  const cfg=configs[type];
+  if(!cfg) return;
+
+  if(type==='n2'){
+    const bar=document.createElementNS(ns,'rect');
+    bar.setAttribute('x',x0+1);bar.setAttribute('y',60);bar.setAttribute('width',scale-2);bar.setAttribute('height',10);
+    bar.setAttribute('fill','rgba(46,125,50,0.4)');bar.setAttribute('rx','2');
+    pts.appendChild(bar);
+  } else {
+    const colors=['#2e7d32','#1565c0','#e65100','#6a1b9a','#006064','#b71c1c','#37474f','#e91e63','#ff9800','#795548','#009688','#607d8b'];
+    for(let n=1;n<=cfg.max;n++){
+      const v=cfg.fn(n);
+      if(v<0||v>1) continue;
+      const cx=x0+v*scale;
+      const c=document.createElementNS(ns,'circle');
+      c.setAttribute('cx',cx);c.setAttribute('cy',65);c.setAttribute('r',5);
+      c.setAttribute('fill',colors[(n-1)%colors.length]);
+      const t=document.createElementNS(ns,'text');
+      t.setAttribute('x',cx);t.setAttribute('y',52);t.setAttribute('font-size','8.5');
+      t.setAttribute('text-anchor','middle');t.setAttribute('fill','#555');
+      t.textContent=n<=5?`n=${n}`:'';
+      pts.appendChild(c);pts.appendChild(t);
+    }
+  }
+
+  // Update sup/inf markers
+  const sl=document.getElementById('sup-line'), il=document.getElementById('inf-line');
+  const sx=x0+cfg.sup*scale, ix=x0+cfg.inf*scale;
+  sl.setAttribute('x1',sx);sl.setAttribute('x2',sx);
+  il.setAttribute('x1',ix);il.setAttribute('x2',ix);
+  document.getElementById('sup-lbl').setAttribute('x',sx);
+  document.getElementById('sup-lbl').textContent='sup='+(cfg.sup===1?'1':'0');
+  document.getElementById('inf-lbl').setAttribute('x',ix);
+  document.getElementById('inf-lbl').textContent='inf='+(cfg.inf===0?'0':'1');
+  document.getElementById('sup-note').setAttribute('x',sx);
+  document.getElementById('sup-note').textContent=cfg.supIn?'max=sup ✓':'not in S';
+  document.getElementById('inf-note').setAttribute('x',ix);
+  document.getElementById('inf-note').textContent=cfg.infIn?'min=inf ✓':'not in S';
+  document.getElementById('nl-desc').textContent=cfg.desc;
+}
+nlShow('1-1n');
+
+// ===== VENN DIAGRAM =====
+function vennOp(op){
+  const svg = document.getElementById('venn-svg');
+  // Remove old highlights
+  svg.querySelectorAll('.hl').forEach(e=>e.remove());
+  document.getElementById('int-hl').style.display='none';
+
+  const defs = `
+    <defs>
+      <clipPath id="ca"><ellipse cx="220" cy="100" rx="130" ry="80"/></clipPath>
+      <clipPath id="cb"><ellipse cx="380" cy="100" rx="130" ry="80"/></clipPath>
+    </defs>`;
+
+  const msgs = {
+    union: 'A ∪ B = all elements in A or B (or both) | De Morgan: (A∪B)ᶜ = Aᶜ∩Bᶜ',
+    inter: 'A ∩ B = elements common to BOTH A and B | De Morgan: (A∩B)ᶜ = Aᶜ∪Bᶜ',
+    diff:  'A \\ B = elements in A but NOT in B | A\\B = A∩Bᶜ',
+    sym:   'A △ B = (A\\B) ∪ (B\\A) = elements in exactly one of A, B',
+    comp:  'Aᶜ = everything in U that is NOT in A | (Aᶜ)ᶜ = A'
+  };
+
+  document.getElementById('op-lbl').textContent = msgs[op] || '';
+
+  const ns='http://www.w3.org/2000/svg';
+  if(op==='union'){
+    const e1=document.createElementNS(ns,'ellipse');
+    e1.setAttribute('cx','220');e1.setAttribute('cy','100');e1.setAttribute('rx','130');e1.setAttribute('ry','80');
+    e1.setAttribute('fill','rgba(21,101,192,0.45)');e1.setAttribute('class','hl');
+    const e2=document.createElementNS(ns,'ellipse');
+    e2.setAttribute('cx','380');e2.setAttribute('cy','100');e2.setAttribute('rx','130');e2.setAttribute('ry','80');
+    e2.setAttribute('fill','rgba(46,125,50,0.45)');e2.setAttribute('class','hl');
+    svg.insertBefore(e1,svg.children[4]);svg.insertBefore(e2,svg.children[5]);
+    document.getElementById('int-lbl').textContent='A ∪ B';
+    document.getElementById('int-sub').textContent='Union (both)';
+  } else if(op==='inter'){
+    document.getElementById('int-hl').style.display='';
+    document.getElementById('int-lbl').textContent='A ∩ B';
+    document.getElementById('int-sub').textContent='Intersection';
+  } else if(op==='diff'){
+    const e1=document.createElementNS(ns,'ellipse');
+    e1.setAttribute('cx','220');e1.setAttribute('cy','100');e1.setAttribute('rx','130');e1.setAttribute('ry','80');
+    e1.setAttribute('fill','rgba(21,101,192,0.5)');e1.setAttribute('class','hl');
+    const cover=document.createElementNS(ns,'ellipse');
+    cover.setAttribute('cx','220');cover.setAttribute('cy','100');cover.setAttribute('rx','130');cover.setAttribute('ry','80');
+    cover.setAttribute('fill','rgba(21,101,192,0.5)');cover.setAttribute('clip-path','url(#cb)');cover.setAttribute('class','hl');
+    // Actually just draw A without intersection using clip not B
+    const e2=document.createElementNS(ns,'ellipse');
+    e2.setAttribute('cx','380');e2.setAttribute('cy','100');e2.setAttribute('rx','130');e2.setAttribute('ry','80');
+    e2.setAttribute('fill','rgba(255,255,255,0.7)');e2.setAttribute('clip-path','url(#ca)');e2.setAttribute('class','hl');
+    svg.insertBefore(e1,svg.children[4]);svg.appendChild(e2);
+    document.getElementById('int-lbl').textContent='A \\ B';
+    document.getElementById('int-sub').textContent='A minus B';
+  } else if(op==='sym'){
+    const e1=document.createElementNS(ns,'ellipse');
+    e1.setAttribute('cx','220');e1.setAttribute('cy','100');e1.setAttribute('rx','130');e1.setAttribute('ry','80');
+    e1.setAttribute('fill','rgba(106,27,154,0.4)');e1.setAttribute('class','hl');
+    const e2=document.createElementNS(ns,'ellipse');
+    e2.setAttribute('cx','380');e2.setAttribute('cy','100');e2.setAttribute('rx','130');e2.setAttribute('ry','80');
+    e2.setAttribute('fill','rgba(106,27,154,0.4)');e2.setAttribute('class','hl');
+    const cover=document.createElementNS(ns,'ellipse');
+    cover.setAttribute('cx','220');cover.setAttribute('cy','100');cover.setAttribute('rx','130');cover.setAttribute('ry','80');
+    cover.setAttribute('fill','rgba(227,242,253,0.85)');cover.setAttribute('clip-path','url(#cb)');cover.setAttribute('class','hl');
+    svg.insertBefore(e1,svg.children[4]);svg.insertBefore(e2,svg.children[5]);svg.appendChild(cover);
+    document.getElementById('int-lbl').textContent='A △ B';
+    document.getElementById('int-sub').textContent='Symmetric diff';
+  } else if(op==='comp'){
+    const rect=document.createElementNS(ns,'rect');
+    rect.setAttribute('x','10');rect.setAttribute('y','10');rect.setAttribute('width','580');rect.setAttribute('height','180');
+    rect.setAttribute('rx','10');rect.setAttribute('fill','rgba(55,71,79,0.35)');rect.setAttribute('class','hl');
+    const e1=document.createElementNS(ns,'ellipse');
+    e1.setAttribute('cx','220');e1.setAttribute('cy','100');e1.setAttribute('rx','130');e1.setAttribute('ry','80');
+    e1.setAttribute('fill','rgba(227,242,253,0.95)');e1.setAttribute('class','hl');
+    svg.insertBefore(rect,svg.children[4]);svg.appendChild(e1);
+    document.getElementById('int-lbl').textContent='Aᶜ';
+    document.getElementById('int-sub').textContent='Complement of A';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 1 — Sequences, Continuity, Riemann</title>
+<style>
+:root{
+  --ss-dk:#e65100;--ss-md:#fb8c00;--ss-lt:#fff3e0;
+  --cd-dk:#6a1b9a;--cd-md:#8e44ad;--cd-lt:#f3e5f5;
+  --ri-dk:#006064;--ri-md:#00acc1;--ri-lt:#e0f7fa;
+  --ok:#1b5e20;--hm-dk:#1a237e;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#1a237e,#283593,#3949ab);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#1c2333;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#607d8b;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#64b5f6);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#64b5f6);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:140px;height:140px;top:-40px;right:-20px;border-radius:50%;background:rgba(255,255,255,.08)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.1;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:var(--card-h,#37474f)}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul{padding-left:18px}
+.card .fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-top-color:var(--ri-md);border-left:4px solid var(--ri-md);border-radius:4px 10px 10px 4px;background:var(--ri-lt)}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;color:#fff}
+.rtbl td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px;line-height:1.55}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.rtbl tr:hover td{background:#f0f4ff}
+.mcq-title{font-size:15px;font-weight:800;margin:22px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f);display:flex;align-items:center;gap:8px}
+.mcq{background:#fff;border-radius:10px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;padding:9px 14px;gap:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.mcq-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.mcq-lbl{font-size:11px;font-weight:600;color:#555;flex:1}
+.mcq-d{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:13px 15px 11px}
+.mcq-q{font-size:13px;font-weight:500;margin-bottom:11px;line-height:1.65;color:#1a1a2e}
+.opts{display:grid;gap:6px;margin-bottom:11px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;border:1.5px solid #e8e8e8;cursor:pointer;font-size:12px;transition:all .15s;background:#fafafa;line-height:1.5}
+.opt:hover{border-color:var(--mcq-c);background:var(--mcq-lt)}.opt.sel{border-color:var(--mcq-c);background:var(--mcq-lt)}
+.opt-l{font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8e8e8;flex-shrink:0;margin-top:1px}
+.btn-ans{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11.5px;font-weight:700;transition:all .2s;background:var(--mcq-dk,#37474f);color:#fff}
+.btn-ans:hover{opacity:.85;transform:translateY(-1px)}.btn-ans.open{background:#607d8b}
+.ans-box{display:none;margin-top:11px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
+.ans-box.show{display:block}
+.ans-top{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-size:13px;font-weight:700}
+.ans-exp{padding:11px 14px;background:#e8eaf6;font-size:12px;color:#1a237e;line-height:1.7;border-top:1px solid #c5cae9}
+.ans-exp b{color:#0d47a1}
+
+/* ====== INTERACTIVE SVG DIAGRAMS ====== */
+.viz-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;border:1px solid #e8e8e8}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:14px;color:#1a237e;display:flex;align-items:center;gap:8px}
+.viz-box p{font-size:12px;color:#555;margin-top:8px;line-height:1.6}
+.viz-ctrl{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.viz-btn{padding:6px 14px;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .2s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:var(--hm-dk);color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Math — Unit 1</div>
+  <div class="hdr-s">Sequences · Continuity · Riemann Integration</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit1_Part1.html">← Part 1</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit1_Part3.html">Part 3 →</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Part 2 Topics</div>
+  <div class="nav-item active" style="--ac:#ffa726;--dc:#ffa726" onclick="show('ss',this)">
+    <div class="nav-dot"></div>3. Sequences &amp; Series
+  </div>
+  <div class="nav-item" style="--ac:#ce93d8;--dc:#ce93d8" onclick="show('cd',this)">
+    <div class="nav-dot"></div>4. Continuity &amp; Diff.
+  </div>
+  <div class="nav-item" style="--ac:#4dd0e1;--dc:#4dd0e1" onclick="show('ri',this)">
+    <div class="nav-dot"></div>5. Riemann Integration
+  </div>
+  <div class="nav-grp">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit1_Part1.html'">
+    <div class="nav-dot" style="background:#64b5f6"></div>Part 1: Set Theory / ℝ
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit1_Part3.html'">
+    <div class="nav-dot" style="background:#ef9a9a"></div>Part 3: Lin. Algebra / Metric
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ====================================================
+     SEQUENCES & SERIES
+     ==================================================== -->
+<div id="ss" class="section active" style="--mcq-c:var(--ss-md);--mcq-dk:var(--ss-dk);--mcq-lt:var(--ss-lt)">
+
+  <div class="sec-banner" style="background:linear-gradient(135deg,#bf360c,#e65100,#fb8c00)">
+    <div class="banner-num">3</div>
+    <h2>Sequences &amp; Series</h2>
+    <p>Convergence · Monotone Convergence · Bolzano-Weierstrass · Cauchy Criterion · Power Series · Convergence Tests</p>
+  </div>
+
+  <!-- INTERACTIVE DIAGRAM 1: Sequence Convergence -->
+  <div class="viz-box">
+    <h3>📊 Interactive: Sequence Convergence Visualizer</h3>
+    <svg id="seq-svg" width="100%" height="200" viewBox="0 0 600 200" style="background:#f8f9ff;border-radius:8px;display:block">
+      <!-- Axes -->
+      <line x1="40" y1="170" x2="580" y2="170" stroke="#90a4ae" stroke-width="1.5"/>
+      <line x1="40" y1="20" x2="40" y2="175" stroke="#90a4ae" stroke-width="1.5"/>
+      <!-- Limit line L=1 -->
+      <line id="lim-line" x1="40" y1="70" x2="580" y2="70" stroke="#e53935" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="585" y="74" fill="#e53935" font-size="11" font-weight="700">L</text>
+      <!-- Axis labels -->
+      <text x="310" y="188" fill="#607d8b" font-size="11" text-anchor="middle">n (term index)</text>
+      <text x="14" y="100" fill="#607d8b" font-size="11" text-anchor="middle" transform="rotate(-90,14,100)">aₙ</text>
+      <!-- Points plotted by JS -->
+      <g id="seq-pts"></g>
+      <g id="seq-lines"></g>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="plotSeq('harmonic')">aₙ = 1/n → 0</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="plotSeq('converge')">aₙ = 1−1/n → 1</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="plotSeq('alt')">aₙ = (−1)ⁿ/n → 0</button>
+      <button class="viz-btn" style="background:#6a1b9a;color:#fff" onclick="plotSeq('bw')">Bounded (B-W)</button>
+    </div>
+    <p id="seq-desc" style="margin-top:10px;color:#1a237e;font-weight:600">Click a button to visualize the sequence. The red dashed line shows the limit L.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ss-dk)"><span>Basic Concepts — Sequences</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ss-md)">
+      <h3>What is a Sequence? <span class="badge b-basic">Basic</span></h3>
+      <p>A sequence is a function <b>a : ℕ → ℝ</b>, written {aₙ}. Each aₙ is a <b>term</b>.</p>
+      <ul>
+        <li><b>{1/n}</b> = 1, 1/2, 1/3, 1/4, … → 0</li>
+        <li><b>{(−1)ⁿ}</b> = −1, 1, −1, 1, … (diverges)</li>
+        <li><b>{n²}</b> = 1, 4, 9, 16, … → ∞ (diverges)</li>
+      </ul>
+      <div class="fm">lim aₙ = L ⟺ ∀ε&gt;0, ∃N: n&gt;N ⟹ |aₙ−L|&lt;ε</div>
+    </div>
+    <div class="card" style="--card-top:var(--ss-md)">
+      <h3>Bounded &amp; Monotone <span class="badge b-basic">Basic</span></h3>
+      <p><b>Bounded:</b> ∃M&gt;0: |aₙ| ≤ M for all n. Every convergent sequence is bounded. Converse is FALSE.</p>
+      <ul>
+        <li><b>Increasing:</b> a₁ ≤ a₂ ≤ a₃ ≤ …</li>
+        <li><b>Decreasing:</b> a₁ ≥ a₂ ≥ a₃ ≥ …</li>
+      </ul>
+      <div class="fm">Monotone Convergence Thm: bounded monotone ⟹ convergent</div>
+    </div>
+    <div class="card" style="--card-top:var(--ss-md)">
+      <h3>Series &amp; Convergence Tests <span class="badge b-inter">Intermediate</span></h3>
+      <ul>
+        <li><b>Divergence Test:</b> If aₙ ↛ 0, then Σaₙ diverges</li>
+        <li><b>Comparison:</b> 0 ≤ aₙ ≤ bₙ; Σbₙ conv ⟹ Σaₙ conv</li>
+        <li><b>Ratio Test:</b> L = lim|aₙ₊₁/aₙ|. L&lt;1 conv; L&gt;1 div; L=1 inconclusive</li>
+        <li><b>Root Test:</b> L = limsup|aₙ|^(1/n). L&lt;1 conv; L&gt;1 div</li>
+        <li><b>Alternating (Leibniz):</b> bₙ ↘ 0 ⟹ Σ(−1)ⁿbₙ converges</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ss-md)">
+      <h3>Absolute vs Conditional <span class="badge b-inter">Intermediate</span></h3>
+      <p><b>Absolutely convergent:</b> Σ|aₙ| converges ⟹ Σaₙ converges</p>
+      <p><b>Conditionally convergent:</b> Σaₙ converges but Σ|aₙ| diverges</p>
+      <div class="fm">Example: Σ(−1)ⁿ⁺¹/n = ln 2 (conditional)</div>
+      <p><b>Riemann Rearrangement:</b> A conditionally convergent series can be rearranged to sum to ANY real number!</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ss-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--ss-dk);--thm-bg:var(--ss-lt)">
+      <h3>Bolzano-Weierstrass Theorem <span class="badge b-adv">Advanced</span></h3>
+      <p><b>Every bounded sequence in ℝ has a convergent subsequence.</b></p>
+      <p>Proof idea: repeatedly bisect intervals. If {aₙ} ⊆ [a,b], split into two halves — one contains infinitely many terms. Repeat to get a nested sequence of intervals → one limit point.</p>
+      <p>Equivalent to: closed bounded sets in ℝⁿ are compact (Heine-Borel).</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ss-dk);--thm-bg:var(--ss-lt)">
+      <h3>Cauchy Criterion <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">{aₙ} converges ⟺ it is Cauchy: ∀ε&gt;0, ∃N: m,n&gt;N ⟹ |aₙ−aₘ|&lt;ε</div>
+      <p>Works in complete metric spaces (like ℝ). <b>Fails in ℚ</b> (incomplete). Key advantage: no need to know the limit L in advance.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ss-dk);--thm-bg:var(--ss-lt)">
+      <h3>Power Series &amp; Radius of Convergence <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Σ aₙxⁿ &nbsp;|&nbsp; R = 1 / limsup |aₙ|^(1/n)  (Cauchy-Hadamard)</div>
+      <ul>
+        <li>Converges <b>absolutely</b> for |x| &lt; R</li>
+        <li>Diverges for |x| &gt; R</li>
+        <li>At |x| = R: check individually</li>
+        <li>Σn!xⁿ: R = 0 (converges only at x = 0)</li>
+        <li>Σxⁿ/n!: R = ∞ (converges everywhere)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Important Series Table -->
+  <div class="divider" style="--div-c:var(--ss-dk)"><span>CSIR Must-Know Series</span></div>
+  <div class="card" style="--card-top:var(--ss-md);padding:0;overflow:hidden">
+    <table class="rtbl">
+      <thead><tr style="background:var(--ss-dk)"><th>Series</th><th>Sum / Result</th><th>Test Used</th><th>CSIR Frequency</th></tr></thead>
+      <tbody>
+        <tr><td><b>Σ 1/nᵖ</b></td><td>Converges iff p &gt; 1</td><td>Integral test</td><td>★★★★★</td></tr>
+        <tr><td><b>Σ 1/n²</b></td><td>= π²/6 (Basel)</td><td>Fourier/Euler</td><td>★★★★★</td></tr>
+        <tr><td><b>Σ (−1)ⁿ⁺¹/n</b></td><td>= ln 2 (conditional)</td><td>Leibniz (alt.)</td><td>★★★★★</td></tr>
+        <tr><td><b>Σ xⁿ</b></td><td>= 1/(1−x), |x|&lt;1</td><td>Geometric</td><td>★★★★☆</td></tr>
+        <tr><td><b>Σ xⁿ/n!</b></td><td>= eˣ (all x)</td><td>Ratio test</td><td>★★★☆☆</td></tr>
+        <tr><td><b>Σ n!xⁿ</b></td><td>Diverges for all x≠0</td><td>Ratio test (→∞)</td><td>★★★★☆</td></tr>
+        <tr><td><b>Σ 1/n</b></td><td>DIVERGES (harmonic)</td><td>Integral / direct</td><td>★★★★★</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ss-md);color:var(--ss-dk)">🎯 CSIR NET Questions — Sequences &amp; Series</div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">1</div>
+      <span class="mcq-lbl">Bolzano-Weierstrass</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Bolzano-Weierstrass theorem states that:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Every Cauchy sequence in ℝ converges</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Every bounded sequence in ℝ has a convergent subsequence</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Every monotone sequence in ℝ is bounded</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Every sequence in a compact set has a unique limit</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ss1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B)</div>
+        <div class="ans-exp"><b>Bolzano-Weierstrass:</b> every bounded sequence in ℝⁿ has at least one convergent subsequence. Equivalent to compactness of closed bounded sets. Option A is the Cauchy criterion (different theorem). Option C is FALSE: {(−1)ⁿ·n} is monotone in absolute value but unbounded.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">2</div>
+      <span class="mcq-lbl">Basel Series</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The sum Σ(1/n²) from n=1 to ∞ equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>π²/6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>π/6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Diverges</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ss2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (A) — π²/6</div>
+        <div class="ans-exp"><b>Basel Problem (Euler, 1734):</b> Σ1/n² = π²/6 ≈ 1.6449. Proved by multiple methods: Fourier series of f(x)=x on [−π,π], contour integration, or Euler's product formula for sin(x). This is one of the most famous results in mathematics and a CSIR exam favorite.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">3</div>
+      <span class="mcq-lbl">Radius of Convergence</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The radius of convergence of Σ(n!)xⁿ (n=0 to ∞) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>∞</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ss3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (D) — 0</div>
+        <div class="ans-exp">By <b>ratio test</b>: |a_{n+1}/aₙ| = (n+1)|x| → ∞ for any x ≠ 0. So the series diverges everywhere except x=0. By <b>Cauchy-Hadamard</b>: R = 1/limsup(n!)^(1/n). By Stirling's formula, (n!)^(1/n) ~ n/e → ∞, so R = 0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">4</div>
+      <span class="mcq-lbl">Alternating Series</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The series 1 − 1/2 + 1/3 − 1/4 + … (alternating harmonic):</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Diverges</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Converges absolutely</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Converges conditionally to ln 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Converges absolutely to ln 2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ss4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — Conditionally convergent to ln 2</div>
+        <div class="ans-exp">By <b>Leibniz test</b>: 1/n is positive, decreasing, → 0 → the series converges. Sum = ln 2 ≈ 0.693. BUT Σ|aₙ| = Σ1/n (harmonic series) <b>diverges</b>. So convergence is <b>conditional</b>, not absolute. Classic CSIR distinction!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">5</div>
+      <span class="mcq-lbl">Cauchy Criterion</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A sequence {aₙ} in ℝ converges if and only if it is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Bounded</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A Cauchy sequence</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Monotone</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Monotone and bounded</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ss5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — A Cauchy sequence</div>
+        <div class="ans-exp">In <b>complete metric spaces</b> like ℝ: convergent ⟺ Cauchy. This equivalence <b>fails in ℚ</b> (incomplete). Note: bounded alone does not imply convergence ({(−1)ⁿ} is bounded, diverges). Monotone+bounded (D) is sufficient but not necessary.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip">
+    <h3>📌 Key Tips — Sequences &amp; Series</h3>
+    <ul>
+      <li><b>Divergence test</b>: If aₙ ↛ 0, Σaₙ definitely diverges. But aₙ → 0 is NOT enough (harmonic series!).</li>
+      <li><b>Memorize</b>: Σ1/n² = π²/6 and Σ(−1)ⁿ⁺¹/n = ln 2 — they appear every year in CSIR.</li>
+      <li><b>Ratio test fails</b> (L=1) for p-series — use integral/comparison test instead.</li>
+      <li><b>Riemann rearrangement</b>: conditionally convergent → can rearrange to any sum. Absolutely convergent → rearrangement doesn't change sum.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ====================================================
+     CONTINUITY & DIFFERENTIABILITY
+     ==================================================== -->
+<div id="cd" class="section" style="--mcq-c:var(--cd-md);--mcq-dk:var(--cd-dk);--mcq-lt:var(--cd-lt)">
+
+  <div class="sec-banner" style="background:linear-gradient(135deg,#4a148c,#6a1b9a,#8e44ad)">
+    <div class="banner-num">4</div>
+    <h2>Continuity &amp; Differentiability</h2>
+    <p>ε-δ Definition · Discontinuities · IVT · EVT · MVT · Uniform Continuity · Weierstrass Function</p>
+  </div>
+
+  <!-- INTERACTIVE DIAGRAM 2: Epsilon-Delta -->
+  <div class="viz-box">
+    <h3>📊 Interactive: ε-δ Continuity Visualizer</h3>
+    <svg id="ed-svg" width="100%" height="220" viewBox="0 0 600 220" style="background:#faf5ff;border-radius:8px;display:block">
+      <!-- Grid lines -->
+      <defs>
+        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e8e0f0" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="600" height="220" fill="url(#grid)"/>
+      <!-- Axes -->
+      <line x1="50" y1="190" x2="580" y2="190" stroke="#7b1fa2" stroke-width="1.5"/>
+      <line x1="50" y1="10" x2="50" y2="195" stroke="#7b1fa2" stroke-width="1.5"/>
+      <!-- Axis labels -->
+      <text x="590" y="194" fill="#7b1fa2" font-size="12" font-weight="700">x</text>
+      <text x="44" y="8" fill="#7b1fa2" font-size="12" font-weight="700">y</text>
+      <!-- Function curve f(x)=x² scaled -->
+      <path id="fn-curve" d="" fill="none" stroke="#8e44ad" stroke-width="2.5"/>
+      <!-- Delta band -->
+      <rect id="d-band" x="0" y="0" width="0" height="0" fill="rgba(230,81,0,0.12)" rx="2"/>
+      <!-- Epsilon band -->
+      <rect id="e-band" x="50" y="0" width="530" height="0" fill="rgba(21,101,192,0.12)" rx="2"/>
+      <!-- Point a -->
+      <circle id="pt-a" cx="280" cy="115" r="5" fill="#e65100"/>
+      <text id="lbl-a" x="280" y="208" fill="#e65100" font-size="11" text-anchor="middle" font-weight="700">a</text>
+      <text id="lbl-fa" x="30" y="115" fill="#1565c0" font-size="11" text-anchor="middle" font-weight="700">f(a)</text>
+      <!-- Legend -->
+      <rect x="420" y="15" width="12" height="12" fill="rgba(230,81,0,0.3)"/>
+      <text x="436" y="25" fill="#555" font-size="10">δ-band (x-axis)</text>
+      <rect x="420" y="32" width="12" height="12" fill="rgba(21,101,192,0.3)"/>
+      <text x="436" y="42" fill="#555" font-size="10">ε-band (y-axis)</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#8e44ad;color:#fff" onclick="drawEpsDelta(0.5,0.3)">ε=0.5, δ=0.3</button>
+      <button class="viz-btn" style="background:#6a1b9a;color:#fff" onclick="drawEpsDelta(0.25,0.15)">ε=0.25, δ=0.15</button>
+      <button class="viz-btn" style="background:#4a148c;color:#fff" onclick="drawEpsDelta(0.1,0.06)">ε=0.1, δ=0.06</button>
+      <button class="viz-btn" style="background:#37474f;color:#fff" onclick="drawDisc()">Discontinuous</button>
+    </div>
+    <p id="ed-desc" style="margin-top:8px;font-size:12px;color:#4a148c">For f(x)=x², continuity at a=1: as ε shrinks, δ also shrinks — but always exists. For discontinuous functions, δ fails to exist for small ε.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cd-dk)"><span>Basic Concepts</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cd-md)">
+      <h3>ε-δ Definition <span class="badge b-basic">Basic</span></h3>
+      <p>f is <b>continuous at a</b> if:</p>
+      <div class="fm">∀ε&gt;0, ∃δ&gt;0: |x−a|&lt;δ ⟹ |f(x)−f(a)|&lt;ε</div>
+      <p>Equivalently: (1) f(a) defined, (2) lim f(x) as x→a exists, (3) lim = f(a).</p>
+    </div>
+    <div class="card" style="--card-top:var(--cd-md)">
+      <h3>Types of Discontinuity <span class="badge b-basic">Basic</span></h3>
+      <ul>
+        <li><b>Removable:</b> lim exists but ≠ f(a). Fix: redefine f(a).</li>
+        <li><b>Jump:</b> left-limit ≠ right-limit (e.g., sign function at 0).</li>
+        <li><b>Essential:</b> lim doesn't exist (e.g., sin(1/x) at x=0).</li>
+      </ul>
+      <p style="margin-top:6px;font-size:11.5px;color:#888">Monotone functions have only jump discontinuities (at most countably many).</p>
+    </div>
+    <div class="card" style="--card-top:var(--cd-md)">
+      <h3>Uniform Continuity <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">∀ε&gt;0, ∃δ&gt;0 (same δ everywhere!): |x−y|&lt;δ ⟹ |f(x)−f(y)|&lt;ε</div>
+      <ul>
+        <li>Continuous on <b>closed bounded</b> interval ⟹ uniformly continuous (Heine-Cantor)</li>
+        <li>Lipschitz ⟹ uniformly continuous (not vice versa)</li>
+        <li>sin(x) is uniformly continuous on ℝ (Lipschitz with K=1)</li>
+        <li>x² is <b>NOT</b> uniformly continuous on ℝ</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cd-md)">
+      <h3>Differentiability <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">f'(a) = lim_{h→0} [f(a+h)−f(a)] / h</div>
+      <p><b>Differentiable ⟹ Continuous</b> (converse is FALSE!)</p>
+      <ul>
+        <li>|x| is continuous at 0 but NOT differentiable</li>
+        <li>x^(2/3) is continuous, not differentiable at 0</li>
+        <li>Weierstrass function: continuous <b>everywhere</b>, differentiable <b>nowhere</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cd-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--cd-dk);--thm-bg:var(--cd-lt)">
+      <h3>Intermediate Value Theorem (IVT) <span class="badge b-inter">Intermediate</span></h3>
+      <p>If f:[a,b]→ℝ is <b>continuous</b> and c is strictly between f(a) and f(b), then ∃x₀ ∈ (a,b) with f(x₀) = c.</p>
+      <p><b>Applications:</b></p>
+      <ul>
+        <li>Every odd-degree polynomial has a real root</li>
+        <li><b>Fixed point:</b> f:[0,1]→[0,1] continuous ⟹ ∃c: f(c)=c (let g=f(x)−x, apply IVT)</li>
+        <li>Range of continuous function on [a,b] is an interval</li>
+      </ul>
+    </div>
+    <div class="card thm" style="--card-top:var(--cd-dk);--thm-bg:var(--cd-lt)">
+      <h3>Extreme Value Theorem (EVT) <span class="badge b-inter">Intermediate</span></h3>
+      <p>If f:[a,b]→ℝ is <b>continuous on a closed bounded interval</b>, then f is bounded and <b>attains both its maximum and minimum</b>.</p>
+      <p>Fails on open intervals: f(x)=1/x on (0,1) has no maximum. Fails if interval is unbounded: f(x)=x on ℝ has no max/min.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--cd-dk);--thm-bg:var(--cd-lt)">
+      <h3>Mean Value Theorem — Lagrange (MVT) <span class="badge b-adv">Advanced</span></h3>
+      <p>If f is continuous on [a,b] and differentiable on (a,b), then ∃c ∈ (a,b) with:</p>
+      <div class="fm">f'(c) = [f(b) − f(a)] / (b − a)</div>
+      <p>Special case f(a)=f(b): <b>Rolle's theorem</b> gives f'(c)=0. Applications: f'≡0 ⟹ f=const; f'&gt;0 ⟹ f strictly increasing.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--cd-dk);--thm-bg:var(--cd-lt)">
+      <h3>Weierstrass Function <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">W(x) = Σ aⁿ cos(bⁿπx),  0&lt;a&lt;1,  b odd,  ab &gt; 1+3π/2</div>
+      <p>This function is <b>continuous everywhere</b> (uniform limit of continuous functions) but <b>differentiable nowhere</b> on ℝ. A famous counterexample to the intuition that "continuous ⟹ differentiable almost everywhere."</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--cd-md);color:var(--cd-dk)">🎯 CSIR NET Questions — Continuity &amp; Differentiability</div>
+
+  <div class="mcq" style="border-left-color:var(--cd-md)">
+    <div class="mcq-hdr" style="background:var(--cd-lt)">
+      <div class="mcq-num" style="background:var(--cd-dk)">1</div>
+      <span class="mcq-lbl">Extreme Value Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If f:[a,b]→ℝ is continuous, then by the Extreme Value Theorem:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f is differentiable on (a,b)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f attains its maximum and minimum values on [a,b]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f is monotone on [a,b]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f has finitely many discontinuities</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cd1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cd1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B)</div>
+        <div class="ans-exp"><b>EVT:</b> continuous on CLOSED BOUNDED [a,b] ⟹ f is bounded and attains both sup and inf. Requires: <b>closed</b> (not open) AND <b>bounded</b>. Fails for f(x)=1/x on (0,1) — unbounded. Fails for f(x)=x on ℝ — no max. Option A is NOT implied by continuity alone.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cd-md)">
+    <div class="mcq-hdr" style="background:var(--cd-lt)">
+      <div class="mcq-num" style="background:var(--cd-dk)">2</div>
+      <span class="mcq-lbl">Mean Value Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">By Lagrange's MVT, if f is continuous on [a,b] and differentiable on (a,b), then ∃c ∈ (a,b) with:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f'(c) = [f(b)−f(a)] / (b−a)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f'(c) = f(b) − f(a)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f(c) = [f(a)+f(b)] / 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f'(c) = f(a) + f(b)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cd2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cd2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (A)</div>
+        <div class="ans-exp">MVT equates instantaneous rate f'(c) with average rate [f(b)−f(a)]/(b−a). Geometrically: tangent at c is parallel to secant through (a,f(a)) and (b,f(b)). Proof: apply Rolle's theorem to g(x)=f(x) − (x−a)·[f(b)−f(a)]/(b−a).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cd-md)">
+    <div class="mcq-hdr" style="background:var(--cd-lt)">
+      <div class="mcq-num" style="background:var(--cd-dk)">3</div>
+      <span class="mcq-lbl">Uniform Continuity</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which function is <b>uniformly continuous</b> on ℝ?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f(x) = sin(x)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f(x) = x²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f(x) = eˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f(x) = 1/x on (0,1)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cd3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cd3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (A) — sin(x)</div>
+        <div class="ans-exp"><b>sin(x) is Lipschitz</b>: |sin x − sin y| ≤ |x−y| (Lipschitz constant K=1) ⟹ uniformly continuous. <b>x² fails</b>: take xₙ=n+1/n, yₙ=n; |xₙ−yₙ|=1/n → 0 but |xₙ²−yₙ²| = 2+1/n² → 2 ≠ 0. <b>eˣ fails</b> similarly on ℝ. <b>1/x fails</b> near 0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cd-md)">
+    <div class="mcq-hdr" style="background:var(--cd-lt)">
+      <div class="mcq-num" style="background:var(--cd-dk)">4</div>
+      <span class="mcq-lbl">Weierstrass Function</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A function that is continuous everywhere on ℝ but differentiable nowhere is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>|x|</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x^(2/3)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Weierstrass function W(x) = Σaⁿcos(bⁿπx)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>sin(1/x) extended by f(0)=0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cd4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cd4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C) — Weierstrass function</div>
+        <div class="ans-exp">The <b>Weierstrass function (1872)</b> is continuous everywhere (uniform limit of continuous functions) but differentiable <b>nowhere</b>. This shocked mathematicians who believed continuous ⟹ differentiable almost everywhere. |x| is non-differentiable only at 0. x^(2/3) fails only at 0. sin(1/x) at 0 is not even continuous (essential discontinuity).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cd-md)">
+    <div class="mcq-hdr" style="background:var(--cd-lt)">
+      <div class="mcq-num" style="background:var(--cd-dk)">5</div>
+      <span class="mcq-lbl">IVT Fixed Point</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Let f:[0,1]→[0,1] be continuous. By IVT, which must hold?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f is monotone on [0,1]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f is differentiable at some point</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f attains every value in [0,1] exactly once</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>∃c ∈ [0,1] with f(c) = c (fixed point)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cd5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cd5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (D) — Fixed point exists</div>
+        <div class="ans-exp">Let g(x) = f(x) − x. Then g(0) = f(0) ≥ 0 and g(1) = f(1)−1 ≤ 0 (since f maps into [0,1]). By <b>IVT</b>, ∃c ∈ [0,1] with g(c) = 0, i.e., f(c) = c. This is the 1D <b>Brouwer Fixed Point Theorem</b>. A CSIR classic!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip">
+    <h3>📌 Key Tips — Continuity &amp; Differentiability</h3>
+    <ul>
+      <li><b>Differentiable ⟹ Continuous</b>, but NOT vice versa. Know examples: |x|, x^(1/3), Weierstrass.</li>
+      <li><b>Uniform continuity</b>: continuous on CLOSED BOUNDED interval ⟹ uniformly continuous (Heine-Cantor). Open intervals: not necessarily.</li>
+      <li><b>IVT applications</b>: fixed points, roots of polynomials, bisection method. Know the g(x)=f(x)−x trick!</li>
+      <li><b>MVT uses</b>: f'=0 everywhere ⟹ f=const; prove monotonicity; estimate f(b)−f(a).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ====================================================
+     RIEMANN INTEGRATION
+     ==================================================== -->
+<div id="ri" class="section" style="--mcq-c:var(--ri-md);--mcq-dk:var(--ri-dk);--mcq-lt:var(--ri-lt)">
+
+  <div class="sec-banner" style="background:linear-gradient(135deg,#004d40,#006064,#00acc1)">
+    <div class="banner-num">5</div>
+    <h2>Riemann Integration</h2>
+    <p>Partitions · Darboux Sums · Integrability Criterion · Fundamental Theorem · Lebesgue Criterion</p>
+  </div>
+
+  <!-- INTERACTIVE DIAGRAM 3: Darboux Sums -->
+  <div class="viz-box">
+    <h3>📊 Interactive: Darboux Sums Visualizer</h3>
+    <svg id="dar-svg" width="100%" height="220" viewBox="0 0 600 220" style="background:#e0f7fa;border-radius:8px;display:block">
+      <text x="300" y="115" text-anchor="middle" fill="#546e7a" font-size="13" font-weight="600">Click a button below to visualize Darboux sums</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="drawDarboux(4,'upper')">Upper Sum (n=4)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="drawDarboux(4,'lower')">Lower Sum (n=4)</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="drawDarboux(8,'both')">Both (n=8)</button>
+      <button class="viz-btn" style="background:#006064;color:#fff" onclick="drawDarboux(20,'both')">Refine (n=20)</button>
+    </div>
+    <p id="dar-desc" style="margin-top:8px;font-size:12px;color:#006064">Visualizing f(x)=x² on [0,1]. <b>Upper sum</b> (red) ≥ integral ≥ <b>Lower sum</b> (blue). As n increases, both approach 1/3 (the actual integral).</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ri-dk)"><span>Basic Concepts</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ri-md)">
+      <h3>Partitions &amp; Darboux Sums <span class="badge b-basic">Basic</span></h3>
+      <p>A <b>partition</b> P of [a,b] is P = {x₀,x₁,…,xₙ} with a=x₀ &lt; x₁ &lt; … &lt; xₙ=b.</p>
+      <div class="fm">U(f,P) = Σ Mᵢ·Δxᵢ &nbsp;(Upper Darboux sum)
+L(f,P) = Σ mᵢ·Δxᵢ &nbsp;(Lower Darboux sum)</div>
+      <p>Where Mᵢ = sup f, mᵢ = inf f on [xᵢ₋₁,xᵢ]. <b>Always: L(f,P) ≤ U(f,P)</b>.</p>
+    </div>
+    <div class="card" style="--card-top:var(--ri-md)">
+      <h3>Riemann Integrability <span class="badge b-inter">Intermediate</span></h3>
+      <p>f is <b>Riemann integrable</b> on [a,b] if:</p>
+      <div class="fm">inf{U(f,P)} = sup{L(f,P)} = ∫ₐᵇ f dx</div>
+      <p>Equivalently: ∀ε&gt;0, ∃P: U(f,P)−L(f,P) &lt; ε.</p>
+      <p><b>Refinement:</b> adding more partition points → L increases, U decreases.</p>
+    </div>
+    <div class="card" style="--card-top:var(--ri-md)">
+      <h3>Which Functions Are Integrable? <span class="badge b-inter">Intermediate</span></h3>
+      <ul>
+        <li>Every <b>continuous</b> f on [a,b] is Riemann integrable ✅</li>
+        <li>Every <b>monotone</b> f on [a,b] is Riemann integrable ✅</li>
+        <li>Bounded f with <b>finitely many</b> discontinuities ✅</li>
+        <li>Dirichlet function: <b>NOT</b> Riemann integrable ❌</li>
+        <li>Cantor function: Riemann integrable ✅ (monotone, continuous)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ri-md)">
+      <h3>Dirichlet Function <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">f(x) = 1 if x∈ℚ, &nbsp; 0 if x∉ℚ</div>
+      <p>For ANY partition: U(f,P) = 1 (rationals dense), L(f,P) = 0 (irrationals dense). So U−L = 1 always ⟹ <b>NOT Riemann integrable</b>.</p>
+      <p>But its <b>Lebesgue integral = 0</b> (ℚ has measure 0).</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ri-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--ri-dk);--thm-bg:var(--ri-lt)">
+      <h3>Lebesgue's Criterion for Riemann Integrability <span class="badge b-adv">Advanced</span></h3>
+      <p>A bounded function f:[a,b]→ℝ is Riemann integrable <b>if and only if</b> the set of discontinuities of f has <b>Lebesgue measure zero</b>.</p>
+      <p>(A set has measure zero if it can be covered by open intervals of arbitrarily small total length.)</p>
+      <p>This unifies: continuous ⟹ integrable; monotone ⟹ integrable (at most countably many jumps, measure 0); Dirichlet ⟹ NOT integrable (discontinuous everywhere).</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ri-dk);--thm-bg:var(--ri-lt)">
+      <h3>Fundamental Theorem of Calculus — Part 1 <span class="badge b-inter">Intermediate</span></h3>
+      <p>If f is <b>continuous</b> on [a,b] and F(x) = ∫ₐˣ f(t) dt, then <b>F is differentiable</b> on (a,b) and:</p>
+      <div class="fm">F'(x) = f(x)  for all x ∈ (a,b)</div>
+      <p>Differentiation UNDOES integration. F is called an <b>antiderivative</b> of f.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ri-dk);--thm-bg:var(--ri-lt)">
+      <h3>Fundamental Theorem of Calculus — Part 2 <span class="badge b-inter">Intermediate</span></h3>
+      <p>If f is Riemann integrable on [a,b] and G is any antiderivative of f (G'=f on (a,b)), then:</p>
+      <div class="fm">∫ₐᵇ f(x) dx = G(b) − G(a)</div>
+      <p>This is the <b>evaluation formula</b>. Note: requires f integrable AND G an antiderivative.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ri-dk)"><span>Key Facts Table</span></div>
+  <div class="card" style="--card-top:var(--ri-md);padding:0;overflow:hidden">
+    <table class="rtbl">
+      <thead><tr style="background:var(--ri-dk)"><th>Function</th><th>Riemann Integrable?</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td><b>f continuous on [a,b]</b></td><td>✅ Yes</td><td>Discontinuity set = ∅ (measure 0)</td></tr>
+        <tr><td><b>f monotone on [a,b]</b></td><td>✅ Yes</td><td>Discontinuities are countable (measure 0)</td></tr>
+        <tr><td>f bounded, finite discontinuities</td><td>✅ Yes</td><td>Finite set has measure 0</td></tr>
+        <tr><td><b>Dirichlet function</b></td><td>❌ No</td><td>Discontinuous everywhere (measure 1)</td></tr>
+        <tr><td>Cantor function</td><td>✅ Yes</td><td>Continuous (hence monotone + continuous)</td></tr>
+        <tr><td>1/x on [0,1]</td><td>❌ No</td><td>Unbounded (Riemann requires bounded)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ri-md);color:var(--ri-dk)">🎯 CSIR NET Questions — Riemann Integration</div>
+
+  <div class="mcq" style="border-left-color:var(--ri-md)">
+    <div class="mcq-hdr" style="background:var(--ri-lt)">
+      <div class="mcq-num" style="background:var(--ri-dk)">1</div>
+      <span class="mcq-lbl">Basic Integral</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The value of ∫₀¹ x² dx is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ri1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ri1">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — 1/3</div>
+        <div class="ans-exp">By FTC Part 2: ∫₀¹ x² dx = [x³/3]₀¹ = 1/3 − 0 = <b>1/3</b>. General formula: ∫₀¹ xⁿ dx = 1/(n+1). Use this to verify Darboux sum approximations converge to 1/3.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ri-md)">
+    <div class="mcq-hdr" style="background:var(--ri-lt)">
+      <div class="mcq-num" style="background:var(--ri-dk)">2</div>
+      <span class="mcq-lbl">Lebesgue Criterion</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A bounded function f:[a,b]→ℝ is Riemann integrable if and only if:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f is continuous on [a,b]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f has finitely many discontinuities</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The set of discontinuities of f has Lebesgue measure zero</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f is monotone on [a,b]</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ri2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ri2">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (C)</div>
+        <div class="ans-exp"><b>Lebesgue's criterion (1902)</b>: Riemann integrable ⟺ continuous almost everywhere (measure-zero discontinuity set). Options A, B, D are all <b>sufficient</b> conditions but NOT necessary. The Dirichlet function fails C (discontinuous everywhere, measure 1). This is the CORRECT necessary and sufficient condition.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ri-md)">
+    <div class="mcq-hdr" style="background:var(--ri-lt)">
+      <div class="mcq-num" style="background:var(--ri-dk)">3</div>
+      <span class="mcq-lbl">Dirichlet Function</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Dirichlet function f(x)=1 (x∈ℚ), f(x)=0 (x∉ℚ) on [0,1] is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Riemann integrable with integral = 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Riemann integrable with integral = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Riemann integrable with integral = 1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>NOT Riemann integrable; Lebesgue integral = 0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ri3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ri3">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (D)</div>
+        <div class="ans-exp">For ANY partition P: every subinterval contains rationals (U=1) and irrationals (L=0). So <b>U(f,P)−L(f,P)=1</b> always ⟹ NOT Riemann integrable. However, ℚ has Lebesgue measure 0, so the <b>Lebesgue integral = 0</b>. Classic CSIR distinction between Riemann and Lebesgue integration.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ri-md)">
+    <div class="mcq-hdr" style="background:var(--ri-lt)">
+      <div class="mcq-num" style="background:var(--ri-dk)">4</div>
+      <span class="mcq-lbl">FTC Part 1</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If f is continuous on [a,b] and F(x) = ∫ₐˣ f(t)dt, then:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>F'(x) = f(x) for all x ∈ (a,b)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>F(x) = f(x) for all x ∈ [a,b]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>F'(x) = f'(x) for all x ∈ (a,b)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>F is not differentiable</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ri4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ri4">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (A) — F'(x) = f(x)</div>
+        <div class="ans-exp"><b>FTC Part 1</b>: The integral function F is differentiable when f is continuous, and <b>F'(x) = f(x)</b>. Integration and differentiation are inverse operations. Common mistake: confusing F'=f (correct) with F=f (wrong). Option C confuses F' with f' — these need not be equal.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ri-md)">
+    <div class="mcq-hdr" style="background:var(--ri-lt)">
+      <div class="mcq-num" style="background:var(--ri-dk)">5</div>
+      <span class="mcq-lbl">Darboux Sums Relationship</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For bounded f on [a,b] and any partition P, the relationship between U(f,P) and L(f,P) is always:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>U(f,P) ≤ L(f,P)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>L(f,P) ≤ U(f,P)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>U(f,P) = L(f,P) always</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>U(f,P) − L(f,P) = b−a always</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ri5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ri5">
+        <div class="ans-top" style="background:var(--ok)"><span>✓</span> Correct Answer: (B) — L(f,P) ≤ U(f,P)</div>
+        <div class="ans-exp">Since mᵢ = inf f ≤ Mᵢ = sup f on each subinterval, multiplying by Δxᵢ &gt; 0 and summing: <b>L(f,P) ≤ U(f,P)</b> always. Equality holds iff f is constant on each subinterval. The function is Riemann integrable iff inf U(f,P) = sup L(f,P) over all partitions.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip">
+    <h3>📌 Key Tips — Riemann Integration</h3>
+    <ul>
+      <li><b>Darboux = Riemann</b>: both definitions of Riemann integral are equivalent for bounded functions.</li>
+      <li><b>FTC Part 1 vs Part 2</b>: Part 1 says d/dx[∫ₐˣ f] = f(x); Part 2 says ∫ₐᵇ f = G(b)−G(a). Don't confuse them!</li>
+      <li><b>Lebesgue criterion</b> is the most powerful: measure-zero discontinuity set ⟺ Riemann integrable.</li>
+      <li><b>Dirichlet function</b>: NOT Riemann integrable (fails everywhere), but Lebesgue integral = 0. CSIR loves this!</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<button class="stop" id="stob" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function show(id, el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const b=document.getElementById(id);
+  const o=b.classList.toggle('show');
+  btn.textContent=o?'▼ Hide Answer':'▶ Show Answer';
+  btn.classList.toggle('open',o);
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('stob').classList.toggle('on',window.scrollY>200);
+});
+
+// ===== SEQUENCE VISUALIZER =====
+function plotSeq(type){
+  const svg=document.getElementById('seq-svg');
+  const pts=document.getElementById('seq-pts');
+  const lines=document.getElementById('seq-lines');
+  const desc=document.getElementById('seq-desc');
+  pts.innerHTML=''; lines.innerHTML='';
+
+  const W=580,H=170,x0=50,y0=170;
+  const nMax=18;
+  const seqs={
+    harmonic:{fn:n=>1/n, L:0, desc:"aₙ=1/n → 0  |  Monotone decreasing, bounded below by 0"},
+    converge:{fn:n=>1-1/n, L:1, desc:"aₙ=1−1/n → 1  |  Monotone increasing, bounded above by 1"},
+    alt:{fn:n=>Math.pow(-1,n)/n, L:0, desc:"aₙ=(−1)ⁿ/n → 0  |  Alternating, converges by squeeze theorem"},
+    bw:{fn:n=>Math.sin(n)*0.8+0.5, L:null, desc:"Bounded oscillating sequence  |  B-W: has convergent subsequences despite not converging itself"}
+  };
+  const s=seqs[type];
+  const lim=s.L;
+
+  // Update limit line
+  document.getElementById('lim-line').setAttribute('y1',lim!==null ? y0-(lim*130+10) : -10);
+  document.getElementById('lim-line').setAttribute('y2',lim!==null ? y0-(lim*130+10) : -10);
+
+  const colors=['#e53935','#1e88e5','#43a047','#8e44ad','#e65100','#006064','#c62828','#283593'];
+  for(let n=1;n<=nMax;n++){
+    const val=s.fn(n);
+    const cx=x0+(n-1)*(W-x0-20)/(nMax-1)+10;
+    const cy=y0-(val*130+10);
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',cx); c.setAttribute('cy',Math.max(15,Math.min(165,cy)));
+    c.setAttribute('r',4); c.setAttribute('fill',colors[n%8]);
+    c.setAttribute('opacity','0.85');
+    pts.appendChild(c);
+    if(n<=15){
+      const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',cx); t.setAttribute('y',H+15);
+      t.setAttribute('fill','#546e7a'); t.setAttribute('font-size','9');
+      t.setAttribute('text-anchor','middle'); t.textContent=n;
+      pts.appendChild(t);
+    }
+    if(n>1){
+      const prevVal=s.fn(n-1);
+      const prevX=x0+(n-2)*(W-x0-20)/(nMax-1)+10;
+      const prevY=y0-(prevVal*130+10);
+      const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',prevX); line.setAttribute('y1',Math.max(15,Math.min(165,prevY)));
+      line.setAttribute('x2',cx); line.setAttribute('y2',Math.max(15,Math.min(165,cy)));
+      line.setAttribute('stroke','#b0bec5'); line.setAttribute('stroke-width','1');
+      lines.appendChild(line);
+    }
+  }
+  desc.textContent=s.desc;
+}
+
+// ===== EPSILON-DELTA VISUALIZER =====
+function drawEpsDelta(eps, delta){
+  const svg=document.getElementById('ed-svg');
+  const W=600,H=220,x0=50,y0=190;
+  const a=1.0, fa=1.0;
+  const scaleX=200, scaleY=150;
+  const ax=x0+a*scaleX, ay=y0-fa*scaleY;
+
+  // Draw f(x)=x² curve
+  let d='';
+  for(let xi=0;xi<=2.2;xi+=0.02){
+    const px=x0+xi*scaleX, py=y0-xi*xi*scaleY;
+    if(py<10||py>180) continue;
+    d+=(d?'L':'M')+px.toFixed(1)+','+py.toFixed(1);
+  }
+  document.getElementById('fn-curve').setAttribute('d',d);
+
+  // Delta band (vertical)
+  const d1=x0+(a-delta)*scaleX, d2=(a+delta)*scaleX;
+  const db=document.getElementById('d-band');
+  db.setAttribute('x',Math.max(x0,d1)); db.setAttribute('y',10);
+  db.setAttribute('width',Math.min(d2,530)); db.setAttribute('height',175);
+  db.style.fill='rgba(230,81,0,0.15)';
+
+  // Epsilon band (horizontal)
+  const e1=y0-fa*scaleY-eps*scaleY, e2=2*eps*scaleY;
+  const eb=document.getElementById('e-band');
+  eb.setAttribute('y',Math.max(10,e1)); eb.setAttribute('height',Math.min(e2,160));
+
+  // Point
+  document.getElementById('pt-a').setAttribute('cx',ax);
+  document.getElementById('pt-a').setAttribute('cy',ay);
+  document.getElementById('lbl-a').setAttribute('x',ax);
+  document.getElementById('lbl-fa').setAttribute('y',ay+4);
+
+  document.getElementById('ed-desc').textContent=
+    `ε = ${eps}, δ = ${delta} for f(x)=x² at a=1, f(a)=1. |x−1|<${delta} ⟹ |f(x)−1|<${eps} ✓`;
+}
+function drawDisc(){
+  document.getElementById('ed-desc').textContent=
+    'Discontinuous function at a: no matter how small δ is, f(x) jumps outside the ε-band. No valid δ exists for small ε.';
+  const db=document.getElementById('d-band');
+  db.setAttribute('x',235); db.setAttribute('y',10); db.setAttribute('width',10); db.setAttribute('height',175);
+  db.style.fill='rgba(183,28,28,0.3)';
+}
+
+// ===== DARBOUX VISUALIZER =====
+function drawDarboux(n, type){
+  const svg=document.getElementById('dar-svg');
+  const W=600,H=220,x0=50,y0=190,graphW=520,graphH=160;
+  const desc=document.getElementById('dar-desc');
+
+  let html=`
+    <rect x="0" y="0" width="600" height="220" fill="#e0f7fa"/>
+    <line x1="${x0}" y1="${y0}" x2="${x0+graphW}" y2="${y0}" stroke="#006064" stroke-width="1.5"/>
+    <line x1="${x0}" y1="${y0-graphH}" x2="${x0}" y2="${y0}" stroke="#006064" stroke-width="1.5"/>
+    <text x="${x0+graphW+5}" y="${y0+4}" fill="#006064" font-size="11">x</text>
+    <text x="32" y="${y0-graphH}" fill="#006064" font-size="11">y</text>
+    <text x="${x0}" y="${y0+15}" fill="#546e7a" font-size="10" text-anchor="middle">0</text>
+    <text x="${x0+graphW}" y="${y0+15}" fill="#546e7a" font-size="10" text-anchor="middle">1</text>
+    <text x="${x0-10}" y="${y0-graphH+4}" fill="#546e7a" font-size="10" text-anchor="middle">1</text>
+  `;
+
+  const dx=graphW/n;
+  let U=0, L=0;
+
+  for(let i=0;i<n;i++){
+    const xL=i/n, xR=(i+1)/n;
+    const Mi=xR*xR;
+    const mi=xL*xL;
+    const px=x0+i*dx, pw=dx;
+    const pxU=x0+i*dx, pyU=y0-Mi*graphH;
+    const pxL=x0+i*dx, pyL=y0-mi*graphH;
+    U+=Mi/n; L+=mi/n;
+
+    if(type==='upper'||type==='both'){
+      html+=`<rect x="${px}" y="${pyU}" width="${pw-1}" height="${y0-pyU}" fill="rgba(183,28,28,0.3)" stroke="#b71c1c" stroke-width="0.8"/>`;
+    }
+    if(type==='lower'||type==='both'){
+      html+=`<rect x="${px}" y="${pyL}" width="${pw-1}" height="${y0-pyL}" fill="rgba(21,101,192,0.3)" stroke="#1565c0" stroke-width="0.8"/>`;
+    }
+  }
+
+  // Draw curve f(x)=x² on top
+  let path='';
+  for(let xi=0;xi<=1;xi+=0.005){
+    const px=x0+xi*graphW, py=y0-xi*xi*graphH;
+    path+=(path?'L':'M')+px.toFixed(1)+','+py.toFixed(1);
+  }
+  html+=`<path d="${path}" fill="none" stroke="#006064" stroke-width="2.5"/>`;
+
+  html+=`
+    <text x="300" y="215" text-anchor="middle" fill="#006064" font-size="11" font-weight="700">
+      U(f,P)=${U.toFixed(4)}  |  L(f,P)=${L.toFixed(4)}  |  ∫₀¹x²dx = 0.3333
+    </text>`;
+
+  svg.innerHTML=html;
+  desc.innerHTML=`n=${n} subintervals. <b>Upper sum (red)</b> = ${U.toFixed(4)}, <b>Lower sum (blue)</b> = ${L.toFixed(4)}, Exact = 1/3 ≈ 0.3333. Gap = ${(U-L).toFixed(4)} → 0 as n→∞.`;
+}
+
+// Initialize
+plotSeq('converge');
+drawEpsDelta(0.5,0.3);
+drawDarboux(4,'both');
+</script>
+</body>
+</html>
