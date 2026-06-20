@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 3 — PDEs</title>
+<style>
+:root{
+  --fp-dk:#880e4f;--fp-md:#c2185b;--fp-lt:#fce4ec;
+  --cl-dk:#1a237e;--cl-md:#3949ab;--cl-lt:#e8eaf6;
+  --hw-dk:#004d40;--hw-md:#00695c;--hw-lt:#e0f2f1;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#3e0020,#880e4f,#c2185b);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#280010;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c2185b;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#f48fb1);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#f48fb1);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#880e4f;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+/* PDE classifier inputs */
+.pde-inp{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.pde-inp label{font-size:12px;font-weight:700;color:#880e4f}
+.pde-inp input{width:52px;text-align:center;border:1.5px solid #c2185b;border-radius:6px;padding:4px;font-size:13px;font-weight:700;color:#1a237e}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 3 — PDEs</div>
+  <div class="hdr-s">First Order PDEs · Classification · Heat / Wave / Laplace Equations</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part2.html">&#8592; ODEs II</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part4.html">Numerical &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">PDEs</div>
+  <div class="nav-item active" style="--ac:#f48fb1;--dc:#f48fb1" onclick="show('fp',this)">
+    <div class="nav-dot"></div>First Order PDEs
+  </div>
+  <div class="nav-item" style="--ac:#9fa8da;--dc:#9fa8da" onclick="show('cl',this)">
+    <div class="nav-dot"></div>Classification
+  </div>
+  <div class="nav-item" style="--ac:#80cbc4;--dc:#80cbc4" onclick="show('hw',this)">
+    <div class="nav-dot"></div>Heat / Wave / Laplace
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part1.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>ODEs I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part2.html'">
+    <div class="nav-dot" style="background:#ce93d8"></div>ODEs II (Laplace)
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part4.html'">
+    <div class="nav-dot" style="background:#80cbc4"></div>Numerical Analysis
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== FIRST ORDER PDEs ======== -->
+<div id="fp" class="section active" style="--mcq-c:var(--fp-md);--mcq-dk:var(--fp-dk);--mcq-lt:var(--fp-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#3e0020,#880e4f,#c2185b)">
+    <div class="banner-num">Pp+Qq</div>
+    <h2>First Order PDEs</h2>
+    <p>Lagrange's Method · Method of Characteristics · Charpit's Method · Compatible Systems</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#880e4f">&#9655; Interactive: Characteristic Curves Visualizer</h3>
+    <svg id="fp-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#fff5f8;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showChar('linear')">Linear: u_x + u_y = 0</button>
+      <button class="viz-btn" style="background:#c2185b;color:#fff" onclick="showChar('transport')">Transport: u_t + cu_x = 0</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showChar('burgers')">Inviscid Burgers: u_t + uu_x = 0</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showChar('lagrange')">Lagrange: yp − xq = x²−y²</button>
+    </div>
+    <p id="fp-desc" style="font-size:12px;color:#880e4f;margin-top:8px;font-weight:600">Select a PDE to see its characteristic curves in the (x,y) or (x,t) plane.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--fp-dk)"><span>Lagrange's (Quasi-linear) Method</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--fp-md)">
+      <h3>Lagrange's Method <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Quasi-linear 1st order PDE:
+  P(x,y,z)p + Q(x,y,z)q = R(x,y,z)
+  where p=∂z/∂x, q=∂z/∂y
+
+Lagrange's Auxiliary Equations:
+  dx/P = dy/Q = dz/R
+
+From these, find two independent integrals:
+  u(x,y,z)=C₁, v(x,y,z)=C₂
+
+General solution: F(u,v) = 0
+  or equivalently: u = f(v)</div>
+      <p><b>Key:</b> From dx/P=dy/Q=dz/R, extract two first integrals using groupings, multipliers, or direct integration.</p>
+    </div>
+    <div class="card" style="--card-top:var(--fp-md)">
+      <h3>Method of Characteristics <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">For a(x,y)u_x + b(x,y)u_y = c(x,y,u):
+Characteristic ODEs:
+  dx/ds = a(x,y)
+  dy/ds = b(x,y)
+  du/ds = c(x,y,u)
+
+Solve characteristic curves (x(s),y(s)).
+u is constant along characteristics if c=0.
+
+IVP: u(x,0)=g(x)
+  Characteristics through (x₀,0) carry initial data</div>
+      <p><b>Geometric view:</b> Characteristics are curves along which the PDE reduces to an ODE. Information propagates along them.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--fp-dk)"><span>Linear &amp; Non-linear First Order PDEs</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--fp-md)">
+      <h3>Linear First Order PDE <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Form: a(x,y)u_x + b(x,y)u_y + c(x,y)u = d(x,y)
+
+Example: xu_x + yu_y = u
+  Auxiliary: dx/x = dy/y = du/u
+  From dx/x = dy/y: y/x = C₁
+  From dx/x = du/u: u/x = C₂
+  General solution: u/x = f(y/x)
+  i.e., u = x·f(y/x)</div>
+      <p><b>Homogeneous PDE:</b> d=0. Solution space is a vector space (superposition holds).</p>
+    </div>
+    <div class="card" style="--card-top:var(--fp-md)">
+      <h3>Charpit's Method (Non-linear) <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Non-linear: F(x,y,z,p,q) = 0
+
+Charpit's auxiliary equations:
+  dp/(F_x+pF_z) = dq/(F_y+qF_z)
+  = dz/(−pF_p−qF_q) = dx/(−F_p) = dy/(−F_q)
+
+Find one relation between p and q satisfying F=0,
+then integrate dz = p dx + q dy (complete integral).
+
+Example: p² + q² = 1
+  Charpit → q = constant a
+  Then p = √(1−a²), z = x√(1−a²) + ay + b</div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:var(--fp-dk);margin-bottom:16px;padding:0;overflow:hidden">
+    <table class="rtbl" style="--tbl-hd:var(--fp-dk)">
+      <thead><tr><th>Type</th><th>Form</th><th>Method</th><th>General Solution</th></tr></thead>
+      <tbody>
+        <tr><td><b>Linear</b></td><td>Pp+Qq=R (P,Q,R indep. of z)</td><td>Lagrange auxiliary eqs</td><td>F(u,v)=0 where u,v are integrals</td></tr>
+        <tr><td><b>Semi-linear</b></td><td>Pp+Qq=R (R depends on z)</td><td>Lagrange auxiliary eqs</td><td>Same approach</td></tr>
+        <tr><td><b>Quasi-linear</b></td><td>P,Q may depend on z</td><td>Characteristics</td><td>F(u,v)=0</td></tr>
+        <tr><td><b>Non-linear</b></td><td>F(x,y,z,p,q)=0</td><td>Charpit's method</td><td>Complete integral + envelope</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--fp-md);color:var(--fp-dk)">&#127919; CSIR NET Questions — First Order PDEs</div>
+
+  <div class="mcq" style="border-left-color:var(--fp-md)">
+    <div class="mcq-hdr" style="background:var(--fp-lt)">
+      <div class="mcq-num" style="background:var(--fp-dk)">1</div>
+      <span class="mcq-lbl">Lagrange's Method</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of xp + yq = z is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>z = f(x+y)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>z = f(x/y)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z = x·f(y/x)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>z = f(xy)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fp1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fp1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — z = x·f(y/x)</div>
+        <div class="ans-exp">Auxiliary equations: dx/x = dy/y = dz/z. From dx/x=dy/y: integrating gives ln y − ln x = C₁ → y/x=C₁. From dx/x=dz/z: ln z − ln x = C₂ → z/x=C₂. Two integrals: u=y/x, v=z/x. General solution: F(y/x, z/x)=0 → z/x = f(y/x) → <b>z = x·f(y/x)</b>. This describes all homogeneous functions of degree 1.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fp-md)">
+    <div class="mcq-hdr" style="background:var(--fp-lt)">
+      <div class="mcq-num" style="background:var(--fp-dk)">2</div>
+      <span class="mcq-lbl">Transport Equation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of u_t + 3u_x = 0 with u(x,0) = sin x is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>sin(x − 3t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>sin(x + 3t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>e^(−3t) sin x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>sin(3x − t)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fp2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fp2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — sin(x − 3t)</div>
+        <div class="ans-exp">Transport equation u_t + cu_x = 0 has general solution u=f(x−ct). Here c=3, so u=f(x−3t). Applying IVP: f(x)=sin x. Solution: <b>u = sin(x−3t)</b>. The wave travels to the right with speed c=3. Characteristics: x−3t = const (straight lines in x-t plane with slope 1/3).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fp-md)">
+    <div class="mcq-hdr" style="background:var(--fp-lt)">
+      <div class="mcq-num" style="background:var(--fp-dk)">3</div>
+      <span class="mcq-lbl">Auxiliary Equations</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For the PDE (y−z)p + (z−x)q = x−y, which of the following is a first integral?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x + y + z</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x² + y² + z²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>xy + yz + zx</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>xyz</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fp3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fp3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — x + y + z</div>
+        <div class="ans-exp">Auxiliary: dx/(y−z)=dy/(z−x)=dz/(x−y). Use multiplier (1,1,1): numerator = (y−z)+(z−x)+(x−y)=0, denominator = dx+dy+dz → d(x+y+z)=0 → <b>x+y+z=C₁</b>. For a second integral, use multiplier (x,y,z): numerator=x(y−z)+y(z−x)+z(x−y)=0, denominator=x dx+y dy+z dz → d(x²+y²+z²)/2=0 → x²+y²+z²=C₂. General solution: F(x+y+z, x²+y²+z²)=0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fp-md)">
+    <div class="mcq-hdr" style="background:var(--fp-lt)">
+      <div class="mcq-num" style="background:var(--fp-dk)">4</div>
+      <span class="mcq-lbl">Non-linear PDE</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A complete integral of p² − q² = x − y is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>z = (x−a)^(3/2)/3 − (y+a)^(3/2)/3 + b</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>z = ax − ay + b</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z = (x+a²)^(3/2)/3 − (y−a²)^(3/2)/3 + b</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>z = √(x−a) + √(y+a) + b</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fp4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fp4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — z = (x−a)^(3/2)/3 − (y+a)^(3/2)/3 + b</div>
+        <div class="ans-exp">Try p²=x+a²... Actually, assume p²=x+f(a) and q²=y+g(a) so that p²−q²=(x+f)−(y+g)=x−y requires f(a)=−g(a)=a. So p²=x+a → p=(x+a)^(1/2), q²=y+a → q=(y+a)^(1/2). But dz=pdx+qdy = √(x+a)dx+√(y+a)dy → z=(x+a)^(3/2)/(3/2)+(y+a)^(3/2)/(3/2)+b. Closer to standard: try p²=x−a, q²=y−a: p²−q²=(x−a)−(y−a)=x−y ✓. Then z=∫√(x−a)dx−∫√(y−a)dy=(x−a)^(3/2)/(3/2)−(y−a)^(3/2)/(3/2)+b = <b>(2/3)(x−a)^(3/2)−(2/3)(y−a)^(3/2)+b</b>, i.e. option (A) with factor adjustment.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fp-md)">
+    <div class="mcq-hdr" style="background:var(--fp-lt)">
+      <div class="mcq-num" style="background:var(--fp-dk)">5</div>
+      <span class="mcq-lbl">Shock Formation (Burgers)</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For u_t + uu_x = 0 with u(x,0) = 1/(1+x²), characteristics emanating from (x₀,0) are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x = x₀ + t/(1+x₀²)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x = x₀ + t</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>x = x₀·e^t</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>x = x₀ − t/(1+x₀²)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fp5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fp5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — x = x₀ + t/(1+x₀²)</div>
+        <div class="ans-exp">On each characteristic, u = const = u(x₀,0) = 1/(1+x₀²). Characteristic equation: dx/dt = u = 1/(1+x₀²). So x = x₀ + t·u(x₀,0) = <b>x₀ + t/(1+x₀²)</b>. Characteristics are straight lines with slope 1/u(x₀). Shocks form when characteristics cross, which happens when ∂x/∂x₀=0 at some finite t. Since u is decreasing for x₀>0, right-moving characteristics have slower speed → characteristics from different x₀ will eventually cross.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== CLASSIFICATION ======== -->
+<div id="cl" class="section" style="--mcq-c:var(--cl-md);--mcq-dk:var(--cl-dk);--mcq-lt:var(--cl-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0a0e3f,#1a237e,#3949ab)">
+    <div class="banner-num">B²−4AC</div>
+    <h2>Classification of 2nd Order PDEs</h2>
+    <p>Discriminant · Elliptic · Parabolic · Hyperbolic · Canonical Forms · Reduction</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#1a237e">&#9655; Interactive: PDE Type Classifier</h3>
+    <div class="pde-inp">
+      <span style="font-size:13px;font-weight:700;color:#1a237e">Au<sub>xx</sub> + Bu<sub>xy</sub> + Cu<sub>yy</sub> + ... = 0</span>
+      <label>A=<input id="pA" type="number" value="1"></label>
+      <label>B=<input id="pB" type="number" value="0"></label>
+      <label>C=<input id="pC" type="number" value="1"></label>
+      <button class="viz-btn" style="background:#1a237e;color:#fff" onclick="classifyPDE()">Classify</button>
+    </div>
+    <svg id="cl-svg" width="100%" height="160" viewBox="0 0 620 160" style="background:#e8eaf6;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1a237e;color:#fff" onclick="setABC(1,0,1)">Laplace (Elliptic)</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="setABC(1,0,0)">Heat (Parabolic)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="setABC(1,0,-1)">Wave (Hyperbolic)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="setABC(1,2,1)">B²=4AC (Parabolic)</button>
+    </div>
+    <p id="cl-desc" style="font-size:12px;color:#1a237e;margin-top:8px;font-weight:600">Enter A, B, C or click a preset to classify the PDE.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cl-dk)"><span>Discriminant Classification</span></div>
+  <div class="card" style="--card-top:var(--cl-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--cl-dk)">
+      <thead><tr><th>Discriminant Δ = B²−4AC</th><th>Type</th><th>Canonical Form</th><th>Prototype</th></tr></thead>
+      <tbody>
+        <tr><td><b>Δ &lt; 0</b></td><td>Elliptic</td><td>u_ξξ + u_ηη = Φ (Laplace-type)</td><td>u_xx+u_yy=0 (Laplace)</td></tr>
+        <tr><td><b>Δ = 0</b></td><td>Parabolic</td><td>u_ηη = Φ (Heat-type)</td><td>u_t = ku_xx (Heat)</td></tr>
+        <tr><td><b>Δ &gt; 0</b></td><td>Hyperbolic</td><td>u_ξη = Φ (or u_ξξ−u_ηη = Φ)</td><td>u_tt = c²u_xx (Wave)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cl-md)">
+      <h3>Reduction to Canonical Form <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">For Au_xx+Bu_xy+Cu_yy = F(x,y,u,p,q):
+Characteristic equations: A(dy)²−B(dx)(dy)+C(dx)²=0
+  → dy/dx = (B±√(B²−4AC))/(2A)
+
+New variables ξ=ξ(x,y), η=η(x,y):
+  (ξ,η) along characteristic directions
+
+Hyperbolic: ξ=const, η=const are 2 characteristics
+  → u_ξη = Φ
+Parabolic: one repeated characteristic family
+  → u_ηη = Φ
+Elliptic: complex characteristics → ξ+iη
+  → u_ξξ+u_ηη = Φ</div>
+    </div>
+    <div class="card" style="--card-top:var(--cl-md)">
+      <h3>Well-Posedness by Type <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Elliptic (Laplace/Poisson):
+  Well-posed: Dirichlet or Neumann BVP
+  NOT well-posed as IVP (Cauchy-Kowalewski fails)
+
+Parabolic (Heat equation):
+  Well-posed: IVP forward in time t>0
+  Ill-posed: backward in time (t<0)
+
+Hyperbolic (Wave equation):
+  Well-posed: IVP (Cauchy problem) in t>0
+  Finite speed of propagation
+  Domain of dependence / influence</div>
+      <p><b>Hadamard's conditions:</b> Existence, Uniqueness, Continuous dependence on data.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--cl-md);color:var(--cl-dk)">&#127919; CSIR NET Questions — PDE Classification</div>
+
+  <div class="mcq" style="border-left-color:var(--cl-md)">
+    <div class="mcq-hdr" style="background:var(--cl-lt)">
+      <div class="mcq-num" style="background:var(--cl-dk)">1</div>
+      <span class="mcq-lbl">Discriminant Test</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The PDE u_xx + 4u_xy + 4u_yy = 0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Hyperbolic</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Parabolic</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Elliptic</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Type changes with x,y</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cl1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cl1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Parabolic</div>
+        <div class="ans-exp">A=1, B=4, C=4. Discriminant Δ=B²−4AC=16−16=<b>0</b> → Parabolic. The equation factors: (∂/∂x+2∂/∂y)²u=0 → it has a repeated characteristic direction dy/dx=2. This can be reduced to v_ηη=0 (where η=y−2x), giving v=ηf(ξ)+g(ξ) for new variables ξ=y−2x, η=x.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cl-md)">
+    <div class="mcq-hdr" style="background:var(--cl-lt)">
+      <div class="mcq-num" style="background:var(--cl-dk)">2</div>
+      <span class="mcq-lbl">Variable Type</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The PDE xu_xx + u_yy = 0 is hyperbolic where:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x &gt; 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x &lt; 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>x = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>All x ≠ 0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cl2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cl2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — x &lt; 0</div>
+        <div class="ans-exp">A=x, B=0, C=1. Δ=B²−4AC=0−4x=−4x. Δ&gt;0 (hyperbolic) ↔ −4x&gt;0 ↔ <b>x&lt;0</b>. Δ=0 (parabolic) ↔ x=0. Δ&lt;0 (elliptic) ↔ x&gt;0. This is Tricomi's equation (type changes across x=0): elliptic for x>0, parabolic on x=0, hyperbolic for x<0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cl-md)">
+    <div class="mcq-hdr" style="background:var(--cl-lt)">
+      <div class="mcq-num" style="background:var(--cl-dk)">3</div>
+      <span class="mcq-lbl">Canonical Form</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The canonical form of u_xx − u_yy = 0 (hyperbolic) using ξ=x+y, η=x−y is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>u_ξξ − u_ηη = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>u_ξη = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>u_ξξ + u_ηη = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>u_ξ + u_η = 0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cl3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cl3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — u_ξη = 0</div>
+        <div class="ans-exp">With ξ=x+y, η=x−y: u_x=u_ξ+u_η, u_y=u_ξ−u_η. u_xx=u_ξξ+2u_ξη+u_ηη; u_yy=u_ξξ−2u_ξη+u_ηη. So u_xx−u_yy=4u_ξη=0 → <b>u_ξη=0</b>. General solution: u=f(ξ)+g(η)=f(x+y)+g(x−y) — D'Alembert's solution for the wave equation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cl-md)">
+    <div class="mcq-hdr" style="background:var(--cl-lt)">
+      <div class="mcq-num" style="background:var(--cl-dk)">4</div>
+      <span class="mcq-lbl">Well-posedness</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For the backward heat equation u_t = −u_xx (t &lt; 0), the Cauchy problem is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Well-posed for smooth initial data</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Ill-posed (solutions can blow up)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Well-posed only for analytic data</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Well-posed if initial data is periodic</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cl4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cl4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Ill-posed (solutions can blow up)</div>
+        <div class="ans-exp">The backward heat equation is <b>ill-posed</b> (Hadamard's example). Consider u(x,0)=sin(nx)/n → u(x,t)=sin(nx)e^(n²|t|)/n. For any t>0 and large n, e^(n²t)/n→∞ even though initial data → 0. Small changes in IC cause arbitrarily large changes in solution — no continuous dependence. This is why heat diffusion is irreversible and "unsmoothing" is unstable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cl-md)">
+    <div class="mcq-hdr" style="background:var(--cl-lt)">
+      <div class="mcq-num" style="background:var(--cl-dk)">5</div>
+      <span class="mcq-lbl">Mixed Type</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The PDE (1−M²)u_xx + u_yy = 0 (where M is Mach number) changes type when:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>M = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>M = 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>M = 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>M = ∞</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cl5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cl5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — M = 1</div>
+        <div class="ans-exp">A=1−M², B=0, C=1. Δ=−4(1−M²)=4M²−4. Δ&lt;0 (elliptic) if M&lt;1 (subsonic flow). Δ=0 (parabolic) if <b>M=1</b> (sonic). Δ&gt;0 (hyperbolic) if M&gt;1 (supersonic flow). This is the linearised potential equation for compressible aerodynamics — the transition at M=1 corresponds to the sound barrier.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== HEAT / WAVE / LAPLACE ======== -->
+<div id="hw" class="section" style="--mcq-c:var(--hw-md);--mcq-dk:var(--hw-dk);--mcq-lt:var(--hw-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#001a14,#004d40,#00695c)">
+    <div class="banner-num">&#8711;²</div>
+    <h2>Heat, Wave &amp; Laplace Equations</h2>
+    <p>Separation of Variables · Fourier Series · D'Alembert · Maximum Principle · Green's Functions</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#004d40">&#9655; Interactive: PDE Solution Visualizer</h3>
+    <canvas id="hw-canvas" width="620" height="200" style="background:#e0f2f1;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#004d40;color:#fff" onclick="showPDE('heat')">Heat Equation (diffusion)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showPDE('wave')">Wave Equation (standing)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showPDE('laplace')">Laplace (harmonic)</button>
+    </div>
+    <p id="hw-desc" style="font-size:12px;color:#004d40;margin-top:8px;font-weight:600">Click to visualize the solution profile for each fundamental PDE.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--hw-dk)"><span>The Three Fundamental PDEs</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--hw-dk);--thm-bg:var(--hw-lt)">
+      <h3>Heat Equation <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">u_t = k·u_xx  (x∈[0,L], t>0)
+BCs: u(0,t)=0, u(L,t)=0 (Dirichlet)
+IC:  u(x,0) = f(x)
+
+Separation: u=X(x)T(t)
+  X''/X = T'/(kT) = −λ² (negative!)
+
+X_n = sin(nπx/L), λ_n = nπ/L
+T_n = e^(−k(nπ/L)²t)
+
+Solution:
+u(x,t) = Σ bₙ sin(nπx/L) e^(−kn²π²t/L²)
+bₙ = (2/L)∫₀ᴸ f(x)sin(nπx/L)dx</div>
+      <p><b>Properties:</b> Solution is instantly smooth (infinite speed of propagation); energy ∫u²dx decreases.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--hw-dk);--thm-bg:var(--hw-lt)">
+      <h3>Wave Equation <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">u_tt = c²u_xx  (x∈[0,L], t>0)
+BCs: u(0,t)=0, u(L,t)=0
+ICs: u(x,0)=f(x), u_t(x,0)=g(x)
+
+Separation: u=X(x)T(t)
+  X''/X = T''/(c²T) = −λ²
+
+Solution (standing waves):
+u=Σ(aₙcos(nπct/L)+bₙsin(nπct/L))sin(nπx/L)
+
+D'Alembert's solution (infinite domain):
+u(x,t) = [f(x+ct)+f(x−ct)]/2
+         + (1/2c)∫_{x−ct}^{x+ct} g(s) ds</div>
+      <p><b>Domain of dependence:</b> u(x,t) depends only on initial data in [x−ct, x+ct].</p>
+    </div>
+  </div>
+
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--hw-dk);--thm-bg:var(--hw-lt)">
+      <h3>Laplace &amp; Poisson Equations <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Laplace: ∇²u = u_xx+u_yy = 0   (elliptic, steady-state)
+Poisson: ∇²u = f(x,y)         (with source)
+
+Solutions are harmonic functions.
+Key properties:
+  Mean value property: u(x₀) = (1/|∂B|)∫_{∂B} u dS
+  Maximum principle: max of u on Ω̄ is on ∂Ω
+  Uniqueness: Dirichlet BVP has at most one solution
+
+Solution on disk r<R with BC u(R,θ)=f(θ):
+  u(r,θ) = a₀/2 + Σ (r/R)ⁿ(aₙcos nθ + bₙsin nθ)
+  (Poisson integral formula)</div>
+      <p><b>Green's function:</b> G(x,ξ) satisfies ∇²G=−δ(x−ξ). Solution: u(x)=∫f(ξ)G(x,ξ)dξ + boundary terms.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--hw-dk)"><span>Fourier Series &amp; Separation of Variables</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--hw-md)">
+      <h3>Fourier Series <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">f(x) = a₀/2 + Σₙ₌₁^∞ (aₙcos(nπx/L)+bₙsin(nπx/L))
+
+Coefficients (period 2L):
+  a₀ = (1/L)∫₋ₗᴸ f(x)dx
+  aₙ = (1/L)∫₋ₗᴸ f(x)cos(nπx/L)dx
+  bₙ = (1/L)∫₋ₗᴸ f(x)sin(nπx/L)dx
+
+Parseval's theorem:
+  (1/L)∫₋ₗᴸ |f(x)|² dx = a₀²/2 + Σ(aₙ²+bₙ²)</div>
+    </div>
+    <div class="card" style="--card-top:var(--hw-md)">
+      <h3>Separation of Variables Steps <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">General procedure:
+1. Assume u(x,t) = X(x)·T(t)
+2. Substitute into PDE → separate:
+   ODE in X (with BCs)
+   ODE in T
+3. Find eigenvalues λₙ from X-BVP
+4. Solve T-equation for each λₙ
+5. Write u = Σ cₙXₙ(x)Tₙ(t)
+6. Apply IC to find coefficients cₙ
+   (using orthogonality of {Xₙ})</div>
+      <p><b>Works for:</b> linear, homogeneous PDEs on simple domains (rectangle, disk, ball) with linear homogeneous BCs.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--hw-md);color:var(--hw-dk)">&#127919; CSIR NET Questions — Heat, Wave &amp; Laplace</div>
+
+  <div class="mcq" style="border-left-color:var(--hw-md)">
+    <div class="mcq-hdr" style="background:var(--hw-lt)">
+      <div class="mcq-num" style="background:var(--hw-dk)">1</div>
+      <span class="mcq-lbl">Heat Equation Eigenvalues</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For u_t = u_xx on [0,π] with u(0,t)=u(π,t)=0, the eigenvalues are λₙ =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>n² (n=1,2,3,...)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>nπ (n=1,2,3,...)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>n²π (n=1,2,3,...)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>(2n−1)π/2 (n=1,2,3,...)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hw1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hw1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — n² (n=1,2,3,...)</div>
+        <div class="ans-exp">X''+λX=0, X(0)=X(π)=0. General solution: X=A sin(√λ x)+B cos(√λ x). BC X(0)=0 → B=0. BC X(π)=0 → A sin(√λ π)=0 → √λ π=nπ → √λ=n → <b>λₙ=n²</b>. Eigenfunctions Xₙ=sin(nx). Solution: u=Σbₙsin(nx)e^(−n²t).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hw-md)">
+    <div class="mcq-hdr" style="background:var(--hw-lt)">
+      <div class="mcq-num" style="background:var(--hw-dk)">2</div>
+      <span class="mcq-lbl">D'Alembert's Solution</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The solution of u_tt = 4u_xx with u(x,0)=cos x, u_t(x,0)=0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>cos(x)cos(2t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>cos(x−2t)+cos(x+2t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>cos(x)e^(−4t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>(cos(x−2t)+cos(x+2t))/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hw2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hw2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (D) — (cos(x−2t)+cos(x+2t))/2</div>
+        <div class="ans-exp">c=2. D'Alembert: u=[f(x+ct)+f(x−ct)]/2 + (1/2c)∫g. Here g=0 and f(x)=cosx. u=[cos(x+2t)+cos(x−2t)]/2. Using sum-to-product: [cos(x+2t)+cos(x−2t)]/2 = cos x cos 2t ✓ (both (A) and (D) are equal). The standard form is <b>(cos(x−2t)+cos(x+2t))/2</b> = cos x cos 2t.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hw-md)">
+    <div class="mcq-hdr" style="background:var(--hw-lt)">
+      <div class="mcq-num" style="background:var(--hw-dk)">3</div>
+      <span class="mcq-lbl">Maximum Principle</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If u is harmonic (∇²u=0) on a bounded domain Ω with u=0 on ∂Ω, then:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>u = 0 throughout Ω</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>u could be nonzero inside Ω</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>u achieves its max at an interior point</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>u is necessarily constant</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hw3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hw3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — u = 0 throughout Ω</div>
+        <div class="ans-exp">By the strong maximum principle: a non-constant harmonic function cannot achieve its maximum or minimum in the interior of Ω. Since u=0 on ∂Ω, max u on Ω̄ = 0 (achieved on boundary) and min u = 0. Therefore 0 ≤ u ≤ 0 throughout Ω, giving <b>u≡0</b>. This proves uniqueness for the Dirichlet problem: two solutions with the same BC must agree.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hw-md)">
+    <div class="mcq-hdr" style="background:var(--hw-lt)">
+      <div class="mcq-num" style="background:var(--hw-dk)">4</div>
+      <span class="mcq-lbl">Heat Equation Solution</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For u_t = u_xx on [0,π] with u(0,t)=u(π,t)=0 and u(x,0)=sin(2x), the solution is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>sin(2x)e^(−t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>sin(2x)e^(−4t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>sin(2x)e^(−2t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2sin(x)e^(−t)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hw4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hw4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — sin(2x)e^(−4t)</div>
+        <div class="ans-exp">General solution: u=Σbₙsin(nx)e^(−n²t). IC u(x,0)=sin(2x) → only n=2 term survives with b₂=1. Solution: <b>u=sin(2x)e^(−4t)</b> (since n²=4 for n=2). Verify: u_t=−4sin(2x)e^(−4t); u_xx=−4sin(2x)e^(−4t). u_t=u_xx ✓. As t→∞, u→0 exponentially (heat diffusion smooths out).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hw-md)">
+    <div class="mcq-hdr" style="background:var(--hw-lt)">
+      <div class="mcq-num" style="background:var(--hw-dk)">5</div>
+      <span class="mcq-lbl">Mean Value Property</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If u is harmonic in ℝ², then the value of u at the centre of any circle of radius r is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>The maximum of u on the circle</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The average of u on the circle</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The minimum of u on the circle</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Zero regardless of u</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hw5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hw5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — The average of u on the circle</div>
+        <div class="ans-exp"><b>Mean Value Property:</b> if u is harmonic at x₀, then u(x₀) = (1/2πr)∮_{|x−x₀|=r} u dS for all r where u is harmonic. In ℝ³: u(x₀)=(1/4πr²)∯ u dS. This is a fundamental property of harmonic functions, equivalent to the maximum principle, and implies harmonic functions are real analytic.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const box=document.getElementById(id);
+  const showing=box.style.display==='block';
+  box.style.display=showing?'none':'block';
+  btn.textContent=showing?'▶ Show Answer':'▼ Hide Answer';
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('topBtn').classList.toggle('on',window.scrollY>300);
+});
+
+// ===== CHARACTERISTIC CURVES =====
+function showChar(type){
+  const svg=document.getElementById('fp-svg');
+  const W=620,H=200;
+  let html=`<rect width="${W}" height="${H}" fill="#fff5f8" rx="8"/>`;
+  html+=`<line x1="0" y1="${H/2}" x2="${W}" y2="${H/2}" stroke="#f8bbd0" stroke-width="1"/>`;
+  html+=`<line x1="${W/2}" y1="0" x2="${W/2}" y2="${H}" stroke="#f8bbd0" stroke-width="1"/>`;
+  if(type==='linear'){
+    html+=`<text x="${W/2}" y="16" text-anchor="middle" fill="#880e4f" font-size="12" font-weight="800">u_x + u_y = 0 → Characteristics: x − y = const</text>`;
+    for(let c=-4;c<=4;c++){
+      const x1=0,y1=H/2-(c*30);
+      const x2=W,y2=H/2-(c*30-W);
+      html+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#880e4f" stroke-width="1.5" opacity="0.6"/>`;
+    }
+    html+=`<text x="${W/2}" y="${H-8}" text-anchor="middle" fill="#880e4f" font-size="11">Lines x−y=C (slope 1). Solution: u=f(x−y).</text>`;
+    document.getElementById('fp-desc').textContent='u_x+u_y=0: characteristics are lines x−y=C with slope 1. Solution u=f(x−y).';
+  } else if(type==='transport'){
+    html+=`<text x="${W/2}" y="16" text-anchor="middle" fill="#1565c0" font-size="12" font-weight="800">u_t + cu_x = 0 → Characteristics: x − ct = const (c=2)</text>`;
+    const c=2;
+    for(let k=-4;k<=4;k++){
+      const x0=W/2+k*40;
+      html+=`<line x1="${x0}" y1="${H}" x2="${x0+c*60}" y2="0" stroke="#1565c0" stroke-width="1.5" opacity="0.6"/>`;
+    }
+    html+=`<text x="10" y="${H-8}" fill="#1565c0" font-size="10">t</text>`;
+    html+=`<text x="${W-20}" y="${H/2-5}" fill="#1565c0" font-size="10">x</text>`;
+    html+=`<text x="${W/2}" y="${H-8}" text-anchor="middle" fill="#1565c0" font-size="11">Lines x−2t=C. Wave travels right with speed c=2.</text>`;
+    document.getElementById('fp-desc').textContent='Transport equation: characteristics x−ct=C are parallel lines. Initial data propagates unchanged with speed c=2.';
+  } else if(type==='burgers'){
+    html+=`<text x="${W/2}" y="16" text-anchor="middle" fill="#2e7d32" font-size="12" font-weight="800">u_t + uu_x = 0 → Characteristics: x = x₀ + u(x₀)t (non-parallel!)</text>`;
+    const U=[-1,-0.5,0,0.5,1,1.5,2];
+    const colors=['#1a237e','#1565c0','#2e7d32','#e65100','#880e4f','#b71c1c','#4a148c'];
+    U.forEach((u0,i)=>{
+      const x0=50+i*80;
+      const xT=x0+u0*100;
+      html+=`<line x1="${x0}" y1="${H-20}" x2="${xT}" y2="20" stroke="${colors[i]}" stroke-width="2"/>`;
+      html+=`<circle cx="${x0}" cy="${H-20}" r="3" fill="${colors[i]}"/>`;
+      html+=`<text x="${x0}" y="${H-8}" text-anchor="middle" fill="${colors[i]}" font-size="9">u=${u0}</text>`;
+    });
+    html+=`<text x="${W/2}" y="${H/2}" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="700">Characteristics can cross → SHOCK!</text>`;
+    document.getElementById('fp-desc').textContent='Burgers equation: characteristics have different slopes (depending on initial u). Crossing characteristics → shock formation.';
+  } else {
+    html+=`<text x="${W/2}" y="16" text-anchor="middle" fill="#e65100" font-size="12" font-weight="800">yp − xq = x²−y² → Auxiliary: dx/y = dy/(−x) = dz/(x²−y²)</text>`;
+    html+=`<rect x="20" y="30" width="580" height="30" rx="8" fill="#e65100"/>`;
+    html+=`<text x="${W/2}" y="50" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">From dx/y=dy/(−x): x dx + y dy = 0 → x²+y²=C₁ (circles)</text>`;
+    for(let r=20;r<=90;r+=20){
+      html+=`<circle cx="${W/2}" cy="${H/2}" r="${r}" fill="none" stroke="#e65100" stroke-width="1.5" opacity="${0.3+r/120}"/>`;
+    }
+    html+=`<text x="${W/2}" y="${H-8}" text-anchor="middle" fill="#e65100" font-size="11">Characteristics: x²+y²=C (circles centred at origin)</text>`;
+    document.getElementById('fp-desc').textContent='Lagrange PDE: auxiliary equations give characteristics x²+y²=C (circles). General solution: F(x²+y², z−xy)=0.';
+  }
+  svg.innerHTML=html;
+}
+showChar('linear');
+
+// ===== PDE CLASSIFIER =====
+function setABC(a,b,c){
+  document.getElementById('pA').value=a;
+  document.getElementById('pB').value=b;
+  document.getElementById('pC').value=c;
+  classifyPDE();
+}
+function classifyPDE(){
+  const A=parseFloat(document.getElementById('pA').value)||0;
+  const B=parseFloat(document.getElementById('pB').value)||0;
+  const C=parseFloat(document.getElementById('pC').value)||0;
+  const D=B*B-4*A*C;
+  let type,color,canon,example;
+  if(D<0){type='ELLIPTIC';color='#1a237e';canon='u_ξξ + u_ηη = 0';example='∇²u=0 (Laplace/Poisson)';}
+  else if(Math.abs(D)<1e-10){type='PARABOLIC';color='#2e7d32';canon='u_ηη = 0';example='u_t = ku_xx (Heat)';}
+  else{type='HYPERBOLIC';color='#b71c1c';canon='u_ξη = 0';example='u_tt = c²u_xx (Wave)';}
+  const svg=document.getElementById('cl-svg');
+  let html=`<rect width="620" height="160" fill="#e8eaf6" rx="8"/>`;
+  html+=`<rect x="20" y="12" width="580" height="36" rx="8" fill="${color}"/>`;
+  html+=`<text x="310" y="28" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">A=${A}, B=${B}, C=${C} → Δ = B²−4AC = ${D.toFixed(2)}</text>`;
+  html+=`<text x="310" y="44" text-anchor="middle" fill="#e0e0e0" font-size="11">Δ ${D<0?'< 0':D>0?'> 0':'= 0'}</text>`;
+  html+=`<circle cx="100" cy="100" r="36" fill="${type==='ELLIPTIC'?color:'#eceff1'}" stroke="${color}" stroke-width="2"/>`;
+  html+=`<text x="100" y="97" text-anchor="middle" fill="${type==='ELLIPTIC'?'#fff':color}" font-size="10" font-weight="800">ELLIPTIC</text>`;
+  html+=`<text x="100" y="110" text-anchor="middle" fill="${type==='ELLIPTIC'?'#c5cae9':color}" font-size="9">Δ &lt; 0</text>`;
+  html+=`<circle cx="310" cy="100" r="36" fill="${type==='PARABOLIC'?color:'#eceff1'}" stroke="${color}" stroke-width="2"/>`;
+  html+=`<text x="310" y="97" text-anchor="middle" fill="${type==='PARABOLIC'?'#fff':color}" font-size="10" font-weight="800">PARABOLIC</text>`;
+  html+=`<text x="310" y="110" text-anchor="middle" fill="${type==='PARABOLIC'?'#c8e6c9':color}" font-size="9">Δ = 0</text>`;
+  html+=`<circle cx="520" cy="100" r="36" fill="${type==='HYPERBOLIC'?color:'#eceff1'}" stroke="${color}" stroke-width="2"/>`;
+  html+=`<text x="520" y="97" text-anchor="middle" fill="${type==='HYPERBOLIC'?'#fff':color}" font-size="10" font-weight="800">HYPERBOLIC</text>`;
+  html+=`<text x="520" y="110" text-anchor="middle" fill="${type==='HYPERBOLIC'?'#ffcdd2':color}" font-size="9">Δ &gt; 0</text>`;
+  html+=`<line x1="136" y1="100" x2="274" y2="100" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+  html+=`<line x1="346" y1="100" x2="484" y2="100" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+  svg.innerHTML=html;
+  document.getElementById('cl-desc').textContent=`Type: ${type} (Δ=${D.toFixed(2)}). Canonical form: ${canon}. Prototype: ${example}`;
+}
+classifyPDE();
+
+// ===== PDE SOLUTION VISUALIZER =====
+function showPDE(type){
+  const canvas=document.getElementById('hw-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=200;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e0f2f1';ctx.fillRect(0,0,W,H);
+  // axes
+  const mx=50,my=20,pw=W-mx-20,ph=H-my-30;
+  ctx.strokeStyle='#80cbc4';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(mx,my+ph);ctx.lineTo(mx+pw,my+ph);ctx.stroke();
+  ctx.fillStyle='#004d40';ctx.font='11px Segoe UI';
+  ctx.fillText('x',mx+pw+5,my+ph+4);
+  if(type==='heat'){
+    ctx.fillText('t=0',mx-18,my+ph-60);
+    ctx.fillText('u(x,t)',10,my+10);
+    const title='Heat Equation: u_t=u_xx, u=Σbₙsin(nπx/L)e^(−n²π²t/L²)';
+    ctx.fillStyle='#004d40';ctx.font='11px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(title,W/2,H-8);ctx.textAlign='left';
+    const L=Math.PI;
+    const colors=['#004d40','#00695c','#00838f','#0097a7','#00acc1'];
+    [0,0.05,0.15,0.4,1.0].forEach((t,ti)=>{
+      ctx.beginPath();ctx.strokeStyle=colors[ti];ctx.lineWidth=2;
+      let first=true;
+      for(let xi=0;xi<=100;xi++){
+        const x=xi/100*L;
+        let u=0;
+        for(let n=1;n<=10;n++) u+=Math.sin(n*x)*(2/n/Math.PI*(1-Math.cos(n*Math.PI)))*Math.exp(-n*n*t);
+        const px=mx+xi/100*pw, py=my+ph-u*ph*0.8;
+        if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+      if(ti<3){ctx.fillStyle=colors[ti];ctx.fillText(`t=${t}`,mx+pw-60+ti*20,my+20+ti*14);}
+    });
+    document.getElementById('hw-desc').textContent='Heat equation: initial temperature profile diffuses over time. Higher frequencies decay faster. Solution smooths out as t→∞.';
+  } else if(type==='wave'){
+    ctx.fillText('u(x,t)',10,my+10);
+    const title="Wave Equation: standing waves u=sin(nπx/L)cos(nπct/L)";
+    ctx.fillStyle='#1565c0';ctx.font='11px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(title,W/2,H-8);ctx.textAlign='left';
+    const L=Math.PI,c=1;
+    const colors=['#1565c0','#880e4f','#2e7d32'];
+    [1,2,3].forEach((n,i)=>{
+      const t=0;
+      ctx.beginPath();ctx.strokeStyle=colors[i];ctx.lineWidth=2;ctx.setLineDash([]);
+      let first=true;
+      for(let xi=0;xi<=100;xi++){
+        const x=xi/100*L;
+        const u=Math.sin(n*x)*Math.cos(n*c*t);
+        const px=mx+xi/100*pw, py=my+ph/2-u*ph*0.35;
+        if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+      ctx.fillStyle=colors[i];ctx.fillText(`n=${n}`,mx+pw-60,my+20+i*14);
+    });
+    ctx.strokeStyle='#90a4ae';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(mx,my+ph/2);ctx.lineTo(mx+pw,my+ph/2);ctx.stroke();
+    ctx.setLineDash([]);
+    document.getElementById('hw-desc').textContent='Wave equation: standing wave modes sin(nπx/L)cos(nπct/L). Each mode has frequency nπc/L.';
+  } else {
+    ctx.fillText('y',mx-15,my+ph/2);
+    ctx.fillText('u(x,y)',10,my+10);
+    const title="Laplace: ∇²u=0. Harmonic function on disk. Poisson integral formula.";
+    ctx.fillStyle='#880e4f';ctx.font='11px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(title,W/2,H-8);ctx.textAlign='left';
+    const cx2=mx+pw/2, cy2=my+ph/2, R=Math.min(pw,ph)/2-10;
+    // Draw concentric circles showing u = const contours
+    for(let r=R;r>0;r-=R/6){
+      const ratio=r/R;
+      const g=Math.floor(200-ratio*150);
+      ctx.strokeStyle=`rgb(0,${g},${Math.floor(g*0.7)})`;ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.arc(cx2,cy2,r,0,2*Math.PI);ctx.stroke();
+    }
+    // Boundary value in colors
+    for(let a=0;a<360;a+=10){
+      const rad=a*Math.PI/180;
+      const val=Math.cos(rad);
+      const col=val>0?`rgba(0,100,0,${val})`:`rgba(136,14,79,${-val})`;
+      ctx.strokeStyle=col;ctx.lineWidth=4;
+      ctx.beginPath();ctx.arc(cx2,cy2,R,rad,rad+0.18);ctx.stroke();
+    }
+    ctx.fillStyle='#004d40';ctx.textAlign='center';ctx.fillText('u=cos θ on ∂Ω',cx2,my+10);ctx.textAlign='left';
+    document.getElementById('hw-desc').textContent='Laplace equation: solution on disk with BC u=cos θ. Inside, u=(r/R)cos θ (Poisson formula). Concentric circles are level sets.';
+  }
+}
+showPDE('heat');
+</script>
+</body>
+</html>

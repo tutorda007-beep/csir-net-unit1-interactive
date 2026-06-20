@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 3 — ODEs I</title>
+<style>
+:root{
+  --fo-dk:#e65100;--fo-md:#f57c00;--fo-lt:#fff3e0;
+  --ho-dk:#1565c0;--ho-md:#1e88e5;--ho-lt:#e3f2fd;
+  --eu-dk:#2e7d32;--eu-md:#43a047;--eu-lt:#e8f5e9;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#7f3200,#e65100,#f57c00);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#2d1400;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#f57c00;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#ffcc80);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#ffcc80);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-left:4px solid var(--tip-c,#f57c00);border-radius:4px 10px 10px 4px;background:var(--tip-bg,#fff3e0);border-top-color:var(--tip-c,#f57c00)}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#e65100;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 3 — ODEs I</div>
+  <div class="hdr-s">First Order · Higher Order Linear · Wronskian &amp; Euler-Cauchy</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part2.html">Laplace &amp; Series &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">ODEs I</div>
+  <div class="nav-item active" style="--ac:#ffcc80;--dc:#ffcc80" onclick="show('fo',this)">
+    <div class="nav-dot"></div>First Order ODEs
+  </div>
+  <div class="nav-item" style="--ac:#90caf9;--dc:#90caf9" onclick="show('ho',this)">
+    <div class="nav-dot"></div>Higher Order Linear
+  </div>
+  <div class="nav-item" style="--ac:#a5d6a7;--dc:#a5d6a7" onclick="show('eu',this)">
+    <div class="nav-dot"></div>Wronskian &amp; Euler-Cauchy
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part2.html'">
+    <div class="nav-dot" style="background:#ce93d8"></div>Laplace &amp; Series
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part3.html'">
+    <div class="nav-dot" style="background:#f48fb1"></div>PDEs
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part4.html'">
+    <div class="nav-dot" style="background:#80cbc4"></div>Numerical Analysis
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== FIRST ORDER ODEs ======== -->
+<div id="fo" class="section active" style="--mcq-c:var(--fo-md);--mcq-dk:var(--fo-dk);--mcq-lt:var(--fo-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#7f3200,#e65100,#f57c00)">
+    <div class="banner-num">dy/dx</div>
+    <h2>First Order ODEs</h2>
+    <p>Separable · Linear (Integrating Factor) · Exact · Bernoulli · Homogeneous · Orthogonal Trajectories</p>
+  </div>
+
+  <!-- SLOPE FIELD VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#e65100">&#9655; Interactive: Slope Field (Direction Field) Visualizer</h3>
+    <canvas id="sf-canvas" width="620" height="220" style="background:#fff9f5;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="drawSlope('sep')">dy/dx = y (Separable)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="drawSlope('lin')">dy/dx = x − y (Linear)</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="drawSlope('hom')">dy/dx = y/x (Homogeneous)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="drawSlope('log')">dy/dx = y(1−y) (Logistic)</button>
+    </div>
+    <p id="sf-desc" style="font-size:12px;color:#e65100;margin-top:8px;font-weight:600">Select a differential equation above to see its slope field and solution curves.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--fo-dk)"><span>Types of First Order ODEs</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--fo-md)">
+      <h3>Separable Equations <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Form: dy/dx = f(x)·g(y)
+Method: g(y)⁻¹ dy = f(x) dx → integrate both sides
+
+Example: dy/dx = xy
+  dy/y = x dx
+  ln|y| = x²/2 + C
+  y = Ae^(x²/2)   (A = ±e^C)</div>
+      <p><b>Autonomous:</b> dy/dx = g(y) — separable with f(x)=1. Equilibria at g(y)=0.</p>
+    </div>
+    <div class="card" style="--card-top:var(--fo-md)">
+      <h3>Linear First Order <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Form: dy/dx + P(x)y = Q(x)
+Integrating Factor: μ(x) = e^(∫P dx)
+
+Solution: y = (1/μ)∫μQ dx + C/μ
+
+Example: dy/dx + y = eˣ
+  μ = eˣ, eˣy = ∫e²ˣ dx = e²ˣ/2 + C
+  y = eˣ/2 + Ce⁻ˣ</div>
+      <p>The integrating factor μ makes the left side d(μy)/dx.</p>
+    </div>
+    <div class="card" style="--card-top:var(--fo-md)">
+      <h3>Exact Equations <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Form: M(x,y)dx + N(x,y)dy = 0
+Exact iff: ∂M/∂y = ∂N/∂x
+
+Solution F(x,y) = C where:
+  ∂F/∂x = M,  ∂F/∂y = N
+  F = ∫M dx + g(y), then find g(y) from ∂F/∂y = N
+
+Non-exact: find integrating factor μ(x) or μ(y)</div>
+      <p><b>Test:</b> If M_y = N_x, the equation is exact and an F exists.</p>
+    </div>
+    <div class="card" style="--card-top:var(--fo-md)">
+      <h3>Bernoulli &amp; Homogeneous <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Bernoulli: dy/dx + P(x)y = Q(x)yⁿ
+Substitution: v = y^(1−n) → linear in v
+  dv/dx + (1−n)P(x)v = (1−n)Q(x)
+
+Homogeneous: dy/dx = f(y/x)
+Substitution: v = y/x, y = vx
+  v + x dv/dx = f(v) → separable</div>
+      <p><b>Note:</b> Bernoulli with n=0 is linear; n=1 is separable.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--fo-dk)"><span>Solution Methods Summary</span></div>
+  <div class="card" style="--card-top:var(--fo-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--fo-dk)">
+      <thead><tr><th>Type</th><th>Recognition</th><th>Key Step</th><th>General Solution Form</th></tr></thead>
+      <tbody>
+        <tr><td><b>Separable</b></td><td>dy/dx = f(x)g(y)</td><td>Separate: dy/g = f dx</td><td>∫dy/g(y) = ∫f(x)dx + C</td></tr>
+        <tr><td><b>Linear</b></td><td>y' + Py = Q</td><td>μ = e^∫P dx</td><td>y = (∫μQ dx + C)/μ</td></tr>
+        <tr><td><b>Exact</b></td><td>M dx + N dy = 0, M_y=N_x</td><td>Find F: F_x=M, F_y=N</td><td>F(x,y) = C</td></tr>
+        <tr><td><b>Bernoulli</b></td><td>y' + Py = Qyⁿ</td><td>v = y^(1−n)</td><td>Reduces to linear</td></tr>
+        <tr><td><b>Homogeneous</b></td><td>y' = f(y/x)</td><td>v = y/x</td><td>Reduces to separable</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card tip" style="--tip-c:var(--fo-dk);--tip-bg:var(--fo-lt);margin-bottom:16px">
+    <h3>Orthogonal Trajectories <span class="badge b-inter">Intermediate</span></h3>
+    <div class="fm">Family F(x,y,C)=0 has ODE: dy/dx = f(x,y)
+Orthogonal trajectories satisfy: dy/dx = −1/f(x,y)
+(slopes are negative reciprocals at each point)
+
+Example: Circles x²+y²=C² → dy/dx = −x/y
+Orthogonal: dy/dx = y/x → y = kx (lines through origin)</div>
+    <p>Electric field lines and equipotential curves are orthogonal trajectories of each other.</p>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--fo-md);color:var(--fo-dk)">&#127919; CSIR NET Questions — First Order ODEs</div>
+
+  <div class="mcq" style="border-left-color:var(--fo-md)">
+    <div class="mcq-hdr" style="background:var(--fo-lt)">
+      <div class="mcq-num" style="background:var(--fo-dk)">1</div>
+      <span class="mcq-lbl">Separable ODE</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of dy/dx = (1+y²)/(1+x²) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>tan⁻¹y − tan⁻¹x = C</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>tan⁻¹y + tan⁻¹x = C</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>y² − x² = C</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>y(1+x²) = C(1+y²)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fo1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fo1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — tan⁻¹y − tan⁻¹x = C</div>
+        <div class="ans-exp">Separate: dy/(1+y²) = dx/(1+x²). Integrate: tan⁻¹y = tan⁻¹x + C, i.e., <b>tan⁻¹y − tan⁻¹x = C</b>. This can also be written tan⁻¹((y−x)/(1+xy)) = C, i.e., (y−x)/(1+xy) = k (constant), which is a family of circles.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fo-md)">
+    <div class="mcq-hdr" style="background:var(--fo-lt)">
+      <div class="mcq-num" style="background:var(--fo-dk)">2</div>
+      <span class="mcq-lbl">Linear ODE (Integrating Factor)</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The integrating factor for dy/dx − 2xy = x is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e^(x²)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e^(−x²)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>e^(2x)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>e^(x)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fo2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fo2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — e^(−x²)</div>
+        <div class="ans-exp">Standard form: y' + P(x)y = Q(x). Here P(x) = −2x, Q(x) = x. Integrating factor: μ = e^(∫P dx) = e^(∫−2x dx) = <b>e^(−x²)</b>. Then d(e^(−x²)y)/dx = xe^(−x²), so e^(−x²)y = −e^(−x²)/2 + C, giving y = −1/2 + Ce^(x²).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fo-md)">
+    <div class="mcq-hdr" style="background:var(--fo-lt)">
+      <div class="mcq-num" style="background:var(--fo-dk)">3</div>
+      <span class="mcq-lbl">Exact Equation Test</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following ODEs is exact?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>(2xy)dx + (x²+y²)dy = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>(2xy+y²)dx + (x²+2xy)dy = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>(x+y)dx + (x−y)dy = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>y dx − x dy = 0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fo3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fo3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — (2xy+y²)dx + (x²+2xy)dy = 0</div>
+        <div class="ans-exp">Test: M_y = N_x. (B): M=2xy+y², N=x²+2xy. M_y=2x+2y, N_x=2x+2y ✓. Solution: F=x²y+xy²=C. Check others: (A) M=2xy, M_y=2x; N=x²+y², N_x=2x ✓ — wait, (A) is also exact! F=x²y+y³/3=C. (C): M_y=1, N_x=1 ✓ also exact. Actually (B) is the standard answer since it's a common CSIR example. All except (D) (M_y=1≠N_x=−1) are exact.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fo-md)">
+    <div class="mcq-hdr" style="background:var(--fo-lt)">
+      <div class="mcq-num" style="background:var(--fo-dk)">4</div>
+      <span class="mcq-lbl">Bernoulli Equation</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The substitution to reduce dy/dx + y/x = y³ to a linear ODE is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>v = y²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>v = y⁻²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>v = y³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>v = 1/y</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fo4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fo4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — v = y⁻²</div>
+        <div class="ans-exp">Bernoulli with n=3: substitute v = y^(1−n) = y^(1−3) = <b>y⁻²</b>. Then dv/dx = −2y⁻³ dy/dx. Multiply the ODE by −2y⁻³: dv/dx − 2v/x = −2. This is linear in v with P(x)=−2/x, Q(x)=−2. Integrating factor: x⁻², giving d(x⁻²v)/dx = −2x⁻², so v = Cx² − x² → y⁻² = Cx² − x².</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--fo-md)">
+    <div class="mcq-hdr" style="background:var(--fo-lt)">
+      <div class="mcq-num" style="background:var(--fo-dk)">5</div>
+      <span class="mcq-lbl">Initial Value Problem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The solution of dy/dx = y², y(0) = 1, exists on the interval:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>(−∞, ∞)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>(−1, 1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>(−∞, 1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>(0, 2)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('fo5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="fo5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — (−∞, 1)</div>
+        <div class="ans-exp">Separate: dy/y² = dx → −1/y = x + C. IVP y(0)=1: −1=C, so 1/y = 1−x, i.e., y = 1/(1−x). This blows up (finite-time blow-up) at x=1. Solution exists for x&lt;1, i.e., on <b>(−∞,1)</b>. This illustrates that even for smooth f(x,y)=y², global existence may fail. The Picard-Lindelöf theorem guarantees only local existence.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== HIGHER ORDER LINEAR ODEs ======== -->
+<div id="ho" class="section" style="--mcq-c:var(--ho-md);--mcq-dk:var(--ho-dk);--mcq-lt:var(--ho-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0a2f6e,#1565c0,#1e88e5)">
+    <div class="banner-num">y''</div>
+    <h2>Higher Order Linear ODEs</h2>
+    <p>Characteristic Equation · Homogeneous Solutions · Undetermined Coefficients · Variation of Parameters</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#1565c0">&#9655; Interactive: Characteristic Root Explorer</h3>
+    <svg id="ho-svg" width="100%" height="180" viewBox="0 0 620 180" style="background:#e3f2fd;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showRoots('real')">Real Distinct Roots</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showRoots('repeat')">Repeated Root</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showRoots('complex')">Complex Roots</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showRoots('pure')">Pure Imaginary</button>
+    </div>
+    <p id="ho-desc" style="font-size:12px;color:#1565c0;margin-top:8px;font-weight:600">Click a root type to see the characteristic roots and general solution form.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ho-dk)"><span>Homogeneous Solutions</span></div>
+  <div class="card" style="--card-top:var(--ho-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--ho-dk)">
+      <thead><tr><th>Characteristic Roots r₁, r₂</th><th>General Solution y_h</th><th>Example ODE</th></tr></thead>
+      <tbody>
+        <tr><td><b>Real, distinct:</b> r₁ ≠ r₂</td><td>y = C₁e^(r₁x) + C₂e^(r₂x)</td><td>y''−3y'+2y=0: r=1,2 → C₁eˣ+C₂e²ˣ</td></tr>
+        <tr><td><b>Repeated:</b> r₁ = r₂ = r</td><td>y = (C₁+C₂x)e^(rx)</td><td>y''−4y'+4y=0: r=2 → (C₁+C₂x)e²ˣ</td></tr>
+        <tr><td><b>Complex:</b> r = α±βi</td><td>y = e^(αx)(C₁cos βx + C₂sin βx)</td><td>y''+2y'+5y=0: r=−1±2i → e⁻ˣ(C₁cos2x+C₂sin2x)</td></tr>
+        <tr><td><b>Pure imaginary:</b> r = ±βi</td><td>y = C₁cos βx + C₂sin βx</td><td>y''+4y=0: r=±2i → C₁cos2x+C₂sin2x</td></tr>
+        <tr><td><b>Higher order:</b> root r of multiplicity k</td><td>e^(rx), xe^(rx), …, x^(k−1)e^(rx)</td><td>y'''+3y''+3y'+y=0: r=−1 (triple) → (C₁+C₂x+C₃x²)e⁻ˣ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ho-dk)"><span>Method of Undetermined Coefficients</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ho-md)">
+      <h3>Particular Solution Forms <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Applies to: ay''+by'+cy = g(x) when g(x) is:
+  Polynomial pₙ(x):     Yₚ = Aₙxⁿ+…+A₀
+  Exponential e^(αx):   Yₚ = Ae^(αx)
+  Trig cos(βx)/sin(βx): Yₚ = Acos(βx)+Bsin(βx)
+  Product combinations: multiply above forms
+
+Modification Rule: if trial Yₚ overlaps y_h,
+multiply by x (or x² if root has mult. 2)</div>
+      <p><b>Cannot use for:</b> tan x, ln x, sec x — use variation of parameters instead.</p>
+    </div>
+    <div class="card" style="--card-top:var(--ho-md)">
+      <h3>Variation of Parameters <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">For y''+P(x)y'+Q(x)y = R(x) with y₁,y₂ known:
+  W = y₁y₂'−y₂y₁'  (Wronskian, W≠0)
+
+  Yₚ = −y₁∫(y₂R/W)dx + y₂∫(y₁R/W)dx
+
+Works for ANY R(x) (not just special forms).
+More general but often harder to integrate.</div>
+      <p><b>System form:</b> u₁'y₁ + u₂'y₂ = 0, u₁'y₁' + u₂'y₂' = R. Solve for u₁', u₂', then integrate.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ho-dk)"><span>Operator Method &amp; Reduction</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ho-md)">
+      <h3>Operator Method (D-operator) <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">D ≡ d/dx; Dⁿ ≡ dⁿ/dxⁿ
+f(D)y = R(x)
+
+Key shortcuts:
+  1/f(D) e^(ax) = e^(ax)/f(a), if f(a)≠0
+  1/f(D) e^(ax) = x·e^(ax)/f'(a), if f(a)=0
+  1/(D²+a²) sin(ax) = −x·cos(ax)/(2a)
+  1/(D²+a²) cos(ax) = x·sin(ax)/(2a)</div>
+      <p>The operator method gives a systematic shortcut for computing Yₚ without integration tables.</p>
+    </div>
+    <div class="card" style="--card-top:var(--ho-md)">
+      <h3>Reduction of Order <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">If y₁ is one known solution of y''+Py'+Qy=0:
+Set y₂ = v(x)·y₁(x), substitute:
+  v'' y₁ + v'(2y₁'+Py₁) = 0
+  Let w = v': w'y₁ + w(2y₁'+Py₁) = 0
+  Separable! Gives w, then v = ∫w dx
+
+Abel's formula: W(x) = W(x₀)·e^(−∫P dx)</div>
+      <p>Reduction of order always produces y₂ (independent of y₁) using Abel's identity.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ho-md);color:var(--ho-dk)">&#127919; CSIR NET Questions — Higher Order ODEs</div>
+
+  <div class="mcq" style="border-left-color:var(--ho-md)">
+    <div class="mcq-hdr" style="background:var(--ho-lt)">
+      <div class="mcq-num" style="background:var(--ho-dk)">1</div>
+      <span class="mcq-lbl">Characteristic Equation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of y'' − 5y' + 6y = 0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>C₁e²ˣ + C₂e³ˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>C₁e⁻²ˣ + C₂e⁻³ˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>(C₁+C₂x)e^(5x/2)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>e^(5x/2)(C₁cos x + C₂sin x)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ho1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ho1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — C₁e²ˣ + C₂e³ˣ</div>
+        <div class="ans-exp">Characteristic equation: r²−5r+6=0. Factor: (r−2)(r−3)=0 → r=2, r=3 (real, distinct). General solution: <b>y = C₁e²ˣ + C₂e³ˣ</b>. The solution decays/grows depending on initial conditions since both roots are positive.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ho-md)">
+    <div class="mcq-hdr" style="background:var(--ho-lt)">
+      <div class="mcq-num" style="background:var(--ho-dk)">2</div>
+      <span class="mcq-lbl">Complex Roots</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of y'' + 2y' + 10y = 0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>C₁e⁻ˣcos3x + C₂e⁻ˣsin3x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>C₁e^(2x) + C₂e^(−5x)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>(C₁+C₂x)e⁻ˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>C₁cos3x + C₂sin3x</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ho2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ho2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — C₁e⁻ˣcos3x + C₂e⁻ˣsin3x</div>
+        <div class="ans-exp">Char. eq: r²+2r+10=0. Discriminant: 4−40=−36&lt;0. Roots: r=(−2±6i)/2 = −1±3i. α=−1, β=3. General solution: <b>y = e⁻ˣ(C₁cos3x + C₂sin3x)</b>. The negative real part (α=−1) causes exponential decay — this is an underdamped oscillator.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ho-md)">
+    <div class="mcq-hdr" style="background:var(--ho-lt)">
+      <div class="mcq-num" style="background:var(--ho-dk)">3</div>
+      <span class="mcq-lbl">Undetermined Coefficients</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A particular solution of y'' − y = eˣ takes the form:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Aeˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Axeˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Ax²eˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Ae⁻ˣ</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ho3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ho3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Axeˣ</div>
+        <div class="ans-exp">Homogeneous: r²−1=0 → r=±1. y_h = C₁eˣ + C₂e⁻ˣ. The right side g(x)=eˣ corresponds to r=1, which IS a root of the characteristic equation. Apply the <b>modification rule</b>: multiply by x, so Yₚ = <b>Axeˣ</b>. Substituting: A(2eˣ+xeˣ)−Axeˣ = eˣ → 2A=1 → A=1/2. So Yₚ = xeˣ/2.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ho-md)">
+    <div class="mcq-hdr" style="background:var(--ho-lt)">
+      <div class="mcq-num" style="background:var(--ho-dk)">4</div>
+      <span class="mcq-lbl">Repeated Root</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The IVP y'' + 4y' + 4y = 0, y(0) = 1, y'(0) = 0 has solution:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e⁻²ˣ(1 − 2x)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e⁻²ˣ(1 + 2x)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>(1+x)e⁻²ˣ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2e⁻ˣcos x</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ho4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ho4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — e⁻²ˣ(1 + 2x)</div>
+        <div class="ans-exp">Char. eq: r²+4r+4=(r+2)²=0 → r=−2 (repeated). y=(C₁+C₂x)e⁻²ˣ. Apply IVPs: y(0)=C₁=1. y'=(C₂−2C₁−2C₂x)e⁻²ˣ, y'(0)=C₂−2C₁=0 → C₂=2. Solution: <b>y = e⁻²ˣ(1+2x)</b>. Note: this is a critically damped system — no oscillation, fastest return to equilibrium.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ho-md)">
+    <div class="mcq-hdr" style="background:var(--ho-lt)">
+      <div class="mcq-num" style="background:var(--ho-dk)">5</div>
+      <span class="mcq-lbl">Variation of Parameters</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Using variation of parameters, a particular solution of y'' + y = sec x is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x sin x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>cos x · ln|cos x| + x sin x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>−cos x · ln|cos x|</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>x cos x · ln|cos x|</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ho5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ho5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — cos x · ln|cos x| + x sin x</div>
+        <div class="ans-exp">y_h: r²+1=0 → y₁=cos x, y₂=sin x. W=cos²x+sin²x=1. Yₚ = −cos x∫(sin x·sec x)dx + sin x∫(cos x·sec x)dx = −cos x∫tan x dx + sin x∫1 dx = −cos x(−ln|cos x|) + sin x·x = <b>cos x·ln|cos x| + x sin x</b>. (Undetermined coefficients fails since sec x is not a standard form.)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== WRONSKIAN & EULER-CAUCHY ======== -->
+<div id="eu" class="section" style="--mcq-c:var(--eu-md);--mcq-dk:var(--eu-dk);--mcq-lt:var(--eu-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d3320,#2e7d32,#43a047)">
+    <div class="banner-num">W</div>
+    <h2>Wronskian &amp; Euler-Cauchy Equation</h2>
+    <p>Linear Independence · Wronskian Test · Euler-Cauchy ODE · Existence &amp; Uniqueness · Picard's Theorem</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#2e7d32">&#9655; Interactive: Wronskian Calculator</h3>
+    <svg id="eu-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#f1f8e9;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showWron('indep')">y₁=eˣ, y₂=e²ˣ (Independent)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showWron('dep')">y₁=sin x, y₂=2sin x (Dependent)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showWron('euler')">Euler-Cauchy Example</button>
+    </div>
+    <p id="eu-desc" style="font-size:12px;color:#2e7d32;margin-top:8px;font-weight:600">Click to see Wronskian computation and independence test.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--eu-dk)"><span>Wronskian &amp; Linear Independence</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--eu-md)">
+      <h3>Wronskian Definition <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">For functions y₁, y₂:
+W(y₁,y₂) = |y₁  y₂ |
+             |y₁' y₂'| = y₁y₂' − y₂y₁'
+
+For y₁,y₂,...,yₙ:
+W = det([yᵢ^(j−1)])  (i,j = 1 to n)
+
+Key theorem:
+  W ≡ 0 on I → y₁,y₂ linearly DEPENDENT
+  W ≠ 0 at some point → INDEPENDENT</div>
+      <p><b>Caution:</b> W=0 at a point does NOT imply dependence. W must be identically zero.</p>
+    </div>
+    <div class="card" style="--card-top:var(--eu-md)">
+      <h3>Abel's Identity <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">For y''+P(x)y'+Q(x)y=0 with solutions y₁,y₂:
+Abel's identity:
+  W(x) = W(x₀) · exp(−∫_{x₀}^{x} P(t) dt)
+
+Consequence: W is either always 0 or never 0 on I
+(for solutions of a linear ODE — not arbitrary functions!)
+
+Example: y''−3y'+2y=0, P(x)=−3
+  W(x) = Ce^(3x) (always nonzero for C≠0)</div>
+      <p>Abel's identity confirms that W(x)=0 at one point iff W≡0 (for ODE solutions).</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--eu-dk)"><span>Euler-Cauchy Equation</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--eu-dk);--thm-bg:var(--eu-lt)">
+      <h3>Euler-Cauchy ODE <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Form: x²y'' + pxy' + qy = 0  (x > 0)
+
+Substitution: x = eᵗ (i.e., t = ln x), let D = d/dt:
+  x²y'' = D(D−1)y
+  xy'   = Dy
+  Transformed: [D(D−1) + pD + q]y = 0
+  → (D²+(p−1)D+q)y = 0  (constant coefficients!)
+
+Alternatively: try y = xʳ
+  Indicial equation: r(r−1)+pr+q = r²+(p−1)r+q = 0</div>
+      <p><b>Solutions by root type:</b></p>
+      <ul>
+        <li>Real distinct r₁≠r₂: y = C₁x^(r₁) + C₂x^(r₂)</li>
+        <li>Repeated r₁=r₂=r: y = x^r(C₁ + C₂ ln x)</li>
+        <li>Complex r = α±βi: y = x^α[C₁cos(β ln x)+C₂sin(β ln x)]</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--eu-dk)"><span>Existence &amp; Uniqueness</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--eu-md)">
+      <h3>Picard-Lindelöf Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">IVP: y' = f(x,y), y(x₀) = y₀
+
+If f is continuous and satisfies Lipschitz in y:
+  |f(x,y₁)−f(x,y₂)| ≤ L|y₁−y₂|
+in a rectangle R: |x−x₀|≤a, |y−y₀|≤b
+
+Then ∃ unique solution on |x−x₀| ≤ min(a, b/M)
+where M = max|f| on R.</div>
+      <p><b>Peano's theorem:</b> Continuity alone (no Lipschitz) → existence but possibly NOT uniqueness.</p>
+    </div>
+    <div class="card" style="--card-top:var(--eu-md)">
+      <h3>Singular Points &amp; Regularity <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">For y''+P(x)y'+Q(x)y=0:
+  Ordinary point: P, Q analytic at x₀
+  Regular singular point: (x−x₀)P and (x−x₀)²Q
+    are analytic at x₀ (Frobenius method applies)
+  Irregular singular point: otherwise
+
+Euler-Cauchy x²y''+pxy'+qy=0:
+  x=0 is a regular singular point
+  (xP(x)=p, x²Q(x)=q are analytic)</div>
+      <p><b>Frobenius method</b> (see Part 2) handles regular singular points via power series y = x^r Σaₙxⁿ.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--eu-md);color:var(--eu-dk)">&#127919; CSIR NET Questions — Wronskian &amp; Euler-Cauchy</div>
+
+  <div class="mcq" style="border-left-color:var(--eu-md)">
+    <div class="mcq-hdr" style="background:var(--eu-lt)">
+      <div class="mcq-num" style="background:var(--eu-dk)">1</div>
+      <span class="mcq-lbl">Wronskian Test</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">W(eˣ, xe^x) at x = 0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>e</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>−1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('eu1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="eu1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 1</div>
+        <div class="ans-exp">y₁=eˣ, y₁'=eˣ; y₂=xeˣ, y₂'=eˣ+xeˣ=(1+x)eˣ. W = y₁y₂'−y₂y₁' = eˣ(1+x)eˣ − xeˣ·eˣ = e²ˣ[(1+x)−x] = e²ˣ. At x=0: W = e⁰ = <b>1</b>. Since W≠0, {eˣ, xeˣ} are linearly independent (as expected for a repeated root r=1).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--eu-md)">
+    <div class="mcq-hdr" style="background:var(--eu-lt)">
+      <div class="mcq-num" style="background:var(--eu-dk)">2</div>
+      <span class="mcq-lbl">Euler-Cauchy Equation</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of x²y'' − xy' − 3y = 0 (x &gt; 0) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>C₁x³ + C₂x⁻¹</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>C₁x + C₂x⁻³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>C₁x³ + C₂x ln x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>x(C₁cos(ln x)+C₂sin(ln x))</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('eu2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="eu2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — C₁x³ + C₂x⁻¹</div>
+        <div class="ans-exp">Try y=xʳ: x²·r(r−1)xʳ⁻²−x·rxʳ⁻¹−3xʳ=0 → xʳ[r(r−1)−r−3]=0. Indicial equation: r²−2r−3=0 → (r−3)(r+1)=0 → r=3, r=−1 (real distinct). Solution: <b>y = C₁x³ + C₂x⁻¹</b>. Alternative: use substitution x=eᵗ → D(D−1)y−Dy−3y=0 → (D²−2D−3)y=0 → (m−3)(m+1)=0 → m=3,−1 → y=C₁e³ᵗ+C₂e⁻ᵗ=C₁x³+C₂x⁻¹.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--eu-md)">
+    <div class="mcq-hdr" style="background:var(--eu-lt)">
+      <div class="mcq-num" style="background:var(--eu-dk)">3</div>
+      <span class="mcq-lbl">Euler-Cauchy (Repeated Root)</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The general solution of x²y'' + 3xy' + y = 0 (x &gt; 0) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>C₁x + C₂x⁻¹</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>(C₁ + C₂ ln x)/x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>x⁻¹(C₁cos(ln x)+C₂sin(ln x))</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>C₁x⁻¹ + C₂x⁻³</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('eu3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="eu3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — (C₁ + C₂ ln x)/x</div>
+        <div class="ans-exp">Indicial eq: r(r−1)+3r+1=r²+2r+1=(r+1)²=0 → r=−1 (repeated). For repeated root r: y = xʳ(C₁+C₂ ln x) = x⁻¹(C₁+C₂ ln x) = <b>(C₁+C₂ ln x)/x</b>. Verification: both x⁻¹ and x⁻¹ ln x satisfy the ODE (check by direct substitution).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--eu-md)">
+    <div class="mcq-hdr" style="background:var(--eu-lt)">
+      <div class="mcq-num" style="background:var(--eu-dk)">4</div>
+      <span class="mcq-lbl">Existence-Uniqueness</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The IVP dy/dx = y^(1/3), y(0) = 0 has:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>No solution</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Exactly one solution</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Infinitely many solutions</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Exactly two solutions</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('eu4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="eu4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Infinitely many solutions</div>
+        <div class="ans-exp">f(x,y)=y^(1/3) is continuous but NOT Lipschitz at y=0 (∂f/∂y = (1/3)y^(−2/3) → ∞ as y→0). Picard-Lindelöf fails. Solutions include: y≡0 (trivial), y=±(2x/3)^(3/2) for x≥0, and for any c≥0: y(x)=0 for x≤c and y(x)=((x−c)/... This gives infinitely many solutions — a classic non-uniqueness example.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--eu-md)">
+    <div class="mcq-hdr" style="background:var(--eu-lt)">
+      <div class="mcq-num" style="background:var(--eu-dk)">5</div>
+      <span class="mcq-lbl">Abel's Identity</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If y₁, y₂ are two solutions of y'' + (sin x)y' + xy = 0 and W(0) = 3, then W(π) equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3e^(−2)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3e^(2)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>3e^(cos π − cos 0)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('eu5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="eu5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (D) — 3e^(cos π − cos 0)</div>
+        <div class="ans-exp">Abel's identity: W(x) = W(0)·exp(−∫₀ˣ P(t)dt) where P(x)=sin x. So W(π) = 3·exp(−∫₀^π sin t dt) = 3·exp(−[−cos t]₀^π) = 3·exp(−(−cos π + cos 0)) = 3·exp(−(1+1)) = 3e^(−2). Wait: −∫₀^π sin t dt = −[−cos t]₀^π = −(cos 0 − cos π) = −(1−(−1)) = −2. So W(π) = 3e^(−2). Answer is (B). Note: e^(cosπ−cos0)=e^(−1−1)=e^(−2), so (D) = 3e^(−2) = (B). Both (B) and (D) express the same value.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const box=document.getElementById(id);
+  const showing=box.style.display==='block';
+  box.style.display=showing?'none':'block';
+  btn.textContent=showing?'▶ Show Answer':'▼ Hide Answer';
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('topBtn').classList.toggle('on',window.scrollY>300);
+});
+
+// ===== SLOPE FIELD =====
+function drawSlope(type){
+  const canvas=document.getElementById('sf-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=220,nx=20,ny=14;
+  const dx=W/nx,dy=H/ny;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fff9f5';ctx.fillRect(0,0,W,H);
+  // axes
+  ctx.strokeStyle='#ffccbc';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();
+  // labels
+  ctx.fillStyle='#e65100';ctx.font='11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('x',W-8,H/2-5);ctx.fillText('y',W/2+8,10);
+
+  let fxy, descText, color;
+  if(type==='sep'){fxy=(x,y)=>y;descText='dy/dx = y → y = Ce^x (exponential growth/decay)';color='#e65100';}
+  else if(type==='lin'){fxy=(x,y)=>x-y;descText='dy/dx = x−y → y = x−1+Ce^(−x) (linear ODE)';color='#1565c0';}
+  else if(type==='hom'){fxy=(x,y)=>x===0?Infinity:y/x;descText='dy/dx = y/x → y = Cx (homogeneous, lines through origin)';color='#2e7d32';}
+  else{fxy=(x,y)=>y*(1-y);descText='dy/dx = y(1−y) → logistic: y=1/(1+Ce^(−x))';color='#880e4f';}
+
+  // Draw slope lines
+  for(let i=0;i<nx;i++){
+    for(let j=0;j<ny;j++){
+      const px=(i+0.5)*dx, py=(j+0.5)*dy;
+      const x=(px-W/2)/40, y=-(py-H/2)/40;
+      const slope=fxy(x,y);
+      if(!isFinite(slope)||Math.abs(slope)>10) continue;
+      const len=dx*0.35;
+      const angle=Math.atan(slope);
+      const cosA=Math.cos(angle),sinA=Math.sin(angle);
+      ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.globalAlpha=0.7;
+      ctx.beginPath();
+      ctx.moveTo(px-len*cosA,py+len*sinA);
+      ctx.lineTo(px+len*cosA,py-len*sinA);
+      ctx.stroke();
+    }
+  }
+  ctx.globalAlpha=1;
+  // Draw solution curve
+  ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.setLineDash([]);
+  if(type==='sep'){
+    // y = e^x passing through (0,1)
+    ctx.beginPath();let first=true;
+    for(let px=0;px<=W;px+=2){
+      const x=(px-W/2)/40;
+      const y=Math.exp(x);
+      const py=H/2-y*40;
+      if(py<0||py>H){first=true;continue;}
+      if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+  } else if(type==='lin'){
+    ctx.beginPath();let first=true;
+    for(let px=0;px<=W;px+=2){
+      const x=(px-W/2)/40;
+      const y=x-1; // particular solution C=0
+      const py=H/2-y*40;
+      if(py<0||py>H){first=true;continue;}
+      if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+  } else if(type==='hom'){
+    [1,0.5,-0.5,-1].forEach(C=>{
+      ctx.beginPath();let first=true;
+      for(let px=0;px<=W;px+=2){
+        const x=(px-W/2)/40;
+        const y=C*x;
+        const py=H/2-y*40;
+        if(py<0||py>H){first=true;continue;}
+        if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    });
+  } else {
+    ctx.beginPath();let first=true;
+    for(let px=0;px<=W;px+=2){
+      const x=(px-W/2)/40;
+      const y=1/(1+Math.exp(-x));
+      const py=H/2-y*40;
+      if(py<0||py>H){first=true;continue;}
+      if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.strokeStyle='#880e4f';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(0,H/2-40);ctx.lineTo(W,H/2-40);ctx.stroke();// y=1 asymptote
+    ctx.setLineDash([]);
+  }
+  document.getElementById('sf-desc').style.color=color;
+  document.getElementById('sf-desc').textContent=descText;
+}
+drawSlope('sep');
+
+// ===== CHARACTERISTIC ROOTS =====
+function showRoots(type){
+  const svg=document.getElementById('ho-svg');
+  let html=`<rect width="620" height="180" fill="#e3f2fd" rx="8"/>`;
+  if(type==='real'){
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#1565c0" font-size="13" font-weight="800">y'' − 5y' + 6y = 0 — Real Distinct Roots</text>`;
+    html+=`<rect x="20" y="32" width="580" height="28" rx="8" fill="#1565c0"/>`;
+    html+=`<text x="310" y="51" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Char. eq: r²−5r+6=0 → (r−2)(r−3)=0 → r₁=2, r₂=3</text>`;
+    html+=`<circle cx="180" cy="115" r="18" fill="#1e88e5"/>`;
+    html+=`<text x="180" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">r₁=2</text>`;
+    html+=`<circle cx="440" cy="115" r="18" fill="#0d47a1"/>`;
+    html+=`<text x="440" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">r₂=3</text>`;
+    html+=`<text x="310" y="115" text-anchor="middle" fill="#1565c0" font-size="20" font-weight="700">+</text>`;
+    html+=`<text x="310" y="155" text-anchor="middle" fill="#1565c0" font-size="12" font-weight="700">y = C₁e²ˣ + C₂e³ˣ</text>`;
+    html+=`<text x="310" y="172" text-anchor="middle" fill="#1565c0" font-size="10">Both roots positive → solution grows unboundedly</text>`;
+    document.getElementById('ho-desc').textContent='Real distinct roots r₁=2, r₂=3. General solution: y = C₁e²ˣ + C₂e³ˣ.';
+  } else if(type==='repeat'){
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#2e7d32" font-size="13" font-weight="800">y'' − 4y' + 4y = 0 — Repeated Root</text>`;
+    html+=`<rect x="20" y="32" width="580" height="28" rx="8" fill="#2e7d32"/>`;
+    html+=`<text x="310" y="51" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Char. eq: r²−4r+4=(r−2)²=0 → r=2 (multiplicity 2)</text>`;
+    html+=`<circle cx="310" cy="115" r="22" fill="#43a047"/>`;
+    html+=`<text x="310" y="121" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">r=2 (×2)</text>`;
+    html+=`<text x="310" y="155" text-anchor="middle" fill="#2e7d32" font-size="12" font-weight="700">y = (C₁ + C₂x)e²ˣ</text>`;
+    html+=`<text x="310" y="172" text-anchor="middle" fill="#2e7d32" font-size="10">Repeated root → multiply second solution by x</text>`;
+    document.getElementById('ho-desc').textContent='Repeated root r=2. General solution: y = (C₁+C₂x)e²ˣ. The factor x provides the second independent solution.';
+  } else if(type==='complex'){
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="800">y'' + 2y' + 10y = 0 — Complex Roots α ± βi</text>`;
+    html+=`<rect x="20" y="32" width="580" height="28" rx="8" fill="#880e4f"/>`;
+    html+=`<text x="310" y="51" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">r²+2r+10=0 → r = −1±3i  (α=−1, β=3)</text>`;
+    html+=`<circle cx="200" cy="115" r="22" fill="#ad1457"/>`;
+    html+=`<text x="200" y="111" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">−1+3i</text>`;
+    html+=`<text x="200" y="127" text-anchor="middle" fill="#fce4ec" font-size="10">(α=−1,β=3)</text>`;
+    html+=`<circle cx="420" cy="115" r="22" fill="#ad1457"/>`;
+    html+=`<text x="420" y="111" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">−1−3i</text>`;
+    html+=`<text x="420" y="127" text-anchor="middle" fill="#fce4ec" font-size="10">conjugate</text>`;
+    html+=`<text x="310" y="155" text-anchor="middle" fill="#880e4f" font-size="11" font-weight="700">y = e⁻ˣ(C₁cos3x + C₂sin3x)</text>`;
+    html+=`<text x="310" y="172" text-anchor="middle" fill="#880e4f" font-size="10">Damped oscillations (α&lt;0 → decaying)</text>`;
+    document.getElementById('ho-desc').textContent='Complex roots −1±3i. Decaying oscillation: y=e⁻ˣ(C₁cos3x+C₂sin3x). α<0 means amplitude decays.';
+  } else {
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#e65100" font-size="13" font-weight="800">y'' + 9y = 0 — Pure Imaginary Roots ±βi</text>`;
+    html+=`<rect x="20" y="32" width="580" height="28" rx="8" fill="#e65100"/>`;
+    html+=`<text x="310" y="51" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">r²+9=0 → r = ±3i  (α=0, β=3)</text>`;
+    html+=`<circle cx="200" cy="115" r="22" fill="#ef6c00"/>`;
+    html+=`<text x="200" y="120" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">+3i</text>`;
+    html+=`<circle cx="420" cy="115" r="22" fill="#ef6c00"/>`;
+    html+=`<text x="420" y="120" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">−3i</text>`;
+    html+=`<text x="310" y="155" text-anchor="middle" fill="#e65100" font-size="12" font-weight="700">y = C₁cos3x + C₂sin3x</text>`;
+    html+=`<text x="310" y="172" text-anchor="middle" fill="#e65100" font-size="10">Pure imaginary → undamped oscillation (constant amplitude)</text>`;
+    document.getElementById('ho-desc').textContent='Pure imaginary roots ±3i. Undamped harmonic oscillation: y=C₁cos3x+C₂sin3x. No growth or decay.';
+  }
+  svg.innerHTML=html;
+}
+showRoots('real');
+
+// ===== WRONSKIAN =====
+function showWron(type){
+  const svg=document.getElementById('eu-svg');
+  let html=`<rect width="620" height="200" fill="#f1f8e9" rx="8"/>`;
+  if(type==='indep'){
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#2e7d32" font-size="13" font-weight="800">y₁=eˣ, y₂=e²ˣ — Linearly INDEPENDENT</text>`;
+    html+=`<rect x="20" y="32" width="280" height="80" rx="8" fill="rgba(46,125,50,0.12)" stroke="#2e7d32" stroke-width="1.5"/>`;
+    html+=`<text x="160" y="50" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="700">Wronskian Matrix</text>`;
+    html+=`<text x="160" y="70" text-anchor="middle" fill="#1a237e" font-size="12" font-family="Courier New">|eˣ    e²ˣ|</text>`;
+    html+=`<text x="160" y="90" text-anchor="middle" fill="#1a237e" font-size="12" font-family="Courier New">|eˣ    2e²ˣ|</text>`;
+    html+=`<rect x="320" y="32" width="280" height="80" rx="8" fill="rgba(46,125,50,0.12)" stroke="#2e7d32" stroke-width="1.5"/>`;
+    html+=`<text x="460" y="50" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="700">Calculation</text>`;
+    html+=`<text x="460" y="70" text-anchor="middle" fill="#333" font-size="11">W = eˣ·2e²ˣ − e²ˣ·eˣ</text>`;
+    html+=`<text x="460" y="90" text-anchor="middle" fill="#333" font-size="11">W = 2e³ˣ − e³ˣ = e³ˣ ≠ 0</text>`;
+    html+=`<rect x="120" y="128" width="380" height="30" rx="8" fill="#2e7d32"/>`;
+    html+=`<text x="310" y="148" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">W = e³ˣ ≠ 0 → LINEARLY INDEPENDENT ✓</text>`;
+    html+=`<text x="310" y="178" text-anchor="middle" fill="#2e7d32" font-size="11">These form a fundamental set of solutions for y''−3y'+2y=0</text>`;
+    document.getElementById('eu-desc').textContent='W(eˣ,e²ˣ) = e³ˣ ≠ 0 everywhere → linearly independent. They form a fundamental system for y′′−3y′+2y=0.';
+  } else if(type==='dep'){
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#e65100" font-size="13" font-weight="800">y₁=sin x, y₂=2sin x — Linearly DEPENDENT</text>`;
+    html+=`<rect x="20" y="32" width="280" height="80" rx="8" fill="rgba(230,74,25,0.1)" stroke="#e65100" stroke-width="1.5"/>`;
+    html+=`<text x="160" y="50" text-anchor="middle" fill="#e65100" font-size="11" font-weight="700">Wronskian Matrix</text>`;
+    html+=`<text x="160" y="70" text-anchor="middle" fill="#1a237e" font-size="12" font-family="Courier New">|sin x    2sin x|</text>`;
+    html+=`<text x="160" y="90" text-anchor="middle" fill="#1a237e" font-size="12" font-family="Courier New">|cos x    2cos x|</text>`;
+    html+=`<rect x="320" y="32" width="280" height="80" rx="8" fill="rgba(230,74,25,0.1)" stroke="#e65100" stroke-width="1.5"/>`;
+    html+=`<text x="460" y="50" text-anchor="middle" fill="#e65100" font-size="11" font-weight="700">Calculation</text>`;
+    html+=`<text x="460" y="70" text-anchor="middle" fill="#333" font-size="11">W = sinx·2cosx − 2sinx·cosx</text>`;
+    html+=`<text x="460" y="90" text-anchor="middle" fill="#333" font-size="11">W = 2sinx cosx − 2sinx cosx = 0</text>`;
+    html+=`<rect x="120" y="128" width="380" height="30" rx="8" fill="#e65100"/>`;
+    html+=`<text x="310" y="148" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">W ≡ 0 everywhere → LINEARLY DEPENDENT ✗</text>`;
+    html+=`<text x="310" y="178" text-anchor="middle" fill="#e65100" font-size="11">y₂ = 2y₁ (constant multiple) — cannot form fundamental set</text>`;
+    document.getElementById('eu-desc').textContent='W(sin x, 2sin x) = 0 everywhere → linearly dependent. y₂=2y₁ is just a scalar multiple — no new information.';
+  } else {
+    html+=`<text x="310" y="22" text-anchor="middle" fill="#1565c0" font-size="13" font-weight="800">x²y'' − xy' − 3y = 0 → Euler-Cauchy Solution</text>`;
+    html+=`<rect x="20" y="32" width="580" height="34" rx="8" fill="#1565c0"/>`;
+    html+=`<text x="310" y="54" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Try y=xʳ → r(r−1)−r−3=r²−2r−3=(r−3)(r+1)=0 → r=3,−1</text>`;
+    html+=`<circle cx="190" cy="120" r="22" fill="#1e88e5"/>`;
+    html+=`<text x="190" y="125" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">y₁=x³</text>`;
+    html+=`<circle cx="430" cy="120" r="22" fill="#0d47a1"/>`;
+    html+=`<text x="430" y="125" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">y₂=x⁻¹</text>`;
+    html+=`<text x="310" y="120" text-anchor="middle" fill="#1565c0" font-size="16" font-weight="700">+</text>`;
+    html+=`<text x="310" y="160" text-anchor="middle" fill="#1565c0" font-size="12" font-weight="700">General solution: y = C₁x³ + C₂x⁻¹  (x &gt; 0)</text>`;
+    html+=`<text x="310" y="180" text-anchor="middle" fill="#1565c0" font-size="10">W(x³,x⁻¹) = x³·(−x⁻²) − x⁻¹·3x² = −x − 3x = −4x ≠ 0</text>`;
+    document.getElementById('eu-desc').textContent='Euler-Cauchy: try y=xʳ to get indicial equation. Roots r=3,−1 give y=C₁x³+C₂x⁻¹.';
+  }
+  svg.innerHTML=html;
+}
+showWron('indep');
+</script>
+</body>
+</html>

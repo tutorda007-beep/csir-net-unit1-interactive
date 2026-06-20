@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 3 — ODEs II</title>
+<style>
+:root{
+  --lp-dk:#4a148c;--lp-md:#7b1fa2;--lp-lt:#f3e5f5;
+  --ss-dk:#006064;--ss-md:#00838f;--ss-lt:#e0f7fa;
+  --sy-dk:#b71c1c;--sy-md:#e53935;--sy-lt:#ffebee;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#1a0033,#4a148c,#7b1fa2);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#120020;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7b1fa2;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#ce93d8);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#ce93d8);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#4a148c;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 3 — ODEs II</div>
+  <div class="hdr-s">Laplace Transforms · Series Solutions · Systems of ODEs</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part1.html">&#8592; ODEs I</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part3.html">PDEs &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">ODEs II</div>
+  <div class="nav-item active" style="--ac:#ce93d8;--dc:#ce93d8" onclick="show('lp',this)">
+    <div class="nav-dot"></div>Laplace Transforms
+  </div>
+  <div class="nav-item" style="--ac:#80deea;--dc:#80deea" onclick="show('ss',this)">
+    <div class="nav-dot"></div>Series Solutions
+  </div>
+  <div class="nav-item" style="--ac:#ef9a9a;--dc:#ef9a9a" onclick="show('sy',this)">
+    <div class="nav-dot"></div>Systems of ODEs
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part1.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>ODEs I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part3.html'">
+    <div class="nav-dot" style="background:#f48fb1"></div>PDEs
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part4.html'">
+    <div class="nav-dot" style="background:#80cbc4"></div>Numerical Analysis
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== LAPLACE TRANSFORMS ======== -->
+<div id="lp" class="section active" style="--mcq-c:var(--lp-md);--mcq-dk:var(--lp-dk);--mcq-lt:var(--lp-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a0033,#4a148c,#7b1fa2)">
+    <div class="banner-num">&#8466;</div>
+    <h2>Laplace Transforms</h2>
+    <p>Definition · Transform Table · Properties · Inverse Laplace · Solving IVPs · Convolution</p>
+  </div>
+
+  <!-- LAPLACE PAIR EXPLORER -->
+  <div class="viz-box">
+    <h3 style="color:#4a148c">&#9655; Interactive: Laplace Transform Pair Explorer</h3>
+    <svg id="lp-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#f8f5ff;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#4a148c;color:#fff" onclick="showLT('exp')">&#8466;{e^(at)}</button>
+      <button class="viz-btn" style="background:#7b1fa2;color:#fff" onclick="showLT('trig')">&#8466;{sin(at)/cos(at)}</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showLT('poly')">&#8466;{tⁿ}</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showLT('step')">&#8466;{Unit Step u(t−a)}</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showLT('conv')">Convolution Theorem</button>
+    </div>
+    <p id="lp-desc" style="font-size:12px;color:#4a148c;margin-top:8px;font-weight:600">Select a function to see its Laplace transform pair and key properties.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--lp-dk)"><span>Definition &amp; Standard Pairs</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--lp-md)">
+      <h3>Definition <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">&#8466;{f(t)} = F(s) = ∫₀^∞ e^(−st) f(t) dt
+(convergent for s > a = abscissa of convergence)
+
+Inverse: f(t) = &#8466;⁻¹{F(s)}
+  = (1/2πi) ∫_{c−i∞}^{c+i∞} e^(st) F(s) ds
+  (Bromwich integral)
+
+In practice: use partial fractions + tables</div>
+      <p><b>Existence:</b> f piecewise continuous and of exponential order |f(t)| ≤ Me^(at) → F(s) exists for s &gt; a.</p>
+    </div>
+    <div class="card" style="--card-top:var(--lp-md)">
+      <h3>Key Transform Pairs <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">&#8466;{1}      = 1/s          (s > 0)
+&#8466;{tⁿ}    = n!/s^(n+1)   (s > 0)
+&#8466;{e^(at)} = 1/(s−a)      (s > a)
+&#8466;{sin bt} = b/(s²+b²)   (s > 0)
+&#8466;{cos bt} = s/(s²+b²)   (s > 0)
+&#8466;{sinh bt}= b/(s²−b²)   (s > |b|)
+&#8466;{cosh bt}= s/(s²−b²)   (s > |b|)</div>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--lp-dk)"><span>Key Properties</span></div>
+  <div class="card" style="--card-top:var(--lp-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--lp-dk)">
+      <thead><tr><th>Property</th><th>Formula</th><th>Application</th></tr></thead>
+      <tbody>
+        <tr><td><b>Linearity</b></td><td>&#8466;{αf+βg} = αF+βG</td><td>Break apart sums</td></tr>
+        <tr><td><b>Differentiation</b></td><td>&#8466;{f'} = sF(s)−f(0)</td><td>Convert ODE to algebraic eq.</td></tr>
+        <tr><td><b>2nd Derivative</b></td><td>&#8466;{f''} = s²F−sf(0)−f'(0)</td><td>Second order IVPs</td></tr>
+        <tr><td><b>Integration</b></td><td>&#8466;{∫₀ᵗf} = F(s)/s</td><td>Integral equations</td></tr>
+        <tr><td><b>Frequency Shift</b></td><td>&#8466;{e^(at)f(t)} = F(s−a)</td><td>Damped oscillations</td></tr>
+        <tr><td><b>Time Shift</b></td><td>&#8466;{f(t−a)u(t−a)} = e^(−as)F(s)</td><td>Delayed inputs</td></tr>
+        <tr><td><b>Scaling</b></td><td>&#8466;{f(at)} = (1/a)F(s/a)</td><td>Rescaling time</td></tr>
+        <tr><td><b>Multiplication by t</b></td><td>&#8466;{tf(t)} = −F'(s)</td><td>Ramp functions</td></tr>
+        <tr><td><b>Convolution</b></td><td>&#8466;{f*g} = F(s)·G(s)</td><td>Integral equations</td></tr>
+        <tr><td><b>Initial Value</b></td><td>f(0⁺) = lim_{s→∞} sF(s)</td><td>Check IVP consistency</td></tr>
+        <tr><td><b>Final Value</b></td><td>f(∞) = lim_{s→0} sF(s)</td><td>Steady-state analysis</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--lp-md)">
+      <h3>Solving IVPs via Laplace <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Procedure for y''+py'+qy=g(t), y(0)=y₀, y'(0)=y₁:
+
+Step 1: Take &#8466; of both sides (use IC directly):
+  (s²Y−sy₀−y₁)+p(sY−y₀)+qY = G(s)
+  Y(s)(s²+ps+q) = G(s)+sy₀+y₁+py₀
+
+Step 2: Solve for Y(s) algebraically.
+
+Step 3: Use partial fractions to find &#8466;⁻¹{Y(s)}.
+
+Advantage: ICs incorporated automatically!</div>
+    </div>
+    <div class="card" style="--card-top:var(--lp-md)">
+      <h3>Convolution &amp; Special Functions <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Convolution: (f*g)(t) = ∫₀ᵗ f(τ)g(t−τ)dτ
+&#8466;{f*g} = F(s)·G(s) (Convolution Theorem)
+
+Dirac delta: δ(t−a)
+  &#8466;{δ(t−a)} = e^(−as)
+  ∫f(t)δ(t−a)dt = f(a)  (sifting property)
+
+Heaviside (unit step): u(t−a) = 0 if t&lt;a, 1 if t≥a
+  &#8466;{u(t−a)} = e^(−as)/s</div>
+      <p><b>Impulse response:</b> h(t) = &#8466;⁻¹{1/(s²+ps+q)} — solution with zero ICs and δ(t) forcing.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--lp-md);color:var(--lp-dk)">&#127919; CSIR NET Questions — Laplace Transforms</div>
+
+  <div class="mcq" style="border-left-color:var(--lp-md)">
+    <div class="mcq-hdr" style="background:var(--lp-lt)">
+      <div class="mcq-num" style="background:var(--lp-dk)">1</div>
+      <span class="mcq-lbl">Standard Transform</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">&#8466;{t² e^(3t)} equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>2/(s−3)³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2/(s+3)³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1/(s−3)²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>6/(s−3)⁴</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lp1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lp1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 2/(s−3)³</div>
+        <div class="ans-exp">Use frequency shift: &#8466;{e^(at)f(t)} = F(s−a). Here a=3, f(t)=t². &#8466;{t²} = 2!/s³ = 2/s³. By shift: &#8466;{t²e^(3t)} = <b>2/(s−3)³</b>. Generally: &#8466;{tⁿe^(at)} = n!/(s−a)^(n+1).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lp-md)">
+    <div class="mcq-hdr" style="background:var(--lp-lt)">
+      <div class="mcq-num" style="background:var(--lp-dk)">2</div>
+      <span class="mcq-lbl">Inverse Laplace</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">&#8466;⁻¹{(s+2)/((s+2)²+9)} is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e^(−2t) sin 3t</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e^(2t) cos 3t</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>e^(−2t) cos 3t</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>e^(−2t)(cos 3t + sin 3t)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lp2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lp2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — e^(−2t) cos 3t</div>
+        <div class="ans-exp">Recognise pattern: F(s) = (s+2)/((s+2)²+9) = (s−(−2))/((s−(−2))²+3²). Standard form: &#8466;⁻¹{(s−a)/((s−a)²+b²)} = e^(at) cos(bt). Here a=−2, b=3: <b>e^(−2t) cos 3t</b>. Compare with &#8466;⁻¹{3/((s+2)²+9)} = e^(−2t) sin 3t.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lp-md)">
+    <div class="mcq-hdr" style="background:var(--lp-lt)">
+      <div class="mcq-num" style="background:var(--lp-dk)">3</div>
+      <span class="mcq-lbl">Solving IVP</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Laplace transform solution of y'' + 4y = 0, y(0)=1, y'(0)=0 gives Y(s) =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>s/(s²+4)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/(s²+4)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>4/(s²+4)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>s/(s²−4)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lp3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lp3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — s/(s²+4)</div>
+        <div class="ans-exp">Take &#8466;: (s²Y−s·1−0)+4Y=0 → Y(s²+4)=s → <b>Y = s/(s²+4)</b>. Inverse: y=&#8466;⁻¹{s/(s²+4)} = cos(2t). This matches the expected solution: y''+4y=0 with y(0)=1, y'(0)=0 → y=cos(2t) ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lp-md)">
+    <div class="mcq-hdr" style="background:var(--lp-lt)">
+      <div class="mcq-num" style="background:var(--lp-dk)">4</div>
+      <span class="mcq-lbl">Convolution Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Using convolution, &#8466;⁻¹{1/(s(s+1))} equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1 − e^(−t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e^(−t) − 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>t·e^(−t)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1 + e^(−t)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lp4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lp4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 1 − e^(−t)</div>
+        <div class="ans-exp">Method 1 — Partial fractions: 1/(s(s+1)) = 1/s − 1/(s+1) → &#8466;⁻¹ = 1 − e^(−t). Method 2 — Convolution: &#8466;⁻¹{1/s}=u(t)=1, &#8466;⁻¹{1/(s+1)}=e^(−t). Convolution: ∫₀ᵗ 1·e^(−(t−τ))dτ = e^(−t)∫₀ᵗe^τdτ = e^(−t)(eᵗ−1) = <b>1−e^(−t)</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lp-md)">
+    <div class="mcq-hdr" style="background:var(--lp-lt)">
+      <div class="mcq-num" style="background:var(--lp-dk)">5</div>
+      <span class="mcq-lbl">Time-Shift Property</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">&#8466;{(t−2)u(t−2)} (where u is the unit step function) equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e^(−2s)/s²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e^(2s)/s²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2e^(−2s)/s</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>e^(−2s)(1/s²+2/s)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lp5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lp5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — e^(−2s)/s²</div>
+        <div class="ans-exp">Time-shift: &#8466;{f(t−a)u(t−a)} = e^(−as)F(s). Here f(t) = t (so f(t−2)=t−2), a=2, F(s)=&#8466;{t}=1/s². Therefore <b>&#8466;{(t−2)u(t−2)} = e^(−2s)/s²</b>. Note: (t−2)u(t−2) is a ramp starting at t=2; its Laplace transform is the standard ramp transform multiplied by the delay factor e^(−2s).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SERIES SOLUTIONS ======== -->
+<div id="ss" class="section" style="--mcq-c:var(--ss-md);--mcq-dk:var(--ss-dk);--mcq-lt:var(--ss-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#002030,#006064,#00838f)">
+    <div class="banner-num">&#931;</div>
+    <h2>Series Solutions &amp; Special Equations</h2>
+    <p>Power Series · Frobenius Method · Bessel's Equation · Legendre's Equation</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#006064">&#9655; Interactive: Frobenius Indicial Equation Solver</h3>
+    <svg id="ss-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#e0f7fa;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#006064;color:#fff" onclick="showFrob('bessel')">Bessel Equation (n=0)</button>
+      <button class="viz-btn" style="background:#00838f;color:#fff" onclick="showFrob('legendre')">Legendre Equation (n=2)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showFrob('euler')">Euler-Cauchy x²y''+xy'+y=0</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showFrob('custom')">Custom: x²y''+xy'−y=0</button>
+    </div>
+    <p id="ss-desc" style="font-size:12px;color:#006064;margin-top:8px;font-weight:600">Click an equation to see the Frobenius method applied and indicial roots.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ss-dk)"><span>Power Series Method (Ordinary Points)</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ss-md)">
+      <h3>Power Series at Ordinary Point <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">For y''+P(x)y'+Q(x)y=0, x₀ ordinary:
+Try y = Σ_{n=0}^∞ aₙ(x−x₀)ⁿ
+
+1. Substitute into ODE
+2. Collect terms by power of (x−x₀)
+3. Set each coefficient to 0 → recurrence
+
+Radius of convergence ≥ distance from x₀ to
+nearest singular point (in complex plane)</div>
+      <p><b>Example at x₀=0:</b> y''+y=0: recurrence aₙ₊₂=−aₙ/((n+1)(n+2)). Gives cos x and sin x.</p>
+    </div>
+    <div class="card" style="--card-top:var(--ss-md)">
+      <h3>Frobenius Method (Regular Singular Points) <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">For x²y''+xP̃(x)y'+Q̃(x)y=0 with x=0 regular:
+Try y = xʳ Σ_{n=0}^∞ aₙxⁿ = Σ aₙx^(n+r)
+
+Indicial equation: r(r−1)+p₀r+q₀ = 0
+  (p₀=P̃(0), q₀=Q̃(0))
+  Roots r₁ ≥ r₂
+
+Cases:
+  r₁−r₂ ∉ ℤ: two independent Frobenius series
+  r₁=r₂: second solution has ln x term
+  r₁−r₂ ∈ ℤ⁺: second solution may have ln x</div>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ss-dk)"><span>Special Equations</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--ss-dk);--thm-bg:var(--ss-lt)">
+      <h3>Bessel's Equation <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">x²y'' + xy' + (x²−n²)y = 0
+
+Solutions: Jₙ(x) (Bessel of 1st kind),
+           Yₙ(x) (Bessel of 2nd kind, singular at 0)
+
+J₀(x) = Σ (−1)ᵏ x²ᵏ / (2²ᵏ(k!)²)
+       = 1 − x²/4 + x⁴/64 − ···
+
+Jₙ(x) = Σ (−1)ᵏ(x/2)^(2k+n) / (k!(n+k)!)
+
+Recurrence: Jₙ₋₁+Jₙ₊₁ = (2n/x)Jₙ
+Orthogonality: ∫₀¹ xJₙ(αx)Jₙ(βx)dx = 0, α≠β</div>
+      <p><b>Zeros:</b> J₀ has zeros at 2.405, 5.520, 8.654, … (used in BVPs on disks).</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ss-dk);--thm-bg:var(--ss-lt)">
+      <h3>Legendre's Equation <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">(1−x²)y'' − 2xy' + n(n+1)y = 0
+
+For n = non-negative integer: polynomial solution
+  Pₙ(x) (Legendre polynomial)
+
+P₀=1, P₁=x, P₂=(3x²−1)/2, P₃=(5x³−3x)/2
+
+Rodrigues' formula:
+  Pₙ(x) = (1/2ⁿn!) dⁿ/dxⁿ [(x²−1)ⁿ]
+
+Orthogonality: ∫₋₁¹ Pₘ(x)Pₙ(x)dx = 2δₘₙ/(2n+1)</div>
+      <p><b>Generating function:</b> (1−2xh+h²)^(−1/2) = Σ Pₙ(x)hⁿ.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ss-md);color:var(--ss-dk)">&#127919; CSIR NET Questions — Series Solutions</div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">1</div>
+      <span class="mcq-lbl">Ordinary vs Singular Point</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For the ODE x(x−1)y'' + 2y' + xy = 0, which of the following is a regular singular point?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x = 0 only</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x = 1 only</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Both x = 0 and x = 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Neither x = 0 nor x = 1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ss1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Both x = 0 and x = 1</div>
+        <div class="ans-exp">Divide by x(x−1): y''+2/(x(x−1))·y'+1/(x−1)·y=0. Singular points at x=0, x=1. Check x=0: xP=2x/(x(x−1))=2/(x−1)→−2 (analytic); x²Q=x²/(x−1)→0 (analytic) → <b>x=0 regular singular</b>. Check x=1: (x−1)P=2(x−1)/(x(x−1))=2/x→2 (analytic); (x−1)²Q=(x−1)²/(x−1)=(x−1)→0 (analytic) → <b>x=1 regular singular</b>. Both are regular singular points.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">2</div>
+      <span class="mcq-lbl">Indicial Equation</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For 2x²y'' + 3xy' − y = 0 at x=0, the indicial equation is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>2r² + r − 1 = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2r(r−1) + 3r − 1 = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>r² + r − 1 = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>r(r−1) − 1 = 0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ss2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 2r(r−1) + 3r − 1 = 0</div>
+        <div class="ans-exp">Write as x²y''+P̃(x)xy'+Q̃(x)y=0: divide by 2: x²y''+(3/2)xy'−(1/2)y=0. p₀=P̃(0)=3/2, q₀=Q̃(0)=−1/2. Indicial eq: r(r−1)+p₀r+q₀=0 → r(r−1)+(3/2)r−(1/2)=0 → 2r(r−1)+3r−1=0 → <b>2r²+r−1=0</b> → (2r−1)(r+1)=0 → r=1/2, r=−1. Note (A) and (B) are actually equivalent: 2r²+r−1=2r(r−1)+3r−1. Both represent the correct indicial equation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">3</div>
+      <span class="mcq-lbl">Bessel Function Property</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The value of J₀(0) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>∞</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ss3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 1</div>
+        <div class="ans-exp">J₀(x) = Σ(−1)ᵏx²ᵏ/(2²ᵏ(k!)²). At x=0: only k=0 term survives: J₀(0) = (−1)⁰·0/(1·1) = <b>1</b>. More generally, Jₙ(0)=0 for n≥1, and J₀(0)=1. The function J₀ behaves like cos x near 0, decaying as x→∞ with zeros at 2.405, 5.520, …</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">4</div>
+      <span class="mcq-lbl">Legendre Polynomial</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Legendre polynomial P₃(x) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>(5x³ − 3x)/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>(3x² − 1)/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>5x³ − 3x</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>(35x⁴−30x²+3)/8</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ss4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — (5x³ − 3x)/2</div>
+        <div class="ans-exp">Using Rodrigues': P₃=(1/2³·3!)d³/dx³[(x²−1)³]/1=(1/48)d³/dx³[x⁶−3x⁴+3x²−1]=(1/48)[120x³−72x]=(5x³−3x)/2. Or recurrence (n+1)Pₙ₊₁=(2n+1)xPₙ−nPₙ₋₁: 3P₃=5xP₂−2P₁=5x(3x²−1)/2−2x=(15x³−5x−4x)/2=(15x³−9x)/2 → P₃=(5x³−3x)/2 ✓. (D) is P₄(x).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ss-md)">
+    <div class="mcq-hdr" style="background:var(--ss-lt)">
+      <div class="mcq-num" style="background:var(--ss-dk)">5</div>
+      <span class="mcq-lbl">Power Series Recurrence</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For y'' − xy = 0 (Airy equation), using y = Σaₙxⁿ the recurrence relation is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>aₙ₊₂ = aₙ₋₁/((n+2)(n+1))</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>aₙ₊₃ = aₙ/((n+2)(n+3))</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>aₙ₊₂ = aₙ/(n+2)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>aₙ₊₁ = naₙ/(n+1)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ss5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ss5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — aₙ₊₂ = aₙ₋₁/((n+2)(n+1))</div>
+        <div class="ans-exp">y''=Σn(n−1)aₙxⁿ⁻²=Σ(n+2)(n+1)aₙ₊₂xⁿ; xy=Σaₙxⁿ⁺¹=Σaₙ₋₁xⁿ. Equation y''−xy=0: Σ[(n+2)(n+1)aₙ₊₂−aₙ₋₁]xⁿ=0 → <b>aₙ₊₂ = aₙ₋₁/((n+2)(n+1))</b> (valid for n≥1; a₀,a₁ free). The Airy functions Ai(x) and Bi(x) are the standard solutions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SYSTEMS OF ODEs ======== -->
+<div id="sy" class="section" style="--mcq-c:var(--sy-md);--mcq-dk:var(--sy-dk);--mcq-lt:var(--sy-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#5a0000,#b71c1c,#e53935)">
+    <div class="banner-num">X'</div>
+    <h2>Systems of ODEs</h2>
+    <p>Linear Systems · Matrix Method · Eigenvalue Approach · Phase Plane · Stability</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#b71c1c">&#9655; Interactive: Phase Portrait Explorer</h3>
+    <svg id="sy-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#fff5f5;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="showPhase('node')">Stable Node (real, negative)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showPhase('saddle')">Saddle Point (real, opposite)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showPhase('spiral')">Stable Spiral (complex, α&lt;0)</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showPhase('center')">Center (pure imaginary)</button>
+    </div>
+    <p id="sy-desc" style="font-size:12px;color:#b71c1c;margin-top:8px;font-weight:600">Click to see phase portrait and stability classification for a 2D system.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--sy-dk)"><span>Linear Systems: Matrix Method</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--sy-md)">
+      <h3>System Form &amp; Solution <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">System: X' = AX, X = [x,y]ᵀ, A = 2×2 matrix
+
+Step 1: Find eigenvalues λ from det(A−λI)=0.
+Step 2: For each λ, find eigenvector v: (A−λI)v=0.
+Step 3: Write solution:
+  X(t) = C₁e^(λ₁t)v₁ + C₂e^(λ₂t)v₂ (distinct real λ)
+  X(t) = C₁e^(λt)v + C₂e^(λt)(tv+w) (repeated λ)
+    where (A−λI)w = v (generalised eigenvector)
+  Complex λ=α±βi: use real and imaginary parts</div>
+    </div>
+    <div class="card" style="--card-top:var(--sy-md)">
+      <h3>Matrix Exponential e^(At) <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">e^(At) = Σ (At)ⁿ/n! = fundamental matrix Φ(t)
+
+Computed via:
+  e^(At) = P·e^(Dt)·P⁻¹  (if A=PDP⁻¹)
+  e^(Jt) = e^(λt)[I + (Jₒt) + (Jₒt)²/2 + ...]
+    (Jordan form J, nilpotent part Jₒ)
+
+Non-homogeneous: X'=AX+F(t)
+  X(t) = e^(At)X₀ + ∫₀ᵗ e^(A(t−s))F(s)ds</div>
+      <p>The fundamental matrix Φ(t)=e^(At) satisfies Φ(0)=I and Φ'=AΦ.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--sy-dk)"><span>Stability Classification</span></div>
+  <div class="card" style="--card-top:var(--sy-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--sy-dk)">
+      <thead><tr><th>Eigenvalues of A</th><th>Critical Point Type</th><th>Stability</th><th>Phase Portrait</th></tr></thead>
+      <tbody>
+        <tr><td>Real, both negative: λ₁&lt;λ₂&lt;0</td><td>Stable Node</td><td>Asymptotically stable</td><td>Trajectories → origin</td></tr>
+        <tr><td>Real, both positive: 0&lt;λ₁&lt;λ₂</td><td>Unstable Node</td><td>Unstable</td><td>Trajectories → ∞</td></tr>
+        <tr><td>Real, opposite signs: λ₁&lt;0&lt;λ₂</td><td>Saddle Point</td><td>Unstable</td><td>Hyperbolic curves</td></tr>
+        <tr><td>Real equal: λ₁=λ₂&lt;0</td><td>Stable Proper/Improper Node</td><td>Asymptotically stable</td><td>Straight lines or stars</td></tr>
+        <tr><td>Complex: α±βi, α&lt;0</td><td>Stable Spiral</td><td>Asymptotically stable</td><td>Inward spirals</td></tr>
+        <tr><td>Complex: α±βi, α&gt;0</td><td>Unstable Spiral</td><td>Unstable</td><td>Outward spirals</td></tr>
+        <tr><td>Pure imaginary: ±βi</td><td>Center</td><td>Stable (Lyapunov, not asymptotic)</td><td>Closed elliptic orbits</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--sy-md);color:var(--sy-dk)">&#127919; CSIR NET Questions — Systems of ODEs</div>
+
+  <div class="mcq" style="border-left-color:var(--sy-md)">
+    <div class="mcq-hdr" style="background:var(--sy-lt)">
+      <div class="mcq-num" style="background:var(--sy-dk)">1</div>
+      <span class="mcq-lbl">System Eigenvalues</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The eigenvalues of A = [[1,2],[2,1]] are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3 and −1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1 and 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2 and 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1 and −1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('sy1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="sy1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 3 and −1</div>
+        <div class="ans-exp">det(A−λI)=(1−λ)²−4=λ²−2λ−3=(λ−3)(λ+1)=0 → <b>λ₁=3, λ₂=−1</b>. tr(A)=2=λ₁+λ₂=3+(−1) ✓, det(A)=1−4=−3=λ₁λ₂=3×(−1) ✓. Origin is a saddle point (eigenvalues of opposite sign).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--sy-md)">
+    <div class="mcq-hdr" style="background:var(--sy-lt)">
+      <div class="mcq-num" style="background:var(--sy-dk)">2</div>
+      <span class="mcq-lbl">Stability Classification</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The system x' = −2x + y, y' = x − 2y has the origin as a:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Saddle point</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Unstable node</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Stable node</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Center</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('sy2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="sy2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Stable node</div>
+        <div class="ans-exp">A=[[−2,1],[1,−2]]. Char. eq: (−2−λ)²−1=λ²+4λ+3=(λ+1)(λ+3)=0 → λ=−1, λ=−3. Both eigenvalues real and negative → <b>stable node</b>. All solutions approach origin as t→∞.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--sy-md)">
+    <div class="mcq-hdr" style="background:var(--sy-lt)">
+      <div class="mcq-num" style="background:var(--sy-dk)">3</div>
+      <span class="mcq-lbl">Phase Portrait: Spiral</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The system X' = [[−1,2],[−2,−1]]X has a critical point at origin which is a:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Stable spiral</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Unstable spiral</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Center</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Saddle point</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('sy3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="sy3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — Stable spiral</div>
+        <div class="ans-exp">A=[[−1,2],[−2,−1]]. tr(A)=−2, det(A)=1+4=5. Char. eq: λ²+2λ+5=0 → λ=−1±2i. Complex roots with α=Re(λ)=−1&lt;0 → <b>stable spiral</b>. Trajectories spiral inward toward origin. If α&gt;0 it would be an unstable spiral; if α=0, a center.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--sy-md)">
+    <div class="mcq-hdr" style="background:var(--sy-lt)">
+      <div class="mcq-num" style="background:var(--sy-dk)">4</div>
+      <span class="mcq-lbl">Solution of System</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For X' = [[2,0],[1,2]]X with X(0) = [1,0]ᵀ, the solution is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x=e²ᵗ, y=te²ᵗ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x=e²ᵗ, y=0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>x=e²ᵗ, y=e²ᵗ−1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>x=2e²ᵗ, y=te²ᵗ</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('sy4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="sy4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — x=e²ᵗ, y=te²ᵗ</div>
+        <div class="ans-exp">A=[[2,0],[1,2]] has repeated eigenvalue λ=2 (since det(A−2I)=det([[0,0],[1,0]])=0). Eigenvector: [1,0]ᵀ. Generalised eigenvector w: (A−2I)w=[1,0]ᵀ → [[0,0],[1,0]]w=[1,0]ᵀ → w=[0,1]ᵀ. General: X=C₁e²ᵗ[1,0]ᵀ+C₂e²ᵗ([0,1]ᵀ+t[1,0]ᵀ). IVP X(0)=[1,0]ᵀ: C₁=1, C₂=0. So x=e²ᵗ, y=<b>te²ᵗ</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--sy-md)">
+    <div class="mcq-hdr" style="background:var(--sy-lt)">
+      <div class="mcq-num" style="background:var(--sy-dk)">5</div>
+      <span class="mcq-lbl">Lyapunov Stability</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For the non-linear system x'=y, y'=−sin x, the equilibrium (0,0) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Asymptotically stable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Unstable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Stable but not asymptotically stable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Cannot be determined</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('sy5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="sy5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Stable but not asymptotically stable</div>
+        <div class="ans-exp">This is the pendulum equation (x=θ). Lyapunov function: V(x,y)=y²/2+(1−cos x)≥0 (energy). V̇=yy'+(sin x)x'=y(−sin x)+(sin x)y=0. Since V̇=0, V is constant (energy conserved). All trajectories are closed curves → solutions are periodic. Therefore (0,0) is <b>stable but not asymptotically stable</b>. Linearisation gives pure imaginary eigenvalues ±i (center), consistent.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const box=document.getElementById(id);
+  const showing=box.style.display==='block';
+  box.style.display=showing?'none':'block';
+  btn.textContent=showing?'▶ Show Answer':'▼ Hide Answer';
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('topBtn').classList.toggle('on',window.scrollY>300);
+});
+
+// ===== LAPLACE EXPLORER =====
+function showLT(type){
+  const svg=document.getElementById('lp-svg');
+  let html=`<rect width="620" height="200" fill="#f8f5ff" rx="8"/>`;
+  const pairs={
+    exp:{fn:'e^(at)',F:'1/(s−a)',cond:'s>a',title:'Exponential Function',
+      note:'Frequency shift: ℒ{e^(at)f(t)}=F(s−a). Basis for solving constant-coeff ODEs.'},
+    trig:{fn:'sin(bt) or cos(bt)',F:'b/(s²+b²) or s/(s²+b²)',cond:'s>0',title:'Trigonometric Functions',
+      note:'Note: F(s) for cos has s in numerator; for sin has b. Both have same denominator s²+b².'},
+    poly:{fn:'tⁿ',F:'n!/s^(n+1)',cond:'s>0',title:'Power Functions (Polynomials)',
+      note:'ℒ{t}=1/s², ℒ{t²}=2/s³, ℒ{t³}=6/s⁴. Multiplication by t ↔ −d/ds in s-domain.'},
+    step:{fn:'u(t−a) (Heaviside step)',F:'e^(−as)/s',cond:'s>0',title:'Unit Step (Heaviside) Function',
+      note:'Time shift: ℒ{f(t−a)u(t−a)}=e^(−as)F(s). Represents switched-on inputs.'},
+    conv:{fn:'(f*g)(t)=∫₀ᵗf(τ)g(t−τ)dτ',F:'F(s)·G(s)',cond:'s>max(a_f,a_g)',title:'Convolution Theorem',
+      note:'Product in s-domain ↔ Convolution in t-domain. Key for integral equations and impulse response.'}
+  };
+  const d=pairs[type];
+  html+=`<text x="310" y="22" text-anchor="middle" fill="#4a148c" font-size="13" font-weight="800">${d.title}</text>`;
+  html+=`<rect x="20" y="32" width="580" height="38" rx="8" fill="#4a148c"/>`;
+  html+=`<text x="310" y="50" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">f(t) = ${d.fn}</text>`;
+  html+=`<text x="310" y="65" text-anchor="middle" fill="#e1bee7" font-size="11">ℒ{f(t)} = F(s) = ${d.F} (${d.cond})</text>`;
+  html+=`<rect x="60" y="82" width="200" height="65" rx="8" fill="rgba(123,31,162,0.1)" stroke="#7b1fa2" stroke-width="1.5"/>`;
+  html+=`<text x="160" y="100" text-anchor="middle" fill="#4a148c" font-size="11" font-weight="700">Time Domain f(t)</text>`;
+  html+=`<text x="160" y="120" text-anchor="middle" fill="#4a148c" font-size="12" font-family="Courier New" font-weight="600">${d.fn.length>18?d.fn.substring(0,18)+'...':d.fn}</text>`;
+  html+=`<text x="160" y="140" text-anchor="middle" fill="#4a148c" font-size="10">t ≥ 0</text>`;
+  html+=`<text x="310" y="118" text-anchor="middle" fill="#4a148c" font-size="20" font-weight="700">⟵ℒ⟶</text>`;
+  html+=`<rect x="360" y="82" width="200" height="65" rx="8" fill="rgba(0,96,100,0.1)" stroke="#006064" stroke-width="1.5"/>`;
+  html+=`<text x="460" y="100" text-anchor="middle" fill="#006064" font-size="11" font-weight="700">s-Domain F(s)</text>`;
+  html+=`<text x="460" y="120" text-anchor="middle" fill="#006064" font-size="12" font-family="Courier New" font-weight="600">${d.F.length>18?d.F.substring(0,18)+'...':d.F}</text>`;
+  html+=`<text x="460" y="140" text-anchor="middle" fill="#006064" font-size="10">${d.cond}</text>`;
+  html+=`<text x="310" y="178" text-anchor="middle" fill="#4a148c" font-size="11">${d.note}</text>`;
+  svg.innerHTML=html;
+  document.getElementById('lp-desc').textContent=`${d.title}: ℒ{${d.fn}} = ${d.F} for ${d.cond}.`;
+}
+showLT('exp');
+
+// ===== FROBENIUS =====
+function showFrob(type){
+  const svg=document.getElementById('ss-svg');
+  let html=`<rect width="620" height="200" fill="#e0f7fa" rx="8"/>`;
+  const data={
+    bessel:{eq:"x²y'' + xy' + x²y = 0 (Bessel, n=0)",p0:1,q0:0,r1:'0',r2:'0',diff:'0 (repeated!)',
+      sol:'y₁=J₀(x)=Σ(−1)ᵏx²ᵏ/(2²ᵏ(k!)²); y₂=Y₀(x) (log term)'},
+    legendre:{eq:"(1−x²)y''−2xy'+6y=0 (Legendre, n=2)",note:'x=0 is ordinary point; power series → P₂(x)=(3x²−1)/2',
+      sol:'Polynomial solution: P₂(x)=(3x²−1)/2; Second sol: Q₂(x) (non-polynomial)'},
+    euler:{eq:"x²y'' + xy' + y = 0 (Euler-Cauchy)",p0:1,q0:1,r1:'i',r2:'−i',diff:'2i (complex)',
+      sol:'y=C₁cos(ln x)+C₂sin(ln x), x>0'},
+    custom:{eq:"x²y'' + xy' − y = 0",p0:1,q0:-1,r1:'1',r2:'−1',diff:'2 (differs by integer)',
+      sol:'y₁=x, y₂=x⁻¹  (no log term since roots differ by even integer here)'}
+  };
+  const d=data[type];
+  html+=`<text x="310" y="20" text-anchor="middle" fill="#006064" font-size="12" font-weight="800">${d.eq}</text>`;
+  if(type==='legendre'){
+    html+=`<rect x="20" y="30" width="580" height="35" rx="8" fill="#006064"/>`;
+    html+=`<text x="310" y="50" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">${d.note}</text>`;
+    html+=`<text x="310" y="110" text-anchor="middle" fill="#006064" font-size="12" font-weight="700">Solution: ${d.sol}</text>`;
+    document.getElementById('ss-desc').textContent='Legendre equation: x=0 is ordinary — use standard power series. Terminates to polynomial when n is integer.';
+  } else {
+    html+=`<rect x="20" y="30" width="580" height="28" rx="8" fill="#006064"/>`;
+    html+=`<text x="310" y="49" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">Indicial eq: r(r−1)+p₀r+q₀=0 where p₀=${d.p0}, q₀=${d.q0}</text>`;
+    html+=`<rect x="60" y="70" width="220" height="50" rx="8" fill="rgba(0,96,100,0.12)" stroke="#006064" stroke-width="1.5"/>`;
+    html+=`<text x="170" y="90" text-anchor="middle" fill="#004d40" font-size="11" font-weight="700">Root r₁ = ${d.r1}</text>`;
+    html+=`<text x="170" y="108" text-anchor="middle" fill="#004d40" font-size="10">y₁ = x^(${d.r1})×Σaₙxⁿ</text>`;
+    html+=`<rect x="340" y="70" width="220" height="50" rx="8" fill="rgba(0,96,100,0.12)" stroke="#006064" stroke-width="1.5"/>`;
+    html+=`<text x="450" y="90" text-anchor="middle" fill="#004d40" font-size="11" font-weight="700">Root r₂ = ${d.r2}</text>`;
+    html+=`<text x="450" y="108" text-anchor="middle" fill="#004d40" font-size="10">r₁−r₂ = ${d.diff}</text>`;
+    html+=`<text x="310" y="148" text-anchor="middle" fill="#006064" font-size="11" font-weight="700">Solution: ${d.sol}</text>`;
+    document.getElementById('ss-desc').textContent=`Frobenius at x=0. Indicial roots: r₁=${d.r1}, r₂=${d.r2}. Difference r₁−r₂=${d.diff}.`;
+  }
+  svg.innerHTML=html;
+}
+showFrob('bessel');
+
+// ===== PHASE PORTRAIT =====
+function showPhase(type){
+  const svg=document.getElementById('sy-svg');
+  const W=620,H=200,cx=W/2,cy=H/2;
+  let html=`<rect width="${W}" height="${H}" fill="#fff5f5" rx="8"/>`;
+  html+=`<line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="#ffcdd2" stroke-width="1"/>`;
+  html+=`<line x1="${cx}" y1="0" x2="${cx}" y2="${H}" stroke="#ffcdd2" stroke-width="1"/>`;
+  html+=`<text x="${W-5}" y="${cy-5}" text-anchor="end" fill="#b71c1c" font-size="10">x</text>`;
+  html+=`<text x="${cx+5}" y="12" fill="#b71c1c" font-size="10">y</text>`;
+
+  if(type==='node'){
+    html+=`<text x="${cx}" y="18" text-anchor="middle" fill="#b71c1c" font-size="12" font-weight="800">Stable Node: λ₁=−1, λ₂=−3</text>`;
+    const colors=['#b71c1c','#880e4f','#1565c0','#2e7d32','#e65100'];
+    [[-60,-40],[60,-50],[-70,30],[55,45],[0,55]].forEach((s,i)=>{
+      html+=`<line x1="${cx+s[0]}" y1="${cy+s[1]}" x2="${cx+s[0]/3}" y2="${cy+s[1]/3}" stroke="${colors[i]}" stroke-width="1.5" marker-end="url(#arr)"/>`;
+    });
+    html+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#b71c1c"/>`;
+    html+=`<text x="${cx}" y="${H-8}" text-anchor="middle" fill="#b71c1c" font-size="11" font-weight="700">All trajectories → origin. Asymptotically stable.</text>`;
+    document.getElementById('sy-desc').textContent='Stable Node: both eigenvalues real and negative. All solutions decay to 0 as t→∞.';
+  } else if(type==='saddle'){
+    html+=`<text x="${cx}" y="18" text-anchor="middle" fill="#e65100" font-size="12" font-weight="800">Saddle Point: λ₁=−1, λ₂=2</text>`;
+    // Stable manifold (horizontal) and unstable manifold (vertical)
+    html+=`<line x1="30" y1="${cy}" x2="${cx-8}" y2="${cy}" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,3"/>`;
+    html+=`<line x1="${cx+8}" y1="${cy}" x2="${W-30}" y2="${cy}" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,3"/>`;
+    html+=`<line x1="${cx}" y1="30" x2="${cx}" y2="${cy-8}" stroke="#b71c1c" stroke-width="2"/>`;
+    html+=`<line x1="${cx}" y1="${cy+8}" x2="${cx}" y2="${H-20}" stroke="#b71c1c" stroke-width="2"/>`;
+    [[40,40],[-40,40],[40,-40],[-40,-40]].forEach(([dx,dy])=>{
+      html+=`<path d="M${cx+dx},${cy+dy} Q${cx+dx/3},${cy+dy*3} ${cx},${cy+dy*4}" stroke="#e65100" stroke-width="1.5" fill="none"/>`;
+    });
+    html+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#e65100"/>`;
+    html+=`<text x="${cx}" y="${H-8}" text-anchor="middle" fill="#e65100" font-size="11" font-weight="700">Unstable: most trajectories → ∞ (only stable manifold → origin)</text>`;
+    document.getElementById('sy-desc').textContent='Saddle Point: real eigenvalues of opposite sign. Unstable equilibrium.';
+  } else if(type==='spiral'){
+    html+=`<text x="${cx}" y="18" text-anchor="middle" fill="#1565c0" font-size="12" font-weight="800">Stable Spiral: λ = −1 ± 2i</text>`;
+    for(let k=0;k<3;k++){
+      const r0=60-k*5;
+      let pts='';
+      for(let t=0;t<=4*Math.PI;t+=0.1){
+        const r=r0*Math.exp(-0.15*t);
+        const x=cx+r*Math.cos(t);
+        const y=cy+r*Math.sin(t);
+        pts+=`${x},${y} `;
+      }
+      html+=`<polyline points="${pts}" fill="none" stroke="${['#1565c0','#0d47a1','#1976d2'][k]}" stroke-width="1.5" opacity="${0.5+k*0.25}"/>`;
+    }
+    html+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#1565c0"/>`;
+    html+=`<text x="${cx}" y="${H-8}" text-anchor="middle" fill="#1565c0" font-size="11" font-weight="700">Inward spirals → origin (α = Re(λ) = −1 &lt; 0)</text>`;
+    document.getElementById('sy-desc').textContent='Stable Spiral: complex eigenvalues with negative real part. Solutions oscillate with decreasing amplitude.';
+  } else {
+    html+=`<text x="${cx}" y="18" text-anchor="middle" fill="#2e7d32" font-size="12" font-weight="800">Center: λ = ±2i</text>`;
+    [30,50,70,90].forEach(r=>{
+      html+=`<ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.6}" fill="none" stroke="#2e7d32" stroke-width="1.5" opacity="${0.3+r/120}"/>`;
+    });
+    html+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#2e7d32"/>`;
+    html+=`<text x="${cx}" y="${H-8}" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="700">Closed orbits (stable but NOT asymptotically stable)</text>`;
+    document.getElementById('sy-desc').textContent='Center: pure imaginary eigenvalues. Solutions are periodic (closed orbits). Stable but not asymptotically stable.';
+  }
+  svg.innerHTML=html;
+}
+showPhase('node');
+</script>
+</body>
+</html>

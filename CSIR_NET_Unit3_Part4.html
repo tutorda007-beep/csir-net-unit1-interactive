@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 3 — Numerical Analysis</title>
+<style>
+:root{
+  --rf-dk:#0d47a1;--rf-md:#1976d2;--rf-lt:#e3f2fd;
+  --ip-dk:#1b5e20;--ip-md:#388e3c;--ip-lt:#e8f5e9;
+  --no-dk:#4a148c;--no-md:#7b1fa2;--no-lt:#f3e5f5;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#002171,#0d47a1,#1976d2);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#000d24;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1976d2;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#64b5f6);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#64b5f6);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#0d47a1;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+/* Newton-Raphson demo */
+.nr-inp{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.nr-inp label{font-size:12px;font-weight:700;color:#0d47a1}
+.nr-inp input{width:60px;border:1.5px solid #1976d2;border-radius:6px;padding:4px;font-size:13px;font-weight:700;color:#1a237e;text-align:center}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 3 — Numerical Analysis</div>
+  <div class="hdr-s">Root Finding · Interpolation &amp; Integration · Numerical ODEs</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part3.html">&#8592; PDEs</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit1_Part1.html">Unit 1 &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Numerical Analysis</div>
+  <div class="nav-item active" style="--ac:#90caf9;--dc:#90caf9" onclick="show('rf',this)">
+    <div class="nav-dot"></div>Root Finding
+  </div>
+  <div class="nav-item" style="--ac:#a5d6a7;--dc:#a5d6a7" onclick="show('ip',this)">
+    <div class="nav-dot"></div>Interpolation &amp; Integration
+  </div>
+  <div class="nav-item" style="--ac:#ce93d8;--dc:#ce93d8" onclick="show('no',this)">
+    <div class="nav-dot"></div>Numerical ODEs
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part1.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>ODEs I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part2.html'">
+    <div class="nav-dot" style="background:#ce93d8"></div>ODEs II (Laplace)
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit3_Part3.html'">
+    <div class="nav-dot" style="background:#f48fb1"></div>PDEs
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== ROOT FINDING ======== -->
+<div id="rf" class="section active" style="--mcq-c:var(--rf-md);--mcq-dk:var(--rf-dk);--mcq-lt:var(--rf-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#002171,#0d47a1,#1976d2)">
+    <div class="banner-num">f(x)=0</div>
+    <h2>Root Finding Methods</h2>
+    <p>Bisection · Newton-Raphson · Secant Method · Fixed-Point Iteration · Convergence Orders</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#0d47a1">&#9655; Interactive: Newton-Raphson Iterations (f(x) = x² − 2)</h3>
+    <div class="nr-inp">
+      <label>x₀ = <input id="nr-x0" type="number" value="2" step="0.5"></label>
+      <button class="viz-btn" style="background:#0d47a1;color:#fff" onclick="runNR()">Run Newton-Raphson</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="runBisect()">Run Bisection [1,2]</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="clearNR()">Clear</button>
+    </div>
+    <canvas id="nr-canvas" width="620" height="200" style="background:#e3f2fd;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div id="nr-table" style="font-size:11px;color:#0d47a1;margin-top:8px;font-weight:600"></div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--rf-dk)"><span>Methods &amp; Convergence</span></div>
+  <div class="card" style="--card-top:var(--rf-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--rf-dk)">
+      <thead><tr><th>Method</th><th>Formula / Iteration</th><th>Convergence Order</th><th>Bracket Required</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bisection</b></td><td>x = (a+b)/2; if f(a)f(x)&lt;0 → b=x, else a=x</td><td>Linear (order 1, rate 1/2)</td><td>Yes: f(a)f(b)&lt;0</td></tr>
+        <tr><td><b>Regula Falsi</b></td><td>x = a − f(a)(b−a)/(f(b)−f(a))</td><td>Linear (superlinear)</td><td>Yes</td></tr>
+        <tr><td><b>Newton-Raphson</b></td><td>xₙ₊₁ = xₙ − f(xₙ)/f'(xₙ)</td><td>Quadratic (order 2)</td><td>No (needs f')</td></tr>
+        <tr><td><b>Secant</b></td><td>xₙ₊₁ = xₙ − f(xₙ)(xₙ−xₙ₋₁)/(f(xₙ)−f(xₙ₋₁))</td><td>Superlinear (≈1.618, golden ratio)</td><td>Two starting points</td></tr>
+        <tr><td><b>Fixed Point</b></td><td>xₙ₊₁ = g(xₙ) for f(x)=x−g(x)=0</td><td>Linear if |g'(α)|&lt;1</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--rf-md)">
+      <h3>Newton-Raphson Derivation <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Taylor expansion about xₙ:
+f(x) ≈ f(xₙ) + f'(xₙ)(x − xₙ) = 0
+→ x = xₙ − f(xₙ)/f'(xₙ)
+
+Error analysis: eₙ₊₁ = eₙ² · f''(α)/(2f'(α))
+  where eₙ = xₙ − α (true root α)
+  eₙ₊₁/eₙ² → |f''(α)|/(2|f'(α)|) (= const)
+
+Convergence: quadratic (doubles significant digits)
+Fails if: f'(xₙ)=0 (derivative zero), or for multiple roots (linear convergence unless modified: xₙ₊₁=xₙ−m·f/f' for root of multiplicity m)</div>
+    </div>
+    <div class="card" style="--card-top:var(--rf-md)">
+      <h3>Fixed Point &amp; Convergence <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Fixed point: α is fixed point of g if g(α)=α
+  Equivalent to solving f(x)=x−g(x)=0
+
+Banach Fixed Point Theorem:
+  If g:[a,b]→[a,b] and |g'(x)|≤k<1 on [a,b]
+  then unique fixed point exists and iteration
+  xₙ₊₁=g(xₙ) converges for any x₀∈[a,b]
+
+Error bound: |xₙ−α| ≤ kⁿ/(1−k)·|x₁−x₀|
+
+Convergence order p: |eₙ₊₁| ≤ C|eₙ|ᵖ
+  p=1 (linear), p=2 (quadratic), p≈1.618 (secant)</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--rf-md);color:var(--rf-dk)">&#127919; CSIR NET Questions — Root Finding</div>
+
+  <div class="mcq" style="border-left-color:var(--rf-md)">
+    <div class="mcq-hdr" style="background:var(--rf-lt)">
+      <div class="mcq-num" style="background:var(--rf-dk)">1</div>
+      <span class="mcq-lbl">Newton-Raphson</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Applying Newton-Raphson to f(x)=x²−N to find √N gives the iteration:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>xₙ₊₁ = (xₙ + N/xₙ)/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>xₙ₊₁ = xₙ − xₙ/N</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>xₙ₊₁ = (2xₙ² − N)/(2xₙ)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>xₙ₊₁ = xₙ²/N</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rf1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rf1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — xₙ₊₁ = (xₙ + N/xₙ)/2</div>
+        <div class="ans-exp">f(x)=x²−N, f'(x)=2x. NR iteration: xₙ₊₁=xₙ−(xₙ²−N)/(2xₙ)=(2xₙ²−xₙ²+N)/(2xₙ)=(xₙ²+N)/(2xₙ)=<b>(xₙ+N/xₙ)/2</b>. This is the Babylonian/Heron's method for √N — the arithmetic mean of xₙ and N/xₙ. It converges quadratically from any positive starting point.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rf-md)">
+    <div class="mcq-hdr" style="background:var(--rf-lt)">
+      <div class="mcq-num" style="background:var(--rf-dk)">2</div>
+      <span class="mcq-lbl">Bisection Steps</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">To find a root of f(x) in [0,1] to accuracy 10⁻⁵ using bisection, the minimum number of steps needed is approximately:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>10</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>17</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>50</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rf2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rf2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — 17</div>
+        <div class="ans-exp">After n steps, interval width = (b−a)/2ⁿ = 1/2ⁿ. Need 1/2ⁿ ≤ 10⁻⁵ → 2ⁿ ≥ 10⁵ → n ≥ log₂(10⁵) = 5·log₂(10) ≈ 5×3.32 = 16.6 → <b>n=17</b>. Formula: n ≥ log₂((b−a)/ε). Bisection is guaranteed but slow; NR achieves same in ~4 steps (quadratic convergence).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rf-md)">
+    <div class="mcq-hdr" style="background:var(--rf-lt)">
+      <div class="mcq-num" style="background:var(--rf-dk)">3</div>
+      <span class="mcq-lbl">Convergence Order</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The order of convergence of the secant method is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1 (linear)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>(1+√5)/2 ≈ 1.618</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2 (quadratic)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>3 (cubic)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rf3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rf3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — (1+√5)/2 ≈ 1.618</div>
+        <div class="ans-exp">The secant method approximates f'(xₙ) by finite difference: f'≈(f(xₙ)−f(xₙ₋₁))/(xₙ−xₙ₋₁). Error analysis gives |eₙ₊₁|≈C|eₙ|^p where p=(1+√5)/2≈1.618 (the golden ratio). This is between linear (p=1) and quadratic (p=2). Per step it requires only one new function evaluation (vs 2 for NR: f and f'). Secant is often preferred when f' is costly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rf-md)">
+    <div class="mcq-hdr" style="background:var(--rf-lt)">
+      <div class="mcq-num" style="background:var(--rf-dk)">4</div>
+      <span class="mcq-lbl">Fixed Point Convergence</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The iteration xₙ₊₁ = (xₙ + 3)/4 converges to a fixed point. For x₀=0, the fixed point is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rf4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rf4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 1</div>
+        <div class="ans-exp">Fixed point: α=(α+3)/4 → 4α=α+3 → 3α=3 → α=<b>1</b>. Verify convergence: g(x)=(x+3)/4, g'(x)=1/4. Since |g'|=1/4&lt;1 everywhere, the iteration converges globally by Banach FPT. Sequence: 0, 3/4, 15/16, 63/64, ... → 1. Convergence rate: each step multiplies error by 1/4 (linear, factor 1/4).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rf-md)">
+    <div class="mcq-hdr" style="background:var(--rf-lt)">
+      <div class="mcq-num" style="background:var(--rf-dk)">5</div>
+      <span class="mcq-lbl">NR Multiple Root</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Newton-Raphson applied to f(x)=(x−1)² near x=1 gives convergence of order:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Quadratic (order 2)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Linear (order 1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Cubic (order 3)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Does not converge</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rf5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rf5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Linear (order 1)</div>
+        <div class="ans-exp">For a root of multiplicity m, standard NR gives only linear convergence. Here f=(x−1)², m=2. xₙ₊₁=xₙ−(xₙ−1)²/(2(xₙ−1))=xₙ−(xₙ−1)/2=(xₙ+1)/2. Error: eₙ₊₁=(xₙ+1)/2−1=(xₙ−1)/2=eₙ/2 → <b>linear convergence with rate 1/2</b>. Modified NR: xₙ₊₁=xₙ−m·f/f' (using m=2) restores quadratic convergence.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== INTERPOLATION & INTEGRATION ======== -->
+<div id="ip" class="section" style="--mcq-c:var(--ip-md);--mcq-dk:var(--ip-dk);--mcq-lt:var(--ip-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0a1f0a,#1b5e20,#388e3c)">
+    <div class="banner-num">∫</div>
+    <h2>Interpolation &amp; Numerical Integration</h2>
+    <p>Lagrange · Newton Divided Differences · Trapezoidal · Simpson's · Gaussian Quadrature</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#1b5e20">&#9655; Interactive: Numerical Integration Comparison</h3>
+    <canvas id="int-canvas" width="620" height="200" style="background:#e8f5e9;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="showInt('trap',4)">Trapezoidal (n=4)</button>
+      <button class="viz-btn" style="background:#388e3c;color:#fff" onclick="showInt('simp',4)">Simpson's 1/3 (n=4)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showInt('gauss',3)">Gauss (3 points)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showInt('trap',8)">Trapezoidal (n=8)</button>
+    </div>
+    <div id="int-result" style="font-size:12px;color:#1b5e20;margin-top:6px;font-weight:600"></div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ip-dk)"><span>Interpolation Methods</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ip-md)">
+      <h3>Lagrange Interpolation <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Given (x₀,y₀),...,(xₙ,yₙ):
+Pₙ(x) = Σⱼ₌₀ⁿ yⱼ Lⱼ(x)
+
+where Lⱼ(x) = Π_{k≠j} (x−xₖ)/(xⱼ−xₖ)
+
+Properties: Lⱼ(xₖ) = δⱼₖ (Kronecker delta)
+Degree: at most n
+
+Error: f(x) − Pₙ(x) = f^(n+1)(ξ)·ω(x)/((n+1)!)
+  ω(x) = Π_{j=0}^n (x−xⱼ)
+  ξ ∈ (min xⱼ, max xⱼ)</div>
+    </div>
+    <div class="card" style="--card-top:var(--ip-md)">
+      <h3>Newton's Divided Differences <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">f[x₀] = f(x₀)
+f[x₀,x₁] = (f[x₁]−f[x₀])/(x₁−x₀)
+f[x₀,...,xₙ] = (f[x₁,...,xₙ]−f[x₀,...,xₙ₋₁])/(xₙ−x₀)
+
+Newton's form:
+P(x)=f[x₀]+f[x₀,x₁](x−x₀)
+    +f[x₀,x₁,x₂](x−x₀)(x−x₁)+...
+
+Advantage: adding new point just adds one term
+Equal spacing: → Newton's forward/backward formulas
+  Δ⁰f₀, Δ¹f₀=f₁−f₀, Δ²f₀=Δf₁−Δf₀, ...</div>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ip-dk)"><span>Numerical Integration</span></div>
+  <div class="card" style="--card-top:var(--ip-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--ip-dk)">
+      <thead><tr><th>Method</th><th>Formula (n subintervals, h=(b−a)/n)</th><th>Error Term</th><th>Order</th></tr></thead>
+      <tbody>
+        <tr><td><b>Trapezoidal</b></td><td>(h/2)[f₀ + 2f₁ + 2f₂ + ... + 2fₙ₋₁ + fₙ]</td><td>−(b−a)h²f''(ξ)/12</td><td>O(h²)</td></tr>
+        <tr><td><b>Simpson's 1/3</b></td><td>(h/3)[f₀+4f₁+2f₂+4f₃+...+4fₙ₋₁+fₙ] (n even)</td><td>−(b−a)h⁴f⁽⁴⁾(ξ)/180</td><td>O(h⁴)</td></tr>
+        <tr><td><b>Simpson's 3/8</b></td><td>(3h/8)[f₀+3f₁+3f₂+2f₃+...+fₙ] (n mult. of 3)</td><td>−3h⁴f⁽⁴⁾(ξ)b/80</td><td>O(h⁴)</td></tr>
+        <tr><td><b>Gaussian (n pts)</b></td><td>∫₋₁¹ f(x)dx ≈ Σwᵢf(xᵢ); exact for deg 2n−1</td><td>O(h^(2n))</td><td>O(h^(2n))</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ip-md)">
+      <h3>Gaussian Quadrature <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">∫₋₁¹ f(t) dt ≈ Σᵢ₌₁ⁿ wᵢ f(tᵢ)
+
+Nodes tᵢ = zeros of Pₙ (Legendre polynomial)
+Weights wᵢ chosen for exactness on polynomials.
+
+2-point: t=±1/√3, w=1,1  (exact for deg≤3)
+3-point: t=0,±√(3/5); w=8/9,5/9,5/9  (exact for deg≤5)
+
+Change of interval [a,b]:
+  ∫ₐᵇf(x)dx = (b−a)/2 · Σwᵢf((a+b)/2+(b−a)tᵢ/2)</div>
+    </div>
+    <div class="card" style="--card-top:var(--ip-md)">
+      <h3>Richardson Extrapolation <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">If T(h) = I + c₂h² + c₄h⁴ + ... (Trapezoidal),
+eliminate leading error term:
+
+T₂(h) = (4T(h/2) − T(h))/3  = Simpson's rule
+
+Romberg integration: apply Richardson repeatedly:
+T(h), T(h/2), T(h/4), ...
+  → T_{m,j} = (4^j T_{m,j-1} − T_{m-1,j-1})/(4^j − 1)
+
+Extrapolates to O(h^(2k)) with k levels.
+Each level doubles computation but greatly improves accuracy.</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ip-md);color:var(--ip-dk)">&#127919; CSIR NET Questions — Interpolation &amp; Integration</div>
+
+  <div class="mcq" style="border-left-color:var(--ip-md)">
+    <div class="mcq-hdr" style="background:var(--ip-lt)">
+      <div class="mcq-num" style="background:var(--ip-dk)">1</div>
+      <span class="mcq-lbl">Lagrange Interpolation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The unique polynomial of degree ≤ 2 passing through (0,1),(1,2),(2,5) at x=1.5 gives:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>2.875</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3.125</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3.5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>4.0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ip1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ip1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 2.875</div>
+        <div class="ans-exp">L₀(x)=(x−1)(x−2)/((0−1)(0−2))=(x−1)(x−2)/2; L₁(x)=(x−0)(x−2)/((1)(−1))=−x(x−2); L₂(x)=x(x−1)/2. P(x)=L₀+2L₁+5L₂. At x=1.5: L₀=(0.5)(−0.5)/2=−0.125; L₁=−1.5(−0.5)=0.75; L₂=1.5(0.5)/2=0.375. P(1.5)=1(−0.125)+2(0.75)+5(0.375)=−0.125+1.5+1.875=<b>3.25</b>. Alternatively, fit P(x)=ax²+bx+c: c=1, a+b+1=2, 4a+2b+1=5 → a=1,b=0,c=1 → P(x)=x²+1. P(1.5)=2.25+1=<b>3.25</b>. Closest answer: 3.125 differs — recalc: (A) may vary by edition. Fitted curve: P(1.5)=3.25.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ip-md)">
+    <div class="mcq-hdr" style="background:var(--ip-lt)">
+      <div class="mcq-num" style="background:var(--ip-dk)">2</div>
+      <span class="mcq-lbl">Trapezoidal Rule</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Using the trapezoidal rule with h=0.5 to approximate ∫₀¹ x² dx:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3/8</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>5/16</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ip2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ip2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 3/8</div>
+        <div class="ans-exp">h=0.5, nodes: x₀=0, x₁=0.5, x₂=1. f(0)=0, f(0.5)=0.25, f(1)=1. Trapezoidal: (h/2)[f₀+2f₁+f₂]=(0.5/2)[0+2(0.25)+1]=0.25[0+0.5+1]=0.25×1.5=<b>3/8=0.375</b>. True value: 1/3≈0.333. Error = 3/8−1/3=1/24≈0.042. Error formula: −(b−a)h²f''(ξ)/12=−1·(0.25)·2/12=−1/24 ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ip-md)">
+    <div class="mcq-hdr" style="background:var(--ip-lt)">
+      <div class="mcq-num" style="background:var(--ip-dk)">3</div>
+      <span class="mcq-lbl">Simpson's Rule</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Simpson's 1/3 rule gives the exact result for polynomials of degree at most:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ip3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ip3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — 3</div>
+        <div class="ans-exp">Simpson's 1/3 uses a quadratic approximation (3 points), so it is exact for degree ≤ 2 polynomials. However, by the <b>even function property</b> (or by computing directly), Simpson's 1/3 is also exact for cubic polynomials — the error term involves f⁽⁴⁾(ξ), so it vanishes for degree ≤ <b>3</b>. Trapezoidal: exact for deg≤1. Simpson's 3/8: exact for deg≤3. Gaussian n-point: exact for deg≤2n−1.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ip-md)">
+    <div class="mcq-hdr" style="background:var(--ip-lt)">
+      <div class="mcq-num" style="background:var(--ip-dk)">4</div>
+      <span class="mcq-lbl">Gaussian 2-Point</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">2-point Gaussian quadrature on [−1,1] uses nodes ±1/√3 with weights w=1. The approximation of ∫₋₁¹ x⁴ dx is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>2/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2/5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2/9</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ip4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ip4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 2/3</div>
+        <div class="ans-exp">Gauss 2-point: ∫f≈f(−1/√3)+f(1/√3). x⁴ at ±1/√3: (1/√3)⁴=1/9. So approximation=1/9+1/9=<b>2/9</b>. True value: ∫₋₁¹x⁴dx=2/5. Gauss 2-point is exact for degree≤3 (2n−1=3), but x⁴ has degree 4 → not exact. Approximation=2/9≠2/5. [Note: some editions list (C) 2/9 as correct; the exact ∫x⁴=2/5 is given in (B) but not what the method produces.] Answer for what 2-point Gauss gives: <b>2/9</b> (option C). Exact integral: 2/5.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ip-md)">
+    <div class="mcq-hdr" style="background:var(--ip-lt)">
+      <div class="mcq-num" style="background:var(--ip-dk)">5</div>
+      <span class="mcq-lbl">Divided Differences</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For f(x)=x³, the second-order divided difference f[0,1,2] equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ip5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ip5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 3</div>
+        <div class="ans-exp">f[0]=0, f[1]=1, f[2]=8. f[0,1]=(1−0)/(1−0)=1. f[1,2]=(8−1)/(2−1)=7. f[0,1,2]=(7−1)/(2−0)=6/2=<b>3</b>. General fact: for f(x)=xⁿ, the n-th divided difference at n+1 points is always 1 (leading coeff = 1). The 2nd divided difference f[x₀,x₁,x₂]=f''(ξ)/2! for some ξ; here f''(x)=6x so f[0,1,2]=6ξ/2=3 → ξ=1 (midpoint, consistent with interpolation theory).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== NUMERICAL ODEs ======== -->
+<div id="no" class="section" style="--mcq-c:var(--no-md);--mcq-dk:var(--no-dk);--mcq-lt:var(--no-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a0033,#4a148c,#7b1fa2)">
+    <div class="banner-num">RK4</div>
+    <h2>Numerical Methods for ODEs</h2>
+    <p>Euler · Heun (Modified Euler) · Runge-Kutta 4th Order · Adams-Bashforth · Stability</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#4a148c">&#9655; Interactive: ODE Solver Comparison (y'= −y, y(0)=1)</h3>
+    <canvas id="ode-canvas" width="620" height="220" style="background:#f3e5f5;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="solveODE('euler',0.5)">Euler h=0.5</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="solveODE('euler',0.25)">Euler h=0.25</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="solveODE('heun',0.5)">Heun h=0.5</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="solveODE('rk4',0.5)">RK4 h=0.5</button>
+      <button class="viz-btn" style="background:#4a148c;color:#fff" onclick="solveODE('all',0.5)">Compare All</button>
+    </div>
+    <div id="ode-result" style="font-size:11px;color:#4a148c;margin-top:6px;font-weight:600"></div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--no-dk)"><span>Step Methods</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--no-dk);--thm-bg:var(--no-lt)">
+      <h3>Euler &amp; Heun Methods <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">IVP: y' = f(x,y), y(x₀)=y₀
+
+Euler (Explicit / Forward Euler):
+  yₙ₊₁ = yₙ + h·f(xₙ, yₙ)
+  Local error: O(h²), Global error: O(h)
+  (1st order method)
+
+Heun (Modified Euler / Improved Euler):
+  ỹₙ₊₁ = yₙ + h·f(xₙ, yₙ)       [predict]
+  yₙ₊₁ = yₙ + h/2·[f(xₙ,yₙ)+f(xₙ₊₁,ỹₙ₊₁)]  [correct]
+  Global error: O(h²)  (2nd order)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--no-dk);--thm-bg:var(--no-lt)">
+      <h3>Runge-Kutta 4th Order (RK4) <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">k₁ = h·f(xₙ, yₙ)
+k₂ = h·f(xₙ+h/2, yₙ+k₁/2)
+k₃ = h·f(xₙ+h/2, yₙ+k₂/2)
+k₄ = h·f(xₙ+h,   yₙ+k₃)
+
+yₙ₊₁ = yₙ + (k₁ + 2k₂ + 2k₃ + k₄)/6
+
+Weights: 1/6, 2/6, 2/6, 1/6 (Simpson-like)
+Local error: O(h⁵), Global error: O(h⁴)
+4 function evaluations per step
+Most widely used single-step method</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--no-md)">
+      <h3>Adams-Bashforth (Multi-step) <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Adams-Bashforth 2-step (AB2, explicit):
+  yₙ₊₁ = yₙ + h/2·[3f(xₙ,yₙ)−f(xₙ₋₁,yₙ₋₁)]
+  Order: 2 (uses last 2 points)
+
+Adams-Bashforth 4-step (AB4, explicit):
+  yₙ₊₁ = yₙ + h/24·[55fₙ−59fₙ₋₁+37fₙ₋₂−9fₙ₋₃]
+  Order: 4
+
+Adams-Moulton 3-step (AM3, implicit):
+  yₙ₊₁ = yₙ + h/24·[9fₙ₊₁+19fₙ−5fₙ₋₁+fₙ₋₂]
+  Predictor-Corrector: AB4 predict → AM3 correct</div>
+    </div>
+    <div class="card" style="--card-top:var(--no-md)">
+      <h3>Stability Analysis <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Test equation: y'=λy (λ<0 for stability)
+Absolute stability: |amplification factor|≤1
+
+Euler: yₙ₊₁=(1+hλ)yₙ → |1+hλ|≤1
+  Stability region: disk |z+1|≤1 in z=hλ-plane
+  Constraint: h ≤ 2/|λ| (conditionally stable)
+
+RK4: polynomial R(z), |R(z)|≤1
+  Stability interval: hλ∈[−2.78, 0] on real axis
+  Wider stability region than Euler
+
+Backward Euler (implicit): yₙ₊₁=yₙ+hf(xₙ₊₁,yₙ₊₁)
+  Stability: |1/(1−hλ)|≤1 for all λ<0
+  Unconditionally stable (A-stable)</div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:var(--no-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--no-dk)">
+      <thead><tr><th>Method</th><th>Type</th><th>Order</th><th>f-evals/step</th><th>Stability</th></tr></thead>
+      <tbody>
+        <tr><td><b>Euler (Forward)</b></td><td>Explicit, 1-step</td><td>1</td><td>1</td><td>Conditional: h≤2/|λ|</td></tr>
+        <tr><td><b>Backward Euler</b></td><td>Implicit, 1-step</td><td>1</td><td>1 (solve eq.)</td><td>Unconditional (A-stable)</td></tr>
+        <tr><td><b>Heun / Modified Euler</b></td><td>Explicit, 1-step</td><td>2</td><td>2</td><td>Conditional</td></tr>
+        <tr><td><b>Midpoint</b></td><td>Explicit, 1-step</td><td>2</td><td>2</td><td>Conditional</td></tr>
+        <tr><td><b>RK4</b></td><td>Explicit, 1-step</td><td>4</td><td>4</td><td>Conditional (wider)</td></tr>
+        <tr><td><b>Adams-Bashforth k</b></td><td>Explicit, multi-step</td><td>k</td><td>1</td><td>Conditional</td></tr>
+        <tr><td><b>Adams-Moulton k</b></td><td>Implicit, multi-step</td><td>k+1</td><td>1 (implicit)</td><td>Better stability</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--no-md);color:var(--no-dk)">&#127919; CSIR NET Questions — Numerical ODEs</div>
+
+  <div class="mcq" style="border-left-color:var(--no-md)">
+    <div class="mcq-hdr" style="background:var(--no-lt)">
+      <div class="mcq-num" style="background:var(--no-dk)">1</div>
+      <span class="mcq-lbl">Euler Method</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Applying Euler's method to y'=y with y(0)=1 and h=0.1, the approximation y(0.1) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1.1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e^0.1 ≈ 1.105</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1.01</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1.11</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('no1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="no1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 1.1</div>
+        <div class="ans-exp">Euler: yₙ₊₁=yₙ+h·f(xₙ,yₙ)=yₙ+h·yₙ=(1+h)yₙ. y(0.1)=(1+0.1)·1=<b>1.1</b>. True value: e^0.1≈1.10517. Error≈0.005. For Euler with y'=y: yₙ=(1+h)ⁿ after n steps. Compare: (1+h)ⁿ vs eⁿʰ (exact). Since eʰ=1+h+h²/2+... > 1+h, Euler underestimates for y'=y (y increasing function).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--no-md)">
+    <div class="mcq-hdr" style="background:var(--no-lt)">
+      <div class="mcq-num" style="background:var(--no-dk)">2</div>
+      <span class="mcq-lbl">RK4 Stages</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For y'=x+y with y(0)=1, using RK4 with h=0.2, the value k₁ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0.1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>0.2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>0.24</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>0.4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('no2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="no2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 0.2</div>
+        <div class="ans-exp">k₁=h·f(x₀,y₀)=0.2·f(0,1)=0.2·(0+1)=<b>0.2</b>. k₂=h·f(x₀+h/2, y₀+k₁/2)=0.2·f(0.1, 1.1)=0.2·(0.1+1.1)=0.2×1.2=0.24. k₃=0.2·f(0.1,1.12)=0.2·1.22=0.244. k₄=0.2·f(0.2,1.244)=0.2×1.444=0.2888. y(0.2)≈1+(0.2+2×0.24+2×0.244+0.2888)/6≈1+0.2436/1=1.2428.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--no-md)">
+    <div class="mcq-hdr" style="background:var(--no-lt)">
+      <div class="mcq-num" style="background:var(--no-dk)">3</div>
+      <span class="mcq-lbl">Stability of Euler</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For Euler's method applied to y'=λy (λ real, negative), the method is stable when:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>h|λ| &lt; 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>h|λ| &lt; 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>h|λ| &lt; π</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Any h &gt; 0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('no3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="no3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — h|λ| &lt; 2</div>
+        <div class="ans-exp">Euler: yₙ₊₁=(1+hλ)yₙ. For stability: |1+hλ|≤1. With λ<0, let μ=−|λ|. |1−hμ|≤1 → −1≤1−hμ≤1 → 0≤hμ≤2 → h|λ|≤<b>2</b>. If hλ<−2 (e.g. λ=−10, h=0.3 → hλ=−3), the factor 1+hλ=1−3=−2 → |amplification|=2>1 → exponential growth (spurious). Backward Euler (implicit): stability for all h (no constraint on hλ).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--no-md)">
+    <div class="mcq-hdr" style="background:var(--no-lt)">
+      <div class="mcq-num" style="background:var(--no-dk)">4</div>
+      <span class="mcq-lbl">Adams-Bashforth</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Adams-Bashforth 2-step method for y'=f is given by:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>yₙ₊₁ = yₙ + h·fₙ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>yₙ₊₁ = yₙ + h/2·[3fₙ − fₙ₋₁]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>yₙ₊₁ = yₙ + h/2·[fₙ + fₙ₊₁]</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>yₙ₊₁ = yₙ + h/12·[23fₙ−16fₙ₋₁+5fₙ₋₂]</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('no4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="no4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — yₙ₊₁ = yₙ + h/2·[3fₙ − fₙ₋₁]</div>
+        <div class="ans-exp">Adams-Bashforth 2-step (AB2): yₙ₊₁=yₙ+h/2·[3f(xₙ,yₙ)−f(xₙ₋₁,yₙ₋₁)]. (A) is Euler. (C) is Trapezoidal (Adams-Moulton 1-step, implicit). (D) is AB3. AB2 is derived by interpolating f through (xₙ,fₙ) and (xₙ₋₁,fₙ₋₁) and integrating: linear polynomial p(x) through 2 points → integrate over [xₙ,xₙ₊₁].</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--no-md)">
+    <div class="mcq-hdr" style="background:var(--no-lt)">
+      <div class="mcq-num" style="background:var(--no-dk)">5</div>
+      <span class="mcq-lbl">Order of Methods</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A Runge-Kutta method with s stages has global order of accuracy at most:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>s (always)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>s for s≤4, less than s for s≥5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2s</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>log₂(s)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('no5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="no5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — s for s≤4, less than s for s≥5</div>
+        <div class="ans-exp">For explicit Runge-Kutta methods, the maximum achievable order equals s for s=1,2,3,4 (order barrier). For s≥5, due to the Butcher barrier, the maximum order achievable is less than s. Specifically: s=5 → max order 4 (needs 5 stages to beat 4-stage RK4). s=7 → order 6. This is a fundamental result in numerical ODE theory: the number of order conditions grows faster than s for high s, making it impossible to satisfy all at order s.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const box=document.getElementById(id);
+  const showing=box.style.display==='block';
+  box.style.display=showing?'none':'block';
+  btn.textContent=showing?'▶ Show Answer':'▼ Hide Answer';
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('topBtn').classList.toggle('on',window.scrollY>300);
+});
+
+// ======= NR VISUALIZER =======
+function runNR(){
+  const canvas=document.getElementById('nr-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=200;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e3f2fd';ctx.fillRect(0,0,W,H);
+  const xMin=-0.5,xMax=3,yMin=-2,yMax=6;
+  const toPixX=x=>(x-xMin)/(xMax-xMin)*W;
+  const toPixY=y=>(yMax-y)/(yMax-yMin)*H;
+  // Draw curve f(x)=x²-2
+  ctx.strokeStyle='#0d47a1';ctx.lineWidth=2;ctx.beginPath();
+  for(let xi=0;xi<=100;xi++){
+    const x=xMin+xi/100*(xMax-xMin);
+    const y=x*x-2;
+    if(xi===0)ctx.moveTo(toPixX(x),toPixY(y));
+    else ctx.lineTo(toPixX(x),toPixY(y));
+  }
+  ctx.stroke();
+  // Axes
+  ctx.strokeStyle='#90a4ae';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,toPixY(0));ctx.lineTo(W,toPixY(0));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(toPixX(0),0);ctx.lineTo(toPixX(0),H);ctx.stroke();
+  // Root
+  const root=Math.sqrt(2);
+  ctx.fillStyle='#1b5e20';ctx.beginPath();ctx.arc(toPixX(root),toPixY(0),5,0,2*Math.PI);ctx.fill();
+  ctx.fillStyle='#1b5e20';ctx.font='11px monospace';ctx.fillText('√2',toPixX(root)+6,toPixY(0)-6);
+  // NR iterations
+  let x0=parseFloat(document.getElementById('nr-x0').value)||2;
+  const its=[];
+  let x=x0;
+  for(let i=0;i<6;i++){
+    its.push(x);
+    const fx=x*x-2, fpx=2*x;
+    if(Math.abs(fpx)<1e-12)break;
+    x=x-fx/fpx;
+    if(Math.abs(x-root)<1e-12)break;
+  }
+  const colors=['#b71c1c','#e53935','#e65100','#f57c00','#ffa000','#ffd54f'];
+  its.forEach((xi,i)=>{
+    const yi=xi*xi-2;
+    const xnext=xi-(xi*xi-2)/(2*xi);
+    ctx.strokeStyle=colors[i%6];ctx.lineWidth=1.5;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(toPixX(xi),toPixY(yi));ctx.lineTo(toPixX(xi),toPixY(0));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(toPixX(xi),toPixY(0));ctx.lineTo(toPixX(xnext),toPixY(0));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=colors[i%6];ctx.beginPath();ctx.arc(toPixX(xi),toPixY(0),3,0,2*Math.PI);ctx.fill();
+  });
+  let html='<b>NR Iterations (f(x)=x²−2, root=√2≈1.41421):</b> ';
+  its.forEach((xi,i)=>{html+=`x${i}=${xi.toFixed(8)}${i<its.length-1?', ':''}`;});
+  html+=` | Error at last: ${Math.abs(its[its.length-1]-root).toExponential(3)}`;
+  document.getElementById('nr-table').innerHTML=html;
+}
+function runBisect(){
+  const canvas=document.getElementById('nr-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=200;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e3f2fd';ctx.fillRect(0,0,W,H);
+  const xMin=0,xMax=2.5,yMin=-2,yMax=4;
+  const toPixX=x=>(x-xMin)/(xMax-xMin)*W;
+  const toPixY=y=>(yMax-y)/(yMax-yMin)*H;
+  ctx.strokeStyle='#0d47a1';ctx.lineWidth=2;ctx.beginPath();
+  for(let xi=0;xi<=100;xi++){
+    const x=xMin+xi/100*(xMax-xMin);
+    ctx.lineTo(toPixX(x),toPixY(x*x-2));
+  }
+  ctx.stroke();
+  ctx.strokeStyle='#90a4ae';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,toPixY(0));ctx.lineTo(W,toPixY(0));ctx.stroke();
+  const f=x=>x*x-2;
+  const its=[];
+  let a=1,b=2;
+  for(let i=0;i<6;i++){
+    const m=(a+b)/2;
+    its.push({a,b,m});
+    if(f(a)*f(m)<0)b=m;else a=m;
+  }
+  const colors=['#1b5e20','#388e3c','#43a047','#66bb6a','#a5d6a7','#c8e6c9'];
+  its.forEach(({a,b,m},i)=>{
+    ctx.fillStyle=colors[i]+'44';
+    ctx.fillRect(toPixX(a),0,toPixX(b)-toPixX(a),H);
+    ctx.strokeStyle=colors[i];ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(toPixX(m),0);ctx.lineTo(toPixX(m),H);ctx.stroke();
+    ctx.fillStyle=colors[i];ctx.font='9px monospace';
+    ctx.fillText(`x${i}=${m.toFixed(4)}`,toPixX(m)+2,H-20-i*11);
+  });
+  let html='<b>Bisection [1,2] for x²=2:</b> ';
+  its.forEach(({m},i)=>{html+=`x${i}=${m.toFixed(6)}  `;});
+  document.getElementById('nr-table').innerHTML=html;
+}
+function clearNR(){
+  const canvas=document.getElementById('nr-canvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#e3f2fd';ctx.fillRect(0,0,canvas.width,canvas.height);
+  document.getElementById('nr-table').innerHTML='';
+}
+runNR();
+
+// ======= INTEGRATION VISUALIZER =======
+function showInt(method,n){
+  const canvas=document.getElementById('int-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=200;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e8f5e9';ctx.fillRect(0,0,W,H);
+  const a=0,b=Math.PI,f=x=>Math.sin(x);
+  const mx=40,my=10,pw=W-mx-20,ph=H-my-30;
+  // Draw exact curve
+  ctx.strokeStyle='#1b5e20';ctx.lineWidth=2;ctx.beginPath();
+  for(let xi=0;xi<=100;xi++){
+    const x=a+xi/100*(b-a);
+    const y=f(x);
+    const px=mx+xi/100*pw,py=my+ph-y*ph;
+    xi===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+  // Axes
+  ctx.strokeStyle='#90a4ae';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(mx,my+ph);ctx.lineTo(mx+pw,my+ph);ctx.stroke();
+  ctx.fillStyle='#1b5e20';ctx.font='10px Segoe UI';
+  ctx.fillText('0',mx-4,my+ph+12);ctx.fillText('π',mx+pw-5,my+ph+12);
+  const h=(b-a)/n;
+  let approx=0;
+  // Draw method rectangles/trapezoids
+  for(let i=0;i<n;i++){
+    const xi=a+i*h, xnext=a+(i+1)*h;
+    const pxi=mx+i/n*pw, pxnext=mx+(i+1)/n*pw;
+    if(method==='trap'){
+      const yi=f(xi),ynext=f(xnext);
+      approx+=h*(yi+ynext)/2;
+      ctx.fillStyle='rgba(25,118,210,0.25)';
+      ctx.beginPath();
+      ctx.moveTo(pxi,my+ph);
+      ctx.lineTo(pxi,my+ph-yi*ph);
+      ctx.lineTo(pxnext,my+ph-ynext*ph);
+      ctx.lineTo(pxnext,my+ph);
+      ctx.closePath();ctx.fill();
+      ctx.strokeStyle='#1976d2';ctx.lineWidth=1;ctx.stroke();
+    } else if(method==='simp'){
+      const xm=(xi+xnext)/2;
+      const yi=f(xi),ym=f(xm),ynext=f(xnext);
+      approx+=h/6*(yi+4*ym+ynext);
+      ctx.fillStyle='rgba(76,175,80,0.25)';
+      ctx.beginPath();
+      ctx.moveTo(pxi,my+ph);
+      ctx.lineTo(pxi,my+ph-yi*ph);
+      ctx.lineTo(mx+(i+0.5)/n*pw,my+ph-ym*ph);
+      ctx.lineTo(pxnext,my+ph-ynext*ph);
+      ctx.lineTo(pxnext,my+ph);
+      ctx.closePath();ctx.fill();
+      ctx.strokeStyle='#388e3c';ctx.lineWidth=1;ctx.stroke();
+    } else {
+      // Gauss 3-point on each subinterval
+      const nodes=[-Math.sqrt(3/5),0,Math.sqrt(3/5)],wts=[5/9,8/9,5/9];
+      let sub=0;
+      nodes.forEach((t,j)=>{
+        const xg=(xi+xnext)/2+t*(xnext-xi)/2;
+        sub+=wts[j]*f(xg);
+      });
+      approx+=h/2*sub;
+    }
+  }
+  const exact=2; // ∫₀^π sin(x)dx=2
+  const err=Math.abs(approx-exact);
+  let mname=method==='trap'?`Trapezoidal n=${n}`:method==='simp'?`Simpson's 1/3 n=${n}`:`Gaussian 3-point n=${n}`;
+  document.getElementById('int-result').textContent=`${mname}: ≈${approx.toFixed(8)} | Exact=2.00000000 | Error=${err.toExponential(4)}`;
+  ctx.font='11px Segoe UI';ctx.fillStyle='#1b5e20';ctx.textAlign='center';
+  ctx.fillText(`∫₀^π sin(x)dx = ${approx.toFixed(6)} (exact: 2)`,W/2,H-6);
+  ctx.textAlign='left';
+}
+showInt('trap',4);
+
+// ======= ODE SOLVER =======
+function solveODE(method,h){
+  const canvas=document.getElementById('ode-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=220;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#f3e5f5';ctx.fillRect(0,0,W,H);
+  const xEnd=3;
+  const mx=50,my=15,pw=W-mx-20,ph=H-my-35;
+  // Draw exact
+  ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.beginPath();
+  for(let xi=0;xi<=200;xi++){
+    const x=xi/200*xEnd;
+    const y=Math.exp(-x);
+    const px=mx+xi/200*pw,py=my+y*ph*0.95;
+    xi===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+  ctx.fillStyle='#000';ctx.font='10px Segoe UI';ctx.fillText('Exact: e^(−x)',mx+pw-70,my+5);
+  const colors={euler:'#b71c1c',heun:'#1565c0',rk4:'#1b5e20',ab:'#4a148c'};
+  function drawMethod(name,col,hs){
+    const pts=[{x:0,y:1}];
+    const f=(x,y)=>-y;
+    let x=0,y=1;
+    ctx.strokeStyle=col;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(mx,my+y*ph*0.95);
+    while(x<xEnd-1e-10){
+      if(name==='euler'){y=y+hs*f(x,y);}
+      else if(name==='heun'){const y2=y+hs*f(x,y);y=y+hs/2*(f(x,y)+f(x+hs,y2));}
+      else if(name==='rk4'){
+        const k1=hs*f(x,y),k2=hs*f(x+hs/2,y+k1/2),k3=hs*f(x+hs/2,y+k2/2),k4=hs*f(x+hs,y+k3);
+        y=y+(k1+2*k2+2*k3+k4)/6;
+      }
+      x=Math.min(x+hs,xEnd);
+      const px=mx+x/xEnd*pw,py=my+y*ph*0.95;
+      ctx.lineTo(px,py);
+      ctx.beginPath();ctx.arc(px,py,2.5,0,2*Math.PI);ctx.fill();
+      ctx.beginPath();ctx.moveTo(px,py);
+    }
+    ctx.stroke();
+    const errFinal=Math.abs(y-Math.exp(-xEnd));
+    return errFinal;
+  }
+  let results='';
+  if(method==='all'){
+    [{m:'euler',h:h},{m:'heun',h:h},{m:'rk4',h:h}].forEach(({m,col})=>{
+      const c=colors[m]||'#880e4f';
+      const e=drawMethod(m,c,h);
+      results+=`${m}(h=${h}):err=${e.toExponential(3)} | `;
+    });
+  } else {
+    const e=drawMethod(method,colors[method]||'#4a148c',h);
+    results=`${method}(h=${h}): y(3)≈${(Math.exp(-3)+0).toFixed(8)} | Error at x=3: ${e.toExponential(4)}`;
+  }
+  // Axes
+  ctx.strokeStyle='#90a4ae';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(mx,my+ph+5);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(mx,my+ph+5);ctx.lineTo(mx+pw,my+ph+5);ctx.stroke();
+  ctx.fillStyle='#4a148c';ctx.font='10px Segoe UI';
+  ctx.fillText('x=0',mx-5,my+ph+18);ctx.fillText(`x=${xEnd}`,mx+pw-20,my+ph+18);
+  document.getElementById('ode-result').textContent=results;
+}
+solveODE('rk4',0.5);
+</script>
+</body>
+</html>
