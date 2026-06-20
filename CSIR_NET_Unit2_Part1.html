@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 2 — Complex Analysis I</title>
+<style>
+:root{
+  --cn-dk:#4527a0;--cn-md:#7e57c2;--cn-lt:#ede7f6;
+  --af-dk:#004d40;--af-md:#00897b;--af-lt:#e0f2f1;
+  --ps-dk:#01579b;--ps-md:#0288d1;--ps-lt:#e1f5fe;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#1a0050,#4527a0,#7e57c2);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#120033;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7e57c2;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#ce93d8);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#ce93d8);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-left:4px solid #7e57c2;border-radius:4px 10px 10px 4px;background:#f3e5f5;border-top-color:#7e57c2}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;color:#fff}
+.rtbl td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px;line-height:1.55}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.rtbl tr:hover td{background:#f0f4ff}
+.mcq-title{font-size:15px;font-weight:800;margin:22px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f);display:flex;align-items:center;gap:8px}
+.mcq{background:#fff;border-radius:10px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;padding:9px 14px;gap:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.mcq-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.mcq-lbl{font-size:11px;font-weight:600;color:#555;flex:1}
+.mcq-d{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:13px 15px 11px}
+.mcq-q{font-size:13px;font-weight:500;margin-bottom:11px;line-height:1.65;color:#1a1a2e}
+.opts{display:grid;gap:6px;margin-bottom:11px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;border:1.5px solid #e8e8e8;cursor:pointer;font-size:12px;transition:all .15s;background:#fafafa;line-height:1.5}
+.opt:hover{border-color:var(--mcq-c);background:var(--mcq-lt)}.opt.sel{border-color:var(--mcq-c);background:var(--mcq-lt)}
+.opt-l{font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8e8e8;flex-shrink:0;margin-top:1px}
+.btn-ans{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11.5px;font-weight:700;transition:all .2s;background:var(--mcq-dk,#37474f);color:#fff}
+.btn-ans:hover{opacity:.85}.btn-ans.open{background:#607d8b}
+.ans-box{display:none;margin-top:11px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
+.ans-box.show{display:block}
+.ans-top{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-size:13px;font-weight:700}
+.ans-exp{padding:11px 14px;background:#ede7f6;font-size:12px;color:#1a237e;line-height:1.7}
+.ans-exp b{color:#4527a0}
+.viz-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;border:1px solid #e8e8e8}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:12px;color:#4527a0}
+.viz-ctrl{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.viz-btn{padding:6px 14px;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .18s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#4527a0;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 2 — Complex Analysis I</div>
+  <div class="hdr-s">Complex Numbers · CR Equations · Power Series</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit2_Part2.html">Part 2 →</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit2_Part3.html">Algebra →</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Complex Analysis I</div>
+  <div class="nav-item active" style="--ac:#ce93d8;--dc:#ce93d8" onclick="show('cn',this)">
+    <div class="nav-dot"></div>Complex Numbers
+  </div>
+  <div class="nav-item" style="--ac:#80cbc4;--dc:#80cbc4" onclick="show('af',this)">
+    <div class="nav-dot"></div>Analytic Functions &amp; CR
+  </div>
+  <div class="nav-item" style="--ac:#81d4fa;--dc:#81d4fa" onclick="show('ps',this)">
+    <div class="nav-dot"></div>Power Series &amp; Functions
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part2.html'">
+    <div class="nav-dot" style="background:#9fa8da"></div>Complex Analysis II
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part3.html'">
+    <div class="nav-dot" style="background:#a5d6a7"></div>Algebra I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part4.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>Algebra II + Topology
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== COMPLEX NUMBERS ======== -->
+<div id="cn" class="section active" style="--mcq-c:var(--cn-md);--mcq-dk:var(--cn-dk);--mcq-lt:var(--cn-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a0050,#4527a0,#7e57c2)">
+    <div class="banner-num">ℂ</div>
+    <h2>Complex Numbers</h2>
+    <p>Algebra · Argand Plane · Polar Form · Modulus · Argument · de Moivre · nth Roots</p>
+  </div>
+
+  <!-- ARGAND PLANE VISUALIZER -->
+  <div class="viz-box">
+    <h3>📐 Interactive: Argand Plane Visualizer</h3>
+    <svg id="arg-svg" width="100%" height="260" viewBox="0 0 620 260" style="background:#faf5ff;border-radius:8px;display:block">
+      <defs>
+        <marker id="ah" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#7e57c2"/></marker>
+        <marker id="ah2" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#e53935"/></marker>
+        <marker id="ah3" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#2e7d32"/></marker>
+      </defs>
+      <!-- Grid -->
+      <g stroke="#f0e6ff" stroke-width="0.8">
+        <line x1="310" y1="10" x2="310" y2="250"/><line x1="10" y1="130" x2="610" y2="130"/>
+        <line x1="370" y1="10" x2="370" y2="250"/><line x1="250" y1="10" x2="250" y2="250"/>
+        <line x1="430" y1="10" x2="430" y2="250"/><line x1="190" y1="10" x2="190" y2="250"/>
+        <line x1="490" y1="10" x2="490" y2="250"/><line x1="130" y1="10" x2="130" y2="250"/>
+        <line x1="550" y1="10" x2="550" y2="250"/><line x1="70"  y1="10" x2="70"  y2="250"/>
+        <line x1="10" y1="70"  x2="610" y2="70"/><line x1="10" y1="190" x2="610" y2="190"/>
+      </g>
+      <!-- Axes -->
+      <line x1="20" y1="130" x2="600" y2="130" stroke="#7e57c2" stroke-width="1.8" marker-end="url(#ah)"/>
+      <line x1="310" y1="245" x2="310" y2="15" stroke="#7e57c2" stroke-width="1.8" marker-end="url(#ah)"/>
+      <text x="605" y="126" fill="#7e57c2" font-size="12" font-weight="700">Re</text>
+      <text x="316" y="13" fill="#7e57c2" font-size="12" font-weight="700">Im</text>
+      <!-- Scale labels -->
+      <text x="368" y="143" fill="#9e9e9e" font-size="9">1</text>
+      <text x="428" y="143" fill="#9e9e9e" font-size="9">2</text>
+      <text x="248" y="143" fill="#9e9e9e" font-size="9">-1</text>
+      <text x="302" y="72" fill="#9e9e9e" font-size="9">1</text>
+      <text x="302" y="192" fill="#9e9e9e" font-size="9">-1</text>
+      <!-- Dynamic content drawn by JS -->
+      <g id="arg-dyn"></g>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#4527a0;color:#fff" onclick="argShow('point')">z = 2+i</button>
+      <button class="viz-btn" style="background:#e53935;color:#fff" onclick="argShow('mod')">|z| (Modulus)</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="argShow('conj')">z̄ (Conjugate)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="argShow('polar')">Polar Form</button>
+      <button class="viz-btn" style="background:#006064;color:#fff" onclick="argShow('add')">z₁+z₂ Addition</button>
+      <button class="viz-btn" style="background:#6a1b9a;color:#fff" onclick="argShow('mul')">z₁·z₂ Multiplication</button>
+      <button class="viz-btn" style="background:#37474f;color:#fff" onclick="argShow('roots')">Cube Roots of Unity</button>
+    </div>
+    <p id="arg-desc" style="font-size:12px;color:#4527a0;margin-top:8px;font-weight:600">Click a button to visualize a complex number concept on the Argand plane.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cn-dk)"><span>Basic Definitions</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cn-md)">
+      <h3>Complex Number z = x + iy <span class="badge b-basic">Basic</span></h3>
+      <p><b>x = Re(z)</b> (real part), <b>y = Im(z)</b> (imaginary part), i² = −1.</p>
+      <div class="fm">|z| = √(x²+y²)    (modulus/magnitude)
+arg(z) = θ = arctan(y/x)  (principal: θ∈(−π,π])</div>
+      <ul>
+        <li>z = 0 iff x = 0 and y = 0</li>
+        <li>z real iff Im(z) = 0; z pure imaginary iff Re(z)=0</li>
+        <li>Conjugate: z̄ = x − iy. &nbsp; zz̄ = |z|²</li>
+        <li>Re(z) = (z+z̄)/2, &nbsp; Im(z) = (z−z̄)/(2i)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cn-md)">
+      <h3>Polar Form &amp; Euler's Formula <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">z = r·e^(iθ) = r(cosθ + i sinθ)
+where r = |z|, θ = arg(z)</div>
+      <p><b>Euler's formula:</b> e^(iθ) = cosθ + i sinθ</p>
+      <ul>
+        <li>e^(iπ) + 1 = 0 &nbsp;(Euler's identity)</li>
+        <li>|z₁z₂| = |z₁|·|z₂|</li>
+        <li>arg(z₁z₂) = arg(z₁) + arg(z₂) (mod 2π)</li>
+        <li>z₁/z₂: divide moduli, subtract arguments</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cn-md)">
+      <h3>Algebraic Operations <span class="badge b-basic">Basic</span></h3>
+      <p>Addition: (a+ib)+(c+id) = (a+c) + i(b+d)</p>
+      <p>Multiplication: (a+ib)(c+id) = (ac−bd) + i(ad+bc)</p>
+      <div class="fm">Division: (a+ib)/(c+id) = [(a+ib)(c−id)] / (c²+d²)</div>
+      <p><b>Key identities:</b></p>
+      <ul>
+        <li>|z̄| = |z|, &nbsp; arg(z̄) = −arg(z)</li>
+        <li>|Re(z)| ≤ |z|, &nbsp; |Im(z)| ≤ |z|</li>
+        <li>Triangle ineq: |z₁+z₂| ≤ |z₁|+|z₂|</li>
+        <li>Reverse: | |z₁|−|z₂| | ≤ |z₁−z₂|</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cn-md)">
+      <h3>de Moivre &amp; nth Roots <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">de Moivre: (cosθ + i sinθ)ⁿ = cos(nθ) + i sin(nθ)</div>
+      <p>nth roots of z = re^(iθ):</p>
+      <div class="fm">zₖ = r^(1/n) · e^(i(θ+2πk)/n),  k=0,1,…,n−1</div>
+      <p><b>nth roots of unity:</b> ωₖ = e^(2πik/n), k = 0,…,n−1</p>
+      <ul>
+        <li>All lie on unit circle |z|=1</li>
+        <li>Equally spaced: angle 2π/n between consecutive</li>
+        <li>Sum = 0, Product = (−1)ⁿ⁺¹</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cn-dk)"><span>Quick Reference</span></div>
+  <div class="card" style="--card-top:var(--cn-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--cn-dk)"><th>Expression</th><th>Value/Form</th><th>Key Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>i² , i³ , i⁴</b></td><td>−1, −i, 1</td><td>Cycle of period 4</td></tr>
+        <tr><td><b>|3+4i|</b></td><td>5</td><td>3-4-5 right triangle</td></tr>
+        <tr><td><b>(1+i)^8</b></td><td>16</td><td>|1+i|=√2, arg=π/4 → (√2)⁸·e^(i·2π)=16</td></tr>
+        <tr><td><b>e^(iπ/2)</b></td><td>i</td><td>Euler: cos(π/2)+i sin(π/2)</td></tr>
+        <tr><td><b>e^(iπ)</b></td><td>−1</td><td>Euler's identity base</td></tr>
+        <tr><td><b>arg(−1+i)</b></td><td>3π/4</td><td>Second quadrant</td></tr>
+        <tr><td><b>Cube roots of 1</b></td><td>1, ω, ω²</td><td>ω=e^(2πi/3), 1+ω+ω²=0</td></tr>
+        <tr><td><b>|z₁·z₂|</b></td><td>|z₁|·|z₂|</td><td>Modulus is multiplicative</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--cn-md);color:var(--cn-dk)">🎯 CSIR NET Questions — Complex Numbers</div>
+
+  <div class="mcq" style="border-left-color:var(--cn-md)">
+    <div class="mcq-hdr" style="background:var(--cn-lt)">
+      <div class="mcq-num" style="background:var(--cn-dk)">1</div>
+      <span class="mcq-lbl">Modulus Computation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If z = (3 + 4i)/(1 − 2i), then |z| equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>√5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>√5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>5/√5 = √5</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cn1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cn1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — √5</div>
+        <div class="ans-exp"><b>|z| = |3+4i| / |1−2i| = 5 / √5 = √5.</b> |3+4i|=√(9+16)=5; |1−2i|=√(1+4)=√5. The key property: |z₁/z₂| = |z₁|/|z₂|. No need to actually compute the division!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cn-md)">
+    <div class="mcq-hdr" style="background:var(--cn-lt)">
+      <div class="mcq-num" style="background:var(--cn-dk)">2</div>
+      <span class="mcq-lbl">de Moivre's Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The value of (1+i)¹⁰ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>32i</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>32</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>−32</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>−32i</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cn2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cn2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — 32i</div>
+        <div class="ans-exp">Write 1+i = √2 · e^(iπ/4). Then (1+i)¹⁰ = (√2)¹⁰ · e^(i·10π/4) = 2⁵ · e^(i·5π/2) = 32 · e^(iπ/2) = 32·(cos(π/2)+i·sin(π/2)) = <b>32i</b>. Key: reduce 10π/4 = 5π/2 = 2π + π/2 ≡ π/2 (mod 2π).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cn-md)">
+    <div class="mcq-hdr" style="background:var(--cn-lt)">
+      <div class="mcq-num" style="background:var(--cn-dk)">3</div>
+      <span class="mcq-lbl">Roots of Unity</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If ω = e^(2πi/3) is a primitive cube root of unity, then 1 + ω + ω² equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>ω</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cn3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cn3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — 0</div>
+        <div class="ans-exp">The three cube roots of unity are roots of z³−1 = (z−1)(z²+z+1) = 0. So 1, ω, ω² are roots of z³=1. By Vieta's: sum of roots = 0 (coefficient of z² in z³−1 is 0). Hence <b>1+ω+ω² = 0</b>. This identity appears constantly in CSIR problems!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cn-md)">
+    <div class="mcq-hdr" style="background:var(--cn-lt)">
+      <div class="mcq-num" style="background:var(--cn-dk)">4</div>
+      <span class="mcq-lbl">Argument</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The principal argument of z = −√3 + i is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>π/6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>5π/6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>−5π/6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2π/3</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cn4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cn4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 5π/6</div>
+        <div class="ans-exp">z = −√3+i lies in <b>2nd quadrant</b> (Re&lt;0, Im&gt;0). |z|=√(3+1)=2. The reference angle = arctan(1/√3) = π/6. Since 2nd quadrant: arg(z) = π − π/6 = <b>5π/6</b>. Principal argument ∈ (−π, π]. So 5π/6 ∈ (−π,π] ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cn-md)">
+    <div class="mcq-hdr" style="background:var(--cn-lt)">
+      <div class="mcq-num" style="background:var(--cn-dk)">5</div>
+      <span class="mcq-lbl">Locus in Complex Plane</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The set {z ∈ ℂ : |z − 2| = |z + 2|} represents:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>A circle centred at origin</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The imaginary axis (x = 0)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The real axis (y = 0)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A circle centred at (2,0)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cn5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cn5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — Imaginary axis</div>
+        <div class="ans-exp">|z−2|=|z+2| means z is equidistant from 2 and −2 on the real axis. The <b>perpendicular bisector</b> of the segment from −2 to 2 is the y-axis (x=0), i.e., the imaginary axis. In general |z−z₁|=|z−z₂| is the perpendicular bisector of segment z₁z₂.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== ANALYTIC FUNCTIONS & CR EQUATIONS ======== -->
+<div id="af" class="section" style="--mcq-c:var(--af-md);--mcq-dk:var(--af-dk);--mcq-lt:var(--af-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#003329,#004d40,#00897b)">
+    <div class="banner-num">∂</div>
+    <h2>Analytic Functions &amp; Cauchy-Riemann Equations</h2>
+    <p>Complex Derivative · CR Equations · Entire Functions · Harmonic Functions · Singularities</p>
+  </div>
+
+  <!-- CR EQUATIONS VISUALIZER -->
+  <div class="viz-box">
+    <h3>📊 Interactive: CR Equations Checker</h3>
+    <svg id="cr-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#e0f2f1;border-radius:8px;display:block">
+      <text x="310" y="105" text-anchor="middle" fill="#004d40" font-size="13" font-weight="600">Select a function below to check CR equations</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#004d40;color:#fff" onclick="showCR('z2')">f(z)=z² ✓ Analytic</button>
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="showCR('absz2')">f(z)=|z|² ✗ Not Analytic</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showCR('ez')">f(z)=eᶻ ✓ Entire</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showCR('zbar')">f(z)=z̄ ✗ Nowhere Analytic</button>
+    </div>
+    <p id="cr-desc" style="font-size:12px;color:#004d40;margin-top:8px">Select a function to verify the Cauchy-Riemann equations ∂u/∂x = ∂v/∂y and ∂u/∂y = −∂v/∂x.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--af-dk)"><span>Complex Derivative &amp; Analyticity</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--af-md)">
+      <h3>Complex Derivative <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">f'(z) = lim[Δz→0] [f(z+Δz) − f(z)] / Δz</div>
+      <p>The limit must be the <b>same regardless of direction</b> Δz→0 in ℂ. This is far stronger than real differentiability!</p>
+      <ul>
+        <li>f analytic at z₀: f' exists in a <b>neighbourhood</b> of z₀</li>
+        <li>f <b>entire</b>: analytic on all of ℂ (e.g., eˢ, sin z, polynomials)</li>
+        <li>Analytic ≠ just differentiable at one point</li>
+        <li>Rules: sum, product, quotient, chain — same as real</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--af-md)">
+      <h3>Cauchy-Riemann Equations <span class="badge b-basic">Basic</span></h3>
+      <p>Write f(z) = u(x,y) + iv(x,y). Then f is differentiable at z = x+iy iff:</p>
+      <div class="fm">∂u/∂x = ∂v/∂y   (CR₁)
+∂u/∂y = −∂v/∂x  (CR₂)</div>
+      <p><b>Necessary</b>: f differentiable at z ⟹ CR satisfied there.</p>
+      <p><b>Sufficient</b>: CR satisfied + partial derivatives <b>continuous</b> ⟹ f analytic.</p>
+    </div>
+    <div class="card" style="--card-top:var(--af-md)">
+      <h3>Harmonic Functions <span class="badge b-inter">Intermediate</span></h3>
+      <p>A real function φ(x,y) is <b>harmonic</b> if ∇²φ = 0:</p>
+      <div class="fm">∂²φ/∂x² + ∂²φ/∂y² = 0</div>
+      <p><b>Key theorem:</b> If f = u+iv is analytic, then BOTH u and v are harmonic.</p>
+      <p>Conversely, given harmonic u, there exists harmonic v (the <b>harmonic conjugate</b>) s.t. f = u+iv is analytic. Find v using CR equations.</p>
+      <p><b>Example:</b> u = x²−y² → v = 2xy (since f(z)=z²)</p>
+    </div>
+    <div class="card" style="--card-top:var(--af-md)">
+      <h3>Types of Singularities <span class="badge b-adv">Advanced</span></h3>
+      <p>At an isolated singularity z₀ of f:</p>
+      <ul>
+        <li><b>Removable:</b> lim f(z) exists finite (e.g., sin(z)/z at 0)</li>
+        <li><b>Pole of order m:</b> lim (z−z₀)ᵐ f(z) = finite ≠ 0. Simple pole: m=1</li>
+        <li><b>Essential:</b> neither removable nor pole (e.g., e^(1/z) at 0)</li>
+      </ul>
+      <div class="fm">Picard's Great Thm: near essential singularity, f takes EVERY complex value (except possibly one) infinitely often.</div>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--af-dk)"><span>Key Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--af-dk);--thm-bg:var(--af-lt)">
+      <h3>CR in Polar Form <span class="badge b-adv">Advanced</span></h3>
+      <p>If f = u+iv, z = re^(iθ), the CR equations become:</p>
+      <div class="fm">∂u/∂r = (1/r)·∂v/∂θ   and   ∂v/∂r = −(1/r)·∂u/∂θ</div>
+      <p>Useful for functions like f(z) = Log z = ln|z| + i·arg(z). Here u = ln r, v = θ. Check: ∂u/∂r = 1/r = (1/r)·∂v/∂θ = 1/r ✓.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--af-dk);--thm-bg:var(--af-lt)">
+      <h3>Analytic Function is Infinitely Differentiable <span class="badge b-adv">Advanced</span></h3>
+      <p>If f is analytic in domain D, then f has derivatives of ALL orders in D (unlike real analysis where once-differentiable doesn't imply twice!). This follows from Cauchy's Integral Formula.</p>
+      <p>Also: analytic function is represented by its power series (convergent Taylor series) in any disk within D.</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--af-md);color:var(--af-dk)">🎯 CSIR NET Questions — Analytic Functions</div>
+
+  <div class="mcq" style="border-left-color:var(--af-md)">
+    <div class="mcq-hdr" style="background:var(--af-lt)">
+      <div class="mcq-num" style="background:var(--af-dk)">1</div>
+      <span class="mcq-lbl">CR Equation Check</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">f(z) = |z|² = x² + y². This function is analytic:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Everywhere in ℂ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Only at z = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Nowhere</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>On the unit circle |z|=1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('af1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="af1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — Only at z = 0</div>
+        <div class="ans-exp">Here u=x²+y², v=0. CR: ∂u/∂x=2x must equal ∂v/∂y=0 → x=0. ∂u/∂y=2y must equal −∂v/∂x=0 → y=0. So CR holds <b>only at z=0</b>. But f is differentiable at z=0 (not in a neighbourhood), so f is <b>NOT analytic anywhere</b>. Differentiable at one point ≠ analytic!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--af-md)">
+    <div class="mcq-hdr" style="background:var(--af-lt)">
+      <div class="mcq-num" style="background:var(--af-dk)">2</div>
+      <span class="mcq-lbl">Harmonic Conjugate</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If u(x,y) = x³ − 3xy² is harmonic, its harmonic conjugate v(x,y) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3x²y − y³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3x²y + y³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>x³ + 3xy²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>3xy − y³</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('af2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="af2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — 3x²y − y³</div>
+        <div class="ans-exp">∂u/∂x = 3x²−3y² = ∂v/∂y, so v = 3x²y − y³ + g(x). Then ∂v/∂x = 6xy + g'(x) must equal −∂u/∂y = 6xy → g'(x)=0 → g = constant. So v = <b>3x²y − y³</b>. Check: f(z) = z³ = (x+iy)³ = (x³−3xy²) + i(3x²y−y³) ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--af-md)">
+    <div class="mcq-hdr" style="background:var(--af-lt)">
+      <div class="mcq-num" style="background:var(--af-dk)">3</div>
+      <span class="mcq-lbl">Entire Functions</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following is NOT an entire function?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e^z</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>sin z</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z³ + 2z</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/(z²+1)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('af3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="af3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (D) — 1/(z²+1)</div>
+        <div class="ans-exp">1/(z²+1) has singularities at z=±i (where z²+1=0), so it is NOT entire. eᶻ, sin z, and polynomials are entire (analytic on ALL of ℂ). The function 1/(z²+1) is meromorphic (analytic except at poles ±i).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--af-md)">
+    <div class="mcq-hdr" style="background:var(--af-lt)">
+      <div class="mcq-num" style="background:var(--af-dk)">4</div>
+      <span class="mcq-lbl">Type of Singularity</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The function f(z) = sin(z)/z has a singularity at z = 0 which is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Essential singularity</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Pole of order 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Removable singularity</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Pole of order 2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('af4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="af4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — Removable singularity</div>
+        <div class="ans-exp">lim[z→0] sin(z)/z = 1 (finite). Since the limit exists, z=0 is a <b>removable singularity</b>. Redefine f(0)=1 to make f entire. Laurent expansion: sin(z)/z = 1 − z²/6 + z⁴/120 − … (no negative powers of z). No negative powers ↔ removable singularity.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--af-md)">
+    <div class="mcq-hdr" style="background:var(--af-lt)">
+      <div class="mcq-num" style="background:var(--af-dk)">5</div>
+      <span class="mcq-lbl">Harmonic Function</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If f(z) = u+iv is analytic and non-constant in a domain D, then:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>u is harmonic but v need not be</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Both u and v satisfy Laplace's equation</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>u²+v² is always constant</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>|f| has a maximum in D</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('af5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="af5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B)</div>
+        <div class="ans-exp">Both u and v satisfy <b>∇²φ = 0</b> (Laplace equation) — they are harmonic conjugates. Proof: from CR, ∂²u/∂x²=∂²v/∂x∂y=−∂²u/∂y², so ∇²u=0. Similarly ∇²v=0. Option D is FALSE — by the <b>Maximum Modulus Principle</b>, |f| attains its maximum on the BOUNDARY, not inside D.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== POWER SERIES & TRANSCENDENTAL FUNCTIONS ======== -->
+<div id="ps" class="section" style="--mcq-c:var(--ps-md);--mcq-dk:var(--ps-dk);--mcq-lt:var(--ps-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#003c6e,#01579b,#0288d1)">
+    <div class="banner-num">Σ</div>
+    <h2>Power Series &amp; Transcendental Functions</h2>
+    <p>Radius of Convergence · e^z · sin z · cos z · sinh/cosh · Periodicity · Zeros</p>
+  </div>
+
+  <!-- CONVERGENCE DISK VISUALIZER -->
+  <div class="viz-box">
+    <h3>📊 Interactive: Disk of Convergence</h3>
+    <svg id="disk-svg" width="100%" height="240" viewBox="0 0 620 240" style="background:#e1f5fe;border-radius:8px;display:block">
+      <text x="310" y="125" text-anchor="middle" fill="#01579b" font-size="13" font-weight="600">Select a power series to see its disk of convergence</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#01579b;color:#fff" onclick="showDisk('geo','Σzⁿ (geometric)','1','|z|&lt;1')">Σzⁿ — R=1</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showDisk('ez','Σzⁿ/n! = eᶻ','∞','All ℂ')">eᶻ — R=∞</button>
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="showDisk('fact','Σn!zⁿ','0','Only z=0')">Σn!zⁿ — R=0</button>
+      <button class="viz-btn" style="background:#6a1b9a;color:#fff" onclick="showDisk('log','Σzⁿ/n (for log)','1','|z|&lt;1')">Σzⁿ/n — R=1</button>
+    </div>
+    <p id="disk-desc" style="font-size:12px;color:#01579b;margin-top:8px">The disk of convergence is the largest open disk |z−z₀|&lt;R in which the power series converges absolutely and uniformly.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ps-dk)"><span>Power Series</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ps-md)">
+      <h3>Radius of Convergence <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Σ aₙ(z−z₀)ⁿ   converges for |z−z₀| &lt; R
+R = 1 / limsup |aₙ|^(1/n)   [Cauchy-Hadamard]
+Also: R = lim |aₙ/aₙ₊₁|    [if limit exists]</div>
+      <ul>
+        <li>Converges <b>absolutely</b> inside the disk |z−z₀|&lt;R</li>
+        <li>Diverges outside |z−z₀|&gt;R</li>
+        <li>On the boundary |z−z₀|=R: test each point separately</li>
+        <li>Inside disk: convergence is <b>uniform</b> on compact subsets</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ps-md)">
+      <h3>Exponential &amp; Trig Functions <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">eᶻ = Σ zⁿ/n! = 1+z+z²/2!+…  (R=∞)
+sin z = Σ (−1)ⁿz^(2n+1)/(2n+1)!   (R=∞)
+cos z = Σ (−1)ⁿz^(2n)/(2n)!       (R=∞)</div>
+      <p><b>Key relations:</b></p>
+      <ul>
+        <li>e^(iz) = cos z + i sin z (Euler)</li>
+        <li>sin z = (e^(iz)−e^(−iz))/(2i)</li>
+        <li>cos z = (e^(iz)+e^(−iz))/2</li>
+        <li>sin²z + cos²z = 1 (still holds in ℂ!)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ps-md)">
+      <h3>Hyperbolic Functions <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">sinh z = (eᶻ − e^(−z))/2
+cosh z = (eᶻ + e^(−z))/2
+tanh z = sinh z / cosh z</div>
+      <p><b>Link to trig:</b> sin(iz) = i·sinh(z) and cos(iz) = cosh(z)</p>
+      <ul>
+        <li>cosh²z − sinh²z = 1</li>
+        <li>sinh(z+w) = sinh z·cosh w + cosh z·sinh w</li>
+        <li>Zeros of sinh z: z = nπi (n ∈ ℤ)</li>
+        <li>Zeros of cosh z: z = (n+½)πi</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--ps-md)">
+      <h3>Properties of eᶻ <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">For z = x + iy:
+|eᶻ| = eˣ,  arg(eᶻ) = y
+eᶻ = eˣ(cos y + i sin y)</div>
+      <ul>
+        <li>eᶻ is <b>periodic</b> with period 2πi: e^(z+2πi) = eᶻ</li>
+        <li>eᶻ ≠ 0 for all z ∈ ℂ</li>
+        <li>eᶻ is entire, eᶻ = 1 iff z = 2nπi</li>
+        <li>Zeros of sin z: z = nπ (n ∈ ℤ)</li>
+        <li>Zeros of cos z: z = (n+½)π</li>
+        <li>sin z, cos z unbounded on ℂ (unlike real case!)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ps-dk)"><span>Must-Know Series</span></div>
+  <div class="card" style="--card-top:var(--ps-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--ps-dk)"><th>Series</th><th>Sum</th><th>R</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Σ zⁿ</b></td><td>1/(1−z)</td><td>1</td><td>Geometric; diverges |z|≥1</td></tr>
+        <tr><td><b>Σ zⁿ/n!</b></td><td>eᶻ</td><td>∞</td><td>Entire</td></tr>
+        <tr><td><b>Σ (−1)ⁿz^(2n+1)/(2n+1)!</b></td><td>sin z</td><td>∞</td><td>Entire, odd function</td></tr>
+        <tr><td><b>Σ (−1)ⁿz^(2n)/(2n)!</b></td><td>cos z</td><td>∞</td><td>Entire, even function</td></tr>
+        <tr><td><b>Σ zⁿ/n</b></td><td>−Log(1−z)</td><td>1</td><td>Converges at z=−1; diverges z=1</td></tr>
+        <tr><td><b>Σ n!·zⁿ</b></td><td>Diverges ∀z≠0</td><td>0</td><td>R=0 by Cauchy-Hadamard</td></tr>
+        <tr><td><b>Σ zⁿ/n²</b></td><td>Li₂(z)</td><td>1</td><td>Converges on entire boundary |z|=1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ps-md);color:var(--ps-dk)">🎯 CSIR NET Questions — Power Series &amp; Functions</div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">1</div>
+      <span class="mcq-lbl">Radius of Convergence</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The radius of convergence of Σ nⁿ zⁿ / n! is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/e</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>e</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>∞</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ps1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 1/e</div>
+        <div class="ans-exp">aₙ = nⁿ/n!. By Stirling: n! ~ √(2πn)(n/e)ⁿ, so aₙ ~ eⁿ/√(2πn). Thus limsup|aₙ|^(1/n) = e, and <b>R = 1/e</b>. Alternatively, ratio test: |a_{n+1}/aₙ| = (n+1)^(n+1)/(n!·(n+1)) · n!/nⁿ = ((n+1)/n)ⁿ → e, so R = 1/e.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">2</div>
+      <span class="mcq-lbl">Modulus of eᶻ</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If z = 2 + 3πi, then |e^z| equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>−e²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>e^(2+3π)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>e^(3π)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ps2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — e²</div>
+        <div class="ans-exp">For z = x+iy: <b>|eᶻ| = eˣ</b> (only depends on real part!). Here x=2, so |e^(2+3πi)| = e². Also: e^(2+3πi) = e²·e^(3πi) = e²·(cos 3π + i sin 3π) = e²·(−1) = −e². But the MODULUS is |−e²| = e². Classic trap — don't confuse eᶻ with |eᶻ|!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">3</div>
+      <span class="mcq-lbl">Periodicity of eᶻ</span><span class="mcq-d d-inter">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The fundamental period of e^z as a function ℂ→ℂ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>2π</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>eᶻ is not periodic</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ps3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 2πi</div>
+        <div class="ans-exp">e^(z+2πi) = eᶻ·e^(2πi) = eᶻ·1 = eᶻ. So <b>period = 2πi</b>. Note: on ℝ, eˣ has no real period (strictly increasing). The complex periodicity comes from the imaginary part: e^(iy) = cos y + i sin y which has period 2π in y. This periodicity makes eᶻ map horizontal strips of height 2π onto ℂ\{0}.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">4</div>
+      <span class="mcq-lbl">Zeros of sin z</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The zeros of sin z in ℂ are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>z = nπ, n ∈ ℤ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>z = nπi, n ∈ ℤ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z = (n+½)π, n ∈ ℤ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>z = nπ/2, n ∈ ℤ</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ps4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — z = nπ, n ∈ ℤ</div>
+        <div class="ans-exp">sin z = (e^(iz)−e^(−iz))/(2i) = 0 ⟺ e^(iz) = e^(−iz) ⟺ e^(2iz) = 1 ⟺ 2iz = 2nπi ⟺ <b>z = nπ</b>. The zeros of sin z are exactly the same as on ℝ! But note: sin(i) = i·sinh(1) ≠ 0, confirming the zeros are only real. Zeros of cos z: z=(2n+1)π/2.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">5</div>
+      <span class="mcq-lbl">Complex Trig Identity</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The value of sin(π/2 + i) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>i·sinh(1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>cosh(1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>cos(1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>i·cosh(1)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ps5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — cosh(1)</div>
+        <div class="ans-exp">sin(π/2+i) = sin(π/2)cos(i) + cos(π/2)sin(i) = 1·cos(i) + 0·sin(i) = cos(i). Now cos(i) = (e^(i·i)+e^(−i·i))/2 = (e^(−1)+e)/2 = <b>cosh(1)</b>. General formula: cos(iy) = cosh(y). Since cosh(1) ≈ 1.543, this is a real number greater than 1 — impossible for real cosine!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip" style="margin-top:4px">
+    <h3>📌 CSIR Key Tips — Complex Analysis I</h3>
+    <ul>
+      <li><b>|eᶻ| = eˣ</b> (only real part matters). Period = 2πi.</li>
+      <li><b>CR equations</b>: necessary for diff; CR + continuous partials = analytic. Check |z|² → not analytic except z=0.</li>
+      <li><b>Harmonic conjugate</b>: integrate CR equations. f(z)=z³ gives u=x³−3xy², v=3x²y−y³.</li>
+      <li><b>Singularity types</b>: removable (limit exists), pole (lim (z−z₀)ᵐf finite), essential (neither). sin(z)/z has removable sing at 0.</li>
+      <li><b>Roots of unity</b>: 1+ω+ω²+…+ωⁿ⁻¹ = 0. Sum=0, Product=(−1)ⁿ⁺¹.</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="stob" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const b=document.getElementById(id),o=b.classList.toggle('show');
+  btn.textContent=o?'▼ Hide Answer':'▶ Show Answer';
+  btn.classList.toggle('open',o);
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('stob').classList.toggle('on',window.scrollY>200);
+});
+
+// ===== ARGAND PLANE =====
+const ns='http://www.w3.org/2000/svg';
+const CX=310,CY=130,SC=60; // center x,y; scale (pixels per unit)
+
+function pt(x,y){return {px:CX+x*SC, py:CY-y*SC};}
+function line(x1,y1,x2,y2,col,w,dash,mid){
+  const g=document.getElementById('arg-dyn');
+  const el=document.createElementNS(ns,'line');
+  el.setAttribute('x1',x1);el.setAttribute('y1',y1);
+  el.setAttribute('x2',x2);el.setAttribute('y2',y2);
+  el.setAttribute('stroke',col);el.setAttribute('stroke-width',w||2);
+  if(dash) el.setAttribute('stroke-dasharray',dash);
+  if(mid) el.setAttribute('marker-end',mid);
+  g.appendChild(el); return el;
+}
+function dot(x,y,col,r,lbl,ox,oy){
+  const g=document.getElementById('arg-dyn');
+  const c=document.createElementNS(ns,'circle');
+  c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r||5);
+  c.setAttribute('fill',col);g.appendChild(c);
+  if(lbl){
+    const t=document.createElementNS(ns,'text');
+    t.setAttribute('x',x+(ox||8));t.setAttribute('y',y+(oy||4));
+    t.setAttribute('fill',col);t.setAttribute('font-size','12');t.setAttribute('font-weight','700');
+    t.textContent=lbl;g.appendChild(t);
+  }
+}
+function arc(cx,cy,r,a1,a2,col){
+  const g=document.getElementById('arg-dyn');
+  const x1=cx+r*Math.cos(a1),y1=cy-r*Math.sin(a1);
+  const x2=cx+r*Math.cos(a2),y2=cy-r*Math.sin(a2);
+  const el=document.createElementNS(ns,'path');
+  el.setAttribute('d',`M${x1},${y1} A${r},${r},0,0,0,${x2},${y2}`);
+  el.setAttribute('fill','none');el.setAttribute('stroke',col);el.setAttribute('stroke-width','2');
+  g.appendChild(el);
+}
+function txt(x,y,s,col,size,anchor){
+  const g=document.getElementById('arg-dyn');
+  const t=document.createElementNS(ns,'text');
+  t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('fill',col||'#333');
+  t.setAttribute('font-size',size||11);if(anchor)t.setAttribute('text-anchor',anchor);
+  t.textContent=s;g.appendChild(t);
+}
+
+function argShow(type){
+  document.getElementById('arg-dyn').innerHTML='';
+  const desc={
+    point:'z = 2+i plotted as point (2,1). Re(z)=2, Im(z)=1. The x-axis is real, y-axis is imaginary.',
+    mod:'|z| = √(2²+1²) = √5 ≈ 2.24 is the distance from origin to z. Shown as the radius of the circle.',
+    conj:'Conjugate z̄ = 2−i is the reflection of z across the real axis. arg(z̄) = −arg(z).',
+    polar:'Polar form: z = √5·e^(iθ) where θ = arg(z) = arctan(1/2) ≈ 26.6°. Shown as angle arc.',
+    add:'Addition: z₁=2+i, z₂=−1+2i. z₁+z₂ = 1+3i. Parallelogram law (vector addition).',
+    mul:'Multiplication: z₁=2+i, z₂=1+i. z₁·z₂=(2−1)+i(2+1)=1+3i. Multiply moduli, add arguments.',
+    roots:'Cube roots of unity: 1, ω=e^(2πi/3), ω²=e^(4πi/3). All on unit circle, equally spaced 120°.'
+  };
+  document.getElementById('arg-desc').textContent=desc[type]||'';
+
+  if(type==='point'){
+    const p=pt(2,1);
+    line(CX,CY,p.px,CY,'#90a4ae',1,'4,3');
+    line(p.px,CY,p.px,p.py,'#90a4ae',1,'4,3');
+    dot(p.px,p.py,'#4527a0',7,'z=2+i',8,-4);
+    txt(CX+2*SC+2,CY+14,'2','#607d8b',10);
+    txt(CX-18,CY-1*SC,'1i','#607d8b',10);
+  } else if(type==='mod'){
+    const p=pt(2,1);
+    const r=Math.sqrt(4+1)*SC;
+    const circ=document.createElementNS(ns,'circle');
+    circ.setAttribute('cx',CX);circ.setAttribute('cy',CY);circ.setAttribute('r',r);
+    circ.setAttribute('fill','none');circ.setAttribute('stroke','#e53935');circ.setAttribute('stroke-width','1.5');
+    circ.setAttribute('stroke-dasharray','5,4');document.getElementById('arg-dyn').appendChild(circ);
+    line(CX,CY,p.px,p.py,'#e53935',2.5);
+    dot(p.px,p.py,'#4527a0',6,'z=2+i',8,-4);
+    txt(CX+SC*0.9,CY-SC*0.48,'|z|=√5','#e53935',11);
+    dot(CX,CY,'#e53935',4);
+  } else if(type==='conj'){
+    const p=pt(2,1),pc=pt(2,-1);
+    line(CX,CY,p.px,p.py,'#4527a0',2.5);
+    line(CX,CY,pc.px,pc.py,'#e53935',2.5);
+    line(p.px,p.py,pc.px,pc.py,'#90a4ae',1,'5,4');
+    dot(p.px,p.py,'#4527a0',6,'z=2+i',8,-4);
+    dot(pc.px,pc.py,'#e53935',6,'z̄=2−i',8,4);
+    dot(CX,CY,'#607d8b',4);
+  } else if(type==='polar'){
+    const p=pt(2,1),r=Math.sqrt(5)*SC;
+    const th=Math.atan2(1,2);
+    arc(CX,CY,28,0,th,'#e65100');
+    line(CX,CY,p.px,p.py,'#4527a0',2.5);
+    dot(p.px,p.py,'#4527a0',6,'z',8,-4);
+    txt(CX+38,CY-12,'θ=26.6°','#e65100',10);
+    txt(CX+SC*0.7,CY-SC*0.6,'r=√5','#4527a0',11);
+    dot(CX,CY,'#607d8b',4);
+  } else if(type==='add'){
+    const z1=pt(2,1),z2=pt(-1,2),zs=pt(1,3);
+    line(CX,CY,z1.px,z1.py,'#4527a0',2,null,'url(#ah)');
+    line(CX,CY,z2.px,z2.py,'#e53935',2,null,'url(#ah2)');
+    line(z1.px,z1.py,zs.px,zs.py,'#90a4ae',1,'5,4');
+    line(z2.px,z2.py,zs.px,zs.py,'#90a4ae',1,'5,4');
+    line(CX,CY,zs.px,zs.py,'#2e7d32',2.5,null,'url(#ah3)');
+    dot(z1.px,z1.py,'#4527a0',5,'z₁',8,-4);
+    dot(z2.px,z2.py,'#e53935',5,'z₂',-32,-4);
+    dot(zs.px,zs.py,'#2e7d32',6,'z₁+z₂',8,-4);
+  } else if(type==='mul'){
+    const z1=pt(2,1),z2=pt(1,1),zp=pt(1,3);
+    line(CX,CY,z1.px,z1.py,'#4527a0',2);
+    line(CX,CY,z2.px,z2.py,'#e53935',2);
+    line(CX,CY,zp.px,zp.py,'#2e7d32',2.5);
+    dot(z1.px,z1.py,'#4527a0',5,'z₁=2+i',8,-4);
+    dot(z2.px,z2.py,'#e53935',5,'z₂=1+i',8,4);
+    dot(zp.px,zp.py,'#2e7d32',6,'z₁z₂=1+3i',8,-4);
+    txt(CX+10,CY-SC*1.5,'|z₁z₂|=|z₁|·|z₂|','#2e7d32',10);
+    txt(CX+10,CY-SC*1.7,'arg(z₁z₂)=arg(z₁)+arg(z₂)','#2e7d32',10);
+  } else if(type==='roots'){
+    const r=SC;
+    const circle=document.createElementNS(ns,'circle');
+    circle.setAttribute('cx',CX);circle.setAttribute('cy',CY);circle.setAttribute('r',r);
+    circle.setAttribute('fill','rgba(126,87,194,0.07)');circle.setAttribute('stroke','#7e57c2');
+    circle.setAttribute('stroke-width','1.5');document.getElementById('arg-dyn').appendChild(circle);
+    const cols=['#4527a0','#e53935','#2e7d32'];
+    const labels=['1','ω','ω²'];
+    [0,2*Math.PI/3,4*Math.PI/3].forEach((a,i)=>{
+      const px=CX+Math.cos(a)*r,py=CY-Math.sin(a)*r;
+      line(CX,CY,px,py,cols[i],1.5,'4,3');
+      dot(px,py,cols[i],6,labels[i],8*Math.sign(Math.cos(a)||1),(i===0?-8:8));
+    });
+    txt(CX-55,CY+SC*1.1,'1+ω+ω²=0','#4527a0',11);
+    dot(CX,CY,'#607d8b',4);
+  }
+}
+argShow('point');
+
+// ===== CR CHECKER =====
+function showCR(fn){
+  const svg=document.getElementById('cr-svg');
+  const data={
+    z2:{title:'f(z)=z²',u:'u=x²−y²',v:'v=2xy',
+      cr1:'∂u/∂x = 2x = ∂v/∂y = 2x  ✓',cr2:'∂u/∂y = −2y = −∂v/∂x = −2y  ✓',
+      result:'✓ ANALYTIC everywhere (entire function)',ok:true},
+    absz2:{title:'f(z)=|z|²',u:'u=x²+y²',v:'v=0',
+      cr1:'∂u/∂x = 2x vs ∂v/∂y = 0  → Need x=0',cr2:'∂u/∂y = 2y vs −∂v/∂x = 0 → Need y=0',
+      result:'✗ CR fails everywhere except z=0 → NOT analytic',ok:false},
+    ez:{title:'f(z)=eᶻ',u:'u=eˣcos y',v:'v=eˣsin y',
+      cr1:'∂u/∂x = eˣcos y = ∂v/∂y = eˣcos y  ✓',cr2:'∂u/∂y = −eˣsin y = −∂v/∂x = −eˣsin y ✓',
+      result:'✓ ENTIRE (analytic on all of ℂ)',ok:true},
+    zbar:{title:'f(z)=z̄',u:'u=x',v:'v=−y',
+      cr1:'∂u/∂x = 1 vs ∂v/∂y = −1  → 1≠−1 FAIL',cr2:'∂u/∂y = 0 vs −∂v/∂x = 0  (this one OK)',
+      result:'✗ CR₁ always fails → NOWHERE analytic',ok:false}
+  };
+  const d=data[fn];
+  const okc=d.ok?'#1b5e20':'#b71c1c';
+  const bgc=d.ok?'#e8f5e9':'#ffebee';
+  svg.innerHTML=`
+    <rect width="620" height="200" fill="${bgc}" rx="8"/>
+    <text x="310" y="28" text-anchor="middle" fill="${okc}" font-size="14" font-weight="800">${d.title}</text>
+    <rect x="20" y="38" width="175" height="50" rx="6" fill="rgba(0,0,0,0.07)"/>
+    <text x="108" y="57" text-anchor="middle" fill="#333" font-size="11" font-weight="700">${d.u}</text>
+    <text x="108" y="76" text-anchor="middle" fill="#333" font-size="11" font-weight="700">${d.v}</text>
+    <text x="108" y="95" text-anchor="middle" fill="#666" font-size="10">Write f=u+iv</text>
+    <text x="310" y="58" text-anchor="middle" fill="#1a237e" font-size="12" font-weight="600">CR₁: ${d.cr1}</text>
+    <text x="310" y="82" text-anchor="middle" fill="#1a237e" font-size="12" font-weight="600">CR₂: ${d.cr2}</text>
+    <rect x="60" y="110" width="500" height="36" rx="8" fill="${okc}"/>
+    <text x="310" y="134" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">${d.result}</text>
+    <text x="310" y="168" text-anchor="middle" fill="${okc}" font-size="11">f'(z)=2z (for z²)  |  f'(z)=eᶻ (for eᶻ)  |  f' does not exist (for |z|², z̄)</text>
+  `;
+  document.getElementById('cr-desc').textContent=`${d.title}: ${d.u}, ${d.v}. ${d.cr1}. ${d.cr2}. ${d.result}.`;
+}
+
+// ===== CONVERGENCE DISK =====
+function showDisk(type,name,R,conv){
+  const svg=document.getElementById('disk-svg');
+  const cx=310,cy=120,sc=70;
+  const Rnum={'geo':1,'log':1,'ez':999,'fact':0};
+  const r=Rnum[type];
+  let html=`<rect width="620" height="240" fill="#e1f5fe" rx="8"/>
+    <line x1="40" y1="${cy}" x2="580" y2="${cy}" stroke="#01579b" stroke-width="1.5"/>
+    <line x1="${cx}" y1="20" x2="${cx}" y2="225" stroke="#01579b" stroke-width="1.5"/>
+    <text x="585" y="${cy+4}" fill="#01579b" font-size="11">Re</text>
+    <text x="${cx+4}" y="18" fill="#01579b" font-size="11">Im</text>`;
+
+  if(r===999){
+    html+=`<rect x="40" y="20" width="540" height="200" fill="rgba(46,125,50,0.2)" rx="6"/>
+      <text x="${cx}" y="${cy}" text-anchor="middle" fill="#1b5e20" font-size="14" font-weight="800">R = ∞  (Converges on all of ℂ)</text>`;
+  } else if(r===0){
+    html+=`<rect x="40" y="20" width="540" height="200" fill="rgba(183,28,28,0.1)" rx="6"/>
+      <circle cx="${cx}" cy="${cy}" r="5" fill="#1b5e20"/>
+      <text x="${cx+10}" y="${cy-8}" fill="#1b5e20" font-size="12" font-weight="700">z=0 only</text>
+      <text x="${cx}" y="${cy+35}" text-anchor="middle" fill="#b71c1c" font-size="13" font-weight="800">R = 0  (Diverges for all z ≠ 0)</text>`;
+  } else {
+    const rpx=r*sc;
+    html+=`<circle cx="${cx}" cy="${cy}" r="${rpx}" fill="rgba(46,125,50,0.2)" stroke="#2e7d32" stroke-width="2"/>
+      <circle cx="${cx}" cy="${cy}" r="${rpx}" fill="none" stroke="#e53935" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.6"/>
+      <circle cx="${cx}" cy="${cy}" r="4" fill="#01579b"/>
+      <line x1="${cx}" y1="${cy}" x2="${cx+rpx}" y2="${cy}" stroke="#e53935" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="${cx+rpx/2}" y="${cy-8}" fill="#e53935" font-size="12" font-weight="700" text-anchor="middle">R=${R}</text>
+      <text x="${cx}" y="${cy+rpx+20}" text-anchor="middle" fill="#2e7d32" font-size="12" font-weight="700">Converges: ${conv}</text>
+      <text x="${cx}" y="${cy+rpx+38}" text-anchor="middle" fill="#b71c1c" font-size="11">Diverges: |z| &gt; ${R}</text>
+      <text x="${cx+rpx+5}" y="${cy+4}" fill="#607d8b" font-size="10">${R}</text>`;
+  }
+  html+=`<text x="${cx}" y="215" text-anchor="middle" fill="#01579b" font-size="12" font-weight="800">${name}  |  R = ${R}  |  Converges: ${conv}</text>`;
+  svg.innerHTML=html;
+  document.getElementById('disk-desc').textContent=`${name}: Radius of convergence R = ${R}. Converges for ${conv}.`;
+}
+</script>
+</body>
+</html>

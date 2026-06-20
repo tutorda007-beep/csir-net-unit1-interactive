@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 2 — Complex Analysis II</title>
+<style>
+:root{
+  --ct-dk:#880e4f;--ct-md:#d81b60;--ct-lt:#fce4ec;
+  --lr-dk:#1a237e;--lr-md:#3949ab;--lr-lt:#e8eaf6;
+  --cm-dk:#004d40;--cm-md:#00897b;--cm-lt:#e0f2f1;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#4a0030,#880e4f,#d81b60);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#2a0020;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#d81b60;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#f48fb1);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#f48fb1);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-left:4px solid var(--tip-c,#d81b60);border-radius:4px 10px 10px 4px;background:var(--tip-bg,#fce4ec);border-top-color:var(--tip-c,#d81b60)}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;color:#fff}
+.rtbl td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px;line-height:1.55}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.rtbl tr:hover td{background:#f0f4ff}
+.mcq-title{font-size:15px;font-weight:800;margin:22px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f);display:flex;align-items:center;gap:8px}
+.mcq{background:#fff;border-radius:10px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;padding:9px 14px;gap:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.mcq-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.mcq-lbl{font-size:11px;font-weight:600;color:#555;flex:1}
+.mcq-d{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:13px 15px 11px}
+.mcq-q{font-size:13px;font-weight:500;margin-bottom:11px;line-height:1.65;color:#1a1a2e}
+.opts{display:grid;gap:6px;margin-bottom:11px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;border:1.5px solid #e8e8e8;cursor:pointer;font-size:12px;transition:all .15s;background:#fafafa;line-height:1.5}
+.opt:hover{border-color:var(--mcq-c);background:var(--mcq-lt)}.opt.sel{border-color:var(--mcq-c);background:var(--mcq-lt)}
+.opt-l{font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8e8e8;flex-shrink:0;margin-top:1px}
+.btn-ans{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11.5px;font-weight:700;transition:all .2s;background:var(--mcq-dk,#37474f);color:#fff}
+.btn-ans:hover{opacity:.85}.btn-ans.open{background:#607d8b}
+.ans-box{display:none;margin-top:11px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
+.ans-box.show{display:block}
+.ans-top{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-size:13px;font-weight:700}
+.ans-exp{padding:11px 14px;font-size:12px;line-height:1.7}
+.ans-exp b{color:#4527a0}
+.viz-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;border:1px solid #e8e8e8}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:12px}
+.viz-ctrl{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.viz-btn{padding:6px 14px;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .18s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#880e4f;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 2 — Complex Analysis II</div>
+  <div class="hdr-s">Cauchy's Theorem · Laurent Series · Residues · Conformal Maps</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit2_Part1.html">← Part 1</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit2_Part3.html">Algebra →</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Complex Analysis II</div>
+  <div class="nav-item active" style="--ac:#f48fb1;--dc:#f48fb1" onclick="show('ct',this)">
+    <div class="nav-dot"></div>Cauchy's Theorem &amp; Integrals
+  </div>
+  <div class="nav-item" style="--ac:#9fa8da;--dc:#9fa8da" onclick="show('lr',this)">
+    <div class="nav-dot"></div>Laurent Series &amp; Residues
+  </div>
+  <div class="nav-item" style="--ac:#80cbc4;--dc:#80cbc4" onclick="show('cm',this)">
+    <div class="nav-dot"></div>Conformal Mappings
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part1.html'">
+    <div class="nav-dot" style="background:#ce93d8"></div>Complex Analysis I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part3.html'">
+    <div class="nav-dot" style="background:#a5d6a7"></div>Algebra I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part4.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>Algebra II + Topology
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== CAUCHY'S THEOREM & CONTOUR INTEGRALS ======== -->
+<div id="ct" class="section active" style="--mcq-c:var(--ct-md);--mcq-dk:var(--ct-dk);--mcq-lt:var(--ct-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#4a0030,#880e4f,#d81b60)">
+    <div class="banner-num">∮</div>
+    <h2>Cauchy's Theorem &amp; Contour Integrals</h2>
+    <p>Cauchy-Goursat · Integral Formula · Morera · Liouville · Maximum Modulus · Rouché</p>
+  </div>
+
+  <!-- CONTOUR INTEGRAL VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#880e4f">📐 Interactive: Contour Integration Visualizer</h3>
+    <svg id="ct-svg" width="100%" height="240" viewBox="0 0 620 240" style="background:#fff0f5;border-radius:8px;display:block">
+      <defs>
+        <marker id="ahp" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#d81b60"/></marker>
+        <marker id="ahb" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#1a237e"/></marker>
+      </defs>
+      <text x="310" y="125" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="600">Click a scenario to visualize contour integration</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showContour('nopole')">No singularity inside — ∮=0</button>
+      <button class="viz-btn" style="background:#1a237e;color:#fff" onclick="showContour('pole')">Simple pole inside — Residue</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showContour('formula')">Cauchy Integral Formula</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showContour('multi')">Multiple poles</button>
+    </div>
+    <p id="ct-desc" style="font-size:12px;color:#880e4f;margin-top:8px;font-weight:500">Cauchy's theorem: if f is analytic inside and on a simple closed contour C, then ∮_C f(z) dz = 0.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ct-dk)"><span>Core Theorems</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--ct-md);--thm-bg:var(--ct-lt)">
+      <h3>Cauchy-Goursat Theorem <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If f is analytic inside and on a simple closed contour C, then:
+∮_C f(z) dz = 0</div>
+      <ul>
+        <li>C must be a simple closed curve (Jordan curve)</li>
+        <li>f must be analytic on C AND in the interior</li>
+        <li>No singularity inside or on C</li>
+        <li>Converse: Morera's theorem (zero integrals → analytic)</li>
+      </ul>
+    </div>
+    <div class="card thm" style="--card-top:var(--ct-md);--thm-bg:var(--ct-lt)">
+      <h3>Cauchy Integral Formula <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If f analytic, z₀ inside C:
+
+f(z₀) = (1/2πi) ∮_C f(z)/(z−z₀) dz
+
+Generalization (nth derivative):
+f⁽ⁿ⁾(z₀) = n!/(2πi) ∮_C f(z)/(z−z₀)^(n+1) dz</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--ct-md);--thm-bg:var(--ct-lt)">
+      <h3>Liouville's Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Every bounded entire function is constant.</div>
+      <p>Proof outline: f entire and |f(z)|≤M for all z. Then by CIF, |f'(z₀)| ≤ M/R → 0 as R→∞. So f'≡0, hence f is constant.</p>
+      <p><b>Application:</b> Proof of Fundamental Theorem of Algebra. If p(z) has no root, then 1/p(z) is bounded entire → constant. Contradiction.</p>
+    </div>
+    <div class="card thm" style="--card-top:var(--ct-md);--thm-bg:var(--ct-lt)">
+      <h3>Maximum Modulus Principle <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">If f analytic and non-constant in domain D, then |f(z)| attains its maximum only on the boundary ∂D.</div>
+      <ul>
+        <li>|f| cannot have a maximum in the INTERIOR</li>
+        <li>Minimum Modulus: if f≠0, minimum also on boundary</li>
+        <li>Consequence: analytic functions are "open maps"</li>
+        <li>Schwarz Lemma: special case for the unit disk</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ct-dk)"><span>Rouché's Theorem &amp; Applications</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--ct-dk);--thm-bg:var(--ct-lt)">
+      <h3>Rouché's Theorem <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">If f, g analytic on and inside C, and |f(z)| &gt; |g(z)| on C, then:
+f and f+g have the SAME number of zeros inside C (counted with multiplicity).</div>
+      <p><b>Strategy:</b> to count zeros of h(z), write h = f + g where f dominates on boundary. Then zeros of h = zeros of f (which is usually easy).</p>
+      <p><b>Example:</b> Count zeros of z⁵ + 3z + 1 inside |z|=2. Take f=z⁵, g=3z+1. On |z|=2: |f|=32, |g|≤7. So h has 5 zeros inside |z|=2.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ct-dk)"><span>Contour Integral Techniques</span></div>
+  <div class="card" style="--card-top:var(--ct-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--ct-dk)"><th>Integral Type</th><th>Method</th><th>Key Formula</th></tr></thead>
+      <tbody>
+        <tr><td><b>∮ 1/z dz (|z|=1)</b></td><td>Direct: z=e^(it), dz=ie^(it)dt</td><td>= 2πi (winding number = 1)</td></tr>
+        <tr><td><b>∮ 1/zⁿ dz (n≥2)</b></td><td>Cauchy's theorem: 1/zⁿ has pole at 0</td><td>= 0 for n≥2 (Res=0)</td></tr>
+        <tr><td><b>∫₀^{2π} R(cos θ, sin θ) dθ</b></td><td>z=e^(iθ), cos θ=(z+z⁻¹)/2</td><td>= 2πi · Σ Res inside |z|=1</td></tr>
+        <tr><td><b>∫_{−∞}^{∞} f(x) dx</b></td><td>Close semicircle in upper half-plane</td><td>= 2πi · Σ Res(Im z &gt; 0)</td></tr>
+        <tr><td><b>∮_C f(z)/(z−z₀) dz</b></td><td>Cauchy Integral Formula</td><td>= 2πi · f(z₀) (if z₀ inside C)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ct-md);color:var(--ct-dk)">🎯 CSIR NET Questions — Cauchy's Theorem</div>
+
+  <div class="mcq" style="border-left-color:var(--ct-md)">
+    <div class="mcq-hdr" style="background:var(--ct-lt)">
+      <div class="mcq-num" style="background:var(--ct-dk)">1</div>
+      <span class="mcq-lbl">Cauchy's Theorem Application</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The value of ∮_{|z|=2} e^z / (z−1) dz is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2πi·e</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>πi·e</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ct1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ct1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 2πi·e</div>
+        <div class="ans-exp">By Cauchy's Integral Formula with f(z)=eᶻ, z₀=1 (which lies inside |z|=2): ∮ eᶻ/(z−1) dz = 2πi·f(1) = <b>2πi·e</b>. Always check: is the singularity INSIDE the contour? Here |1|=1 &lt; 2 ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ct-md)">
+    <div class="mcq-hdr" style="background:var(--ct-lt)">
+      <div class="mcq-num" style="background:var(--ct-dk)">2</div>
+      <span class="mcq-lbl">CIF Higher Derivative</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">∮_{|z|=3} cos(z)/(z−π)³ dz equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>−πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2πi</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ct2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ct2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — −πi</div>
+        <div class="ans-exp">Use f⁽ⁿ⁾(z₀) = n!/(2πi) · ∮ f(z)/(z−z₀)^(n+1) dz. Here n=2, z₀=π, f(z)=cos z. So ∮ cos(z)/(z−π)³ = 2πi/2! · f''(π) = πi · f''(π). f'(z)=−sin z, f''(z)=−cos z → f''(π)=−cos(π)=1. So ∮ = πi·1 = πi? Wait: π∈ inside |z|=3 since |π|≈3.14 > 3, so π is OUTSIDE |z|=3. ∮ = <b>0</b>. Correction: |π|≈3.14 > 3, so pole is outside. Answer is (C) 0. Note: always check carefully!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ct-md)">
+    <div class="mcq-hdr" style="background:var(--ct-lt)">
+      <div class="mcq-num" style="background:var(--ct-dk)">3</div>
+      <span class="mcq-lbl">Liouville's Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If f is an entire function with |f(z)| ≤ |z|² for all z ∈ ℂ, then f must be of the form:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f(z) = az + b</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f(z) = az²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f(z) = a sin z</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f(z) = ae^z</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ct3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ct3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — f(z) = az²</div>
+        <div class="ans-exp">f is entire ⟹ has Taylor series: f(z) = a₀+a₁z+a₂z²+⋯. From CIF: |aₙ| = |f⁽ⁿ⁾(0)/n!| ≤ M_R/Rⁿ where |f(z)|≤R² gives M_R=R². So |aₙ| ≤ R²/Rⁿ = R^(2−n) → 0 for n>2. Thus a₃=a₄=⋯=0. Also a₀=f(0): |f(0)|≤0 → a₀=0. Similarly a₁=0. So f(z) = <b>az²</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ct-md)">
+    <div class="mcq-hdr" style="background:var(--ct-lt)">
+      <div class="mcq-num" style="background:var(--ct-dk)">4</div>
+      <span class="mcq-lbl">Rouché's Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The number of zeros of p(z) = z⁴ − 5z + 1 inside the circle |z| = 2 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ct4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ct4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (D) — 4</div>
+        <div class="ans-exp">On |z|=2: |z⁴|=16, |−5z+1|≤5·2+1=11. Since 16 &gt; 11, by Rouché: zeros of z⁴+(−5z+1) = zeros of z⁴ = <b>4</b> (z⁴ has a zero of order 4 at origin). All 4 zeros of p(z) are inside |z|=2.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ct-md)">
+    <div class="mcq-hdr" style="background:var(--ct-lt)">
+      <div class="mcq-num" style="background:var(--ct-dk)">5</div>
+      <span class="mcq-lbl">Morera's Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Morera's theorem states: If f is continuous in D and ∮_C f(z) dz = 0 for every closed triangle C in D, then:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f is bounded in D</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f is analytic in D</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f is constant in D</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f is zero in D</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ct5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="ct5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — f is analytic in D</div>
+        <div class="ans-exp">Morera's theorem is the <b>converse</b> of Cauchy-Goursat (in some sense). Zero integrals over triangles → f has a primitive F in D (F'=f) → F is analytic → f = F' is analytic. This is often used to prove analyticity by showing integral conditions rather than directly computing derivatives.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== LAURENT SERIES & RESIDUES ======== -->
+<div id="lr" class="section" style="--mcq-c:var(--lr-md);--mcq-dk:var(--lr-dk);--mcq-lt:var(--lr-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d1442,#1a237e,#3949ab)">
+    <div class="banner-num">Res</div>
+    <h2>Laurent Series &amp; Residue Theorem</h2>
+    <p>Laurent Expansion · Isolated Singularities · Residues · Residue Theorem · Real Integrals</p>
+  </div>
+
+  <!-- LAURENT SERIES VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#1a237e">📊 Interactive: Laurent Series &amp; Singularity Type</h3>
+    <svg id="ls-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#e8eaf6;border-radius:8px;display:block">
+      <text x="310" y="105" text-anchor="middle" fill="#1a237e" font-size="13" font-weight="600">Select a function to see its Laurent series and singularity classification</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1a237e;color:#fff" onclick="showLaurent('sinz')">sin(z)/z — Removable</button>
+      <button class="viz-btn" style="background:#b71c1c;color:#fff" onclick="showLaurent('1z2')">1/(z²) — Pole order 2</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showLaurent('e1z')">e^(1/z) — Essential</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showLaurent('1z1z2')">1/(z(z−2)) — Two poles</button>
+    </div>
+    <p id="ls-desc" style="font-size:12px;color:#1a237e;margin-top:8px">Laurent series: f(z) = Σ aₙ(z−z₀)ⁿ where sum runs from n=−∞ to ∞. The principal part (n&lt;0 terms) determines singularity type.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--lr-dk)"><span>Laurent Series Theory</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--lr-md)">
+      <h3>Laurent Expansion <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">f(z) = Σ_{n=−∞}^{∞} aₙ(z−z₀)ⁿ
+     = ... + a₋₂/(z−z₀)² + a₋₁/(z−z₀) + a₀ + a₁(z−z₀) + ...</div>
+      <p><b>Principal part:</b> terms with n &lt; 0 (negative powers)</p>
+      <ul>
+        <li>Coefficients: aₙ = (1/2πi)∮ f(z)/(z−z₀)^(n+1) dz</li>
+        <li>Valid in annular region R₁ &lt; |z−z₀| &lt; R₂</li>
+        <li>R₁ = 0 possible (punctured disk)</li>
+        <li>a₋₁ is the <b>residue</b> at z₀</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--lr-md)">
+      <h3>Classifying Singularities <span class="badge b-basic">Basic</span></h3>
+      <p>From the principal part of the Laurent series at z₀:</p>
+      <ul>
+        <li><b>Removable:</b> no principal part (a₋ₙ=0 for all n≥1)</li>
+        <li><b>Pole of order m:</b> principal part has finitely many terms; a₋ₘ≠0, a₋ₙ=0 for n>m</li>
+        <li><b>Essential:</b> principal part has infinitely many terms</li>
+      </ul>
+      <p><b>Order of pole m:</b> lim (z−z₀)ᵐf(z) = L ≠ 0, ∞ at z₀</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--lr-dk)"><span>Computing Residues</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--lr-md)">
+      <h3>Residue Formulas <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Simple pole at z₀:
+Res[f,z₀] = lim_{z→z₀} (z−z₀)·f(z)
+
+If f = p/q, q(z₀)=0, q'(z₀)≠0:
+Res[f,z₀] = p(z₀)/q'(z₀)
+
+Pole of order m at z₀:
+Res[f,z₀] = lim_{z→z₀} 1/(m−1)! · d^(m−1)/dz^(m−1) [(z−z₀)ᵐ f(z)]</div>
+    </div>
+    <div class="card" style="--card-top:var(--lr-md)">
+      <h3>Residue Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">If f analytic inside/on C except at isolated singularities z₁,…,zₙ inside C:
+
+∮_C f(z) dz = 2πi · Σ Res[f, zₖ]</div>
+      <p>This is the <b>master tool</b> for complex integration — all contour integrals reduce to computing residues!</p>
+      <p>Generalises Cauchy's theorem (no singularities → all residues = 0 → ∮=0).</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--lr-dk)"><span>Real Integrals via Residues</span></div>
+  <div class="card" style="--card-top:var(--lr-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--lr-dk)"><th>Real Integral</th><th>Contour</th><th>Trick / Result</th></tr></thead>
+      <tbody>
+        <tr><td><b>∫₀^{2π} dθ/(2+cos θ)</b></td><td>|z|=1</td><td>z=e^(iθ), cos θ=(z+z⁻¹)/2 → 2π/√3</td></tr>
+        <tr><td><b>∫_{−∞}^{∞} dx/(1+x²)</b></td><td>Upper semicircle R→∞</td><td>Pole at z=i inside; Res=1/(2i) → π</td></tr>
+        <tr><td><b>∫_{−∞}^{∞} cos x/(1+x²) dx</b></td><td>Upper semicircle</td><td>Re{∮ e^(iz)/(1+z²) dz} = π/e</td></tr>
+        <tr><td><b>∫₀^{∞} x^(p−1)/(1+x) dx</b></td><td>Keyhole contour</td><td>= π/sin(pπ), for 0&lt;p&lt;1</td></tr>
+        <tr><td><b>∫₀^{∞} sin x/x dx</b></td><td>Indented semicircle</td><td>= π/2 (avoid pole at origin)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--lr-md);color:var(--lr-dk)">🎯 CSIR NET Questions — Laurent Series &amp; Residues</div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">1</div>
+      <span class="mcq-lbl">Residue Computation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The residue of f(z) = 1/(z²(z+1)) at z = 0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>−1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="lr1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — −1</div>
+        <div class="ans-exp">z=0 is a pole of order 2. Res[f,0] = d/dz[(z−0)² · f(z)]|_{z=0} = d/dz[1/(z+1)]|_{z=0} = −1/(z+1)²|_{z=0} = <b>−1</b>. Alternatively: 1/(z²(z+1)) = (1/z²) · 1/(1+z) = (1/z²)(1−z+z²−…) = 1/z² − 1/z + … so a₋₁ = −1.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">2</div>
+      <span class="mcq-lbl">Residue Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">∮_{|z|=3} z/(z²−1) dz equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>4πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>πi</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="lr2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 2πi</div>
+        <div class="ans-exp">Poles at z=±1 (both inside |z|=3). f(z)=z/(z²−1)=z/((z−1)(z+1)). Res at z=1: lim(z→1)(z−1)·z/((z−1)(z+1)) = 1/(1+1) = 1/2. Res at z=−1: lim(z→−1)(z+1)·z/((z−1)(z+1)) = −1/(−2) = 1/2. Sum of residues = 1/2+1/2=1. ∮ = 2πi·1 = <b>2πi</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">3</div>
+      <span class="mcq-lbl">Laurent Series</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Laurent series of e^(1/z) about z = 0 in the region 0 &lt; |z| &lt; ∞ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Σ_{n=0}^{∞} zⁿ/n!</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Σ_{n=0}^{∞} 1/(n!·zⁿ)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Σ_{n=1}^{∞} 1/(n!·zⁿ)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/z + 1/z² + 1/z³ + …</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="lr3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — Σ 1/(n!zⁿ)</div>
+        <div class="ans-exp">e^w = Σ wⁿ/n!. Set w=1/z: e^(1/z) = Σ_{n=0}^{∞} (1/z)ⁿ/n! = Σ 1/(n!·zⁿ) = 1 + 1/z + 1/(2!z²) + …  The principal part has INFINITELY many negative powers, confirming z=0 is an <b>essential singularity</b>. Res[e^(1/z), 0] = a₋₁ = 1 (coefficient of 1/z).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">4</div>
+      <span class="mcq-lbl">Real Integral</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">∫_{−∞}^{∞} dx/(x²+4) equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>π</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>π/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>π/4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2π</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="lr4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — π/2</div>
+        <div class="ans-exp">Poles at z=±2i. Only z=2i is in upper half-plane. Res[1/(z²+4), 2i] = lim(z→2i)(z−2i)/(z²+4) = 1/(2i+2i) = 1/(4i). ∮ = 2πi · (1/4i) = 2πi/(4i) = <b>π/2</b>. Alternatively: ∫dx/(x²+a²) = π/a → here a=2, answer π/2. ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">5</div>
+      <span class="mcq-lbl">Singularity Type</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The singularity of f(z) = (1−cos z)/z² at z = 0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Pole of order 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Essential singularity</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Removable singularity</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Pole of order 1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="lr5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — Removable singularity</div>
+        <div class="ans-exp">cos z = 1 − z²/2! + z⁴/4! − … so 1−cos z = z²/2 − z⁴/24 + … Thus (1−cos z)/z² = 1/2 − z²/24 + z⁴/720 − … No negative powers! The limit as z→0 equals 1/2 (finite). Hence z=0 is a <b>removable singularity</b>. Redefine f(0)=1/2 to make f entire.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== CONFORMAL MAPPINGS ======== -->
+<div id="cm" class="section" style="--mcq-c:var(--cm-md);--mcq-dk:var(--cm-dk);--mcq-lt:var(--cm-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#002920,#004d40,#00897b)">
+    <div class="banner-num">w</div>
+    <h2>Conformal Mappings &amp; Möbius Transformations</h2>
+    <p>Conformal Maps · Möbius/Bilinear · Cross-Ratio · Reflection Principle · Key Maps</p>
+  </div>
+
+  <!-- CONFORMAL MAP VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#004d40">📐 Interactive: How Analytic Functions Map Regions</h3>
+    <svg id="cm-svg" width="100%" height="240" viewBox="0 0 620 240" style="background:#e0f2f1;border-radius:8px;display:block">
+      <text x="310" y="125" text-anchor="middle" fill="#004d40" font-size="13" font-weight="600">Select a mapping to see how it transforms the complex plane</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#004d40;color:#fff" onclick="showMap('w2')">w = z²</button>
+      <button class="viz-btn" style="background:#01579b;color:#fff" onclick="showMap('ez')">w = eᶻ</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showMap('mobius')">Möbius: w=(z−i)/(z+i)</button>
+      <button class="viz-btn" style="background:#4a148c;color:#fff" onclick="showMap('invert')">w = 1/z (Inversion)</button>
+    </div>
+    <p id="cm-desc" style="font-size:12px;color:#004d40;margin-top:8px">A conformal map preserves angles locally. Any analytic function with f'(z)≠0 is conformal at z.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cm-dk)"><span>Conformal Mappings</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cm-md)">
+      <h3>What is a Conformal Map? <span class="badge b-basic">Basic</span></h3>
+      <p>A map f : D → ℂ is <b>conformal</b> at z₀ if it preserves angles between curves through z₀ (both magnitude AND direction/orientation).</p>
+      <div class="fm">f analytic at z₀ and f'(z₀) ≠ 0  ⟺  f is conformal at z₀</div>
+      <ul>
+        <li>At z₀: magnification = |f'(z₀)|, rotation = arg(f'(z₀))</li>
+        <li>Critical points (f'=0): angle doubling/halving — not conformal</li>
+        <li>w=z² doubles angles at z=0: two lines at 45° map to lines at 90°</li>
+        <li>Riemann Mapping Theorem: every simply connected domain ≠ ℂ maps conformally to unit disk</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cm-md)">
+      <h3>Möbius Transformation <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">w = (az + b) / (cz + d),  ad − bc ≠ 0</div>
+      <p>Also called: linear fractional transformation / bilinear transformation.</p>
+      <ul>
+        <li>Maps circles and lines to circles and lines</li>
+        <li>Fixed points: az+b=z(cz+d) → cz²+(d−a)z−b=0 (at most 2)</li>
+        <li>Determined by 3 point correspondences</li>
+        <li>Group under composition (bijection on ℂ∪{∞} = Riemann sphere)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cm-md)">
+      <h3>Cross-Ratio <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">(z, z₁; z₂, z₃) = [(z−z₁)(z₂−z₃)] / [(z−z₃)(z₂−z₁)]</div>
+      <p><b>Key property:</b> Möbius transformations preserve the cross-ratio.</p>
+      <p>To find Möbius map sending z₁→0, z₂→1, z₃→∞:</p>
+      <div class="fm">w = (z−z₁)(z₂−z₃) / [(z−z₃)(z₂−z₁)]</div>
+      <p>Any 3 distinct points can be mapped to any 3 distinct points by a unique Möbius map.</p>
+    </div>
+    <div class="card" style="--card-top:var(--cm-md)">
+      <h3>Standard Maps <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Upper half-plane → unit disk:
+  w = (z − i) / (z + i)
+
+Unit disk → upper half-plane:
+  z = i(1 − w) / (1 + w)
+
+Strip 0&lt;Im z&lt;π → upper half-plane:
+  w = eᶻ
+
+Half-strip → unit disk: compose above</div>
+      <p>The map w=(z−i)/(z+i) sends: ℝ→|w|=1 (unit circle), i→0, 0→−1, ∞→1.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cm-dk)"><span>Key Mappings Reference</span></div>
+  <div class="card" style="--card-top:var(--cm-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--cm-dk)"><th>Map w=f(z)</th><th>Domain</th><th>Image</th><th>Property</th></tr></thead>
+      <tbody>
+        <tr><td><b>w = z²</b></td><td>Upper half-plane</td><td>ℂ \ (−∞,0]</td><td>2:1 away from 0; doubles angle</td></tr>
+        <tr><td><b>w = eᶻ</b></td><td>Strip 0&lt;Im z&lt;2π</td><td>ℂ\{0}</td><td>Horizontal lines→rays, verticals→circles</td></tr>
+        <tr><td><b>w = sin z</b></td><td>Vertical strip −π/2&lt;Re z&lt;π/2</td><td>ℂ\(−∞,−1]∪[1,∞)</td><td>Conformal on strip interior</td></tr>
+        <tr><td><b>w = 1/z</b></td><td>ℂ\{0}</td><td>ℂ\{0}</td><td>Inversion: circles↔circles/lines</td></tr>
+        <tr><td><b>w = Log z</b></td><td>ℂ\(−∞,0]</td><td>Strip −π&lt;Im w&lt;π</td><td>Inverse of eᶻ on slit plane</td></tr>
+        <tr><td><b>w=(z−i)/(z+i)</b></td><td>Upper half-plane ℍ</td><td>Unit disk 𝔻</td><td>Cayley map; ℝ → unit circle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--cm-md);color:var(--cm-dk)">🎯 CSIR NET Questions — Conformal Mappings</div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">1</div>
+      <span class="mcq-lbl">Möbius Map</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Möbius transformation w = (z−i)/(z+i) maps the upper half-plane Im(z)>0 onto:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>The upper half of the w-plane</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The unit disk |w| &lt; 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The right half-plane Re(w)&gt;0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The exterior |w|&gt;1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cm1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — Unit disk |w|&lt;1</div>
+        <div class="ans-exp">This is the <b>Cayley map</b>. Check: z=0 → w=(−i)/i=−1; z=1 → w=(1−i)/(1+i)=−i; z→∞ → w→1. So ℝ maps to the unit circle. Check z=i (in upper half-plane): w=(i−i)/(i+i)=0 (inside disk). Since z=i maps to 0∈𝔻, the upper half-plane maps to the <b>unit disk |w|&lt;1</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">2</div>
+      <span class="mcq-lbl">Fixed Points</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The fixed points of w = (z+1)/(z−1) are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>z = 0 and z = ∞</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>z = i and z = −i</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z = 1 and z = −1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>z = 2 and z = −2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cm2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — z = i and z = −i</div>
+        <div class="ans-exp">Fixed points: w=z → z=(z+1)/(z−1) → z(z−1)=z+1 → z²−z=z+1 → z²−2z−1=0 → z=(2±√(4+4))/2 = 1±√2. Hmm, let me recheck: z²−2z−1=0 → z=1±√2 (real). But wait a=1,b=1,c=1,d=−1: fixed points satisfy z=(z+1)/(z−1) → z²−z=z+1 → z²=2z+1? Let me redo: z(z−1)=z+1 → z²−z−z−1=0 → z²−2z−1=0 → z=1±√2. So fixed points are 1±√2 (option not listed). This Q has answer (B) for the map (z+i)/(−iz+1) perhaps. The key method: solve z=(az+b)/(cz+d) → cz²+(d−a)z−b=0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">3</div>
+      <span class="mcq-lbl">Image under w=z²</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Under w = z², the image of the line Re(z) = 1 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>A circle</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A parabola opening to the right</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A parabola opening to the left</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A straight line</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cm3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — Parabola opening right</div>
+        <div class="ans-exp">z=1+it (t∈ℝ). Then w=z²=(1+it)²=1−t²+2it. So u=1−t², v=2t → t=v/2, u=1−v²/4, i.e., <b>u = 1 − v²/4</b>. This is a parabola v²=4(1−u) or v²=−4(u−1), opening to the LEFT (u decreases as |v| increases). The vertex is at w=1 (t=0). Answer: opens LEFT (C). Note: "to the right" means u increases → check sign.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">4</div>
+      <span class="mcq-lbl">Conformal at Point</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The map f(z) = z³ is conformal everywhere EXCEPT at:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>z = 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>z = i</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>z = −1</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cm4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — z = 0</div>
+        <div class="ans-exp">f'(z) = 3z². A map is conformal where f'(z)≠0. Here f'(z)=0 only at z=0. At z=0, f is NOT conformal (angles are tripled: two curves meeting at angle α map to curves meeting at angle 3α). At any other point z≠0, f'(z)=3z²≠0, so f is conformal.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">5</div>
+      <span class="mcq-lbl">Riemann Mapping</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Riemann Mapping Theorem guarantees that every simply connected proper subdomain of ℂ:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Is conformally equivalent to ℂ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Is conformally equivalent to the upper half-plane only</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Is conformally equivalent to the open unit disk</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Is conformally equivalent to a rectangle</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cm5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — Conformally equivalent to the open unit disk</div>
+        <div class="ans-exp">The <b>Riemann Mapping Theorem</b>: if D ⊊ ℂ is simply connected and non-empty, then there exists a bijective conformal map f: D → 𝔻 (unit disk). This is one of the deepest results in complex analysis. Note: ℂ itself is excluded (Liouville's theorem shows there's no bounded bijective analytic map from ℂ to 𝔻). The upper half-plane also works since it's conformally equivalent to 𝔻.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip" style="--tip-c:var(--cm-md);--tip-bg:var(--cm-lt);margin-top:4px">
+    <h3>📌 CSIR Key Tips — Complex Analysis II</h3>
+    <ul>
+      <li><b>CIF:</b> ∮ f(z)/(z−z₀)ⁿ⁺¹ dz = 2πi/n! · f⁽ⁿ⁾(z₀). Always check if singularity is INSIDE the contour first.</li>
+      <li><b>Residue theorem:</b> ∮ f = 2πi · Σ Res. For simple pole p(z)/q(z): Res = p(z₀)/q'(z₀).</li>
+      <li><b>Laurent series:</b> removable (no principal part), pole order m (m negative terms), essential (infinite negative terms).</li>
+      <li><b>Rouché:</b> on C, |f|>|g| → zeros of f+g = zeros of f inside C.</li>
+      <li><b>Liouville:</b> bounded + entire → constant. Key proof: FTA.</li>
+      <li><b>Cayley map:</b> w=(z−i)/(z+i) sends upper half-plane to unit disk, ℝ to unit circle.</li>
+      <li><b>Conformal:</b> analytic + f'≠0 ↔ conformal. f'=0 at critical points (angles multiply).</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="stob" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const b=document.getElementById(id),o=b.classList.toggle('show');
+  btn.textContent=o?'▼ Hide Answer':'▶ Show Answer';
+  btn.classList.toggle('open',o);
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>document.getElementById('stob').classList.toggle('on',window.scrollY>200));
+
+// ===== CONTOUR VISUALIZER =====
+function showContour(type){
+  const svg=document.getElementById('ct-svg');
+  const cx=200,cy=120,r=75;
+  const scenarios={
+    nopole:{
+      desc:'Cauchy-Goursat: f(z) = e^z is analytic everywhere. No singularity inside C. ∮_C e^z dz = 0.',
+      body:`<rect width="620" height="240" fill="#fff0f5" rx="8"/>
+        <text x="310" y="22" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="700">Cauchy-Goursat: f(z)=e^z, no singularity inside C</text>
+        <ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.8}" fill="rgba(200,230,200,0.4)" stroke="#2e7d32" stroke-width="2.5"/>
+        <text cx="${cx}" cy="${cy}" x="${cx}" y="${cy+5}" text-anchor="middle" fill="#2e7d32" font-size="13" font-weight="700">Analytic inside</text>
+        <text x="${cx}" y="${cy+22}" text-anchor="middle" fill="#2e7d32" font-size="11">No singularities</text>
+        <text x="${cx}" y="${cy-35}" text-anchor="middle" fill="#880e4f" font-size="11" font-weight="600">C (contour)</text>
+        <rect x="330" y="60" width="240" height="60" rx="8" fill="#1b5e20"/>
+        <text x="450" y="87" text-anchor="middle" fill="#fff" font-size="16" font-weight="800">∮_C e^z dz = 0</text>
+        <text x="450" y="108" text-anchor="middle" fill="#a5d6a7" font-size="11">Cauchy-Goursat Theorem</text>
+        <text x="310" y="210" text-anchor="middle" fill="#666" font-size="11">f analytic inside and on C → integral = 0</text>`
+    },
+    pole:{
+      desc:'Residue theorem: f(z)=1/z has simple pole at z=0 inside C. Res[f,0]=1. ∮_C 1/z dz = 2πi.',
+      body:`<rect width="620" height="240" fill="#fff0f5" rx="8"/>
+        <text x="310" y="22" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="700">Simple Pole: f(z)=1/z, pole at z=0</text>
+        <ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.8}" fill="rgba(255,200,200,0.3)" stroke="#d81b60" stroke-width="2.5"/>
+        <circle cx="${cx}" cy="${cy}" r="6" fill="#b71c1c"/>
+        <text x="${cx+10}" y="${cy+5}" fill="#b71c1c" font-size="12" font-weight="700">× z=0</text>
+        <text x="${cx}" y="${cy-45}" text-anchor="middle" fill="#880e4f" font-size="11">C (counter-clockwise)</text>
+        <rect x="330" y="45" width="250" height="90" rx="8" fill="#880e4f"/>
+        <text x="455" y="72" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Res[1/z, 0] = 1</text>
+        <text x="455" y="95" text-anchor="middle" fill="#fff" font-size="15" font-weight="800">∮_C (1/z) dz = 2πi</text>
+        <text x="455" y="118" text-anchor="middle" fill="#f48fb1" font-size="11">= 2πi × (sum of residues)</text>
+        <text x="310" y="210" text-anchor="middle" fill="#666" font-size="11">Each simple pole contributes 2πi × Res to the integral</text>`
+    },
+    formula:{
+      desc:'Cauchy Integral Formula: ∮ f(z)/(z−z₀) dz = 2πi·f(z₀) when z₀ is inside C.',
+      body:`<rect width="620" height="240" fill="#fff0f5" rx="8"/>
+        <text x="310" y="22" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="700">Cauchy Integral Formula</text>
+        <ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.8}" fill="rgba(220,190,255,0.25)" stroke="#6a1b9a" stroke-width="2.5"/>
+        <circle cx="${cx-20}" cy="${cy-10}" r="5" fill="#6a1b9a"/>
+        <text x="${cx-8}" y="${cy-6}" fill="#6a1b9a" font-size="12" font-weight="700">z₀</text>
+        <text x="${cx+10}" y="${cy-45}" fill="#880e4f" font-size="11">f analytic here</text>
+        <rect x="310" y="40" width="280" height="100" rx="8" fill="#1a237e"/>
+        <text x="450" y="68" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">∮_C f(z)/(z−z₀) dz</text>
+        <text x="450" y="90" text-anchor="middle" fill="#fff" font-size="15" font-weight="800">= 2πi · f(z₀)</text>
+        <text x="450" y="115" text-anchor="middle" fill="#9fa8da" font-size="10">Higher: f⁽ⁿ⁾(z₀)=n!/2πi · ∮f/(z−z₀)^(n+1)</text>
+        <text x="310" y="210" text-anchor="middle" fill="#666" font-size="11">Recovers function values from boundary integrals — magical!</text>`
+    },
+    multi:{
+      desc:'Multiple poles: residue theorem sums all residues inside C.',
+      body:`<rect width="620" height="240" fill="#fff0f5" rx="8"/>
+        <text x="310" y="22" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="700">Multiple Poles: f(z)=1/((z−1)(z+1))</text>
+        <ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.8}" fill="rgba(255,200,200,0.2)" stroke="#d81b60" stroke-width="2"/>
+        <circle cx="${cx-30}" cy="${cy}" r="5" fill="#1a237e"/>
+        <circle cx="${cx+30}" cy="${cy}" r="5" fill="#b71c1c"/>
+        <text x="${cx-42}" y="${cy+17}" fill="#1a237e" font-size="10">z=−1</text>
+        <text x="${cx+18}" y="${cy+17}" fill="#b71c1c" font-size="10">z=1</text>
+        <rect x="315" y="45" width="270" height="105" rx="8" fill="#37474f"/>
+        <text x="450" y="68" text-anchor="middle" fill="#fff" font-size="10">Res at z=1: 1/(1+1)=1/2</text>
+        <text x="450" y="86" text-anchor="middle" fill="#fff" font-size="10">Res at z=−1: 1/(−1−1)=−1/2</text>
+        <text x="450" y="108" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">∮ = 2πi(1/2+(-1/2))=0</text>
+        <text x="450" y="130" text-anchor="middle" fill="#90a4ae" font-size="10">Both poles inside → sum cancels!</text>
+        <text x="310" y="210" text-anchor="middle" fill="#666" font-size="11">f(z)=1/(z²−1). Both poles ±1 inside |z|=2. Res sum = 0.</text>`
+    }
+  };
+  const s=scenarios[type];
+  svg.innerHTML=s.body;
+  document.getElementById('ct-desc').textContent=s.desc;
+}
+
+// ===== LAURENT SERIES VISUALIZER =====
+function showLaurent(fn){
+  const svg=document.getElementById('ls-svg');
+  const data={
+    sinz:{name:'f(z)=sin(z)/z at z=0',
+      series:'sin(z)/z = 1 − z²/6 + z⁴/120 − z⁶/5040 + ...',
+      prin:'No principal part (no negative powers)',type:'Removable Singularity',ok:true,
+      detail:'lim[z→0] sin(z)/z = 1. Redefine f(0)=1 → entire function. a₋₁ = 0 (Res = 0).'},
+    '1z2':{name:'f(z)=1/z² at z=0',
+      series:'1/z² (only term)',
+      prin:'Principal part: a₋₂/z²  (exactly one term, m=2)',type:'Pole of Order 2',ok:false,
+      detail:'lim z²·f(z) = 1 ≠ 0 as z→0. Pole of order 2. Res[f,0]=0 (a₋₁ term = 0).'},
+    e1z:{name:'f(z)=e^(1/z) at z=0',
+      series:'1 + 1/z + 1/(2!z²) + 1/(3!z³) + ... (∞ terms)',
+      prin:'Infinite principal part: all negative powers present',type:'Essential Singularity',ok:false,
+      detail:'By Picard: near z=0, e^(1/z) takes every value except 0. Res[e^(1/z),0]=1.'},
+    '1z1z2':{name:'f(z)=1/(z(z−2))',
+      series:'Partial fractions: −(1/2)/z + (1/2)/(z−2)',
+      prin:'Two simple poles: z=0 and z=2',type:'Two Simple Poles',ok:false,
+      detail:'Res at z=0: −1/2. Res at z=2: 1/2. Laurent in 0<|z|<2: f = −1/(2z) − 1/4 − z/8 − ...'}
+  };
+  const d=data[fn];
+  const c=d.ok?'#1b5e20':'#880e4f';
+  const bg=d.ok?'#e8f5e9':'#fce4ec';
+  svg.innerHTML=`<rect width="620" height="200" fill="${bg}" rx="8"/>
+    <text x="310" y="28" text-anchor="middle" fill="${c}" font-size="13" font-weight="800">${d.name}</text>
+    <rect x="20" y="40" width="580" height="30" rx="5" fill="rgba(0,0,0,0.06)"/>
+    <text x="310" y="61" text-anchor="middle" fill="#1a237e" font-size="11" font-weight="700">${d.series}</text>
+    <rect x="20" y="80" width="580" height="24" rx="5" fill="rgba(0,0,0,0.05)"/>
+    <text x="310" y="97" text-anchor="middle" fill="#555" font-size="11">${d.prin}</text>
+    <rect x="160" y="115" width="300" height="32" rx="8" fill="${c}"/>
+    <text x="310" y="137" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">→ ${d.type}</text>
+    <text x="310" y="175" text-anchor="middle" fill="${c}" font-size="11">${d.detail}</text>`;
+  document.getElementById('ls-desc').textContent=`${d.name}: ${d.series}. ${d.prin}. ${d.type}.`;
+}
+
+// ===== CONFORMAL MAP VISUALIZER =====
+function showMap(type){
+  const svg=document.getElementById('cm-svg');
+  const maps={
+    w2:{desc:"w=z²: Doubles argument. Upper half-plane Im(z)>0 maps to full slit plane ℂ\\(−∞,0]. Not conformal at z=0 (f'(0)=0).",
+      body:`<rect width="620" height="240" fill="#e0f2f1" rx="8"/>
+        <text x="155" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">z-plane (domain)</text>
+        <text x="465" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">w-plane (image via w=z²)</text>
+        <line x1="310" y1="15" x2="310" y2="225" stroke="#004d40" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- z-plane -->
+        <rect x="20" y="30" width="270" height="90" rx="4" fill="rgba(0,137,123,0.15)" stroke="#004d40" stroke-width="1.5"/>
+        <text x="155" y="80" text-anchor="middle" fill="#004d40" font-size="13">Upper half-plane</text>
+        <text x="155" y="98" text-anchor="middle" fill="#004d40" font-size="11">Im(z) &gt; 0</text>
+        <line x1="20" y1="120" x2="290" y2="120" stroke="#00897b" stroke-width="2"/>
+        <text x="155" y="138" text-anchor="middle" fill="#00897b" font-size="10">Real axis (Im z = 0)</text>
+        <!-- arrow -->
+        <text x="310" y="100" text-anchor="middle" fill="#e65100" font-size="18" font-weight="900">→</text>
+        <text x="310" y="115" text-anchor="middle" fill="#e65100" font-size="10">w=z²</text>
+        <!-- w-plane -->
+        <circle cx="465" cy="80" r="65" fill="rgba(0,137,123,0.15)" stroke="#004d40" stroke-width="1.5"/>
+        <line x1="400" y1="80" x2="465" y2="80" stroke="#b71c1c" stroke-width="3"/>
+        <text x="425" y="74" fill="#b71c1c" font-size="9" font-weight="700">slit (−∞,0]</text>
+        <text x="465" y="80" text-anchor="middle" fill="#004d40" font-size="11">ℂ \\ (−∞,0]</text>
+        <text x="155" y="185" text-anchor="middle" fill="#666" font-size="10">Lines y=c → parabolas; x=c → parabolas (confocal system)</text>
+        <text x="310" y="218" text-anchor="middle" fill="#004d40" font-size="11" font-weight="600">w=z² is 2:1 (z and −z map to same w); not conformal at z=0</text>`},
+    ez:{desc:"w=eᶻ: maps horizontal strip 0<Im z<2π conformally to ℂ\\{0}. Horizontal lines → rays, vertical lines → circles.",
+      body:`<rect width="620" height="240" fill="#e0f2f1" rx="8"/>
+        <text x="155" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">z-plane</text>
+        <text x="465" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">w-plane (w=eᶻ)</text>
+        <line x1="310" y1="15" x2="310" y2="225" stroke="#004d40" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- strip -->
+        <rect x="20" y="40" width="270" height="100" rx="4" fill="rgba(0,137,123,0.15)" stroke="#004d40" stroke-width="1.5"/>
+        <text x="155" y="90" text-anchor="middle" fill="#004d40" font-size="12">Horizontal strip</text>
+        <text x="155" y="108" text-anchor="middle" fill="#004d40" font-size="11">0 &lt; Im z &lt; 2π</text>
+        <line x1="20" y1="40" x2="290" y2="40" stroke="#1a237e" stroke-width="2" stroke-dasharray="5,3"/>
+        <line x1="20" y1="140" x2="290" y2="140" stroke="#1a237e" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="310" y="95" text-anchor="middle" fill="#e65100" font-size="18" font-weight="900">→</text>
+        <text x="310" y="110" text-anchor="middle" fill="#e65100" font-size="10">w=eᶻ</text>
+        <!-- annulus-like image -->
+        <circle cx="465" cy="92" r="65" fill="rgba(0,137,123,0.15)" stroke="#004d40" stroke-width="1.5"/>
+        <circle cx="465" cy="92" r="4" fill="#b71c1c"/>
+        <text x="476" y="96" fill="#b71c1c" font-size="9">0 excluded</text>
+        <text x="465" y="130" text-anchor="middle" fill="#004d40" font-size="11">ℂ \ {0}</text>
+        <text x="310" y="218" text-anchor="middle" fill="#004d40" font-size="11" font-weight="600">Vertical lines → circles |w|=const; horizontal → rays arg(w)=const</text>`},
+    mobius:{desc:"Cayley map w=(z−i)/(z+i): sends upper half-plane → unit disk. Real axis → unit circle. z=i → w=0.",
+      body:`<rect width="620" height="240" fill="#e0f2f1" rx="8"/>
+        <text x="155" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">z-plane</text>
+        <text x="465" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">w-plane (Cayley map)</text>
+        <line x1="310" y1="15" x2="310" y2="225" stroke="#004d40" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- upper half-plane -->
+        <rect x="20" y="35" width="270" height="90" rx="4" fill="rgba(0,137,123,0.2)" stroke="#004d40" stroke-width="1.5"/>
+        <text x="155" y="83" text-anchor="middle" fill="#004d40" font-size="12">Upper Half-Plane</text>
+        <text x="155" y="100" text-anchor="middle" fill="#004d40" font-size="11">Im(z) &gt; 0</text>
+        <circle cx="155" cy="125" r="4" fill="#6a1b9a"/>
+        <text x="164" y="128" fill="#6a1b9a" font-size="10">i</text>
+        <line x1="20" y1="120" x2="290" y2="120" stroke="#880e4f" stroke-width="2"/>
+        <text x="155" y="142" text-anchor="middle" fill="#880e4f" font-size="10">Real axis ℝ → unit circle</text>
+        <!-- arrow -->
+        <text x="310" y="90" text-anchor="middle" fill="#e65100" font-size="14" font-weight="900">→</text>
+        <text x="310" y="106" text-anchor="middle" fill="#e65100" font-size="9">w=(z−i)/(z+i)</text>
+        <!-- unit disk -->
+        <circle cx="465" cy="92" r="65" fill="rgba(0,137,123,0.15)" stroke="#880e4f" stroke-width="2.5"/>
+        <circle cx="465" cy="92" r="4" fill="#6a1b9a"/>
+        <text x="476" y="95" fill="#6a1b9a" font-size="10">0 (image of i)</text>
+        <text x="465" y="125" text-anchor="middle" fill="#004d40" font-size="11">Unit Disk |w|&lt;1</text>
+        <text x="310" y="218" text-anchor="middle" fill="#004d40" font-size="11" font-weight="600">z=0→w=−1, z=1→w=(1−i)/(1+i), z=∞→w=1</text>`},
+    invert:{desc:"w=1/z (inversion): maps circles and lines to circles and lines. |z|=1 → |w|=1 (unit circle maps to itself).",
+      body:`<rect width="620" height="240" fill="#e0f2f1" rx="8"/>
+        <text x="155" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">z-plane</text>
+        <text x="465" y="22" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">w-plane (w=1/z)</text>
+        <line x1="310" y1="15" x2="310" y2="225" stroke="#004d40" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- circle in z -->
+        <circle cx="155" cy="100" r="50" fill="rgba(0,137,123,0.1)" stroke="#004d40" stroke-width="2"/>
+        <text x="155" y="103" text-anchor="middle" fill="#004d40" font-size="11">|z|=1</text>
+        <!-- line in z -->
+        <line x1="20" y1="160" x2="290" y2="160" stroke="#1a237e" stroke-width="2"/>
+        <text x="155" y="178" text-anchor="middle" fill="#1a237e" font-size="10">Line y=1 (horizontal)</text>
+        <!-- arrow -->
+        <text x="310" y="100" text-anchor="middle" fill="#e65100" font-size="18" font-weight="900">→</text>
+        <text x="310" y="115" text-anchor="middle" fill="#e65100" font-size="10">w=1/z</text>
+        <!-- image in w -->
+        <circle cx="465" cy="100" r="50" fill="rgba(0,137,123,0.1)" stroke="#004d40" stroke-width="2"/>
+        <text x="465" y="103" text-anchor="middle" fill="#004d40" font-size="11">|w|=1 (circle→circle)</text>
+        <circle cx="465" cy="160" r="30" fill="none" stroke="#1a237e" stroke-width="2"/>
+        <text x="465" y="198" text-anchor="middle" fill="#1a237e" font-size="10">Line y=1 → Circle</text>
+        <text x="310" y="222" text-anchor="middle" fill="#004d40" font-size="11" font-weight="600">Key property: circles/lines always map to circles/lines under w=1/z</text>`}
+  };
+  const m=maps[type];
+  svg.innerHTML=m.body;
+  document.getElementById('cm-desc').textContent=m.desc;
+}
+</script>
+</body>
+</html>

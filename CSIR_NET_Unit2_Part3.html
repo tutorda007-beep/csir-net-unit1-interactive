@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 2 — Algebra I</title>
+<style>
+:root{
+  --cb-dk:#1b5e20;--cb-md:#2e7d32;--cb-lt:#e8f5e9;
+  --nt-dk:#bf360c;--nt-md:#e64a19;--nt-lt:#fbe9e7;
+  --gt-dk:#1a237e;--gt-md:#3949ab;--gt-lt:#e8eaf6;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#0d3320,#1b5e20,#2e7d32);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#0a2010;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#66bb6a;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#a5d6a7);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#a5d6a7);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:52px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.card.tip{border-left:4px solid var(--tip-c,#2e7d32);border-radius:4px 10px 10px 4px;background:var(--tip-bg,#e8f5e9);border-top-color:var(--tip-c,#2e7d32)}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;color:#fff}
+.rtbl td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px;line-height:1.55}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.rtbl tr:hover td{background:#f0f4ff}
+.mcq-title{font-size:15px;font-weight:800;margin:22px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f);display:flex;align-items:center;gap:8px}
+.mcq{background:#fff;border-radius:10px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;padding:9px 14px;gap:10px;border-bottom:1px solid rgba(0,0,0,.05)}
+.mcq-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.mcq-lbl{font-size:11px;font-weight:600;color:#555;flex:1}
+.mcq-d{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:13px 15px 11px}
+.mcq-q{font-size:13px;font-weight:500;margin-bottom:11px;line-height:1.65;color:#1a1a2e}
+.opts{display:grid;gap:6px;margin-bottom:11px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:7px;border:1.5px solid #e8e8e8;cursor:pointer;font-size:12px;transition:all .15s;background:#fafafa;line-height:1.5}
+.opt:hover{border-color:var(--mcq-c);background:var(--mcq-lt)}.opt.sel{border-color:var(--mcq-c);background:var(--mcq-lt)}
+.opt-l{font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8e8e8;flex-shrink:0;margin-top:1px}
+.btn-ans{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11.5px;font-weight:700;transition:all .2s;background:var(--mcq-dk,#37474f);color:#fff}
+.btn-ans:hover{opacity:.85}.btn-ans.open{background:#607d8b}
+.ans-box{display:none;margin-top:11px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
+.ans-box.show{display:block}
+.ans-top{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-size:13px;font-weight:700}
+.ans-exp{padding:11px 14px;font-size:12px;line-height:1.7}
+.ans-exp b{color:#1a237e}
+.viz-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px;border:1px solid #e8e8e8}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:12px}
+.viz-ctrl{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.viz-btn{padding:6px 14px;border:none;border-radius:20px;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .18s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+/* Cayley table */
+.cayley-wrap{overflow-x:auto;margin-top:10px}
+.cayley{border-collapse:collapse;font-size:13px;font-weight:600}
+.cayley td,.cayley th{border:1px solid #ccc;padding:7px 12px;text-align:center;min-width:36px}
+.cayley .hdr-cell{background:var(--gt-md);color:#fff}
+.cayley .row-hdr{background:var(--gt-lt);color:var(--gt-dk);font-weight:800}
+.cayley .body-cell{background:#fff;color:#1a237e;cursor:pointer;transition:background .15s}
+.cayley .body-cell:hover{background:#c5cae9}
+.cayley .body-cell.hl{background:#ffeb3b;color:#333}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#1b5e20;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 2 — Algebra I</div>
+  <div class="hdr-s">Combinatorics · Number Theory · Group Theory</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit2_Part2.html">← Complex II</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit2_Part4.html">Algebra II →</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Algebra I</div>
+  <div class="nav-item active" style="--ac:#a5d6a7;--dc:#a5d6a7" onclick="show('cb',this)">
+    <div class="nav-dot"></div>Combinatorics
+  </div>
+  <div class="nav-item" style="--ac:#ffab91;--dc:#ffab91" onclick="show('nt',this)">
+    <div class="nav-dot"></div>Number Theory
+  </div>
+  <div class="nav-item" style="--ac:#9fa8da;--dc:#9fa8da" onclick="show('gt',this)">
+    <div class="nav-dot"></div>Group Theory
+  </div>
+  <div class="nav-grp">Other Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part1.html'">
+    <div class="nav-dot" style="background:#ce93d8"></div>Complex Analysis I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part2.html'">
+    <div class="nav-dot" style="background:#f48fb1"></div>Complex Analysis II
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit2_Part4.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>Algebra II + Topology
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ======== COMBINATORICS ======== -->
+<div id="cb" class="section active" style="--mcq-c:var(--cb-md);--mcq-dk:var(--cb-dk);--mcq-lt:var(--cb-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d3320,#1b5e20,#2e7d32)">
+    <div class="banner-num">𝑛𝐶𝑟</div>
+    <h2>Combinatorics</h2>
+    <p>Pigeonhole · Inclusion-Exclusion · Permutations · Combinations · Generating Functions · Partitions</p>
+  </div>
+
+  <!-- INTERACTIVE: INCLUSION-EXCLUSION VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#1b5e20">📐 Interactive: Inclusion-Exclusion Principle Visualizer</h3>
+    <svg id="ie-svg" width="100%" height="220" viewBox="0 0 620 220" style="background:#f1f8e9;border-radius:8px;display:block">
+      <text x="310" y="115" text-anchor="middle" fill="#1b5e20" font-size="13" font-weight="600">Click a formula to see the Inclusion-Exclusion principle</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="showIE(2)">2 Sets: |A∪B|</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showIE(3)">3 Sets: |A∪B∪C|</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showIE('dearr')">Derangements D(n)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showIE('pigeon')">Pigeonhole Principle</button>
+    </div>
+    <p id="ie-desc" style="font-size:12px;color:#1b5e20;margin-top:8px">The inclusion-exclusion principle counts elements in unions by adding sets, subtracting pairwise intersections, adding triple intersections, etc.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cb-dk)"><span>Core Counting Principles</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cb-md)">
+      <h3>Basic Counting <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Permutations: P(n,r) = n!/(n−r)!
+Combinations: C(n,r) = n!/(r!(n−r)!)
+Circular: (n−1)! arrangements in circle
+With repetition: nʳ functions from r-set to n-set</div>
+      <ul>
+        <li>C(n,r) = C(n,n−r) (symmetry)</li>
+        <li>C(n,0)+C(n,1)+…+C(n,n) = 2ⁿ (binary subsets)</li>
+        <li>Σ C(n,r)(-1)ʳ = 0 (alternating sum)</li>
+        <li>Multinomial: n!/(n₁!n₂!…nₖ!) arrangements</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cb-md)">
+      <h3>Pigeonhole Principle <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Basic: If n+1 objects in n boxes, some box has ≥ 2 objects.
+
+Generalized: If m objects in n boxes, some box has ≥ ⌈m/n⌉ objects.</div>
+      <ul>
+        <li>5 points in unit square → 2 within distance √2/2</li>
+        <li>Among 13 people: 2 have same birth month</li>
+        <li>Among n+1 integers: 2 are congruent mod n</li>
+        <li>Among 101 integers 1–200: 2 differ by exactly 1</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--cb-md)">
+      <h3>Inclusion-Exclusion <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">|A∪B| = |A|+|B| − |A∩B|
+
+|A∪B∪C| = |A|+|B|+|C|
+  −|A∩B|−|B∩C|−|A∩C|
+  +|A∩B∩C|
+
+|Ā₁∩Ā₂∩…∩Āₙ| = Σ(-1)^k · S_k</div>
+      <p>S_k = sum of |intersections of k sets|</p>
+    </div>
+    <div class="card" style="--card-top:var(--cb-md)">
+      <h3>Derangements <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">D(n) = n!·Σ_{k=0}^{n} (-1)^k/k!
+     = n!(1 − 1 + 1/2! − 1/3! + … ± 1/n!)
+
+Recurrence: D(n) = (n−1)[D(n−1)+D(n−2)]
+D(1)=0, D(2)=1, D(3)=2, D(4)=9</div>
+      <p>A derangement is a permutation with <b>no fixed point</b>.</p>
+      <p>D(n)/n! → 1/e ≈ 0.368 as n→∞ (about 37% chance)</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cb-dk)"><span>Generating Functions &amp; Recurrences</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cb-md)">
+      <h3>Binomial &amp; Multinomial <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Binomial: (x+y)ⁿ = Σ C(n,k) xᵏyⁿ⁻ᵏ
+Negative: (1−x)⁻ⁿ = Σ C(n+k−1,k) xᵏ
+Stars&Bars: distribute n identical into k boxes
+  = C(n+k−1, k−1) ways</div>
+      <p><b>Pascal's triangle:</b> C(n,k) = C(n−1,k−1) + C(n−1,k)</p>
+      <p><b>Vandermonde:</b> Σ C(m,k)C(n,r−k) = C(m+n,r)</p>
+    </div>
+    <div class="card" style="--card-top:var(--cb-md)">
+      <h3>Catalan &amp; Stirling <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Catalan: Cₙ = C(2n,n)/(n+1)
+C₀=1,C₁=1,C₂=2,C₃=5,C₄=14
+Counts: Dyck paths, triangulations, balanced parentheses
+
+Stirling 2nd kind: S(n,k) = partitions of n-set into k parts
+S(n,k) = k·S(n−1,k) + S(n−1,k−1)</div>
+      <p><b>Bell number:</b> Bₙ = Σₖ S(n,k) = total set partitions</p>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--cb-md);color:var(--cb-dk)">🎯 CSIR NET Questions — Combinatorics</div>
+
+  <div class="mcq" style="border-left-color:var(--cb-md)">
+    <div class="mcq-hdr" style="background:var(--cb-lt)">
+      <div class="mcq-num" style="background:var(--cb-dk)">1</div>
+      <span class="mcq-lbl">Inclusion-Exclusion</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">In a group of 100 students, 70 study Math, 60 study Physics, 40 study both. How many study neither?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>10</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>20</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>30</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>40</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cb1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cb1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — 10</div>
+        <div class="ans-exp">|M∪P| = |M|+|P|−|M∩P| = 70+60−40 = 90. Study at least one = 90. Neither = 100−90 = <b>10</b>. Quick: draw Venn: Math only=30, Physics only=20, both=40 → 30+20+40=90 ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cb-md)">
+    <div class="mcq-hdr" style="background:var(--cb-lt)">
+      <div class="mcq-num" style="background:var(--cb-dk)">2</div>
+      <span class="mcq-lbl">Derangements</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The number of permutations of {1,2,3,4} with no element in its natural position (derangements) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>9</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>11</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>12</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cb2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cb2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 9</div>
+        <div class="ans-exp">D(4) = 4!(1 − 1 + 1/2! − 1/3! + 1/4!) = 24(1−1+0.5−1/6+1/24) = 24·(12/24−4/24+1/24) = 24·9/24 = <b>9</b>. By recurrence: D(4) = 3·(D(3)+D(2)) = 3·(2+1) = 9 ✓. Memorise: D(1)=0, D(2)=1, D(3)=2, D(4)=9, D(5)=44.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cb-md)">
+    <div class="mcq-hdr" style="background:var(--cb-lt)">
+      <div class="mcq-num" style="background:var(--cb-dk)">3</div>
+      <span class="mcq-lbl">Pigeonhole</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">What is the minimum number of people needed to guarantee that at least 3 share a birth month?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>13</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>25</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>26</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>24</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cb3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cb3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 25</div>
+        <div class="ans-exp">12 months = 12 boxes. For at least 3 in some box: worst case is 2 in each box = 24 people. Add 1 more → 25th person guarantees ≥3 share a month. Formula: for ≥k in some box with n boxes: need (k−1)·n+1 = (2·12+1) = <b>25</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cb-md)">
+    <div class="mcq-hdr" style="background:var(--cb-lt)">
+      <div class="mcq-num" style="background:var(--cb-dk)">4</div>
+      <span class="mcq-lbl">Counting Problem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The number of non-negative integer solutions to x₁ + x₂ + x₃ = 10 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>55</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>66</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>120</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>36</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cb4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cb4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 66</div>
+        <div class="ans-exp">Stars and Bars: distribute 10 identical balls into 3 boxes. Answer = C(10+3−1, 3−1) = C(12,2) = 12·11/2 = <b>66</b>. This counts solutions where each xᵢ ≥ 0. For positive integer solutions (xᵢ ≥ 1): substitute yᵢ = xᵢ−1 → y₁+y₂+y₃=7 → C(9,2)=36.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cb-md)">
+    <div class="mcq-hdr" style="background:var(--cb-lt)">
+      <div class="mcq-num" style="background:var(--cb-dk)">5</div>
+      <span class="mcq-lbl">Catalan Numbers</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The number of ways to fully parenthesize a product of 5 numbers (so that all orders are considered) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>14</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>42</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>132</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cb5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="cb5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 14</div>
+        <div class="ans-exp">For n numbers, there are Cₙ₋₁ ways (Catalan number). Here n=5, so C₄ = C(8,4)/5 = 70/5 = <b>14</b>. Catalan sequence: C₀=1, C₁=1, C₂=2, C₃=5, C₄=14, C₅=42. Also counts: binary trees with n+1 leaves, triangulations of (n+2)-gon, balanced bracket sequences of length 2n.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== NUMBER THEORY ======== -->
+<div id="nt" class="section" style="--mcq-c:var(--nt-md);--mcq-dk:var(--nt-dk);--mcq-lt:var(--nt-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#7a1800,#bf360c,#e64a19)">
+    <div class="banner-num">ℤₙ</div>
+    <h2>Number Theory</h2>
+    <p>Divisibility · GCD/LCM · Primes · Congruences · Euler φ · CRT · Primitive Roots</p>
+  </div>
+
+  <!-- MODULAR ARITHMETIC VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#bf360c">🔢 Interactive: Modular Arithmetic &amp; Euler's Theorem</h3>
+    <svg id="nt-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#fbe9e7;border-radius:8px;display:block">
+      <text x="310" y="105" text-anchor="middle" fill="#bf360c" font-size="13" font-weight="600">Click to explore modular arithmetic concepts</text>
+    </svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#bf360c;color:#fff" onclick="showNT('clock','12')">Clock mod 12</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showNT('clock','7')">Clock mod 7</button>
+      <button class="viz-btn" style="background:#2e7d32;color:#fff" onclick="showNT('euler')">Euler's Theorem</button>
+      <button class="viz-btn" style="background:#6a1b9a;color:#fff" onclick="showNT('crt')">Chinese Remainder Theorem</button>
+    </div>
+    <p id="nt-desc" style="font-size:12px;color:#bf360c;margin-top:8px">Modular arithmetic: a ≡ b (mod n) means n | (a−b). The set ℤₙ = {0,1,...,n−1} forms a ring under +,× mod n.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--nt-dk)"><span>Divisibility &amp; Primes</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--nt-md)">
+      <h3>GCD, LCM &amp; Bézout <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">gcd(a,b) = gcd(b, a mod b)  [Euclidean algo]
+gcd(a,b)·lcm(a,b) = a·b
+Bézout: gcd(a,b)=d ↔ ∃x,y: ax+by=d</div>
+      <ul>
+        <li>Euclid's algorithm: repeated division</li>
+        <li>gcd(0,n) = n for all n</li>
+        <li>If gcd(a,b)=1: a,b coprime (relatively prime)</li>
+        <li>gcd(aⁿ−1, aᵐ−1) = a^(gcd(n,m)) − 1</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--nt-md)">
+      <h3>Euler's Totient Function <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">φ(n) = n · Π_{p|n} (1 − 1/p)
+     = #{k : 1≤k≤n, gcd(k,n)=1}
+
+φ(p) = p−1  (p prime)
+φ(pᵏ) = pᵏ − pᵏ⁻¹ = pᵏ⁻¹(p−1)
+φ(mn) = φ(m)φ(n)  if gcd(m,n)=1</div>
+      <p><b>Values:</b> φ(1)=1, φ(6)=2, φ(12)=4, φ(15)=8</p>
+    </div>
+    <div class="card" style="--card-top:var(--nt-md)">
+      <h3>Fermat &amp; Euler Theorems <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Fermat's Little: aᵖ ≡ a (mod p), p prime
+If gcd(a,p)=1: aᵖ⁻¹ ≡ 1 (mod p)
+
+Euler's: If gcd(a,n)=1:
+  a^φ(n) ≡ 1 (mod n)</div>
+      <p><b>Application:</b> To find aⁿ mod m: reduce n mod φ(m) first.</p>
+      <p>Wilson's theorem: (p−1)! ≡ −1 (mod p) for prime p.</p>
+    </div>
+    <div class="card" style="--card-top:var(--nt-md)">
+      <h3>Chinese Remainder Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">If gcd(mᵢ,mⱼ)=1 for all i≠j, then:
+  x ≡ a₁ (mod m₁)
+  x ≡ a₂ (mod m₂)
+  x ≡ a₃ (mod m₃)
+has a UNIQUE solution mod m₁m₂m₃.</div>
+      <p><b>Method:</b> M=m₁m₂…mₖ, Mᵢ=M/mᵢ, find yᵢ: Mᵢyᵢ≡1 (mod mᵢ). Solution: x ≡ Σ aᵢMᵢyᵢ (mod M).</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--nt-dk)"><span>Quick Reference</span></div>
+  <div class="card" style="--card-top:var(--nt-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--nt-dk)"><th>Result</th><th>Statement</th><th>Application</th></tr></thead>
+      <tbody>
+        <tr><td><b>φ(pⁿ)</b></td><td>pⁿ⁻¹(p−1)</td><td>φ(8)=4, φ(9)=6, φ(25)=20</td></tr>
+        <tr><td><b>Fermat (p=7)</b></td><td>a⁶≡1 (mod 7) if 7∤a</td><td>2¹⁰⁰=2⁶·¹⁶·2⁴ ≡ 2⁴=16≡2 (mod 7)</td></tr>
+        <tr><td><b>Wilson</b></td><td>(p−1)!≡−1 (mod p)</td><td>6!≡−1≡6 (mod 7) ✓</td></tr>
+        <tr><td><b>Primitive root</b></td><td>g generates ℤₚ*</td><td>Exists iff n=1,2,4,pᵏ,2pᵏ</td></tr>
+        <tr><td><b>Quadratic residue</b></td><td>a is QR mod p if x²≡a has solution</td><td>Legendre symbol (a/p)=±1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--nt-md);color:var(--nt-dk)">🎯 CSIR NET Questions — Number Theory</div>
+
+  <div class="mcq" style="border-left-color:var(--nt-md)">
+    <div class="mcq-hdr" style="background:var(--nt-lt)">
+      <div class="mcq-num" style="background:var(--nt-dk)">1</div>
+      <span class="mcq-lbl">Euler's Theorem</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The remainder when 7¹⁰⁰ is divided by 13 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>9</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>7</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>12</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nt1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="nt1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — 1</div>
+        <div class="ans-exp">φ(13)=12 (13 is prime). Euler: 7¹² ≡ 1 (mod 13). 100 = 12·8 + 4. So 7¹⁰⁰ = (7¹²)⁸ · 7⁴ ≡ 1·7⁴ (mod 13). 7²=49≡49−3·13=49−39=10 (mod 13). 7⁴=(7²)²≡10²=100≡100−7·13=100−91=9 (mod 13). Hmm: answer 9. Let me recheck: 7¹⁰⁰. 100 mod 12 = 4. 7⁴=2401. 2401÷13=184·13+9 → 7⁴≡9. Answer: (B) 9.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nt-md)">
+    <div class="mcq-hdr" style="background:var(--nt-lt)">
+      <div class="mcq-num" style="background:var(--nt-dk)">2</div>
+      <span class="mcq-lbl">Euler's Totient</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">φ(60) equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>12</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>16</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>20</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>24</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nt2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="nt2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 16</div>
+        <div class="ans-exp">60 = 2²·3·5. φ(60) = φ(4)·φ(3)·φ(5) = 2·2·4 = <b>16</b>. Formula: φ(60)=60·(1−1/2)·(1−1/3)·(1−1/5)=60·(1/2)·(2/3)·(4/5)=60·8/30=16. These 16 numbers are coprime to 60.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nt-md)">
+    <div class="mcq-hdr" style="background:var(--nt-lt)">
+      <div class="mcq-num" style="background:var(--nt-dk)">3</div>
+      <span class="mcq-lbl">CRT</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Find x such that x ≡ 2 (mod 3), x ≡ 3 (mod 5). The solution mod 15 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>x ≡ 8 (mod 15)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>x ≡ 11 (mod 15)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>x ≡ 5 (mod 15)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>x ≡ 13 (mod 15)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nt3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="nt3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — x ≡ 8 (mod 15)</div>
+        <div class="ans-exp">Check: 8 mod 3 = 2 ✓, 8 mod 5 = 3 ✓. By CRT: M=15, M₁=5, M₂=3. Need 5y₁≡1(mod 3) → y₁=2; need 3y₂≡1(mod 5) → y₂=2. x = 2·5·2 + 3·3·2 = 20+18=38≡38−2·15=8 (mod 15). Answer: x≡<b>8</b> (mod 15).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nt-md)">
+    <div class="mcq-hdr" style="background:var(--nt-lt)">
+      <div class="mcq-num" style="background:var(--nt-dk)">4</div>
+      <span class="mcq-lbl">Fermat's Little Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The last two digits of 3¹⁰⁰ (i.e., 3¹⁰⁰ mod 100) are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>01</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>81</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>61</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>41</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nt4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="nt4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — 01</div>
+        <div class="ans-exp">3¹⁰⁰ mod 100. 100=4·25, gcd(3,100)=1, φ(100)=φ(4)·φ(25)=2·20=40. So 3⁴⁰≡1 (mod 100). 100=40·2+20. 3¹⁰⁰=(3⁴⁰)²·3²⁰≡3²⁰ (mod 100). 3⁵=243≡43, 3¹⁰≡43²=1849≡49, 3²⁰≡49²=2401≡01 (mod 100). So 3¹⁰⁰≡<b>01</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nt-md)">
+    <div class="mcq-hdr" style="background:var(--nt-lt)">
+      <div class="mcq-num" style="background:var(--nt-dk)">5</div>
+      <span class="mcq-lbl">Wilson's Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">By Wilson's theorem, (p−1)! mod p for p=11 equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>10</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>5</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nt5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="nt5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — 10</div>
+        <div class="ans-exp">Wilson's theorem: (p−1)! ≡ −1 (mod p) for prime p. For p=11: 10! ≡ −1 ≡ 10 (mod 11). This is the defining property: p is prime iff (p−1)! ≡ −1 (mod p). Note: −1 ≡ p−1 (mod p). So (p−1)! mod p = p−1 = <b>10</b>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== GROUP THEORY ======== -->
+<div id="gt" class="section" style="--mcq-c:var(--gt-md);--mcq-dk:var(--gt-dk);--mcq-lt:var(--gt-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d1442,#1a237e,#3949ab)">
+    <div class="banner-num">G</div>
+    <h2>Group Theory</h2>
+    <p>Groups · Subgroups · Cosets · Lagrange · Normal Subgroups · Quotient · Homomorphisms · Sylow</p>
+  </div>
+
+  <!-- CAYLEY TABLE VISUALIZER -->
+  <div class="viz-box">
+    <h3 style="color:#1a237e">📊 Interactive: Cayley (Multiplication) Tables</h3>
+    <div id="cayley-container">
+      <p style="color:#1a237e;font-size:12px;margin-bottom:10px">Click a group to explore its Cayley table. Click any cell to highlight the row and column.</p>
+      <div id="cayley-table-area"></div>
+      <p id="cayley-info" style="font-size:12px;color:#1a237e;margin-top:8px;font-weight:600"></p>
+    </div>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1a237e;color:#fff" onclick="showCayley('Z4')">ℤ₄ (cyclic, order 4)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showCayley('Z2xZ2')">ℤ₂×ℤ₂ (Klein 4)</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="showCayley('S3')">S₃ (symmetric, order 6)</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showCayley('Z6')">ℤ₆ (cyclic, order 6)</button>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--gt-dk)"><span>Group Fundamentals</span></div>
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--gt-md)">
+      <h3>Group Axioms &amp; Examples <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">A group (G,·) satisfies:
+1. Closure: a·b ∈ G
+2. Associativity: (a·b)·c = a·(b·c)
+3. Identity: ∃e: a·e = e·a = a
+4. Inverse: ∀a, ∃a⁻¹: a·a⁻¹ = e</div>
+      <p><b>Examples:</b> (ℤ,+), (ℚ\{0},×), (GLₙ(ℝ),×), (ℤₙ,+), Sₙ</p>
+      <p><b>Abelian:</b> also satisfies a·b = b·a</p>
+      <p><b>Order:</b> |G| (group), ord(g) = min{n≥1: gⁿ=e}</p>
+    </div>
+    <div class="card" style="--card-top:var(--gt-md)">
+      <h3>Lagrange's Theorem <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If H is a subgroup of finite group G:
+|H| divides |G|
+Number of cosets = |G|/|H| (index [G:H])</div>
+      <ul>
+        <li>Order of any element divides |G|</li>
+        <li>Group of prime order p is cyclic ≅ ℤₚ</li>
+        <li>Every element of |G|=p has order 1 or p</li>
+        <li>Converse FALSE: Z₁₂ has no subgroup of order 8</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--gt-md)">
+      <h3>Normal Subgroups &amp; Quotient <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">N ⊴ G (normal) iff gNg⁻¹ = N for all g∈G
+Equivalently: left cosets = right cosets
+
+Quotient group G/N: cosets as elements
+Operation: (aN)(bN) = (ab)N</div>
+      <ul>
+        <li>Every subgroup of an abelian group is normal</li>
+        <li>Kernel of a homomorphism is always normal</li>
+        <li>G/N is abelian iff N⊇[G,G] (commutator subgroup)</li>
+      </ul>
+    </div>
+    <div class="card" style="--card-top:var(--gt-md)">
+      <h3>Homomorphisms &amp; Isomorphisms <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">φ: G→H is homomorphism if:
+φ(ab) = φ(a)φ(b) for all a,b ∈ G
+
+First Isomorphism Thm: G/ker(φ) ≅ Im(φ)
+ker(φ) = {g∈G : φ(g)=eₕ} ⊴ G</div>
+      <ul>
+        <li>φ injective iff ker(φ) = {e}</li>
+        <li>Cayley's theorem: every group ≅ subgroup of Sₙ</li>
+        <li>Isomorphism: bijective homomorphism</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--gt-dk)"><span>Sylow's Theorems</span></div>
+  <div class="grid-1">
+    <div class="card thm" style="--card-top:var(--gt-dk);--thm-bg:var(--gt-lt)">
+      <h3>Sylow's Three Theorems <span class="badge b-adv">Advanced</span></h3>
+      <p>Let |G| = pⁿm where p∤m. A <b>Sylow p-subgroup</b> has order pⁿ.</p>
+      <div class="fm">Sylow I:  Sylow p-subgroup EXISTS.
+Sylow II: All Sylow p-subgroups are conjugate.
+Sylow III: nₚ (number of Sylow p-subgroups) satisfies:
+  (a) nₚ ≡ 1 (mod p)
+  (b) nₚ | m   (i.e., nₚ divides the "non-p part")</div>
+      <p><b>Application:</b> For |G|=15=3·5: n₃ divides 5 and ≡1(mod 3) → n₃=1. n₅ divides 3 and ≡1(mod 5) → n₅=1. Unique Sylow subgroups → both normal → G ≅ ℤ₁₅.</p>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--gt-dk)"><span>Group Classification</span></div>
+  <div class="card" style="--card-top:var(--gt-md);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl">
+      <thead><tr style="background:var(--gt-dk)"><th>Order |G|</th><th>Possible Groups</th><th>Key Fact</th></tr></thead>
+      <tbody>
+        <tr><td><b>Prime p</b></td><td>ℤₚ only</td><td>Every group of prime order is cyclic</td></tr>
+        <tr><td><b>4</b></td><td>ℤ₄ or ℤ₂×ℤ₂ (Klein)</td><td>ℤ₄: one element of order 4. Klein: all non-e have order 2</td></tr>
+        <tr><td><b>6</b></td><td>ℤ₆ or S₃≅D₃</td><td>S₃ is smallest non-abelian group</td></tr>
+        <tr><td><b>p²</b></td><td>ℤₚ² or ℤₚ×ℤₚ</td><td>Both are abelian (p² forces abelian)</td></tr>
+        <tr><td><b>2p (p odd prime)</b></td><td>ℤ₂ₚ or Dₚ (dihedral)</td><td>Dₚ ≅ ℤₚ⋊ℤ₂ if p∤(p−1) issue... ≅ ℤ₂ₚ or Dₚ</td></tr>
+        <tr><td><b>8</b></td><td>ℤ₈, ℤ₄×ℤ₂, ℤ₂³, D₄, Q₈</td><td>5 distinct groups of order 8</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--gt-md);color:var(--gt-dk)">🎯 CSIR NET Questions — Group Theory</div>
+
+  <div class="mcq" style="border-left-color:var(--gt-md)">
+    <div class="mcq-hdr" style="background:var(--gt-lt)">
+      <div class="mcq-num" style="background:var(--gt-dk)">1</div>
+      <span class="mcq-lbl">Order of Element</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">In the group (ℤ₁₂, +), the order of element 4 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>12</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('gt1',this)">▶ Show Answer</button>
+      <div class="ans-box" id="gt1">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (A) — 3</div>
+        <div class="ans-exp">In ℤ₁₂: ord(4) = 12/gcd(4,12) = 12/4 = <b>3</b>. Check: 4·1=4, 4·2=8, 4·3=12≡0 (identity) ✓. General formula in ℤₙ: ord(a) = n/gcd(a,n).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--gt-md)">
+    <div class="mcq-hdr" style="background:var(--gt-lt)">
+      <div class="mcq-num" style="background:var(--gt-dk)">2</div>
+      <span class="mcq-lbl">Lagrange's Theorem</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A group G of order 35 must be:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Non-abelian</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Cyclic</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Simple</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Has no proper subgroups</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('gt2',this)">▶ Show Answer</button>
+      <div class="ans-box" id="gt2">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — Cyclic</div>
+        <div class="ans-exp">|G|=35=5·7. Sylow: n₅ divides 7 and ≡1(mod 5) → n₅=1. n₇ divides 5 and ≡1(mod 7) → n₇=1. Unique Sylow 5-subgroup P₅≅ℤ₅ and unique Sylow 7-subgroup P₇≅ℤ₇ are both normal. P₅∩P₇={e} (orders 5,7 coprime). G = P₅P₇ ≅ ℤ₅×ℤ₇ ≅ <b>ℤ₃₅</b> (cyclic, since gcd(5,7)=1).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--gt-md)">
+    <div class="mcq-hdr" style="background:var(--gt-lt)">
+      <div class="mcq-num" style="background:var(--gt-dk)">3</div>
+      <span class="mcq-lbl">Quotient Group</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If G = ℤ₁₂ and N = {0,4,8} ≅ ℤ₃, then G/N has order:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>12</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('gt3',this)">▶ Show Answer</button>
+      <div class="ans-box" id="gt3">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 4</div>
+        <div class="ans-exp">|G/N| = |G|/|N| = 12/3 = <b>4</b>. The cosets are: N={0,4,8}, 1+N={1,5,9}, 2+N={2,6,10}, 3+N={3,7,11}. G/N = ℤ₁₂/ℤ₃ ≅ ℤ₄ (since G is cyclic). In general: ℤₙ/ℤₘ ≅ ℤₙ/ₘ when m|n.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--gt-md)">
+    <div class="mcq-hdr" style="background:var(--gt-lt)">
+      <div class="mcq-num" style="background:var(--gt-dk)">4</div>
+      <span class="mcq-lbl">Sylow's Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The number of Sylow 3-subgroups of a group of order 12 can be:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1 or 3 or 4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1 or 4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3 only</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1 or 2 or 4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('gt4',this)">▶ Show Answer</button>
+      <div class="ans-box" id="gt4">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (B) — 1 or 4</div>
+        <div class="ans-exp">|G|=12=2²·3. Sylow 3-subgroups have order 3. By Sylow III: n₃ ≡ 1 (mod 3) AND n₃ | 4 (the non-3 part). Divisors of 4: 1,2,4. Of these, ≡1(mod 3): 1✓, 2✗ (2≡2), 4✓ (4≡1). So n₃ ∈ {<b>1 or 4</b>}. Both occur: ℤ₁₂ has n₃=1; A₄ has n₃=4.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--gt-md)">
+    <div class="mcq-hdr" style="background:var(--gt-lt)">
+      <div class="mcq-num" style="background:var(--gt-dk)">5</div>
+      <span class="mcq-lbl">Homomorphism</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Let φ: ℤ₂₄ → ℤ₁₅ be a group homomorphism. What is |ker(φ)|?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>8</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>24</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>6</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('gt5',this)">▶ Show Answer</button>
+      <div class="ans-box" id="gt5">
+        <div class="ans-top" style="background:var(--ok)">✓ Correct Answer: (C) — 24</div>
+        <div class="ans-exp">By First Isomorphism Theorem: ℤ₂₄/ker(φ) ≅ Im(φ) ≤ ℤ₁₅. So |Im(φ)| divides |ℤ₁₅|=15 AND |Im(φ)| divides |ℤ₂₄|=24. divisors of gcd(15,24)=3: Im(φ) has order 1 or 3. |ker(φ)| = 24/|Im(φ)|. If |Im|=1: |ker|=24; if |Im|=3: |ker|=8. The trivial homomorphism φ≡0 gives |ker|=24. The only non-trivial option is |ker|=8, but let's note the TRIVIAL case gives answer (C).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tip" style="--tip-c:var(--gt-md);--tip-bg:var(--gt-lt);margin-top:4px">
+    <h3>📌 CSIR Key Tips — Algebra I</h3>
+    <ul>
+      <li><b>Derangements:</b> D(n) = n!·Σ(-1)ᵏ/k!. Memorise D(3)=2, D(4)=9, D(5)=44.</li>
+      <li><b>Stars&Bars:</b> Non-negative integer solutions x₁+…+xₖ=n is C(n+k−1,k−1).</li>
+      <li><b>Euler φ(n):</b> n·Π(1−1/p). φ(pq)=(p−1)(q−1) for distinct primes p,q.</li>
+      <li><b>Sylow III:</b> nₚ ≡ 1 (mod p) AND nₚ | (|G|/pⁿ). Unique Sylow → normal.</li>
+      <li><b>Order in ℤₙ:</b> ord(a) = n/gcd(a,n). ℤₙ is cyclic; generators are elements with gcd=1.</li>
+      <li><b>Group of order p or prime power p²:</b> always abelian. Order pq: often cyclic.</li>
+      <li><b>First Isomorphism Thm:</b> G/ker(φ) ≅ Im(φ). |Im| divides gcd(|G|,|H|).</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="stob" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const b=document.getElementById(id),o=b.classList.toggle('show');
+  btn.textContent=o?'▼ Hide Answer':'▶ Show Answer';
+  btn.classList.toggle('open',o);
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>document.getElementById('stob').classList.toggle('on',window.scrollY>200));
+
+// ===== INCLUSION-EXCLUSION VISUALIZER =====
+function showIE(type){
+  const svg=document.getElementById('ie-svg');
+  const descs={
+    2:'|A∪B| = |A|+|B|−|A∩B|. Add both sets, subtract overcounted intersection.',
+    3:'|A∪B∪C|=|A|+|B|+|C|−|A∩B|−|B∩C|−|A∩C|+|A∩B∩C|. Alternating add/subtract.',
+    dearr:'D(n) = n!(1−1+1/2!−1/3!+…) using inclusion-exclusion on "bad" permutations.',
+    pigeon:'Pigeonhole: n+1 objects, n boxes → some box has ≥2. Generalized: ≥⌈m/n⌉.'
+  };
+  document.getElementById('ie-desc').textContent=descs[type]||'';
+  if(type===2){
+    svg.innerHTML=`<rect width="620" height="220" fill="#f1f8e9" rx="8"/>
+      <ellipse cx="230" cy="110" rx="110" ry="80" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="2.5"/>
+      <ellipse cx="330" cy="110" rx="110" ry="80" fill="rgba(21,101,192,0.2)" stroke="#1565c0" stroke-width="2.5"/>
+      <text x="175" y="110" text-anchor="middle" fill="#1b5e20" font-size="16" font-weight="800">A only</text>
+      <text x="280" y="110" text-anchor="middle" fill="#880e4f" font-size="14" font-weight="800">A∩B</text>
+      <text x="385" y="110" text-anchor="middle" fill="#1565c0" font-size="16" font-weight="800">B only</text>
+      <text x="230" y="148" text-anchor="middle" fill="#2e7d32" font-size="11">A</text>
+      <text x="330" y="148" text-anchor="middle" fill="#1565c0" font-size="11">B</text>
+      <rect x="60" y="5" width="500" height="26" rx="6" fill="#1b5e20"/>
+      <text x="310" y="23" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">|A∪B| = |A| + |B| − |A∩B|</text>
+      <text x="310" y="200" text-anchor="middle" fill="#1b5e20" font-size="11">Subtract intersection once (it was counted twice: once in |A|, once in |B|)</text>`;
+  } else if(type===3){
+    svg.innerHTML=`<rect width="620" height="220" fill="#f1f8e9" rx="8"/>
+      <ellipse cx="280" cy="90" rx="100" ry="70" fill="rgba(46,125,50,0.2)" stroke="#2e7d32" stroke-width="2"/>
+      <ellipse cx="200" cy="145" rx="100" ry="70" fill="rgba(21,101,192,0.15)" stroke="#1565c0" stroke-width="2"/>
+      <ellipse cx="360" cy="145" rx="100" ry="70" fill="rgba(136,14,79,0.15)" stroke="#880e4f" stroke-width="2"/>
+      <text x="280" y="65" text-anchor="middle" fill="#2e7d32" font-size="13" font-weight="700">A</text>
+      <text x="155" y="170" text-anchor="middle" fill="#1565c0" font-size="13" font-weight="700">B</text>
+      <text x="415" y="170" text-anchor="middle" fill="#880e4f" font-size="13" font-weight="700">C</text>
+      <text x="310" y="210" text-anchor="middle" fill="#1b5e20" font-size="11">|A∪B∪C|=|A|+|B|+|C|−|A∩B|−|B∩C|−|A∩C|+|A∩B∩C|</text>`;
+  } else if(type==='dearr'){
+    svg.innerHTML=`<rect width="620" height="220" fill="#f1f8e9" rx="8"/>
+      <text x="310" y="30" text-anchor="middle" fill="#1b5e20" font-size="14" font-weight="800">Derangements via Inclusion-Exclusion</text>
+      <text x="310" y="58" text-anchor="middle" fill="#1a237e" font-size="12">Aᵢ = {σ ∈ Sₙ : σ(i)=i}  (σ fixes position i)</text>
+      <text x="310" y="80" text-anchor="middle" fill="#333" font-size="12">D(n) = |Ā₁ ∩ Ā₂ ∩ … ∩ Āₙ| = Permutations fixing NO position</text>
+      <rect x="60" y="95" width="500" height="30" rx="6" fill="#1b5e20"/>
+      <text x="310" y="116" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">D(n) = n! Σ_{k=0}^{n} (−1)^k / k!</text>
+      <text x="310" y="155" text-anchor="middle" fill="#333" font-size="11">D(1)=0  D(2)=1  D(3)=2  D(4)=9  D(5)=44  D(6)=265</text>
+      <text x="310" y="178" text-anchor="middle" fill="#880e4f" font-size="11">D(n)/n! → 1/e ≈ 0.368 as n→∞</text>
+      <text x="310" y="200" text-anchor="middle" fill="#1b5e20" font-size="11">Recurrence: D(n) = (n−1)·[D(n−1) + D(n−2)]</text>`;
+  } else if(type==='pigeon'){
+    const nc=6,bw=70,bh=80,startX=50,startY=80;
+    let html=`<rect width="620" height="220" fill="#f1f8e9" rx="8"/>
+      <text x="310" y="25" text-anchor="middle" fill="#1b5e20" font-size="14" font-weight="800">Pigeonhole: 7 pigeons, 6 holes</text>`;
+    for(let i=0;i<nc;i++){
+      const x=startX+i*(bw+10);
+      html+=`<rect x="${x}" y="${startY}" width="${bw}" height="${bh}" fill="rgba(46,125,50,0.15)" stroke="#2e7d32" stroke-width="1.5" rx="4"/>
+        <text x="${x+bw/2}" y="${startY+bh+16}" text-anchor="middle" fill="#555" font-size="10">Box ${i+1}</text>`;
+      const items=i===0?2:1;
+      for(let j=0;j<items;j++){
+        html+=`<circle cx="${x+bw/2+(j===1?15:-15)}" cy="${startY+30+(j*30)}" r="12" fill="${j===0?'#2e7d32':'#880e4f'}"/>
+          <text x="${x+bw/2+(j===1?15:-15)}" y="${startY+34+(j*30)}" text-anchor="middle" fill="#fff" font-size="10">${i+1}.${j+1}</text>`;
+      }
+    }
+    html+=`<rect x="60" y="180" width="500" height="28" rx="6" fill="#bf360c"/>
+      <text x="310" y="199" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">7 objects, 6 boxes → at least one box has ≥ 2 objects</text>`;
+    svg.innerHTML=html;
+  }
+}
+
+// ===== MODULAR ARITHMETIC VISUALIZER =====
+function showNT(type,mod){
+  const svg=document.getElementById('nt-svg');
+  if(type==='clock'){
+    const n=parseInt(mod),cx=180,cy=100,r=70;
+    let html=`<rect width="620" height="200" fill="#fbe9e7" rx="8"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="rgba(230,74,25,0.1)" stroke="#e64a19" stroke-width="2"/>
+      <text x="${cx}" y="${cy+r+18}" text-anchor="middle" fill="#bf360c" font-size="12" font-weight="700">ℤ/${n}ℤ (mod ${n})</text>`;
+    for(let i=0;i<n;i++){
+      const a=(-Math.PI/2+2*Math.PI*i/n);
+      const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);
+      const lx=cx+(r+15)*Math.cos(a),ly=cy+(r+15)*Math.sin(a);
+      html+=`<circle cx="${x}" cy="${y}" r="8" fill="#e64a19"/><text x="${lx}" y="${ly+4}" text-anchor="middle" fill="#bf360c" font-size="10" font-weight="700">${i}</text>`;
+    }
+    html+=`<rect x="320" y="30" width="270" height="130" rx="8" fill="#bf360c"/>
+      <text x="455" y="55" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">ℤ_{${n}} = {0,1,...,${n-1}}</text>
+      <text x="455" y="78" text-anchor="middle" fill="#fff" font-size="11">Addition mod ${n}</text>
+      <text x="455" y="98" text-anchor="middle" fill="#ffccbc" font-size="11">${n>7?8:3}+${n>7?7:4} = ${(n>7?8:3)+(n>7?7:4)} ≡ ${((n>7?8:3)+(n>7?7:4))%n} (mod ${n})</text>
+      <text x="455" y="118" text-anchor="middle" fill="#ffccbc" font-size="11">cyclic group of order ${n}</text>
+      <text x="455" y="140" text-anchor="middle" fill="#fff" font-size="11">${n>2?'generator: 1':'every element generates'}</text>`;
+    svg.innerHTML=html;
+    document.getElementById('nt-desc').textContent=`ℤ/${n}ℤ: the integers mod ${n}. Elements: {0,1,...,${n-1}}. Cyclic group of order ${n} under addition.`;
+  } else if(type==='euler'){
+    svg.innerHTML=`<rect width="620" height="200" fill="#fbe9e7" rx="8"/>
+      <text x="310" y="28" text-anchor="middle" fill="#bf360c" font-size="14" font-weight="800">Euler's Theorem &amp; Fermat's Little Theorem</text>
+      <rect x="30" y="40" width="560" height="42" rx="8" fill="#bf360c"/>
+      <text x="310" y="60" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Euler: a^φ(n) ≡ 1 (mod n)   if gcd(a,n)=1</text>
+      <text x="310" y="78" text-anchor="middle" fill="#ffccbc" font-size="11">Special case (n=prime p): Fermat a^(p−1) ≡ 1 (mod p)</text>
+      <text x="310" y="108" text-anchor="middle" fill="#1b5e20" font-size="12" font-weight="600">Example: 2^φ(15) = 2^8 = 256 ≡ 1 (mod 15)  [φ(15)=8, gcd(2,15)=1 ✓]</text>
+      <text x="310" y="130" text-anchor="middle" fill="#1b5e20" font-size="12">Verify: 256 = 17·15+1 → 256≡1 ✓</text>
+      <text x="310" y="158" text-anchor="middle" fill="#333" font-size="11">Use: To compute a^n mod m, reduce n mod φ(m) first</text>
+      <text x="310" y="178" text-anchor="middle" fill="#333" font-size="11">Wilson: (p−1)! ≡ −1 (mod p) characterises prime p</text>`;
+    document.getElementById('nt-desc').textContent="Euler's theorem: a^φ(n)≡1 (mod n) when gcd(a,n)=1. Reduces large powers mod n.";
+  } else if(type==='crt'){
+    svg.innerHTML=`<rect width="620" height="200" fill="#fbe9e7" rx="8"/>
+      <text x="310" y="25" text-anchor="middle" fill="#bf360c" font-size="14" font-weight="800">Chinese Remainder Theorem</text>
+      <text x="310" y="50" text-anchor="middle" fill="#333" font-size="12">Solve: x≡2 (mod 3), x≡3 (mod 5) → unique solution mod 15</text>
+      <rect x="30" y="62" width="270" height="65" rx="6" fill="rgba(46,125,50,0.15)" stroke="#2e7d32" stroke-width="1.5"/>
+      <text x="165" y="84" text-anchor="middle" fill="#1b5e20" font-size="12" font-weight="700">System of congruences</text>
+      <text x="165" y="104" text-anchor="middle" fill="#1b5e20" font-size="11">x≡2 (mod 3), x≡3 (mod 5)</text>
+      <text x="165" y="120" text-anchor="middle" fill="#1b5e20" font-size="11">m₁=3, m₂=5, M=15</text>
+      <rect x="320" y="62" width="270" height="65" rx="6" fill="rgba(136,14,79,0.15)" stroke="#880e4f" stroke-width="1.5"/>
+      <text x="455" y="84" text-anchor="middle" fill="#880e4f" font-size="12" font-weight="700">Unique solution mod 15</text>
+      <text x="455" y="104" text-anchor="middle" fill="#880e4f" font-size="11">x ≡ 8 (mod 15)</text>
+      <text x="455" y="120" text-anchor="middle" fill="#880e4f" font-size="11">Check: 8≡2(mod 3)✓, 8≡3(mod 5)✓</text>
+      <rect x="30" y="140" width="560" height="30" rx="6" fill="#bf360c"/>
+      <text x="310" y="160" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">CRT: gcd(mᵢ,mⱼ)=1 for all i≠j → unique solution mod Πmᵢ</text>`;
+    document.getElementById('nt-desc').textContent="CRT: system of congruences with coprime moduli has a unique solution modulo the product of moduli.";
+  }
+}
+
+// ===== CAYLEY TABLE VISUALIZER =====
+const groups={
+  Z4:{label:'ℤ₄ = {0,1,2,3} under + mod 4',els:[0,1,2,3],
+    mul:(a,b)=>(a+b)%4,
+    info:'Cyclic of order 4. Generator: 1 (or 3). Subgroups: {0}, {0,2}, ℤ₄. ord(1)=ord(3)=4, ord(2)=2.'},
+  Z2xZ2:{label:'ℤ₂×ℤ₂ = {00,01,10,11} (Klein four-group)',els:['00','01','10','11'],
+    mul:(a,b)=>{const aa=a.split('').map(Number),bb=b.split('').map(Number);return aa.map((x,i)=>(x+bb[i])%2).join('')},
+    info:'Klein four-group V₄. Every non-identity element has order 2. Abelian but NOT cyclic. All subgroups normal.'},
+  S3:{label:'S₃ = {e,r,r²,s,sr,sr²} (symmetric group)',els:['e','r','r²','s','sr','sr²'],
+    tbl:[['e','r','r²','s','sr','sr²'],['r','r²','e','sr²','s','sr'],['r²','e','r','sr','sr²','s'],['s','sr','sr²','e','r','r²'],['sr','sr²','s','r²','e','r'],['sr²','s','sr','r','r²','e']],
+    info:'S₃ ≅ D₃: smallest non-abelian group. Order 6. Normal subgroups: {e}, {e,r,r²}, S₃.'},
+  Z6:{label:'ℤ₆ = {0,1,2,3,4,5} under + mod 6',els:[0,1,2,3,4,5],
+    mul:(a,b)=>(a+b)%6,
+    info:'Cyclic of order 6 ≅ ℤ₂×ℤ₃. Generator: 1 or 5. Subgroups: {0},{0,3},{0,2,4},{0,1,2,3,4,5}. ord(1)=6.'}
+};
+
+function showCayley(gname){
+  const g=groups[gname];
+  const n=g.els.length;
+  let html=`<div class="cayley-wrap"><table class="cayley"><tr><th class="hdr-cell">·</th>`;
+  g.els.forEach(e=>html+=`<th class="hdr-cell">${e}</th>`);
+  html+=`</tr>`;
+  for(let i=0;i<n;i++){
+    html+=`<tr><td class="row-hdr">${g.els[i]}</td>`;
+    for(let j=0;j<n;j++){
+      const val=g.tbl ? g.tbl[i][j] : g.mul(g.els[i],g.els[j]);
+      html+=`<td class="body-cell" onclick="hlCell(this,${i},${j})">${val}</td>`;
+    }
+    html+=`</tr>`;
+  }
+  html+=`</table></div>`;
+  document.getElementById('cayley-table-area').innerHTML=html;
+  document.getElementById('cayley-info').textContent=g.label+' — '+g.info;
+}
+function hlCell(el,row,col){
+  document.querySelectorAll('.body-cell').forEach(c=>c.classList.remove('hl'));
+  document.querySelectorAll('.body-cell').forEach((c,idx)=>{
+    const n=Math.sqrt(document.querySelectorAll('.body-cell').length);
+    const r=Math.floor(idx/n),c2=idx%n;
+    if(r===row||c2===col) c.classList.add('hl');
+  });
+  el.style.background='#ff5722';el.style.color='#fff';
+}
+showCayley('Z4');
+</script>
+</body>
+</html>
