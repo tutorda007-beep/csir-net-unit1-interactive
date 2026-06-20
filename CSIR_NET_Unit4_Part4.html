@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 4 — Probability &amp; Statistics</title>
+<style>
+:root{
+  --pt-dk:#3e1700;--pt-md:#bf360c;--pt-lt:#fbe9e7;
+  --rv-dk:#0d47a1;--rv-md:#1976d2;--rv-lt:#e3f2fd;
+  --st-dk:#1b5e20;--st-md:#388e3c;--st-lt:#e8f5e9;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#1a0900,#3e1700,#bf360c);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#1a0900;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#bf360c;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#ff8a65);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#ff8a65);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#3e1700;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 4 — Probability &amp; Statistics</div>
+  <div class="hdr-s">Probability Theory · Random Variables &amp; Distributions · Estimation &amp; Testing</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit4_Part3.html">&#8592; Functional Analysis</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit1_Part1.html">Unit 1 &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Probability &amp; Statistics</div>
+  <div class="nav-item active" style="--ac:#ff8a65;--dc:#ff8a65" onclick="show('pt',this)">
+    <div class="nav-dot"></div>Probability Theory
+  </div>
+  <div class="nav-item" style="--ac:#90caf9;--dc:#90caf9" onclick="show('rv',this)">
+    <div class="nav-dot"></div>Distributions &amp; Limit Theorems
+  </div>
+  <div class="nav-item" style="--ac:#a5d6a7;--dc:#a5d6a7" onclick="show('st',this)">
+    <div class="nav-dot"></div>Estimation &amp; Hypothesis Testing
+  </div>
+  <div class="nav-grp">Unit 4 Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part1.html'">
+    <div class="nav-dot" style="background:#80deea"></div>Complex Analysis I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part2.html'">
+    <div class="nav-dot" style="background:#b39ddb"></div>Complex Analysis II
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part3.html'">
+    <div class="nav-dot" style="background:#a5d6a7"></div>Functional Analysis
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== PROBABILITY THEORY ===== -->
+<div id="pt" class="section active" style="--mcq-c:var(--pt-md);--mcq-dk:var(--pt-dk);--mcq-lt:var(--pt-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a0900,#3e1700,#bf360c)">
+    <div class="banner-num">P(A)</div>
+    <h2>Probability Theory</h2>
+    <p>σ-Algebras · Probability Spaces · Conditional Probability · Bayes · Independence</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#3e1700">&#9655; Interactive: Bayes' Theorem &amp; Conditional Probability</h3>
+    <canvas id="bayes-canvas" width="620" height="210" style="background:#fbe9e7;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#3e1700;color:#fff" onclick="drawBayes(0.01,0.95,0.05)">Disease Test (rare)</button>
+      <button class="viz-btn" style="background:#bf360c;color:#fff" onclick="drawBayes(0.3,0.9,0.1)">Disease (common)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="drawBayes(0.5,0.8,0.2)">Coin (fair prior)</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="drawBayes(0.1,0.7,0.3)">Custom</button>
+    </div>
+    <p id="bayes-desc" style="font-size:12px;color:#3e1700;margin-top:8px;font-weight:600">Bayes: P(H|E)=P(E|H)P(H)/P(E). Click to see the update from prior to posterior.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--pt-dk)"><span>Probability Space &amp; Axioms</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--pt-dk);--thm-bg:var(--pt-lt)">
+      <h3>Kolmogorov Axioms <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Probability space (Ω, ℱ, P):
+  Ω = sample space (all outcomes)
+  ℱ = σ-algebra of events:
+    • Ω ∈ ℱ
+    • A∈ℱ → Aᶜ∈ℱ
+    • Aₙ∈ℱ → ∪Aₙ∈ℱ
+  P: ℱ→[0,1] probability measure:
+    • P(Ω)=1
+    • P(∅)=0
+    • Aᵢ disjoint → P(∪Aᵢ)=ΣP(Aᵢ) (σ-additivity)
+
+Key properties:
+  P(Aᶜ)=1−P(A); P(A∪B)=P(A)+P(B)−P(A∩B)
+  P(A)=P(A∩B)+P(A∩Bᶜ)  (law of total prob)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--pt-dk);--thm-bg:var(--pt-lt)">
+      <h3>Conditional Probability &amp; Bayes <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Conditional probability:
+  P(A|B) = P(A∩B)/P(B)  (if P(B)>0)
+
+Multiplication rule: P(A∩B) = P(A|B)P(B)
+
+Law of Total Probability (B₁,...,Bₙ partition Ω):
+  P(A) = Σₖ P(A|Bₖ)P(Bₖ)
+
+Bayes' Theorem:
+  P(Bₖ|A) = P(A|Bₖ)P(Bₖ) / Σⱼ P(A|Bⱼ)P(Bⱼ)
+
+  Posterior = Likelihood × Prior / Evidence
+  P(H|E) ∝ P(E|H) × P(H)
+
+Independence: P(A∩B)=P(A)P(B)
+  Pairwise independent ⟹ mutually independent</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--pt-md);color:var(--pt-dk)">&#127919; CSIR NET Questions — Probability Theory</div>
+
+  <div class="mcq" style="border-left-color:var(--pt-md)">
+    <div class="mcq-hdr" style="background:var(--pt-lt)">
+      <div class="mcq-num" style="background:var(--pt-dk)">1</div>
+      <span class="mcq-lbl">Bayes' Theorem</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A disease affects 1% of the population. A test is 95% sensitive (true positive rate) and 90% specific (true negative rate). P(disease | test positive) is approximately:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>95%</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>8.7%</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>50%</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1%</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('pt1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="pt1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 8.7%</div>
+        <div class="ans-exp">P(D)=0.01, P(+|D)=0.95, P(+|Dᶜ)=0.10. P(+)=P(+|D)P(D)+P(+|Dᶜ)P(Dᶜ)=0.95·0.01+0.10·0.99=0.0095+0.099=0.1085. P(D|+)=P(+|D)P(D)/P(+)=0.0095/0.1085≈<b>8.7%</b>. Counter-intuitive: even with a good test, positive result doesn't mean likely sick when disease is rare (base rate fallacy). This is a classic CSIR application of Bayes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--pt-md)">
+    <div class="mcq-hdr" style="background:var(--pt-lt)">
+      <div class="mcq-num" style="background:var(--pt-dk)">2</div>
+      <span class="mcq-lbl">Independence</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Events A, B are independent with P(A)=0.3, P(B)=0.4. P(A∪B) =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0.7</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>0.58</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>0.12</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>0.5</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('pt2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="pt2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 0.58</div>
+        <div class="ans-exp">P(A∪B)=P(A)+P(B)−P(A∩B). Independent: P(A∩B)=P(A)P(B)=0.3×0.4=0.12. P(A∪B)=0.3+0.4−0.12=<b>0.58</b>. Alternative: P(A∪B)=1−P(Aᶜ∩Bᶜ)=1−P(Aᶜ)P(Bᶜ)=1−0.7×0.6=1−0.42=0.58 ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--pt-md)">
+    <div class="mcq-hdr" style="background:var(--pt-lt)">
+      <div class="mcq-num" style="background:var(--pt-dk)">3</div>
+      <span class="mcq-lbl">σ-algebra</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The smallest σ-algebra on Ω={1,2,3,4} containing {1,2} is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>{∅,{1,2},Ω}</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>{∅,{1,2},{3,4},Ω}</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>All subsets of Ω (power set)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>{∅,{1},{2},{1,2},Ω}</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('pt3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="pt3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — {∅, {1,2}, {3,4}, Ω}</div>
+        <div class="ans-exp">The σ-algebra generated by {1,2} must contain: {1,2} (given), its complement {3,4}, Ω, and ∅. These form <b>{∅,{1,2},{3,4},Ω}</b>: check closure — complement of {1,2} is {3,4} ✓, union of {1,2} and {3,4} is Ω ✓, complements of Ω and ∅ are ∅ and Ω ✓. Adding more would require individual elements, making it larger than the smallest σ-algebra. The Borel σ-algebra on ℝ is similarly generated by open intervals.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--pt-md)">
+    <div class="mcq-hdr" style="background:var(--pt-lt)">
+      <div class="mcq-num" style="background:var(--pt-dk)">4</div>
+      <span class="mcq-lbl">Pairwise vs Mutual Independence</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Toss two fair coins. Let A={H on coin 1}, B={H on coin 2}, C={exactly one H}. Then A,B,C are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Mutually independent</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Pairwise independent but NOT mutually independent</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Neither pairwise nor mutually independent</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>All dependent on each other</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('pt4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="pt4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Pairwise independent but NOT mutually independent</div>
+        <div class="ans-exp">Ω={HH,HT,TH,TT}, each prob 1/4. A={HH,HT}, B={HH,TH}, C={HT,TH}. P(A)=P(B)=P(C)=1/2. P(A∩B)=P(HH)=1/4=P(A)P(B) ✓. P(A∩C)=P(HT)=1/4=P(A)P(C) ✓. P(B∩C)=P(TH)=1/4 ✓. BUT P(A∩B∩C)=P(HH and exactly one H)=P(∅)=0 ≠ P(A)P(B)P(C)=1/8. So pairwise independent but NOT mutually independent. Classic example showing pairwise ⟹ mutual is FALSE.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--pt-md)">
+    <div class="mcq-hdr" style="background:var(--pt-lt)">
+      <div class="mcq-num" style="background:var(--pt-dk)">5</div>
+      <span class="mcq-lbl">Borel-Cantelli</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">By the Borel-Cantelli Lemma, if ΣP(Aₙ)&lt;∞, then:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>P(Aₙ infinitely often) = 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>P(Aₙ infinitely often) = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>P(Aₙ finitely often) = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The events are independent</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('pt5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="pt5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — P(Aₙ infinitely often) = 0</div>
+        <div class="ans-exp">Borel-Cantelli Lemma (Part 1): If ΣP(Aₙ)&lt;∞, then P(limsup Aₙ)=P(Aₙ i.o.)=<b>0</b>. That is, almost surely only finitely many events occur. Proof: P(∪_{n≥N}Aₙ)≤Σ_{n≥N}P(Aₙ)→0 as N→∞ (tail of convergent series). Part 2 (converse): if the Aₙ are independent AND ΣP(Aₙ)=∞, then P(Aₙ i.o.)=1. Used in: strong LLN proofs, showing certain events have probability 0 or 1.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DISTRIBUTIONS & LIMIT THEOREMS ===== -->
+<div id="rv" class="section" style="--mcq-c:var(--rv-md);--mcq-dk:var(--rv-dk);--mcq-lt:var(--rv-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#001a3e,#0d47a1,#1976d2)">
+    <div class="banner-num">φ(t)</div>
+    <h2>Random Variables, Distributions &amp; Limit Theorems</h2>
+    <p>PMF/PDF/CDF · Expectation · MGF · Standard Distributions · CLT · LLN</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#0d47a1">&#9655; Interactive: Standard Distribution Explorer</h3>
+    <canvas id="dist-canvas" width="620" height="210" style="background:#e3f2fd;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#0d47a1;color:#fff" onclick="drawDist('normal')">Normal N(0,1)</button>
+      <button class="viz-btn" style="background:#1976d2;color:#fff" onclick="drawDist('poisson')">Poisson λ=3</button>
+      <button class="viz-btn" style="background:#004d5e;color:#fff" onclick="drawDist('exp')">Exponential λ=1</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="drawDist('chi2')">Chi-squared k=5</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="drawDist('clt')">CLT Demonstration</button>
+    </div>
+    <p id="dist-desc" style="font-size:12px;color:#0d47a1;margin-top:8px;font-weight:600">Click a distribution to see its PDF/PMF and key parameters.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--rv-dk)"><span>Standard Distributions</span></div>
+  <div class="card" style="--card-top:var(--rv-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--rv-dk)">
+      <thead><tr><th>Distribution</th><th>PMF/PDF</th><th>E[X]</th><th>Var(X)</th><th>MGF M(t)</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bernoulli(p)</b></td><td>P(X=k)=p^k(1−p)^{1−k}</td><td>p</td><td>p(1−p)</td><td>1−p+peᵗ</td></tr>
+        <tr><td><b>Binomial(n,p)</b></td><td>C(n,k)pᵏ(1−p)^{n−k}</td><td>np</td><td>np(1−p)</td><td>(1−p+peᵗ)ⁿ</td></tr>
+        <tr><td><b>Poisson(λ)</b></td><td>e^{−λ}λᵏ/k!</td><td>λ</td><td>λ</td><td>e^{λ(eᵗ−1)}</td></tr>
+        <tr><td><b>Normal(μ,σ²)</b></td><td>(1/σ√2π)e^{−(x−μ)²/2σ²}</td><td>μ</td><td>σ²</td><td>e^{μt+σ²t²/2}</td></tr>
+        <tr><td><b>Exponential(λ)</b></td><td>λe^{−λx} (x≥0)</td><td>1/λ</td><td>1/λ²</td><td>λ/(λ−t) (t&lt;λ)</td></tr>
+        <tr><td><b>Gamma(α,β)</b></td><td>x^{α−1}e^{−x/β}/(β^α Γ(α))</td><td>αβ</td><td>αβ²</td><td>(1−βt)^{−α}</td></tr>
+        <tr><td><b>Uniform(a,b)</b></td><td>1/(b−a) for a≤x≤b</td><td>(a+b)/2</td><td>(b−a)²/12</td><td>(eᵇᵗ−eᵃᵗ)/(t(b−a))</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--rv-dk);--thm-bg:var(--rv-lt)">
+      <h3>Law of Large Numbers <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Let X₁,X₂,... be i.i.d. with E[X]=μ, Var(X)=σ².
+X̄ₙ = (X₁+...+Xₙ)/n
+
+WLLN (Weak): X̄ₙ →ᴾ μ as n→∞
+  P(|X̄ₙ−μ|>ε)→0 for all ε>0
+  (Chebyshev: P(|X̄ₙ−μ|≥ε)≤σ²/(nε²))
+
+SLLN (Strong): X̄ₙ →ᵃ·ˢ· μ  (almost surely)
+  P(lim X̄ₙ=μ) = 1
+  Requires only E[|X|]&lt;∞ (Kolmogorov)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--rv-dk);--thm-bg:var(--rv-lt)">
+      <h3>Central Limit Theorem <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">CLT: if X₁,...,Xₙ i.i.d., E[X]=μ, Var(X)=σ²&lt;∞:
+  √n(X̄ₙ−μ)/σ →ᵈ N(0,1) as n→∞
+
+Equivalently: Σ(Xᵢ−μ)/(σ√n) →ᵈ N(0,1)
+  or: Sₙ = ΣXᵢ ≈ N(nμ, nσ²) for large n
+
+Applications:
+• Bin(n,p) ≈ N(np, np(1−p)) for large n
+• Poisson(λ) ≈ N(λ,λ) for large λ
+• Sample mean X̄ ~ N(μ, σ²/n) (approx.)
+
+Convergence in distribution (→ᵈ): Fₙ(x)→F(x)
+  at all continuity points of F</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--rv-md);color:var(--rv-dk)">&#127919; CSIR NET Questions — Distributions &amp; Limit Theorems</div>
+
+  <div class="mcq" style="border-left-color:var(--rv-md)">
+    <div class="mcq-hdr" style="background:var(--rv-lt)">
+      <div class="mcq-num" style="background:var(--rv-dk)">1</div>
+      <span class="mcq-lbl">Expectation of Poisson</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If X ~ Poisson(λ), then E[X(X−1)] =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>λ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>λ²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>λ(λ+1)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>λ²+λ</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rv1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rv1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — λ²</div>
+        <div class="ans-exp">E[X(X−1)]=Σ_{k=2}^∞ k(k−1)e^{−λ}λᵏ/k!=e^{−λ}Σ_{k=2}^∞λᵏ/(k−2)!=e^{−λ}λ²Σ_{j=0}^∞λʲ/j!=e^{−λ}λ²e^λ=<b>λ²</b>. This is the second factorial moment. From this: E[X²]=E[X(X−1)]+E[X]=λ²+λ. Var(X)=E[X²]−(E[X])²=λ²+λ−λ²=λ. So mean=var=λ for Poisson ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rv-md)">
+    <div class="mcq-hdr" style="background:var(--rv-lt)">
+      <div class="mcq-num" style="background:var(--rv-dk)">2</div>
+      <span class="mcq-lbl">Normal Distribution</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If X~N(μ,σ²) and Y=aX+b, then Y ~</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>N(aμ+b, a²σ²)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>N(μ+b, σ²)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>N(aμ, σ²+b)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Not normal in general</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rv2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rv2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — N(aμ+b, a²σ²)</div>
+        <div class="ans-exp">Linear functions of normal RVs are normal. E[Y]=E[aX+b]=aμ+b. Var(Y)=a²Var(X)=a²σ². So Y~<b>N(aμ+b, a²σ²)</b>. Special case: standardization Z=(X−μ)/σ~N(0,1). The normal distribution is closed under linear transformations — this property, combined with the CLT, makes it the most important distribution in statistics. Sum of independent normals: X~N(μ₁,σ₁²), Y~N(μ₂,σ₂²) → X+Y~N(μ₁+μ₂, σ₁²+σ₂²).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rv-md)">
+    <div class="mcq-hdr" style="background:var(--rv-lt)">
+      <div class="mcq-num" style="background:var(--rv-dk)">3</div>
+      <span class="mcq-lbl">MGF Application</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The MGF of X~Exp(λ) is M(t)=λ/(λ−t) for t&lt;λ. The variance of X is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1/λ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/λ²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>λ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>λ²</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rv3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rv3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 1/λ²</div>
+        <div class="ans-exp">M(t)=λ/(λ−t). M'(t)=λ/(λ−t)². M'(0)=1/λ=E[X] ✓. M''(t)=2λ/(λ−t)³. M''(0)=2/λ²=E[X²]. Var(X)=E[X²]−(E[X])²=2/λ²−1/λ²=<b>1/λ²</b>. So standard deviation=1/λ. The exponential is memoryless: P(X>s+t|X>s)=P(X>t). It models waiting times, radioactive decay, and is the continuous analogue of geometric distribution.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rv-md)">
+    <div class="mcq-hdr" style="background:var(--rv-lt)">
+      <div class="mcq-num" style="background:var(--rv-dk)">4</div>
+      <span class="mcq-lbl">CLT Application</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If X₁,...,X₁₀₀ are i.i.d. Bernoulli(0.5), by CLT the distribution of Σ Xᵢ is approximately:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>N(50, 25)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>N(50, 5)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>N(0.5, 0.25)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Poisson(50)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rv4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rv4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — N(50, 25)</div>
+        <div class="ans-exp">Sₙ=ΣXᵢ~Bin(100,0.5). By CLT: Sₙ≈N(nμ, nσ²). For Bernoulli(0.5): μ=0.5, σ²=0.25. n=100. nμ=50, nσ²=25. So Sₙ≈<b>N(50,25)</b> (i.e., mean 50, variance 25, SD=5). Note: N(50,25) means variance is 25, NOT that σ=25. The notation N(μ,σ²) uses variance as the second parameter. Exact: Bin(100,0.5) is symmetric around 50, well-approximated by N(50,25).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--rv-md)">
+    <div class="mcq-hdr" style="background:var(--rv-lt)">
+      <div class="mcq-num" style="background:var(--rv-dk)">5</div>
+      <span class="mcq-lbl">Chebyshev's Inequality</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For a RV X with mean 10 and variance 4, by Chebyshev, P(|X−10|≥6) ≤</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1/9</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>4/9</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('rv5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="rv5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 1/9</div>
+        <div class="ans-exp">Chebyshev: P(|X−μ|≥kσ)≤1/k². Here μ=10, σ²=4, σ=2. P(|X−10|≥6)=P(|X−μ|≥3σ)≤1/3²=<b>1/9</b>. Equivalently: P(|X−μ|≥ε)≤σ²/ε²=4/36=1/9. Chebyshev requires no assumption on distribution — works for any RV with finite variance. The bound is tight (achieved by a distribution with P(X=4)=P(X=16)=1/18, P(X=10)=8/9).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ESTIMATION & TESTING ===== -->
+<div id="st" class="section" style="--mcq-c:var(--st-md);--mcq-dk:var(--st-dk);--mcq-lt:var(--st-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#051005,#1b5e20,#388e3c)">
+    <div class="banner-num">θ̂</div>
+    <h2>Statistical Estimation &amp; Hypothesis Testing</h2>
+    <p>MLE · UMVUE · Cramér-Rao · Sufficiency · Neyman-Pearson · Regression</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#1b5e20">&#9655; Interactive: Likelihood &amp; MLE Visualizer</h3>
+    <canvas id="mle-canvas" width="620" height="210" style="background:#e8f5e9;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="drawMLE('normal')">Normal MLE: x̄, s²</button>
+      <button class="viz-btn" style="background:#388e3c;color:#fff" onclick="drawMLE('exp')">Exponential MLE: 1/x̄</button>
+      <button class="viz-btn" style="background:#0d47a1;color:#fff" onclick="drawMLE('bernoulli')">Bernoulli MLE: x̄</button>
+    </div>
+    <p id="mle-desc" style="font-size:12px;color:#1b5e20;margin-top:8px;font-weight:600">Click to see the log-likelihood surface and the MLE estimate.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--st-dk)"><span>Point Estimation</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--st-dk);--thm-bg:var(--st-lt)">
+      <h3>MLE &amp; Sufficiency <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Maximum Likelihood Estimator (MLE):
+  θ̂_MLE = argmax_θ L(θ;x₁,...,xₙ)
+  where L(θ;x)=Πf(xᵢ;θ)
+
+Log-likelihood: ℓ(θ)=ln L(θ)=Σln f(xᵢ;θ)
+  Solve: ∂ℓ/∂θ=0 (score equation)
+
+Properties of MLE: consistent, asymptotically
+  normal, asymptotically efficient.
+  Invariance: MLE of g(θ) is g(θ̂_MLE).
+
+Sufficient statistic T: T is sufficient for θ if
+  f(x|T=t) does not depend on θ.
+  Factorisation theorem: f(x;θ)=g(T(x),θ)h(x)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--st-dk);--thm-bg:var(--st-lt)">
+      <h3>Cramér-Rao Lower Bound <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">For any unbiased estimator T of θ:
+  Var(T) ≥ 1/I(θ)  (Cramér-Rao LB)
+
+Fisher information:
+  I(θ) = E[(∂/∂θ ln f(X;θ))²]
+        = −E[∂²/∂θ² ln f(X;θ)]
+
+For n i.i.d.: I_n(θ) = n·I(θ)
+  CRLB: Var(T) ≥ 1/(nI(θ))
+
+UMVUE: uniformly minimum variance unbiased.
+  Lehmann-Scheffé: if T is complete sufficient and
+  E[g(T)]=θ → g(T) is the unique UMVUE.
+  Rao-Blackwell: improve estimator by conditioning
+  on sufficient statistic.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--st-md)">
+      <h3>Hypothesis Testing <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">H₀ (null) vs H₁ (alternative)
+Type I error (α): reject H₀ when true (false positive)
+Type II error (β): fail to reject H₀ when false
+Power = 1−β = P(reject H₀ | H₁ true)
+
+Neyman-Pearson Lemma:
+  Most powerful test for H₀:θ=θ₀ vs H₁:θ=θ₁
+  is the likelihood ratio test:
+  Reject when L(θ₁)/L(θ₀) > k
+
+Common tests:
+  z-test: σ known, Z=(X̄−μ₀)/(σ/√n)~N(0,1)
+  t-test: σ unknown, T=(X̄−μ₀)/(S/√n)~t_{n−1}
+  χ²-test: variance / goodness of fit
+  F-test: comparison of variances</div>
+    </div>
+    <div class="card" style="--card-top:var(--st-md)">
+      <h3>Linear Regression <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Model: Yᵢ = β₀+β₁xᵢ+εᵢ, εᵢ~N(0,σ²) i.i.d.
+
+Least squares (= MLE here):
+  β̂₁ = Σ(xᵢ−x̄)(Yᵢ−Ȳ)/Σ(xᵢ−x̄)² = Sxy/Sxx
+  β̂₀ = Ȳ − β̂₁x̄
+
+Properties:
+  E[β̂₁]=β₁, Var(β̂₁)=σ²/Sxx (BLUE by Gauss-Markov)
+  Residual SS: RSS=Σ(Yᵢ−Ŷᵢ)²
+  R²=1−RSS/SST  (coefficient of determination)
+
+ANOVA decomposition:
+  SST = SSR + RSS
+  (Total = Regression + Residual)</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--st-md);color:var(--st-dk)">&#127919; CSIR NET Questions — Estimation &amp; Hypothesis Testing</div>
+
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">1</div>
+      <span class="mcq-lbl">MLE for Normal</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For X₁,...,Xₙ i.i.d. N(μ,σ²) with σ² known, the MLE of μ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Sample median</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Sample mean X̄</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Sample variance S²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>X₁ (first observation)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="st1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Sample mean X̄</div>
+        <div class="ans-exp">Log-likelihood: ℓ(μ)=−n/2·ln(2πσ²)−(1/2σ²)Σ(xᵢ−μ)². Maximise: ∂ℓ/∂μ=(1/σ²)Σ(xᵢ−μ)=0 → Σxᵢ=nμ → μ̂=<b>X̄</b>. X̄ is also the UMVUE: it is unbiased (E[X̄]=μ), sufficient (ΣXᵢ is complete sufficient for normal family), and achieves CRLB: Var(X̄)=σ²/n=1/(nI(μ)) where I(μ)=1/σ².</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">2</div>
+      <span class="mcq-lbl">Cramér-Rao Bound</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For X~Poisson(λ) with n i.i.d. samples, the Fisher information in the sample is nI(λ)=</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>n/λ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>nλ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>n/λ²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/(nλ)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="st2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — n/λ</div>
+        <div class="ans-exp">For Poisson(λ): ln f(x;λ)=−λ+x ln λ−ln x!. Score: ∂/∂λ ln f = −1+x/λ. Fisher info: I(λ)=E[(score)²]=E[(X/λ−1)²]=Var(X)/λ²=λ/λ²=1/λ. For n i.i.d. observations: I_n(λ)=n/λ. CRLB for unbiased estimator of λ: Var(T)≥λ/n. X̄ is the MLE and UMVUE: Var(X̄)=λ/n → achieves CRLB (efficient estimator).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">3</div>
+      <span class="mcq-lbl">Sufficient Statistic</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For X₁,...,Xₙ i.i.d. Bernoulli(p), a sufficient statistic for p is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>(X₁, X₂) (first two observations)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>T = ΣXᵢ (sum of observations)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>X₁ (first observation only)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>max(Xᵢ)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="st3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — T = ΣXᵢ</div>
+        <div class="ans-exp">Factorisation: L(p;x)=Πpˣⁱ(1−p)^{1−xᵢ}=p^{Σxᵢ}(1−p)^{n−Σxᵢ}=g(T,p)·h(x) with h=1. So T=ΣXᵢ is sufficient (contains all information about p). T~Bin(n,p). T is also complete for p∈(0,1) → T is complete sufficient → X̄=T/n is the UMVUE of p (Lehmann-Scheffé). Note: T=max(Xᵢ) would be 0 or 1 (just whether any X=1), losing information for n&gt;1.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">4</div>
+      <span class="mcq-lbl">Neyman-Pearson</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Testing H₀:μ=0 vs H₁:μ=1 for X~N(μ,1), n=1. The Neyman-Pearson most powerful test at level α=0.05 rejects when X &gt;</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1.645</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>0.5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1.96</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2.33</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="st4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 1.645</div>
+        <div class="ans-exp">NP LRT: reject when L(μ=1)/L(μ=0)>k, i.e. e^{−(X−1)²/2}/e^{−X²/2}>k → e^{X−1/2}>k → X>c. Under H₀: X~N(0,1). P(X>c|H₀)=α=0.05 → c=z_{0.05}=<b>1.645</b>. So reject H₀ when X>1.645. Power: P(X>1.645|μ=1)=P(Z>0.645)≈1−Φ(0.645)≈0.26. This is a one-sided z-test since σ=1 known. (C) 1.96 would give α=0.025, (D) 2.33 gives α=0.01.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--st-md)">
+    <div class="mcq-hdr" style="background:var(--st-lt)">
+      <div class="mcq-num" style="background:var(--st-dk)">5</div>
+      <span class="mcq-lbl">Linear Regression</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">In simple linear regression Y=β₀+β₁X+ε, the OLS estimator β̂₁ is unbiased with variance:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>σ²/Sxx where Sxx=Σ(xᵢ−x̄)²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>σ²/n</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>σ²·Sxx</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>σ/√Sxx</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('st5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="st5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — σ²/Sxx</div>
+        <div class="ans-exp">β̂₁=Sxy/Sxx where Sxy=Σ(xᵢ−x̄)Yᵢ. Var(β̂₁)=Var(Sxy/Sxx)=(1/Sxx²)Σ(xᵢ−x̄)²Var(Yᵢ)=(1/Sxx²)·Sxx·σ²=<b>σ²/Sxx</b>. By Gauss-Markov theorem, β̂₁ is the BLUE (best linear unbiased estimator): among all linear unbiased estimators, it has minimum variance. The larger Sxx (more spread in x-values), the more precise the slope estimate.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){const b=document.getElementById(id);const v=b.style.display==='block';b.style.display=v?'none':'block';btn.textContent=v?'▶ Show Answer':'▼ Hide Answer';}
+function selOpt(el){el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');}
+window.addEventListener('scroll',()=>document.getElementById('topBtn').classList.toggle('on',window.scrollY>300));
+
+// ===== BAYES CANVAS =====
+function drawBayes(prior,sens,fpr){
+  const canvas=document.getElementById('bayes-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=210;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fbe9e7';ctx.fillRect(0,0,W,H);
+  const post=sens*prior/(sens*prior+fpr*(1-prior));
+  const title=`Prior P(H)=${prior} → Posterior P(H|E)=${post.toFixed(4)} [Sensitivity=${sens}, FPR=${fpr}]`;
+  ctx.fillStyle='rgba(62,23,0,0.85)';ctx.fillRect(10,8,W-20,22);
+  ctx.fillStyle='#fff';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText(title,W/2,23);ctx.textAlign='left';
+  // Bar chart: prior vs posterior
+  const bars=[{label:'Prior P(H)',val:prior,color:'#bf360c'},{label:'Sens P(E|H)',val:sens,color:'#f4511e'},{label:'FPR P(E|¬H)',val:fpr,color:'#e65100'},{label:'Evidence P(E)',val:sens*prior+fpr*(1-prior),color:'#4527a0'},{label:'Posterior P(H|E)',val:post,color:'#1b5e20'}];
+  const bh=H-55,bw=Math.floor((W-20)/bars.length)-8;
+  bars.forEach((b,i)=>{
+    const bx=12+i*(bw+8),barH=b.val*bh;
+    ctx.fillStyle=b.color+'44';ctx.fillRect(bx,36,bw,bh);
+    ctx.fillStyle=b.color;ctx.fillRect(bx,36+bh-barH,bw,barH);
+    ctx.fillStyle=b.color;ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(b.label,bx+bw/2,H-4);
+    ctx.fillStyle='#fff';ctx.font='bold 12px Segoe UI';
+    if(barH>16)ctx.fillText(b.val.toFixed(3),bx+bw/2,36+bh-barH+14);
+    else{ctx.fillStyle=b.color;ctx.fillText(b.val.toFixed(3),bx+bw/2,36+bh-barH-4);}
+  });
+  ctx.textAlign='left';
+  document.getElementById('bayes-desc').textContent=`Bayes: Prior ${prior} → Posterior ${post.toFixed(4)}. Even with ${(sens*100).toFixed(0)}% sensitivity, rare condition (prior=${prior}) gives low posterior. Base rate dominates.`;
+}
+drawBayes(0.01,0.95,0.05);
+
+// ===== DISTRIBUTION CANVAS =====
+function drawDist(type){
+  const canvas=document.getElementById('dist-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=210;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e3f2fd';ctx.fillRect(0,0,W,H);
+  const mx=50,my=15,pw=W-mx-20,ph=H-my-40;
+  ctx.strokeStyle='#90caf9';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(mx,my+ph);ctx.lineTo(mx+pw,my+ph);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(mx,my+ph);ctx.stroke();
+  if(type==='normal'){
+    const phi=x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI);
+    ctx.strokeStyle='#0d47a1';ctx.lineWidth=2.5;ctx.beginPath();
+    let maxY=phi(0);
+    for(let i=0;i<=200;i++){
+      const x=-3.5+i/200*7;
+      const y=phi(x);
+      const px=mx+i/200*pw,py=my+ph-y/maxY*ph*0.85;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    // Shade ±1σ
+    ctx.fillStyle='rgba(13,71,161,0.1)';ctx.beginPath();
+    for(let i=0;i<=200;i++){
+      const x=-3.5+i/200*7;
+      if(x>=-1&&x<=1){const y=phi(x);const px=mx+(i)/200*pw,py=my+ph-y/maxY*ph*0.85;
+      if(x===-1||i===0)ctx.moveTo(px,my+ph);ctx.lineTo(px,py);}
+    }
+    ctx.lineTo(mx+(100/200+0.5/7)*pw*2,my+ph);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#0d47a1';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('N(0,1): μ=0, σ=1. 68% within ±1σ, 95% within ±2σ, 99.7% within ±3σ',W/2,H-8);
+    document.getElementById('dist-desc').textContent='Normal N(0,1): symmetric bell curve. PDF=(1/√2π)e^(-x²/2). μ=0, σ²=1. MGF=e^(t²/2).';
+  } else if(type==='poisson'){
+    const lambda=3;
+    const pois=k=>Math.exp(-lambda)*Math.pow(lambda,k)/[1,1,2,6,24,120,720,5040,40320,362880,3628800,39916800][k];
+    const Kmax=12;
+    const maxP=pois(Math.floor(lambda));
+    ctx.fillStyle='#1565c0';
+    for(let k=0;k<=Kmax;k++){
+      const p=pois(k);
+      const bw=pw/(Kmax+1)-2,bh=p/maxP*ph*0.85;
+      const bx=mx+k/(Kmax+1)*pw;
+      ctx.fillRect(bx,my+ph-bh,bw,bh);
+      ctx.fillStyle='#1a237e';ctx.font='9px Segoe UI';ctx.textAlign='center';
+      ctx.fillText(k,bx+bw/2,my+ph+12);
+      if(p>0.02){ctx.fillText(p.toFixed(3),bx+bw/2,my+ph-bh-3);}
+      ctx.fillStyle='#1565c0';
+    }
+    ctx.fillStyle='#1565c0';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('Poisson(λ=3): P(X=k)=e^{-3}·3^k/k! — mean=var=3',W/2,H-8);
+    document.getElementById('dist-desc').textContent='Poisson(λ=3): PMF=e^(-λ)λᵏ/k!. Mean=Var=λ=3. Models rare events in fixed interval.';
+  } else if(type==='exp'){
+    const lambda=1;
+    ctx.strokeStyle='#004d5e';ctx.lineWidth=2.5;ctx.beginPath();
+    const xmax=5;
+    for(let i=0;i<=200;i++){
+      const x=i/200*xmax,y=lambda*Math.exp(-lambda*x);
+      const px=mx+i/200*pw,py=my+ph-y/lambda*ph*0.85;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle='rgba(0,77,94,0.1)';ctx.beginPath();
+    ctx.moveTo(mx,my+ph);
+    for(let i=0;i<=200;i++){
+      const x=i/200*xmax,y=Math.exp(-x);
+      ctx.lineTo(mx+i/200*pw,my+ph-y*ph*0.85);
+    }
+    ctx.lineTo(mx+pw,my+ph);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#004d5e';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('Exponential(λ=1): f(x)=e^{-x}. Mean=1, Var=1. Memoryless.',W/2,H-8);
+    document.getElementById('dist-desc').textContent='Exponential(λ=1): PDF=λe^(-λx) for x≥0. Mean=1/λ, Var=1/λ². Memoryless: P(X>s+t|X>s)=P(X>t).';
+  } else if(type==='chi2'){
+    const k=5;
+    const gamma5=24; // (5/2-1)!=2!=2 for half int... approximate
+    const pdf=x=>{if(x<=0)return 0;return Math.pow(x,k/2-1)*Math.exp(-x/2)/(Math.pow(2,k/2)*24);};
+    const xmax=20;
+    let maxP=0;for(let i=1;i<=200;i++){maxP=Math.max(maxP,pdf(i/200*xmax));}
+    ctx.strokeStyle='#880e4f';ctx.lineWidth=2.5;ctx.beginPath();
+    for(let i=1;i<=200;i++){
+      const x=i/200*xmax,y=pdf(x);
+      const px=mx+i/200*pw,py=my+ph-y/maxP*ph*0.85;
+      i===1?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle='#880e4f';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('Chi-squared(k=5): f(x)∝x^{k/2-1}e^{-x/2}. Mean=5, Var=10.',W/2,H-8);
+    document.getElementById('dist-desc').textContent='χ²(k=5): sum of squares of k independent N(0,1). Mean=k=5, Var=2k=10. Used in chi-squared tests.';
+  } else {
+    // CLT demo: show progression of sample means
+    const colors=['#b71c1c','#e65100','#f57f17','#1565c0','#1b5e20'];
+    const phi=x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI);
+    const xmin=-4,xmax=4;
+    [1,2,5,10,30].forEach((n,ni)=>{
+      ctx.strokeStyle=colors[ni];ctx.lineWidth=1.5;ctx.beginPath();
+      for(let i=0;i<=200;i++){
+        const x=xmin+i/200*(xmax-xmin);
+        const y=Math.sqrt(n)*phi(x*Math.sqrt(n));
+        const px=mx+i/200*pw,py=my+ph-y/phi(0)*ph*0.7;
+        i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+      ctx.fillStyle=colors[ni];ctx.font='9px Segoe UI';ctx.textAlign='left';
+      ctx.fillText(`n=${n}`,W-60,my+20+ni*14);
+    });
+    ctx.strokeStyle='#0d47a1';ctx.lineWidth=2.5;ctx.setLineDash([5,5]);ctx.beginPath();
+    for(let i=0;i<=200;i++){const x=xmin+i/200*(xmax-xmin);const px=mx+i/200*pw,py=my+ph-phi(x)/phi(0)*ph*0.7;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}
+    ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#0d47a1';ctx.fillText('N(0,1)',W-60,my+90);
+    ctx.fillStyle='#1565c0';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('CLT: √n(X̄-μ)/σ → N(0,1). Distribution of X̄ narrows as n increases.',W/2,H-8);
+    document.getElementById('dist-desc').textContent='CLT demonstration: as n increases (n=1,2,5,10,30), the distribution of the sample mean approaches N(0,1) regardless of original distribution.';
+  }
+  ctx.textAlign='left';
+}
+drawDist('normal');
+
+// ===== MLE CANVAS =====
+function drawMLE(type){
+  const canvas=document.getElementById('mle-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=210;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e8f5e9';ctx.fillRect(0,0,W,H);
+  const mx=50,my=15,pw=W-mx-20,ph=H-my-40;
+  ctx.strokeStyle='#a5d6a7';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(mx,my+ph);ctx.lineTo(mx+pw,my+ph);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(mx,my+ph);ctx.stroke();
+  // Sample data
+  const data=[2.1,2.8,3.2,1.9,2.5,3.1,2.7,2.4,2.9,2.6];
+  const n=data.length,xbar=data.reduce((a,b)=>a+b)/n;
+  if(type==='normal'){
+    const s2=data.reduce((a,x)=>a+(x-xbar)**2,0)/n;
+    const tmin=1,tmax=4;
+    let logLvals=[];
+    for(let i=0;i<=200;i++){
+      const mu=tmin+i/200*(tmax-tmin);
+      const ll=data.reduce((a,x)=>a-0.5*(x-mu)**2/s2-0.5*Math.log(2*Math.PI*s2),0);
+      logLvals.push(ll);
+    }
+    const minL=Math.min(...logLvals),maxL=Math.max(...logLvals);
+    ctx.strokeStyle='#1b5e20';ctx.lineWidth=2.5;ctx.beginPath();
+    logLvals.forEach((ll,i)=>{const px=mx+i/200*pw,py=my+ph-(ll-minL)/(maxL-minL)*ph*0.85;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
+    ctx.stroke();
+    const mleX=mx+(xbar-tmin)/(tmax-tmin)*pw;
+    ctx.strokeStyle='#bf360c';ctx.lineWidth=2;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(mleX,my);ctx.lineTo(mleX,my+ph);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#bf360c';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(`μ̂_MLE = X̄ = ${xbar.toFixed(3)}`,mleX,my+10);
+    ctx.fillStyle='#1b5e20';ctx.textAlign='left';ctx.fillText('μ →',mx,my+ph+14);
+    ctx.fillStyle='#1b5e20';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(`Normal MLE: μ̂=X̄=${xbar.toFixed(3)}, σ̂²=Σ(xᵢ−X̄)²/n=${s2.toFixed(4)}`,W/2,H-8);
+    document.getElementById('mle-desc').textContent=`Log-likelihood ℓ(μ) for sample data: maximum at μ̂=X̄=${xbar.toFixed(3)} (MLE). Log-likelihood is concave — unique maximum.`;
+  } else if(type==='exp'){
+    const mle=1/xbar;
+    const tmin=0.1,tmax=2;
+    let logLvals=[];
+    for(let i=0;i<=200;i++){
+      const lam=tmin+i/200*(tmax-tmin);
+      const ll=n*Math.log(lam)-lam*data.reduce((a,x)=>a+x,0);
+      logLvals.push(ll);
+    }
+    const minL=Math.min(...logLvals),maxL=Math.max(...logLvals);
+    ctx.strokeStyle='#004d5e';ctx.lineWidth=2.5;ctx.beginPath();
+    logLvals.forEach((ll,i)=>{const px=mx+i/200*pw,py=my+ph-(ll-minL)/(maxL-minL)*ph*0.85;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
+    ctx.stroke();
+    const mleX=mx+(mle-tmin)/(tmax-tmin)*pw;
+    ctx.strokeStyle='#bf360c';ctx.lineWidth=2;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(mleX,my);ctx.lineTo(mleX,my+ph);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#bf360c';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(`λ̂=1/X̄=${mle.toFixed(3)}`,mleX,my+10);
+    ctx.fillStyle='#004d5e';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(`Exponential MLE: λ̂=1/X̄=1/${xbar.toFixed(3)}=${mle.toFixed(3)}`,W/2,H-8);
+    document.getElementById('mle-desc').textContent=`Exponential MLE: log-likelihood n log λ − λΣxᵢ. Maximum at λ̂=n/Σxᵢ=1/X̄=${mle.toFixed(3)}.`;
+  } else {
+    const phat=data.filter(x=>x>2.5).length/n;
+    const tmin=0.01,tmax=0.99;
+    let logLvals=[];
+    for(let i=0;i<=200;i++){
+      const p=tmin+i/200*(tmax-tmin);
+      const s=data.filter(x=>x>2.5).length;
+      const ll=s*Math.log(p)+(n-s)*Math.log(1-p);
+      logLvals.push(ll);
+    }
+    const minL=Math.min(...logLvals),maxL=Math.max(...logLvals);
+    ctx.strokeStyle='#0d47a1';ctx.lineWidth=2.5;ctx.beginPath();
+    logLvals.forEach((ll,i)=>{const px=mx+i/200*pw,py=my+ph-(ll-minL)/(maxL-minL)*ph*0.85;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
+    ctx.stroke();
+    const mleX=mx+(phat-tmin)/(tmax-tmin)*pw;
+    ctx.strokeStyle='#bf360c';ctx.lineWidth=2;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(mleX,my);ctx.lineTo(mleX,my+ph);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#bf360c';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(`p̂=X̄=${phat.toFixed(2)}`,mleX,my+10);
+    ctx.fillStyle='#0d47a1';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(`Bernoulli MLE: p̂=X̄=${phat.toFixed(3)} (proportion of 'successes')`,W/2,H-8);
+    document.getElementById('mle-desc').textContent=`Bernoulli MLE: log-likelihood k log p + (n-k) log(1-p). Maximum at p̂=k/n=X̄=${phat.toFixed(3)}.`;
+  }
+  ctx.textAlign='left';
+}
+drawMLE('normal');
+</script>
+</body>
+</html>

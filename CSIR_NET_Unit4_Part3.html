@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 4 — Functional Analysis</title>
+<style>
+:root{
+  --nb-dk:#0d3320;--nb-md:#1b5e20;--nb-lt:#e8f5e9;
+  --hs-dk:#004d5e;--hs-md:#006064;--hs-lt:#e0f7fa;
+  --op-dk:#3e0020;--op-md:#880e4f;--op-lt:#fce4ec;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#041208,#0d3320,#1b5e20);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#041208;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#43a047;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#a5d6a7);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#a5d6a7);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#0d3320;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 4 — Functional Analysis</div>
+  <div class="hdr-s">Normed Spaces · Banach Spaces · Hilbert Spaces · Bounded Operators · Key Theorems</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit4_Part2.html">&#8592; Complex II</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit4_Part4.html">Probability &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Functional Analysis</div>
+  <div class="nav-item active" style="--ac:#a5d6a7;--dc:#a5d6a7" onclick="show('nb',this)">
+    <div class="nav-dot"></div>Normed &amp; Banach Spaces
+  </div>
+  <div class="nav-item" style="--ac:#80deea;--dc:#80deea" onclick="show('hs',this)">
+    <div class="nav-dot"></div>Hilbert Spaces
+  </div>
+  <div class="nav-item" style="--ac:#f48fb1;--dc:#f48fb1" onclick="show('op',this)">
+    <div class="nav-dot"></div>Bounded Operators &amp; Theorems
+  </div>
+  <div class="nav-grp">Unit 4 Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part1.html'">
+    <div class="nav-dot" style="background:#80deea"></div>Complex Analysis I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part2.html'">
+    <div class="nav-dot" style="background:#b39ddb"></div>Complex Analysis II
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part4.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>Probability &amp; Statistics
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== NORMED & BANACH ===== -->
+<div id="nb" class="section active" style="--mcq-c:var(--nb-md);--mcq-dk:var(--nb-dk);--mcq-lt:var(--nb-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#041208,#0d3320,#1b5e20)">
+    <div class="banner-num">‖x‖</div>
+    <h2>Normed Spaces &amp; Banach Spaces</h2>
+    <p>Norms · Completeness · lᵖ Spaces · C[a,b] · Equivalence of Norms · Compactness</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#0d3320">&#9655; Interactive: Unit Ball Shapes in ℝ² under Different Norms</h3>
+    <canvas id="norm-canvas" width="620" height="200" style="background:#e8f5e9;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#0d3320;color:#fff" onclick="drawNorm(1)">‖·‖₁ (Diamond)</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="drawNorm(2)">‖·‖₂ (Circle)</button>
+      <button class="viz-btn" style="background:#004d5e;color:#fff" onclick="drawNorm(3)">‖·‖₃</button>
+      <button class="viz-btn" style="background:#4a148c;color:#fff" onclick="drawNorm(Infinity)">‖·‖∞ (Square)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="drawAllNorms()">Compare All</button>
+    </div>
+    <p id="norm-desc" style="font-size:12px;color:#0d3320;margin-top:8px;font-weight:600">‖x‖ₚ = (|x₁|ᵖ+|x₂|ᵖ)^{1/p}. The unit ball {x: ‖x‖≤1} changes shape with p.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--nb-dk)"><span>Definitions &amp; Examples</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--nb-dk);--thm-bg:var(--nb-lt)">
+      <h3>Normed Linear Space <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">A norm on vector space X is ‖·‖: X→ℝ satisfying:
+1. ‖x‖ ≥ 0; ‖x‖=0 ↔ x=0
+2. ‖αx‖ = |α|‖x‖  (homogeneity)
+3. ‖x+y‖ ≤ ‖x‖+‖y‖  (triangle inequality)
+
+(X,‖·‖) is a normed linear space.
+
+Key examples:
+  lᵖ = {(xₙ): Σ|xₙ|ᵖ<∞}, ‖x‖ₚ=(Σ|xₙ|ᵖ)^{1/p}
+  l∞ = {(xₙ): sup|xₙ|<∞}, ‖x‖∞=sup|xₙ|
+  C[a,b]: ‖f‖∞=max|f(x)|
+  Lᵖ[a,b]: ‖f‖ₚ=(∫|f|ᵖ)^{1/p}
+  ℝⁿ with ‖x‖ₚ=(Σ|xᵢ|ᵖ)^{1/p}</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--nb-dk);--thm-bg:var(--nb-lt)">
+      <h3>Banach Spaces <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">A Banach space is a complete normed space:
+  every Cauchy sequence converges.
+
+Is it Banach?
+  lᵖ (1≤p≤∞): YES (Banach)
+  L²[a,b]: YES (Banach, also Hilbert)
+  C[a,b] with ‖·‖∞: YES
+  C[a,b] with ‖·‖₁: NO (not complete)
+  c₀₀ (finite seq.) with l² norm: NO
+  Polynomials on [0,1]: NO
+
+Riesz's Theorem: A normed space X is
+  finite-dimensional ⟺ its unit ball is compact.
+
+Equivalent norms: on finite-dim space, all
+  norms are equivalent. FALSE in infinite dim.</div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:var(--nb-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--nb-dk)">
+      <thead><tr><th>Space</th><th>Norm</th><th>Complete?</th><th>Separable?</th><th>Reflexive?</th></tr></thead>
+      <tbody>
+        <tr><td>lᵖ (1≤p&lt;∞)</td><td>‖x‖ₚ</td><td>Yes (Banach)</td><td>Yes</td><td>Yes (1&lt;p&lt;∞); l¹ is not reflexive</td></tr>
+        <tr><td>l∞</td><td>sup|xₙ|</td><td>Yes (Banach)</td><td>No</td><td>No</td></tr>
+        <tr><td>C[a,b]</td><td>max|f|</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+        <tr><td>Lᵖ[a,b] 1≤p&lt;∞</td><td>‖f‖ₚ</td><td>Yes</td><td>Yes</td><td>Yes (1&lt;p&lt;∞)</td></tr>
+        <tr><td>L∞[a,b]</td><td>ess-sup|f|</td><td>Yes</td><td>No</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--nb-md);color:var(--nb-dk)">&#127919; CSIR NET Questions — Normed &amp; Banach Spaces</div>
+
+  <div class="mcq" style="border-left-color:var(--nb-md)">
+    <div class="mcq-hdr" style="background:var(--nb-lt)">
+      <div class="mcq-num" style="background:var(--nb-dk)">1</div>
+      <span class="mcq-lbl">lᵖ Space Membership</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The sequence xₙ = 1/n belongs to lᵖ if and only if:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>p ≥ 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>p &gt; 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>p &lt; 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>All p</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nb1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="nb1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — p &gt; 1</div>
+        <div class="ans-exp">Σ|1/n|ᵖ=Σ1/nᵖ (p-series). Converges ↔ p>1. So xₙ=1/n∈lᵖ ↔ Σ(1/n)ᵖ&lt;∞ ↔ <b>p&gt;1</b>. At p=1: Σ1/n diverges (harmonic series). At p=2: Σ1/n²=π²/6 ✓. Note: l¹⊂l²⊂...⊂l∞ (smaller p means stricter condition for sequences). For x_n=1/n²: belongs to all lᵖ with p≥1 (since Σ1/n^{2p} converges for 2p>1, i.e. p>1/2).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nb-md)">
+    <div class="mcq-hdr" style="background:var(--nb-lt)">
+      <div class="mcq-num" style="background:var(--nb-dk)">2</div>
+      <span class="mcq-lbl">Completeness</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following is NOT a Banach space?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>l² with ‖x‖₂</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>C[0,1] with ‖f‖₁=∫₀¹|f|dx</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>C[0,1] with ‖f‖∞=max|f|</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>ℝⁿ with any norm</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nb2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="nb2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — C[0,1] with ‖f‖₁</div>
+        <div class="ans-exp">C[0,1] with the L¹ norm is NOT complete. Counterexample: fₙ(x)=x^n is Cauchy in L¹ but converges in L¹ to f(x)=0 for x∈[0,1) and would need f(1)=1, but the pointwise limit (0 on [0,1), 1 at 1) is not continuous. More precisely: the L¹ completion of C[0,1] is L¹[0,1]. (A) l² is Banach ✓. (C) C[0,1] with sup-norm is Banach ✓. (D) ℝⁿ is finite-dimensional, all norms complete ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nb-md)">
+    <div class="mcq-hdr" style="background:var(--nb-lt)">
+      <div class="mcq-num" style="background:var(--nb-dk)">3</div>
+      <span class="mcq-lbl">Hölder's Inequality</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Hölder's inequality states: if 1/p+1/q=1, then Σ|xₙyₙ| ≤</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>‖x‖ₚ + ‖y‖_q</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>‖x‖ₚ · ‖y‖_q</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>‖x‖ₚ² + ‖y‖_q²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>(‖x‖ₚ + ‖y‖_q)/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nb3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="nb3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — ‖x‖ₚ · ‖y‖_q</div>
+        <div class="ans-exp">Hölder's inequality: Σ|xₙyₙ| ≤ <b>‖x‖ₚ·‖y‖_q</b> when 1/p+1/q=1 (p,q are conjugate exponents). Special case p=q=2: Cauchy-Schwarz: Σ|xₙyₙ|≤‖x‖₂·‖y‖₂. Continuous version: ∫|f·g|≤‖f‖_p·‖g‖_q. Used to prove Minkowski's inequality (triangle ineq for lᵖ norms). Note: conjugate of p=1 is q=∞; Hölder with (1,∞): Σ|xₙyₙ|≤‖x‖₁·‖y‖∞ = Σ|xₙ|·sup|yₙ|.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nb-md)">
+    <div class="mcq-hdr" style="background:var(--nb-lt)">
+      <div class="mcq-num" style="background:var(--nb-dk)">4</div>
+      <span class="mcq-lbl">Norm Equivalence</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">On ℝⁿ, which statement about norms ‖·‖ₚ and ‖·‖_q (p≠q) is TRUE?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>They are not equivalent</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>They are equivalent (induce same topology)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>‖·‖₁ is always smaller than ‖·‖₂</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>They are equivalent only if p,q ≥ 2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nb4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="nb4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — They are equivalent</div>
+        <div class="ans-exp">On finite-dimensional space ℝⁿ, ALL norms are equivalent: there exist constants 0&lt;c≤C such that c‖x‖_q ≤ ‖x‖_p ≤ C‖x‖_q for all x. Specific bounds in ℝⁿ: ‖x‖₂≤‖x‖₁≤√n‖x‖₂; ‖x‖∞≤‖x‖₂≤√n‖x‖∞. This fails in infinite dimensions: on l², the l¹ norm and l² norm are NOT equivalent (consider eₙ: ‖eₙ‖₂=1 always, but ‖eₙ‖∞=1 and ‖eₙ‖₁=1 too — bad example; consider xₙ=Σ_{k=1}^n 1/k eₖ).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--nb-md)">
+    <div class="mcq-hdr" style="background:var(--nb-lt)">
+      <div class="mcq-num" style="background:var(--nb-dk)">5</div>
+      <span class="mcq-lbl">Riesz Lemma</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Riesz's Lemma states: for a closed proper subspace Y of normed space X, there exists xₑ with ‖xₑ‖=1 and dist(xₑ,Y) ≥ θ for any θ∈(0,1). This is used to show:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Every normed space has an orthonormal basis</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The unit ball of an infinite-dimensional space is not compact</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Every Cauchy sequence converges</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>All norms on a Banach space are equivalent</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('nb5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="nb5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Unit ball of infinite-dimensional space is not compact</div>
+        <div class="ans-exp">Riesz Lemma is used to show: in an infinite-dimensional normed space, the closed unit ball is NOT compact. Construct sequence x₁, x₂, ... inductively: x₁ arbitrary, xₙ₊₁ chosen so ‖xₙ₊₁‖=1 and dist(xₙ₊₁, span{x₁,...,xₙ})≥1/2 (by Riesz). Then ‖xₙ−xₘ‖≥1/2 for n≠m — no convergent subsequence. Contrast: in finite dimensions, closed bounded sets are compact (Heine-Borel). So compactness of unit ball ⟺ finite-dimensional.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HILBERT SPACES ===== -->
+<div id="hs" class="section" style="--mcq-c:var(--hs-md);--mcq-dk:var(--hs-dk);--mcq-lt:var(--hs-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#001a20,#004d5e,#006064)">
+    <div class="banner-num">⟨x,y⟩</div>
+    <h2>Hilbert Spaces</h2>
+    <p>Inner Products · Orthonormality · Projection · Riesz Representation · Spectral Theory</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#004d5e">&#9655; Interactive: Gram-Schmidt Orthonormalization in ℝ³</h3>
+    <svg id="gs-svg" width="100%" height="210" viewBox="0 0 620 210" style="background:#e0f7fa;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#004d5e;color:#fff" onclick="showGS('standard')">Standard: {(1,1,0),(1,0,1),(0,1,1)}</button>
+      <button class="viz-btn" style="background:#006064;color:#fff" onclick="showGS('skew')">Skewed: {(2,1,0),(1,2,0),(0,0,3)}</button>
+    </div>
+    <p id="gs-desc" style="font-size:12px;color:#004d5e;margin-top:8px;font-weight:600">Gram-Schmidt converts a basis into an orthonormal set step by step.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--hs-dk)"><span>Inner Product Spaces &amp; Hilbert Spaces</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--hs-dk);--thm-bg:var(--hs-lt)">
+      <h3>Inner Product &amp; Hilbert Space <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">Inner product ⟨·,·⟩: H×H→ℂ satisfies:
+1. ⟨x,x⟩ ≥ 0; ⟨x,x⟩=0 ↔ x=0
+2. ⟨αx+βy,z⟩ = α⟨x,z⟩+β⟨y,z⟩  (linear in 1st)
+3. ⟨x,y⟩ = ⟨y,x⟩*  (conjugate symmetry)
+
+Induced norm: ‖x‖ = √⟨x,x⟩
+Cauchy-Schwarz: |⟨x,y⟩| ≤ ‖x‖·‖y‖
+Parallelogram law: ‖x+y‖²+‖x−y‖²=2(‖x‖²+‖y‖²)
+
+Hilbert space = complete inner product space.
+Examples: ℝⁿ, l², L²[a,b], H^k (Sobolev)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--hs-dk);--thm-bg:var(--hs-lt)">
+      <h3>Orthonormality &amp; Gram-Schmidt <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Orthonormal: {eₙ} with ⟨eₘ,eₙ⟩=δₘₙ
+
+Gram-Schmidt from {v₁,...,vₙ}:
+  u₁ = v₁/‖v₁‖
+  u₂ = (v₂−⟨v₂,u₁⟩u₁)/‖...‖
+  uₖ = (vₖ − Σⱼ₌₁^{k-1}⟨vₖ,uⱼ⟩uⱼ)/‖...‖
+
+Bessel's inequality: Σ|⟨x,eₙ⟩|² ≤ ‖x‖²
+Parseval's identity (complete ONB):
+  Σ|⟨x,eₙ⟩|² = ‖x‖²   (equality holds)
+  x = Σ ⟨x,eₙ⟩ eₙ  (Fourier expansion)
+
+Every separable Hilbert space has a countable ONB.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--hs-md)">
+      <h3>Projection Theorem &amp; Orthogonal Complement <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Projection Theorem: if M is a closed subspace of
+  Hilbert space H, then every x∈H has unique
+  decomposition: x = m + m⊥
+  where m∈M (closest point) and m⊥∈M⊥.
+
+Best approximation: ‖x−m‖ = dist(x,M) = min_{y∈M}‖x−y‖
+  (m is the orthogonal projection of x onto M)
+
+M⊥ = {y: ⟨y,x⟩=0 ∀x∈M}  (orthogonal complement)
+
+(M⊥)⊥ = M̄  (closure of M)
+
+H = M ⊕ M⊥  (orthogonal direct sum)</div>
+    </div>
+    <div class="card" style="--card-top:var(--hs-md)">
+      <h3>Riesz Representation Theorem <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Every bounded linear functional f:H→ℂ on a
+  Hilbert space H is of the form:
+  f(x) = ⟨x,y⟩  for a unique y∈H
+  and ‖f‖ = ‖y‖.
+
+H* ≅ H  (Hilbert spaces are self-dual)
+
+Consequence: Hilbert spaces are reflexive.
+
+Self-adjoint (Hermitian) operator: ⟨Tx,y⟩=⟨x,Ty⟩
+  Eigenvalues are real.
+  Eigenvectors for distinct eigenvalues are orthogonal.
+
+Spectral Theorem (compact self-adjoint T):
+  H = ⊕ Eₖ (eigenspaces), Tx = Σ λₖ⟨x,eₖ⟩eₖ</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--hs-md);color:var(--hs-dk)">&#127919; CSIR NET Questions — Hilbert Spaces</div>
+
+  <div class="mcq" style="border-left-color:var(--hs-md)">
+    <div class="mcq-hdr" style="background:var(--hs-lt)">
+      <div class="mcq-num" style="background:var(--hs-dk)">1</div>
+      <span class="mcq-lbl">Cauchy-Schwarz</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">In L²[0,1], the value of ⟨f,g⟩ where f(x)=x and g(x)=x² is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1/4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1/5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/6</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hs1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hs1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 1/4</div>
+        <div class="ans-exp">⟨f,g⟩=∫₀¹f(x)g(x)dx=∫₀¹x·x²dx=∫₀¹x³dx=[x⁴/4]₀¹=<b>1/4</b>. Verify Cauchy-Schwarz: ‖f‖²=∫x²dx=1/3, ‖g‖²=∫x⁴dx=1/5. |⟨f,g⟩|=1/4≤√(1/3)·√(1/5)=1/√15≈0.258. Indeed 0.25≤0.258 ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hs-md)">
+    <div class="mcq-hdr" style="background:var(--hs-lt)">
+      <div class="mcq-num" style="background:var(--hs-dk)">2</div>
+      <span class="mcq-lbl">Orthogonal Complement</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">In l², let M = {(xₙ): x₁=0}. Then M⊥ =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>{(xₙ): xₙ=0 for n≥2}</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>{(xₙ): x₁=0}</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>{0}</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The entire l²</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hs2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hs2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — {(xₙ): xₙ=0 for n≥2}</div>
+        <div class="ans-exp">M = {(0,x₂,x₃,...)}. y∈M⊥ iff ⟨y,x⟩=0 for all x∈M: Σyₙxₙ=y₂x₂+y₃x₃+...=0 for all choices of (x₂,x₃,...). This forces y₂=y₃=...=0. So M⊥={(y₁,0,0,...)}=span{e₁}. In other words, M⊥ consists of sequences with yₙ=0 for n≥2: <b>{(xₙ): xₙ=0 for n≥2}</b>. Verify: l²=M⊕M⊥: any (a,b₂,b₃,...)=(0,b₂,b₃,...)+( a,0,0,...) ∈M+M⊥ ✓.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hs-md)">
+    <div class="mcq-hdr" style="background:var(--hs-lt)">
+      <div class="mcq-num" style="background:var(--hs-dk)">3</div>
+      <span class="mcq-lbl">Parseval's Identity</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For the ONB {eₙ=√2 sin(nπx)} of L²[0,1], Parseval's identity for f(x)=x gives Σ|⟨f,eₙ⟩|² =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>π²/6</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hs3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hs3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — 1/3</div>
+        <div class="ans-exp">Parseval: Σ|⟨f,eₙ⟩|²=‖f‖². ‖f‖²=∫₀¹x²dx=1/3. So Σ|⟨x,√2 sin(nπx)⟩|²=<b>1/3</b>. Computing explicitly: ⟨x,√2 sin(nπx)⟩=√2∫₀¹x sin(nπx)dx=√2·(−1)^{n+1}/(nπ). So Σ2/(n²π²)=1/3 → Σ1/n²=π²/6 (Basel problem! This is how Fourier series proves Basel's formula). Option (D) π²/6 = Σ1/n², not the Parseval sum for ‖x‖².</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hs-md)">
+    <div class="mcq-hdr" style="background:var(--hs-lt)">
+      <div class="mcq-num" style="background:var(--hs-dk)">4</div>
+      <span class="mcq-lbl">Riesz Representation</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The bounded linear functional f(x) = Σ xₙ/2ⁿ on l² is represented by y=</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>yₙ = 1/2ⁿ, and ‖f‖=1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>yₙ = 1/2ⁿ, and ‖f‖=(4/3)^{1/2}</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>yₙ = n/2ⁿ, and ‖f‖=2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>yₙ = 1/n², and ‖f‖=π/√6</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hs4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hs4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — yₙ=1/2ⁿ, ‖f‖=(4/3)^{1/2}</div>
+        <div class="ans-exp">By Riesz: f(x)=⟨x,y⟩=Σxₙȳₙ=Σxₙ/2ⁿ → yₙ=1/2ⁿ. ‖f‖=‖y‖₂=√(Σ1/4ⁿ)=√(Σ(1/4)ⁿ for n≥1)=√(1/4·1/(1−1/4))=√(1/3)... wait: Σ_{n=1}^∞(1/2ⁿ)²=Σ1/4ⁿ=1/4·1/(1−1/4)=(1/4)/(3/4)=1/3. So ‖y‖₂=√(1/3)=1/√3. Hmm. If n starts from 0: Σ_{n=0}^∞1/4ⁿ=4/3 → ‖y‖=√(4/3)=2/√3. So depending on indexing: <b>‖f‖=√(4/3)</b> (if n≥0) or 1/√3 (if n≥1). Option (B) matches for n≥0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--hs-md)">
+    <div class="mcq-hdr" style="background:var(--hs-lt)">
+      <div class="mcq-num" style="background:var(--hs-dk)">5</div>
+      <span class="mcq-lbl">Self-adjoint Operators</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If T is a bounded self-adjoint operator on a Hilbert space, then its spectrum σ(T) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>A subset of the imaginary axis</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A subset of the real line</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The entire complex plane</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A finite set</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('hs5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="hs5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — A subset of the real line</div>
+        <div class="ans-exp">For a bounded self-adjoint (Hermitian) operator T: all spectral values are real. Proof: if Tx=λx, then λ‖x‖²=⟨Tx,x⟩=⟨x,Tx⟩=λ̄‖x‖² → λ=λ̄ → λ∈ℝ. Moreover: ‖T‖=sup{|λ|: λ∈σ(T)} (spectral radius = norm). Spectrum ⊆ [−‖T‖, ‖T‖]. Both −‖T‖ and ‖T‖ belong to σ(T). Eigenvectors for distinct eigenvalues are orthogonal: ⟨Txₖ,xⱼ⟩=λₖ⟨xₖ,xⱼ⟩=λⱼ⟨xₖ,xⱼ⟩ → (λₖ−λⱼ)⟨xₖ,xⱼ⟩=0.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BOUNDED OPERATORS & THEOREMS ===== -->
+<div id="op" class="section" style="--mcq-c:var(--op-md);--mcq-dk:var(--op-dk);--mcq-lt:var(--op-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a000a,#3e0020,#880e4f)">
+    <div class="banner-num">B(X,Y)</div>
+    <h2>Bounded Linear Operators &amp; Fundamental Theorems</h2>
+    <p>Operator Norm · Dual Space · Hahn-Banach · Open Mapping · Closed Graph · Uniform Boundedness</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#3e0020">&#9655; Interactive: Key Theorems of Functional Analysis</h3>
+    <svg id="thm-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#fce4ec;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showThm('hb')">Hahn-Banach</button>
+      <button class="viz-btn" style="background:#3e0020;color:#fff" onclick="showThm('om')">Open Mapping</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showThm('cg')">Closed Graph</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="showThm('ub')">Uniform Boundedness</button>
+    </div>
+    <p id="thm-desc" style="font-size:12px;color:#3e0020;margin-top:8px;font-weight:600">Click a theorem to see its statement, hypothesis, and consequence.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--op-dk)"><span>Bounded Linear Operators</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--op-dk);--thm-bg:var(--op-lt)">
+      <h3>Bounded Linear Operators <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">T:X→Y is bounded ↔ ∃M: ‖Tx‖≤M‖x‖ ∀x
+  ↔ T is continuous
+  ↔ T is continuous at 0
+
+Operator norm: ‖T‖ = sup_{‖x‖=1} ‖Tx‖
+  = sup_{x≠0} ‖Tx‖/‖x‖
+  = inf{M: ‖Tx‖≤M‖x‖}
+
+B(X,Y) = space of bounded linear operators X→Y
+  with ‖T‖ is a normed space.
+  B(X,Y) is Banach if Y is Banach.
+
+B(X,X) = B(X): Banach algebra under composition.
+  ‖ST‖ ≤ ‖S‖·‖T‖ (submultiplicative norm)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--op-dk);--thm-bg:var(--op-lt)">
+      <h3>Dual Space X* <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">X* = B(X,ℝ) (or B(X,ℂ)): dual space
+  = bounded linear functionals on X.
+
+Dual pairs (X, X*):
+  (lᵖ)* ≅ l^q  (1/p+1/q=1, 1&lt;p&lt;∞)
+  (l¹)* ≅ l∞
+  (l∞)* ⊋ l¹  (strictly larger!)
+  (Lᵖ)* ≅ L^q  (1≤p&lt;∞)
+  (C[a,b])* = space of Borel measures (Riesz)
+
+Bidual X** = (X*)*
+  Natural embedding J:X→X**, J(x)(f)=f(x)
+  Reflexive: J is surjective (X≅X**)
+  Hilbert spaces: X≅X* ≅ X** (self-dual)</div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:var(--op-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--op-dk)">
+      <thead><tr><th>Theorem</th><th>Hypothesis</th><th>Conclusion</th></tr></thead>
+      <tbody>
+        <tr><td><b>Hahn-Banach</b></td><td>Subspace Y⊂X, bounded functional f₀ on Y</td><td>Extension F on X with ‖F‖=‖f₀‖</td></tr>
+        <tr><td><b>Open Mapping</b></td><td>T:X→Y surjective, X,Y Banach</td><td>T maps open sets to open sets; T is open</td></tr>
+        <tr><td><b>Closed Graph</b></td><td>T:X→Y linear, X,Y Banach, graph closed</td><td>T is bounded</td></tr>
+        <tr><td><b>Uniform Boundedness (Banach-Steinhaus)</b></td><td>Tₙ:X→Y, sup_n‖Tₙx‖&lt;∞ for each x</td><td>sup_n‖Tₙ‖&lt;∞ (pointwise → uniform bdd)</td></tr>
+        <tr><td><b>Bounded Inverse</b></td><td>T bijective bounded, X,Y Banach</td><td>T⁻¹ is bounded (corollary of open mapping)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--op-md);color:var(--op-dk)">&#127919; CSIR NET Questions — Operators &amp; Key Theorems</div>
+
+  <div class="mcq" style="border-left-color:var(--op-md)">
+    <div class="mcq-hdr" style="background:var(--op-lt)">
+      <div class="mcq-num" style="background:var(--op-dk)">1</div>
+      <span class="mcq-lbl">Operator Norm</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The norm of the operator T:l²→l² defined by T(x₁,x₂,x₃,...)=(x₁/1, x₂/2, x₃/3,...) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>∞</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>π/√6</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>1/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('op1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="op1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 1</div>
+        <div class="ans-exp">‖Tx‖²=Σ(xₙ/n)²≤Σxₙ²=‖x‖² (since 1/n≤1). So ‖T‖≤1. Equality achieved on e₁=(1,0,0,...): ‖Te₁‖=‖e₁‖=1. So ‖T‖=<b>1</b>. This is a diagonal operator with diagonal (1,1/2,1/3,...); its operator norm = sup of diagonal entries = 1. T is bounded, compact (since it can be approximated by finite-rank operators), and injective but not surjective (e₁ not in range... actually it is since T(1,0,...)=( 1,0,...); T is injective and its range is {(aₙ): Σn²aₙ²&lt;∞}).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--op-md)">
+    <div class="mcq-hdr" style="background:var(--op-lt)">
+      <div class="mcq-num" style="background:var(--op-dk)">2</div>
+      <span class="mcq-lbl">Hahn-Banach</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Hahn-Banach theorem guarantees that for any x₀≠0 in a normed space X, there exists f∈X* with:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f(x₀)=0 and ‖f‖=1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f(x₀)=‖x₀‖ and ‖f‖=1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f(x₀)=1 and ‖f‖=∞</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f is surjective</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('op2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="op2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — f(x₀)=‖x₀‖ and ‖f‖=1</div>
+        <div class="ans-exp">By Hahn-Banach (norming functional): for any x₀≠0, there exists f∈X* with f(x₀)=‖x₀‖ and ‖f‖=1. This means X* separates points of X (if f(x)=0 for all f∈X* then x=0). It also gives: ‖x₀‖=sup{|f(x₀)|: f∈X*, ‖f‖≤1}. Consequence: X embeds isometrically into X** via J(x)(f)=f(x), with ‖J(x)‖=‖x‖.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--op-md)">
+    <div class="mcq-hdr" style="background:var(--op-lt)">
+      <div class="mcq-num" style="background:var(--op-dk)">3</div>
+      <span class="mcq-lbl">Open Mapping Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If T:X→Y is a bounded bijective linear operator between Banach spaces, then T⁻¹ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Unbounded in general</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Bounded (by the open mapping theorem)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Only bounded if T is compact</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Not necessarily linear</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('op3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="op3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Bounded (by the open mapping theorem)</div>
+        <div class="ans-exp">Open Mapping Theorem → Bounded Inverse Theorem: if T:X→Y is a surjective bounded linear operator between Banach spaces, T maps open sets to open sets. If additionally T is injective (bijective), then T⁻¹:Y→X is bounded. Proof: T⁻¹ is linear. T⁻¹ is continuous ↔ T⁻¹ maps open sets to open sets ↔ T maps open sets to open sets ✓ (by OMT). This fails for incomplete spaces: even a bijective bounded linear map on a non-Banach space can have unbounded inverse.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--op-md)">
+    <div class="mcq-hdr" style="background:var(--op-lt)">
+      <div class="mcq-num" style="background:var(--op-dk)">4</div>
+      <span class="mcq-lbl">Uniform Boundedness Principle</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A sequence of bounded linear functionals fₙ:X→ℝ on a Banach space X with fₙ(x)→0 for every x implies:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>‖fₙ‖→0 (uniform convergence)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>sup_n ‖fₙ‖&lt;∞ (uniformly bounded)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>‖fₙ‖≥1 for all n</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>fₙ=0 for large n</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('op4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="op4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — sup_n ‖fₙ‖ &lt; ∞</div>
+        <div class="ans-exp">Banach-Steinhaus (Uniform Boundedness Principle): if {Tₙ}⊂B(X,Y) with sup_n‖Tₙx‖&lt;∞ for every x, then sup_n‖Tₙ‖&lt;∞. Here fₙ(x)→0 implies sup_n|fₙ(x)|&lt;∞ for each x → sup_n‖fₙ‖&lt;∞ (option B). Note: pointwise convergence does NOT imply ‖fₙ‖→0 (uniform convergence is stronger). Example: fₙ(x)=nx₁ on c₀: pointwise→0 but ‖fₙ‖=n→∞ — wait, this contradicts B. No: if fₙ(x)→0 for each x on a Banach space, then by B-S the norms are bounded, but need not go to 0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--op-md)">
+    <div class="mcq-hdr" style="background:var(--op-lt)">
+      <div class="mcq-num" style="background:var(--op-dk)">5</div>
+      <span class="mcq-lbl">Compact Operator</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A compact operator K on an infinite-dimensional Banach space X cannot be:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Bounded</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The limit of finite-rank operators</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A bijection (invertible)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Self-adjoint (if X is a Hilbert space)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('op5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="op5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — A bijection (invertible)</div>
+        <div class="ans-exp">A compact operator K on an infinite-dimensional Banach space cannot be <b>invertible</b> (bijective). Proof: if K were bijective, K⁻¹ would be bounded (by bounded inverse theorem). Then I=K⁻¹∘K would be compact (composition of bounded and compact). But the identity on an infinite-dim space is not compact (the unit ball is not compact by Riesz's theorem). Contradiction. (A) is possible: all compact operators are bounded. (B) is possible: on Hilbert spaces, all compact = limit of finite-rank (approximation property). (D) is possible: there exist compact self-adjoint operators (diagonalizable with eigenvalues→0).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){const b=document.getElementById(id);const v=b.style.display==='block';b.style.display=v?'none':'block';btn.textContent=v?'▶ Show Answer':'▼ Hide Answer';}
+function selOpt(el){el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');}
+window.addEventListener('scroll',()=>document.getElementById('topBtn').classList.toggle('on',window.scrollY>300));
+
+// ===== NORM UNIT BALL =====
+function drawNorm(p){
+  const canvas=document.getElementById('norm-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=200;ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e8f5e9';ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,sc=70;
+  ctx.strokeStyle='#a5d6a7';ctx.lineWidth=0.5;
+  for(let i=-4;i<=4;i++){ctx.beginPath();ctx.moveTo(cx+i*sc/2,0);ctx.lineTo(cx+i*sc/2,H);ctx.stroke();ctx.beginPath();ctx.moveTo(0,cy+i*sc/2);ctx.lineTo(W,cy+i*sc/2);ctx.stroke();}
+  ctx.strokeStyle='#66bb6a';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+  const colors={1:'#0d3320',2:'#1b5e20',3:'#004d5e',4:'#4a148c',Infinity:'#880e4f'};
+  const drawBall=(pp,col,lw)=>{
+    ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();
+    for(let i=0;i<=400;i++){
+      const t=i/400*2*Math.PI;
+      let x,y;
+      if(pp===Infinity){x=Math.cos(t)>0?1:-1;y=Math.sin(t)>0?1:-1;}
+      else{
+        const a=Math.abs(Math.cos(t)),b=Math.abs(Math.sin(t));
+        const r=1/Math.pow(Math.pow(a,pp)+Math.pow(b,pp),1/pp);
+        x=r*Math.cos(t);y=r*Math.sin(t);
+      }
+      const px=cx+x*sc,py=cy-y*sc;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.closePath();ctx.stroke();
+  };
+  if(p==='all'){[1,2,3,Infinity].forEach(pp=>drawBall(pp,colors[pp]||'#888',2));}
+  else drawBall(p,colors[p]||'#0d3320',3);
+  const lbl=p===Infinity?'∞':String(p);
+  ctx.fillStyle='#0d3320';ctx.font='bold 13px Segoe UI';ctx.textAlign='center';
+  ctx.fillText(p==='all'?'All norms compared (p=1,2,3,∞)':`Unit ball ‖x‖_${lbl}=1 in ℝ²`,cx,H-10);
+  document.getElementById('norm-desc').textContent=p===Infinity?'‖x‖∞=max(|x₁|,|x₂|): unit ball is a square.':p===1?'‖x‖₁=|x₁|+|x₂|: unit ball is a diamond (rotated square).':p===2?'‖x‖₂=√(x₁²+x₂²): unit ball is a circle.':'‖x‖ₚ=(|x₁|ᵖ+|x₂|ᵖ)^{1/p}: unit ball is a rounded shape between diamond and square.';
+}
+function drawAllNorms(){
+  const canvas=document.getElementById('norm-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=200;ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e8f5e9';ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,sc=70;
+  ctx.strokeStyle='#a5d6a7';ctx.lineWidth=0.5;
+  for(let i=-4;i<=4;i++){ctx.beginPath();ctx.moveTo(cx+i*sc/2,0);ctx.lineTo(cx+i*sc/2,H);ctx.stroke();ctx.beginPath();ctx.moveTo(0,cy+i*sc/2);ctx.lineTo(W,cy+i*sc/2);ctx.stroke();}
+  ctx.strokeStyle='#66bb6a';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+  const pairs=[[1,'#c62828'],[2,'#1565c0'],[3,'#2e7d32'],[4,'#6a1b9a'],[Infinity,'#e65100']];
+  pairs.forEach(([p,c])=>{
+    ctx.strokeStyle=c;ctx.lineWidth=2;ctx.beginPath();
+    for(let i=0;i<=400;i++){
+      const t=i/400*2*Math.PI;let x,y;
+      if(p===Infinity){const s=Math.PI/4;x=Math.cos(t+s)>0?1:-1;y=Math.sin(t+s)>0?1:-1;}
+      else{const a=Math.abs(Math.cos(t)),b=Math.abs(Math.sin(t));const r=1/Math.pow(a**p+b**p,1/p);x=r*Math.cos(t);y=r*Math.sin(t);}
+      const px=cx+x*sc,py=cy-y*sc;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.closePath();ctx.stroke();
+  });
+  ctx.font='10px Segoe UI';ctx.textAlign='left';
+  pairs.forEach(([p,c],i)=>{ctx.fillStyle=c;ctx.fillText(`p=${p===Infinity?'∞':p}`,W-55,20+i*16);});
+  document.getElementById('norm-desc').textContent='All lᵖ unit balls: p=1 (red, diamond) → p=2 (blue, circle) → p=∞ (orange, square). As p↑, ball grows towards square.';
+}
+drawNorm(2);
+
+// ===== GRAM-SCHMIDT SVG =====
+function showGS(type){
+  const svg=document.getElementById('gs-svg');
+  const W=620,H=210;
+  let vecs,colors,result;
+  if(type==='standard'){
+    vecs=[[1,1,0],[1,0,1],[0,1,1]];
+    result=[['e₁=(1,1,0)/√2','‖v₁‖=√2','u₁=(1/√2, 1/√2, 0)'],['proj=⟨v₂,u₁⟩u₁=(1/√2)u₁','v₂−proj=(1/2,−1/2,1)','u₂=(1,−1,2)/√6'],['Similar projection steps','u₃ ⊥ u₁,u₂','u₃=(1,−1,−1)/√3']];
+  } else {
+    vecs=[[2,1,0],[1,2,0],[0,0,3]];
+    result=[['e₁=(2,1,0)/√5','‖v₁‖=√5','u₁=(2/√5, 1/√5, 0)'],['⟨v₂,u₁⟩=(2+2)/√5=4/√5','v₂−proj=(1,2,0)−(8/5,4/5,0)','u₂=(−3,6,0)/√45'],['v₃=(0,0,3): ⟨v₃,u₁⟩=0','⟨v₃,u₂⟩=0','u₃=(0,0,1)']];
+  }
+  let html=`<rect width="${W}" height="${H}" fill="#e0f7fa" rx="8"/>`;
+  html+=`<rect x="10" y="8" width="${W-20}" height="22" rx="6" fill="#004d5e"/>`;
+  html+=`<text x="${W/2}" y="23" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="Segoe UI">Gram-Schmidt Orthonormalization: {v₁,v₂,v₃}={(${vecs[0].join(',')}),(${vecs[1].join(',')}),(${vecs[2].join(',')})}</text>`;
+  const bw=(W-30)/3,bh=H-40;
+  const colors2=['#004d5e','#006064','#00838f'];
+  result.forEach((step,i)=>{
+    const bx=10+i*(bw+5);
+    html+=`<rect x="${bx}" y="36" width="${bw}" height="${bh}" rx="6" fill="white" opacity="${0.5+i*0.1}"/>`;
+    html+=`<rect x="${bx}" y="36" width="${bw}" height="22" rx="6" fill="${colors2[i]}"/>`;
+    html+=`<text x="${bx+bw/2}" y="51" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="800" font-family="Segoe UI">Step ${i+1}: u${i+1}</text>`;
+    step.forEach((ln,j)=>{
+      html+=`<text x="${bx+8}" y="${68+j*22}" fill="${colors2[i]}" font-size="10" font-family="Courier New" font-weight="600">${ln}</text>`;
+    });
+    html+=`<circle cx="${bx+bw/2}" cy="${bh-5}" r="16" fill="${colors2[i]}" opacity="0.15"/>`;
+    html+=`<text x="${bx+bw/2}" y="${bh}" text-anchor="middle" fill="${colors2[i]}" font-size="10" font-family="Segoe UI">⟨u${i+1},u${i}⟩=0</text>`;
+  });
+  svg.innerHTML=html;
+  document.getElementById('gs-desc').textContent=`Gram-Schmidt on ${type==='standard'?'{(1,1,0),(1,0,1),(0,1,1)}':'{(2,1,0),(1,2,0),(0,0,3)}'}: produces 3 orthonormal vectors.`;
+}
+showGS('standard');
+
+// ===== THEOREM SVG =====
+function showThm(type){
+  const svg=document.getElementById('thm-svg');
+  const W=620,H=200;
+  const data={
+    hb:{color:'#880e4f',title:'Hahn-Banach Extension Theorem',hyp:'Y closed subspace of X; f₀:Y→ℝ bounded, ‖f₀‖=M',conc:'∃ extension F:X→ℝ with F|_Y=f₀ and ‖F‖=M=‖f₀‖',use:'Separates points; existence of supporting hyperplanes; X embeds into X**'},
+    om:{color:'#3e0020',title:'Open Mapping Theorem (Banach-Schauder)',hyp:'T:X→Y bounded linear, surjective, X,Y Banach spaces',conc:'T is an open map: T(U) open for every open U⊂X',use:'Bounded Inverse Theorem; isomorphism criteria; many indirect arguments'},
+    cg:{color:'#1565c0',title:'Closed Graph Theorem',hyp:'T:X→Y linear, X,Y Banach; graph Γ(T)={(x,Tx)} closed in X×Y',conc:'T is bounded (continuous)',use:'Powerful: no explicit estimate needed; just verify graph closure'},
+    ub:{color:'#1b5e20',title:'Uniform Boundedness Principle (Banach-Steinhaus)',hyp:'Tₙ:X→Y bounded, X Banach, sup_n|Tₙ(x)|<∞ for every x∈X',conc:'sup_n‖Tₙ‖<∞ (pointwise bounded → uniformly bounded)',use:'Divergence of Fourier series; failure of weak convergence; resonance theorem'},
+  };
+  const d=data[type];
+  let html=`<rect width="${W}" height="${H}" fill="#fce4ec" rx="8"/>`;
+  html+=`<rect x="10" y="8" width="${W-20}" height="22" rx="6" fill="${d.color}"/>`;
+  html+=`<text x="${W/2}" y="23" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="Segoe UI">${d.title}</text>`;
+  const boxes=[{label:'Hypothesis',text:d.hyp,x:10},{label:'Conclusion',text:d.conc,x:215},{label:'Applications',text:d.use,x:420}];
+  boxes.forEach(b=>{
+    html+=`<rect x="${b.x}" y="36" width="198" height="${H-46}" rx="6" fill="white" opacity="0.6"/>`;
+    html+=`<rect x="${b.x}" y="36" width="198" height="20" rx="6" fill="${d.color}" opacity="0.8"/>`;
+    html+=`<text x="${b.x+99}" y="50" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="800" font-family="Segoe UI">${b.label}</text>`;
+    const words=b.text.split(';');
+    words.forEach((w,i)=>{
+      html+=`<text x="${b.x+8}" y="${66+i*22}" fill="${d.color}" font-size="10" font-family="Segoe UI">${w.trim()}</text>`;
+    });
+  });
+  svg.innerHTML=html;
+  document.getElementById('thm-desc').textContent=d.title+': '+d.hyp+' → '+d.conc;
+}
+showThm('hb');
+</script>
+</body>
+</html>

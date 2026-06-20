@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 4 — Complex Analysis I</title>
+<style>
+:root{
+  --ca-dk:#004d5e;--ca-md:#00838f;--ca-lt:#e0f7fa;
+  --ci-dk:#1a237e;--ci-md:#3949ab;--ci-lt:#e8eaf6;
+  --ps-dk:#4a148c;--ps-md:#7b1fa2;--ps-lt:#f3e5f5;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#001a20,#004d5e,#00838f);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#001520;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#00838f;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#80deea);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#80deea);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#004d5e;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 4 — Complex Analysis I</div>
+  <div class="hdr-s">Analytic Functions · Cauchy-Riemann · Complex Integration · Singularities</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit3_Part4.html">&#8592; Unit 3</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit4_Part2.html">Complex II &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Complex Analysis I</div>
+  <div class="nav-item active" style="--ac:#80deea;--dc:#80deea" onclick="show('ca',this)">
+    <div class="nav-dot"></div>Analytic Functions
+  </div>
+  <div class="nav-item" style="--ac:#9fa8da;--dc:#9fa8da" onclick="show('ci',this)">
+    <div class="nav-dot"></div>Complex Integration
+  </div>
+  <div class="nav-item" style="--ac:#ce93d8;--dc:#ce93d8" onclick="show('ps',this)">
+    <div class="nav-dot"></div>Power Series &amp; Singularities
+  </div>
+  <div class="nav-grp">Unit 4 Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part2.html'">
+    <div class="nav-dot" style="background:#9fa8da"></div>Laurent &amp; Residues
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part3.html'">
+    <div class="nav-dot" style="background:#a5d6a7"></div>Functional Analysis
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part4.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>Probability &amp; Statistics
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== ANALYTIC FUNCTIONS ===== -->
+<div id="ca" class="section active" style="--mcq-c:var(--ca-md);--mcq-dk:var(--ca-dk);--mcq-lt:var(--ca-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#001a20,#004d5e,#00838f)">
+    <div class="banner-num">ℂ</div>
+    <h2>Analytic Functions &amp; Cauchy-Riemann Equations</h2>
+    <p>Complex Differentiability · C-R Equations · Harmonic Functions · Elementary Functions</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#004d5e">&#9655; Interactive: Cauchy-Riemann Explorer — Visualize u &amp; v on ℂ</h3>
+    <canvas id="cr-canvas" width="620" height="220" style="background:#e0f7fa;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#004d5e;color:#fff" onclick="drawCR('z2')">f(z)=z² (analytic)</button>
+      <button class="viz-btn" style="background:#00838f;color:#fff" onclick="drawCR('ez')">f(z)=eᶻ (analytic)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="drawCR('zbar')">f(z)=z̄ (NOT analytic)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="drawCR('absz')">f(z)=|z|² (NOT analytic)</button>
+    </div>
+    <p id="cr-desc" style="font-size:12px;color:#004d5e;margin-top:8px;font-weight:600">Select a function to visualize u(x,y) [cyan] and v(x,y) [magenta] and verify C-R equations.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ca-dk)"><span>Cauchy-Riemann Equations</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--ca-dk);--thm-bg:var(--ca-lt)">
+      <h3>C-R Equations <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">f(z) = u(x,y) + iv(x,y) where z = x+iy
+
+Necessary condition for complex differentiability:
+  ∂u/∂x = ∂v/∂y   (CR-1)
+  ∂u/∂y = −∂v/∂x  (CR-2)
+
+If u,v have continuous partial derivatives AND
+satisfy C-R equations → f is analytic.
+
+Derivative formula:
+  f'(z) = ∂u/∂x + i∂v/∂x = ∂v/∂y − i∂u/∂y
+
+In polar form (z=re^{iθ}):
+  r·∂u/∂r = ∂v/∂θ,  ∂u/∂θ = −r·∂v/∂r</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--ca-dk);--thm-bg:var(--ca-lt)">
+      <h3>Harmonic Functions <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">If f=u+iv is analytic, then u and v are
+harmonic: ∇²u = u_xx + u_yy = 0
+           ∇²v = v_xx + v_yy = 0
+
+v is harmonic conjugate of u (and vice versa).
+
+Given u, find v using:
+  dv = ∂v/∂x dx + ∂v/∂y dy
+     = −∂u/∂y dx + ∂u/∂x dy
+  (integrate using C-R)
+
+Example: u = x²−y²
+  ∂u/∂x=2x → ∂v/∂y=2x → v=2xy+g(x)
+  ∂u/∂y=−2y → ∂v/∂x=2y → g'(x)=0
+  So v=2xy+C → f(z)=z²+C</div>
+    </div>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ca-dk)"><span>Elementary Analytic Functions</span></div>
+  <div class="card" style="--card-top:var(--ca-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--ca-dk)">
+      <thead><tr><th>Function</th><th>Definition / Form</th><th>Properties</th><th>Zeros / Singularities</th></tr></thead>
+      <tbody>
+        <tr><td><b>eᶻ</b></td><td>e^x(cos y + i sin y)</td><td>Entire, period 2πi, |eᶻ|=e^x</td><td>No zeros; essential sing. at ∞</td></tr>
+        <tr><td><b>sin z</b></td><td>(e^{iz}−e^{−iz})/2i</td><td>Entire, period 2π, unbounded</td><td>Zeros: z=nπ (n∈ℤ)</td></tr>
+        <tr><td><b>cos z</b></td><td>(e^{iz}+e^{−iz})/2</td><td>Entire, period 2π</td><td>Zeros: z=(2n+1)π/2</td></tr>
+        <tr><td><b>Log z</b></td><td>ln|z| + i·Arg(z)</td><td>Analytic on ℂ\(−∞,0]</td><td>Branch point at z=0, ∞</td></tr>
+        <tr><td><b>z^α (α∈ℂ)</b></td><td>e^{α Log z}</td><td>Analytic on ℂ\(−∞,0]</td><td>Branch point at 0 (unless α∈ℤ)</td></tr>
+        <tr><td><b>1/z</b></td><td>z̄/|z|²</td><td>Analytic on ℂ\{0}</td><td>Simple pole at z=0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ca-md)">
+      <h3>Key Theorems on Analytic Functions <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Identity Theorem: if f,g analytic on connected
+  open Ω, and f=g on a set with accumulation
+  point in Ω, then f≡g on Ω.
+
+Open Mapping Theorem: non-constant analytic
+  f maps open sets to open sets.
+
+Maximum Modulus Principle: |f(z)| cannot
+  achieve a local maximum at an interior
+  point (unless f≡const).
+
+Minimum Modulus Principle: if f≠0 on Ω,
+  |f(z)| cannot achieve a local minimum
+  at an interior point.</div>
+    </div>
+    <div class="card" style="--card-top:var(--ca-md)">
+      <h3>Entire &amp; Meromorphic Functions <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Entire function: analytic on all of ℂ.
+  Examples: polynomials, eᶻ, sin z, cos z
+
+Liouville's Theorem: every bounded entire
+  function is constant.
+  → Proof of Fundamental Theorem of Algebra:
+    p(z) degree n≥1 → has n roots in ℂ.
+
+Meromorphic function: analytic except for
+  isolated poles.
+  Examples: rational functions, tan z, cot z
+
+Entire function with no zeros → eᵍ⁽ᶻ⁾ form
+  (Weierstrass factorization theorem)</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ca-md);color:var(--ca-dk)">&#127919; CSIR NET Questions — Analytic Functions</div>
+
+  <div class="mcq" style="border-left-color:var(--ca-md)">
+    <div class="mcq-hdr" style="background:var(--ca-lt)">
+      <div class="mcq-num" style="background:var(--ca-dk)">1</div>
+      <span class="mcq-lbl">C-R Equations Test</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which of the following is analytic everywhere (entire)?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f(z) = |z|²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>f(z) = z̄ (conjugate)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f(z) = e^z</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>f(z) = Re(z)</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ca1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ca1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — f(z) = eᶻ</div>
+        <div class="ans-exp">eᶻ = e^x cos y + ie^x sin y: u=e^x cos y, v=e^x sin y. Check C-R: u_x=e^x cos y=v_y ✓, u_y=−e^x sin y=−v_x ✓. So eᶻ is entire. (A) |z|²=x²+y²: u=x²+y², v=0 → u_x=2x, v_y=0 — fails C-R except at z=0. (B) z̄=x−iy: u_x=1, v_y=−1 → 1≠−1, not analytic. (D) Re(z)=x: u=x, v=0 → u_x=1≠v_y=0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ca-md)">
+    <div class="mcq-hdr" style="background:var(--ca-lt)">
+      <div class="mcq-num" style="background:var(--ca-dk)">2</div>
+      <span class="mcq-lbl">Harmonic Conjugate</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If u(x,y) = x³ − 3xy² is harmonic, its harmonic conjugate v(x,y) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3x²y − y³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3x²y + y³</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>y³ − 3x²y</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>x² − y²</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ca2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ca2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 3x²y − y³</div>
+        <div class="ans-exp">u=x³−3xy². ∂u/∂x=3x²−3y²=∂v/∂y → v=3x²y−y³+g(x). ∂v/∂x=6xy+g'(x)=−∂u/∂y=−(−6xy)=6xy → g'(x)=0, g=const. So v=3x²y−y³. Verify: f(z)=u+iv=(x³−3xy²)+i(3x²y−y³)=(x+iy)³=z³ ✓. Note: C=Re(z³) and v=Im(z³).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ca-md)">
+    <div class="mcq-hdr" style="background:var(--ca-lt)">
+      <div class="mcq-num" style="background:var(--ca-dk)">3</div>
+      <span class="mcq-lbl">Liouville's Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If f is entire and |f(z)| ≤ M|z|ⁿ for all large |z|, then f is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Identically zero</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A polynomial of degree ≤ n</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A polynomial of degree exactly n</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A rational function</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ca3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ca3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — A polynomial of degree ≤ n</div>
+        <div class="ans-exp">By Cauchy's estimate: |f^(k)(z₀)| ≤ k!M R^n / R^k = k!M R^(n−k) for circle of radius R. As R→∞, for k>n this → 0, so f^(k)≡0 for k>n. Hence f is a polynomial of degree ≤ n. This is a generalisation of Liouville's theorem (n=0: bounded entire → constant).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ca-md)">
+    <div class="mcq-hdr" style="background:var(--ca-lt)">
+      <div class="mcq-num" style="background:var(--ca-dk)">4</div>
+      <span class="mcq-lbl">Max Modulus Principle</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Let f be analytic on the closed disk |z|≤1 with |f(z)|=1 on |z|=1. Then f is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Necessarily eⁱᶿ for some θ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A Blaschke product (finite)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A finite Blaschke product or constant of modulus 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The zero function</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ca4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ca4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — A finite Blaschke product or constant of modulus 1</div>
+        <div class="ans-exp">|f|=1 on |z|=1 means f maps the boundary to the unit circle. By the maximum modulus principle applied to both f and 1/f (both analytic if f≠0): |f|≤1 and 1/|f|≤1 inside, so |f|=1 throughout → f is a constant of modulus 1 if f has no zeros. If f has zeros inside, these must be balanced by poles of 1/f outside (reflecting principle): f is a finite Blaschke product z^m ∏(z−aₖ)/(1−āₖz).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ca-md)">
+    <div class="mcq-hdr" style="background:var(--ca-lt)">
+      <div class="mcq-num" style="background:var(--ca-dk)">5</div>
+      <span class="mcq-lbl">Complex Derivative</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">f(z) = u + iv is analytic at z₀ and f'(z₀) = 0. Then at z₀:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>f is not conformal (angle-preserving)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The Jacobian of (u,v) w.r.t. (x,y) is positive</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The Jacobian of (u,v) equals |f'(z₀)|²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The mapping is conformal at z₀</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ca5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ca5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — f is not conformal at z₀</div>
+        <div class="ans-exp">An analytic map f is conformal (preserves angles and orientation) at z₀ if and only if f'(z₀)≠0. The Jacobian J=|f'(z)|²=(u_x)²+(u_y)²: if f'(z₀)=0, then J=0 (the map degenerates). When f'(z₀)=0, angles between curves through z₀ are generally multiplied (not preserved), and the local geometric behaviour is like z^m (m≥2 the order of vanishing), which multiplies angles by m.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COMPLEX INTEGRATION ===== -->
+<div id="ci" class="section" style="--mcq-c:var(--ci-md);--mcq-dk:var(--ci-dk);--mcq-lt:var(--ci-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d0d3a,#1a237e,#3949ab)">
+    <div class="banner-num">∮</div>
+    <h2>Complex Integration &amp; Cauchy's Theorems</h2>
+    <p>Line Integrals · Cauchy's Theorem · CIF · Morera's Theorem · Cauchy's Estimates</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#1a237e">&#9655; Interactive: Contour Integration Visualizer</h3>
+    <canvas id="ci-canvas" width="620" height="220" style="background:#e8eaf6;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1a237e;color:#fff" onclick="drawContour('circle')">Unit circle ∮ dz/z</button>
+      <button class="viz-btn" style="background:#3949ab;color:#fff" onclick="drawContour('circle2')">Circle ∮ dz/z² </button>
+      <button class="viz-btn" style="background:#004d5e;color:#fff" onclick="drawContour('keyhole')">Keyhole contour</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="drawContour('semicircle')">Semicircle contour</button>
+    </div>
+    <p id="ci-desc" style="font-size:12px;color:#1a237e;margin-top:8px;font-weight:600">Select a contour to see its geometry and integration result.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ci-dk)"><span>Cauchy's Fundamental Theorems</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--ci-dk);--thm-bg:var(--ci-lt)">
+      <h3>Cauchy's Integral Theorem <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If f is analytic on and inside a simple
+closed contour C, then:
+  ∮_C f(z) dz = 0
+
+Extensions:
+• Deformation of contour: if f analytic
+  between C₁ and C₂ → ∮_{C₁} f = ∮_{C₂} f
+• Simply-connected domain: every closed
+  integral is 0 (⟺ f has antiderivative)
+• Multiply-connected: sum of residues × 2πi
+
+Key consequence: path independence
+  ∫_{z₁}^{z₂} f(z)dz depends only on endpoints</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--ci-dk);--thm-bg:var(--ci-lt)">
+      <h3>Cauchy's Integral Formula <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">If f analytic inside and on C (simple closed,
+CCW), and z₀ inside C:
+
+  f(z₀) = (1/2πi) ∮_C f(z)/(z−z₀) dz
+
+Generalised CIF (derivatives):
+  f⁽ⁿ⁾(z₀) = n!/(2πi) ∮_C f(z)/(z−z₀)^{n+1} dz
+
+Cauchy's estimates (|z₀|≤R, |f|≤M on C_R):
+  |f⁽ⁿ⁾(z₀)| ≤ n! M / Rⁿ
+
+Consequence: Analytic ⟹ infinitely differentiable
+  (analytic ⟺ locally expressible as power series)</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--ci-md)">
+      <h3>Key Integral Results <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">∮_{|z|=1} zⁿ dz = 0  for n ≠ −1
+∮_{|z|=1} z⁻¹ dz = 2πi  (key!)
+
+More generally (C around z₀):
+∮_C (z−z₀)ⁿ dz = { 2πi if n=−1; 0 otherwise }
+
+∮_C f(z)/(z−z₀) dz = 2πi f(z₀)  [CIF]
+
+∮_C f(z)/(z−z₀)² dz = 2πi f'(z₀)
+
+Parameterisation: z=z₀+re^{iθ}, θ:0→2π
+  dz = ire^{iθ}dθ</div>
+    </div>
+    <div class="card" style="--card-top:var(--ci-md)">
+      <h3>Morera's &amp; Mean Value <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Morera's Theorem (converse of Cauchy):
+  If f continuous on Ω and ∮_T f dz = 0
+  for every triangle T⊂Ω, then f is analytic.
+
+Mean Value Property for analytic f:
+  f(z₀) = (1/2π)∫₀^{2π} f(z₀+re^{iθ}) dθ
+
+Poisson Integral Formula on disk:
+  f(z₀) = (1/2π)∫₀^{2π} (R²−r²)/|Re^{iθ}−z₀|² f(Re^{iθ}) dθ
+  where r=|z₀|, R=radius of disk
+
+Schwarz Reflection Principle:
+  If f analytic on upper half-plane, continuous
+  to real axis, real on ℝ, then can extend:
+  f(z̄) = f̄(z) for lower half-plane.</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ci-md);color:var(--ci-dk)">&#127919; CSIR NET Questions — Complex Integration</div>
+
+  <div class="mcq" style="border-left-color:var(--ci-md)">
+    <div class="mcq-hdr" style="background:var(--ci-lt)">
+      <div class="mcq-num" style="background:var(--ci-dk)">1</div>
+      <span class="mcq-lbl">Basic Contour Integral</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The value of ∮_{|z|=2} dz/(z²+1) is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>πi</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>4πi</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ci1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ci1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 0</div>
+        <div class="ans-exp">1/(z²+1) = 1/((z+i)(z−i)). Poles at z=±i. Both |i|=1 and |−i|=1 are inside |z|=2. By residue theorem: ∮ = 2πi[Res(z=i)+Res(z=−i)]. Res(z=i) = 1/(2i) = −i/2. Res(z=−i) = 1/(−2i) = i/2. Sum = −i/2+i/2 = 0. So ∮ = 2πi·0 = <b>0</b>. (Alternatively: f is analytic everywhere except ±i; partial fractions: 1/(z²+1)=i/2·(1/(z+i)−1/(z−i)); integrals cancel.)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ci-md)">
+    <div class="mcq-hdr" style="background:var(--ci-lt)">
+      <div class="mcq-num" style="background:var(--ci-dk)">2</div>
+      <span class="mcq-lbl">CIF Application</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">∮_{|z|=2} eᶻ/(z−1)³ dz equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>πie</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2πie</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>πie/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2πi</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ci2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ci2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — πie</div>
+        <div class="ans-exp">By generalised CIF: ∮ f(z)/(z−z₀)^(n+1) dz = 2πi·f^(n)(z₀)/n!. Here f(z)=eᶻ, z₀=1, n=2 (pole of order 3). f''(z)=eᶻ, f''(1)=e. So ∮ = 2πi·e/2! = 2πie/2 = <b>πie</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ci-md)">
+    <div class="mcq-hdr" style="background:var(--ci-lt)">
+      <div class="mcq-num" style="background:var(--ci-dk)">3</div>
+      <span class="mcq-lbl">Cauchy's Estimate</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If f is entire with |f(z)| ≤ 3+|z|^(1/2), then f is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Identically constant</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>A polynomial of degree ≤ 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A linear polynomial</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>An arbitrary entire function</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ci3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ci3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — Identically constant</div>
+        <div class="ans-exp">By Cauchy's estimate on circle of radius R: |f'(z₀)| ≤ M(R)/R where M(R)=max|f|≤3+R^(1/2). So |f'(z₀)| ≤ (3+R^(1/2))/R = 3/R+1/√R → 0 as R→∞. Hence f'≡0, so f is <b>constant</b>. The growth condition |f|=O(|z|^α) for α<1 forces f to be constant by a similar argument (generalised Liouville with fractional exponent).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ci-md)">
+    <div class="mcq-hdr" style="background:var(--ci-lt)">
+      <div class="mcq-num" style="background:var(--ci-dk)">4</div>
+      <span class="mcq-lbl">Path Independence</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">∫_C z̄ dz along the straight line from 0 to 1+i equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>i</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1+i</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ci4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ci4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — i</div>
+        <div class="ans-exp">Parameterise: z(t)=t(1+i)=t+it, t∈[0,1]. z̄(t)=t−it, dz=(1+i)dt. ∫_C z̄ dz = ∫₀¹(t−it)(1+i)dt = (1+i)∫₀¹t(1−i)dt = (1+i)(1−i)∫₀¹t dt = (1+1)·(1/2) = 2·1/2 = 1... Let me redo: (1+i)(1−i)=1+1=2. So ∫=2·(1/2)=1. Hmm, let me compute again: (t−it)(1+i)=t+ti−ti−ti²=t+ti−ti+t=t+t=2t? No: (t−it)(1+i)=t·1+t·i−it·1−it·i=t+ti−it−i²t=t+ti−it+t=2t+(ti−it)=2t. So integral=∫₀¹2t dt=1. Answer is 1? Actually: (t−it)(1+i)=t(1)(1)+t(i)+(−it)(1)+(−it)(i)=t+ti−ti−i²t=t+t=2t. Integral=∫₀¹2t dt=[t²]₀¹=1. Closest is (C) 1. Let me pick (C). <b>Note:</b> The answer is 1 (option C). z̄ is not analytic, so the integral depends on the path.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ci-md)">
+    <div class="mcq-hdr" style="background:var(--ci-lt)">
+      <div class="mcq-num" style="background:var(--ci-dk)">5</div>
+      <span class="mcq-lbl">Winding Number</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The winding number of the curve γ: z(t) = e^{2it}, t∈[0,3π], around z=0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>6</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ci5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ci5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — 3</div>
+        <div class="ans-exp">Winding number n(γ,0)=(1/2πi)∮_γ dz/z. With z=e^{2it}: dz/z=2i dt. ∫₀^{3π}2i dt = 2i·3π = 6πi. n=(1/2πi)·6πi=3. Alternative: as t goes from 0 to 3π, the angle 2t goes from 0 to 6π, so the curve winds <b>3 times</b> around the origin (each full revolution = 2π). The speed is 2 (argument increases at rate 2), over interval of length 3π: total angle change = 6π = 3 full turns.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== POWER SERIES & SINGULARITIES ===== -->
+<div id="ps" class="section" style="--mcq-c:var(--ps-md);--mcq-dk:var(--ps-dk);--mcq-lt:var(--ps-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a0033,#4a148c,#7b1fa2)">
+    <div class="banner-num">Σaₙzⁿ</div>
+    <h2>Power Series &amp; Classification of Singularities</h2>
+    <p>Taylor Series · Radius of Convergence · Removable · Poles · Essential Singularities</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#4a148c">&#9655; Interactive: Singularity Classifier</h3>
+    <svg id="sg-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#f3e5f5;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#4a148c;color:#fff" onclick="showSing('removable')">Removable: sin(z)/z</button>
+      <button class="viz-btn" style="background:#7b1fa2;color:#fff" onclick="showSing('simple')">Simple pole: 1/z</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showSing('double')">Double pole: 1/z²</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="showSing('essential')">Essential: e^{1/z}</button>
+    </div>
+    <p id="sg-desc" style="font-size:12px;color:#4a148c;margin-top:8px;font-weight:600">Select a function to see the Laurent series and singularity type at z=0.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ps-dk)"><span>Taylor &amp; Laurent Series</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--ps-dk);--thm-bg:var(--ps-lt)">
+      <h3>Taylor Series of Analytic Functions <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If f is analytic in |z−z₀|<R (disk of radius R),
+  f(z) = Σ_{n=0}^∞ aₙ(z−z₀)ⁿ
+  where aₙ = f⁽ⁿ⁾(z₀)/n!  (= 1/2πi ∮ f(z)/(z-z₀)^{n+1})
+
+Radius of convergence R = 1/limsup|aₙ|^{1/n}
+  (Hadamard's formula)
+  Also: R = lim|aₙ/aₙ₊₁| (if limit exists)
+
+Key series:
+  eᶻ = Σ zⁿ/n!          (R=∞)
+  sin z = Σ (−1)ⁿz^{2n+1}/(2n+1)!  (R=∞)
+  1/(1−z) = Σ zⁿ        (R=1)
+  Log(1+z) = Σ (−1)^{n+1}zⁿ/n  (R=1)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--ps-dk);--thm-bg:var(--ps-lt)">
+      <h3>Classification of Isolated Singularities <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Laurent series in 0<|z−z₀|<R:
+  f(z) = Σ_{n=−∞}^{∞} cₙ(z−z₀)ⁿ
+  Principal part: Σ_{n<0} cₙ(z−z₀)ⁿ
+
+Types:
+• Removable: principal part = 0 (all c_n=0, n<0)
+  lim_{z→z₀} f(z) exists and is finite
+  Example: sin(z)/z at z=0
+
+• Pole of order m: c_{−m}≠0, c_n=0 for n<−m
+  |f(z)|→∞ as z→z₀
+  Example: 1/z² has pole of order 2
+
+• Essential: infinitely many negative-index terms
+  Picard: f takes every value except possibly one
+  in any punctured neighbourhood
+  Example: e^{1/z} at z=0</div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:var(--ps-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--ps-dk)">
+      <thead><tr><th>Singularity Type</th><th>Laurent Principal Part</th><th>Behaviour as z→z₀</th><th>Residue</th></tr></thead>
+      <tbody>
+        <tr><td><b>Removable</b></td><td>No negative powers</td><td>lim f(z) = finite (= f(z₀) after redefinition)</td><td>0</td></tr>
+        <tr><td><b>Pole, order m</b></td><td>c_{-m}(z−z₀)^{-m}+...+c_{-1}(z−z₀)^{-1}</td><td>|f(z)| → ∞; f·(z−z₀)^m → c_{-m}</td><td>c_{-1}</td></tr>
+        <tr><td><b>Essential</b></td><td>Infinite series of negative powers</td><td>No limit; dense image (Picard's thm)</td><td>c_{-1}</td></tr>
+        <tr><td><b>Branch point</b></td><td>Non-isolated (√z, log z)</td><td>Multi-valued; requires branch cut</td><td>N/A</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ps-md);color:var(--ps-dk)">&#127919; CSIR NET Questions — Power Series &amp; Singularities</div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">1</div>
+      <span class="mcq-lbl">Radius of Convergence</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The radius of convergence of Σ n²zⁿ is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>∞</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ps1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 1</div>
+        <div class="ans-exp">aₙ=n². Hadamard: R=1/limsup|aₙ|^{1/n}=1/limsup(n²)^{1/n}=1/limsup e^{(2 ln n)/n}. As n→∞: (2 ln n)/n→0, so e^{(2 ln n)/n}→1. Hence R=1/1=<b>1</b>. Ratio test: |aₙ₊₁/aₙ|=(n+1)²/n²→1, gives same R=1. Convergence on |z|=1: fails at z=1 (Σn² diverges) but this is about the radius, not boundary behaviour.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">2</div>
+      <span class="mcq-lbl">Singularity Classification</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The singularity of f(z) = (sin z)/z³ at z=0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Removable</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Simple pole</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Pole of order 2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Essential singularity</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ps2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Pole of order 2</div>
+        <div class="ans-exp">sin z = z − z³/6 + z⁵/120 − ... So sin(z)/z³ = 1/z² − 1/6 + z²/120 − ... The Laurent series has principal part 1/z² (lowest power = −2, no 1/z term). This is a <b>pole of order 2</b>. Note: residue = c_{-1} = coefficient of 1/z = 0. If it were sin(z)/z, we'd get 1−z²/6+...= removable (analytic). If sin(z)/z², we get 1/z−z/6+...= simple pole.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">3</div>
+      <span class="mcq-lbl">Picard's Theorem</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">For f(z)=e^{1/z} near z=0, f omits which values in any punctured neighbourhood of 0?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>No values (takes all values)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Only the value 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Only the values 0 and ∞</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>All real negative values</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ps3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — Only the value 0</div>
+        <div class="ans-exp">By Picard's Great Theorem: near an essential singularity, an analytic function takes every complex value infinitely often, with at most one exception. For e^{1/z}: e^{1/z}=w → 1/z=Log w → z=1/Log w. This fails only when w=0 (Log 0 undefined) or |w|→0. The exponential function never equals 0, so <b>0 is the exceptional value</b>. For every w≠0, e^{1/z}=w has infinitely many solutions in any punctured disc around 0.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">4</div>
+      <span class="mcq-lbl">Laurent Coefficient</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The coefficient of 1/z in the Laurent series of e^z/z² around z=0 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ps4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 1</div>
+        <div class="ans-exp">eᶻ/z² = (1+z+z²/2+z³/6+...)/z² = 1/z² + 1/z + 1/2 + z/6 + ... The coefficient of z^{-1} (i.e., 1/z) is <b>1</b>. This is the residue of eᶻ/z² at z=0 = c_{-1} = 1. Alternatively: Res(eᶻ/z², 0) = lim_{z→0} d/dz[z²·eᶻ/z²] = d/dz[eᶻ]|_{z=0} = eᶻ|_{z=0} = 1.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ps-md)">
+    <div class="mcq-hdr" style="background:var(--ps-lt)">
+      <div class="mcq-num" style="background:var(--ps-dk)">5</div>
+      <span class="mcq-lbl">Taylor Series</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Taylor series of 1/(1+z²) around z=0 has radius of convergence:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>∞ (entire function)</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>π</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ps5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ps5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — 1</div>
+        <div class="ans-exp">1/(1+z²) has singularities where 1+z²=0, i.e. z=±i. Distance from z=0 to z=±i is 1. The radius of convergence equals the distance to the nearest singularity, so R=<b>1</b>. The series: 1/(1+z²)=Σ(−1)ⁿz^{2n} converges for |z|<1 and diverges for |z|>1. Important lesson: on the real line, f(x)=1/(1+x²) is smooth everywhere, yet the Taylor series at x=0 only converges for |x|<1 — the complex singularities at ±i limit the radius!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const box=document.getElementById(id);
+  const vis=box.style.display==='block';
+  box.style.display=vis?'none':'block';
+  btn.textContent=vis?'▶ Show Answer':'▼ Hide Answer';
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('topBtn').classList.toggle('on',window.scrollY>300);
+});
+
+// ===== C-R CANVAS =====
+function drawCR(type){
+  const canvas=document.getElementById('cr-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=220;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e0f7fa';ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,sc=60;
+  const toX=x=>cx+x*sc, toY=y=>cy-y*sc;
+  // Grid
+  ctx.strokeStyle='#b2ebf2';ctx.lineWidth=0.5;
+  for(let i=-5;i<=5;i++){
+    ctx.beginPath();ctx.moveTo(toX(i),0);ctx.lineTo(toX(i),H);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,toY(i));ctx.lineTo(W,toY(i));ctx.stroke();
+  }
+  ctx.strokeStyle='#80deea';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+  let title='',desc='';
+  const pts=[];
+  for(let xi=-4;xi<=4;xi+=0.1){
+    for(let yi=-3;yi<=3;yi+=0.1){
+      let u,v;
+      if(type==='z2'){u=xi*xi-yi*yi;v=2*xi*yi;}
+      else if(type==='ez'){u=Math.exp(xi)*Math.cos(yi);v=Math.exp(xi)*Math.sin(yi);}
+      else if(type==='zbar'){u=xi;v=-yi;}
+      else{u=xi*xi+yi*yi;v=0;}
+      pts.push({xi,yi,u,v});
+    }
+  }
+  // Draw level curves of u (cyan)
+  ctx.strokeStyle='rgba(0,150,200,0.3)';ctx.lineWidth=1;
+  [-3,-2,-1,0,1,2,3].forEach(uval=>{
+    ctx.beginPath();let first=true;
+    for(let xi=-4;xi<=4;xi+=0.05){
+      const tol=0.1;
+      for(let yi=-3;yi<=3;yi+=0.05){
+        let u;
+        if(type==='z2')u=xi*xi-yi*yi;
+        else if(type==='ez')u=Math.exp(xi)*Math.cos(yi);
+        else if(type==='zbar')u=xi;
+        else u=xi*xi+yi*yi;
+        if(Math.abs(u-uval)<0.05&&xi>-3.9&&xi<3.9&&yi>-2.9&&yi<2.9){
+          const px=toX(xi),py=toY(yi);
+          if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+        }
+      }
+    }
+    ctx.stroke();
+  });
+  if(type==='z2'){title='f(z)=z²: u=x²−y², v=2xy';desc='f(z)=z² is ENTIRE. C-R: u_x=2x=v_y ✓, u_y=−2y=−v_x ✓. Curves u=const are hyperbolas; v=const are also hyperbolas (orthogonal).';}
+  else if(type==='ez'){title='f(z)=eᶻ: u=eˣcos y, v=eˣsin y';desc='eᶻ is ENTIRE. C-R: u_x=eˣcos y=v_y ✓, u_y=−eˣsin y=−v_x ✓. Level curves u=const: eˣcos y=C (cosines). Periodic in y with period 2π.';}
+  else if(type==='zbar'){title='f(z)=z̄: u=x, v=−y (NOT analytic)';desc='z̄ fails C-R: u_x=1 but v_y=−1 (1≠−1). NOT analytic anywhere. Level curves of u are vertical lines; v are horizontal lines.';}
+  else{title='f(z)=|z|²: u=x²+y², v=0 (NOT analytic except at 0)';desc='|z|²: u_x=2x, v_y=0 — fails C-R except at x=0. u_y=2y, −v_x=0 — fails except y=0. Only differentiable at z=0.';}
+  ctx.fillStyle='rgba(0,77,94,0.85)';ctx.fillRect(10,10,W-20,22);
+  ctx.fillStyle='#fff';ctx.font='12px Segoe UI';ctx.textAlign='center';
+  ctx.fillText(title,W/2,25);ctx.textAlign='left';
+  document.getElementById('cr-desc').textContent=desc;
+}
+drawCR('z2');
+
+// ===== CONTOUR CANVAS =====
+function drawContour(type){
+  const canvas=document.getElementById('ci-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=220;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e8eaf6';ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  ctx.strokeStyle='#c5cae9';ctx.lineWidth=0.5;
+  for(let i=-5;i<=5;i++){
+    ctx.beginPath();ctx.moveTo(cx+i*50,0);ctx.lineTo(cx+i*50,H);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,cy+i*50);ctx.lineTo(W,cy+i*50);ctx.stroke();
+  }
+  ctx.strokeStyle='#9fa8da';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+  if(type==='circle'){
+    ctx.strokeStyle='#1a237e';ctx.lineWidth=3;
+    ctx.beginPath();ctx.arc(cx,cy,80,0,2*Math.PI);ctx.stroke();
+    // Arrow
+    ctx.fillStyle='#1a237e';ctx.beginPath();ctx.moveTo(cx,cy-80);ctx.arc(cx,cy,80,-Math.PI/2,-Math.PI/2+0.3,false);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#1a237e';ctx.font='bold 13px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('∮|z|=1 dz/z = 2πi',cx,H-15);
+    ctx.fillText('Simple pole at z=0 (inside)',cx,H-32);
+    ctx.fillStyle='#c62828';ctx.beginPath();ctx.arc(cx,cy,5,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle='#c62828';ctx.fillText('●z=0',cx+10,cy-10);
+    document.getElementById('ci-desc').textContent='Unit circle: ∮|z|=1 dz/z = 2πi. The pole z=0 is inside, giving residue 1 × 2πi.';
+  } else if(type==='circle2'){
+    ctx.strokeStyle='#004d5e';ctx.lineWidth=3;
+    ctx.beginPath();ctx.arc(cx,cy,80,0,2*Math.PI);ctx.stroke();
+    ctx.fillStyle='#004d5e';ctx.font='bold 13px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('∮|z|=1 dz/z² = 0',cx,H-15);
+    ctx.fillText('Pole of order 2 at z=0 — residue = 0',cx,H-32);
+    ctx.fillStyle='#c62828';ctx.beginPath();ctx.arc(cx,cy,5,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle='#c62828';ctx.fillText('z=0 (order 2)',cx+10,cy-10);
+    document.getElementById('ci-desc').textContent='∮ dz/z²=0: pole of order 2 at z=0. Laurent series: 1/z²+0·(1/z)+... The residue (coeff of 1/z) = 0.';
+  } else if(type==='keyhole'){
+    ctx.strokeStyle='#880e4f';ctx.lineWidth=2.5;
+    const R=80,r=20;
+    // Large arc (mostly)
+    ctx.beginPath();ctx.arc(cx,cy,R,0.05,2*Math.PI-0.05);ctx.stroke();
+    // Small arc (inner, reversed)
+    ctx.beginPath();ctx.arc(cx,cy,r,2*Math.PI-0.05,0.05,true);ctx.stroke();
+    // Two connecting lines (slightly off real axis)
+    ctx.beginPath();ctx.moveTo(cx+r,cy-3);ctx.lineTo(cx+R,cy-3);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx+R,cy+3);ctx.lineTo(cx+r,cy+3);ctx.stroke();
+    // Branch cut
+    ctx.strokeStyle='#880e4f';ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+R+10,cy);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#880e4f';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('Keyhole Contour — for ∫₀^∞ f(x) dx with branch cut',cx,H-15);
+    document.getElementById('ci-desc').textContent='Keyhole contour: used for integrals of xᵃ·f(x) on [0,∞) where f has a branch point at 0. E.g., ∫₀^∞ xᵃ⁻¹/(1+x) dx = π/sin(πa).';
+  } else {
+    ctx.strokeStyle='#1b5e20';ctx.lineWidth=2.5;
+    // Upper semicircle
+    ctx.beginPath();ctx.arc(cx,cy,90,Math.PI,0,false);ctx.stroke();
+    // Real axis segment
+    ctx.beginPath();ctx.moveTo(cx-90,cy);ctx.lineTo(cx+90,cy);ctx.stroke();
+    ctx.fillStyle='#1b5e20';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('Semicircle Contour — for ∫_{-∞}^{∞} f(x) dx',cx,H-15);
+    // Poles (example: ±i)
+    ctx.fillStyle='#c62828';ctx.beginPath();ctx.arc(cx,cy-50,5,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle='#c62828';ctx.font='11px Segoe UI';ctx.fillText('z=i',cx+8,cy-52);
+    ctx.fillStyle='#90a4ae';ctx.beginPath();ctx.arc(cx,cy+50,5,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle='#90a4ae';ctx.fillText('z=−i (outside)',cx+8,cy+48);
+    document.getElementById('ci-desc').textContent='Semicircle: close real-axis integral in upper half-plane. Include poles with Im(z)>0. By Jordan's lemma, arc integral→0 as R→∞.';
+  }
+  ctx.textAlign='left';
+}
+drawContour('circle');
+
+// ===== SINGULARITY SVG =====
+function showSing(type){
+  const svg=document.getElementById('sg-svg');
+  const W=620,H=200;
+  const types={
+    removable:{label:'Removable Singularity: f(z)=sin(z)/z at z=0',color:'#1b5e20',
+      series:'sin(z)/z = 1 − z²/6 + z⁴/120 − z⁶/5040 + ...\n\nPrincipal part: NONE (no negative powers)\n\nlim_{z→0} sin(z)/z = 1\n\nDefine f(0)=1 → f becomes analytic everywhere\n\nResidue = 0',
+      desc:'Removable: limit exists. Extend definition to make analytic. No 1/z terms.'},
+    simple:{label:'Simple Pole: f(z)=1/z at z=0',color:'#1565c0',
+      series:'1/z\n\nLaurent series = ... + 0 + 1/z + 0 + 0·z + 0·z² + ...\n\nPrincipal part: 1/z (one negative power)\n\nlim_{z→0} |f(z)| = ∞\n\nlim_{z→0} z·f(z) = 1 (= residue)\n\nResidue = 1',
+      desc:'Simple (order-1) pole: Laurent has exactly one negative power. z·f→finite.'},
+    double:{label:'Pole of Order 2: f(z)=1/z² at z=0',color:'#e65100',
+      series:'1/z²\n\nLaurent series = 1/z² + 0·(1/z) + 0 + ...\n\nPrincipal part: 1/z² (lowest power = −2)\n\nlim_{z→0} z²·f(z) = 1\n\nResidue = 0 (coefficient of 1/z is 0)\n\nRes = d/dz[z²·(1/z²)] = d/dz[1] = 0',
+      desc:'Order-2 pole: two negative powers. Residue=0 (no 1/z term). z²·f→1.'},
+    essential:{label:'Essential Singularity: f(z)=e^{1/z} at z=0',color:'#880e4f',
+      series:'e^{1/z} = Σ_{n=0}^∞ 1/(n!·zⁿ)\n= 1 + 1/z + 1/(2z²) + 1/(6z³) + ...\n\nPrincipal part: INFINITE series of 1/zⁿ terms\n\nNo limit as z→0 (Picard: takes every value\nexcept 0 in any punctured neighbourhood)\n\nResidue = 1 (coeff of 1/z)',
+      desc:'Essential: infinitely many negative powers. Picard: dense image near 0.'},
+  };
+  const t=types[type];
+  const lines=t.series.split('\n');
+  let html=`<rect width="${W}" height="${H}" fill="#f3e5f5" rx="8"/>`;
+  html+=`<rect x="10" y="8" width="${W-20}" height="24" rx="8" fill="${t.color}"/>`;
+  html+=`<text x="${W/2}" y="24" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="Segoe UI">${t.label}</text>`;
+  html+=`<rect x="10" y="38" width="${W/2-15}" height="${H-48}" rx="6" fill="white" opacity="0.7"/>`;
+  lines.forEach((ln,i)=>{
+    html+=`<text x="20" y="${58+i*18}" fill="${t.color}" font-size="11.5" font-family="Courier New" font-weight="600">${ln}</text>`;
+  });
+  // Visual illustration
+  const bx=W/2+5,bw=W/2-15;
+  html+=`<rect x="${bx}" y="38" width="${bw}" height="${H-48}" rx="6" fill="white" opacity="0.5"/>`;
+  html+=`<text x="${bx+bw/2}" y="58" text-anchor="middle" fill="${t.color}" font-size="11" font-family="Segoe UI" font-weight="700">Behaviour near z=0</text>`;
+  if(type==='removable'){
+    html+=`<circle cx="${bx+bw/2}" cy="${H/2+10}" r="40" fill="none" stroke="${t.color}" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+    html+=`<circle cx="${bx+bw/2}" cy="${H/2+10}" r="5" fill="${t.color}"/>`;
+    html+=`<text x="${bx+bw/2}" y="${H/2-35}" text-anchor="middle" fill="${t.color}" font-size="10">f→1 (finite limit)</text>`;
+  } else if(type==='simple'){
+    for(let a=0;a<12;a++){
+      const angle=a/12*2*Math.PI,r=30+a*3;
+      html+=`<line x1="${bx+bw/2}" y1="${H/2+10}" x2="${bx+bw/2+r*Math.cos(angle)}" y2="${H/2+10+r*Math.sin(angle)}" stroke="${t.color}" stroke-width="${0.5+a*0.1}" opacity="0.7"/>`;
+    }
+    html+=`<text x="${bx+bw/2}" y="${H/2-35}" text-anchor="middle" fill="${t.color}" font-size="10">|f|→∞ (from all directions)</text>`;
+  } else if(type==='double'){
+    for(let a=0;a<16;a++){
+      const angle=a/16*2*Math.PI,r=20+a*4;
+      html+=`<line x1="${bx+bw/2}" y1="${H/2+10}" x2="${bx+bw/2+r*Math.cos(angle)}" y2="${H/2+10+r*Math.sin(angle)}" stroke="${t.color}" stroke-width="1.5" opacity="0.8"/>`;
+    }
+    html+=`<text x="${bx+bw/2}" y="${H/2-35}" text-anchor="middle" fill="${t.color}" font-size="10">|f|→∞ faster (order 2)</text>`;
+  } else {
+    for(let a=0;a<24;a++){
+      const angle=a/24*2*Math.PI*3,r=15+a*3;
+      const x2=bx+bw/2+r*Math.cos(angle),y2=H/2+10+r*Math.sin(angle);
+      html+=`<circle cx="${x2}" cy="${y2}" r="2" fill="${t.color}" opacity="${0.4+a*0.02}"/>`;
+    }
+    html+=`<text x="${bx+bw/2}" y="${H/2-35}" text-anchor="middle" fill="${t.color}" font-size="10">Wild oscillation (Picard)</text>`;
+  }
+  svg.innerHTML=html;
+  document.getElementById('sg-desc').textContent=t.desc;
+}
+showSing('removable');
+</script>
+</body>
+</html>

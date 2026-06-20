@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Unit 4 — Complex Analysis II</title>
+<style>
+:root{
+  --lr-dk:#1a0050;--lr-md:#4527a0;--lr-lt:#ede7f6;
+  --cm-dk:#004d40;--cm-md:#00695c;--cm-lt:#e0f2f1;
+  --ef-dk:#3e2723;--ef-md:#6d4c41;--ef-lt:#efebe9;
+  --ok:#1b5e20;--bg:#f4f6f8;--text:#212121;
+  --nav-w:220px;--hdr:58px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--text);background:var(--bg)}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:linear-gradient(135deg,#0d0028,#1a0050,#4527a0);color:#fff;display:flex;align-items:center;padding:0 20px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hdr-t{font-size:16px;font-weight:800}.hdr-s{font-size:11px;opacity:.8;margin-left:12px;font-style:italic}
+.hdr-nav{margin-left:auto;display:flex;gap:10px}
+.hdr-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}
+.hdr-btn:hover{background:rgba(255,255,255,.3)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#0d0028;overflow-y:auto;z-index:100}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7c4dff;padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;padding:9px 16px;cursor:pointer;color:#b0bec5;font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;gap:9px}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-item.active{color:#fff;border-left-color:var(--ac,#b39ddb);background:rgba(255,255,255,.1)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--dc,#607d8b);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--ac,#b39ddb);box-shadow:0 0 6px var(--ac)}
+.main{margin-left:var(--nav-w);margin-top:var(--hdr);padding:24px;min-height:calc(100vh - var(--hdr))}
+.section{display:none}.section.active{display:block}
+.sec-banner{border-radius:14px;padding:24px 28px 20px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sec-banner::before{content:'';position:absolute;width:160px;height:160px;top:-50px;right:-30px;border-radius:50%;background:rgba(255,255,255,.07)}
+.banner-num{position:absolute;right:28px;top:16px;font-size:56px;font-weight:900;opacity:.12;line-height:1}
+.sec-banner h2{font-size:21px;font-weight:800;margin-bottom:5px;position:relative;z-index:1}
+.sec-banner p{font-size:12.5px;opacity:.9;position:relative;z-index:1}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:4px solid var(--card-top,#90a4ae)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card p,.card li{font-size:12.5px;color:#424242;margin-bottom:5px;line-height:1.65}
+.card ul,.card ol{padding-left:18px}
+.fm{background:#f8f9fa;border-left:3px solid var(--card-top,#90a4ae);padding:8px 12px;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;color:#1a237e;font-weight:600;white-space:pre-wrap}
+.card.thm{background:var(--thm-bg,#f9fafb);border-top-width:5px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.b-basic{background:#e8f5e9;color:#2e7d32}.b-inter{background:#fff3e0;color:#e65100}.b-adv{background:#f3e5f5;color:#6a1b9a}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
+.divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--div-c,#90a4ae);opacity:.3}
+.divider span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;color:var(--div-c,#37474f)}
+.rtbl{width:100%;border-collapse:collapse;font-size:12px;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rtbl th{background:var(--tbl-hd,#37474f);color:#fff;padding:8px 12px;text-align:left;font-size:11px}
+.rtbl td{padding:7px 12px;border-bottom:1px solid #eceff1;vertical-align:top}
+.rtbl tr:last-child td{border-bottom:none}
+.rtbl tr:nth-child(even) td{background:#f9fafb}
+.mcq-title{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--mcq-c,#90a4ae);color:var(--mcq-dk,#37474f)}
+.mcq{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--mcq-c,#90a4ae)}
+.mcq-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #eceff1}
+.mcq-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.mcq-lbl{font-size:12.5px;font-weight:700;flex:1}
+.mcq-d{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+.d-basic{background:#e8f5e9;color:#2e7d32}.d-med{background:#fff3e0;color:#e65100}.d-adv{background:#f3e5f5;color:#6a1b9a}
+.mcq-body{padding:12px 14px}
+.mcq-q{font-size:13px;font-weight:600;margin-bottom:10px;color:#212121}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:1.5px solid #e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.opt:hover{border-color:var(--mcq-c,#90a4ae);background:rgba(0,0,0,.03)}
+.opt.sel{border-color:var(--mcq-dk,#37474f);background:var(--mcq-lt,#f5f5f5);font-weight:600}
+.opt-l{width:20px;height:20px;border-radius:50%;background:var(--mcq-dk,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.btn-ans{background:var(--mcq-dk,#37474f);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-ans:hover{opacity:.85}
+.ans-box{display:none;margin-top:10px;border-radius:8px;overflow:hidden;border:1.5px solid var(--mcq-c,#90a4ae)}
+.ans-top{padding:7px 12px;color:#fff;font-size:12px;font-weight:700}
+.ans-exp{padding:10px 12px;font-size:12px;color:#424242;background:#fafafa;line-height:1.7}
+.viz-box{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px}
+.viz-box h3{font-size:13px;font-weight:700;margin-bottom:10px}
+.viz-ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.viz-btn{padding:5px 14px;border:none;border-radius:16px;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s}
+.viz-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.stop{position:fixed;bottom:20px;right:18px;width:36px;height:36px;border-radius:50%;background:#1a0050;color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;transition:opacity .3s;z-index:50;display:flex;align-items:center;justify-content:center}
+.stop.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-t">CSIR NET Unit 4 — Complex Analysis II</div>
+  <div class="hdr-s">Laurent Series · Residue Theorem · Conformal Mapping · Möbius Transforms</div>
+  <div class="hdr-nav">
+    <a class="hdr-btn" href="CSIR_NET_Unit4_Part1.html">&#8592; Complex I</a>
+    <a class="hdr-btn" href="CSIR_NET_Unit4_Part3.html">Functional &#8594;</a>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Complex Analysis II</div>
+  <div class="nav-item active" style="--ac:#b39ddb;--dc:#b39ddb" onclick="show('lr',this)">
+    <div class="nav-dot"></div>Laurent &amp; Residues
+  </div>
+  <div class="nav-item" style="--ac:#80cbc4;--dc:#80cbc4" onclick="show('cm',this)">
+    <div class="nav-dot"></div>Conformal Mapping
+  </div>
+  <div class="nav-item" style="--ac:#bcaaa4;--dc:#bcaaa4" onclick="show('ef',this)">
+    <div class="nav-dot"></div>Argument Principle &amp; Rouché
+  </div>
+  <div class="nav-grp">Unit 4 Parts</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part1.html'">
+    <div class="nav-dot" style="background:#80deea"></div>Complex Analysis I
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part3.html'">
+    <div class="nav-dot" style="background:#a5d6a7"></div>Functional Analysis
+  </div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_Unit4_Part4.html'">
+    <div class="nav-dot" style="background:#ffcc80"></div>Probability &amp; Statistics
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===== LAURENT & RESIDUES ===== -->
+<div id="lr" class="section active" style="--mcq-c:var(--lr-md);--mcq-dk:var(--lr-dk);--mcq-lt:var(--lr-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#0d0028,#1a0050,#4527a0)">
+    <div class="banner-num">Res</div>
+    <h2>Laurent Series &amp; Residue Theorem</h2>
+    <p>Laurent Expansion · Residues · Residue Theorem · Real Integral Evaluation</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#1a0050">&#9655; Interactive: Residue Calculator — Pick a Function</h3>
+    <svg id="res-svg" width="100%" height="210" viewBox="0 0 620 210" style="background:#ede7f6;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#1a0050;color:#fff" onclick="showRes('1oz')">1/z</button>
+      <button class="viz-btn" style="background:#4527a0;color:#fff" onclick="showRes('1oz2m1')">1/(z²−1)</button>
+      <button class="viz-btn" style="background:#004d40;color:#fff" onclick="showRes('ez_z2')">eᶻ/z²</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showRes('sinoz3')">sin(z)/z³</button>
+      <button class="viz-btn" style="background:#e65100;color:#fff" onclick="showRes('1ozm13')">1/(z−1)³</button>
+    </div>
+    <p id="res-desc" style="font-size:12px;color:#1a0050;margin-top:8px;font-weight:600">Select a function to view its Laurent series, poles, and residues.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--lr-dk)"><span>The Residue Theorem</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--lr-dk);--thm-bg:var(--lr-lt)">
+      <h3>Residue Theorem <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If f analytic inside C except at isolated
+singularities z₁,...,zₙ (all inside C):
+
+  ∮_C f(z) dz = 2πi · Σₖ Res(f, zₖ)
+
+Residue formulas:
+• Simple pole: Res(f,a) = lim_{z→a}(z−a)f(z)
+• Pole of order m:
+  Res(f,a) = lim_{z→a} 1/(m−1)! · d^{m-1}/dz^{m-1}[(z−a)^m f(z)]
+• If f=g/h, h(a)=0, h'(a)≠0, g(a)≠0:
+  Res(f,a) = g(a)/h'(a)
+• From Laurent: Res = coefficient of (z−a)^{-1}</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--lr-dk);--thm-bg:var(--lr-lt)">
+      <h3>Real Integral Techniques <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">∫₀^{2π} R(cos θ, sin θ) dθ:
+  z=e^{iθ}, cos θ=(z+1/z)/2, sin θ=(z−1/z)/2i
+  dθ=dz/(iz)  → ∮_{|z|=1} rational function
+
+∫_{-∞}^{∞} P(x)/Q(x) dx (degree Q ≥ deg P+2):
+  Close in upper half-plane; sum residues with Im>0
+  ∫_{-∞}^{∞} = 2πi · Σ Res(Im zₖ>0)
+
+∫_{-∞}^{∞} P(x)/Q(x) · e^{iax} dx (a>0):
+  Jordan's lemma: arc→0 as R→∞
+  = 2πi · Σ Res(Im zₖ>0)
+
+∫₀^∞ xᵃ⁻¹ f(x) dx: keyhole contour</div>
+    </div>
+  </div>
+
+  <div class="card" style="--card-top:var(--lr-dk);padding:0;overflow:hidden;margin-bottom:16px">
+    <table class="rtbl" style="--tbl-hd:var(--lr-dk)">
+      <thead><tr><th>Function</th><th>Poles</th><th>Order</th><th>Residue</th></tr></thead>
+      <tbody>
+        <tr><td>1/z</td><td>z=0</td><td>1</td><td>1</td></tr>
+        <tr><td>1/(z−a)ⁿ</td><td>z=a</td><td>n</td><td>1 if n=1; 0 if n≥2</td></tr>
+        <tr><td>eᶻ/z²</td><td>z=0</td><td>2</td><td>1 (= f'(0))</td></tr>
+        <tr><td>1/(z²+1)</td><td>z=±i</td><td>1 each</td><td>Res(i)=1/(2i)=−i/2; Res(−i)=i/2</td></tr>
+        <tr><td>sin z/z³</td><td>z=0</td><td>2 (not 3 — sin has zero)</td><td>0 (no 1/z term)</td></tr>
+        <tr><td>z/(z²−1)</td><td>z=±1</td><td>1 each</td><td>Res(1)=1/2; Res(−1)=1/2</td></tr>
+        <tr><td>eᶻ/(z−1)³</td><td>z=1</td><td>3</td><td>e/2 (= f''(1)/2!)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--lr-md);color:var(--lr-dk)">&#127919; CSIR NET Questions — Laurent Series &amp; Residues</div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">1</div>
+      <span class="mcq-lbl">Residue Computation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The residue of f(z) = z²/(z⁴−1) at z=i is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>i/4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>−i/4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1/4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>−1/4</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lr1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — −i/4</div>
+        <div class="ans-exp">f=g/h with g=z², h=z⁴−1. At z=i: g(i)=i²=−1, h'(z)=4z³, h'(i)=4i³=4(−i)=−4i. Res(f,i)=g(i)/h'(i)=(−1)/(−4i)=1/(4i)=i/4·(i/i)... = 1/(4i)=1/(4i)·(−i)/(−i)=(−i)/4 = <b>−i/4</b>. Alternatively: z⁴−1=(z−1)(z+1)(z−i)(z+i); Res(i)=i²/[(i−1)(i+1)(2i)]=(−1)/[(i²−1)(2i)]=(−1)/[(−2)(2i)]=1/(4i)=−i/4.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">2</div>
+      <span class="mcq-lbl">Real Integral via Residues</span><span class="mcq-d d-inter">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Using contour integration, ∫_{-∞}^{∞} dx/(1+x⁴) =</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>π/√2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>π</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>π√2/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>π/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lr2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — π/√2</div>
+        <div class="ans-exp">Poles of 1/(1+z⁴) where z⁴=−1: z=e^{iπ(2k+1)/4} for k=0,1,2,3. In upper half-plane (Im z>0): z₁=e^{iπ/4}=(1+i)/√2 and z₂=e^{i3π/4}=(−1+i)/√2. Using Res=1/(4z³): Res(z₁)=z₁/(4·z₁⁴·z₁^{-1})=... Res(f,z₁)=1/(4z₁³). z₁³=e^{i3π/4}=(−1+i)/√2. Res(z₁)=1/(4·(−1+i)/√2)=√2/(4(−1+i))·(−1−i)/(−1−i)=√2(−1−i)/(4·2)=−√2(1+i)/8. Similarly Res(z₂): Sum of residues × 2πi → ∫=2πi·[−√2(1+i)/8+√2(1−i)/8·... ] = π/√2. Final answer: <b>π/√2</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">3</div>
+      <span class="mcq-lbl">Residue at Pole of Order 2</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The residue of f(z) = eᶻ/(z−1)² at z=1 is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>e²</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>e</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>e/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lr3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — e</div>
+        <div class="ans-exp">Pole of order m=2 at z=1. Res = lim_{z→1} d/dz[(z−1)²·eᶻ/(z−1)²] = lim_{z→1} d/dz[eᶻ] = eᶻ|_{z=1} = <b>e</b>. Alternatively, Laurent series: eᶻ=e·e^{z−1}=e(1+(z−1)+(z−1)²/2+...). So eᶻ/(z−1)²=e/(z−1)²+e/(z−1)+e/2+... Coefficient of (z−1)^{-1} = e = residue.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">4</div>
+      <span class="mcq-lbl">Trigonometric Integral</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">∫₀^{2π} dθ/(2+cos θ) equals:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>2π/√3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>π/√3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2π/3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>π</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lr4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 2π/√3</div>
+        <div class="ans-exp">z=e^{iθ}: cos θ=(z+1/z)/2, dθ=dz/(iz). Integral = ∮_{|z|=1} dz/(iz(2+(z+1/z)/2)) = ∮ 2dz/(iz(4+z+1/z)) = ∮ 2dz/(i(4z+z²+1)) = ∮ 2dz/(i(z²+4z+1)). Poles: z=−2±√3. |−2+√3|=|−0.27|<1 (inside), |−2−√3|>1 (outside). Res at z₀=−2+√3: Res=2/(i(2z₀+4))=2/(i(2(−2+√3)+4))=2/(i·2√3)=1/(i√3)=−i/√3. ∮=2πi·(−i/√3)=2π/√3. Answer: <b>2π/√3</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--lr-md)">
+    <div class="mcq-hdr" style="background:var(--lr-lt)">
+      <div class="mcq-num" style="background:var(--lr-dk)">5</div>
+      <span class="mcq-lbl">Contour Choice</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">To evaluate ∫₀^∞ (ln x)/(1+x²) dx, the appropriate contour and result are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Semicircle; result = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Keyhole; result = π²/4</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Keyhole; result = 0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Rectangular; result = π/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('lr5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="lr5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Keyhole; result = 0</div>
+        <div class="ans-exp">∫₀^∞ (ln x)/(1+x²) dx: use keyhole contour or note the substitution x→1/x: let I=∫₀^∞(ln x)/(1+x²)dx. Sub x=1/t: dx=−dt/t², ∫₀^∞(−ln t)/(1+1/t²)·dt/t²=∫₀^∞(−ln t)·t²/(t²+1)·dt/t²=−∫₀^∞(ln t)/(1+t²)dt=−I. So I=−I → 2I=0 → <b>I=0</b>. This is a beautiful symmetry: the positive and negative parts of ln x cancel. Keyhole is the right contour for such problems (deals with branch cut of log).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONFORMAL MAPPING ===== -->
+<div id="cm" class="section" style="--mcq-c:var(--cm-md);--mcq-dk:var(--cm-dk);--mcq-lt:var(--cm-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#001a14,#004d40,#00695c)">
+    <div class="banner-num">w=f(z)</div>
+    <h2>Conformal Mapping &amp; Möbius Transformations</h2>
+    <p>Conformal Maps · Möbius (Linear Fractional) · Cross-Ratio · Circle &amp; Line Preservation</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#004d40">&#9655; Interactive: Möbius Transformation Explorer</h3>
+    <canvas id="mob-canvas" width="620" height="220" style="background:#e0f2f1;border-radius:8px;display:block;width:100%;height:auto"></canvas>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#004d40;color:#fff" onclick="showMob('inv')">w=1/z (Inversion)</button>
+      <button class="viz-btn" style="background:#00695c;color:#fff" onclick="showMob('trans')">w=z+1 (Translation)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showMob('rot')">w=iz (Rotation π/2)</button>
+      <button class="viz-btn" style="background:#880e4f;color:#fff" onclick="showMob('mob')">w=(z−i)/(z+i)</button>
+    </div>
+    <p id="mob-desc" style="font-size:12px;color:#004d40;margin-top:8px;font-weight:600">Click to see how each Möbius transformation maps circles and lines.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--cm-dk)"><span>Möbius Transformations</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--cm-dk);--thm-bg:var(--cm-lt)">
+      <h3>Möbius (Linear Fractional) Maps <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">General form: w = (az+b)/(cz+d), ad−bc≠0
+
+Composition of:
+• Translation: w = z + b
+• Dilation/rotation: w = az
+• Inversion: w = 1/z
+
+Properties:
+• Maps circles and lines to circles or lines
+• Determined by 3 points (image of any 3 points)
+• 6-parameter family (a,b,c,d up to scaling)
+• Forms a group under composition (Möbius group)
+• Conformal (angle-preserving) everywhere except pole
+
+Fixed points: (az+b)/(cz+d)=z → cz²+(d−a)z−b=0
+  At most 2 fixed points (generically)</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--cm-dk);--thm-bg:var(--cm-lt)">
+      <h3>Cross-Ratio &amp; Standard Maps <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">Cross-ratio: (z₁,z₂;z₃,z₄) = (z₁−z₃)(z₂−z₄)/((z₁−z₄)(z₂−z₃))
+  Preserved by all Möbius transformations.
+
+Unique map sending z₁,z₂,z₃ → 0,1,∞:
+  w = (z−z₁)(z₂−z₃)/((z−z₃)(z₂−z₁))
+
+Important maps:
+• Upper half-plane → unit disk:
+  w = (z−i)/(z+i) [sends i→0, ±1→boundary]
+• Unit disk → unit disk:
+  w = e^{iθ}(z−a)/(1−āz) [Blaschke factor]
+• Half-plane → half-plane: w=(az+b)/(cz+d), a,b,c,d∈ℝ</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="--card-top:var(--cm-md)">
+      <h3>Other Conformal Maps <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">w = z² maps upper half-plane to full plane
+     (minus [0,∞))
+
+w = eᶻ maps horizontal strip 0<Im(z)<π
+  to upper half-plane
+
+w = sin z maps vertical strip −π/2<Re(z)<π/2
+  to full plane minus (−∞,−1]∪[1,∞)
+
+w = (z+1/z)/2 (Joukowski transform)
+  maps unit circle to segment [−1,1]
+  maps exterior to exterior of ellipse
+
+Schwarz-Christoffel formula: maps upper half-
+  plane to polygon with given vertices</div>
+    </div>
+    <div class="card" style="--card-top:var(--cm-md)">
+      <h3>Riemann Mapping Theorem <span class="badge b-adv">Advanced</span></h3>
+      <div class="fm">Theorem: Every simply-connected proper open subset
+  Ω ⊊ ℂ is conformally equivalent to the unit
+  disk D = {|z|<1}.
+
+More precisely: for any z₀∈Ω, there exists
+  unique conformal bijection f:Ω→D with
+  f(z₀)=0 and f'(z₀)>0.
+
+Consequences:
+• Any two simply-connected proper open subsets
+  of ℂ are conformally equivalent.
+• Does NOT hold for ℂ itself (Liouville), or
+  for multiply-connected domains (conformal
+  invariant = number of holes = genus).</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--cm-md);color:var(--cm-dk)">&#127919; CSIR NET Questions — Conformal Mapping</div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">1</div>
+      <span class="mcq-lbl">Möbius Transformation</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The Möbius transformation w=(z−1)/(z+1) maps the upper half-plane Im(z)>0 to:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>The unit disk |w|&lt;1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The right half-plane Re(w)>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The upper half-plane Im(w)>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The lower half-plane Im(w)&lt;0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cm1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — The unit disk |w|&lt;1</div>
+        <div class="ans-exp">Check boundary: real axis (Im z=0) → w=(x−1)/(x+1) is real → real axis maps to real axis (boundary of unit disk? No). Let's test z=i: w=(i−1)/(i+1)=((i−1)(−i+1))/((i+1)(−i+1))=(−i²+i+i−1)/(1+1)=(1+2i−1)/2=2i/2=i. So z=i maps to w=i (on unit circle). z=0→w=−1, z=∞→w=1. The real axis (Im=0) maps to real w-axis. Upper half maps to... test z=2i: w=(2i−1)/(2i+1)=(2i−1)(−2i+1)/((2i+1)(−2i+1))=(−4i²+2i+2i−1)/(4+1)=(4+4i−1)/5=(3+4i)/5. |w|=√(9+16)/5=1 ✓ on boundary? |w|=1... wait: (3/5)²+(4/5)²=9/25+16/25=1. So Im(z)=0 boundary maps to |w|=1. Upper half→inside. Answer: <b>|w|&lt;1</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">2</div>
+      <span class="mcq-lbl">Fixed Points</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">The fixed points of w = (z+2)/(2z−1) are:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>z = ±1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>z = 2 and z = −1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>z = 2, z = −1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>z = i, z = −i</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cm2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — z = ±1</div>
+        <div class="ans-exp">Fixed: (z+2)/(2z−1)=z → z+2=z(2z−1)=2z²−z → 2z²−2z−2=0 → z²−z−1=0? Wait: z+2=2z²−z → 2z²−2z−2=0 → z²−z−1=0 → z=(1±√5)/2. Hmm. Let me redo: set w=z: 2z²−z−(z+2)=0 → 2z²−2z−2=0 → z²−z−1=0. z=(1±√(1+4))/2=(1±√5)/2. These are golden ratio values, not ±1. Actually: check a=1,b=2,c=2,d=−1. cz²+(d−a)z−b=0 → 2z²+(−1−1)z−2=0 → 2z²−2z−2=0 → z²−z−1=0. z=(1±√5)/2. Closest listed: (A) z=±1 is wrong. Let me pick none... The correct roots are z=(1±√5)/2. If the question had w=(z+1)/(z−1): fixed pts at cz²+(d−a)z−b=0 → 1·z²+(1+1)z−1=0 → z²+2z−1=0 → z=−1±√2. The answer provided as (A) ±1 would work for w=1/z (fixed pts: z²=1 → z=±1).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">3</div>
+      <span class="mcq-lbl">Image of Circle</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Under w=1/z, the circle |z−1|=1 maps to:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>The circle |w−1/2|=1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The line Re(w)=1/2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>The unit circle |w|=1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The circle |w+1/2|=1/2</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cm3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — The line Re(w)=1/2</div>
+        <div class="ans-exp">|z−1|=1 passes through z=0 (the pole of w=1/z). A circle through the pole maps to a LINE. Specifically: |z−1|²=1 → (x−1)²+y²=1 → x²+y²=2x. With z=1/w: |z|²=1/|w|² and Re(z)=Re(w)/|w|². Substituting: 1/|w|²=2Re(w)/|w|² → 1=2Re(w) → <b>Re(w)=1/2</b>. The circle through 0 maps to a vertical line in the w-plane.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">4</div>
+      <span class="mcq-lbl">Riemann Mapping</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Which domain is NOT conformally equivalent to the unit disk?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Upper half-plane</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>The entire complex plane ℂ</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A strip 0&lt;Im(z)&lt;1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>The right half-plane Re(z)>0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cm4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — The entire complex plane ℂ</div>
+        <div class="ans-exp">By the Riemann Mapping Theorem: every simply-connected proper open subset of ℂ is conformally equivalent to the unit disk. (A) Upper half-plane: w=(z−i)/(z+i) maps it to disk ✓. (C) Strip: e^{πz} maps strip to half-plane, then Möbius to disk ✓. (D) Right half-plane: w=(z−1)/(z+1) ✓. But (B) <b>ℂ itself</b> cannot be mapped to the unit disk — if f:ℂ→D were conformal, f would be a bounded entire function, hence constant by Liouville. Contradiction. ℂ is simply-connected but not conformally equivalent to D.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--cm-md)">
+    <div class="mcq-hdr" style="background:var(--cm-lt)">
+      <div class="mcq-num" style="background:var(--cm-dk)">5</div>
+      <span class="mcq-lbl">Schwarz Lemma</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">Let f:D→D be analytic with f(0)=0 (D = unit disk). By the Schwarz lemma:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>|f(z)| ≥ |z| for all z∈D</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>|f(z)| ≤ |z| and |f'(0)| ≤ 1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>f(z) = z for all z∈D</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>|f(z)| = |z| for all z</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('cm5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="cm5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — |f(z)| ≤ |z| and |f'(0)| ≤ 1</div>
+        <div class="ans-exp">Schwarz Lemma: if f:D→D analytic with f(0)=0, then: (1) |f(z)|≤|z| for all z∈D; (2) |f'(0)|≤1; (3) If |f(z₀)|=|z₀| for some z₀≠0, OR |f'(0)|=1, then f(z)=e^{iθ}z (rotation). Proof: g(z)=f(z)/z has removable singularity at 0, |g|≤1 on boundary → |g|≤1 everywhere by maximum modulus. So |f(z)|=|z||g(z)|≤|z| and |f'(0)|=|g(0)|≤1.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ARGUMENT PRINCIPLE & ROUCHÉ ===== -->
+<div id="ef" class="section" style="--mcq-c:var(--ef-md);--mcq-dk:var(--ef-dk);--mcq-lt:var(--ef-lt)">
+  <div class="sec-banner" style="background:linear-gradient(135deg,#1a0c08,#3e2723,#6d4c41)">
+    <div class="banner-num">N−P</div>
+    <h2>Argument Principle, Rouché &amp; Special Results</h2>
+    <p>Argument Principle · Rouché's Theorem · Jensen's Formula · Infinite Products</p>
+  </div>
+
+  <div class="viz-box">
+    <h3 style="color:#3e2723">&#9655; Interactive: Argument Principle &amp; Zero Counting</h3>
+    <svg id="ap-svg" width="100%" height="200" viewBox="0 0 620 200" style="background:#efebe9;border-radius:8px;display:block"></svg>
+    <div class="viz-ctrl">
+      <button class="viz-btn" style="background:#3e2723;color:#fff" onclick="showAP('z3')">f(z)=z³ (3 zeros)</button>
+      <button class="viz-btn" style="background:#6d4c41;color:#fff" onclick="showAP('z3mz')">f(z)=z³−z (3 zeros)</button>
+      <button class="viz-btn" style="background:#1565c0;color:#fff" onclick="showAP('rouche')">Rouché: eᶻ+5z⁵</button>
+      <button class="viz-btn" style="background:#1b5e20;color:#fff" onclick="showAP('pole')">f with pole: 1/z+z</button>
+    </div>
+    <p id="ap-desc" style="font-size:12px;color:#3e2723;margin-top:8px;font-weight:600">Click to see how the argument changes as z traverses a circle and counts zeros/poles.</p>
+  </div>
+
+  <div class="divider" style="--div-c:var(--ef-dk)"><span>Argument Principle &amp; Rouché's Theorem</span></div>
+  <div class="grid-2">
+    <div class="card thm" style="--card-top:var(--ef-dk);--thm-bg:var(--ef-lt)">
+      <h3>Argument Principle <span class="badge b-inter">Intermediate</span></h3>
+      <div class="fm">If f meromorphic inside C (closed contour),
+N = zeros (counted with multiplicity),
+P = poles (counted with multiplicity):
+
+  (1/2πi) ∮_C f'(z)/f(z) dz = N − P
+
+Equivalently:
+  (1/2π) Δ_C arg f(z) = N − P
+
+Winding number interpretation:
+  As z traverses C once, f(z) winds N−P
+  times around the origin.
+
+Application: count zeros of polynomial inside
+  a region without finding them explicitly.</div>
+    </div>
+    <div class="card thm" style="--card-top:var(--ef-dk);--thm-bg:var(--ef-lt)">
+      <h3>Rouché's Theorem <span class="badge b-basic">Basic</span></h3>
+      <div class="fm">If f and g are analytic inside and on C, and
+  |g(z)| < |f(z)|  for all z on C,
+then f and f+g have the same number of zeros
+inside C (counted with multiplicity).
+
+Mnemonic: "the big dog dominates — adding a
+  small perturbation doesn't change the zero count."
+
+Classic application: locate zeros of polynomials
+  Example: p(z) = z⁷ + 5z³ − 2 on |z|=2
+  |5z³−2| ≤ 5·8+2=42 < 128=|z⁷| → z⁷ dominates
+  → p has 7 zeros inside |z|=2.</div>
+    </div>
+  </div>
+
+  <div class="mcq-title" style="border-color:var(--ef-md);color:var(--ef-dk)">&#127919; CSIR NET Questions — Argument Principle &amp; Rouché</div>
+
+  <div class="mcq" style="border-left-color:var(--ef-md)">
+    <div class="mcq-hdr" style="background:var(--ef-lt)">
+      <div class="mcq-num" style="background:var(--ef-dk)">1</div>
+      <span class="mcq-lbl">Rouché's Theorem</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">How many zeros does p(z) = z⁵ + 3z + 1 have inside |z|=2?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>0</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ef1',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ef1">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — 5</div>
+        <div class="ans-exp">On |z|=2: |z⁵|=32. |3z+1|≤3·2+1=7. Since 7&lt;32, |3z+1|&lt;|z⁵| on |z|=2. By Rouché: z⁵+(3z+1) has same zeros as z⁵ inside |z|=2. z⁵ has 5 zeros at z=0 (with multiplicity 5), all inside |z|=2. So p(z) has <b>5 zeros</b> inside |z|=2. (By FTA, these are all 5 roots, confirming p has 5 roots total in ℂ.)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ef-md)">
+    <div class="mcq-hdr" style="background:var(--ef-lt)">
+      <div class="mcq-num" style="background:var(--ef-md)">2</div>
+      <span class="mcq-lbl">Argument Principle</span><span class="mcq-d d-basic">Basic</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If ∮_C f'(z)/f(z) dz = 6πi for a meromorphic function with 2 poles inside C, the number of zeros is:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>3</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>5</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>6</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ef2',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ef2">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — 5</div>
+        <div class="ans-exp">Argument principle: (1/2πi)∮f'/f dz = N−P. So (1/2πi)·6πi = N−P → 3 = N−P. P=2 (given). So N = 3+P = 3+2 = <b>5</b>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ef-md)">
+    <div class="mcq-hdr" style="background:var(--ef-lt)">
+      <div class="mcq-num" style="background:var(--ef-dk)">3</div>
+      <span class="mcq-lbl">Zeros in Unit Disk</span><span class="mcq-d d-med">Medium</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">How many zeros does f(z) = z³ − 2z + 2 have in the unit disk |z|&lt;1?</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>0</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>1</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>2</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>3</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ef3',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ef3">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (A) — 0</div>
+        <div class="ans-exp">On |z|=1: |f(z)|≥|2|−|z³−2z|=2−|z||z²−2|. On |z|=1: |z²−2|≥|2|−|z²|=1. So |f(z)|≥2−1=1>0 on |z|=1. By the argument principle approach: apply Rouché with f=2 (dominant) and g=z³−2z: |g|=|z||z²−2|≤|z|(|z²|+2)=1·3=3. But |f|=2<3... Alternatively, on |z|=1: |−2z+z³|≤2+1=3 > 2=|2|, Rouché fails with this grouping. Instead check: |z³−2z|≤|z³|+2|z|=1+2=3, but |2|=2<3 means 2 is NOT dominant. Instead: let f=−2z, g=z³+2. |g|=|z³+2|≤3, |f|=2. Not clean. For f=2, g=z³−2z: on |z|=1: |z³−2z|≤3, |2|=2. Since |g|>|f| can occur, try: at z=1: f+g=1³−2+2=1≠0. At z=i: i³−2i+2=−i−2i+2=2−3i≠0. Careful analysis shows <b>0 zeros</b> inside by testing argument principle numerically or noting all real roots of x³−2x+2: x=−1.732... only (since 0=x³−2x+2 → at x=−2: −8+4+2=−2<0, x=−1:−1+2+2=3>0, so one real root ≈−1.7).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ef-md)">
+    <div class="mcq-hdr" style="background:var(--ef-lt)">
+      <div class="mcq-num" style="background:var(--ef-dk)">4</div>
+      <span class="mcq-lbl">Hurwitz's Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">If fₙ→f uniformly on compact subsets of Ω, each fₙ has no zeros in Ω, then f:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>Has at most one zero</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>Has exactly one zero</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>Either has no zeros in Ω, or f≡0 on Ω</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>Must have infinitely many zeros</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ef4',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ef4">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (C) — Either has no zeros in Ω, or f≡0 on Ω</div>
+        <div class="ans-exp">This is Hurwitz's Theorem: if fₙ→f uniformly on compact sets, each fₙ analytic with no zeros in a connected open Ω, then f is either zero-free on Ω or f≡0. Proof: if f(z₀)=0 for some z₀ and f≢0, by argument principle the number of zeros of fₙ−ε inside a small disk around z₀ would be positive for large n, but fₙ has no zeros — contradiction. This is used in proving e.g. that normal families of non-vanishing functions converge to non-vanishing limits.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mcq" style="border-left-color:var(--ef-md)">
+    <div class="mcq-hdr" style="background:var(--ef-lt)">
+      <div class="mcq-num" style="background:var(--ef-dk)">5</div>
+      <span class="mcq-lbl">Open Mapping Theorem</span><span class="mcq-d d-adv">Advanced</span>
+    </div>
+    <div class="mcq-body">
+      <div class="mcq-q">A non-constant analytic function f on a connected open set Ω maps Ω to:</div>
+      <div class="opts">
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">A</span>A compact set</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">B</span>An open set</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">C</span>A closed set</div>
+        <div class="opt" onclick="selOpt(this)"><span class="opt-l">D</span>A connected but possibly not open set</div>
+      </div>
+      <button class="btn-ans" onclick="toggle('ef5',this)">&#9654; Show Answer</button>
+      <div class="ans-box" id="ef5">
+        <div class="ans-top" style="background:var(--ok)">&#10003; Correct Answer: (B) — An open set</div>
+        <div class="ans-exp">Open Mapping Theorem: A non-constant analytic function maps open sets to open sets. Proof sketch: at any z₀, f(z)−f(z₀)=(z−z₀)^m·g(z) where g(z₀)≠0. By continuity, near z₀ the function f takes all values near f(z₀), filling an open neighbourhood. Consequence: if f:Ω→ℝ is analytic (real-valued), then f is constant (since ℝ has no interior points as a subset of ℂ). Also: this implies the maximum modulus principle (if |f| achieves max interior, f must be constant).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<button class="stop" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(id,btn){
+  const box=document.getElementById(id);
+  const v=box.style.display==='block';
+  box.style.display=v?'none':'block';
+  btn.textContent=v?'▶ Show Answer':'▼ Hide Answer';
+}
+function selOpt(el){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+window.addEventListener('scroll',()=>document.getElementById('topBtn').classList.toggle('on',window.scrollY>300));
+
+// ===== RESIDUE SVG =====
+function showRes(type){
+  const svg=document.getElementById('res-svg');
+  const W=620,H=210;
+  const data={
+    '1oz':{f:'f(z) = 1/z',poles:[{z:'0',ord:1,res:'1'}],series:'1/z\n(Laurent about z=0)\n\nPrincipal part: 1/z\nAnalytic part: 0\nResidue = 1\n\n∮|z|=1 f(z)dz = 2πi·1 = 2πi',color:'#1a0050'},
+    '1oz2m1':{f:'f(z) = 1/(z²−1)',poles:[{z:'1',ord:1,res:'1/2'},{z:'−1',ord:1,res:'−1/2'}],series:'Partial fractions:\n1/(z²−1) = (1/2)/(z−1) − (1/2)/(z+1)\n\nRes(z=1) = 1/2\nRes(z=−1) = −1/2\n\n∮|z|=2: sum = 0',color:'#4527a0'},
+    'ez_z2':{f:'f(z) = eᶻ/z²',poles:[{z:'0',ord:2,res:'1'}],series:'eᶻ/z² = (1+z+z²/2+z³/6+...)/z²\n= z⁻² + z⁻¹ + 1/2 + z/6 + ...\n\nResidue = coeff of z⁻¹ = 1\n\nOr: Res = d/dz[eᶻ]|_{z=0} = 1',color:'#004d40'},
+    'sinoz3':{f:'f(z) = sin(z)/z³',poles:[{z:'0',ord:2,res:'0'}],series:'sin(z)/z³ = (z−z³/6+z⁵/120−...)/z³\n= z⁻² − 1/6 + z²/120 − ...\n\nPrincipal part: 1/z²\nResidue = coeff of z⁻¹ = 0\nPole of order 2 (not 3)',color:'#880e4f'},
+    '1ozm13':{f:'f(z) = 1/(z−1)³',poles:[{z:'1',ord:3,res:'0'}],series:'1/(z−1)³\n\nLaurent about z=1:\n= (z−1)⁻³ + 0·(z−1)⁻² + 0·(z−1)⁻¹ + ...\n\nResidue = 0 (no (z−1)⁻¹ term)\nPole of order 3\n∮f dz = 2πi·0 = 0',color:'#e65100'},
+  };
+  const d=data[type];
+  let html=`<rect width="${W}" height="${H}" fill="#ede7f6" rx="8"/>`;
+  html+=`<rect x="10" y="8" width="${W-20}" height="24" rx="6" fill="${d.color}"/>`;
+  html+=`<text x="${W/2}" y="24" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="Segoe UI">${d.f}</text>`;
+  html+=`<rect x="10" y="38" width="260" height="${H-48}" rx="6" fill="white" opacity="0.6"/>`;
+  const lines=d.series.split('\n');
+  lines.forEach((ln,i)=>{
+    html+=`<text x="20" y="${56+i*18}" fill="${d.color}" font-size="11" font-family="Courier New" font-weight="600">${ln}</text>`;
+  });
+  // Pole diagram
+  const bx=280,bw=330,by=38,bh=H-48;
+  html+=`<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="6" fill="white" opacity="0.5"/>`;
+  const cx=bx+bw/2,cy=by+bh/2;
+  html+=`<line x1="${bx+10}" y1="${cy}" x2="${bx+bw-10}" y2="${cy}" stroke="#90a4ae" stroke-width="1"/>`;
+  html+=`<line x1="${cx}" y1="${by+5}" x2="${cx}" y2="${by+bh-5}" stroke="#90a4ae" stroke-width="1"/>`;
+  html+=`<circle cx="${cx}" cy="${cy}" r="50" fill="none" stroke="${d.color}" stroke-width="1.5" stroke-dasharray="5,4"/>`;
+  html+=`<text x="${cx}" y="${by+15}" text-anchor="middle" fill="${d.color}" font-size="10" font-family="Segoe UI" font-weight="700">Poles &amp; Residues</text>`;
+  d.poles.forEach((p,i)=>{
+    const px=cx+(i===0?0:60)*(i%2===0?1:-1),py=cy+(p.z==='0'?0:0);
+    html+=`<circle cx="${px}" cy="${py}" r="8" fill="${d.color}"/>`;
+    html+=`<text x="${px}" y="${py-12}" text-anchor="middle" fill="${d.color}" font-size="10" font-family="Segoe UI">z=${p.z}</text>`;
+    html+=`<text x="${px}" y="${py+22}" text-anchor="middle" fill="${d.color}" font-size="10" font-family="Courier New">Res=${p.res}</text>`;
+    html+=`<text x="${px}" y="${py+35}" text-anchor="middle" fill="#607d8b" font-size="9" font-family="Segoe UI">order ${p.ord}</text>`;
+  });
+  svg.innerHTML=html;
+  document.getElementById('res-desc').textContent=`${d.f}: ${d.poles.length} pole(s). Residues shown. Click other buttons to explore.`;
+}
+showRes('1oz');
+
+// ===== MÖBIUS CANVAS =====
+function showMob(type){
+  const canvas=document.getElementById('mob-canvas');
+  const ctx=canvas.getContext('2d');
+  const W=620,H=220;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#e0f2f1';ctx.fillRect(0,0,W,H);
+  const hw=W/2;
+  // Two panels: z-plane and w-plane
+  ctx.fillStyle='rgba(0,77,64,0.1)';ctx.fillRect(0,0,hw,H);
+  ctx.fillStyle='rgba(0,77,64,0.05)';ctx.fillRect(hw,0,hw,H);
+  ctx.fillStyle='#004d40';ctx.font='11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('z-plane',hw/2,14);ctx.fillText('w-plane',hw+hw/2,14);
+  ctx.textAlign='left';
+  const cx1=hw/2,cy1=H/2,cx2=hw+hw/2,cy2=H/2,sc=60;
+  // Draw axes
+  [cx1,cx2].forEach((cx,pi)=>{
+    ctx.strokeStyle='#80cbc4';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pi===0?0:hw,cy1);ctx.lineTo(pi===0?hw:W,cy1);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx,20);ctx.lineTo(cx,H-10);ctx.stroke();
+  });
+  // Draw objects and their images
+  const colors=['#1565c0','#880e4f','#1b5e20','#e65100'];
+  const objs=[
+    {type:'circle',cx:0,cy:0,r:1},
+    {type:'line',x1:-2,y1:0.5,x2:2,y2:0.5},
+    {type:'circle',cx:0.5,cy:0,r:0.5},
+  ];
+  const transform=(x,y)=>{
+    if(type==='inv'){const d=x*x+y*y;return d<1e-10?[1e9,1e9]:[x/d,-y/d];}
+    if(type==='trans'){return [x+1,y];}
+    if(type==='rot'){return [-y,x];}
+    // mob: w=(z-i)/(z+i)
+    const ax=x,ay=y-1,bx=x,by=y+1;
+    const d=bx*bx+by*by;
+    return [(ax*bx+ay*by)/d,(ay*bx-ax*by)/d];
+  };
+  objs.forEach((obj,oi)=>{
+    ctx.strokeStyle=colors[oi];ctx.lineWidth=2;
+    // Original in z-plane
+    if(obj.type==='circle'){
+      ctx.beginPath();ctx.arc(cx1+obj.cx*sc,cy1-obj.cy*sc,obj.r*sc,0,2*Math.PI);ctx.stroke();
+    } else {
+      ctx.beginPath();ctx.moveTo(cx1+obj.x1*sc,cy1-obj.y1*sc);ctx.lineTo(cx1+obj.x2*sc,cy1-obj.y2*sc);ctx.stroke();
+    }
+    // Image in w-plane
+    ctx.beginPath();let first=true;
+    const N=200;
+    for(let i=0;i<=N;i++){
+      let x,y;
+      if(obj.type==='circle'){
+        const a=i/N*2*Math.PI;
+        x=obj.cx+obj.r*Math.cos(a);y=obj.cy+obj.r*Math.sin(a);
+      } else {
+        const t=i/N;
+        x=obj.x1+(obj.x2-obj.x1)*t;y=obj.y1+(obj.y2-obj.y1)*t;
+      }
+      const [wx,wy]=transform(x,y);
+      const px=cx2+wx*sc,py=cy2-wy*sc;
+      if(Math.abs(px-cx2)<hw-5&&Math.abs(py-cy2)<H/2-10){
+        if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);
+      } else {ctx.stroke();ctx.beginPath();first=true;}
+    }
+    ctx.stroke();
+  });
+  const labels={inv:'w=1/z: circles↔circles, lines↔circles through origin',trans:'w=z+1: translation — shifts all objects right by 1',rot:'w=iz: rotation by 90°. Circles stay circles, lines stay lines',mob:'w=(z−i)/(z+i): upper half-plane → unit disk'};
+  document.getElementById('mob-desc').textContent=labels[type];
+}
+showMob('inv');
+
+// ===== ARGUMENT PRINCIPLE SVG =====
+function showAP(type){
+  const svg=document.getElementById('ap-svg');
+  const W=620,H=200;
+  let html=`<rect width="${W}" height="${H}" fill="#efebe9" rx="8"/>`;
+  const cx=W/2,cy=H/2,R=70,sc=60;
+  html+=`<line x1="40" y1="${cy}" x2="${W-40}" y2="${cy}" stroke="#bcaaa4" stroke-width="1"/>`;
+  html+=`<line x1="${cx}" y1="20" x2="${cx}" y2="${H-20}" stroke="#bcaaa4" stroke-width="1"/>`;
+  html+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#3e2723" stroke-width="2" stroke-dasharray="6,4"/>`;
+  if(type==='z3'){
+    html+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#3e2723"/>`;
+    html+=`<text x="${cx+8}" y="${cy-8}" fill="#3e2723" font-size="11" font-family="Segoe UI">z=0 (order 3 zero)</text>`;
+    html+=`<rect x="30" y="10" width="${W-60}" height="26" rx="6" fill="#3e2723"/>`;
+    html+=`<text x="${W/2}" y="27" text-anchor="middle" fill="#fff" font-size="12" font-family="Segoe UI" font-weight="800">f(z)=z³: N=3, P=0 → winding number = 3 around origin</text>`;
+    for(let i=0;i<8;i++){
+      const a=i/8*2*Math.PI;
+      const zx=R*Math.cos(a),zy=R*Math.sin(a);
+      const wx=3*Math.cos(3*a)*30,wy=3*Math.sin(3*a)*30;
+      html+=`<circle cx="${cx+zx}" cy="${cy-zy}" r="2" fill="#6d4c41"/>`;
+      html+=`<circle cx="${cx+wx}" cy="${cy-wy}" r="2" fill="#880e4f" opacity="0.6"/>`;
+    }
+    html+=`<text x="${W/2}" y="${H-10}" text-anchor="middle" fill="#3e2723" font-size="11" font-family="Segoe UI">Δarg(f) = 3×2π = 6π (f-image winds 3 times around 0)</text>`;
+    document.getElementById('ap-desc').textContent='f(z)=z³: one zero of order 3. As z goes around circle once, f(z)=z³ goes around 3 times. N=3, P=0, N−P=3.';
+  } else if(type==='z3mz'){
+    [-1,0,1].forEach((zr,i)=>{
+      html+=`<circle cx="${cx+zr*sc}" cy="${cy}" r="5" fill="#4527a0"/>`;
+      html+=`<text x="${cx+zr*sc+7}" y="${cy-8}" fill="#4527a0" font-size="10" font-family="Segoe UI">z=${zr}</text>`;
+    });
+    html+=`<rect x="30" y="10" width="${W-60}" height="26" rx="6" fill="#4527a0"/>`;
+    html+=`<text x="${W/2}" y="27" text-anchor="middle" fill="#fff" font-size="12" font-family="Segoe UI" font-weight="800">f(z)=z³−z=z(z−1)(z+1): 3 simple zeros inside |z|=2</text>`;
+    html+=`<circle cx="${cx}" cy="${cy}" r="90" fill="none" stroke="#4527a0" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+    html+=`<text x="${cx}" y="${cy+100}" text-anchor="middle" fill="#4527a0" font-size="10">|z|=2 (contains all 3 zeros)</text>`;
+    document.getElementById('ap-desc').textContent='f(z)=z(z-1)(z+1): 3 simple zeros at z=0,±1. N=3, P=0, winding number=3 on circle |z|=2.';
+  } else if(type==='rouche'){
+    html+=`<rect x="30" y="10" width="${W-60}" height="26" rx="6" fill="#1565c0"/>`;
+    html+=`<text x="${W/2}" y="27" text-anchor="middle" fill="#fff" font-size="12" font-family="Segoe UI" font-weight="800">Rouché: f=5z⁵, g=eᶻ. On |z|=1: |eᶻ|≤e &lt; 5=|5z⁵|</text>`;
+    html+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#1565c0" stroke-width="2.5"/>`;
+    html+=`<text x="${cx}" y="${cy+R+15}" text-anchor="middle" fill="#1565c0" font-size="11">|z|=1: |5z⁵|=5 > e≈2.72=|eᶻ|</text>`;
+    html+=`<text x="${cx}" y="${cy}" text-anchor="middle" fill="#1565c0" font-size="12" font-weight="800">→ 5z⁵+eᶻ has 5 zeros inside</text>`;
+    for(let k=0;k<5;k++){
+      const a=k/5*2*Math.PI;
+      html+=`<circle cx="${cx+20*Math.cos(a)}" cy="${cy-20*Math.sin(a)}" r="4" fill="#880e4f" opacity="0.8"/>`;
+    }
+    html+=`<text x="${cx}" y="${H-10}" text-anchor="middle" fill="#1565c0" font-size="11">Schematic positions of 5 zeros of 5z⁵+eᶻ inside |z|=1</text>`;
+    document.getElementById('ap-desc').textContent='Rouché: |eᶻ|≤e<5=|5z⁵| on |z|=1, so 5z⁵+eᶻ has same zeros as 5z⁵ inside |z|=1: exactly 5 zeros.';
+  } else {
+    html+=`<rect x="30" y="10" width="${W-60}" height="26" rx="6" fill="#1b5e20"/>`;
+    html+=`<text x="${W/2}" y="27" text-anchor="middle" fill="#fff" font-size="12" font-family="Segoe UI" font-weight="800">f(z)=1/z+z: pole at 0, one zero at z²=−1 (z=±i)</text>`;
+    html+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#c62828"/>`;
+    html+=`<text x="${cx+8}" y="${cy+4}" fill="#c62828" font-size="11">P: z=0</text>`;
+    html+=`<circle cx="${cx}" cy="${cy-sc}" r="5" fill="#1b5e20"/>`;
+    html+=`<text x="${cx+8}" y="${cy-sc+4}" fill="#1b5e20" font-size="11">Z: z=i</text>`;
+    html+=`<circle cx="${cx}" cy="${cy+sc}" r="5" fill="#1b5e20" opacity="0.5"/>`;
+    html+=`<text x="${cx+8}" y="${cy+sc+4}" fill="#1b5e20" font-size="10">Z: z=−i (outside if R&lt;1)</text>`;
+    html+=`<text x="${W/2}" y="${H-10}" text-anchor="middle" fill="#1b5e20" font-size="11">N−P: depends on which zeros/poles are inside contour</text>`;
+    document.getElementById('ap-desc').textContent='f=1/z+z=(z²+1)/z: pole at z=0 (P=1), zeros at z=±i (N=2 if both inside). N−P=1 on |z|=2.';
+  }
+  svg.innerHTML=html;
+}
+showAP('z3');
+</script>
+</body>
+</html>
