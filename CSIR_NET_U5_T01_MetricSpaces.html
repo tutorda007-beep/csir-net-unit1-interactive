@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T01 · Metric Spaces</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0f4c75;--acc2:#1b6ca8;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(15,76,117,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(15,76,117,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(15,76,117,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8f4f8,#bee3f8,#90cdf4)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(15,76,117,.08);color:var(--acc);font-weight:600;border:1px solid rgba(15,76,117,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#e8f4f8;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T01 · Metric Spaces</span>
+  <span class="hdr-badge">Topology</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('metric',this)">Metric Space Axioms</a>
+  <a class="nav-item" onclick="show('open',this)">Open & Closed Sets</a>
+  <a class="nav-item" onclick="show('convergence',this)">Convergence & Limits</a>
+  <a class="nav-item" onclick="show('continuity',this)">Continuity</a>
+  <a class="nav-item" onclick="show('examples',this)">Standard Metrics</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T02_Completeness.html">T02 · Completeness →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 01</div>
+    <div class="hero-title">Metric Spaces</div>
+    <div class="hero-sub">Metric axioms · Open/closed sets · Convergence · Continuity · Standard metrics</div>
+    <div class="hero-chips">
+      <span class="chip">Metric Axioms</span>
+      <span class="chip">Open Balls</span>
+      <span class="chip">Closed Sets</span>
+      <span class="chip">Interior & Closure</span>
+      <span class="chip">Convergence</span>
+      <span class="chip">Continuity</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>A metric space is a set equipped with a notion of distance. The abstract framework captures all the essential properties of distance in ℝⁿ, function spaces, and beyond. Metric spaces are the foundation of functional analysis, topology, and analysis on general spaces.</p>
+</div>
+
+<div class="sec" id="metric">
+  <h2>Metric Space Axioms</h2>
+  <div class="def-box">
+    <div class="lbl">Metric Space</div>
+    <p>A <strong>metric space</strong> (X, d) is a set X with a function d: X×X → [0,∞) satisfying:</p>
+    <ol>
+      <li><strong>Non-negativity:</strong> d(x,y) ≥ 0, and d(x,y)=0 ⟺ x=y</li>
+      <li><strong>Symmetry:</strong> d(x,y) = d(y,x)</li>
+      <li><strong>Triangle inequality:</strong> d(x,z) ≤ d(x,y) + d(y,z)</li>
+    </ol>
+  </div>
+  <h3>Standard Examples</h3>
+  <table>
+    <tr><th>Space</th><th>Metric d(x,y)</th><th>Notes</th></tr>
+    <tr><td>ℝ (or ℝⁿ)</td><td>|x−y| (or ‖x−y‖₂)</td><td>Euclidean metric</td></tr>
+    <tr><td>ℝⁿ</td><td>max|xᵢ−yᵢ| (sup metric)</td><td>ℓ∞ metric</td></tr>
+    <tr><td>ℝⁿ</td><td>Σ|xᵢ−yᵢ| (taxicab)</td><td>ℓ¹ metric</td></tr>
+    <tr><td>C[a,b]</td><td>max_{t}|f(t)−g(t)|</td><td>Uniform metric</td></tr>
+    <tr><td>Any set X</td><td>0 if x=y, 1 if x≠y</td><td>Discrete metric</td></tr>
+    <tr><td>ℝ</td><td>|arctan x − arctan y|</td><td>Bounded metric on ℝ</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Equivalent Metrics</div>
+    <p>Two metrics d₁, d₂ on X are <strong>equivalent</strong> if they define the same open sets (same topology). On ℝⁿ, all ℓᵖ metrics are equivalent. Equivalent metrics have the same convergent sequences and continuous functions.</p>
+  </div>
+</div>
+
+<div class="sec" id="open">
+  <h2>Open & Closed Sets</h2>
+  <div class="def-box">
+    <div class="lbl">Open Ball</div>
+    <p>B(x, r) = {y ∈ X : d(x,y) < r} — the open ball of radius r centered at x.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Open Set</div>
+    <p>U ⊆ X is <strong>open</strong> if for every x ∈ U, there exists r > 0 such that B(x,r) ⊆ U.</p>
+    <p>Properties: ∅ and X are open; arbitrary unions of open sets are open; finite intersections of open sets are open.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Closed Set</div>
+    <p>F ⊆ X is <strong>closed</strong> if X\F is open. Equivalently: F contains all its limit points.</p>
+    <p>Properties: ∅ and X are closed; arbitrary intersections of closed sets are closed; finite unions of closed sets are closed.</p>
+  </div>
+  <h3>Interior, Closure, Boundary</h3>
+  <table>
+    <tr><th>Concept</th><th>Notation</th><th>Definition</th></tr>
+    <tr><td>Interior</td><td>int(A) = A°</td><td>Largest open set contained in A</td></tr>
+    <tr><td>Closure</td><td>cl(A) = Ā</td><td>Smallest closed set containing A</td></tr>
+    <tr><td>Boundary</td><td>∂A</td><td>Ā \ A° = cl(A) \ int(A)</td></tr>
+    <tr><td>Derived set</td><td>A'</td><td>Set of all limit points of A</td></tr>
+    <tr><td>Dense</td><td>Ā = X</td><td>A is dense in X</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Example in ℝ</div>
+    <p>A = (0,1]: int(A)=(0,1), cl(A)=[0,1], ∂A={0,1}. Q is dense in ℝ (Q̄=ℝ). ℤ has empty interior.</p>
+  </div>
+</div>
+
+<div class="sec" id="convergence">
+  <h2>Convergence & Limits</h2>
+  <div class="def-box">
+    <div class="lbl">Convergence</div>
+    <p>A sequence (xₙ) in X <strong>converges</strong> to x ∈ X (written xₙ→x) if:</p>
+    <div class="formula">∀ε>0, ∃N∈ℕ: n≥N ⟹ d(xₙ,x) < ε</div>
+    <p>In a metric space, limits are unique. xₙ→x iff d(xₙ,x)→0 in ℝ.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Cauchy Sequence</div>
+    <p>(xₙ) is <strong>Cauchy</strong> if:</p>
+    <div class="formula">∀ε>0, ∃N: m,n≥N ⟹ d(xₙ,xₘ) < ε</div>
+    <p>Every convergent sequence is Cauchy. The converse holds iff X is complete.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Sequential Characterization</div>
+    <p>In a metric space:</p>
+    <ul>
+      <li>x ∈ cl(A) ⟺ some sequence in A converges to x.</li>
+      <li>A is closed ⟺ for every sequence in A that converges, its limit is in A.</li>
+      <li>A is open ⟺ every sequence converging to a point of A is eventually in A.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="continuity">
+  <h2>Continuity</h2>
+  <div class="def-box">
+    <div class="lbl">Continuous Map (ε-δ)</div>
+    <p>f: (X,dₓ) → (Y,d_Y) is <strong>continuous at x₀</strong> if:</p>
+    <div class="formula">∀ε>0, ∃δ>0: dₓ(x,x₀)<δ ⟹ d_Y(f(x),f(x₀))<ε</div>
+    <p>f is continuous on X if continuous at every point.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Equivalent Characterizations</div>
+    <p>f: X→Y is continuous iff any of these hold:</p>
+    <ul>
+      <li>f⁻¹(V) is open in X for every open V ⊆ Y.</li>
+      <li>f⁻¹(F) is closed in X for every closed F ⊆ Y.</li>
+      <li>xₙ→x ⟹ f(xₙ)→f(x) (sequential continuity).</li>
+      <li>f(cl(A)) ⊆ cl(f(A)) for all A ⊆ X.</li>
+    </ul>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Uniform Continuity</div>
+    <p>f: X→Y is <strong>uniformly continuous</strong> if:</p>
+    <div class="formula">∀ε>0, ∃δ>0: dₓ(x,y)<δ ⟹ d_Y(f(x),f(y))<ε   (δ independent of x,y)</div>
+    <p>Every continuous function on a compact metric space is uniformly continuous (Heine-Cantor theorem).</p>
+  </div>
+</div>
+
+<div class="sec" id="examples">
+  <h2>Standard Metrics & Comparisons</h2>
+  <div class="info-box">
+    <div class="lbl">ℓᵖ Norms on ℝⁿ</div>
+    <div class="formula">‖x‖ₚ = (Σ|xᵢ|ᵖ)^(1/p)  (1≤p<∞),   ‖x‖∞ = max|xᵢ|</div>
+    <p>All ℓᵖ norms on ℝⁿ are equivalent. For 1≤p≤q≤∞: ‖x‖_q ≤ ‖x‖_p ≤ n^(1/p−1/q)‖x‖_q.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Function Space Metrics</div>
+    <ul>
+      <li><strong>C[a,b]</strong> with sup metric ‖f−g‖∞: complete.</li>
+      <li><strong>L²[a,b]</strong> with ‖f−g‖₂: complete (Hilbert space).</li>
+      <li><strong>Lᵖ[a,b]</strong> with ‖f−g‖ₚ: complete (Banach space).</li>
+    </ul>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Subspace Metric</div>
+    <p>If A ⊆ X, then (A, d|_A) is a metric space. "Open in A" ≠ "open in X": e.g., [0,1) is open in [0,2] but not in ℝ.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is NOT a valid metric on ℝ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> d(x,y) = |x−y|</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> d(x,y) = (x−y)²</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> d(x,y) = |arctan x − arctan y|</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> d(x,y) = min(|x−y|, 1)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">In a metric space, open balls B(x,r) are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Always closed sets</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Always open sets</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Neither open nor closed</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Both open and closed always</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">A set F in a metric space is closed if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> F is bounded</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Every convergent sequence in F has its limit in F</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> F contains no interior points</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> F is a union of open balls</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The closure of (0,1) in ℝ (with usual metric) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> (0,1)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> [0,1]</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> (0,1]</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> ℝ</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">f: X→Y is continuous iff for every open V ⊆ Y:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> f(f⁻¹(V)) = V</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> f⁻¹(V) is open in X</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> f(V) is open in Y</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> V is compact</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Every convergent sequence in a metric space is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Bounded and Cauchy</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Cauchy but not necessarily bounded</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Neither Cauchy nor bounded</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Bounded but not necessarily Cauchy</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The boundary ∂A of a set A equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> The interior of A</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> cl(A) \ int(A) = Ā ∩ (X\A)̄</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A itself</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> cl(A) ∪ int(A)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Q (rationals) is dense in ℝ because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Q is countable</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> cl(Q) = ℝ (every real number is a limit of rational sequences)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Q is an ordered field</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Q is a subgroup of ℝ</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">In the discrete metric on X (d(x,y)=0 if x=y, else 1), every subset of X is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Only open</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Both open and closed</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Only closed</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Neither open nor closed</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Uniform continuity differs from continuity in that:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Uniform continuity requires f to be bijective</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> The δ in uniform continuity can be chosen independently of the point x</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Uniform continuity only applies to bounded functions</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Continuous implies uniformly continuous always</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The sup metric on C[0,1]: d(f,g) = max|f(t)−g(t)|. A sequence fₙ→f in this metric means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Pointwise convergence</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Uniform convergence</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> L² convergence</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Convergence in measure</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Which of the following sets is open in ℝ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> [0,1]</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> (0,1) ∪ (2,3)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> {1/n : n∈ℕ}</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> ℤ</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The interior of ℚ in ℝ (usual metric) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> ℚ</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> ∅</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> ℝ</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> ℝ\ℚ</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">If d(x,y) = |x−y|/(1+|x−y|) defines a metric on ℝ, then ℝ under this metric is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Compact</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Bounded but not compact</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Complete</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Not a valid metric</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">On ℝⁿ, which comparison between ℓ¹, ℓ², ℓ∞ norms is correct?</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> ‖x‖∞ ≤ ‖x‖₂ ≤ ‖x‖₁</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> ‖x‖₁ ≥ ‖x‖₂ ≥ ‖x‖∞</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> They are all equal</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> ‖x‖₂ ≥ ‖x‖₁ ≥ ‖x‖∞</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><div class="sum-icon">d</div><h4>Metric Axioms</h4><p>Non-negativity, symmetry, triangle inequality. d(x,y)=0 ⟺ x=y.</p></div>
+    <div class="sum-card"><div class="sum-icon">B(x,r)</div><h4>Open Ball</h4><p>{y:d(x,y)<r}. Open sets: for each point ∃ open ball inside. Open balls are always open sets.</p></div>
+    <div class="sum-card"><div class="sum-icon">cl(A)</div><h4>Closure</h4><p>Smallest closed set containing A. cl(A)=A∪limit points of A. Dense: cl(A)=X.</p></div>
+    <div class="sum-card"><div class="sum-icon">→</div><h4>Convergence</h4><p>xₙ→x iff d(xₙ,x)→0. Limits unique. Closed ↔ sequentially closed.</p></div>
+    <div class="sum-card"><div class="sum-icon">f⁻¹</div><h4>Continuity</h4><p>f continuous ↔ preimage of open is open. Uniform continuity: δ independent of point.</p></div>
+    <div class="sum-card"><div class="sum-icon">∞</div><h4>Sup Metric</h4><p>d(f,g)=max|f(t)−g(t)| on C[a,b]. Convergence = uniform convergence.</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U5_T02_Completeness.html">Next: Completeness →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'a',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'c',15:'b'};
+const explain={
+  1:'d(x,y)=(x−y)² fails the triangle inequality: d(0,2)=4 but d(0,1)+d(1,2)=1+1=2<4. The other three are valid metrics on ℝ.',
+  2:'Open balls B(x,r)={y:d(x,y)<r} are always open sets by definition — for any y∈B(x,r), the ball B(y,r−d(x,y)) ⊆ B(x,r). Note: in some metric spaces, closed balls may equal open balls (discrete metric).',
+  3:'F is closed iff every convergent sequence in F converges to a point in F (sequential characterization). Equivalently F contains all its limit points; equivalently X\\F is open.',
+  4:'cl((0,1))=[0,1]. Both 0 and 1 are limit points of (0,1) (sequences 1/n→0 and 1−1/n→1 are in (0,1)). No other points are limit points of (0,1).',
+  5:'f:X→Y is continuous iff f⁻¹(V) is open in X for every open V⊆Y (topological characterization of continuity). This is equivalent to the ε-δ definition.',
+  6:'Every convergent sequence (xₙ→x) is Cauchy (d(xₙ,xₘ)≤d(xₙ,x)+d(x,xₘ)<2ε for large n,m) and bounded (d(xₙ,x₁)≤d(xₙ,x)+d(x,x₁) is bounded).',
+  7:'∂A = cl(A) \\ int(A). Equivalently ∂A = {x: every open ball around x hits both A and X\\A}.',
+  8:'ℚ is dense in ℝ because cl(ℚ)=ℝ: between any two reals lies a rational (density of ℚ in ℝ), so every real number is a limit of rational sequences.',
+  9:'In discrete metric, B(x,1/2)={x} (only x itself is within distance 1/2). So {x} is open for every x∈X. Then every subset is a union of singletons, hence open. Its complement is also open, so every subset is also closed.',
+  10:'Uniform continuity: ∀ε>0, ∃δ>0 (depending only on ε, not on the point x) such that d(x,y)<δ⟹d(f(x),f(y))<ε. For ordinary continuity, δ can depend on both ε AND x.',
+  11:'d_∞(fₙ,f)=max|fₙ(t)−f(t)|→0 means the maximum deviation over all t goes to 0, which is exactly uniform convergence.',
+  12:'(0,1)∪(2,3) is a union of two open intervals, hence open in ℝ. [0,1] is closed, {1/n} is neither open nor closed, ℤ is closed (not open).',
+  13:'int(ℚ) = ∅ in ℝ, because every open interval in ℝ contains irrational numbers, so no open interval is entirely contained in ℚ. Hence no point of ℚ has an open neighborhood inside ℚ.',
+  14:'d(x,y)=|x−y|/(1+|x−y|) is equivalent to the usual metric on ℝ (homeomorphic). So it has the same open sets, the same convergent sequences — hence the same completeness: ℝ is complete under this metric, but bounded (all distances <1) and not compact.',
+  15:'For x∈ℝⁿ: ‖x‖∞ ≤ ‖x‖₂ ≤ ‖x‖₁ ≤ √n‖x‖₂ ≤ n‖x‖∞. So ‖x‖∞ ≤ ‖x‖₂ ≤ ‖x‖₁, equivalently ‖x‖₁ ≥ ‖x‖₂ ≥ ‖x‖∞.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

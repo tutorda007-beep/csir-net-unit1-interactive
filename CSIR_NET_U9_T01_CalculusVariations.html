@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U9-T01 · Calculus of Variations</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c2d12;--acc2:#c2410c;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(124,45,18,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(124,45,18,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(124,45,18,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fed7aa)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(124,45,18,.08);color:var(--acc);font-weight:600;border:1px solid rgba(124,45,18,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff7ed;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:20px 0}
+.topic-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;transition:all .2s;display:block}
+.topic-card:hover{border-color:var(--acc2);box-shadow:0 4px 16px rgba(194,65,12,.12);transform:translateY(-1px)}
+.topic-card .tc-num{font-size:10px;font-weight:700;color:var(--acc2);margin-bottom:4px}
+.topic-card .tc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.topic-card .tc-desc{font-size:12px;color:var(--muted)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 9</span>
+  <span class="hdr-title">T01 · Calculus of Variations & LP · Unit 9 Finale</span>
+  <span class="hdr-badge">CoV · LP</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 9 · CoV & LP</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('functional',this)">Functionals & Euler-Lagrange</a>
+  <a class="nav-item" onclick="show('special',this)">Special Cases</a>
+  <a class="nav-item" onclick="show('constraints',this)">Constrained Problems</a>
+  <a class="nav-item" onclick="show('lp',this)">Linear Programming</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('unit9',this)">Unit 9 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U8_T04_RootFinding.html">← U8 · Numerical Analysis</a>
+  <a class="nav-item" href="CSIR_NET_U10_T01_Probability.html">U10 · Statistics →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 9 · Finale</div>
+    <div class="hero-title">Calculus of Variations & Linear Programming</div>
+    <div class="hero-sub">Euler-Lagrange equation · Brachistochrone · Isoperimetric · Hamiltonian · Simplex method · LP duality</div>
+    <div class="hero-chips">
+      <span class="chip">Euler-Lagrange</span>
+      <span class="chip">Brachistochrone</span>
+      <span class="chip">Isoperimetric</span>
+      <span class="chip">Hamiltonian</span>
+      <span class="chip">Simplex Method</span>
+      <span class="chip">LP Duality</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Calculus of Variations (CoV) finds functions that extremize functionals (integrals of functions of a function and its derivative). Linear Programming (LP) optimizes a linear objective over a feasible region defined by linear constraints.</p>
+</div>
+
+<div class="sec" id="functional">
+  <h2>Functionals & Euler-Lagrange Equation</h2>
+  <div class="def-box">
+    <div class="lbl">Functional</div>
+    <div class="formula">J[y] = ∫_a^b F(x, y(x), y′(x)) dx
+
+Boundary conditions: y(a)=y_a, y(b)=y_b
+Find y that extremizes J[y].</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Euler-Lagrange Equation</div>
+    <p>Necessary condition for a local extremum: y satisfies</p>
+    <div class="formula">∂F/∂y − d/dx(∂F/∂y′) = 0</div>
+    <p>Derived by setting the first variation δJ=0 for all admissible variations δy with δy(a)=δy(b)=0.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Classic Example: Shortest Path</div>
+    <p>F=√(1+y′²). E-L equation: d/dx[y′/√(1+y′²)]=0 ⟹ y′=const ⟹ y=ax+b (straight line).</p>
+  </div>
+</div>
+
+<div class="sec" id="special">
+  <h2>Special Cases & Applications</h2>
+  <div class="thm-box">
+    <div class="lbl">Beltrami Identity (F not explicitly depending on x)</div>
+    <div class="formula">F − y′·∂F/∂y′ = C   (constant)</div>
+    <p>Used when ∂F/∂x=0 (F independent of x explicitly).</p>
+  </div>
+  <table>
+    <tr><th>Problem</th><th>Functional F</th><th>Solution</th></tr>
+    <tr><td>Shortest path (2D)</td><td>√(1+y′²)</td><td>Straight line y=ax+b</td></tr>
+    <tr><td>Brachistochrone</td><td>√((1+y′²)/y)</td><td>Cycloid</td></tr>
+    <tr><td>Surface of revolution (minimal)</td><td>y√(1+y′²)</td><td>Catenary y=a cosh((x−b)/a)</td></tr>
+    <tr><td>Geodesic on sphere</td><td>|γ′| on S²</td><td>Great circle</td></tr>
+  </table>
+  <div class="def-box">
+    <div class="lbl">Hamiltonian Formulation</div>
+    <div class="formula">p = ∂F/∂y′  (conjugate momentum)
+H(x,y,p) = py′ − F(x,y,y′)
+
+Hamilton's equations: y′=∂H/∂p, p′=−∂H/∂y</div>
+  </div>
+</div>
+
+<div class="sec" id="constraints">
+  <h2>Constrained Variational Problems</h2>
+  <div class="def-box">
+    <div class="lbl">Isoperimetric Problem</div>
+    <p>Extremize J[y]=∫F dx subject to K[y]=∫G dx = const (integral constraint).</p>
+    <p>Method: use Lagrange multiplier λ — extremize ∫(F−λG)dx. Euler-Lagrange: ∂F/∂y−d/dx(∂F/∂y′)=λ(∂G/∂y−d/dx(∂G/∂y′)).</p>
+    <div class="formula">Classic: Dido's problem — enclose max area with fixed perimeter ⟹ circle.</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Free Endpoint / Natural BCs</div>
+    <p>If y(b) is free: natural boundary condition ∂F/∂y′|_{x=b}=0.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Second Variation & Legendre Condition</div>
+    <p>For J to have a minimum: second variation δ²J≥0. Necessary: ∂²F/∂y′²≥0 (Legendre condition). Jacobi condition gives sufficiency for local minimum.</p>
+  </div>
+</div>
+
+<div class="sec" id="lp">
+  <h2>Linear Programming</h2>
+  <div class="def-box">
+    <div class="lbl">Standard Form LP</div>
+    <div class="formula">minimize   cᵀx
+subject to Ax = b,  x ≥ 0</div>
+    <p>Feasible region is a convex polyhedron; optimal occurs at a vertex (basic feasible solution).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Simplex Method</div>
+    <p>Move from vertex to adjacent vertex improving objective. Terminates because: (1) finitely many vertices, (2) non-degeneracy. Tableau form; pivot on entering/leaving variable.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">LP Duality</div>
+    <div class="formula">Primal: min cᵀx, Ax≥b, x≥0
+Dual:  max bᵀy, Aᵀy≤c, y≥0
+
+Weak duality: cᵀx ≥ bᵀy (primal ≥ dual)
+Strong duality: optimal values are equal if feasible</div>
+    <p>Complementary slackness: at optimum, if xⱼ>0 then jth dual constraint is tight; if dual yᵢ>0 then ith primal constraint is tight.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The Euler-Lagrange equation for J[y]=∫F(x,y,y′)dx is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> F=0</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> ∂F/∂y − d/dx(∂F/∂y′) = 0</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> ∂F/∂x=0</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> y″=F</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The brachistochrone (fastest descent) problem leads to a:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Parabola</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Cycloid</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Straight line</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Catenary</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The Beltrami identity F−y′Fy′=C applies when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> y′=0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> F does not depend explicitly on x (∂F/∂x=0)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> F is linear in y</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> The Lagrangian is quadratic</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The minimal surface of revolution (catenary) satisfies F=y√(1+y′²). Its solution is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> y=x²</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> y=a cosh((x−b)/a) (catenary)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> y=e^x</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> y=sin(x)</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The isoperimetric problem uses:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Newton's method</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> A Lagrange multiplier λ for the integral constraint K[y]=const</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Integration by parts only</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Green's theorem</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Legendre necessary condition for a minimum of J[y] is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> ∂²F/∂y²≥0</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> ∂²F/∂y′²≥0 along the extremal</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> F=0</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> y″=0</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">In LP, the optimal solution (if it exists) occurs at:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> An interior point of the feasible region</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> A vertex (extreme point) of the feasible polyhedron</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> The centroid</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Anywhere on the boundary</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Strong duality in LP states:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Primal value always equals dual value</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> If both primal and dual are feasible, their optimal values are equal</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Dual is always unbounded</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Primal value ≥ dual value always</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Euler-Lagrange equation for J[y]=∫(y′²−y²)dx is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> y″+y=0</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> y″+y=0 (since ∂F/∂y=−2y, d/dx(∂F/∂y′)=2y″, E-L: −2y−2y″=0)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> y″=y</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> y=0</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Dido's problem (maximum area with fixed perimeter L) has solution:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Rectangle</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Circle with radius L/(2π)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Square</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Equilateral triangle</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The natural (free-endpoint) boundary condition when y(b) is free is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> y(b)=0</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> ∂F/∂y′|_{x=b} = 0</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> F(b,y,y′)=0</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> y′(b)=1</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Complementary slackness in LP states: at the optimal solution,</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> All dual variables are zero</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> xⱼ·(cⱼ−Aⱼᵀy*)=0 and yᵢ·(bᵢ−Aᵢx*)=0 (product of primal variable and dual slack = 0)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> All primal variables are positive</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Objective value is zero</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The conjugate momentum in the Hamiltonian formulation of CoV is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> p=F</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> p=∂F/∂y′</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> p=∂F/∂y</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> p=y′</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">For F=y√(1+y′²) (minimal surface), applying the Beltrami identity gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> y=const</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> y/√(1+y′²)=C (a first-order ODE for the catenary)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> y′=C</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> y″=0</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Weak duality in LP: if x is primal feasible and y is dual feasible, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> cᵀx=bᵀy</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> cᵀx≥bᵀy (primal objective ≥ dual objective)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> cᵀx≤bᵀy</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> cᵀx·bᵀy=0</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="unit9">
+  <h2>Unit 9 · Complete Summary</h2>
+  <p>Calculus of Variations & Linear Programming — complete unit. Click to study.</p>
+  <div class="unit-grid">
+    <a class="topic-card" href="CSIR_NET_U9_T01_CalculusVariations.html">
+      <div class="tc-num">U9 · T01</div>
+      <div class="tc-title">Calculus of Variations & LP</div>
+      <div class="tc-desc">Euler-Lagrange, Beltrami identity, brachistochrone, catenary, isoperimetric problems, LP duality, Simplex method</div>
+    </a>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U8_T04_RootFinding.html">← U8: Numerical Analysis</a>
+    <a class="btn btn-acc" href="CSIR_NET_U10_T01_Probability.html">U10: Statistics →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Euler-Lagrange (necessary condition for extremum): ∂F/∂y−d/dx(∂F/∂y′)=0. Derived by computing the first variation δJ[y;η]=∫(Fy·η+Fy′·η′)dx=0 for all η∈C¹ with η(a)=η(b)=0, then integrating by parts.',
+  2:'Brachistochrone: J[y]=∫√((1+y′²)/y)dx (time for bead sliding under gravity). E-L leads to differential equation whose solution is a cycloid: x=r(θ−sinθ), y=r(1−cosθ).',
+  3:'Beltrami identity: when ∂F/∂x=0 (autonomous Lagrangian), the E-L equation has first integral F−y′·Fy′=C. This reduces the 2nd-order E-L to a 1st-order ODE — much easier to solve.',
+  4:'For F=y√(1+y′²), Beltrami: y√(1+y′²)−y′²y/√(1+y′²)=C ⟹ y/√(1+y′²)=C. Solving: y=C cosh((x−b)/C) — the catenary (shape of a hanging chain).',
+  5:'Isoperimetric: extremize ∫F dx subject to ∫G dx=L (fixed). Form modified Lagrangian F−λG; apply E-L. λ is determined by the constraint. Dido\'s problem: max area=∫y dx with perimeter ∫√(1+y′²)dx=L → circle.',
+  6:'Legendre condition: δ²J≥0 requires Fy′y′(x,y,y′)≥0 along the extremal (second derivative of F w.r.t. y′). This is necessary for a minimum. The Jacobi condition (no conjugate points) gives sufficiency.',
+  7:'LP Fundamental Theorem: if a finite optimal exists, it is attained at a vertex (basic feasible solution) of the feasible polytope. Simplex method exploits this: starts at a vertex and moves to adjacent better vertices.',
+  8:'Strong Duality Theorem (LP): if primal min cᵀx s.t. Ax≥b,x≥0 and dual max bᵀy s.t. Aᵀy≤c,y≥0 are both feasible, then optimal primal value = optimal dual value. (Contrast with weak duality: primal ≥ dual always.)',
+  9:'F=y′²−y². ∂F/∂y=−2y. ∂F/∂y′=2y′. d/dx(2y′)=2y″. E-L: −2y−2y″=0 ⟹ y″+y=0. Solutions: y=A cos x+B sin x.',
+  10:'Dido\'s problem: isoperimetric with fixed perimeter L, maximize enclosed area. By isoperimetric inequality: Area≤L²/(4π) with equality for a circle. Radius r=L/(2π), Area=πr²=L²/(4π).',
+  11:'Natural BC: when y(b) is not fixed, the boundary term from integration by parts gives [η(b)·Fy′(b)]=0. Since η(b) is free (arbitrary), we must have Fy′(b)=0. This is the transversality condition.',
+  12:'Complementary slackness: for LP optimality, if xⱼ>0 then the jth dual constraint is tight (no slack); if dual constraint has slack then xⱼ=0. Similarly for dual variables and primal constraints. This characterizes optimality.',
+  13:'p=∂F/∂y′ is the momentum conjugate to y. Hamiltonian: H=py′−F. Hamilton\'s equations: dy/dx=∂H/∂p, dp/dx=−∂H/∂y. These are equivalent to the Euler-Lagrange equation.',
+  14:'F=y√(1+y′²). Fy′=yy′/√(1+y′²). Beltrami: F−y′Fy′=y√(1+y′²)−y′²y/√(1+y′²)=y[(1+y′²)−y′²]/√(1+y′²)=y/√(1+y′²)=C. This first-order ODE integrates to the catenary.',
+  15:'Weak duality: for LP min problem, if x is primal feasible (Ax≥b,x≥0) and y is dual feasible (Aᵀy≤c,y≥0), then cᵀx≥bᵀy. Proof: cᵀx≥(Aᵀy)ᵀx=yᵀ(Ax)≥yᵀb=bᵀy.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

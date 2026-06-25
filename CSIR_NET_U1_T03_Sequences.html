@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T03 · Sequences & Series</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#16a34a;--acc2:#15803d;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--red:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(86,211,100,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(86,211,100,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:16px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--blue)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(86,211,100,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto;flex-shrink:0}
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+.sec{display:none;animation:fadeIn .3s ease}.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8f8ed,#d0f4da,#bbefca)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(86,211,100,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px;line-height:1.2}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--blue);border-color:rgba(121,192,255,.3)}
+.chip-o{background:rgba(255,166,87,.12);color:var(--orange);border-color:rgba(255,166,87,.3)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--purple);border-color:rgba(210,168,255,.3)}
+.obj-box{background:rgba(86,211,100,.06);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px}.obj-box li strong{color:var(--text)}
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:1px}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+.def-box{background:rgba(86,211,100,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{color:var(--text);line-height:1.65}
+.thm-box{background:rgba(210,168,255,.06);border:1px solid rgba(210,168,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--purple);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(210,168,255,.15);font-style:italic}
+.fm{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-family:'Courier New',monospace;font-size:13px;color:#f0f6fc;margin:10px 0;overflow-x:auto}
+.ex-box{background:rgba(121,192,255,.05);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+.tip-box{background:rgba(255,166,87,.07);border:1px solid rgba(255,166,87,.25);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px;align-items:flex-start}
+.tip-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--orange)}
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--ok);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--blue));border-radius:3px;transition:width .5s ease;width:0%}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px;transition:border-color .2s}
+.q-block.correct{border-color:var(--ok)}.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(86,211,100,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--blue));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item p,.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65}
+.summary-item ul{padding-left:16px}
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc)}
+.nf-btn.next{background:rgba(86,211,100,.1);border-color:rgba(86,211,100,.3);color:var(--acc)}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--orange);margin:20px 0 10px}
+.series-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.scard{background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.scard .sc-name{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px}
+.scard .sc-form{font-family:'Courier New',monospace;font-size:12px;color:#f0f6fc;background:#0d1117;padding:4px 8px;border-radius:4px;margin:4px 0}
+.scard .sc-cond{font-size:11.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 03</div>
+  <div class="hdr-title">Sequences & Series of Real Numbers</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 75 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('sequences',this)"><div class="nav-dot"></div>Sequences — Convergence<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('limsup',this)"><div class="nav-dot"></div>limsup & liminf<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('cauchy',this)"><div class="nav-dot"></div>Cauchy Sequences<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('series',this)"><div class="nav-dot"></div>Series — Convergence Tests<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('special',this)"><div class="nav-dot"></div>Special Series<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('theorems',this)"><div class="nav-dot"></div>Key Theorems<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">09</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">10</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T02_RealNumbers.html'"><div class="nav-dot" style="background:var(--blue)"></div>← Real Numbers</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T04_CompactnessThms.html'"><div class="nav-dot" style="background:var(--orange)"></div>Next: BWT & HBT →</div>
+</nav>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 03 of 11</div>
+    <div class="hero-title">Sequences & Series of Real Numbers</div>
+    <div class="hero-sub">Convergence, Cauchy sequences, limsup & liminf, and all major series convergence tests</div>
+    <div class="hero-chips">
+      <span class="chip chip-g">CSIR NET High Frequency</span>
+      <span class="chip chip-b">Analysis Core</span>
+      <span class="chip chip-o">Intermediate–Advanced</span>
+      <span class="chip chip-p">75 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>Define <strong>convergence of a sequence</strong> using ε-N definition and compute limits</li>
+      <li>Compute <strong>limsup and liminf</strong> and understand their role in convergence</li>
+      <li>Define and identify <strong>Cauchy sequences</strong>; know that ℝ is Cauchy-complete</li>
+      <li>Apply all major <strong>series convergence tests</strong> (ratio, root, comparison, integral, alternating)</li>
+      <li>Distinguish <strong>absolute vs conditional convergence</strong> and know Riemann rearrangement theorem</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> Sequences and series are the <strong>most heavily tested</strong> topic in Unit 1 — expect 4–6 questions per exam. Limsup/liminf, Cauchy sequences, and the comparison test are especially common in Part C (4.75-mark questions).</div>
+  </div>
+</div>
+
+<!-- SEQUENCES -->
+<div class="sec" id="sec-sequences">
+  <h2 class="sec-head">🔢 Sequences — Convergence</h2>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">→</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">Definition of Convergence (ε-N)</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Formal Definition</div>
+      <div class="def-text">A sequence (aₙ) converges to L (written aₙ → L or lim aₙ = L) if:<br><br>
+      ∀ ε &gt; 0, ∃ N ∈ ℕ such that n ≥ N ⟹ |aₙ − L| &lt; ε<br><br>
+      In words: the terms eventually get arbitrarily close to L.</div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">🔑</div>
+      <div class="tip-text"><strong>How to use ε-N:</strong> Given ε &gt; 0, find N (usually in terms of ε) such that for n ≥ N the inequality |aₙ − L| &lt; ε holds. The critical skill is working BACKWARDS: start from |aₙ − L| &lt; ε and solve for n in terms of ε to find N.</div>
+    </div>
+
+    <h3 class="sub-head">Properties of Convergent Sequences</h3>
+    <ul>
+      <li><strong>Uniqueness:</strong> If aₙ → L and aₙ → M then L = M</li>
+      <li><strong>Boundedness:</strong> Every convergent sequence is bounded</li>
+      <li><strong>Squeeze theorem:</strong> If aₙ ≤ bₙ ≤ cₙ and aₙ → L and cₙ → L, then bₙ → L</li>
+      <li><strong>Algebra of limits:</strong> lim(aₙ + bₙ) = lim aₙ + lim bₙ; lim(aₙ · bₙ) = (lim aₙ)(lim bₙ)</li>
+      <li><strong>Order preservation:</strong> If aₙ → L and bₙ → M and aₙ ≤ bₙ, then L ≤ M</li>
+    </ul>
+
+    <div class="diagram">
+      <svg width="500" height="170" viewBox="0 0 500 170" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="18" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Convergence: terms fall inside ε-band after index N</text>
+        <!-- Axes -->
+        <line x1="40" y1="140" x2="480" y2="140" stroke="#30363d" stroke-width="1.5"/>
+        <line x1="40" y1="20" x2="40" y2="145" stroke="#30363d" stroke-width="1.5"/>
+        <!-- Limit L -->
+        <line x1="40" y1="85" x2="480" y2="85" stroke="#56d364" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="482" y="89" fill="#56d364" font-size="12" font-weight="700">L</text>
+        <!-- ε band -->
+        <rect x="40" y="65" width="440" height="40" fill="rgba(86,211,100,0.08)" stroke="none"/>
+        <line x1="40" y1="65" x2="480" y2="65" stroke="#56d364" stroke-width="0.7" stroke-dasharray="3,3" opacity="0.5"/>
+        <line x1="40" y1="125" x2="480" y2="125" stroke="#56d364" stroke-width="0.7" stroke-dasharray="3,3" opacity="0.5"/>
+        <text x="22" y="70" fill="#56d364" font-size="10">L+ε</text>
+        <text x="22" y="129" fill="#56d364" font-size="10">L−ε</text>
+        <!-- Sequence points oscillating to L -->
+        <circle cx="65" cy="38" r="4" fill="#ffa657"/>
+        <circle cx="95" cy="122" r="4" fill="#ffa657"/>
+        <circle cx="125" cy="55" r="4" fill="#ffa657"/>
+        <circle cx="155" cy="108" r="4" fill="#ffa657"/>
+        <circle cx="185" cy="70" r="4" fill="#79c0ff"/>
+        <circle cx="215" cy="98" r="4" fill="#79c0ff"/>
+        <circle cx="245" cy="76" r="4" fill="#79c0ff"/>
+        <circle cx="275" cy="93" r="4" fill="#56d364"/>
+        <circle cx="305" cy="80" r="4" fill="#56d364"/>
+        <circle cx="335" cy="90" r="4" fill="#56d364"/>
+        <circle cx="365" cy="82" r="4" fill="#56d364"/>
+        <circle cx="395" cy="88" r="4" fill="#56d364"/>
+        <circle cx="425" cy="84" r="4" fill="#56d364"/>
+        <circle cx="455" cy="86" r="4" fill="#56d364"/>
+        <!-- N vertical line -->
+        <line x1="245" y1="20" x2="245" y2="145" stroke="#ffa657" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="245" y="158" text-anchor="middle" fill="#ffa657" font-size="11" font-weight="700">N</text>
+        <text x="160" y="158" text-anchor="middle" fill="#ffa657" font-size="10">outside ε-band</text>
+        <text x="360" y="158" text-anchor="middle" fill="#56d364" font-size="10">inside ε-band</text>
+        <!-- n axis labels -->
+        <text x="480" y="152" fill="#8b949e" font-size="11">n →</text>
+      </svg>
+      <figcaption>Figure 1 — For n ≥ N, all terms fall within ε of the limit L (inside the green band)</figcaption>
+    </div>
+
+    <h3 class="sub-head">Monotone Convergence Theorem</h3>
+    <div class="thm-box">
+      <div class="thm-label">Monotone Convergence Theorem (MCT)</div>
+      <div class="thm-text">Every bounded monotone sequence converges.<br>
+      • Bounded increasing → converges to sup{aₙ}<br>
+      • Bounded decreasing → converges to inf{aₙ}</div>
+      <div class="thm-proof">This is equivalent to the Completeness Axiom. The classic example: define a₁ = 1, aₙ₊₁ = aₙ/2 + 1. Show it's bounded and increasing to find limit L = 2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIMSUP LIMINF -->
+<div class="sec" id="sec-limsup">
+  <h2 class="sec-head">🔼🔽 limsup & liminf</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">∞</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">lim sup and lim inf</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Definitions</div>
+      <div class="def-text">
+        <strong>lim sup aₙ</strong> = lim_{n→∞} sup{aₖ : k ≥ n} = inf_{n} sup{aₖ : k ≥ n}<br><br>
+        <strong>lim inf aₙ</strong> = lim_{n→∞} inf{aₖ : k ≥ n} = sup_{n} inf{aₖ : k ≥ n}<br><br>
+        Let Mₙ = sup{aₖ : k ≥ n} (tail supremum). Then Mₙ is decreasing, so lim sup = lim Mₙ.<br>
+        Let mₙ = inf{aₖ : k ≥ n} (tail infimum). Then mₙ is increasing, so lim inf = lim mₙ.
+      </div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Key Properties</div>
+      <div class="thm-text">
+        1. lim inf aₙ ≤ lim sup aₙ always<br>
+        2. aₙ → L ⟺ lim inf aₙ = lim sup aₙ = L<br>
+        3. lim sup(aₙ + bₙ) ≤ lim sup aₙ + lim sup bₙ<br>
+        4. If aₙ → L then lim sup aₙ = lim inf aₙ = L<br>
+        5. lim sup(−aₙ) = −lim inf(aₙ)
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">🧠</div>
+      <div class="tip-text"><strong>Intuition:</strong> lim sup is the largest cluster point of the sequence; lim inf is the smallest. For (−1)ⁿ: lim sup = 1 (the sequence reaches +1 infinitely often), lim inf = −1 (reaches −1 infinitely often). Since they differ, the sequence diverges.</div>
+    </div>
+
+    <div class="diagram">
+      <svg width="500" height="180" viewBox="0 0 500 180" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="18" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Sequence aₙ = (−1)ⁿ·n/(n+1): bouncing between −1 and +1</text>
+        <line x1="40" y1="100" x2="480" y2="100" stroke="#30363d" stroke-width="1.5"/>
+        <line x1="40" y1="20" x2="40" y2="165" stroke="#30363d" stroke-width="1.5"/>
+        <!-- +1 and -1 lines -->
+        <line x1="40" y1="40" x2="480" y2="40" stroke="#f78166" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="483" y="44" fill="#f78166" font-size="11" font-weight="700">+1 = limsup</text>
+        <line x1="40" y1="160" x2="480" y2="160" stroke="#79c0ff" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="483" y="164" fill="#79c0ff" font-size="11" font-weight="700">−1 = liminf</text>
+        <!-- Alternating points -->
+        <circle cx="65" cy="60" r="5" fill="#f78166"/>
+        <circle cx="100" cy="153" r="5" fill="#79c0ff"/>
+        <circle cx="135" cy="50" r="5" fill="#f78166"/>
+        <circle cx="170" cy="150" r="5" fill="#79c0ff"/>
+        <circle cx="205" cy="45" r="5" fill="#f78166"/>
+        <circle cx="240" cy="148" r="5" fill="#79c0ff"/>
+        <circle cx="275" cy="43" r="5" fill="#f78166"/>
+        <circle cx="310" cy="147" r="5" fill="#79c0ff"/>
+        <circle cx="345" cy="42" r="5" fill="#f78166"/>
+        <circle cx="380" cy="146" r="5" fill="#79c0ff"/>
+        <circle cx="415" cy="41" r="5" fill="#f78166"/>
+        <circle cx="450" cy="145" r="5" fill="#79c0ff"/>
+        <!-- Connecting lines -->
+        <text x="250" y="100" text-anchor="middle" fill="#8b949e" font-size="11">0</text>
+        <text x="480" y="104" fill="#8b949e" font-size="11">n →</text>
+      </svg>
+      <figcaption>Figure 2 — For aₙ = (−1)ⁿ·n/(n+1): limsup = 1 (approached from below), liminf = −1 (approached from above)</figcaption>
+    </div>
+  </div>
+</div>
+
+<!-- CAUCHY -->
+<div class="sec" id="sec-cauchy">
+  <h2 class="sec-head">🔄 Cauchy Sequences</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">≈</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Cauchy Sequences</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Definition</div>
+      <div class="def-text">
+        A sequence (aₙ) is Cauchy if the terms become arbitrarily close to each other:<br><br>
+        ∀ ε &gt; 0, ∃ N ∈ ℕ such that m, n ≥ N ⟹ |aₙ − aₘ| &lt; ε<br><br>
+        Key: no reference to a limit L — we compare terms with each other.
+      </div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Completeness Theorem for ℝ</div>
+      <div class="thm-text">In ℝ: A sequence converges ⟺ it is a Cauchy sequence.</div>
+      <div class="thm-proof">
+        → (Convergent ⟹ Cauchy): If aₙ → L, then |aₙ − aₘ| ≤ |aₙ − L| + |L − aₘ| &lt; ε/2 + ε/2 = ε for n,m ≥ N.<br>
+        ← (Cauchy ⟹ Convergent): Use BWT to extract a convergent subsequence, then show the full sequence converges to the same limit. This direction requires completeness of ℝ — it FAILS in ℚ!
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">⚡</div>
+      <div class="tip-text"><strong>Cauchy criterion for series:</strong> ∑aₙ converges iff for every ε &gt; 0, ∃N such that |aₙ₊₁ + aₙ₊₂ + … + aₘ| &lt; ε for all m &gt; n ≥ N. This is the basis for many convergence tests.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES -->
+<div class="sec" id="sec-series">
+  <h2 class="sec-head">∑ Series — Convergence Tests</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">Σ</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">Series Definitions</div></div>
+    </div>
+    <p>A <strong>series</strong> ∑_{n=1}^∞ aₙ is the limit of partial sums: Sₙ = a₁ + a₂ + … + aₙ. The series converges iff (Sₙ) converges.</p>
+    <div class="def-box">
+      <div class="def-label">Necessary Condition for Convergence</div>
+      <div class="def-text">If ∑aₙ converges, then aₙ → 0. The converse is FALSE: ∑1/n diverges even though 1/n → 0.</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Absolute vs Conditional Convergence</div>
+      <div class="def-text">
+        <strong>Absolutely convergent:</strong> ∑|aₙ| converges<br>
+        <strong>Conditionally convergent:</strong> ∑aₙ converges but ∑|aₙ| diverges<br>
+        <strong>Fact:</strong> Absolute convergence ⟹ convergence (but not vice versa)
+      </div>
+    </div>
+
+    <h3 class="sub-head">Convergence Tests — Quick Reference</h3>
+    <div class="series-grid">
+      <div class="scard">
+        <div class="sc-name">Comparison Test</div>
+        <div class="sc-form">0 ≤ aₙ ≤ bₙ</div>
+        <div class="sc-cond">∑bₙ conv. ⟹ ∑aₙ conv.<br>∑aₙ div. ⟹ ∑bₙ div.</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">Limit Comparison Test</div>
+        <div class="sc-form">L = lim(aₙ/bₙ) ∈ (0,∞)</div>
+        <div class="sc-cond">∑aₙ and ∑bₙ both converge or both diverge</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">Ratio Test (D'Alembert)</div>
+        <div class="sc-form">L = lim |aₙ₊₁/aₙ|</div>
+        <div class="sc-cond">L &lt; 1 → conv. | L &gt; 1 → div. | L = 1 → inconclusive</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">Root Test (Cauchy)</div>
+        <div class="sc-form">L = lim sup |aₙ|^(1/n)</div>
+        <div class="sc-cond">L &lt; 1 → conv. | L &gt; 1 → div. | L = 1 → inconclusive</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">Integral Test</div>
+        <div class="sc-form">f positive, decreasing</div>
+        <div class="sc-cond">∑f(n) converges ⟺ ∫₁^∞ f(x)dx converges</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">Alternating Series (Leibniz)</div>
+        <div class="sc-form">∑(−1)ⁿ bₙ, bₙ↘0</div>
+        <div class="sc-cond">Converges if bₙ ↓ 0 (monotone decreasing to 0)</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">p-Series Test</div>
+        <div class="sc-form">∑1/nᵖ</div>
+        <div class="sc-cond">Converges if p &gt; 1, Diverges if p ≤ 1</div>
+      </div>
+      <div class="scard">
+        <div class="sc-name">Geometric Series</div>
+        <div class="sc-form">∑rⁿ</div>
+        <div class="sc-cond">Converges to 1/(1−r) if |r| &lt; 1, Diverges if |r| ≥ 1</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-text"><strong>Test Hierarchy for CSIR NET:</strong> When L = 1 for ratio/root test, they're inconclusive — don't stop! Use p-series test or comparison. Root test is STRONGER than ratio test (ratio test inconclusive ⟹ root test also inconclusive, but NOT vice versa).</div>
+    </div>
+  </div>
+</div>
+
+<!-- SPECIAL SERIES -->
+<div class="sec" id="sec-special">
+  <h2 class="sec-head">📊 Special Series & Results</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">∑</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Key Series to Know for CSIR NET</div></div>
+    </div>
+    <table class="tbl">
+      <tr><th>Series</th><th>Formula</th><th>Convergence</th><th>Sum (if conv.)</th></tr>
+      <tr><td>Geometric</td><td>∑_{n=0}^∞ rⁿ</td><td>|r| &lt; 1</td><td>1/(1−r)</td></tr>
+      <tr><td>Harmonic</td><td>∑_{n=1}^∞ 1/n</td><td>Diverges</td><td>∞</td></tr>
+      <tr><td>p-Series</td><td>∑_{n=1}^∞ 1/nᵖ</td><td>p &gt; 1</td><td>ζ(p) (Riemann zeta)</td></tr>
+      <tr><td>Alternating Harmonic</td><td>∑_{n=1}^∞ (−1)^{n+1}/n</td><td>Converges (conditionally)</td><td>ln 2</td></tr>
+      <tr><td>Exponential</td><td>∑_{n=0}^∞ xⁿ/n!</td><td>All x ∈ ℝ</td><td>eˣ</td></tr>
+      <tr><td>∑1/(n ln n)</td><td>Integral test</td><td>Diverges</td><td>∞</td></tr>
+      <tr><td>∑1/(n(ln n)²)</td><td>Integral test</td><td>Converges</td><td>finite</td></tr>
+      <tr><td>∑1/n² = π²/6</td><td>Basel problem</td><td>Converges (p=2)</td><td>π²/6</td></tr>
+    </table>
+
+    <div class="thm-box">
+      <div class="thm-label">Riemann Rearrangement Theorem</div>
+      <div class="thm-text">If ∑aₙ is conditionally convergent (converges but not absolutely), then for any real number r (or ±∞), there exists a rearrangement of the series that sums to r.</div>
+      <div class="thm-proof">This is why order matters for non-absolutely convergent series! For absolutely convergent series, any rearrangement gives the same sum (Dirichlet's theorem). This theorem is frequently tested in CSIR NET.</div>
+    </div>
+  </div>
+</div>
+
+<!-- THEOREMS -->
+<div class="sec" id="sec-theorems">
+  <h2 class="sec-head">📜 Key Theorems</h2>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 1 — Bolzano-Weierstrass for Sequences</div>
+    <div class="thm-text">Every bounded sequence in ℝ has a convergent subsequence.</div>
+    <div class="thm-proof">Proved using the Nested Interval Theorem: repeatedly bisect intervals containing infinitely many terms. The subsequence converges to the "trapped" limit point. (Full proof in T04.)</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 2 — Subsequential Limits and limsup</div>
+    <div class="thm-text">lim sup aₙ = sup{L : L is a subsequential limit of (aₙ)}.<br>Similarly, lim inf aₙ = inf{L : L is a subsequential limit of (aₙ)}.</div>
+    <div class="thm-proof">The limsup is the largest limit of any convergent subsequence. For (−1)ⁿ: subsequential limits are {−1, 1}, so limsup = 1, liminf = −1.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 3 — Cauchy Condensation Test</div>
+    <div class="thm-text">For decreasing aₙ ≥ 0: ∑aₙ converges iff ∑2ⁿa_{2ⁿ} converges.</div>
+    <div class="thm-proof">Application: ∑1/nᵖ converges iff ∑2ⁿ/(2ⁿᵖ) = ∑2^{n(1−p)} converges iff p &gt; 1. This gives the p-series test.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 4 — Abel's Test</div>
+    <div class="thm-text">If ∑aₙ converges and (bₙ) is bounded and monotone, then ∑aₙbₙ converges.</div>
+    <div class="thm-proof">Used when neither ratio nor root test applies — powerful for series like ∑(sin n)/n² or ∑aₙ·rⁿ.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 5 — Dirichlet's Test</div>
+    <div class="thm-text">If partial sums of ∑aₙ are bounded and bₙ → 0 monotonically, then ∑aₙbₙ converges.</div>
+    <div class="thm-proof">Application: ∑(sin nθ)/n converges for θ ≠ 2kπ. The partial sums of ∑sin nθ are bounded, and 1/n → 0 monotonically.</div>
+  </div>
+</div>
+
+<!-- EXAMPLES -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — ε-N Proof</div>
+    <div class="ex-q">Prove from definition that lim_{n→∞} (3n+1)/(2n−1) = 3/2.</div>
+    <div class="ex-sol">
+      <strong>Setup:</strong> Let L = 3/2. We need |aₙ − 3/2| &lt; ε.<br>
+      <strong>Computation:</strong> |(3n+1)/(2n−1) − 3/2| = |(2(3n+1) − 3(2n−1))/(2(2n−1))| = |6n+2−6n+3|/(2|2n−1|) = 5/(2(2n−1)) for n ≥ 1.<br>
+      <strong>Find N:</strong> We need 5/(2(2n−1)) &lt; ε ⟺ 2n−1 &gt; 5/(2ε) ⟺ n &gt; 5/(4ε) + 1/2.<br>
+      Choose N = ⌈5/(4ε) + 1⌉. Then for n ≥ N: |(3n+1)/(2n−1) − 3/2| = 5/(2(2n−1)) &lt; ε. □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — Computing limsup and liminf</div>
+    <div class="ex-q">Find lim sup and lim inf for aₙ = sin(nπ/2).</div>
+    <div class="ex-sol">
+      <strong>Values:</strong> a₁ = 1, a₂ = 0, a₃ = −1, a₄ = 0, a₅ = 1, … (period 4)<br>
+      <strong>Tail supremum:</strong> Mₙ = sup{sin(kπ/2) : k ≥ n}. Since the sequence repeats, every tail contains the value 1. So Mₙ = 1 for all n → lim sup = 1.<br>
+      <strong>Tail infimum:</strong> Similarly mₙ = −1 for all n → lim inf = −1.<br>
+      Since lim sup ≠ lim inf, the sequence diverges. Subsequential limits: {−1, 0, 1}.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — Ratio Test</div>
+    <div class="ex-q">Test ∑_{n=1}^∞ n²·3ⁿ/n! for convergence.</div>
+    <div class="ex-sol">
+      <strong>Ratio test:</strong> |a_{n+1}/aₙ| = [(n+1)²·3^{n+1}/(n+1)!] / [n²·3ⁿ/n!]<br>
+      = (n+1)²·3 / [(n+1)·n²] = 3(n+1)/n²<br>
+      As n → ∞: 3(n+1)/n² → 0 &lt; 1.<br>
+      <strong>Conclusion:</strong> By the ratio test, the series <strong>converges absolutely</strong>.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — Alternating Series</div>
+    <div class="ex-q">Does ∑_{n=1}^∞ (−1)^{n+1}/√n converge absolutely or conditionally?</div>
+    <div class="ex-sol">
+      <strong>Absolute convergence:</strong> ∑1/√n = ∑1/n^{1/2} is a p-series with p = 1/2 ≤ 1 → <strong>diverges</strong>. Not absolutely convergent.<br>
+      <strong>Conditional convergence:</strong> Apply Leibniz test: bₙ = 1/√n. Is it decreasing? Yes: 1/√(n+1) &lt; 1/√n. Does bₙ → 0? Yes: 1/√n → 0. By the Alternating Series Test, the series <strong>converges conditionally</strong>.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — Cauchy Sequence</div>
+    <div class="ex-q">Show that aₙ = 1 + 1/2 + 1/4 + … + 1/2^n is Cauchy.</div>
+    <div class="ex-sol">
+      <strong>Observation:</strong> This is a partial sum of the geometric series ∑(1/2)ⁿ with r = 1/2, which converges. So aₙ → L = 2. Since it converges in ℝ, it must be Cauchy.<br>
+      <strong>Direct proof:</strong> For m &gt; n, |aₘ − aₙ| = |1/2^{n+1} + … + 1/2^m| ≤ ∑_{k=n+1}^∞ 1/2^k = 1/2^n → 0. For any ε &gt; 0, choose N with 1/2^N &lt; ε. Then for m &gt; n ≥ N: |aₘ − aₙ| &lt; ε. □
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <div class="q-block" id="qb1">
+    <div class="q-num">Question 1 of 15</div>
+    <div class="q-text">If lim sup aₙ = lim inf aₙ = L, then:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) The sequence is bounded</button>
+      <button class="opt correct-ans" onclick="answer(1,'b')">B) The sequence converges to L</button>
+      <button class="opt" onclick="answer(1,'c')">C) Every subsequence converges to L</button>
+      <button class="opt" onclick="answer(1,'d')">D) Both B and C</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>✓ D is correct.</strong> If lim sup aₙ = lim inf aₙ = L, then the sequence converges to L (they agree). And if the full sequence converges to L, then every subsequence also converges to L. So both B and C hold. A is also true (convergent sequences are bounded), but the most specific correct answer is D.</div>
+  </div>
+
+  <div class="q-block" id="qb2">
+    <div class="q-num">Question 2 of 15</div>
+    <div class="q-text">The series ∑_{n=1}^∞ 1/nᵖ converges if and only if:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) p ≥ 1</button>
+      <button class="opt correct-ans" onclick="answer(2,'b')">B) p &gt; 1</button>
+      <button class="opt" onclick="answer(2,'c')">C) p &gt; 0</button>
+      <button class="opt" onclick="answer(2,'d')">D) p &gt; 2</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>✓ B is correct.</strong> The p-series ∑1/nᵖ converges iff p &gt; 1. At p = 1 it's the harmonic series (diverges). At p = 2, sum = π²/6. At p = 1/2, it diverges. Proved via the integral test: ∫₁^∞ x^{-p}dx converges iff p &gt; 1.</div>
+  </div>
+
+  <div class="q-block" id="qb3">
+    <div class="q-num">Question 3 of 15</div>
+    <div class="q-text">For the sequence aₙ = (−1)ⁿ, which is TRUE?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(3,'a')">A) lim sup = lim inf = 0</button>
+      <button class="opt" onclick="answer(3,'b')">B) lim sup = 1, lim inf = 0</button>
+      <button class="opt correct-ans" onclick="answer(3,'c')">C) lim sup = 1, lim inf = −1</button>
+      <button class="opt" onclick="answer(3,'d')">D) The sequence converges to 0</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>✓ C is correct.</strong> aₙ alternates between +1 (even n) and −1 (odd n). Tail supremum = 1 for all n (each tail contains the value +1), so lim sup = 1. Tail infimum = −1 for all n, so lim inf = −1. Since lim sup ≠ lim inf, the sequence diverges.</div>
+  </div>
+
+  <div class="q-block" id="qb4">
+    <div class="q-num">Question 4 of 15</div>
+    <div class="q-text">In ℝ, a sequence converges if and only if it is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) Bounded</button>
+      <button class="opt" onclick="answer(4,'b')">B) Monotone</button>
+      <button class="opt correct-ans" onclick="answer(4,'c')">C) Cauchy</button>
+      <button class="opt" onclick="answer(4,'d')">D) Monotone and bounded</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>✓ C is correct.</strong> In ℝ, convergence ⟺ Cauchy (this is what "completeness" means). A is wrong: (−1)ⁿ is bounded but diverges. B is wrong: an increasing sequence might diverge to +∞. D is correct only in one direction: monotone + bounded ⟹ convergent (MCT). But convergent doesn't imply monotone. Cauchy is the EXACT characterization.</div>
+  </div>
+
+  <div class="q-block" id="qb5">
+    <div class="q-num">Question 5 of 15</div>
+    <div class="q-text">Applying the ratio test to ∑n/2ⁿ gives:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(5,'a')">A) L = 1/2, series converges</button>
+      <button class="opt" onclick="answer(5,'b')">B) L = 1, inconclusive</button>
+      <button class="opt" onclick="answer(5,'c')">C) L = 2, series diverges</button>
+      <button class="opt" onclick="answer(5,'d')">D) L = 0, series converges</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>✓ A is correct.</strong> |a_{n+1}/aₙ| = [(n+1)/2^{n+1}] / [n/2ⁿ] = (n+1)/(2n) → 1/2 as n→∞. Since L = 1/2 &lt; 1, the series converges (absolutely). Sum = ∑n/2ⁿ = 2.</div>
+  </div>
+
+  <div class="q-block" id="qb6">
+    <div class="q-num">Question 6 of 15</div>
+    <div class="q-text">Which of the following series is conditionally convergent but NOT absolutely convergent?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(6,'a')">A) ∑1/n²</button>
+      <button class="opt correct-ans" onclick="answer(6,'b')">B) ∑(−1)ⁿ/n</button>
+      <button class="opt" onclick="answer(6,'c')">C) ∑(−1)ⁿ/n²</button>
+      <button class="opt" onclick="answer(6,'d')">D) ∑1/n</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>✓ B is correct.</strong> ∑(−1)ⁿ/n converges by Leibniz test (1/n → 0 monotonically), but ∑1/n diverges (harmonic series) → conditionally convergent. A: ∑1/n² converges absolutely (p=2&gt;1). C: ∑(−1)ⁿ/n² also absolutely convergent (∑1/n² converges). D: ∑1/n diverges entirely.</div>
+  </div>
+
+  <div class="q-block" id="qb7">
+    <div class="q-num">Question 7 of 15</div>
+    <div class="q-text">The necessary condition for ∑aₙ to converge is:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(7,'a')">A) aₙ → 0</button>
+      <button class="opt" onclick="answer(7,'b')">B) aₙ → 0 and aₙ is decreasing</button>
+      <button class="opt" onclick="answer(7,'c')">C) ∑|aₙ| converges</button>
+      <button class="opt" onclick="answer(7,'d')">D) aₙ is bounded</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>✓ A is correct.</strong> If ∑aₙ converges, then aₙ → 0 (necessary condition). The converse fails: ∑1/n diverges even though 1/n → 0. C is SUFFICIENT (absolute convergence implies convergence) but not necessary. B is sufficient for alternating series but not necessary in general. D is neither necessary nor sufficient.</div>
+  </div>
+
+  <div class="q-block" id="qb8">
+    <div class="q-num">Question 8 of 15</div>
+    <div class="q-text">Let aₙ = (1 + 1/n)ⁿ. What is lim_{n→∞} aₙ?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(8,'a')">A) 1</button>
+      <button class="opt" onclick="answer(8,'b')">B) ∞</button>
+      <button class="opt correct-ans" onclick="answer(8,'c')">C) e</button>
+      <button class="opt" onclick="answer(8,'d')">D) 2</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>✓ C is correct.</strong> By definition, e = lim_{n→∞}(1 + 1/n)ⁿ ≈ 2.71828. This is one of the fundamental limits in analysis. Verify: (1+1/n)ⁿ is increasing and bounded above by 3, so by MCT it converges. The limit is defined to be e.</div>
+  </div>
+
+  <div class="q-block" id="qb9">
+    <div class="q-num">Question 9 of 15</div>
+    <div class="q-text">By the Riemann Rearrangement Theorem, if ∑aₙ converges conditionally, its terms can be rearranged to:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(9,'a')">A) Sum to any value between inf aₙ and sup aₙ</button>
+      <button class="opt" onclick="answer(9,'b')">B) Only sum to the same original value</button>
+      <button class="opt correct-ans" onclick="answer(9,'c')">C) Sum to any real number, or ±∞</button>
+      <button class="opt" onclick="answer(9,'d')">D) Sum to a value within 1 of the original sum</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>✓ C is correct.</strong> Riemann's theorem: if ∑aₙ converges conditionally, for ANY target T ∈ ℝ ∪ {±∞}, there exists a rearrangement summing to T. This is remarkable — by reordering, we can get any sum. Absolutely convergent series are immune: any rearrangement gives the same sum (Dirichlet).</div>
+  </div>
+
+  <div class="q-block" id="qb10">
+    <div class="q-num">Question 10 of 15</div>
+    <div class="q-text">Which test is MOST POWERFUL among the following?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(10,'a')">A) Ratio test</button>
+      <button class="opt correct-ans" onclick="answer(10,'b')">B) Root test</button>
+      <button class="opt" onclick="answer(10,'c')">C) Comparison test</button>
+      <button class="opt" onclick="answer(10,'d')">D) Alternating series test</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>✓ B is correct.</strong> The root test is at least as powerful as the ratio test: wherever the ratio test gives a conclusion, so does the root test. But there exist series where the ratio test is inconclusive (L = 1) yet the root test gives L &lt; 1 or L &gt; 1. The root test uses lim sup, which always exists (unlike lim).</div>
+  </div>
+
+  <div class="q-block" id="qb11">
+    <div class="q-num">Question 11 of 15</div>
+    <div class="q-text">The sequence defined by a₁ = √2, aₙ₊₁ = √(2 + aₙ). The sequence converges to:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(11,'a')">A) √2</button>
+      <button class="opt" onclick="answer(11,'b')">B) 2</button>
+      <button class="opt correct-ans" onclick="answer(11,'c')">C) 2 (provably by MCT)</div>
+      <button class="opt" onclick="answer(11,'d')">D) ∞</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>✓ C is correct.</strong> If L = lim aₙ exists, then L = √(2 + L) → L² = 2 + L → L² − L − 2 = 0 → (L−2)(L+1) = 0 → L = 2 (since L &gt; 0). By MCT: (aₙ) is bounded above by 2 (induction: if aₙ &lt; 2 then aₙ₊₁ = √(2+aₙ) &lt; √4 = 2) and increasing. So it converges to 2.</div>
+  </div>
+
+  <div class="q-block" id="qb12">
+    <div class="q-num">Question 12 of 15</div>
+    <div class="q-text">For a sequence (aₙ), which of the following implies convergence? (CSIR NET style)</div>
+    <div class="options">
+      <button class="opt" onclick="answer(12,'a')">A) (aₙ) is bounded</button>
+      <button class="opt" onclick="answer(12,'b')">B) Every subsequence of (aₙ) is bounded</button>
+      <button class="opt correct-ans" onclick="answer(12,'c')">C) Every subsequence of (aₙ) has a further subsequence that converges to L</button>
+      <button class="opt" onclick="answer(12,'d')">D) (aₙ) has a convergent subsequence</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>✓ C is correct.</strong> If every subsequence has a sub-subsequence converging to L, then aₙ → L. Proof: If aₙ did not converge to L, there would be a subsequence bounded away from L, contradicting the hypothesis. A and B don't imply convergence ((−1)ⁿ is bounded but diverges). D only says a subsequence converges, not the full sequence.</div>
+  </div>
+
+  <div class="q-block" id="qb13">
+    <div class="q-num">Question 13 of 15</div>
+    <div class="q-text">The series ∑_{n=2}^∞ 1/(n·(ln n)ᵖ) converges when:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(13,'a')">A) p &gt; 0</button>
+      <button class="opt correct-ans" onclick="answer(13,'b')">B) p &gt; 1</button>
+      <button class="opt" onclick="answer(13,'c')">C) p ≥ 1</button>
+      <button class="opt" onclick="answer(13,'d')">D) p &gt; 2</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>✓ B is correct.</strong> By the integral test: ∫₂^∞ 1/(x(ln x)ᵖ)dx. Substitute u = ln x: ∫_{ln 2}^∞ u^{-p}du, which converges iff p &gt; 1. So ∑1/(n(ln n)ᵖ) converges iff p &gt; 1. At p=1: ∑1/(n ln n) diverges. At p=2: converges.</div>
+  </div>
+
+  <div class="q-block" id="qb14">
+    <div class="q-num">Question 14 of 15</div>
+    <div class="q-text">A Cauchy sequence in ℚ that does NOT converge in ℚ:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) Does not exist</button>
+      <button class="opt correct-ans" onclick="answer(14,'b')">B) Exists (e.g., rational approximations to √2)</button>
+      <button class="opt" onclick="answer(14,'c')">C) Always converges to a rational number</button>
+      <button class="opt" onclick="answer(14,'d')">D) Diverges to ±∞</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>✓ B is correct.</strong> ℚ is NOT complete: there exist Cauchy sequences in ℚ that don't converge in ℚ. Example: truncated decimal expansions of √2: 1, 1.4, 1.41, 1.414, … is Cauchy in ℚ but converges to √2 ∉ ℚ. This is exactly why ℝ was constructed: to "complete" ℚ.</div>
+  </div>
+
+  <div class="q-block" id="qb15">
+    <div class="q-num">Question 15 of 15</div>
+    <div class="q-text">If ∑aₙ converges absolutely and (bₙ) is bounded, does ∑aₙbₙ converge?</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(15,'a')">A) Yes, and absolutely</button>
+      <button class="opt" onclick="answer(15,'b')">B) Yes, but only conditionally</button>
+      <button class="opt" onclick="answer(15,'c')">C) No, not necessarily</button>
+      <button class="opt" onclick="answer(15,'d')">D) Only if bₙ → 0</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>✓ A is correct.</strong> If ∑|aₙ| converges and |bₙ| ≤ M for all n, then ∑|aₙbₙ| ≤ M·∑|aₙ| &lt; ∞. So ∑aₙbₙ converges absolutely. This is a direct comparison. Note: this doesn't require bₙ → 0; any bounded sequence works.</div>
+  </div>
+
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button>
+    <br><br>
+    <a href="CSIR_NET_U1_T04_CompactnessThms.html" style="display:inline-block;margin-top:8px;background:rgba(86,211,100,.15);color:var(--ok);border:1px solid rgba(86,211,100,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next: Bolzano-Weierstrass & Heine-Borel →</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <h4>Sequence Essentials</h4>
+      <ul>
+        <li>ε-N definition: ∀ε&gt;0, ∃N: n≥N ⟹ |aₙ−L|&lt;ε</li>
+        <li>Convergent ⟹ bounded (converse fails: (−1)ⁿ)</li>
+        <li>MCT: bounded monotone ⟹ converges</li>
+        <li>Cauchy ⟺ Convergent (in ℝ)</li>
+        <li>limsup = liminf ⟺ convergent</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>Series Key Facts</h4>
+      <ul>
+        <li>∑aₙ conv. ⟹ aₙ → 0 (necessary, not sufficient)</li>
+        <li>∑1/nᵖ: p&gt;1 conv., p≤1 div.</li>
+        <li>Abs. conv. ⟹ convergent (conv. ⇏ abs. conv.)</li>
+        <li>Root test ≥ Ratio test in power</li>
+        <li>Rearrangement OK for absolutely conv. series</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>CSIR Exam Q-Types</h4>
+      <ul>
+        <li>Compute lim sup / lim inf for given sequences</li>
+        <li>Determine convergence using p-series, ratio, root</li>
+        <li>Absolute vs conditional convergence identification</li>
+        <li>ε-N proofs for simple sequences</li>
+        <li>MCT applications: recursive sequences</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>Common Mistakes</h4>
+      <ul>
+        <li>aₙ → 0 does NOT imply ∑aₙ converges (∑1/n!)</li>
+        <li>Ratio test L=1 is INCONCLUSIVE (try another test)</li>
+        <li>Bounded sequence may diverge ((−1)ⁿ)</li>
+        <li>Convergent subseq. ≠ convergent sequence</li>
+        <li>Rearrangement changes sum if only conditionally conv.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_U1_T02_RealNumbers.html">← Real Numbers</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T04_CompactnessThms.html">Next: Bolzano-Weierstrass →</a>
+  </div>
+</div>
+
+</div>
+<script>
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+let answered=0,correct=0,wrong=0;
+const correctAns={1:'d',2:'b',3:'c',4:'c',5:'a',6:'b',7:'a',8:'c',9:'c',10:'b',11:'c',12:'c',13:'b',14:'b',15:'a'};
+function answer(qn,chosen){
+  const block=document.getElementById('qb'+qn);
+  if(block.classList.contains('correct')||block.classList.contains('wrong'))return;
+  const opts=block.querySelectorAll('.opt');
+  opts.forEach(o=>o.disabled=true);
+  const isCorrect=(chosen===correctAns[qn]);
+  if(isCorrect){block.classList.add('correct');correct++;}else{block.classList.add('wrong');wrong++;}
+  const letters=['a','b','c','d'];
+  opts.forEach((o,i)=>{
+    if(letters[i]===correctAns[qn])o.classList.add('correct');
+    else if(letters[i]===chosen&&!isCorrect)o.classList.add('wrong');
+  });
+  document.getElementById('exp'+qn).classList.add('show',isCorrect?'exp-correct':'exp-wrong');
+  answered++;
+  document.getElementById('score-display').textContent=`Score: ${correct} / 15`;
+  document.getElementById('qpfill').style.width=(answered/15*100)+'%';
+  if(answered===15)showScore();
+}
+function showScore(){
+  setTimeout(()=>{
+    const sc=document.getElementById('score-card');sc.classList.add('show');
+    document.getElementById('final-score').textContent=correct;
+    document.getElementById('sc-correct').textContent=correct;
+    document.getElementById('sc-wrong').textContent=wrong;
+    const msgs=['Review sequences and series basics.','Good start! Focus on convergence tests.','Good! Review limsup/liminf.','Excellent!','Perfect! Ready for CSIR NET!'];
+    document.getElementById('sc-msg').textContent=msgs[Math.min(Math.floor(correct/15*100/21),4)];
+    sc.scrollIntoView({behavior:'smooth'});
+  },600);
+}
+function resetQuiz(){
+  answered=0;correct=0;wrong=0;
+  document.getElementById('score-display').textContent='Score: 0 / 15';
+  document.getElementById('qpfill').style.width='0%';
+  document.getElementById('score-card').classList.remove('show');
+  for(let i=1;i<=15;i++){
+    const b=document.getElementById('qb'+i);
+    b.classList.remove('correct','wrong');
+    b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});
+    document.getElementById('exp'+i).classList.remove('show','exp-correct','exp-wrong');
+  }
+  document.getElementById('qb1').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T10 · Metric Spaces</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0e7490;--acc2:#0891b2;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(14,116,144,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(14,116,144,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(14,116,144,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8fdfb,#d0f8f3,#b8f2ea)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(14,116,144,.18),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(14,116,144,.1);color:var(--acc);font-weight:600;border:1px solid rgba(14,116,144,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#b45309;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+svg{display:block;margin:16px auto}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 1</span>
+  <span class="hdr-title">T10 · Metric Spaces</span>
+  <span class="hdr-badge">Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 1 · Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('def',this)">Metric Spaces</a>
+  <a class="nav-item" onclick="show('open',this)">Open & Closed Sets</a>
+  <a class="nav-item" onclick="show('conv',this)">Convergence & Cauchy</a>
+  <a class="nav-item" onclick="show('comp',this)">Completeness</a>
+  <a class="nav-item" onclick="show('cpt',this)">Compactness</a>
+  <a class="nav-item" onclick="show('conn',this)">Connectedness</a>
+  <a class="nav-item" onclick="show('fp',this)">Fixed Point Theorem</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('sum',this)">Summary</a>
+  <div class="nav-sec">Other Topics</div>
+  <a class="nav-item" href="CSIR_NET_U1_T09_MultivariableCalc.html">T09 · Multivariable Calc</a>
+  <a class="nav-item" href="CSIR_NET_U1_T11_NormedSpaces.html">T11 · Normed Spaces</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 · Topic 10</div>
+    <div class="hero-title">Metric Spaces</div>
+    <div class="hero-sub">Completeness · Compactness · Connectedness · Banach Fixed Point</div>
+    <div class="hero-chips">
+      <span class="chip">Metric Axioms</span>
+      <span class="chip">Open/Closed Sets</span>
+      <span class="chip">Cauchy Sequences</span>
+      <span class="chip">Complete Spaces</span>
+      <span class="chip">Compact Spaces</span>
+      <span class="chip">Connected Spaces</span>
+      <span class="chip">Contraction Maps</span>
+    </div>
+  </div>
+  <h2>What Are Metric Spaces?</h2>
+  <p>A <strong>metric space</strong> is a set X equipped with a distance function d: X×X → ℝ that captures the notion of "how far apart" two points are. This powerful abstraction unifies ℝⁿ, function spaces, sequence spaces, and discrete sets under one framework.</p>
+  <div class="grid2">
+    <div class="card">
+      <h4>Why Metric Spaces?</h4>
+      <ul>
+        <li>Unify analysis on ℝ, ℝⁿ, and abstract spaces</li>
+        <li>Define continuity without coordinates</li>
+        <li>Prove existence theorems (fixed points)</li>
+        <li>Foundation for functional analysis</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>CSIR NET Importance</h4>
+      <ul>
+        <li>2–4 questions per paper on this topic</li>
+        <li>Completeness: Baire category, Cantor intersection</li>
+        <li>Compactness: sequential compactness equivalence</li>
+        <li>Contraction mapping: fixed point uniqueness</li>
+      </ul>
+    </div>
+  </div>
+  <h2>Topic Map</h2>
+  <svg width="600" height="180" viewBox="0 0 600 180">
+    <rect width="600" height="180" fill="#f0fdf8" rx="10"/>
+    <rect x="220" y="15" width="160" height="36" rx="8" fill="#0e7490" opacity=".15" stroke="#0e7490" stroke-width="1.5"/>
+    <text x="300" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#0e7490">Metric Space (X,d)</text>
+    <line x1="300" y1="51" x2="110" y2="85" stroke="#0e7490" stroke-width="1.5" opacity=".5"/>
+    <line x1="300" y1="51" x2="300" y2="85" stroke="#0e7490" stroke-width="1.5" opacity=".5"/>
+    <line x1="300" y1="51" x2="490" y2="85" stroke="#0e7490" stroke-width="1.5" opacity=".5"/>
+    <rect x="20" y="85" width="180" height="36" rx="8" fill="#eff6ff" stroke="#1d6fc2" stroke-width="1.5"/>
+    <text x="110" y="108" text-anchor="middle" font-size="12" font-weight="600" fill="#1d6fc2">Completeness</text>
+    <rect x="210" y="85" width="180" height="36" rx="8" fill="#f3eeff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="300" y="108" text-anchor="middle" font-size="12" font-weight="600" fill="#7c3aed">Compactness</text>
+    <rect x="400" y="85" width="180" height="36" rx="8" fill="#fff8e1" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="490" y="108" text-anchor="middle" font-size="12" font-weight="600" fill="#b45309">Connectedness</text>
+    <line x1="110" y1="121" x2="110" y2="145" stroke="#1d6fc2" stroke-width="1.2" opacity=".5"/>
+    <rect x="20" y="145" width="180" height="28" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+    <text x="110" y="163" text-anchor="middle" font-size="11" fill="#16a34a">Banach Fixed Point</text>
+  </svg>
+</div>
+
+<!-- METRIC SPACES -->
+<div class="sec" id="def">
+  <h2>Metric Spaces: Definitions & Examples</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Metric Space</div>
+    <p>A <strong>metric space</strong> is a pair (X, d) where X is a non-empty set and d: X×X → ℝ satisfies for all x, y, z ∈ X:</p>
+    <ol>
+      <li><strong>Non-negativity:</strong> d(x,y) ≥ 0, with d(x,y) = 0 ⟺ x = y</li>
+      <li><strong>Symmetry:</strong> d(x,y) = d(y,x)</li>
+      <li><strong>Triangle inequality:</strong> d(x,z) ≤ d(x,y) + d(y,z)</li>
+    </ol>
+  </div>
+  <h3>Standard Examples</h3>
+  <table>
+    <tr><th>Space X</th><th>Metric d(x,y)</th><th>Key Properties</th></tr>
+    <tr><td>ℝ</td><td>|x − y|</td><td>Complete, connected, locally compact</td></tr>
+    <tr><td>ℝⁿ</td><td>√(Σ(xᵢ−yᵢ)²) (Euclidean)</td><td>Complete, connected, locally compact</td></tr>
+    <tr><td>ℝⁿ</td><td>max|xᵢ−yᵢ| (sup-norm)</td><td>Complete; equivalent to Euclidean on ℝⁿ</td></tr>
+    <tr><td>C[a,b]</td><td>max|f(t)−g(t)|</td><td>Complete, not locally compact</td></tr>
+    <tr><td>ℓ²</td><td>√(Σ(xₙ−yₙ)²)</td><td>Complete, separable</td></tr>
+    <tr><td>Any set X</td><td>d(x,y) = 0 if x=y, 1 if x≠y (discrete)</td><td>Complete, totally disconnected</td></tr>
+  </table>
+  <h3>Subspaces</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>If (X,d) is a metric space and Y ⊆ X, then (Y, d|_{Y×Y}) is a <strong>metric subspace</strong>. The restricted metric inherits all metric axioms.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Key Fact</div>
+    <p>A subspace of a complete metric space need not be complete. Example: ℚ ⊂ ℝ is not complete since (1, 1.4, 1.41, 1.414, ...) → √2 ∉ ℚ. However, a <em>closed</em> subspace of a complete metric space is complete.</p>
+  </div>
+  <h3>Equivalent Metrics</h3>
+  <p>Two metrics d₁ and d₂ on X are <strong>equivalent</strong> if they generate the same topology (same open sets). On ℝⁿ, the Euclidean, taxicab, and sup-norm metrics are all equivalent.</p>
+  <div class="formula">d₁, d₂ equivalent ⟺ ∃ c₁,c₂>0: c₁·d₁(x,y) ≤ d₂(x,y) ≤ c₂·d₁(x,y) for all x,y</div>
+  <h3>Diameter and Bounded Sets</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p><strong>diam(A)</strong> = sup{d(x,y) : x,y ∈ A}. A set A is <strong>bounded</strong> if diam(A) &lt; ∞.</p>
+  </div>
+</div>
+
+<!-- OPEN/CLOSED SETS -->
+<div class="sec" id="open">
+  <h2>Open and Closed Sets</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Open Ball</div>
+    <p>The <strong>open ball</strong> of radius r > 0 centered at x ∈ X is: <strong>B(x,r) = {y ∈ X : d(x,y) &lt; r}</strong></p>
+    <p>The <strong>closed ball</strong>: B̄(x,r) = {y ∈ X : d(x,y) ≤ r}</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Definition — Open/Closed Sets</div>
+    <ul>
+      <li><strong>Open set:</strong> G ⊆ X is open if ∀ x ∈ G, ∃ r > 0 such that B(x,r) ⊆ G</li>
+      <li><strong>Closed set:</strong> F ⊆ X is closed if X \ F is open, equivalently if F contains all its limit points</li>
+    </ul>
+  </div>
+  <h3>Properties of Open/Closed Sets</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>Open Sets</h4>
+      <ul>
+        <li>∅ and X are open</li>
+        <li>Arbitrary unions of open sets are open</li>
+        <li>Finite intersections of open sets are open</li>
+        <li>Every open ball is open</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Closed Sets</h4>
+      <ul>
+        <li>∅ and X are closed</li>
+        <li>Arbitrary intersections of closed sets are closed</li>
+        <li>Finite unions of closed sets are closed</li>
+        <li>Every closed ball is closed</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Interior, Closure, Boundary</h3>
+  <table>
+    <tr><th>Concept</th><th>Notation</th><th>Definition</th></tr>
+    <tr><td>Interior</td><td>int(A) or A°</td><td>Largest open set ⊆ A; union of all open sets in A</td></tr>
+    <tr><td>Closure</td><td>cl(A) or Ā</td><td>Smallest closed set ⊇ A; intersection of all closed sets ⊇ A</td></tr>
+    <tr><td>Boundary</td><td>∂A</td><td>cl(A) \ int(A) = cl(A) ∩ cl(X\A)</td></tr>
+    <tr><td>Limit point</td><td>x is a limit point of A</td><td>Every B(x,r) contains a point of A other than x</td></tr>
+    <tr><td>Derived set</td><td>A'</td><td>Set of all limit points of A; cl(A) = A ∪ A'</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Characterization of Closure</div>
+    <p>x ∈ cl(A) ⟺ every open ball B(x,r) intersects A ⟺ there exists a sequence (aₙ) in A with aₙ → x</p>
+  </div>
+  <h3>Dense and Nowhere Dense Sets</h3>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <ul>
+      <li><strong>Dense:</strong> A ⊆ X is dense if cl(A) = X (every open ball meets A)</li>
+      <li><strong>Nowhere dense:</strong> A is nowhere dense if int(cl(A)) = ∅ (closure has empty interior)</li>
+      <li><strong>Separable:</strong> X is separable if it has a countable dense subset (e.g., ℚ is dense in ℝ)</li>
+    </ul>
+  </div>
+  <svg width="400" height="140" viewBox="0 0 400 140">
+    <rect width="400" height="140" fill="#f0fdf8" rx="8"/>
+    <ellipse cx="200" cy="70" rx="150" ry="50" fill="#e8fdfb" stroke="#0e7490" stroke-width="2"/>
+    <text x="340" y="40" font-size="12" fill="#0e7490" font-weight="700">X</text>
+    <ellipse cx="190" cy="75" rx="90" ry="30" fill="#d0f8f3" stroke="#0891b2" stroke-width="1.5"/>
+    <text x="185" y="80" text-anchor="middle" font-size="11" fill="#0891b2" font-weight="600">A</text>
+    <ellipse cx="170" cy="72" rx="45" ry="18" fill="#b8f2ea" stroke="#0e7490" stroke-width="1.5"/>
+    <text x="170" y="76" text-anchor="middle" font-size="11" fill="#0e7490" font-weight="700">int(A)</text>
+    <text x="260" y="92" font-size="11" fill="#0891b2">cl(A)</text>
+    <text x="60" y="55" font-size="10" fill="#5a6480">∂A = cl(A)\int(A)</text>
+  </svg>
+</div>
+
+<!-- CONVERGENCE & CAUCHY -->
+<div class="sec" id="conv">
+  <h2>Convergence and Cauchy Sequences</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Convergence</div>
+    <p>A sequence (xₙ) in (X,d) <strong>converges</strong> to x ∈ X if: ∀ ε > 0, ∃ N ∈ ℕ such that n ≥ N ⟹ d(xₙ, x) &lt; ε</p>
+    <p>Write: xₙ → x or lim xₙ = x</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Properties of Limits</div>
+    <ul>
+      <li>Limits in metric spaces are unique (by triangle inequality)</li>
+      <li>Convergent sequences are bounded</li>
+      <li>xₙ → x ⟺ d(xₙ, x) → 0 (in ℝ)</li>
+      <li>A is closed ⟺ xₙ ∈ A, xₙ → x implies x ∈ A</li>
+    </ul>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Definition — Cauchy Sequence</div>
+    <p>A sequence (xₙ) in (X,d) is <strong>Cauchy</strong> if: ∀ ε > 0, ∃ N such that m,n ≥ N ⟹ d(xₙ, xₘ) &lt; ε</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Relationship</div>
+    <p>Every convergent sequence is Cauchy. The converse is <strong>NOT</strong> always true — it holds if and only if X is complete.</p>
+    <ul>
+      <li>In ℝ: Cauchy ⟺ convergent (ℝ is complete)</li>
+      <li>In ℚ: Cauchy ⇏ convergent (e.g., rational approximations to √2 are Cauchy but converge to irrational)</li>
+    </ul>
+  </div>
+  <h3>Subsequences</h3>
+  <div class="def-box">
+    <div class="lbl">Theorem</div>
+    <ul>
+      <li>If xₙ → x, then every subsequence also converges to x</li>
+      <li>If a Cauchy sequence has a convergent subsequence xₙₖ → x, then the full sequence xₙ → x</li>
+    </ul>
+  </div>
+  <h3>Continuity via Sequences</h3>
+  <div class="def-box">
+    <div class="lbl">Sequential Characterization</div>
+    <p>f: (X,d_X) → (Y,d_Y) is continuous at x₀ ⟺ xₙ → x₀ implies f(xₙ) → f(x₀)</p>
+    <p>f is continuous ⟺ f⁻¹(G) is open in X for every open G ⊆ Y</p>
+    <p>f is continuous ⟺ f⁻¹(F) is closed in X for every closed F ⊆ Y</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Common Error</div>
+    <p>On ℝⁿ (n ≥ 2), a sequence (xₙ) in ℝⁿ converges ⟺ each coordinate sequence converges. But there's no natural ordering — limit points in ℝⁿ come from all directions.</p>
+  </div>
+</div>
+
+<!-- COMPLETENESS -->
+<div class="sec" id="comp">
+  <h2>Complete Metric Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Completeness</div>
+    <p>A metric space (X,d) is <strong>complete</strong> if every Cauchy sequence in X converges to a limit in X.</p>
+  </div>
+  <h3>Complete Spaces Examples</h3>
+  <table>
+    <tr><th>Space</th><th>Complete?</th><th>Reason</th></tr>
+    <tr><td>ℝ</td><td>Yes</td><td>Fundamental axiom of real numbers</td></tr>
+    <tr><td>ℝⁿ</td><td>Yes</td><td>Coordinate-wise completeness</td></tr>
+    <tr><td>ℚ</td><td>No</td><td>Cauchy sequences converge to irrationals</td></tr>
+    <tr><td>C[a,b] with sup-norm</td><td>Yes</td><td>Uniform Cauchy → uniform limit is continuous</td></tr>
+    <tr><td>(0,1) ⊂ ℝ</td><td>No</td><td>xₙ = 1/n is Cauchy but limit 0 ∉ (0,1)</td></tr>
+    <tr><td>[0,1] ⊂ ℝ</td><td>Yes</td><td>Closed subspace of complete space</td></tr>
+    <tr><td>ℓ² (square-summable sequences)</td><td>Yes</td><td>Riesz-Fischer theorem</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Theorem — Closed Subsets of Complete Spaces</div>
+    <p>If (X,d) is complete and F ⊆ X is closed, then (F,d) is complete.</p>
+    <p>Conversely, if Y ⊆ X is a complete subspace, then Y is closed in X.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Cantor's Intersection Theorem</div>
+    <p>Let (X,d) be a complete metric space. Let F₁ ⊇ F₂ ⊇ F₃ ⊇ ... be a nested sequence of non-empty closed sets with diam(Fₙ) → 0. Then ⋂Fₙ consists of exactly one point.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Sketch</div>
+    <p>Pick xₙ ∈ Fₙ. For m,n ≥ N, xₘ,xₙ ∈ Fₙ, so d(xₘ,xₙ) ≤ diam(Fₙ) → 0. Thus (xₙ) is Cauchy. By completeness xₙ → x. Since Fₙ is closed, x ∈ Fₙ for all n, so x ∈ ⋂Fₙ. Uniqueness follows from diam(Fₙ) → 0.</p>
+  </div>
+  <h3>Baire Category Theorem</h3>
+  <div class="thm-box">
+    <div class="lbl">Baire Category Theorem</div>
+    <p>A complete metric space cannot be written as a countable union of nowhere dense sets. Equivalently: a countable intersection of open dense sets is dense.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Applications of Baire Category Theorem</div>
+    <ul>
+      <li>ℝ is uncountable (each singleton {x} is nowhere dense)</li>
+      <li>There exists a continuous function nowhere differentiable</li>
+      <li>Banach-Steinhaus theorem (uniform boundedness principle)</li>
+    </ul>
+  </div>
+  <h3>Completion of a Metric Space</h3>
+  <div class="def-box">
+    <div class="lbl">Theorem — Completion</div>
+    <p>Every metric space (X,d) has a unique (up to isometry) <strong>completion</strong> (X̃, d̃) — a complete metric space containing X as a dense subspace. Example: ℝ is the completion of ℚ.</p>
+  </div>
+</div>
+
+<!-- COMPACTNESS -->
+<div class="sec" id="cpt">
+  <h2>Compact Metric Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Compactness</div>
+    <p>(X,d) is <strong>compact</strong> if every open cover has a finite subcover: if X ⊆ ⋃_{α} Gα (each Gα open), then there exist finitely many α₁,...,αₙ with X ⊆ Gα₁ ∪ ... ∪ Gαₙ.</p>
+  </div>
+  <h3>Equivalent Characterizations</h3>
+  <div class="thm-box">
+    <div class="lbl">Theorem — Equivalences in Metric Spaces</div>
+    <p>For a metric space (X,d), the following are equivalent:</p>
+    <ol>
+      <li>(X,d) is compact (every open cover has finite subcover)</li>
+      <li>(X,d) is <strong>sequentially compact</strong> (every sequence has a convergent subsequence)</li>
+      <li>(X,d) is <strong>complete and totally bounded</strong> (∀ε>0, X is covered by finitely many ε-balls)</li>
+      <li>Every infinite subset of X has a limit point in X</li>
+    </ol>
+  </div>
+  <h3>Totally Bounded Sets</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>A set A ⊆ X is <strong>totally bounded</strong> if for every ε > 0, there exist finitely many points x₁,...,xₙ ∈ X such that A ⊆ ⋃ B(xᵢ,ε). Every totally bounded set is bounded, but not conversely (in infinite dimensions).</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Important Contrast</div>
+    <p>In ℝⁿ: compact ⟺ closed and bounded (Heine-Borel). In infinite-dimensional normed spaces (like C[a,b]): closed and bounded does NOT imply compact. The closed unit ball in C[0,1] is not compact.</p>
+  </div>
+  <h3>Properties of Compact Spaces</h3>
+  <ul>
+    <li>Compact spaces are complete and totally bounded</li>
+    <li>Closed subsets of compact spaces are compact</li>
+    <li>Compact subsets of metric spaces are closed and bounded</li>
+    <li>Continuous image of a compact space is compact</li>
+    <li>A continuous function on a compact space is uniformly continuous (Heine's theorem)</li>
+    <li>A continuous real-valued function on a compact space attains its max and min (EVT)</li>
+  </ul>
+  <svg width="500" height="160" viewBox="0 0 500 160">
+    <rect width="500" height="160" fill="#f0fdf8" rx="8"/>
+    <text x="250" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#0e7490">Relationships Between Properties</text>
+    <rect x="170" y="35" width="160" height="30" rx="8" fill="#b8f2ea" stroke="#0e7490" stroke-width="1.5"/>
+    <text x="250" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#0e7490">Compact</text>
+    <line x1="250" y1="65" x2="130" y2="95" stroke="#0e7490" stroke-width="1.5"/>
+    <line x1="250" y1="65" x2="370" y2="95" stroke="#0e7490" stroke-width="1.5"/>
+    <rect x="30" y="95" width="200" height="30" rx="8" fill="#d0f8f3" stroke="#0891b2" stroke-width="1.5"/>
+    <text x="130" y="115" text-anchor="middle" font-size="11" font-weight="600" fill="#0891b2">Complete + Totally Bounded</text>
+    <rect x="270" y="95" width="200" height="30" rx="8" fill="#e8f4fd" stroke="#1d6fc2" stroke-width="1.5"/>
+    <text x="370" y="115" text-anchor="middle" font-size="11" font-weight="600" fill="#1d6fc2">Sequentially Compact</text>
+    <text x="250" y="148" text-anchor="middle" font-size="11" fill="#5a6480">In ℝⁿ: also ⟺ Closed + Bounded (Heine-Borel)</text>
+  </svg>
+</div>
+
+<!-- CONNECTEDNESS -->
+<div class="sec" id="conn">
+  <h2>Connectedness</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Connected Space</div>
+    <p>(X,d) is <strong>connected</strong> if it cannot be written as the union of two disjoint non-empty open sets. Equivalently, the only subsets of X that are both open and closed (clopen) are ∅ and X.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Definition — Path-Connected</div>
+    <p>(X,d) is <strong>path-connected</strong> if for every x,y ∈ X, there exists a continuous γ: [0,1] → X with γ(0) = x and γ(1) = y.</p>
+    <p>Path-connected ⟹ Connected. The converse is false (topologist's sine curve is connected but not path-connected).</p>
+  </div>
+  <h3>Connected Subsets of ℝ</h3>
+  <div class="thm-box">
+    <div class="lbl">Theorem</div>
+    <p>A subset E ⊆ ℝ is connected ⟺ E is an interval (bounded, unbounded, open, closed, or half-open).</p>
+  </div>
+  <h3>Properties</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>Preserved Under Maps</h4>
+      <ul>
+        <li>Continuous image of connected set is connected</li>
+        <li>Continuous image of path-connected set is path-connected</li>
+        <li>This proves IVT: continuous f: [a,b] → ℝ, f(a) &lt; c &lt; f(b) ⟹ ∃ x with f(x)=c</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Connected Components</h4>
+      <ul>
+        <li>Every point belongs to a unique maximal connected subset called its connected component</li>
+        <li>Connected components are closed</li>
+        <li>Discrete metric: every singleton is a component</li>
+      </ul>
+    </div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Theorem</div>
+    <p>If {Aα} is a family of connected sets with a common point (⋂ Aα ≠ ∅), then ⋃ Aα is connected.</p>
+    <p>The closure of a connected set is connected. The product of connected sets is connected.</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Discrete Metric Space</div>
+    <p>On any set X with the discrete metric d(x,y) = 0 (x=y), 1 (x≠y): every singleton is open and closed. So X is connected ⟺ X has exactly one point. X is always complete and totally bounded only if finite. X is compact ⟺ X is finite.</p>
+  </div>
+</div>
+
+<!-- BANACH FIXED POINT -->
+<div class="sec" id="fp">
+  <h2>Banach Fixed Point Theorem</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Contraction Mapping</div>
+    <p>T: (X,d) → (X,d) is a <strong>contraction</strong> if there exists k ∈ [0,1) such that: d(T(x), T(y)) ≤ k · d(x,y) for all x,y ∈ X</p>
+    <p>The constant k is called the <strong>contraction constant</strong> or Lipschitz constant.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Banach Fixed Point Theorem (Contraction Mapping Theorem)</div>
+    <p>Let (X,d) be a <strong>complete</strong> metric space and T: X → X a <strong>contraction</strong> with constant k. Then:</p>
+    <ol>
+      <li>T has a <strong>unique fixed point</strong> x* ∈ X (i.e., T(x*) = x*)</li>
+      <li>For any x₀ ∈ X, the sequence xₙ₊₁ = T(xₙ) converges to x*</li>
+      <li>Error estimate: d(xₙ, x*) ≤ kⁿ/(1−k) · d(x₁, x₀)</li>
+    </ol>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Sketch</div>
+    <ol>
+      <li>Show (xₙ) is Cauchy: d(xₙ,xₘ) ≤ kⁿ⁺¹/(1−k) · d(x₁,x₀) → 0</li>
+      <li>By completeness, xₙ → x* for some x* ∈ X</li>
+      <li>By continuity of T (contractions are continuous): T(x*) = T(lim xₙ) = lim T(xₙ) = lim xₙ₊₁ = x*</li>
+      <li>Uniqueness: if T(y*) = y*, then d(x*,y*) = d(T(x*),T(y*)) ≤ k·d(x*,y*), so d(x*,y*) = 0</li>
+    </ol>
+  </div>
+  <h3>Applications</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>Solving Equations</h4>
+      <p>Write f(x) = 0 as x = T(x) where T is a contraction. Picard's existence theorem for ODEs uses this on function spaces.</p>
+    </div>
+    <div class="card">
+      <h4>Iterative Methods</h4>
+      <p>Newton's method, fixed-point iterations for solving f(x)=x. The convergence rate is geometric with ratio k.</p>
+    </div>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Common Traps</div>
+    <ul>
+      <li>Contractions on non-complete spaces may have no fixed point. f(x) = x/2 + 1/x on (0,∞) with metric |x-y| has no fixed point if domain is wrong.</li>
+      <li>Non-expansive maps (k=1) need not have fixed points. f(x) = x+1 on ℝ.</li>
+      <li>k must be strictly &lt; 1. A map with d(Tx,Ty) &lt; d(x,y) for x≠y (k=1 weak) may lack fixed points.</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example</div>
+    <p>T: [0,1] → [0,1] defined by T(x) = cos(x)/2 + 1/4 is a contraction (|T'(x)| = |sin(x)|/2 ≤ 1/2 &lt; 1). By BFP, there's a unique x* ∈ [0,1] with cos(x*)/2 + 1/4 = x*. Starting from x₀ = 0: x₁ = 0.75, x₂ ≈ 0.659, x₃ ≈ 0.679, converging to x* ≈ 0.6739...</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question. Instant feedback provided.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is NOT a metric on ℝ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> d(x,y) = |x−y|</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> d(x,y) = (x−y)²</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> d(x,y) = |x−y|/(1+|x−y|)</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> d(x,y) = min(|x−y|,1)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">In a metric space (X,d), a set F is closed if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> F is bounded</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> F contains all its interior points</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Every convergent sequence in F has its limit in F</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> F is the intersection of finitely many open sets</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The metric space (ℚ, |·|) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> Complete and compact</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Complete but not compact</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> Not complete but totally bounded</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Neither complete nor compact</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">In Cantor's Intersection Theorem, which condition ensures the intersection is exactly one point?</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> The sets are open</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> The diameters approach zero</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> The sets are bounded</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> The space is compact</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">A metric space is compact if and only if it is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Closed and bounded</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Complete and connected</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Complete and totally bounded</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Bounded and separable</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Which subspace of ℝ is NOT complete?</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> [0,1]</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> [2,∞)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> ℤ (integers)</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> (0,1)</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The Banach Fixed Point Theorem requires the mapping T to be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Bijective</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Non-expansive (d(Tx,Ty) ≤ d(x,y))</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A strict contraction (d(Tx,Ty) ≤ k·d(x,y), k&lt;1)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Differentiable</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">A metric space (X,d) is connected if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> It has no isolated points</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> The only clopen subsets are ∅ and X</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Every subset is dense</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> It is path-connected</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Let T: X → X be a contraction with constant k = 0.5 on a complete metric space, and x₀ be any starting point with d(x₁,x₀) = 2. The error bound after n=4 steps is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> 1/8</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 1/4</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> 1/16</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 1/2</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Baire Category Theorem states that a complete metric space:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Is compact</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Is a countable union of open sets</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Cannot be a countable union of nowhere dense sets</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Is path-connected</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">In a discrete metric space (X,d) where d(x,y)=1 for x≠y, which statement is TRUE?</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Every subset is open but not closed</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Every subset is both open and closed</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> X is connected</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> X is compact only when infinite</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Which of the following properties is NOT preserved by continuous maps between metric spaces?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Compactness of the domain</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Connectedness of the domain</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Completeness of the domain</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Path-connectedness of the domain</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">A subset A of a metric space is totally bounded if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> A is closed and bounded</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Every sequence in A has a Cauchy subsequence</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> A is compact</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> A has finite diameter</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The metric space C[0,1] with the sup-norm metric is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Complete but not separable</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Complete and separable</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Not complete</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Compact</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">If (xₙ) is a Cauchy sequence in a metric space and it has a subsequence converging to x, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> xₙ → x</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> xₙ may not converge</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> xₙ converges but possibly to a different limit</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> The subsequence is also Cauchy</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sum">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Key Theorems & Facts</div>
+    <div class="hero-sub">Metric Spaces for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Metric Axioms</h4>
+      <p>Non-negativity, symmetry, triangle inequality. d(x,y)=0 ⟺ x=y.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔵</div>
+      <h4>Open/Closed Sets</h4>
+      <p>Open: contains ε-ball around each point. Closed: contains all limit points (sequential criterion).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📊</div>
+      <h4>Cauchy vs Convergent</h4>
+      <p>Convergent ⟹ Cauchy always. Cauchy ⟹ convergent only in complete spaces.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">✅</div>
+      <h4>Completeness</h4>
+      <p>Cantor intersection: nested closed sets with diam→0 meet at exactly one point. Closed ⊆ complete = complete.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔷</div>
+      <h4>Compactness</h4>
+      <p>Equivalent: open cover, sequential, complete + totally bounded. In ℝⁿ: closed + bounded.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔗</div>
+      <h4>Connectedness</h4>
+      <p>No non-trivial clopen sets. Path-connected ⟹ connected. Subsets of ℝ: connected ⟺ interval.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🎯</div>
+      <h4>Banach FPT</h4>
+      <p>Complete + contraction k&lt;1 ⟹ unique fixed point. Error: kⁿ/(1−k)·d(x₁,x₀).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🏛️</div>
+      <h4>Baire Category</div>
+      <p>Complete ⟹ not a countable union of nowhere dense sets. Countable ∩ open dense = dense.</p>
+    </div>
+  </div>
+  <h3>Quick Reference Table</h3>
+  <table>
+    <tr><th>Property</th><th>ℝ</th><th>ℚ</th><th>(0,1)</th><th>[0,1]</th><th>C[0,1]</th></tr>
+    <tr><td>Complete</td><td>Yes</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Compact</td><td>No</td><td>No</td><td>No</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Connected</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Separable</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Totally bounded</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+  </table>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('[onclick=\\'show(\\'quiz\\',this)\\']'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U1_T11_NormedSpaces.html">Next: Normed Spaces →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'c',3:'d',4:'b',5:'c',6:'d',7:'c',8:'b',9:'b',10:'c',11:'b',12:'c',13:'b',14:'b',15:'a'};
+const explain={
+  1:'(x−y)² fails the triangle inequality. E.g., d(0,2)=4 but d(0,1)+d(1,2)=1+1=2<4.',
+  2:'Sequential characterization of closed sets: a set is closed iff it contains limits of all convergent sequences in it.',
+  3:'ℚ is not complete (Cauchy sequences converge to irrationals) and not compact (unbounded). Correct: d.',
+  4:'Cantor\'s theorem: the diameters approaching zero ensures the intersection is a single point, not just non-empty.',
+  5:'In a metric space: compact ⟺ complete and totally bounded (Hausdorff-Aleksandrov theorem).',
+  6:'(0,1) is not complete: the sequence 1/n is Cauchy in (0,1) but its limit 0 ∉ (0,1).',
+  7:'Banach FPT requires d(Tx,Ty) ≤ k·d(x,y) with k strictly less than 1 (strict contraction).',
+  8:'Connected ⟺ the only clopen sets are ∅ and X. Path-connected implies connected, but not conversely.',
+  9:'d(x₄,x*) ≤ k⁴/(1−k)·d(x₁,x₀) = (1/2)⁴/(1−1/2)·2 = (1/16)/(1/2)·2 = (2/16)·2 = 4/16 = 1/4.',
+  10:'Baire Category Theorem: A complete metric space is of the "second category" — it cannot be a countable union of nowhere dense (first category) sets.',
+  11:'In the discrete metric, every singleton {x} = B(x, 0.5) is open. So every subset, being a union of singletons, is open. Every subset is also closed. So every subset is both open and closed (clopen).',
+  12:'Completeness is not preserved by continuous maps. Example: f(x)=tan(x) maps (−π/2,π/2) (not complete) onto ℝ (complete). Or (0,1) is not complete but has continuous bijection to ℝ.',
+  13:'A set is totally bounded ⟺ every sequence has a Cauchy subsequence. This is the sequential characterization of total boundedness.',
+  14:'C[0,1] with sup-norm is complete (uniform limit of continuous functions is continuous) and separable (polynomials with rational coefficients are dense by Weierstrass, and this is countable).',
+  15:'If (xₙ) is Cauchy and has a subsequence xₙₖ→x, then the whole sequence xₙ→x. This follows from: d(xₙ,x)≤d(xₙ,xₙₖ)+d(xₙₖ,x)→0.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

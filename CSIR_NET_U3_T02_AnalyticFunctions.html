@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U3-T02 · Analytic Functions & Cauchy-Riemann Equations</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(6,95,70,.12),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid #34d399;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 3</span>
+  <span class="hdr-title">T02 · Analytic Functions & Cauchy-Riemann Equations</span>
+  <span class="hdr-badge">Complex Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 3 · Complex Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('diff',this)">Complex Differentiability</a>
+  <a class="nav-item" onclick="show('cr',this)">Cauchy-Riemann Equations</a>
+  <a class="nav-item" onclick="show('harm',this)">Harmonic Functions</a>
+  <a class="nav-item" onclick="show('elem',this)">Elementary Functions</a>
+  <a class="nav-item" onclick="show('sing',this)">Singularities Preview</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 3 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U3_T01_ComplexNumbers.html">T01 · Complex Numbers</a>
+  <a class="nav-item" href="CSIR_NET_U3_T03_CauchyTheorem.html">T03 · Cauchy's Theorem</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · Topic 02</div>
+    <div class="hero-title">Analytic Functions & Cauchy-Riemann Equations</div>
+    <div class="hero-sub">Complex differentiability · CR equations · Harmonic conjugates · Elementary functions</div>
+    <div class="hero-chips">
+      <span class="chip">Holomorphic</span>
+      <span class="chip">Cauchy-Riemann</span>
+      <span class="chip">Harmonic</span>
+      <span class="chip">Entire Function</span>
+      <span class="chip">Conformal Map</span>
+      <span class="chip">Complex Exponential</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>A function f: ℂ → ℂ is <strong>analytic (holomorphic)</strong> at z₀ if it is complex-differentiable in a neighborhood of z₀. This single condition (differentiable in ℂ) imposes two PDE constraints (CR equations) on the real and imaginary parts, making analytic functions enormously rigid and well-behaved.</p>
+</div>
+
+<!-- COMPLEX DIFFERENTIABILITY -->
+<div class="sec" id="diff">
+  <h2>Complex Differentiability</h2>
+  <div class="def-box">
+    <div class="lbl">Complex Derivative</div>
+    <p>f: Ω → ℂ (Ω open) is <strong>complex differentiable</strong> at z₀ ∈ Ω if the limit:</p>
+    <div class="formula">f'(z₀) = lim_{z→z₀} (f(z) − f(z₀))/(z − z₀)</div>
+    <p>exists (as z → z₀ from ANY direction in ℂ). This is a much stronger condition than real differentiability.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Holomorphic / Analytic</div>
+    <ul>
+      <li><strong>Holomorphic at z₀:</strong> complex differentiable in an open neighbourhood of z₀</li>
+      <li><strong>Holomorphic on Ω:</strong> holomorphic at every point of Ω</li>
+      <li><strong>Entire:</strong> holomorphic on all of ℂ (e.g., polynomials, eᶻ, sin z, cos z)</li>
+    </ul>
+  </div>
+  <h3>Differentiation Rules</h3>
+  <p>All standard calculus rules hold: sum, product, quotient, chain rule — with complex variables.</p>
+  <div class="info-box">
+    <div class="lbl">Examples</div>
+    <p>f(z) = zⁿ: f'(z) = nzⁿ⁻¹. f(z) = eᶻ: f'(z) = eᶻ. f(z) = sin z: f'(z) = cos z.</p>
+    <p>f(z) = z̄ (conjugate): NOT differentiable anywhere in ℂ (fails CR). f(z) = |z|²: differentiable only at z = 0.</p>
+  </div>
+</div>
+
+<!-- CAUCHY-RIEMANN -->
+<div class="sec" id="cr">
+  <h2>Cauchy-Riemann Equations</h2>
+  <div class="thm-box">
+    <div class="lbl">Cauchy-Riemann Equations</div>
+    <p>Write f(z) = u(x,y) + iv(x,y) where z = x + iy. Then f is holomorphic iff u and v have continuous partial derivatives satisfying:</p>
+    <div class="formula">∂u/∂x = ∂v/∂y   and   ∂u/∂y = −∂v/∂x</div>
+    <p>(The 2nd pair can be written: u_x = v_y and u_y = −v_x.)</p>
+    <p>When these hold and the partials are continuous, f'(z) = u_x + iv_x = v_y − iu_y.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">CR Equations in Polar Form (r,θ)</div>
+    <div class="formula">r·u_r = v_θ   and   v_r = −(1/r)u_θ</div>
+    <p>Useful when the function is expressed in polar coordinates.</p>
+  </div>
+  <h3>Verification Examples</h3>
+  <table>
+    <tr><th>f(z)</th><th>u(x,y)</th><th>v(x,y)</th><th>CR satisfied?</th></tr>
+    <tr><td>z² = x²−y²+2xyi</td><td>x²−y²</td><td>2xy</td><td>Yes: u_x=2x=v_y; u_y=−2y=−v_x ✓</td></tr>
+    <tr><td>eᶻ = eˣcos y + ieˣsin y</td><td>eˣcos y</td><td>eˣsin y</td><td>Yes: u_x=eˣcos y=v_y; u_y=−eˣsin y=−v_x ✓</td></tr>
+    <tr><td>z̄ = x−iy</td><td>x</td><td>−y</td><td>No: u_x=1 but v_y=−1 ✗</td></tr>
+    <tr><td>|z|² = x²+y²</td><td>x²+y²</td><td>0</td><td>u_x=2x=v_y=0 only at (0,0) ✗ generally</td></tr>
+  </table>
+</div>
+
+<!-- HARMONIC FUNCTIONS -->
+<div class="sec" id="harm">
+  <h2>Harmonic Functions</h2>
+  <div class="def-box">
+    <div class="lbl">Harmonic Functions</div>
+    <p>h: Ω → ℝ is <strong>harmonic</strong> if it satisfies Laplace's equation: Δh = h_xx + h_yy = 0.</p>
+    <p>If f = u + iv is holomorphic, then BOTH u and v are harmonic (consequence of CR equations).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Harmonic Conjugate</div>
+    <p>Given harmonic u on a simply connected domain Ω, there exists a harmonic function v such that f = u + iv is holomorphic. Such v is called the <strong>harmonic conjugate</strong> of u (determined up to a constant).</p>
+    <p>Construction: v_x = −u_y and v_y = u_x (from CR equations). Integrate along a path.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: Find harmonic conjugate of u = x² − y²</div>
+    <p>v_y = u_x = 2x, so v = 2xy + g(x). Then v_x = 2y + g'(x) = −u_y = 2y, so g'(x) = 0, g = const. Thus v = 2xy + C.</p>
+    <p>Check: f = (x²−y²) + 2xyi = (x+iy)² = z². ✓</p>
+  </div>
+</div>
+
+<!-- ELEMENTARY FUNCTIONS -->
+<div class="sec" id="elem">
+  <h2>Elementary Analytic Functions</h2>
+  <table>
+    <tr><th>Function</th><th>Definition</th><th>Properties</th></tr>
+    <tr><td>eᶻ</td><td>eˣ(cos y + i sin y)</td><td>Entire, eᶻ⁺²ᵖⁱⁱ=eᶻ (periodic: period 2πi), never 0</td></tr>
+    <tr><td>sin z</td><td>(eⁱᶻ − e⁻ⁱᶻ)/(2i)</td><td>Entire, periodic 2π, zeros at z=nπ</td></tr>
+    <tr><td>cos z</td><td>(eⁱᶻ + e⁻ⁱᶻ)/2</td><td>Entire, periodic 2π, zeros at z=(n+½)π</td></tr>
+    <tr><td>Log z</td><td>ln|z| + iArg(z)</td><td>Holomorphic on ℂ\(−∞,0], branch cut: neg. real axis</td></tr>
+    <tr><td>zᵅ = eᵅ Log z</td><td>Principal power</td><td>Holomorphic on ℂ\(−∞,0]</td></tr>
+    <tr><td>sin⁻¹ z</td><td>−i Log(iz+√(1−z²))</td><td>Multi-valued; branch cuts needed</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Key Identity: |eⁱᶻ| ≠ 1 in general</div>
+    <p>For z = x+iy: |eⁱᶻ| = |e^(ix−y)| = e^(−y). So |eⁱᶻ|=1 only when y=Im(z)=0 (real z). For complex z, eⁱᶻ is not on the unit circle in general.</p>
+  </div>
+</div>
+
+<!-- SINGULARITIES PREVIEW -->
+<div class="sec" id="sing">
+  <h2>Singularities — Preview</h2>
+  <div class="def-box">
+    <div class="lbl">Types of Isolated Singularities</div>
+    <p>A function f has an <strong>isolated singularity</strong> at z₀ if f is holomorphic on a punctured disc 0 &lt; |z−z₀| &lt; r.</p>
+    <ul>
+      <li><strong>Removable singularity:</strong> lim_{z→z₀} f(z) exists and is finite. f extends to an analytic function at z₀.</li>
+      <li><strong>Pole of order m:</strong> lim_{z→z₀} (z−z₀)^m f(z) exists ≠ 0. Laurent series has finitely many negative powers.</li>
+      <li><strong>Essential singularity:</strong> Neither removable nor pole. Laurent series has infinitely many negative-power terms. Casorati-Weierstrass: f(D\{z₀}) is dense in ℂ.</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Riemann's Removable Singularity Theorem</div>
+    <p>If f is holomorphic on D\{z₀} and bounded near z₀ (|f(z)|≤M for z near z₀), then z₀ is a removable singularity.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The Cauchy-Riemann equations for f = u + iv are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> u_x = −v_y and u_y = v_x</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> u_x = v_y and u_y = −v_x</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> u_x = v_x and u_y = v_y</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> u_x + u_y = 0 and v_x + v_y = 0</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">If f = u + iv is holomorphic, then both u and v are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Constant</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Harmonic (satisfy Laplace's equation)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Polynomials</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Anti-harmonic</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The function f(z) = z̄ (complex conjugate) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> Entire (holomorphic on all of ℂ)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Holomorphic only at z = 0</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> Nowhere holomorphic (CR fails everywhere)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Holomorphic in the upper half-plane</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The complex exponential eᶻ satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> eᶻ = 0 for some z ∈ ℂ</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> eᶻ is periodic with period 2πi</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> |eᶻ| = eⁱˣ</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> eᶻ is not entire</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">An entire function is one that is holomorphic:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> On the entire real line</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> On all of ℂ</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> On the unit disc only</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> On a compact set</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">If u(x,y) = x² − y², the harmonic conjugate v satisfying u_x = v_y is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> v = x² + y²</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> v = 2xy + C</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> v = x − y</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> v = x²y</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The function f(z) = |z|² is complex differentiable:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Everywhere</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Only at z = 0</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Nowhere</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> On the unit circle</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">f'(z) in terms of CR: if CR holds, then f'(z) = ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> u_y + iv_x</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> u_x + iv_x</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> v_y + iu_x</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> u_x − iv_y</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The principal value Log(z) is holomorphic on:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> All of ℂ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> ℂ minus the non-positive real axis (branch cut)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> The upper half-plane only</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> The unit disc only</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Which of the following is an entire function?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 1/z</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Log(z)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> sin(z)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> √z (principal branch)</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">u(x,y) is harmonic means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> u_x + u_y = 0</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> u_xx + u_yy = 0 (Laplace's equation)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> u is bounded</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> u is constant</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The complex sine function sin(z) has zeros at:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> z = nπ/2, n ∈ ℤ</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> z = nπ, n ∈ ℤ</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> z = (2n+1)π/2, n ∈ ℤ</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> No zeros (sin z ≠ 0 for all complex z)</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">If f is holomorphic on a domain Ω and f is constant, then f must be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Non-constant</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Zero everywhere</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Constant on Ω (by identity theorem)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> A polynomial</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The complex exponential eᶻ satisfies |e^(x+iy)| = ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> eʸ</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> eˣ</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> e^(x+y)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> eˣ·eʸ</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">A function that has an isolated singularity at z₀ where lim_{z→z₀}|f(z)| = ∞ has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> A removable singularity at z₀</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> An essential singularity at z₀</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> A pole at z₀</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> No singularity</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Analytic Functions & CR Equations</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">∂</div>
+      <h4>CR Equations</h4>
+      <p>u_x=v_y and u_y=−v_x. f'=u_x+iv_x. Both u,v harmonic if f holomorphic.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">Δ</div>
+      <h4>Harmonic</h4>
+      <p>Δh=h_xx+h_yy=0. Real/imag parts of holomorphic fn are harmonic. Harmonic conjugate exists on simply connected domains.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">eᶻ</div>
+      <h4>Complex Exponential</h4>
+      <p>eˣ⁺ⁱʸ=eˣ(cos y+i sin y). Period 2πi. Never zero. |eᶻ|=eˣ (x=Re z).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">☆</div>
+      <h4>Entire Functions</h4>
+      <p>Holomorphic on ℂ: polynomials, eᶻ, sin z, cos z. NOT: 1/z, Log z, √z.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">✂</div>
+      <h4>Branch Cuts</h4>
+      <p>Log z: branch cut = negative real axis. Arg z ∈ (−π,π]. Log'(z)=1/z.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⚡</div>
+      <h4>Singularities</h4>
+      <p>Removable (lim finite), Pole (lim = ∞), Essential (no limit). Riemann: bounded near z₀ ⟹ removable.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U3_T03_CauchyTheorem.html">Next: Cauchy's Theorem →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'c',11:'b',12:'b',13:'c',14:'b',15:'c'};
+const explain={
+  1:'CR equations: u_x=v_y and u_y=−v_x. These ensure the complex derivative is independent of direction of approach.',
+  2:'If f=u+iv is holomorphic, then from CR: u_xx+u_yy=∂/∂x(v_y)−∂/∂y(v_x)=v_yx−v_xy=0 (by Schwarz). So u is harmonic. Similarly v is harmonic.',
+  3:'For f(z)=z̄: u=x, v=−y. CR: u_x=1 but v_y=−1. CR fails everywhere. So z̄ is nowhere complex differentiable.',
+  4:'eᶻ=e^(x+iy)=eˣ(cos y+i sin y). It has period 2πi: e^(z+2πi)=eᶻ·e^(2πi)=eᶻ·1=eᶻ. eᶻ is entire and never zero (|eᶻ|=eˣ>0).',
+  5:'An entire function is holomorphic on the entire complex plane ℂ (no singularities anywhere in ℂ). Examples: polynomials, eᶻ, sin z, cos z.',
+  6:'u=x²−y², u_x=2x, u_y=−2y. CR: v_y=u_x=2x, so v=2xy+g(x). Then v_x=2y+g\'(x)=−u_y=2y, so g\'(x)=0, g=C. Thus v=2xy+C.',
+  7:'For f(z)=|z|²=x²+y²: u=x²+y², v=0. CR: u_x=2x=v_y=0 and u_y=2y=−v_x=0. Both hold only at x=y=0, i.e., z=0. So f is differentiable only at z=0 (with f\'(0)=0).',
+  8:'f\'(z)=lim as Δz→0 via real axis: f\'(z)=(u_x+iv_x). Also via imaginary axis: f\'(z)=v_y−iu_y=u_x+iv_x (using CR). So f\'(z)=u_x+iv_x.',
+  9:'Log(z)=ln|z|+iArg(z) is defined for z≠0 but Arg(z) is discontinuous on the negative real axis (jumps from −π to π). So Log(z) is holomorphic on ℂ\\{non-positive real axis}.',
+  10:'sin z=(e^(iz)−e^(−iz))/(2i) is entire (composed of entire functions eⁱᶻ and e^(−iz), scaled). 1/z has a pole at 0. Log z has a branch cut. √z has a branch cut.',
+  11:'Laplace\'s equation: Δh=∂²h/∂x²+∂²h/∂y²=0. A function satisfying this is called harmonic. Real and imaginary parts of holomorphic functions are harmonic.',
+  12:'sin z=0 iff e^(iz)=e^(−iz) iff e^(2iz)=1 iff 2iz=2πki for some k∈ℤ iff z=kπ. So zeros are z=nπ for n∈ℤ.',
+  13:'This is the identity theorem: if two holomorphic functions agree on a set with a limit point in a domain, they agree everywhere. Equally, if f is constant on any open set in its domain, it is constant everywhere on the domain.',
+  14:'|e^(x+iy)|=|eˣ||e^(iy)|=eˣ·1=eˣ. Since |e^(iy)|=|cos y+i sin y|=√(cos²y+sin²y)=1.',
+  15:'If |f(z)|→∞ as z→z₀, the singularity is a pole (not removable, since limit is ∞, and not essential, since the limit exists and equals ∞ — essential singularities have no limit at all).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

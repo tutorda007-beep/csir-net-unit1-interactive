@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T02 · Real Number System & Completeness</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1d6fc2;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(121,192,255,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(121,192,255,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:16px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--blue)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(121,192,255,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto;flex-shrink:0}
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+.sec{display:none;animation:fadeIn .3s ease}.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8f4fd,#d1eaf8,#bce0f5)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(121,192,255,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px;line-height:1.2}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--blue);border-color:rgba(121,192,255,.3)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-o{background:rgba(255,166,87,.12);color:var(--orange);border-color:rgba(255,166,87,.3)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--purple);border-color:rgba(210,168,255,.3)}
+.obj-box{background:rgba(121,192,255,.06);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px}
+.obj-box li strong{color:var(--text)}
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:1px}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+.def-box{background:rgba(121,192,255,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{color:var(--text);line-height:1.65}
+.thm-box{background:rgba(210,168,255,.06);border:1px solid rgba(210,168,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--purple);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(210,168,255,.15);font-style:italic}
+.fm{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-family:'Courier New',monospace;font-size:13px;color:#f0f6fc;margin:10px 0;overflow-x:auto}
+.ex-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+.tip-box{background:rgba(255,166,87,.07);border:1px solid rgba(255,166,87,.25);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px;align-items:flex-start}
+.tip-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--orange)}
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--blue);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .5s ease;width:0%}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px;transition:border-color .2s}
+.q-block.correct{border-color:var(--ok)}.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(121,192,255,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item p,.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65}
+.summary-item ul{padding-left:16px}
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc);background:rgba(121,192,255,.07)}
+.nf-btn.next{background:rgba(121,192,255,.1);border-color:rgba(121,192,255,.3);color:var(--acc)}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--orange);margin:20px 0 10px}
+.axiom-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.axiom-card{background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.axiom-card .ax-name{font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.axiom-card .ax-text{font-size:12.5px;color:#cdd9e5;line-height:1.6}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 02</div>
+  <div class="hdr-title">Real Number System & Completeness</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 65 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('ordered',this)"><div class="nav-dot"></div>Ordered Field Axioms<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('completeness',this)"><div class="nav-dot"></div>Completeness & Sup/Inf<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('archimedean',this)"><div class="nav-dot"></div>Archimedean Property<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('density',this)"><div class="nav-dot"></div>Density & Nested Intervals<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('theorems',this)"><div class="nav-dot"></div>Key Theorems<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">09</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T01_SetTheory.html'"><div class="nav-dot" style="background:var(--orange)"></div>← Prev: Set Theory</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T03_Sequences.html'"><div class="nav-dot" style="background:var(--ok)"></div>Next: Sequences →</div>
+</nav>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 02 of 11</div>
+    <div class="hero-title">Real Number System & Completeness</div>
+    <div class="hero-sub">The complete ordered field ℝ, Archimedean property, supremum & infimum — foundations of real analysis</div>
+    <div class="hero-chips">
+      <span class="chip chip-b">CSIR NET Core</span>
+      <span class="chip chip-g">Analysis Foundation</span>
+      <span class="chip chip-o">Intermediate</span>
+      <span class="chip chip-p">65 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>State the <strong>field axioms, order axioms</strong>, and identify ℝ as a complete ordered field</li>
+      <li>Define <strong>supremum (least upper bound)</strong> and <strong>infimum (greatest lower bound)</strong> and compute them</li>
+      <li>State and use the <strong>Completeness Axiom</strong> (Least Upper Bound Property)</li>
+      <li>Apply the <strong>Archimedean Property</strong> to prove density results</li>
+      <li>Use the <strong>Nested Interval Theorem</strong> and understand its connection to completeness</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> Sup/inf computations and Archimedean property appear in <strong>3–4 questions</strong> per exam. Completeness distinguishes ℝ from ℚ — this distinction is tested both in Part B and Part C. Know the LUB property inside-out.</div>
+  </div>
+</div>
+
+<!-- ORDERED FIELD -->
+<div class="sec" id="sec-ordered">
+  <h2 class="sec-head">⚖️ Ordered Field Axioms</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">𝔽</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">Field Axioms of ℝ</div></div>
+    </div>
+    <p>A <strong>field</strong> is a set F with two operations (+, ·) satisfying the following axioms. ℝ, ℚ, and ℂ are all fields; ℤ is NOT (no multiplicative inverses for integers other than ±1).</p>
+    <div class="axiom-grid">
+      <div class="axiom-card"><div class="ax-name">A1 — Closure</div><div class="ax-text">a + b ∈ F and a · b ∈ F for all a, b ∈ F</div></div>
+      <div class="axiom-card"><div class="ax-name">A2 — Commutativity</div><div class="ax-text">a + b = b + a and a · b = b · a</div></div>
+      <div class="axiom-card"><div class="ax-name">A3 — Associativity</div><div class="ax-text">(a+b)+c = a+(b+c) and (a·b)·c = a·(b·c)</div></div>
+      <div class="axiom-card"><div class="ax-name">A4 — Identity</div><div class="ax-text">∃ 0: a+0 = a and ∃ 1≠0: a·1 = a</div></div>
+      <div class="axiom-card"><div class="ax-name">A5 — Inverses</div><div class="ax-text">∃ −a: a+(−a) = 0 and ∃ a⁻¹ (a≠0): a·a⁻¹ = 1</div></div>
+      <div class="axiom-card"><div class="ax-name">A6 — Distributivity</div><div class="ax-text">a·(b+c) = a·b + a·c</div></div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">📊</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">Order Axioms — ℝ as an Ordered Field</div></div>
+    </div>
+    <p>An <strong>ordered field</strong> has a total order &lt; compatible with the field operations. ℝ and ℚ are ordered fields; ℂ is NOT (no total order compatible with multiplication).</p>
+    <div class="def-box">
+      <div class="def-label">Order Axioms</div>
+      <div class="def-text">
+        <strong>O1 (Trichotomy):</strong> Exactly one holds: a &lt; b, a = b, or a &gt; b<br>
+        <strong>O2 (Transitivity):</strong> a &lt; b and b &lt; c ⟹ a &lt; c<br>
+        <strong>O3 (Addition):</strong> a &lt; b ⟹ a + c &lt; b + c for any c<br>
+        <strong>O4 (Multiplication):</strong> a &lt; b and 0 &lt; c ⟹ ac &lt; bc
+      </div>
+    </div>
+    <p>Consequences: a² ≥ 0 for all a ∈ ℝ; 0 &lt; 1; n &gt; 0 for all n ∈ ℕ.</p>
+    <div class="tip-box">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-text"><strong>Key fact:</strong> ℂ cannot be made into an ordered field. Reason: i² = −1 &lt; 0, but in an ordered field all squares are ≥ 0 — contradiction. This is a common CSIR NET question!</div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETENESS -->
+<div class="sec" id="sec-completeness">
+  <h2 class="sec-head">✅ Completeness & Supremum/Infimum</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">🎯</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Upper Bounds, Lower Bounds, Sup and Inf</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Bounded Sets</div>
+      <div class="def-text">
+        A set S ⊂ ℝ is <strong>bounded above</strong> if ∃ M ∈ ℝ such that x ≤ M for all x ∈ S.<br>
+        A set S ⊂ ℝ is <strong>bounded below</strong> if ∃ m ∈ ℝ such that x ≥ m for all x ∈ S.<br>
+        <strong>Bounded:</strong> Both bounded above and below.
+      </div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Supremum — Least Upper Bound (LUB)</div>
+      <div class="def-text">
+        sup(S) = α ⟺<br>
+        &nbsp;&nbsp;(i) α is an upper bound: x ≤ α for all x ∈ S<br>
+        &nbsp;&nbsp;(ii) α is the LEAST: if β is any upper bound, then α ≤ β<br><br>
+        <strong>Equivalent condition:</strong> α = sup(S) iff for every ε &gt; 0, there exists x ∈ S with x &gt; α − ε.
+      </div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Infimum — Greatest Lower Bound (GLB)</div>
+      <div class="def-text">
+        inf(S) = β ⟺<br>
+        &nbsp;&nbsp;(i) β is a lower bound: x ≥ β for all x ∈ S<br>
+        &nbsp;&nbsp;(ii) β is the GREATEST: if γ is any lower bound, then β ≥ γ<br><br>
+        <strong>Equivalent condition:</strong> β = inf(S) iff for every ε &gt; 0, there exists x ∈ S with x &lt; β + ε.
+      </div>
+    </div>
+
+    <div class="diagram">
+      <svg width="500" height="120" viewBox="0 0 500 120" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="18" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Supremum and Infimum on the Number Line</text>
+        <!-- Number line -->
+        <line x1="50" y1="65" x2="460" y2="65" stroke="#30363d" stroke-width="2"/>
+        <polygon points="458,60 470,65 458,70" fill="#30363d"/>
+        <!-- Set S visualization -->
+        <rect x="170" y="50" width="180" height="30" rx="4" fill="rgba(121,192,255,0.15)" stroke="#79c0ff" stroke-width="1.5"/>
+        <text x="260" y="70" text-anchor="middle" fill="#79c0ff" font-size="12" font-weight="700">S = (a, b)</text>
+        <!-- inf marker -->
+        <line x1="170" y1="40" x2="170" y2="90" stroke="#56d364" stroke-width="2" stroke-dasharray="4,3"/>
+        <text x="170" y="35" text-anchor="middle" fill="#56d364" font-size="11" font-weight="700">inf S = a</text>
+        <text x="170" y="104" text-anchor="middle" fill="#56d364" font-size="10">GLB</text>
+        <!-- sup marker -->
+        <line x1="350" y1="40" x2="350" y2="90" stroke="#f78166" stroke-width="2" stroke-dasharray="4,3"/>
+        <text x="350" y="35" text-anchor="middle" fill="#f78166" font-size="11" font-weight="700">sup S = b</text>
+        <text x="350" y="104" text-anchor="middle" fill="#f78166" font-size="10">LUB</text>
+        <!-- Labels -->
+        <text x="60" y="60" fill="#8b949e" font-size="11">ℝ</text>
+        <text x="120" y="80" fill="#8b949e" font-size="10">lower bounds</text>
+        <text x="370" y="80" fill="#8b949e" font-size="10">upper bounds</text>
+      </svg>
+      <figcaption>Figure 1 — For S = (a,b): inf S = a (not in S) and sup S = b (not in S). Both are limits approached but never reached.</figcaption>
+    </div>
+
+    <h3 class="sub-head">Important Properties of Sup and Inf</h3>
+    <table class="tbl">
+      <tr><th>Property</th><th>Statement</th></tr>
+      <tr><td>sup(−S) = −inf(S)</td><td>−S = {−x : x ∈ S}</td></tr>
+      <tr><td>sup(S+T) = sup S + sup T</td><td>S+T = {s+t : s∈S, t∈T}</td></tr>
+      <tr><td>If S ⊆ T</td><td>sup S ≤ sup T and inf S ≥ inf T</td></tr>
+      <tr><td>max(S)</td><td>sup S, if sup S ∈ S (maximum exists)</td></tr>
+      <tr><td>Unbounded above</td><td>sup S = +∞ (by convention)</td></tr>
+    </table>
+  </div>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">⭐</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">The Completeness Axiom — What Distinguishes ℝ from ℚ</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Completeness Axiom (Least Upper Bound Property)</div>
+      <div class="thm-text">Every non-empty subset S of ℝ that is bounded above has a supremum in ℝ.<br><br>
+      <strong>sup(S) ∈ ℝ</strong> whenever S ≠ ∅ and S is bounded above.</div>
+      <div class="thm-proof">This axiom FAILS in ℚ: Consider S = {x ∈ ℚ : x² &lt; 2}. S is bounded above (e.g., by 2) and non-empty. But sup(S) = √2 ∉ ℚ. So ℚ does not satisfy the LUB property. ℝ is defined to be the unique complete ordered field (up to isomorphism).</div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">🔑</div>
+      <div class="tip-text"><strong>Key insight:</strong> The completeness axiom is what "fills in the gaps" of the rational line. Every "hole" in ℚ (like √2, π, e) is filled by a real number defined as the sup or inf of some rational set. This is the essence of ℝ.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHIMEDEAN -->
+<div class="sec" id="sec-archimedean">
+  <h2 class="sec-head">🏛 Archimedean Property</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">∀</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Archimedean Property of ℝ</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Archimedean Property</div>
+      <div class="thm-text">For any x ∈ ℝ, there exists n ∈ ℕ such that n &gt; x.<br><br>
+      Equivalently: For any ε &gt; 0, there exists n ∈ ℕ such that 1/n &lt; ε.</div>
+      <div class="thm-proof"><strong>Proof:</strong> Suppose not — then ℕ is bounded above. By LUB property, sup(ℕ) = α exists. Then α − 1 is not an upper bound, so ∃ n ∈ ℕ with n &gt; α − 1, i.e., n + 1 &gt; α. But n+1 ∈ ℕ and n+1 &gt; α = sup(ℕ) — contradiction. □</div>
+    </div>
+
+    <h3 class="sub-head">Key Consequences</h3>
+    <div class="def-box">
+      <div class="def-label">Three Equivalent Formulations</div>
+      <div class="def-text">
+        <strong>(i)</strong> ∀ x ∈ ℝ, ∃ n ∈ ℕ such that n &gt; x (ℕ is unbounded above in ℝ)<br>
+        <strong>(ii)</strong> ∀ ε &gt; 0, ∃ n ∈ ℕ such that 1/n &lt; ε<br>
+        <strong>(iii)</strong> lim_{n→∞} (1/n) = 0<br><br>
+        <strong>Floor function:</strong> For x ∈ ℝ, ∃! n ∈ ℤ with n ≤ x &lt; n+1 (denoted ⌊x⌋)
+      </div>
+    </div>
+
+    <div class="diagram">
+      <svg width="480" height="130" viewBox="0 0 480 130" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="240" y="18" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Archimedean Property: 1/n → 0 as n → ∞</text>
+        <line x1="40" y1="90" x2="450" y2="90" stroke="#30363d" stroke-width="1.5"/>
+        <line x1="40" y1="20" x2="40" y2="110" stroke="#30363d" stroke-width="1.5"/>
+        <!-- 1/n values as bars -->
+        <rect x="60" y="30" width="18" height="60" fill="rgba(121,192,255,0.5)" rx="2"/>
+        <text x="69" y="25" text-anchor="middle" fill="#79c0ff" font-size="10">1/1</text>
+        <rect x="100" y="60" width="18" height="30" fill="rgba(121,192,255,0.5)" rx="2"/>
+        <text x="109" y="55" text-anchor="middle" fill="#79c0ff" font-size="10">1/2</text>
+        <rect x="140" y="70" width="18" height="20" fill="rgba(121,192,255,0.5)" rx="2"/>
+        <text x="149" y="65" text-anchor="middle" fill="#79c0ff" font-size="10">1/3</text>
+        <rect x="180" y="75" width="18" height="15" fill="rgba(121,192,255,0.5)" rx="2"/>
+        <text x="189" y="70" text-anchor="middle" fill="#79c0ff" font-size="10">1/4</text>
+        <rect x="220" y="78" width="18" height="12" fill="rgba(121,192,255,0.5)" rx="2"/>
+        <rect x="260" y="80" width="18" height="10" fill="rgba(121,192,255,0.5)" rx="2"/>
+        <rect x="300" y="82" width="18" height="8" fill="rgba(121,192,255,0.4)" rx="2"/>
+        <rect x="340" y="83" width="18" height="7" fill="rgba(121,192,255,0.3)" rx="2"/>
+        <rect x="380" y="85" width="18" height="5" fill="rgba(121,192,255,0.2)" rx="2"/>
+        <rect x="420" y="87" width="18" height="3" fill="rgba(121,192,255,0.15)" rx="2"/>
+        <!-- 0 line -->
+        <line x1="40" y1="90" x2="450" y2="90" stroke="#56d364" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="455" y="94" fill="#56d364" font-size="11" font-weight="700">0</text>
+        <text x="240" y="120" text-anchor="middle" fill="#8b949e" font-size="11">n →</text>
+        <text x="25" y="35" text-anchor="middle" fill="#8b949e" font-size="10" transform="rotate(-90,25,65)">1/n</text>
+      </svg>
+      <figcaption>Figure 2 — 1/n → 0 (the Archimedean property ensures no positive lower bound exists for {1/n})</figcaption>
+    </div>
+  </div>
+</div>
+
+<!-- DENSITY -->
+<div class="sec" id="sec-density">
+  <h2 class="sec-head">🔍 Density & Nested Interval Theorem</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">🔬</div>
+      <div><div class="concept-tag">Concept 6</div><div class="concept-title">Density of ℚ and ℝ∖ℚ in ℝ</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Density Theorem</div>
+      <div class="thm-text">Between any two distinct real numbers there exists both a rational number and an irrational number.<br><br>
+      Formally: if a &lt; b (a, b ∈ ℝ), then ∃ r ∈ ℚ with a &lt; r &lt; b, and ∃ ρ ∈ ℝ∖ℚ with a &lt; ρ &lt; b.</div>
+      <div class="thm-proof"><strong>Proof of ℚ dense in ℝ:</strong> By Archimedean property, ∃ n ∈ ℕ with n(b−a) &gt; 1. Let m = ⌈na⌉ (ceiling). Then m ≤ na+1 ≤ nb and m &gt; na, so a &lt; m/n &lt; b, and m/n ∈ ℚ. □<br>For irrationals: take r rational in (a,b) and r' rational in (a, r). Then r + (√2)/n lies between a and b for appropriate n.</div>
+    </div>
+
+    <h3 class="sub-head">Nested Interval Theorem</h3>
+    <div class="thm-box">
+      <div class="thm-label">Nested Interval Theorem (Cantor)</div>
+      <div class="thm-text">Let [aₙ, bₙ] be a sequence of closed bounded intervals with [a₁,b₁] ⊇ [a₂,b₂] ⊇ … (nested). Then ⋂_{n=1}^∞ [aₙ, bₙ] ≠ ∅.<br><br>
+      If additionally bₙ − aₙ → 0, then ⋂ [aₙ, bₙ] = {p} for exactly one point p.</div>
+      <div class="thm-proof"><strong>Key:</strong> The set A = {aₙ} is bounded above (by b₁). By LUB property, p = sup(A) exists. One verifies p ∈ [aₙ, bₙ] for all n. This theorem FAILS for open intervals (⋂ (0,1/n) = ∅) and in ℚ (holes). It uses the Completeness Axiom essentially.</div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">🧠</div>
+      <div class="tip-text"><strong>Why the theorem fails for open intervals:</strong> ⋂_{n=1}^∞ (0, 1/n) = ∅ because no x &gt; 0 is in all intervals (by Archimedean: 1/n &lt; x for large n), and 0 ∉ (0, 1/n) (open interval). Closedness is essential!</div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(247,129,102,.15)">↔️</div>
+      <div><div class="concept-tag">Concept 7</div><div class="concept-title">Equivalent Forms of Completeness</div></div>
+    </div>
+    <p>All the following are equivalent to the LUB property (each can replace the others as an axiom for ℝ):</p>
+    <table class="tbl">
+      <tr><th>#</th><th>Equivalent Statement</th></tr>
+      <tr><td>1</td><td><strong>LUB Property:</strong> Every non-empty bounded-above set has a supremum</td></tr>
+      <tr><td>2</td><td><strong>GLB Property:</strong> Every non-empty bounded-below set has an infimum</td></tr>
+      <tr><td>3</td><td><strong>Monotone Convergence:</strong> Every bounded monotone sequence converges</td></tr>
+      <tr><td>4</td><td><strong>Bolzano-Weierstrass:</strong> Every bounded sequence has a convergent subsequence</td></tr>
+      <tr><td>5</td><td><strong>Nested Interval:</strong> Nested closed bounded intervals have non-empty intersection</td></tr>
+      <tr><td>6</td><td><strong>Cauchy Completeness:</strong> Every Cauchy sequence in ℝ converges</td></tr>
+      <tr><td>7</td><td><strong>Heine-Borel:</strong> A subset of ℝ is compact iff it is closed and bounded</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- THEOREMS -->
+<div class="sec" id="sec-theorems">
+  <h2 class="sec-head">📜 Key Theorems</h2>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 1 — Supremum ε-Characterization</div>
+    <div class="thm-text">α = sup(S) iff α is an upper bound of S AND for every ε &gt; 0, there exists s ∈ S with s &gt; α − ε.</div>
+    <div class="thm-proof">This means α is "as small as possible" — no element below α is still an upper bound. Use this to prove equalities like sup{x² : 0 ≤ x &lt; 1} = 1.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 2 — sup and inf via Sequences</div>
+    <div class="thm-text">α = sup(S) iff there exists a sequence (sₙ) in S with sₙ → α.</div>
+    <div class="thm-proof">This connects the LUB property to sequences — fundamental for the rest of analysis.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 3 — inf(-S) = -sup(S)</div>
+    <div class="thm-text">For any bounded set S, inf(−S) = −sup(S), where −S = {−x : x ∈ S}.</div>
+    <div class="thm-proof">This allows the GLB property to be derived from the LUB property, showing they're equivalent.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 4 — Well-Ordering of ℕ</div>
+    <div class="thm-text">Every non-empty subset of ℕ has a smallest element (least element).</div>
+    <div class="thm-proof">This is a consequence of the ordering on ℝ restricted to ℕ, and is equivalent to the Principle of Mathematical Induction. Used to prove Archimedean property directly.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 5 — Existence of nth Roots</div>
+    <div class="thm-text">For any x &gt; 0 and n ∈ ℕ, there exists a unique y &gt; 0 with yⁿ = x (written y = x^{1/n}).</div>
+    <div class="thm-proof">Proved using the LUB property: let S = {t ∈ ℝ : t ≥ 0, tⁿ ≤ x}. Then sup(S) = x^{1/n}. This shows ℝ contains all positive real nth roots — unlike ℚ (e.g., √2 ∉ ℚ).</div>
+  </div>
+</div>
+
+<!-- EXAMPLES -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — Computing Supremum</div>
+    <div class="ex-q">Find sup S and inf S for S = {n/(n+1) : n ∈ ℕ}.</div>
+    <div class="ex-sol">
+      <strong>Elements:</strong> S = {1/2, 2/3, 3/4, 4/5, …}<br>
+      <strong>Pattern:</strong> n/(n+1) = 1 − 1/(n+1) is strictly increasing and approaches 1.<br>
+      <strong>Upper bound:</strong> n/(n+1) &lt; 1 for all n, so 1 is an upper bound.<br>
+      <strong>Least upper bound:</strong> For any α &lt; 1, choose n large enough so 1/(n+1) &lt; 1 − α, then n/(n+1) &gt; α. So no number less than 1 is an upper bound. Thus <strong>sup S = 1 ∉ S</strong> (no maximum).<br>
+      <strong>Lower bound:</strong> Smallest element is 1/2 (at n=1). So <strong>inf S = 1/2 ∈ S</strong> (minimum exists).
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — LUB Property Fails in ℚ</div>
+    <div class="ex-q">Show that S = {x ∈ ℚ : x² &lt; 2} has no supremum in ℚ.</div>
+    <div class="ex-sol">
+      <strong>S is bounded above in ℚ:</strong> e.g., 3/2 is an upper bound (since (3/2)² = 9/4 &gt; 2).<br>
+      <strong>sup S ∉ ℚ:</strong> In ℝ, sup S = √2 (since x² &lt; 2 iff x &lt; √2 for x ≥ 0). But √2 ∉ ℚ.<br>
+      <strong>Conclusion:</strong> Every rational upper bound of S is not the least one (one can always find a smaller rational upper bound closer to √2). So S has no supremum in ℚ, proving ℚ is NOT complete. In ℝ, sup S = √2 exists, showing the power of completeness.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — Archimedean Property Application</div>
+    <div class="ex-q">Prove that for any ε &gt; 0, there exists n ∈ ℕ with 0 &lt; 1/n &lt; ε.</div>
+    <div class="ex-sol">
+      By the Archimedean property applied to x = 1/ε &gt; 0: there exists n ∈ ℕ with n &gt; 1/ε. Taking reciprocals (and reversing inequality since n, ε &gt; 0): 1/n &lt; ε. Also 1/n &gt; 0 trivially. □<br>
+      <strong>Consequence:</strong> This proves lim_{n→∞} 1/n = 0 rigorously.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — ε-Characterization of Sup</div>
+    <div class="ex-q">Show that sup{x ∈ ℝ : x² ≤ 3} = √3.</div>
+    <div class="ex-sol">
+      Let S = {x ∈ ℝ : x² ≤ 3}. Note x ∈ S iff |x| ≤ √3, so S = [−√3, √3].<br>
+      <strong>√3 is an upper bound:</strong> For x ∈ S, x ≤ √3. ✓<br>
+      <strong>Least:</strong> For any ε &gt; 0, take x = √3 − ε/2 (for small ε). Then x &lt; √3 and x ∈ S (x² &lt; 3). So √3 − ε is not an upper bound (our x &gt; √3 − ε is in S).<br>
+      By the ε-characterization, sup S = √3. ✓
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — Nested Interval Theorem</div>
+    <div class="ex-q">Apply the Nested Interval Theorem to Iₙ = [1/n, 1 − 1/n] and find ⋂ Iₙ.</div>
+    <div class="ex-sol">
+      Note: I₁ = [1, 0] is empty (wait — 1/1 = 1 &gt; 1 − 1/1 = 0), so the intervals are only non-empty for n ≥ 2.<br>
+      For n ≥ 2: Iₙ = [1/n, 1 − 1/n] ⊇ I_{n+1} = [1/(n+1), 1−1/(n+1)] ✓ (since 1/n &gt; 1/(n+1) and 1−1/n &lt; 1−1/(n+1)).<br>
+      Length of Iₙ = (1 − 1/n) − 1/n = 1 − 2/n → 1 as n→∞... Hmm, length → 1, not 0.<br>
+      ⋂_{n=2}^∞ [1/n, 1−1/n] = [sup{1/n}, inf{1−1/n}] = [0, 1] (as n→∞, 1/n→0 and 1−1/n→1).<br>
+      So the intersection is the closed interval [0,1].
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <div class="q-block" id="qb1">
+    <div class="q-num">Question 1 of 15</div>
+    <div class="q-text">Which of the following is NOT an ordered field?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) ℚ (rationals)</button>
+      <button class="opt" onclick="answer(1,'b')">B) ℝ (reals)</button>
+      <button class="opt correct-ans" onclick="answer(1,'c')">C) ℂ (complex numbers)</button>
+      <button class="opt" onclick="answer(1,'d')">D) Any subfield of ℝ</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>✓ C is correct.</strong> ℂ cannot be made into an ordered field. Reason: In any ordered field, x² ≥ 0. But i² = −1 &lt; 0 — contradiction. So ℂ has no total order compatible with its field operations. ℚ and all subfields of ℝ are ordered fields.</div>
+  </div>
+
+  <div class="q-block" id="qb2">
+    <div class="q-num">Question 2 of 15</div>
+    <div class="q-text">Let S = {1 − 1/n : n ∈ ℕ}. What is sup(S)?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) 0</button>
+      <button class="opt" onclick="answer(2,'b')">B) 1/2</button>
+      <button class="opt correct-ans" onclick="answer(2,'c')">C) 1</button>
+      <button class="opt" onclick="answer(2,'d')">D) 1 − 1/n for some n</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>✓ C is correct.</strong> S = {0, 1/2, 2/3, 3/4, …}. Each term 1 − 1/n &lt; 1, so 1 is an upper bound. For any α &lt; 1, choose n so that 1/n &lt; 1 − α (Archimedean), then 1 − 1/n &gt; α, so α is not an upper bound. Thus sup S = 1. Note: 1 ∉ S, so S has no maximum.</div>
+  </div>
+
+  <div class="q-block" id="qb3">
+    <div class="q-num">Question 3 of 15</div>
+    <div class="q-text">The Archimedean property states that for any x ∈ ℝ:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(3,'a')">A) There exists n ∈ ℕ with n &gt; x</button>
+      <button class="opt" onclick="answer(3,'b')">B) There exists n ∈ ℕ with n &gt; x² </button>
+      <button class="opt" onclick="answer(3,'c')">C) ℕ is bounded above in ℝ</button>
+      <button class="opt" onclick="answer(3,'d')">D) x &lt; 1/n for some n</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>✓ A is correct.</strong> The Archimedean property: ∀ x ∈ ℝ, ∃ n ∈ ℕ with n &gt; x. Equivalently ℕ is not bounded above (C is the negation, which is false). B is also true (apply AP to x²) but is not the standard statement. D is true only for x &gt; 0.</div>
+  </div>
+
+  <div class="q-block" id="qb4">
+    <div class="q-num">Question 4 of 15</div>
+    <div class="q-text">If S ⊂ ℝ is non-empty and bounded above, which statement MUST be true?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) max(S) exists</button>
+      <button class="opt correct-ans" onclick="answer(4,'b')">B) sup(S) exists in ℝ</button>
+      <button class="opt" onclick="answer(4,'c')">C) sup(S) ∈ S</button>
+      <button class="opt" onclick="answer(4,'d')">D) S is finite</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>✓ B is correct.</strong> By the Completeness Axiom (LUB property), every non-empty bounded-above subset of ℝ has a supremum in ℝ. A is false: e.g., S = (0,1) has no maximum. C is false: sup S need not belong to S (open sets). D is obviously false (S can be infinite like (0,1)).</div>
+  </div>
+
+  <div class="q-block" id="qb5">
+    <div class="q-num">Question 5 of 15</div>
+    <div class="q-text">Between any two distinct real numbers a &lt; b, there exists:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(5,'a')">A) Rational numbers only</button>
+      <button class="opt" onclick="answer(5,'b')">B) Irrational numbers only</button>
+      <button class="opt correct-ans" onclick="answer(5,'c')">C) Both rational and irrational numbers</button>
+      <button class="opt" onclick="answer(5,'d')">D) Exactly one rational and one irrational</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>✓ C is correct.</strong> The Density Theorem states both ℚ and ℝ∖ℚ are dense in ℝ: between any two reals there are infinitely many rationals AND infinitely many irrationals. This is a direct consequence of the Archimedean property.</div>
+  </div>
+
+  <div class="q-block" id="qb6">
+    <div class="q-num">Question 6 of 15</div>
+    <div class="q-text">Let S = {x ∈ ℝ : x² &lt; 5}. Then inf(S) equals:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(6,'a')">A) −5</button>
+      <button class="opt" onclick="answer(6,'b')">B) 0</button>
+      <button class="opt correct-ans" onclick="answer(6,'c')">C) −√5</button>
+      <button class="opt" onclick="answer(6,'d')">D) Does not exist</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>✓ C is correct.</strong> x² &lt; 5 iff |x| &lt; √5 iff −√5 &lt; x &lt; √5. So S = (−√5, √5). The greatest lower bound (infimum) is −√5. Since −√5 ∉ S (it's an open interval), S has no minimum. inf S = −√5, sup S = √5.</div>
+  </div>
+
+  <div class="q-block" id="qb7">
+    <div class="q-num">Question 7 of 15</div>
+    <div class="q-text">The Nested Interval Theorem requires the intervals to be:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(7,'a')">A) Open and bounded</button>
+      <button class="opt correct-ans" onclick="answer(7,'b')">B) Closed and bounded</button>
+      <button class="opt" onclick="answer(7,'c')">C) Open, closed, or half-open</button>
+      <button class="opt" onclick="answer(7,'d')">D) Bounded with lengths going to zero</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>✓ B is correct.</strong> The Nested Interval Theorem requires CLOSED and BOUNDED intervals. If they're open, the theorem fails: ⋂(0,1/n) = ∅. If unbounded, it also fails: ⋂[n,∞) = ∅. The conclusion is ⋂ Iₙ ≠ ∅; if also lengths → 0, the intersection is a single point.</div>
+  </div>
+
+  <div class="q-block" id="qb8">
+    <div class="q-num">Question 8 of 15</div>
+    <div class="q-text">α = sup(S) is equivalent to: α is an upper bound and for every ε &gt; 0:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(8,'a')">A) α − ε is an upper bound</button>
+      <button class="opt correct-ans" onclick="answer(8,'b')">B) There exists s ∈ S with s &gt; α − ε</button>
+      <button class="opt" onclick="answer(8,'c')">C) There exists s ∈ S with s = α</button>
+      <button class="opt" onclick="answer(8,'d')">D) α + ε is NOT an upper bound</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>✓ B is correct.</strong> The ε-characterization of supremum: α = sup S iff α is an upper bound AND for every ε &gt; 0, there exists s ∈ S with s &gt; α − ε. A is wrong (α − ε is exactly NOT an upper bound). C is not required (sup need not be in S). D is irrelevant (α + ε is trivially not a lower bound).</div>
+  </div>
+
+  <div class="q-block" id="qb9">
+    <div class="q-num">Question 9 of 15</div>
+    <div class="q-text">Which of the following is FALSE about ℚ?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(9,'a')">A) ℚ is an ordered field</button>
+      <button class="opt" onclick="answer(9,'b')">B) ℚ is dense in ℝ</button>
+      <button class="opt correct-ans" onclick="answer(9,'c')">C) ℚ satisfies the Least Upper Bound property</button>
+      <button class="opt" onclick="answer(9,'d')">D) ℚ is countably infinite</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>✓ C is FALSE.</strong> ℚ does NOT satisfy the LUB property — the classic counterexample is S = {x ∈ ℚ : x² &lt; 2}, which has no rational supremum (sup S = √2 ∉ ℚ). A is TRUE (ℚ is an ordered field). B is TRUE (density theorem). D is TRUE (ℚ is countable).</div>
+  </div>
+
+  <div class="q-block" id="qb10">
+    <div class="q-num">Question 10 of 15</div>
+    <div class="q-text">If sup(A) = sup(B) and inf(A) = inf(B), can we conclude A = B?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(10,'a')">A) Yes, always</button>
+      <button class="opt correct-ans" onclick="answer(10,'b')">B) No, not in general</button>
+      <button class="opt" onclick="answer(10,'c')">C) Yes, if both are bounded</button>
+      <button class="opt" onclick="answer(10,'d')">D) Yes, if both are finite sets</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>✓ B is correct.</strong> Counterexample: A = {0, 1} and B = [0,1]. Both have inf = 0 and sup = 1, but A ≠ B. Sup and inf only capture the "endpoints" of a set, not its structure. Even for finite sets: A = {0,1} and B = {0, 1/2, 1} have same sup and inf but are different.</div>
+  </div>
+
+  <div class="q-block" id="qb11">
+    <div class="q-num">Question 11 of 15</div>
+    <div class="q-text">The set ℤ of integers is (CSIR NET 2022 style):</div>
+    <div class="options">
+      <button class="opt" onclick="answer(11,'a')">A) A field</button>
+      <button class="opt" onclick="answer(11,'b')">B) An ordered field</button>
+      <button class="opt correct-ans" onclick="answer(11,'c')">C) An ordered ring but NOT a field</button>
+      <button class="opt" onclick="answer(11,'d')">D) Neither a ring nor a field</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>✓ C is correct.</strong> ℤ is a ring (closed under +, ×; has additive inverses) with a total order, making it an ordered ring. It is NOT a field because non-zero integers like 2 have no multiplicative inverse in ℤ (1/2 ∉ ℤ). Fields require all non-zero elements to have multiplicative inverses.</div>
+  </div>
+
+  <div class="q-block" id="qb12">
+    <div class="q-num">Question 12 of 15</div>
+    <div class="q-text">If inf(S) = sup(S), what can we conclude about S?</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(12,'a')">A) S is a singleton {c} for some c ∈ ℝ</button>
+      <button class="opt" onclick="answer(12,'b')">B) S = ∅</button>
+      <button class="opt" onclick="answer(12,'c')">C) S is finite</button>
+      <button class="opt" onclick="answer(12,'d')">D) S contains exactly two elements</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>✓ A is correct.</strong> If inf S = sup S = c, then for all x ∈ S: c ≤ x (since c = inf S) and x ≤ c (since c = sup S). So x = c for all x ∈ S, meaning S ⊆ {c}. Since S is non-empty, S = {c}.</div>
+  </div>
+
+  <div class="q-block" id="qb13">
+    <div class="q-num">Question 13 of 15</div>
+    <div class="q-text">For S = {(−1)ⁿ(1 − 1/n) : n ∈ ℕ}, what are sup S and inf S?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(13,'a')">A) sup S = 1/2, inf S = −1/2</button>
+      <button class="opt correct-ans" onclick="answer(13,'b')">B) sup S = 1, inf S = −1</button>
+      <button class="opt" onclick="answer(13,'c')">C) sup S = 2/3, inf S = −2/3</button>
+      <button class="opt" onclick="answer(13,'d')">D) sup S does not exist</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>✓ B is correct.</strong> For even n: aₙ = +(1 − 1/n) → 1. For odd n: aₙ = −(1 − 1/n) → −1. The terms approach but never reach ±1. The positive terms {1/2, 3/4, 5/6, …} approach 1 from below → sup S = 1. The negative terms {−1/2, −3/4, −5/6, …} approach −1 from above → inf S = −1. Neither ±1 is in S.</div>
+  </div>
+
+  <div class="q-block" id="qb14">
+    <div class="q-num">Question 14 of 15</div>
+    <div class="q-text">Which property is the KEY distinguishing feature of ℝ over ℚ?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) ℝ is a field while ℚ is not</button>
+      <button class="opt" onclick="answer(14,'b')">B) ℝ is ordered while ℚ is not</button>
+      <button class="opt correct-ans" onclick="answer(14,'c')">C) ℝ is complete (LUB property) while ℚ is not</button>
+      <button class="opt" onclick="answer(14,'d')">D) ℝ is countable while ℚ is uncountable</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>✓ C is correct.</strong> Both ℝ and ℚ are ordered fields (A and B are false). D is false (ℝ is uncountable, ℚ is countable — opposite). The ONLY structural difference is completeness: ℝ has the LUB property, ℚ does not. This single axiom generates all of real analysis.</div>
+  </div>
+
+  <div class="q-block" id="qb15">
+    <div class="q-num">Question 15 of 15</div>
+    <div class="q-text">If a = sup(A) and b = sup(B), which is NOT necessarily true?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(15,'a')">A) sup(A ∪ B) = max(a, b)</button>
+      <button class="opt" onclick="answer(15,'b')">B) sup(A + B) = a + b (where A+B = {x+y: x∈A, y∈B})</button>
+      <button class="opt correct-ans" onclick="answer(15,'c')">C) sup(A ∩ B) = min(a, b)</button>
+      <button class="opt" onclick="answer(15,'d')">D) If A ⊆ B then a ≤ b</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>✓ C is NOT necessarily true.</strong> A ∩ B could be empty (then sup is undefined) or could have a supremum less than min(a,b). Example: A = (0,2) and B = (3,5). A ∩ B = ∅. sup A = 2, sup B = 5, min = 2, but sup(A∩B) is undefined. A is TRUE: sup(A∪B) = max(sup A, sup B). B is TRUE: sup(A+B) = sup A + sup B. D is TRUE: A⊆B implies every upper bound of B is an upper bound of A, so sup A ≤ sup B.</div>
+  </div>
+
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button>
+    <br><br>
+    <a href="CSIR_NET_U1_T03_Sequences.html" style="display:inline-block;margin-top:8px;background:rgba(86,211,100,.15);color:var(--ok);border:1px solid rgba(86,211,100,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next: Sequences & Series →</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <h4>Core Facts</h4>
+      <ul>
+        <li>ℝ is the unique complete ordered field</li>
+        <li>ℚ is ordered field but NOT complete</li>
+        <li>ℂ is a field but NOT ordered</li>
+        <li>ℤ is an ordered ring, not a field</li>
+        <li>Every non-empty bounded set in ℝ has sup and inf</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>Key Results</h4>
+      <ul>
+        <li>Archimedean: ∀x ∈ ℝ, ∃n ∈ ℕ with n &gt; x</li>
+        <li>1/n → 0 (Archimedean consequence)</li>
+        <li>ℚ dense in ℝ; ℝ∖ℚ dense in ℝ</li>
+        <li>Nested closed bounded intervals: ⋂ Iₙ ≠ ∅</li>
+        <li>sup(A∪B) = max(sup A, sup B)</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>CSIR Exam Q-Types</h4>
+      <ul>
+        <li>Compute sup/inf of standard sets</li>
+        <li>True/False about ordered fields</li>
+        <li>Identify where LUB fails in ℚ</li>
+        <li>Archimedean applications (1/n &lt; ε)</li>
+        <li>Nested interval theorem applications</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>Common Mistakes</h4>
+      <ul>
+        <li>sup S need not be in S (no max necessary)</li>
+        <li>Same sup/inf does NOT mean same sets</li>
+        <li>sup(A ∩ B) ≠ min(sup A, sup B) in general</li>
+        <li>Open intervals can have empty ⋂ (not NIT)</li>
+        <li>ℤ ≠ field (no reciprocals for most integers)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_U1_T01_SetTheory.html">← Set Theory</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T03_Sequences.html">Next: Sequences & Series →</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+let answered=0,correct=0,wrong=0;
+const correctAns={1:'c',2:'c',3:'a',4:'b',5:'c',6:'c',7:'b',8:'b',9:'c',10:'b',11:'c',12:'a',13:'b',14:'c',15:'c'};
+function answer(qn,chosen){
+  const block=document.getElementById('qb'+qn);
+  if(block.classList.contains('correct')||block.classList.contains('wrong'))return;
+  const opts=block.querySelectorAll('.opt');
+  opts.forEach(o=>o.disabled=true);
+  const isCorrect=(chosen===correctAns[qn]);
+  if(isCorrect){block.classList.add('correct');correct++;}else{block.classList.add('wrong');wrong++;}
+  const letters=['a','b','c','d'];
+  opts.forEach((o,i)=>{
+    if(letters[i]===correctAns[qn])o.classList.add('correct');
+    else if(letters[i]===chosen&&!isCorrect)o.classList.add('wrong');
+  });
+  const exp=document.getElementById('exp'+qn);
+  exp.classList.add('show',isCorrect?'exp-correct':'exp-wrong');
+  answered++;
+  document.getElementById('score-display').textContent=`Score: ${correct} / 15`;
+  document.getElementById('qpfill').style.width=(answered/15*100)+'%';
+  if(answered===15)showScore();
+}
+function showScore(){
+  setTimeout(()=>{
+    const sc=document.getElementById('score-card');
+    sc.classList.add('show');
+    document.getElementById('final-score').textContent=correct;
+    document.getElementById('sc-correct').textContent=correct;
+    document.getElementById('sc-wrong').textContent=wrong;
+    const pct=correct/15*100;
+    const msgs=['Keep practising! Review the completeness concepts.','Good start! Focus on sup/inf computations.','Good! Review the tricky sup/inf properties.','Excellent work!','Perfect! Ready for CSIR NET!'];
+    document.getElementById('sc-msg').textContent=msgs[Math.min(Math.floor(pct/21),4)];
+    sc.scrollIntoView({behavior:'smooth'});
+  },600);
+}
+function resetQuiz(){
+  answered=0;correct=0;wrong=0;
+  document.getElementById('score-display').textContent='Score: 0 / 15';
+  document.getElementById('qpfill').style.width='0%';
+  document.getElementById('score-card').classList.remove('show');
+  for(let i=1;i<=15;i++){
+    const b=document.getElementById('qb'+i);
+    b.classList.remove('correct','wrong');
+    b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});
+    document.getElementById('exp'+i).classList.remove('show','exp-correct','exp-wrong');
+  }
+  document.getElementById('qb1').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

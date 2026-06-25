@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U10-T01 · Probability Theory</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1e3a5f;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(30,58,95,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(30,58,95,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(30,58,95,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#eff6ff,#dbeafe,#bfdbfe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(30,58,95,.08);color:var(--acc);font-weight:600;border:1px solid rgba(30,58,95,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#eff6ff;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 10 · T01</span>
+  <span class="hdr-title">Probability Theory</span>
+  <span class="hdr-badge">Probability</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 10 · T01</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('axioms',this)">Probability Axioms</a>
+  <a class="nav-item" onclick="show('cond',this)">Conditional & Bayes</a>
+  <a class="nav-item" onclick="show('rv',this)">Random Variables</a>
+  <a class="nav-item" onclick="show('expect',this)">Expectation & Variance</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U9_T01_CalculusVariations.html">← U9 · CoV & LP</a>
+  <a class="nav-item" href="CSIR_NET_U10_T02_Distributions.html">T02 · Distributions →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 10 · Topic 01</div>
+    <div class="hero-title">Probability Theory</div>
+    <div class="hero-sub">Probability axioms · Conditional probability · Bayes' theorem · Random variables · Expectation and Variance</div>
+    <div class="hero-chips">
+      <span class="chip">Kolmogorov Axioms</span>
+      <span class="chip">Conditional Probability</span>
+      <span class="chip">Bayes' Theorem</span>
+      <span class="chip">Independence</span>
+      <span class="chip">MGF</span>
+      <span class="chip">Chebyshev</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Probability theory provides a rigorous mathematical foundation for uncertainty. Starting from Kolmogorov's axioms, we build conditional probability, independence, random variables, and key inequalities that underpin statistics and stochastic processes — all heavily tested in CSIR NET.</p>
+</div>
+
+<div class="sec" id="axioms">
+  <h2>Probability Axioms</h2>
+  <div class="def-box">
+    <div class="lbl">Kolmogorov Axioms</div>
+    <p>A probability space (Ω, F, P) where Ω is sample space, F is σ-algebra, P: F→[0,1]:</p>
+    <div class="formula">1. P(A) ≥ 0 for all A ∈ F
+2. P(Ω) = 1
+3. Countable additivity: A₁,A₂,... disjoint ⟹ P(∪Aᵢ) = ΣP(Aᵢ)</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Derived Properties</div>
+    <ul>
+      <li>P(Aᶜ) = 1−P(A)</li>
+      <li>P(A∪B) = P(A)+P(B)−P(A∩B) (inclusion-exclusion)</li>
+      <li>A⊆B ⟹ P(A)≤P(B)</li>
+      <li>Boole's inequality: P(∪Aᵢ)≤ΣP(Aᵢ)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="cond">
+  <h2>Conditional Probability & Bayes' Theorem</h2>
+  <div class="def-box">
+    <div class="lbl">Conditional Probability</div>
+    <div class="formula">P(A|B) = P(A∩B)/P(B),  P(B)>0</div>
+    <p>Interpretation: probability of A given B has occurred.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Independence</div>
+    <p>A and B are independent iff P(A∩B)=P(A)·P(B), equivalently P(A|B)=P(A).</p>
+    <p>Pairwise independence does NOT imply mutual independence.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Law of Total Probability</div>
+    <p>If B₁,…,Bₙ partition Ω (disjoint, union=Ω, all positive probability):</p>
+    <div class="formula">P(A) = Σᵢ P(A|Bᵢ)P(Bᵢ)</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Bayes' Theorem</div>
+    <div class="formula">P(Bⱼ|A) = P(A|Bⱼ)P(Bⱼ) / Σᵢ P(A|Bᵢ)P(Bᵢ)
+
+Posterior ∝ Likelihood × Prior</div>
+  </div>
+</div>
+
+<div class="sec" id="rv">
+  <h2>Random Variables</h2>
+  <div class="def-box">
+    <div class="lbl">Random Variable</div>
+    <p>A measurable function X: Ω→ℝ. CDF: F(x)=P(X≤x).</p>
+    <ul>
+      <li>Discrete: PMF p(x)=P(X=x); Σp(x)=1</li>
+      <li>Continuous: PDF f(x)≥0; ∫f(x)dx=1; P(a≤X≤b)=∫_a^b f(x)dx</li>
+    </ul>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Joint, Marginal, Conditional Distributions</div>
+    <p>Joint CDF: F(x,y)=P(X≤x,Y≤y). Marginal: F_X(x)=lim_{y→∞}F(x,y).</p>
+    <div class="formula">f_X(x) = ∫_{-∞}^{∞} f(x,y) dy   (marginal PDF)
+f_{Y|X}(y|x) = f(x,y)/f_X(x)   (conditional PDF)</div>
+    <p>X,Y independent iff f(x,y)=f_X(x)f_Y(y) for all (x,y).</p>
+  </div>
+</div>
+
+<div class="sec" id="expect">
+  <h2>Expectation, Variance & Inequalities</h2>
+  <div class="def-box">
+    <div class="lbl">Expectation</div>
+    <div class="formula">E[X] = Σ x·p(x)   (discrete)
+E[X] = ∫ x·f(x)dx   (continuous)
+E[g(X)] = ∫ g(x)f(x)dx   (LOTUS)</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Variance & Covariance</div>
+    <div class="formula">Var(X) = E[(X−μ)²] = E[X²]−(E[X])²
+Cov(X,Y) = E[(X−μ_X)(Y−μ_Y)] = E[XY]−E[X]E[Y]
+ρ(X,Y) = Cov(X,Y)/√(Var(X)·Var(Y))  ∈ [−1,1]</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Markov's Inequality</div>
+    <div class="formula">X≥0, a>0: P(X≥a) ≤ E[X]/a</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Chebyshev's Inequality</div>
+    <div class="formula">P(|X−μ|≥k·σ) ≤ 1/k²   (k>0)</div>
+    <p>No assumption on distribution; works for any finite mean and variance.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">MGF (Moment Generating Function)</div>
+    <div class="formula">M_X(t) = E[e^{tX}]   (when finite near t=0)
+E[Xⁿ] = M_X^{(n)}(0)   (nth derivative at t=0)
+If X,Y independent: M_{X+Y}(t)=M_X(t)·M_Y(t)</div>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is NOT a Kolmogorov axiom?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> P(A)≥0</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> P(A)≤P(B) whenever A⊆B (monotonicity is derived, not an axiom)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> P(Ω)=1</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Countable additivity for disjoint events</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">P(A∪B) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> P(A)+P(B)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> P(A)+P(B)−P(A∩B)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> P(A)·P(B)</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> P(A|B)·P(B)</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Bayes' theorem: P(B|A)=</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> P(A)P(B)/P(A∩B)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> P(A|B)P(B)/P(A)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> P(A|B)/P(B)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> P(A∩B)/P(B)²</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">If A and B are independent, then P(A∩B)=</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> 0</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> P(A)·P(B)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> P(A)+P(B)</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> P(A|B)</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Chebyshev's inequality states P(|X−μ|≥kσ) ≤</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> 1/k</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> 1/k²</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> k²</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> e^{-k²/2}</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">For a continuous RV with PDF f(x), P(X=a) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> f(a)</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> 0 (a single point has measure zero)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> F(a)</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> 1/f(a)</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Var(X) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> E[X²]</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> E[X²] − (E[X])²</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> (E[X])²</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> E[X]²−E[X²]</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The Law of Total Probability with partition {B₁,…,Bₙ} gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> P(A)=P(A|B₁)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> P(A)=Σᵢ P(A|Bᵢ)P(Bᵢ)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> P(A)=ΣP(Bᵢ)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> P(A)=P(B₁)P(B₂)…P(Bₙ)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The moment generating function M_X(t)=E[e^{tX}]. The variance Var(X) can be recovered as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> M_X(0)</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> M_X″(0) − [M_X′(0)]² (since M′(0)=E[X], M″(0)=E[X²])</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> M_X′(0)</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> log M_X(1)</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">X and Y are independent continuous RVs. Their joint PDF f(x,y) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> f_X(x)+f_Y(y)</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> f_X(x)·f_Y(y)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> f_X(x)/f_Y(y)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> f_X(x|Y=y)</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Markov's inequality for non-negative X with E[X]<∞ and a>0 gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> P(X≥a)≤a/E[X]</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> P(X≥a)≤E[X]/a</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> P(X≥a)=E[X]/a</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> P(X≥a)≥E[X]/a</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Cov(X,Y)=0 implies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> X and Y are independent</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> X and Y are uncorrelated (but not necessarily independent)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> P(X=Y)=1</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> E[X]=E[Y]=0</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">If A and B are mutually exclusive events with P(A)>0 and P(B)>0, are they independent?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Always independent</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Never independent (since P(A∩B)=0≠P(A)P(B))</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Independent only if P(A)=P(B)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Independent only if P(A)+P(B)=1</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The correlation coefficient ρ(X,Y) always satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> ρ≥0</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> −1≤ρ≤1 (Cauchy-Schwarz inequality)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> |ρ|=1 always</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> ρ=Cov(X,Y)/E[X²]</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Using LOTUS (Law of the Unconscious Statistician), E[g(X)]=</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> g(E[X])</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> ∫g(x)f_X(x)dx (or Σg(x)p(x) discrete)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> g(0)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> E[X]·g(0)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Monotonicity (A⊆B⟹P(A)≤P(B)) is derived from the axioms, not stated as an axiom. Kolmogorov\'s three axioms: (1) non-negativity P(A)≥0, (2) normalization P(Ω)=1, (3) countable additivity. Everything else follows.',
+  2:'Inclusion-exclusion: P(A∪B)=P(A)+P(B)−P(A∩B). Without the subtraction we would double-count P(A∩B). For disjoint events P(A∩B)=0 and it reduces to P(A)+P(B).',
+  3:'Bayes: P(B|A)=P(A∩B)/P(A)=P(A|B)P(B)/P(A). The numerator comes from the multiplication rule; the denominator can be expanded by total probability. Posterior ∝ Likelihood × Prior.',
+  4:'Independence definition: P(A∩B)=P(A)P(B). Equivalent to P(A|B)=P(A). Note: disjoint events (A∩B=∅) are NOT independent unless one has probability 0.',
+  5:'Chebyshev: P(|X−μ|≥kσ)≤1/k². E.g., within 2 standard deviations: P(|X−μ|<2σ)≥1−1/4=75%, regardless of distribution shape. Requires only finite μ and σ².',
+  6:'For continuous distributions, P(X=a)=∫_a^a f(x)dx=0 for every individual point. Probabilities are assigned to intervals: P(a<X<b)=∫_a^b f(x)dx. (f(a) is a density, not a probability.)',
+  7:'Var(X)=E[(X−μ)²]=E[X²−2μX+μ²]=E[X²]−2μ²+μ²=E[X²]−μ²=E[X²]−(E[X])². This "computational formula" avoids needing to know μ explicitly before computing E[X²].',
+  8:'Law of total probability: for a partition {B₁,…,Bₙ} of Ω, P(A)=ΣᵢP(A∩Bᵢ)=ΣᵢP(A|Bᵢ)P(Bᵢ). Used to compute P(A) by conditioning on which Bᵢ occurred.',
+  9:'M_X(t)=E[e^{tX}]. Differentiating: M_X′(t)=E[Xe^{tX}] ⟹ M_X′(0)=E[X]; M_X″(0)=E[X²]. Therefore Var(X)=E[X²]−(E[X])²=M_X″(0)−[M_X′(0)]². The cumulant generating function log M_X(t) has Var(X) as its second derivative at 0.',
+  10:'X,Y independent iff their joint density factors: f(x,y)=f_X(x)f_Y(y). Conversely, if the joint density does NOT factor into a product of functions of x alone and y alone, they are dependent.',
+  11:'Markov\'s inequality: for X≥0 and a>0, P(X≥a)=P(X≥a)·1≤E[X·1_{X≥a}]/a≤E[X]/a. The inequality follows because on {X≥a}, a·1≤X. A fundamental but weak inequality — Chebyshev improves it using variance.',
+  12:'Zero covariance (uncorrelated) does NOT imply independence. Classic counterexample: X∼Uniform(−1,1), Y=X². Then Cov(X,Y)=E[X³]−E[X]E[X²]=0 (by symmetry), yet Y is a function of X — clearly dependent.',
+  13:'Mutually exclusive: A∩B=∅ ⟹ P(A∩B)=0. For independence we need P(A∩B)=P(A)P(B). If P(A)>0 and P(B)>0, then P(A)P(B)>0≠0=P(A∩B). So mutually exclusive events with positive probabilities are NEVER independent.',
+  14:'Cauchy-Schwarz inequality: [Cov(X,Y)]²≤Var(X)Var(Y) ⟹ |ρ|≤1. Equality ρ=±1 iff Y=aX+b exactly (linear relationship). ρ measures LINEAR association only; ρ=0 is possible with strong nonlinear dependence.',
+  15:'LOTUS: E[g(X)]=∫g(x)f(x)dx (continuous) or Σg(x)p(x) (discrete) — we integrate/sum g(x) against the original density of X, without needing the PDF of g(X). Note: E[g(X)]≠g(E[X]) in general (Jensen\'s inequality).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

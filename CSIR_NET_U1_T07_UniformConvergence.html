@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T07 · Sequences/Series of Functions & Uniform Convergence</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1d6fc2;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--purple:#7c3aed;--orange:#ea6c00;--green:#16a34a;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(121,192,255,.3);border-radius:6px}
+.hdr-back:hover{background:rgba(121,192,255,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600}
+.hdr-title{font-size:15px;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--acc)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(121,192,255,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto}
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+.sec{display:none;animation:fadeIn .3s ease}.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8f4fd,#d1eaf8,#bce0f5)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(121,192,255,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--acc);border-color:rgba(121,192,255,.3)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--purple);border-color:rgba(210,168,255,.3)}
+.chip-o{background:rgba(255,166,87,.12);color:var(--orange);border-color:rgba(255,166,87,.3)}
+.obj-box{background:rgba(121,192,255,.06);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px}.obj-box li strong{color:var(--text)}
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+.def-box{background:rgba(121,192,255,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{font-size:13px;color:var(--text);line-height:1.65}
+.thm-box{background:rgba(210,168,255,.05);border:1px solid rgba(210,168,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--purple);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(210,168,255,.15);font-style:italic}
+.tip-box{background:rgba(255,166,87,.07);border:1px solid rgba(255,166,87,.2);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px}
+.tip-icon{font-size:16px;flex-shrink:0}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--orange)}
+.ex-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--acc);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.cbox{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.cbox-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.cbox li{font-size:12.5px;color:#cdd9e5;margin-bottom:5px;line-height:1.55}
+.cbox ul{padding-left:16px}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.q-block.correct{border-color:var(--ok)}.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(121,192,255,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .5s ease;width:0%}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:4px}
+.summary-item ul{padding-left:16px}
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc)}
+.nf-btn.next{background:rgba(121,192,255,.1);border-color:rgba(121,192,255,.3);color:var(--acc)}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--acc);margin:18px 0 10px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 07</div>
+  <div class="hdr-title">Sequences/Series of Functions & Uniform Convergence</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 75 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('ptwise',this)"><div class="nav-dot"></div>Pointwise Convergence<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('uniform',this)"><div class="nav-dot"></div>Uniform Convergence<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('tests',this)"><div class="nav-dot"></div>Tests for Uniform Conv.<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('series',this)"><div class="nav-dot"></div>Series of Functions<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('powerser',this)"><div class="nav-dot"></div>Power Series<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">09</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T06_Differentiability.html'"><div class="nav-dot" style="background:var(--green)"></div>← Differentiability</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T08_RiemannIntegral.html'"><div class="nav-dot" style="background:var(--purple)"></div>Next: Riemann Integral →</div>
+</nav>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 07 of 11</div>
+    <div class="hero-title">Sequences & Series of Functions</div>
+    <div class="hero-sub">The subtle difference between pointwise and uniform convergence — and why it's the dividing line for preserving continuity, differentiability, and integration</div>
+    <div class="hero-chips">
+      <span class="chip chip-b">CSIR NET High-Yield</span>
+      <span class="chip chip-g">Function Spaces</span>
+      <span class="chip chip-p">Advanced Analysis</span>
+      <span class="chip chip-o">75 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>Define <strong>pointwise convergence</strong> and find the pointwise limit of fₙ(x)</li>
+      <li>Define <strong>uniform convergence</strong> and verify it via sup-norm or Cauchy criterion</li>
+      <li>Show uniform convergence preserves <strong>continuity, integration</strong>, and <strong>differentiation</strong></li>
+      <li>Apply <strong>Weierstrass M-test</strong> to series of functions</li>
+      <li>Understand <strong>power series</strong>: radius of convergence, uniform convergence on compact subsets</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> Uniform convergence appears in <strong>2–4 questions</strong> per exam. Key questions: "Does fₙ converge uniformly on [0,1]?", "Can we swap limit and integral?", Weierstrass M-test applications, power series radius of convergence.</div>
+  </div>
+</div>
+
+<!-- POINTWISE -->
+<div class="sec" id="sec-ptwise">
+  <h2 class="sec-head">→ Pointwise Convergence</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">f</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">Pointwise Convergence of Functions</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Pointwise Convergence</div>
+      <div class="def-text">A sequence (fₙ) of functions on D converges <strong>pointwise</strong> to f if:<br><br>
+      ∀x ∈ D, ∀ε &gt; 0, ∃N(x,ε) such that n &gt; N ⟹ |fₙ(x) − f(x)| &lt; ε<br><br>
+      Key: N may depend on BOTH x AND ε. The limit is taken at each point separately.</div>
+    </div>
+
+    <h3 class="sub-head">Classic Pointwise Limit Examples</h3>
+    <table class="tbl">
+      <tr><th>Sequence fₙ(x)</th><th>Domain</th><th>Pointwise Limit f(x)</th><th>Notes</th></tr>
+      <tr><td>xⁿ</td><td>[0,1]</td><td>0 if 0≤x&lt;1; 1 if x=1</td><td>f discontinuous; fₙ all continuous</td></tr>
+      <tr><td>nx·e^{−nx}</td><td>[0,∞)</td><td>0</td><td>Max of fₙ = 1/e at x=1/n → 0 but slowly</td></tr>
+      <tr><td>x/(1+nx)</td><td>[0,1]</td><td>0</td><td>Pointwise 0; convergence not uniform</td></tr>
+      <tr><td>sin(nx)/n</td><td>ℝ</td><td>0</td><td>Pointwise and uniform convergence (sup ≤ 1/n)</td></tr>
+      <tr><td>n·x·(1−x)ⁿ</td><td>[0,1]</td><td>0</td><td>Integral of fₙ ≠ integral of limit!</td></tr>
+    </table>
+    <div class="tip-box">
+      <div class="tip-icon">⚡</div>
+      <div class="tip-text"><strong>Pointwise Failures:</strong> Pointwise convergence alone does NOT guarantee: (1) f is continuous even if all fₙ are, (2) lim ∫fₙ = ∫f, (3) lim f'ₙ = f'. These require uniform convergence (or stronger conditions).</div>
+    </div>
+  </div>
+</div>
+
+<!-- UNIFORM CONVERGENCE -->
+<div class="sec" id="sec-uniform">
+  <h2 class="sec-head">⟶ Uniform Convergence</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">UC</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">Uniform Convergence Definition and Geometry</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Uniform Convergence</div>
+      <div class="def-text">fₙ <strong>converges uniformly</strong> to f on D if:<br><br>
+      ∀ε &gt; 0, ∃N(ε) such that ∀x ∈ D, n &gt; N ⟹ |fₙ(x) − f(x)| &lt; ε<br><br>
+      Equivalently: sup_{x∈D} |fₙ(x) − f(x)| → 0 as n → ∞.<br><br>
+      Key: N depends ONLY on ε, not on x. The whole graph of fₙ enters the ε-tube around f simultaneously.</div>
+    </div>
+
+    <div class="diagram">
+      <svg width="500" height="200" viewBox="0 0 500 200" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="14" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Uniform Convergence — Entire graph inside ε-tube</text>
+        <!-- Axis -->
+        <line x1="40" y1="165" x2="470" y2="165" stroke="#30363d" stroke-width="1.5"/>
+        <text x="475" y="168" fill="#8b949e" font-size="10">x</text>
+        <!-- Limit function f -->
+        <path d="M50,130 C120,110 200,90 300,80 C380,73 430,70 460,68" fill="none" stroke="#79c0ff" stroke-width="2.5"/>
+        <text x="462" y="66" fill="#79c0ff" font-size="10" font-weight="700">f(x)</text>
+        <!-- ε-tube -->
+        <path d="M50,115 C120,95 200,75 300,65 C380,58 430,55 460,53" fill="none" stroke="#79c0ff" stroke-width="1" stroke-dasharray="5,4" opacity=".5"/>
+        <path d="M50,145 C120,125 200,105 300,95 C380,88 430,85 460,83" fill="none" stroke="#79c0ff" stroke-width="1" stroke-dasharray="5,4" opacity=".5"/>
+        <text x="42" y="110" fill="#8b949e" font-size="9">f+ε</text>
+        <text x="42" y="150" fill="#8b949e" font-size="9">f−ε</text>
+        <!-- fₙ inside tube -->
+        <path d="M50,120 C120,102 200,82 300,73 C380,67 430,65 460,63" fill="none" stroke="#56d364" stroke-width="2"/>
+        <text x="462" y="61" fill="#56d364" font-size="9">fₙ (all inside)</text>
+        <!-- Caption -->
+        <text x="250" y="190" text-anchor="middle" fill="#8b949e" font-size="10">For large n, fₙ lies entirely within the ε-strip around f (all x simultaneously)</text>
+      </svg>
+      <figcaption>Figure 1 — Uniform convergence: the graph of fₙ is trapped in the ε-tube around f for all n large enough</figcaption>
+    </div>
+
+    <h3 class="sub-head">Preservation Theorems under Uniform Convergence</h3>
+    <div class="thm-box">
+      <div class="thm-label">Theorem — UC Preserves Continuity</div>
+      <div class="thm-text">If fₙ → f uniformly on D and each fₙ is continuous, then f is continuous on D.<br><br>
+      <em>Converse is false:</em> fₙ(x) = xⁿ on [0,1] — each fₙ continuous but limit f is discontinuous at 1. Convergence is NOT uniform (check: sup|fₙ(x) − f(x)| = 1 for all n).</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Theorem — UC Allows Interchange of Limits and Integrals</div>
+      <div class="thm-text">If fₙ → f uniformly on [a,b], then:<br><br>
+      lim_{n→∞} ∫_a^b fₙ(x) dx = ∫_a^b f(x) dx = ∫_a^b lim_{n→∞} fₙ(x) dx</div>
+      <div class="thm-proof">Proof: |∫fₙ − ∫f| ≤ ∫|fₙ − f| ≤ (b−a)·sup|fₙ − f| → 0.</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Theorem — UC Allows Interchange of Limits and Derivatives</div>
+      <div class="thm-text">If fₙ → f pointwise on [a,b], and fₙ are differentiable with f'ₙ → g uniformly on [a,b], then f is differentiable and f' = g:<br><br>
+      lim_{n→∞} f'ₙ(x) = (lim_{n→∞} fₙ(x))' = f'(x)</div>
+      <div class="thm-proof">Note: This requires uniform convergence of the DERIVATIVES, not of fₙ themselves.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTS -->
+<div class="sec" id="sec-tests">
+  <h2 class="sec-head">🧪 Tests for Uniform Convergence</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">M</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Criteria for Uniform Convergence</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Sup-Norm Criterion</div>
+      <div class="thm-text">fₙ → f uniformly on D iff ‖fₙ − f‖_∞ = sup_{x∈D} |fₙ(x) − f(x)| → 0.<br><br>
+      Strategy: find the pointwise limit f, compute sup_{x∈D}|fₙ(x) − f(x)|, check if → 0.</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Cauchy Criterion for Uniform Convergence</div>
+      <div class="thm-text">(fₙ) converges uniformly iff: ∀ε &gt; 0, ∃N: m,n &gt; N ⟹ sup_x |fₙ(x) − fₘ(x)| &lt; ε. This doesn't require knowing the limit explicitly.</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Dini's Theorem</div>
+      <div class="thm-text">If (fₙ) is a monotone sequence of continuous functions on a compact set K converging pointwise to a continuous function f, then fₙ → f uniformly on K.</div>
+      <div class="thm-proof">This is remarkable: pointwise convergence of MONOTONE continuous functions to continuous limit on compact set → automatically uniform. Key conditions: all four properties (monotone, continuous, compact domain, continuous limit).</div>
+    </div>
+    <h3 class="sub-head">Non-Uniform Convergence Criterion</h3>
+    <p>fₙ does NOT converge uniformly to f on D if: sup_{x∈D}|fₙ(x) − f(x)| ↛ 0, i.e., there exist xₙ ∈ D such that |fₙ(xₙ) − f(xₙ)| ≥ ε₀ &gt; 0.</p>
+    <div class="ex-box">
+      <div class="ex-label">Non-UC Example</div>
+      <div class="ex-q">Show fₙ(x) = xⁿ does NOT converge uniformly on [0,1].</div>
+      <div class="ex-sol">
+        Pointwise limit: f(x) = 0 for x∈[0,1) and f(1) = 1.<br>
+        sup_{x∈[0,1]}|fₙ(x) − f(x)| = sup_{x∈[0,1)}|xⁿ − 0| + |1 − 1| = sup_{x∈[0,1)} xⁿ = 1 (approaching 1 as x→1⁻).<br>
+        Since sup = 1 ↛ 0, convergence is NOT uniform. □<br>
+        Alternatively: limit function f is discontinuous but each fₙ is continuous → if convergence were uniform, limit would be continuous (contradiction).
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES OF FUNCTIONS -->
+<div class="sec" id="sec-series">
+  <h2 class="sec-head">∑ Series of Functions</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">∑</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">Weierstrass M-Test and Series Convergence</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Series of Functions</div>
+      <div class="def-text">Given functions fₙ: D → ℝ, the series ∑fₙ(x) converges uniformly on D if the partial sums Sₙ(x) = f₁(x) + … + fₙ(x) converge uniformly to S(x).</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Weierstrass M-Test</div>
+      <div class="thm-text">If |fₙ(x)| ≤ Mₙ for all x ∈ D and all n, and ∑Mₙ &lt; ∞ (convergent series of constants), then ∑fₙ(x) converges uniformly and absolutely on D.</div>
+      <div class="thm-proof">
+        Proof: The tail sum satisfies |∑_{k=n+1}^∞ fₖ(x)| ≤ ∑_{k=n+1}^∞ Mₖ → 0 (since ∑Mₙ &lt; ∞). This bound is uniform in x.</div>
+    </div>
+    <h3 class="sub-head">Weierstrass M-Test Applications</h3>
+    <table class="tbl">
+      <tr><th>Series ∑fₙ(x)</th><th>Domain D</th><th>Mₙ bound</th><th>Conclusion</th></tr>
+      <tr><td>∑ sin(nx)/n²</td><td>ℝ</td><td>Mₙ = 1/n² (∑1/n² = π²/6 &lt;∞)</td><td>Uniformly convergent on ℝ</td></tr>
+      <tr><td>∑ xⁿ</td><td>[−r, r], 0&lt;r&lt;1</td><td>Mₙ = rⁿ (∑rⁿ = 1/(1−r) &lt;∞)</td><td>Uniformly convergent on [−r,r]</td></tr>
+      <tr><td>∑ eˣ/n²</td><td>[0,1]</td><td>Mₙ = e/n² (∑ converges)</td><td>Uniformly convergent on [0,1]</td></tr>
+      <tr><td>∑ n·xⁿ</td><td>[0,1)</td><td>No uniform bound (Mₙ = n at x=1)</td><td>Pointwise only; NOT uniform on [0,1)</td></tr>
+    </table>
+    <div class="tip-box">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text"><strong>M-Test is sufficient but not necessary:</strong> A series can converge uniformly even when the M-test fails. Example: ∑(−1)ⁿ/n converges (alternating series) but there's no Mₙ bound with ∑Mₙ &lt; ∞. Use Dirichlet's test or Abel's test in such cases.</div>
+    </div>
+  </div>
+</div>
+
+<!-- POWER SERIES -->
+<div class="sec" id="sec-powerser">
+  <h2 class="sec-head">z^n Power Series</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">R</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Power Series and Radius of Convergence</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Power Series</div>
+      <div class="def-text">A power series centered at x₀ is: ∑_{n=0}^∞ aₙ(x − x₀)ⁿ<br><br>
+      <strong>Radius of convergence R:</strong> The series converges absolutely for |x − x₀| &lt; R and diverges for |x − x₀| &gt; R.<br>
+      R = 1/limsup |aₙ|^{1/n} = lim |aₙ/aₙ₊₁| (when this limit exists).</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Key Power Series Properties</div>
+      <div class="thm-text">
+        1. A power series converges uniformly on every compact subset [x₀−r, x₀+r] with r &lt; R.<br>
+        2. The sum function is infinitely differentiable inside the interval of convergence.<br>
+        3. Term-by-term integration and differentiation is valid inside the interval of convergence.<br>
+        4. The derived series ∑ naₙ(x−x₀)^{n-1} has the SAME radius of convergence as the original.
+      </div>
+    </div>
+    <h3 class="sub-head">Finding Radius of Convergence</h3>
+    <table class="tbl">
+      <tr><th>Power Series ∑aₙxⁿ</th><th>R (Radius)</th><th>Method</th></tr>
+      <tr><td>∑ xⁿ</td><td>R = 1</td><td>Ratio: |aₙ₊₁/aₙ| = 1</td></tr>
+      <tr><td>∑ xⁿ/n!</td><td>R = ∞</td><td>Ratio: n!/(n+1)! = 1/(n+1) → 0</td></tr>
+      <tr><td>∑ n!xⁿ</td><td>R = 0</td><td>Ratio: (n+1) → ∞</td></tr>
+      <tr><td>∑ xⁿ/n</td><td>R = 1</td><td>Root: n^{1/n} → 1</td></tr>
+      <tr><td>∑ nⁿxⁿ</td><td>R = 0</td><td>Root: n → ∞</td></tr>
+      <tr><td>∑ x^{2n}/4ⁿ</td><td>R = 2</td><td>Substitute: z = x², radius in z is 4, so |x| &lt; 2</td></tr>
+    </table>
+    <div class="thm-box">
+      <div class="thm-label">Abel's Theorem</div>
+      <div class="thm-text">If ∑aₙxⁿ has radius of convergence R and ∑aₙRⁿ converges, then lim_{x→R⁻} ∑aₙxⁿ = ∑aₙRⁿ. (The sum function is continuous at the boundary if the series converges there.)</div>
+      <div class="thm-proof">Example: ∑(−1)ⁿ⁺¹xⁿ/n = ln(1+x) for |x|&lt;1. At x=1: ∑(−1)ⁿ⁺¹/n = ln 2 (alternating harmonic). By Abel's theorem, lim_{x→1⁻} ln(1+x) = ln 2 ✓.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKED EXAMPLES -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — Uniform Convergence Test</div>
+    <div class="ex-q">Does fₙ(x) = x/(1+nx) converge uniformly on [0,∞)?</div>
+    <div class="ex-sol">
+      Pointwise limit: For x = 0: fₙ(0) = 0 → 0. For x &gt; 0: fₙ(x) = x/(1+nx) = 1/(1/x + n) → 0 as n→∞. So f(x) = 0.<br>
+      Sup-norm: sup_{x≥0}|fₙ(x) − 0| = sup_{x≥0} x/(1+nx). Let g(x) = x/(1+nx). g'(x) = (1+nx−nx)/(1+nx)² = 1/(1+nx)² &gt; 0, so g is increasing. As x→∞: g(x) → 1/n.<br>
+      sup = lim_{x→∞} x/(1+nx) = 1/n → 0. ✓<br>
+      Therefore fₙ converges uniformly to 0 on [0,∞)!<br>
+      Contrast: on [0,1], same calculation gives sup ≤ 1/n → 0. ✓ Uniform on both.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — Interchange of Limit and Integral</div>
+    <div class="ex-q">Verify that lim_{n→∞}∫₀¹ nx·e^{−nx²} dx = 0 but ∫₀¹ lim_{n→∞}[nx·e^{−nx²}] dx = 0 too. Check if uniform convergence holds.</div>
+    <div class="ex-sol">
+      fₙ(x) = nx·e^{−nx²}. Pointwise: for x &gt; 0, fₙ(x) → 0 (exponential kills nx). f₀(0) = 0.<br>
+      ∫₀¹ nx·e^{−nx²} dx = [−e^{−nx²}/2]₀¹ = (1/2)(1 − e^{−n}) → 1/2 as n → ∞.<br>
+      But ∫₀¹ f(x) dx = ∫₀¹ 0 dx = 0. So 1/2 ≠ 0!<br>
+      <strong>Conclusion:</strong> Limit and integral cannot be swapped → convergence is NOT uniform on [0,1]. Check: sup_{x∈[0,1]} fₙ(x): maximum at x = 1/√(2n) with value √(n/(2e)) → ∞. So sup → ∞ ≠ 0 — confirming non-uniform convergence.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — M-Test Application</div>
+    <div class="ex-q">Show that f(x) = ∑_{n=1}^∞ sin(nx)/n² is continuous on ℝ.</div>
+    <div class="ex-sol">
+      |sin(nx)/n²| ≤ 1/n² = Mₙ for all x ∈ ℝ.<br>
+      ∑Mₙ = ∑1/n² = π²/6 &lt; ∞.<br>
+      By Weierstrass M-test, ∑sin(nx)/n² converges uniformly on ℝ.<br>
+      Each partial sum is continuous (finite sum of continuous functions). By UC theorem, f is continuous on ℝ. □<br>
+      (Furthermore, term-by-term differentiation: f'(x) = ∑cos(nx)/n — this series needs separate verification of uniform convergence.)
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — Power Series Radius</div>
+    <div class="ex-q">Find the radius of convergence and interval of convergence of ∑_{n=1}^∞ (−1)ⁿ x²ⁿ/n.</div>
+    <div class="ex-sol">
+      Let z = x². Series becomes ∑(−1)ⁿ zⁿ/n. Ratio test: |z|·(n/(n+1)) → |z|. Converges for |z| &lt; 1, i.e., x² &lt; 1, i.e., |x| &lt; 1. Radius of convergence R = 1.<br>
+      At x = 1 (z = 1): ∑(−1)ⁿ/n = −ln 2 (alternating harmonic). Converges.<br>
+      At x = −1 (z = 1): same as above. Converges.<br>
+      <strong>Interval of convergence:</strong> [−1, 1].
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — Dini's Theorem Application</div>
+    <div class="ex-q">Let fₙ(x) = 1/(1+xⁿ) on [0,1]. Find the pointwise limit. Is convergence uniform?</div>
+    <div class="ex-sol">
+      Pointwise: For x ∈ [0,1): xⁿ → 0, so fₙ(x) → 1/(1+0) = 1. For x = 1: fₙ(1) = 1/2. For x &gt; 1 (if domain extended): fₙ(x) → 0.<br>
+      On [0,1]: limit f(x) = 1 for x∈[0,1), f(1) = 1/2.<br>
+      f is discontinuous at x = 1. Since each fₙ is continuous but limit is not, convergence is NOT uniform on [0,1].<br>
+      However, on [0, r] for r &lt; 1: fₙ → 1 uniformly (sup|fₙ(x)−1| = sup xⁿ/(1+xⁿ) ≤ rⁿ/(1−rⁿ) → 0).
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <div class="q-block" id="qb1"><div class="q-num">Question 1 of 15</div>
+    <div class="q-text">The sequence fₙ(x) = xⁿ converges on [0,1]. Its pointwise limit is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) f(x) = 0 for all x ∈ [0,1]</button>
+      <button class="opt" onclick="answer(1,'b')">B) f(x) = 1 for all x ∈ [0,1]</button>
+      <button class="opt correct-ans" onclick="answer(1,'c')">C) f(x) = 0 for x ∈ [0,1) and f(1) = 1</button>
+      <button class="opt" onclick="answer(1,'d')">D) f(x) = x for all x ∈ [0,1]</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>✓ C is correct.</strong> For x ∈ [0,1): |x| &lt; 1 so xⁿ → 0. For x = 1: 1ⁿ = 1 → 1. So f(x) = 0 on [0,1) and f(1) = 1. This limit function is DISCONTINUOUS at x = 1. Since each fₙ is continuous but f is not, convergence cannot be uniform on [0,1].</div>
+  </div>
+
+  <div class="q-block" id="qb2"><div class="q-num">Question 2 of 15</div>
+    <div class="q-text">Uniform convergence of fₙ to f can be characterized by:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) fₙ(x) → f(x) for each fixed x</button>
+      <button class="opt correct-ans" onclick="answer(2,'b')">B) sup_{x∈D}|fₙ(x) − f(x)| → 0 as n → ∞</button>
+      <button class="opt" onclick="answer(2,'c')">C) fₙ is Cauchy in the pointwise sense</button>
+      <button class="opt" onclick="answer(2,'d')">D) ∫fₙ(x) dx → ∫f(x) dx</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>✓ B is correct.</strong> Uniform convergence ⟺ ‖fₙ − f‖_∞ = sup_x|fₙ(x)−f(x)| → 0. This is the sup-norm criterion. A is only pointwise convergence. D is a consequence of uniform convergence (for bounded domains) but not characterization. B is the precise definition of UC.</div>
+  </div>
+
+  <div class="q-block" id="qb3"><div class="q-num">Question 3 of 15</div>
+    <div class="q-text">If fₙ are continuous and fₙ → f uniformly, then:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(3,'a')">A) f need not be continuous</button>
+      <button class="opt correct-ans" onclick="answer(3,'b')">B) f is continuous</button>
+      <button class="opt" onclick="answer(3,'c')">C) f is differentiable</button>
+      <button class="opt" onclick="answer(3,'d')">D) f is monotone</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>✓ B is correct.</strong> Uniform convergence of continuous functions → continuous limit. Proof: |f(x)−f(c)| ≤ |f(x)−fₙ(x)| + |fₙ(x)−fₙ(c)| + |fₙ(c)−f(c)| — use UC for first and third terms (&lt;ε/3 each), continuity of fₙ for middle term. This is the fundamental preservation theorem. A is wrong — the whole point of UC is that continuity IS preserved.</div>
+  </div>
+
+  <div class="q-block" id="qb4"><div class="q-num">Question 4 of 15</div>
+    <div class="q-text">The Weierstrass M-test for ∑fₙ(x) requires:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) fₙ → 0 pointwise</button>
+      <button class="opt correct-ans" onclick="answer(4,'b')">B) |fₙ(x)| ≤ Mₙ for all x and ∑Mₙ &lt; ∞</button>
+      <button class="opt" onclick="answer(4,'c')">C) fₙ are all differentiable</button>
+      <button class="opt" onclick="answer(4,'d')">D) fₙ are monotone decreasing</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>✓ B is correct.</strong> Weierstrass M-test: find constants Mₙ ≥ |fₙ(x)| for all x, with ∑Mₙ convergent. Then ∑fₙ(x) converges uniformly and absolutely on D. The key is that the bounding constants Mₙ do NOT depend on x — they are uniform bounds.</div>
+  </div>
+
+  <div class="q-block" id="qb5"><div class="q-num">Question 5 of 15</div>
+    <div class="q-text">The radius of convergence of ∑ xⁿ/n! is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(5,'a')">A) 0</button>
+      <button class="opt" onclick="answer(5,'b')">B) 1</button>
+      <button class="opt correct-ans" onclick="answer(5,'c')">C) ∞</button>
+      <button class="opt" onclick="answer(5,'d')">D) e</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>✓ C is correct.</strong> aₙ = 1/n!. Ratio test: |aₙ₊₁/aₙ| = n!/(n+1)! = 1/(n+1) → 0. So R = 1/0 = ∞. This is the exponential series eˣ = ∑xⁿ/n!, which converges for all x ∈ ℝ. Root test: (1/n!)^{1/n} → 0 also gives R = ∞.</div>
+  </div>
+
+  <div class="q-block" id="qb6"><div class="q-num">Question 6 of 15</div>
+    <div class="q-text">If fₙ → f uniformly on [a,b] and each fₙ is Riemann integrable, then:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(6,'a')">A) f might not be integrable</button>
+      <button class="opt correct-ans" onclick="answer(6,'b')">B) lim ∫_a^b fₙ = ∫_a^b f</button>
+      <button class="opt" onclick="answer(6,'c')">C) ∫_a^b fₙ is constant for all n</button>
+      <button class="opt" onclick="answer(6,'d')">D) f is differentiable on (a,b)</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>✓ B is correct.</strong> Uniform convergence allows interchange of limit and integral: lim∫fₙ = ∫limfₙ = ∫f. Proof: |∫fₙ−∫f| ≤ ∫|fₙ−f| ≤ (b−a)·sup|fₙ−f| → 0. A is wrong (uniform limit of integrable functions is integrable). This is one of the key applications of uniform convergence.</div>
+  </div>
+
+  <div class="q-block" id="qb7"><div class="q-num">Question 7 of 15</div>
+    <div class="q-text">The series ∑_{n=1}^∞ sin(nx)/n² converges uniformly on ℝ because:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(7,'a')">A) sin(nx) → 0 for all x</button>
+      <button class="opt correct-ans" onclick="answer(7,'b')">B) |sin(nx)/n²| ≤ 1/n² and ∑1/n² &lt; ∞ (M-test)</button>
+      <button class="opt" onclick="answer(7,'c')">C) The partial sums are monotone</button>
+      <button class="opt" onclick="answer(7,'d')">D) Each term is bounded and monotone</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>✓ B is correct.</strong> This is a direct application of the Weierstrass M-test. Mₙ = 1/n², and ∑1/n² = π²/6 &lt; ∞. Since |sin(nx)/n²| ≤ 1/n² for all x, the M-test gives uniform and absolute convergence on all of ℝ.</div>
+  </div>
+
+  <div class="q-block" id="qb8"><div class="q-num">Question 8 of 15</div>
+    <div class="q-text">Dini's Theorem guarantees uniform convergence when:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(8,'a')">A) fₙ are differentiable and increasing</button>
+      <button class="opt correct-ans" onclick="answer(8,'b')">B) fₙ monotone, continuous on compact K, with pointwise limit continuous</button>
+      <button class="opt" onclick="answer(8,'c')">C) fₙ are bounded and converge in L² norm</button>
+      <button class="opt" onclick="answer(8,'d')">D) fₙ satisfy the M-test condition</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>✓ B is correct.</strong> Dini's Theorem: monotone sequence of continuous functions on compact set K, with continuous pointwise limit → convergence is automatically uniform. All four conditions are necessary: (1) monotone, (2) each fₙ continuous, (3) compact domain, (4) limit function continuous. Drop any one and Dini fails.</div>
+  </div>
+
+  <div class="q-block" id="qb9"><div class="q-num">Question 9 of 15</div>
+    <div class="q-text">The radius of convergence of ∑ n!xⁿ is:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(9,'a')">A) 0</button>
+      <button class="opt" onclick="answer(9,'b')">B) 1</button>
+      <button class="opt" onclick="answer(9,'c')">C) ∞</button>
+      <button class="opt" onclick="answer(9,'d')">D) e</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>✓ A is correct.</strong> Ratio test: |aₙ₊₁/aₙ| = (n+1)!/n! = n+1 → ∞. So 1/R = ∞, meaning R = 0. The series only converges at x = 0. This is the opposite extreme from ∑xⁿ/n! (R=∞). Factorial growth of coefficients → R = 0.</div>
+  </div>
+
+  <div class="q-block" id="qb10"><div class="q-num">Question 10 of 15</div>
+    <div class="q-text">For uniform convergence of fₙ to f on D, which does NOT hold?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(10,'a')">A) N can be chosen independently of x</button>
+      <button class="opt" onclick="answer(10,'b')">B) The entire graph of fₙ is within ε of f's graph</button>
+      <button class="opt" onclick="answer(10,'c')">C) Pointwise convergence is implied</button>
+      <button class="opt correct-ans" onclick="answer(10,'d')">D) Differentiation can always be passed through the limit</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>✓ D is NOT guaranteed.</strong> Uniform convergence of fₙ does NOT automatically allow term-by-term differentiation. For that, you need uniform convergence of the DERIVATIVES f'ₙ (not fₙ). Example: fₙ(x) = sin(nx)/n → 0 uniformly, but f'ₙ(x) = cos(nx) does not converge. A, B, C all follow from uniform convergence.</div>
+  </div>
+
+  <div class="q-block" id="qb11"><div class="q-num">Question 11 of 15</div>
+    <div class="q-text">The power series ∑ xⁿ/n converges at x = −1 but diverges at x = 1. By Abel's theorem:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(11,'a')">A) lim_{x→(−1)⁺} ∑xⁿ/n = ∑(−1)ⁿ/n = −ln 2</button>
+      <button class="opt" onclick="answer(11,'b')">B) The series converges uniformly on [−1,1]</button>
+      <button class="opt" onclick="answer(11,'c')">C) The series diverges at all boundary points</button>
+      <button class="opt" onclick="answer(11,'d')">D) lim_{x→1⁻} ∑xⁿ/n = ∞</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>✓ A is correct.</strong> ∑xⁿ/n = −ln(1−x) for |x| &lt; 1. At x = −1: ∑(−1)ⁿ/n = −ln 2 (alternating harmonic series). By Abel's theorem, since the series converges at x = −1, the sum is continuous there: lim_{x→(−1)⁺} (−ln(1−x)) = −ln(2) = ∑(−1)ⁿ/n. At x=1, diverges (harmonic series), confirming lim = ∞ is approached.</div>
+  </div>
+
+  <div class="q-block" id="qb12"><div class="q-num">Question 12 of 15</div>
+    <div class="q-text">If fₙ → f pointwise and the convergence is NOT uniform, which can still hold?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(12,'a')">A) f is always continuous if fₙ are</button>
+      <button class="opt correct-ans" onclick="answer(12,'b')">B) lim∫fₙ may or may not equal ∫f (depends on specific case)</button>
+      <button class="opt" onclick="answer(12,'c')">C) Term-by-term differentiation is valid</button>
+      <button class="opt" onclick="answer(12,'d')">D) The limit can be swapped with integral in all cases</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>✓ B is correct.</strong> Without uniform convergence, there's no guarantee about interchanging limits with integrals or derivatives. But it MIGHT still hold for specific examples. A is wrong (limit can be discontinuous). C is wrong (fails without UC of derivatives). D is wrong (fails without additional conditions). For non-UC, one needs Dominated Convergence Theorem (Lebesgue theory) or other stronger tools.</div>
+  </div>
+
+  <div class="q-block" id="qb13"><div class="q-num">Question 13 of 15</div>
+    <div class="q-text">The series ∑ 1/(n² + x²) converges uniformly on ℝ because:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(13,'a')">A) Each term → 0 as x → ∞</button>
+      <button class="opt correct-ans" onclick="answer(13,'b')">B) 1/(n²+x²) ≤ 1/n² and ∑1/n² converges (M-test)</button>
+      <button class="opt" onclick="answer(13,'c')">C) The series is alternating</button>
+      <button class="opt" onclick="answer(13,'d')">D) Each term is a continuous function</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>✓ B is correct.</strong> n² + x² ≥ n² for all x ∈ ℝ, so 1/(n²+x²) ≤ 1/n². Since ∑1/n² = π²/6 &lt; ∞, M-test applies: ∑1/(n²+x²) converges uniformly and absolutely on ℝ. The sum is a continuous function of x (uniform limit of continuous functions).</div>
+  </div>
+
+  <div class="q-block" id="qb14"><div class="q-num">Question 14 of 15</div>
+    <div class="q-text">A power series ∑aₙxⁿ with radius R > 0 converges uniformly on:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) The open interval (−R, R)</button>
+      <button class="opt correct-ans" onclick="answer(14,'b')">B) Every closed interval [−r, r] with 0 &lt; r &lt; R</button>
+      <button class="opt" onclick="answer(14,'c')">C) The entire real line ℝ</button>
+      <button class="opt" onclick="answer(14,'d')">D) Only the endpoints ±R</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>✓ B is correct.</strong> A power series converges uniformly on every compact (closed bounded) subinterval [−r, r] with r &lt; R. On the open interval (−R, R), convergence is absolute but may not be uniform (the supremum could be attained in the limit as x → R). At the endpoints ±R, convergence must be checked separately (can converge or diverge).</div>
+  </div>
+
+  <div class="q-block" id="qb15"><div class="q-num">Question 15 of 15</div>
+    <div class="q-text">The series f(x) = ∑_{n=0}^∞ xⁿ for |x| &lt; 1 equals 1/(1−x). By term-by-term differentiation:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(15,'a')">A) f'(x) = ∑ xⁿ = 1/(1−x)</button>
+      <button class="opt correct-ans" onclick="answer(15,'b')">B) f'(x) = ∑_{n=1}^∞ nxⁿ⁻¹ = 1/(1−x)²</button>
+      <button class="opt" onclick="answer(15,'c')">C) f'(x) = 1/(1−x)³</button>
+      <button class="opt" onclick="answer(15,'d')">D) Differentiation is not valid here</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>✓ B is correct.</strong> Inside the radius of convergence, term-by-term differentiation is valid: d/dx[∑xⁿ] = ∑nxⁿ⁻¹ (geometric series for derivative). Alternatively: d/dx[1/(1−x)] = 1/(1−x)². The derived series has the same radius of convergence R = 1. At each step of differentiation: ∑n(n-1)xⁿ⁻² = 2/(1−x)³, etc.</div>
+  </div>
+
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button><br><br>
+    <a href="CSIR_NET_U1_T08_RiemannIntegral.html" style="display:inline-block;margin-top:8px;background:rgba(210,168,255,.15);color:var(--purple);border:1px solid rgba(210,168,255,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next: Riemann Integral →</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+  <div class="summary-grid">
+    <div class="summary-item"><h4>Pointwise vs Uniform</h4><ul><li>Pointwise: N depends on x and ε</li><li>Uniform: N depends only on ε (same for all x)</li><li>UC ⟹ Pointwise (not converse)</li><li>UC ⟺ ‖fₙ−f‖_∞ → 0</li><li>fₙ = xⁿ on [0,1]: pointwise but NOT uniform</li></ul></div>
+    <div class="summary-item"><h4>Preservation Theorems</h4><ul><li>UC + continuous fₙ ⟹ continuous f</li><li>UC ⟹ lim∫fₙ = ∫limfₙ</li><li>Uniform conv. of f'ₙ (+ ptwise fₙ) ⟹ (limfₙ)' = limf'ₙ</li><li>Dini: monotone + cts + compact + cts limit ⟹ UC</li></ul></div>
+    <div class="summary-item"><h4>Series of Functions</h4><ul><li>M-test: |fₙ|≤Mₙ, ∑Mₙ&lt;∞ ⟹ uniform + absolute conv.</li><li>∑sin(nx)/n²: UC on ℝ (Mₙ=1/n²)</li><li>Power series: UC on compact subsets of (−R,R)</li><li>Derived series has same radius R</li><li>Abel's theorem: continuity at boundary if convergent</li></ul></div>
+    <div class="summary-item"><h4>CSIR Exam Tips</h4><ul><li>Check sup|fₙ−f| → 0 to verify UC</li><li>Discontinuous limit ⟹ convergence NOT uniform</li><li>Radius of convergence: ratio test or root test</li><li>∑1/n²: use for M-test bound</li><li>Exchange lim and integral needs UC (or Lebesgue DCT)</li></ul></div>
+  </div>
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_U1_T06_Differentiability.html">← Differentiability</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T08_RiemannIntegral.html">Next: Riemann Integral →</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+let answered=0,correct=0,wrong=0;
+const correctAns={1:'c',2:'b',3:'b',4:'b',5:'c',6:'b',7:'b',8:'b',9:'a',10:'d',11:'a',12:'b',13:'b',14:'b',15:'b'};
+function answer(qn,chosen){const block=document.getElementById('qb'+qn);if(block.classList.contains('correct')||block.classList.contains('wrong'))return;const opts=block.querySelectorAll('.opt');opts.forEach(o=>o.disabled=true);const isCorrect=(chosen===correctAns[qn]);if(isCorrect){block.classList.add('correct');correct++;}else{block.classList.add('wrong');wrong++;}const letters=['a','b','c','d'];opts.forEach((o,i)=>{if(letters[i]===correctAns[qn])o.classList.add('correct');else if(letters[i]===chosen&&!isCorrect)o.classList.add('wrong');});document.getElementById('exp'+qn).classList.add('show',isCorrect?'exp-correct':'exp-wrong');answered++;document.getElementById('score-display').textContent=`Score: ${correct} / 15`;document.getElementById('qpfill').style.width=(answered/15*100)+'%';if(answered===15)showScore();}
+function showScore(){setTimeout(()=>{const sc=document.getElementById('score-card');sc.classList.add('show');document.getElementById('final-score').textContent=correct;document.getElementById('sc-correct').textContent=correct;document.getElementById('sc-wrong').textContent=wrong;const pct=Math.round(correct/15*100);let msg='Review the UC definition and M-test carefully.';if(pct>=80)msg='Excellent! Strong understanding of uniform convergence.';else if(pct>=60)msg='Good! Practice more sup-norm computations.';document.getElementById('sc-msg').textContent=msg;sc.scrollIntoView({behavior:'smooth'});},600);}
+function resetQuiz(){answered=0;correct=0;wrong=0;document.getElementById('score-display').textContent='Score: 0 / 15';document.getElementById('qpfill').style.width='0%';document.getElementById('score-card').classList.remove('show');for(let i=1;i<=15;i++){const b=document.getElementById('qb'+i);b.classList.remove('correct','wrong');b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});document.getElementById('exp'+i).classList.remove('show','exp-correct','exp-wrong');}document.getElementById('qb1').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

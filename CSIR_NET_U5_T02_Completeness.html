@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T02 · Completeness & Baire Category</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T02 · Completeness & Baire Category</span>
+  <span class="hdr-badge">Topology</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('complete',this)">Complete Metric Spaces</a>
+  <a class="nav-item" onclick="show('baire',this)">Baire Category Theorem</a>
+  <a class="nav-item" onclick="show('compact',this)">Totally Bounded & Compact</a>
+  <a class="nav-item" onclick="show('contraction',this)">Contraction Mapping</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T01_MetricSpaces.html">← T01 · Metric Spaces</a>
+  <a class="nav-item" href="CSIR_NET_U5_T03_Compactness.html">T03 · Compactness →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 02</div>
+    <div class="hero-title">Completeness & Baire Category</div>
+    <div class="hero-sub">Complete spaces · Cauchy sequences · Baire category theorem · Contraction mapping</div>
+    <div class="hero-chips">
+      <span class="chip">Complete Spaces</span>
+      <span class="chip">Cauchy Sequences</span>
+      <span class="chip">Baire Category</span>
+      <span class="chip">Nowhere Dense</span>
+      <span class="chip">Banach Fixed Point</span>
+      <span class="chip">Completion</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Completeness — the property that every Cauchy sequence converges — is one of the most fundamental properties of metric spaces. The Baire Category Theorem is a powerful tool saying complete metric spaces cannot be "small", with applications to functional analysis, measure theory, and descriptive set theory.</p>
+</div>
+
+<div class="sec" id="complete">
+  <h2>Complete Metric Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Complete Metric Space</div>
+    <p>A metric space (X,d) is <strong>complete</strong> if every Cauchy sequence in X converges to a point of X.</p>
+    <p>Recall: (xₙ) is Cauchy iff ∀ε>0, ∃N: m,n≥N ⟹ d(xₙ,xₘ)<ε.</p>
+  </div>
+  <h3>Key Examples</h3>
+  <table>
+    <tr><th>Space</th><th>Complete?</th><th>Reason / Completion</th></tr>
+    <tr><td>ℝ (usual metric)</td><td>Yes</td><td>Completeness axiom of ℝ</td></tr>
+    <tr><td>ℝⁿ</td><td>Yes</td><td>Componentwise convergence</td></tr>
+    <tr><td>ℚ (usual metric)</td><td>No</td><td>Cauchy seq 1, 1.4, 1.41,…→√2∉ℚ; completion is ℝ</td></tr>
+    <tr><td>C[a,b] (sup norm)</td><td>Yes</td><td>Uniform Cauchy ⟹ uniform limit is continuous</td></tr>
+    <tr><td>(0,1) with |x−y|</td><td>No</td><td>xₙ=1/n is Cauchy but 0∉(0,1); completion is [0,1]</td></tr>
+    <tr><td>ℓ² (square-summable)</td><td>Yes</td><td>Hilbert space; proof via diagonal argument</td></tr>
+    <tr><td>Discrete metric on X</td><td>Yes</td><td>Every Cauchy seq is eventually constant</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Nested Sets / Cantor Intersection Theorem</div>
+    <p>(X,d) complete iff: for every sequence of non-empty closed sets F₁⊇F₂⊇… with diam(Fₙ)→0, we have ⋂Fₙ = {single point}.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Completion</div>
+    <p>Every metric space (X,d) has a completion (X̃, d̃) — a complete metric space containing X as a dense subspace. The completion is unique up to isometry. Example: ℝ is the completion of ℚ.</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Completeness is NOT Topological</div>
+    <p>Completeness depends on the metric, not just the topology. (0,1) and ℝ are homeomorphic but (0,1) is incomplete and ℝ is complete. However: a <em>Gδ subset of a complete space is completely metrizable</em> (Alexandrov's theorem).</p>
+  </div>
+</div>
+
+<div class="sec" id="baire">
+  <h2>Baire Category Theorem</h2>
+  <div class="def-box">
+    <div class="lbl">Nowhere Dense / Category Definitions</div>
+    <p>A set A ⊆ X is <strong>nowhere dense</strong> if int(cl(A)) = ∅ (its closure has empty interior).</p>
+    <p>A is <strong>meager</strong> (or first category) if it is a countable union of nowhere dense sets.</p>
+    <p>A is <strong>comeager</strong> (or second category / residual) if X \ A is meager.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Baire Category Theorem</div>
+    <p>If X is a complete metric space (or a locally compact Hausdorff space), then:</p>
+    <p><strong>X is not meager in itself</strong>: X cannot be written as a countable union of nowhere dense sets.</p>
+    <p>Equivalently: <strong>a countable intersection of dense open sets is dense</strong>.</p>
+  </div>
+  <h3>Applications</h3>
+  <div class="proof-box">
+    <div class="lbl">Application 1: ℝ is uncountable</div>
+    <p>If ℝ = {x₁, x₂,…}, then ℝ = ⋃{xₙ}, each singleton {xₙ} nowhere dense. But ℝ is complete, so by BCT it cannot be a countable union of nowhere dense sets. Contradiction.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Application 2: Continuous nowhere differentiable functions exist</div>
+    <p>The set of functions in C[0,1] differentiable at some point is meager. Hence "most" (comeager set of) continuous functions are nowhere differentiable.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Application 3: Uniform Boundedness (Banach-Steinhaus)</div>
+    <p>If {Tₙ} are continuous linear maps on Banach space X with sup_n |Tₙ(x)| < ∞ for each x, then sup_n ‖Tₙ‖ < ∞.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Key Corollary</div>
+    <p>In a complete metric space X, every comeager set is dense. So if Gₙ are open dense sets, then ⋂Gₙ is dense in X.</p>
+  </div>
+</div>
+
+<div class="sec" id="compact">
+  <h2>Totally Bounded & Compact</h2>
+  <div class="def-box">
+    <div class="lbl">Totally Bounded</div>
+    <p>(X,d) is <strong>totally bounded</strong> if for every ε>0, X can be covered by finitely many balls of radius ε.</p>
+    <p>Every totally bounded metric space is bounded, but the converse fails (e.g., infinite-dimensional unit ball).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Characterization of Compact Metric Spaces</div>
+    <p>A metric space (X,d) is compact iff it is <strong>complete AND totally bounded</strong>.</p>
+    <p>Equivalently: compact iff every sequence has a convergent subsequence (sequentially compact).</p>
+    <p>In ℝⁿ: compact ↔ closed and bounded (Heine-Borel).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Sequential Compactness</div>
+    <p>In metric spaces, compactness, sequential compactness, and countable compactness are all equivalent.</p>
+  </div>
+</div>
+
+<div class="sec" id="contraction">
+  <h2>Contraction Mapping Theorem</h2>
+  <div class="def-box">
+    <div class="lbl">Contraction</div>
+    <p>f: X→X is a <strong>contraction</strong> (with constant k<1) if:</p>
+    <div class="formula">d(f(x), f(y)) ≤ k · d(x,y)   for all x,y∈X,  0≤k<1</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Banach Fixed Point Theorem (Contraction Mapping Theorem)</div>
+    <p>If (X,d) is a <strong>complete</strong> metric space and f: X→X is a contraction with constant k<1, then:</p>
+    <ol>
+      <li>f has a <strong>unique fixed point</strong> x* (f(x*)=x*).</li>
+      <li>For any x₀∈X, the sequence x_{n+1} = f(xₙ) converges to x*.</li>
+      <li><strong>Error estimate:</strong> d(xₙ, x*) ≤ kⁿ/(1−k) · d(x₁,x₀).</li>
+    </ol>
+  </div>
+  <h3>Applications</h3>
+  <ul>
+    <li><strong>Existence of ODE solutions:</strong> Picard-Lindelöf theorem — the Picard iteration is a contraction on C[t₀−h, t₀+h].</li>
+    <li><strong>Newton's method:</strong> convergence near a simple root.</li>
+    <li><strong>Implicit Function Theorem:</strong> proof uses Banach fixed point.</li>
+    <li><strong>Integral equations:</strong> Volterra equation solutions via iteration.</li>
+  </ul>
+  <div class="info-box">
+    <div class="lbl">Lipschitz vs Contraction</div>
+    <p>f is <strong>Lipschitz</strong> if d(f(x),f(y)) ≤ L·d(x,y) for some L (not necessarily <1). Contractions are Lipschitz with L<1. Lipschitz maps are uniformly continuous.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">A metric space (X,d) is complete iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Every sequence in X converges</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Every Cauchy sequence converges in X</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> X is bounded</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> X is compact</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Which of the following metric spaces is NOT complete?</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> ℝ with usual metric</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> ℚ with usual metric</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> C[0,1] with sup norm</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> ℝⁿ with Euclidean metric</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">A set A in a metric space is nowhere dense iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> A is closed</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> int(cl(A)) = ∅</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> A is a singleton</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> A is countable</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Baire Category Theorem states that a complete metric space:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Has finite covering dimension</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Cannot be written as a countable union of nowhere dense sets</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Is always compact</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Has a countable dense subset</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Banach Fixed Point Theorem requires f: X→X to be a contraction on a:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Bounded metric space</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Complete metric space</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Compact metric space</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Discrete metric space</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">A compact metric space is always:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Complete</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Only totally bounded</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Nowhere dense</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Uncountable</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">A metric space is compact iff it is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Complete and bounded</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Complete and totally bounded</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Totally bounded only</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Complete only</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The sequence xₙ = 1/n in (0,1) with the usual metric is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Convergent in (0,1)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Cauchy but not convergent in (0,1)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Not a Cauchy sequence</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Bounded but not Cauchy</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">If f: X→X is a contraction with constant k=0.5 and d(x₁,x₀)=2, the error d(x₁,x*)≤:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> 1</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 2</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> 4</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 0.5</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Which of the following is a meager (first category) set in ℝ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> ℝ itself</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Any open interval (a,b)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> ℚ (countable union of singletons, each nowhere dense)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> ℝ\ℚ</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">By the Cantor Intersection Theorem, in a complete metric space, ⋂Fₙ is non-empty when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Fₙ are open and nested</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Fₙ are closed, nested (F₁⊇F₂⊇…), and diam(Fₙ)→0</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Fₙ are closed and bounded</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Fₙ are non-empty open sets</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">A totally bounded metric space (X,d) satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> X is compact</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> For each ε>0, X is covered by finitely many ε-balls</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Every sequence in X converges</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> X is complete</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The Baire Category Theorem implies ℝ is uncountable because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> ℝ has cardinality 2^ℵ₀</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> If countable, ℝ=⋃singletons, each nowhere dense, contradicting BCT</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> ℝ contains irrationals</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> ℝ is not a field</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The completion of ℚ under the usual metric is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> ℤ</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> ℝ</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> ℂ</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> ℚ itself</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">A contraction f on a complete metric space has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> No fixed points</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> At least one fixed point</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Exactly one fixed point</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Infinitely many fixed points</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><div class="sum-icon">✓</div><h4>Completeness</h4><p>Every Cauchy sequence converges. ℝⁿ, C[a,b], ℓᵖ are complete. ℚ and (0,1) are not.</p></div>
+    <div class="sum-card"><div class="sum-icon">∅</div><h4>Nowhere Dense</h4><p>int(cl(A))=∅. Meager = countable union of nowhere dense sets. BCT: complete ≠ meager.</p></div>
+    <div class="sum-card"><div class="sum-icon">BCT</div><h4>Baire Category</h4><p>Complete metric spaces are second category. Countable intersection of dense open sets is dense.</p></div>
+    <div class="sum-card"><div class="sum-icon">∩</div><h4>Cantor Intersection</h4><p>Closed nested Fₙ with diam→0 in complete space gives unique intersection point.</p></div>
+    <div class="sum-card"><div class="sum-icon">k</div><h4>Contraction</h4><p>d(f(x),f(y))≤k·d(x,y), k<1. Unique fixed point. Error: kⁿ/(1−k)·d(x₁,x₀).</p></div>
+    <div class="sum-card"><div class="sum-icon">●</div><h4>Compact ↔</div><p>Complete + totally bounded. In ℝⁿ: closed + bounded. Every compact space is complete.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U5_T01_MetricSpaces.html">← T01: Metric Spaces</a>
+    <a class="btn btn-acc" href="CSIR_NET_U5_T03_Compactness.html">T03: Compactness →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'a',7:'b',8:'b',9:'b',10:'c',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'A metric space is complete iff every Cauchy sequence converges to a point IN X. Not every sequence needs to converge — just Cauchy ones.',
+  2:'ℚ is not complete: the sequence 1, 1.4, 1.41, 1.414,… of rational approximations to √2 is Cauchy but its limit √2 is not in ℚ.',
+  3:'A is nowhere dense iff int(cl(A))=∅: the closure of A has no interior. Equivalently, A is dense in no open set.',
+  4:'Baire Category Theorem: a complete metric space (or locally compact Hausdorff space) is of second category — it cannot be expressed as a countable union of nowhere dense (meager) sets.',
+  5:'Banach Fixed Point Theorem requires X to be a COMPLETE metric space. Then any contraction f:X→X with k<1 has a unique fixed point.',
+  6:'Every compact metric space is complete (compact ⟹ every sequence has a convergent subsequence ⟹ Cauchy sequences converge). It is also totally bounded.',
+  7:'In a metric space: compact ⟺ complete AND totally bounded. Note: "bounded" alone is not enough (need "totally bounded", which is stronger in infinite dimensions).',
+  8:'xₙ=1/n→0 is Cauchy (|1/m−1/n|→0) but 0∉(0,1). So (0,1) is not complete. The sequence is Cauchy in ℝ but its limit is outside (0,1).',
+  9:'Error estimate: d(xₙ,x*)≤kⁿ/(1−k)·d(x₁,x₀). For n=1: k¹/(1−k)·d(x₁,x₀)=0.5/0.5·2=2. So d(x₁,x*)≤2.',
+  10:'ℚ=⋃{qₙ} where each singleton {qₙ} is closed and nowhere dense (any open interval contains irrationals). So ℚ is a countable union of nowhere dense sets, hence meager.',
+  11:'Cantor Intersection Theorem: in a complete metric space, if F₁⊇F₂⊇… are non-empty closed sets with diam(Fₙ)→0, then ⋂Fₙ contains exactly one point.',
+  12:'X is totally bounded iff for every ε>0, there exist finitely many points x₁,…,xₙ such that X=B(x₁,ε)∪…∪B(xₙ,ε).',
+  13:'If ℝ were countable: ℝ=⋃{xₙ}. Each singleton {xₙ} is closed and nowhere dense. So ℝ would be meager (first category). But BCT says a complete metric space is second category — contradiction.',
+  14:'The completion of ℚ (making every Cauchy sequence converge) is ℝ. This is essentially the Dedekind/Cauchy construction of the real numbers.',
+  15:'By the Banach Fixed Point Theorem, a contraction on a complete metric space has EXACTLY ONE fixed point (existence from iteration converging; uniqueness from d(f(x*),f(y*))=d(x*,y*)≤k·d(x*,y*) and k<1 forces d(x*,y*)=0).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

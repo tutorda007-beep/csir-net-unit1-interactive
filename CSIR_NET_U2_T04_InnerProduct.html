@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T04 · Inner Product Spaces & Spectral Theorem</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0e7490;--acc2:#0891b2;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(14,116,144,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(14,116,144,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(14,116,144,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#ecfeff,#cffafe,#a5f3fc)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(14,116,144,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(14,116,144,.08);color:var(--acc);font-weight:600;border:1px solid rgba(14,116,144,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#b45309;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T04 · Inner Product Spaces & Spectral Theorem</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('ip',this)">Inner Products</a>
+  <a class="nav-item" onclick="show('orth',this)">Orthogonality</a>
+  <a class="nav-item" onclick="show('gs',this)">Gram-Schmidt Process</a>
+  <a class="nav-item" onclick="show('proj',this)">Orthogonal Projections</a>
+  <a class="nav-item" onclick="show('spec',this)">Spectral Theorem</a>
+  <a class="nav-item" onclick="show('adj',this)">Adjoint Operators</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 2 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U2_T03_Eigenvalues.html">T03 · Eigenvalues</a>
+  <a class="nav-item" href="CSIR_NET_U2_T05_BilinearForms.html">T05 · Bilinear Forms</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 04</div>
+    <div class="hero-title">Inner Product Spaces & Spectral Theorem</div>
+    <div class="hero-sub">Gram-Schmidt · Orthogonal Bases · Projections · Spectral Theorem</div>
+    <div class="hero-chips">
+      <span class="chip">Inner Product</span>
+      <span class="chip">Cauchy-Schwarz</span>
+      <span class="chip">Orthonormal Basis</span>
+      <span class="chip">Gram-Schmidt</span>
+      <span class="chip">Orthogonal Projection</span>
+      <span class="chip">Spectral Theorem</span>
+      <span class="chip">Normal Matrix</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>An <strong>inner product</strong> adds geometry (angles and lengths) to a vector space. The Gram-Schmidt process constructs orthonormal bases from any basis, and the Spectral Theorem reveals that symmetric (and more generally normal) matrices have a beautiful orthogonal diagonalization.</p>
+</div>
+
+<!-- INNER PRODUCTS -->
+<div class="sec" id="ip">
+  <h2>Inner Products</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Inner Product (Real)</div>
+    <p>A real <strong>inner product</strong> on V is ⟨·,·⟩: V×V → ℝ satisfying:</p>
+    <ol>
+      <li><strong>Symmetry:</strong> ⟨u,v⟩ = ⟨v,u⟩</li>
+      <li><strong>Bilinearity:</strong> ⟨αu+βv,w⟩ = α⟨u,w⟩ + β⟨v,w⟩</li>
+      <li><strong>Positive definiteness:</strong> ⟨v,v⟩ ≥ 0, with ⟨v,v⟩ = 0 iff v = 0</li>
+    </ol>
+    <p>Induced norm: ‖v‖ = √⟨v,v⟩. Distance: d(u,v) = ‖u−v‖.</p>
+  </div>
+  <h3>Standard Inner Products</h3>
+  <table>
+    <tr><th>Space</th><th>Inner Product ⟨u,v⟩</th><th>Norm</th></tr>
+    <tr><td>ℝⁿ (dot product)</td><td>u·v = Σuᵢvᵢ</td><td>‖u‖₂ = √(Σuᵢ²)</td></tr>
+    <tr><td>ℂⁿ (Hermitian)</td><td>Σuᵢv̄ᵢ</td><td>‖u‖₂ = √(Σ|uᵢ|²)</td></tr>
+    <tr><td>C[a,b]</td><td>∫ₐᵇ f(x)g(x)dx</td><td>‖f‖₂ = √(∫|f|²)</td></tr>
+    <tr><td>Mₙ(ℝ)</td><td>tr(AᵀB) = ΣᵢⱼAᵢⱼBᵢⱼ</td><td>‖A‖_F (Frobenius)</td></tr>
+    <tr><td>L²[a,b]</td><td>∫ₐᵇ f(x)g(x)dx</td><td>‖f‖₂</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Cauchy-Schwarz Inequality</div>
+    <div class="formula">|⟨u,v⟩| ≤ ‖u‖ · ‖v‖</div>
+    <p>Equality holds iff u and v are linearly dependent. Consequence: the angle θ between u and v is well-defined by cos θ = ⟨u,v⟩/(‖u‖‖v‖).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Parallelogram Law</div>
+    <div class="formula">‖u+v‖² + ‖u−v‖² = 2(‖u‖² + ‖v‖²)</div>
+    <p>A norm comes from an inner product iff the parallelogram law holds.</p>
+  </div>
+</div>
+
+<!-- ORTHOGONALITY -->
+<div class="sec" id="orth">
+  <h2>Orthogonality</h2>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p><strong>Orthogonal:</strong> u ⊥ v if ⟨u,v⟩ = 0. Generalized Pythagorean theorem: u⊥v ⟹ ‖u+v‖² = ‖u‖² + ‖v‖².</p>
+    <p><strong>Orthogonal set:</strong> {v₁,...,vₖ} with ⟨vᵢ,vⱼ⟩ = 0 for i≠j.</p>
+    <p><strong>Orthonormal set:</strong> orthogonal + unit vectors: ⟨vᵢ,vⱼ⟩ = δᵢⱼ (Kronecker delta).</p>
+    <p><strong>Orthogonal complement:</strong> W⊥ = {v : ⟨v,w⟩=0 for all w ∈ W}.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Theorems</div>
+    <ul>
+      <li>Any orthogonal set of non-zero vectors is linearly independent</li>
+      <li>If {e₁,...,eₙ} is orthonormal basis: v = Σ⟨v,eᵢ⟩eᵢ (Fourier expansion)</li>
+      <li>Parseval's identity: ‖v‖² = Σ|⟨v,eᵢ⟩|² for orthonormal basis {eᵢ}</li>
+      <li>V = W ⊕ W⊥ when W is a closed subspace (finite-dimensional V)</li>
+      <li>dim(W) + dim(W⊥) = dim(V)</li>
+    </ul>
+  </div>
+  <h3>Orthogonal Matrix</h3>
+  <div class="def-box">
+    <div class="lbl">Orthogonal Matrix</div>
+    <p>Q is <strong>orthogonal</strong> if QᵀQ = QQᵀ = I, i.e., Q⁻¹ = Qᵀ. Columns (and rows) of Q form an orthonormal basis. det(Q) = ±1. Q preserves norms and inner products: ⟨Qu,Qv⟩ = ⟨u,v⟩.</p>
+  </div>
+</div>
+
+<!-- GRAM-SCHMIDT -->
+<div class="sec" id="gs">
+  <h2>Gram-Schmidt Orthogonalization</h2>
+  <div class="def-box">
+    <div class="lbl">Gram-Schmidt Process</div>
+    <p>Given linearly independent vectors {v₁,...,vₙ}, produce orthonormal set {e₁,...,eₙ} with span{e₁,...,eₖ} = span{v₁,...,vₖ} for all k:</p>
+    <div class="formula">
+u₁ = v₁,    e₁ = u₁/‖u₁‖
+
+u₂ = v₂ − ⟨v₂,e₁⟩e₁,    e₂ = u₂/‖u₂‖
+
+u₃ = v₃ − ⟨v₃,e₁⟩e₁ − ⟨v₃,e₂⟩e₂,    e₃ = u₃/‖u₃‖
+
+uₖ = vₖ − Σᵢ₌₁ᵏ⁻¹ ⟨vₖ,eᵢ⟩eᵢ,    eₖ = uₖ/‖uₖ‖
+    </div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">QR Decomposition</div>
+    <p>Gram-Schmidt applied to the columns of an m×n matrix A (rank n) produces: <strong>A = QR</strong>, where Q has orthonormal columns and R is upper triangular with positive diagonal. Useful for solving least-squares problems and numerical linear algebra.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: ℝ³</div>
+    <p>v₁=(1,1,0), v₂=(1,0,1), v₃=(0,1,1).</p>
+    <p>u₁=(1,1,0), e₁=(1,1,0)/√2.</p>
+    <p>⟨v₂,e₁⟩=(1·1+0·1+1·0)/√2=1/√2. u₂=v₂−(1/√2)e₁=(1,0,1)−(1/2,1/2,0)=(1/2,−1/2,1). e₂=u₂/‖u₂‖.</p>
+    <p>Continue for u₃, e₃ to get a full orthonormal basis.</p>
+  </div>
+  <h3>Orthogonal Complement via Gram-Schmidt</h3>
+  <p>To find W⊥ (orthogonal complement of a subspace W ⊆ ℝⁿ): extend a basis of W to a basis of ℝⁿ, apply Gram-Schmidt, then the extra orthonormal vectors span W⊥.</p>
+</div>
+
+<!-- ORTHOGONAL PROJECTIONS -->
+<div class="sec" id="proj">
+  <h2>Orthogonal Projections</h2>
+  <div class="def-box">
+    <div class="lbl">Orthogonal Projection onto Subspace W</div>
+    <p>The <strong>orthogonal projection</strong> of v onto W (subspace with orthonormal basis {e₁,...,eₖ}) is:</p>
+    <div class="formula">proj_W(v) = ⟨v,e₁⟩e₁ + ⟨v,e₂⟩e₂ + ... + ⟨v,eₖ⟩eₖ</div>
+    <p>The error v − proj_W(v) ⊥ W and ‖v − proj_W(v)‖ is minimized (best approximation).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Best Approximation Theorem</div>
+    <p>The orthogonal projection proj_W(v) is the closest point to v in W:</p>
+    <div class="formula">‖v − proj_W(v)‖ ≤ ‖v − w‖  for all w ∈ W</div>
+    <p>with equality iff w = proj_W(v).</p>
+  </div>
+  <h3>Projection Matrix</h3>
+  <div class="def-box">
+    <div class="lbl">Formula</div>
+    <p>If W = col(A) (column space of A, A with linearly independent columns), the projection matrix onto W is:</p>
+    <div class="formula">P = A(AᵀA)⁻¹Aᵀ</div>
+    <p>Properties: P² = P (idempotent), Pᵀ = P (symmetric), P is the orthogonal projection onto col(A).</p>
+  </div>
+  <h3>Least Squares</h3>
+  <div class="info-box">
+    <div class="lbl">Least Squares Solution</div>
+    <p>If Ax=b has no exact solution, the least-squares solution minimizes ‖Ax−b‖². Solution: x* = (AᵀA)⁻¹Aᵀb (when AᵀA invertible). The residual b−Ax* ⊥ col(A).</p>
+  </div>
+</div>
+
+<!-- SPECTRAL THEOREM -->
+<div class="sec" id="spec">
+  <h2>Spectral Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Spectral Theorem (Real Symmetric Matrices)</div>
+    <p>Every real symmetric matrix A (Aᵀ=A) is orthogonally diagonalizable: there exists an orthogonal matrix Q and diagonal D such that:</p>
+    <div class="formula">A = QDQᵀ  (A = QDQ⁻¹ with Q⁻¹=Qᵀ)</div>
+    <p>Equivalently: ℝⁿ has an orthonormal basis of eigenvectors of A. All eigenvalues are real.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Properties of Symmetric Matrices</div>
+    <ul>
+      <li>All eigenvalues are real</li>
+      <li>Eigenvectors for distinct eigenvalues are orthogonal</li>
+      <li>Always diagonalizable (GM = AM for every eigenvalue)</li>
+      <li>The orthonormal eigenvectors form columns of Q</li>
+    </ul>
+  </div>
+  <h3>Normal Matrices</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>A (complex) matrix A is <strong>normal</strong> if AA* = A*A where A* = Āᵀ (conjugate transpose). Normal matrices include: symmetric (A=Aᵀ), skew-symmetric, orthogonal, Hermitian (A=A*), unitary (A*A=I).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Spectral Theorem (Normal Matrices)</div>
+    <p>A (complex) matrix A is normal iff there exists a unitary matrix U (U*U=I) and diagonal D such that A = UDU*. Equivalently, ℂⁿ has an orthonormal basis of eigenvectors of A.</p>
+  </div>
+  <h3>Positive Definite Matrices</h3>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p>A symmetric matrix A is:</p>
+    <ul>
+      <li><strong>Positive definite (PD):</strong> xᵀAx > 0 for all x ≠ 0 ⟺ all eigenvalues > 0</li>
+      <li><strong>Positive semidefinite (PSD):</strong> xᵀAx ≥ 0 for all x ⟺ all eigenvalues ≥ 0</li>
+      <li><strong>Negative definite:</strong> xᵀAx &lt; 0 for all x ≠ 0 ⟺ all eigenvalues &lt; 0</li>
+      <li><strong>Indefinite:</strong> has both positive and negative eigenvalues</li>
+    </ul>
+    <p>A is PD ⟺ A = BᵀB for some invertible B (Cholesky) ⟺ all leading principal minors > 0 (Sylvester's criterion).</p>
+  </div>
+</div>
+
+<!-- ADJOINT OPERATORS -->
+<div class="sec" id="adj">
+  <h2>Adjoint Operators</h2>
+  <div class="def-box">
+    <div class="lbl">Adjoint of a Linear Operator</div>
+    <p>Given T: V→V on inner product space V, the <strong>adjoint</strong> T*: V→V is defined by ⟨Tv,w⟩ = ⟨v,T*w⟩ for all v,w ∈ V.</p>
+    <p>For a matrix A with standard inner product: T* corresponds to Aᵀ (real) or A* = Āᵀ (complex).</p>
+  </div>
+  <table>
+    <tr><th>Property of T</th><th>Matrix condition</th><th>Eigenvalue property</th></tr>
+    <tr><td>Self-adjoint (T*=T)</td><td>A = Aᵀ (real symmetric)</td><td>All real eigenvalues</td></tr>
+    <tr><td>Skew-adjoint (T*=−T)</td><td>A = −Aᵀ (skew-symmetric)</td><td>Purely imaginary eigenvalues</td></tr>
+    <tr><td>Unitary (T*=T⁻¹)</td><td>Aᵀ=A⁻¹ (orthogonal)</td><td>All eigenvalues on unit circle</td></tr>
+    <tr><td>Normal (TT*=T*T)</td><td>AAᵀ=AᵀA</td><td>Orthogonally diagonalizable</td></tr>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">In ℝ³ with the standard inner product, the angle between u=(1,0,0) and v=(1,1,0) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> 90°</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 45°</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> 60°</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> 30°</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">An orthogonal set of non-zero vectors is always:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> A basis for the whole space</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Linearly independent</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Of unit length</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Orthonormal</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The projection of v=(3,4) onto u=(1,0) in ℝ² is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> (4,0)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> (3,4)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> (3,0)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> (0,4)</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Spectral Theorem guarantees orthogonal diagonalizability for:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> All square matrices</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> All diagonalizable matrices</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Real symmetric matrices</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Upper triangular matrices</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">A real symmetric matrix A satisfies xᵀAx > 0 for all x≠0. Then A is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Negative definite</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Indefinite</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Positive definite</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Positive semidefinite only</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">If Q is an orthogonal matrix, then Q⁻¹ equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Q</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Qᵀ</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> −Q</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> det(Q)·Q</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The Gram-Schmidt process applied to a linearly independent set {v₁,v₂,v₃} produces:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> An orthogonal basis of the same span</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> An orthonormal basis of the whole space</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> An orthonormal basis of span{v₁,v₂,v₃}</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> The same set (if already orthogonal)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">For a subspace W ⊆ ℝⁿ with dim W = k, what is dim(W⊥)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> k</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> n − k</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> n + k</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> n</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The projection matrix P = A(AᵀA)⁻¹Aᵀ satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> P² = I</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> P = Pᵀ and P² = P</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> P is invertible</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> P = 0</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">A matrix A is positive definite if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> tr(A) > 0</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> det(A) > 0</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> All eigenvalues of A are positive</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> A is diagonal with positive entries</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Parseval's identity for an orthonormal basis {e₁,...,eₙ} states that for any v:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> ‖v‖ = Σ⟨v,eᵢ⟩</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> ‖v‖² = Σ|⟨v,eᵢ⟩|²</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> v = Σeᵢ</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> ⟨v,eᵢ⟩ = 1 for all i</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Eigenvectors of a real symmetric matrix corresponding to DISTINCT eigenvalues are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Parallel (same direction)</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Orthogonal</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Of equal length</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Only real if the matrix is positive definite</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Which of the following is a positive definite matrix?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> [[1,2],[2,1]] (eigenvalues 3,−1)</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> [[2,1],[1,2]] (eigenvalues 3,1)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> [[−1,0],[0,−2]] (negative definite)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> [[1,0],[0,0]] (semidefinite)</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The Cauchy-Schwarz inequality |⟨u,v⟩| ≤ ‖u‖‖v‖ becomes an equality when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> u and v are orthogonal</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> u and v are linearly dependent (v = αu)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> ‖u‖ = ‖v‖</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> u = v</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">A matrix A is called normal if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> A = Aᵀ</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> A is diagonalizable</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> AA* = A*A (commutes with its conjugate transpose)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> ‖A‖ = 1</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Inner Product Spaces</div>
+    <div class="hero-sub">Key facts for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">⟨·⟩</div>
+      <h4>Inner Product</h4>
+      <p>Symmetric, bilinear, positive definite. Induces norm ‖v‖=√⟨v,v⟩.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Cauchy-Schwarz</h4>
+      <p>|⟨u,v⟩|≤‖u‖‖v‖. Equality iff linearly dependent.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔨</div>
+      <h4>Gram-Schmidt</h4>
+      <p>Convert any basis to orthonormal one with same span at each step.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🎯</div>
+      <h4>Best Approximation</h4>
+      <p>proj_W(v) is the closest point in W to v. Error ⊥ W.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🌟</div>
+      <h4>Spectral Theorem</h4>
+      <p>Real symmetric A: A=QDQᵀ, all eigenvalues real, orthonormal eigenvectors.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">➕</div>
+      <h4>Positive Definite</h4>
+      <p>xᵀAx>0 for x≠0 ⟺ all λᵢ>0 ⟺ all leading minors >0 (Sylvester).</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U2_T05_BilinearForms.html">Next: Bilinear Forms →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'c',5:'c',6:'b',7:'c',8:'b',9:'b',10:'c',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'cos θ = ⟨u,v⟩/(‖u‖‖v‖) = 1/(1·√2) = 1/√2. So θ = 45°.',
+  2:'Proof by induction: if v₁,...,vₖ are orthogonal non-zero vectors and Σαᵢvᵢ=0, take inner product with vⱼ: αⱼ‖vⱼ‖²=0, so αⱼ=0. Hence linearly independent.',
+  3:'proj_u(v) = (⟨v,u⟩/‖u‖²)u = (⟨(3,4),(1,0)⟩/1)(1,0) = 3·(1,0) = (3,0).',
+  4:'The Spectral Theorem (real case) says every real symmetric matrix is orthogonally diagonalizable: A=QDQᵀ with Q orthogonal and D diagonal.',
+  5:'xᵀAx>0 for all x≠0 is the definition of positive definiteness. Equivalent: all eigenvalues positive (since A=QDQᵀ and xᵀAx=yᵀDy=Σλᵢyᵢ²>0 iff all λᵢ>0).',
+  6:'Q orthogonal means QᵀQ=I, so Qᵀ=Q⁻¹. The inverse of Q is its transpose.',
+  7:'Gram-Schmidt produces an orthonormal set with the SAME span at each step, so the final result is an orthonormal basis for span{v₁,v₂,v₃}, not necessarily the whole space.',
+  8:'The dimension formula: dim(W)+dim(W⊥)=dim(V)=n. So dim(W⊥)=n−k.',
+  9:'The projection matrix P=A(AᵀA)⁻¹Aᵀ satisfies P²=P (idempotent) and Pᵀ=P (symmetric). It is the orthogonal projection onto col(A).',
+  10:'For a real symmetric matrix, xᵀAx>0 for all x≠0 iff all eigenvalues of A are positive (use spectral decomposition: xᵀAx=yᵀDy=Σλᵢyᵢ²).',
+  11:'Parseval\'s identity: if {e₁,...,eₙ} is orthonormal and v=Σcᵢeᵢ, then ‖v‖²=Σ|cᵢ|²=Σ|⟨v,eᵢ⟩|². Generalizes Pythagoras.',
+  12:'For real symmetric A: if Av₁=λ₁v₁ and Av₂=λ₂v₂ with λ₁≠λ₂, then λ₁⟨v₁,v₂⟩=⟨Av₁,v₂⟩=⟨v₁,Av₂⟩=λ₂⟨v₁,v₂⟩. So (λ₁−λ₂)⟨v₁,v₂⟩=0, thus ⟨v₁,v₂⟩=0.',
+  13:'[[2,1],[1,2]]: eigenvalues are 2±1=3,1 (both positive). So it is positive definite. Option a has eigenvalue −1 (indefinite). Option c is negative definite. Option d is only semidefinite.',
+  14:'Cauchy-Schwarz equality: |⟨u,v⟩|=‖u‖‖v‖ iff {u,v} is linearly dependent, i.e., v=αu for some scalar α. If u⊥v then ⟨u,v⟩=0, equality holds trivially when one vector is zero.',
+  15:'A is normal if AA*=A*A. This includes symmetric (A=Aᵀ), skew-symmetric, orthogonal, Hermitian, unitary matrices. By spectral theorem: A is normal iff unitarily diagonalizable.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

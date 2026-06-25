@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U3-T08 · Entire & Meromorphic Functions</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1e3a5f;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(30,58,95,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(30,58,95,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(30,58,95,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#eff6ff,#dbeafe,#bfdbfe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(30,58,95,.10),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(30,58,95,.08);color:var(--acc);font-weight:600;border:1px solid rgba(30,58,95,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#eff6ff;border-left:4px solid #60a5fa;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:20px}
+.unit-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px;text-decoration:none;color:var(--text);transition:box-shadow .15s}
+.unit-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.unit-card .u-num{font-size:10px;color:var(--acc);font-weight:700;margin-bottom:4px}
+.unit-card .u-title{font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 3</span>
+  <span class="hdr-title">T08 · Entire & Meromorphic Functions</span>
+  <span class="hdr-badge">Complex Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 3 · Complex Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('entire',this)">Entire Functions</a>
+  <a class="nav-item" onclick="show('picard',this)">Picard's Theorems</a>
+  <a class="nav-item" onclick="show('weierstrass',this)">Weierstrass Products</a>
+  <a class="nav-item" onclick="show('mero',this)">Meromorphic Functions</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Unit 3 Summary</a>
+  <div class="nav-sec">Unit 3 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U3_T07_ConformalMaps.html">T07 · Conformal Mappings</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · Topic 08 · Unit Finale</div>
+    <div class="hero-title">Entire & Meromorphic Functions</div>
+    <div class="hero-sub">Entire functions · Picard's theorems · Weierstrass product · Mittag-Leffler</div>
+    <div class="hero-chips">
+      <span class="chip">Entire Functions</span>
+      <span class="chip">Picard's Theorems</span>
+      <span class="chip">Weierstrass Products</span>
+      <span class="chip">Mittag-Leffler</span>
+      <span class="chip">Order of Growth</span>
+      <span class="chip">Hadamard Factorization</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Entire functions (holomorphic on all of ℂ) include polynomials, eᶻ, sin z, cos z. Their global behavior is far richer than polynomials — they can have infinitely many zeros. The theory of entire functions culminates in Picard's theorems, which are among the deepest results in complex analysis.</p>
+</div>
+
+<!-- ENTIRE FUNCTIONS -->
+<div class="sec" id="entire">
+  <h2>Entire Functions</h2>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>An <strong>entire function</strong> is a function holomorphic on all of ℂ. Every entire function has a Taylor series Σaₙzⁿ converging everywhere.</p>
+  </div>
+  <h3>Order of Growth</h3>
+  <div class="def-box">
+    <div class="lbl">Order of an Entire Function</div>
+    <p>The <strong>order</strong> ρ of entire function f is defined by:</p>
+    <div class="formula">ρ = lim sup_{r→∞} log log M(r) / log r</div>
+    <p>where M(r) = max_{|z|=r} |f(z)|.</p>
+    <p>Equivalently, |f(z)| ≤ C·exp(|z|^(ρ+ε)) for all ε>0 but not for ρ replaced by ρ−ε.</p>
+  </div>
+  <table>
+    <tr><th>Function</th><th>Order ρ</th><th>Zeros</th></tr>
+    <tr><td>Polynomials (degree n)</td><td>0</td><td>n zeros</td></tr>
+    <tr><td>eᶻ</td><td>1</td><td>No zeros</td></tr>
+    <tr><td>sin z, cos z</td><td>1</td><td>Infinitely many</td></tr>
+    <tr><td>e^(z²)</td><td>2</td><td>No zeros</td></tr>
+    <tr><td>e^(eᶻ)</td><td>∞</td><td>No zeros</td></tr>
+    <tr><td>sin(√z)/√z</td><td>1/2</td><td>At π²k²</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Liouville's Theorem (review)</div>
+    <p>Every bounded entire function is constant. Equivalently, a non-constant entire function is unbounded.</p>
+  </div>
+</div>
+
+<!-- PICARD -->
+<div class="sec" id="picard">
+  <h2>Picard's Theorems</h2>
+  <div class="thm-box">
+    <div class="lbl">Little Picard Theorem</div>
+    <p>Every non-constant entire function takes every complex value, with at most one exception.</p>
+    <p>Example: eᶻ omits 0 (the only exception). sin z, cos z take every value.</p>
+    <div class="formula">f entire, non-constant ⟹ f(ℂ) ⊇ ℂ \ {at most one point}</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Great (Big) Picard Theorem</div>
+    <p>Near an essential singularity z₀, a holomorphic function takes every complex value, with at most one exception, infinitely often.</p>
+    <p>This dramatically strengthens Casorati-Weierstrass (which only says the image is dense).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Casorati-Weierstrass vs. Picard</div>
+    <ul>
+      <li><strong>Casorati-Weierstrass:</strong> Near an essential singularity, the image is <em>dense</em> in ℂ.</li>
+      <li><strong>Big Picard:</strong> Near an essential singularity, the image is all of ℂ minus at most one point, and each value is taken <em>infinitely often</em>.</li>
+    </ul>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Classic Example</div>
+    <p>e^(1/z) has an essential singularity at z=0. Near z=0: e^(1/z) takes every nonzero value infinitely often (omits only 0). So as z→0 through various sequences, e^(1/z) can approach any nonzero complex number.</p>
+  </div>
+</div>
+
+<!-- WEIERSTRASS -->
+<div class="sec" id="weierstrass">
+  <h2>Weierstrass Products & Mittag-Leffler</h2>
+  <h3>Weierstrass Factorization Theorem</h3>
+  <div class="thm-box">
+    <div class="lbl">Weierstrass Product Theorem</div>
+    <p>Given any sequence {aₙ} in ℂ with |aₙ|→∞, there exists an entire function with zeros exactly at {aₙ} (counted with multiplicity).</p>
+    <p>More precisely, every entire function f with zeros {aₙ} (and a zero of order m at 0) has the form:</p>
+    <div class="formula">f(z) = z^m · e^(g(z)) · ∏ₙ E(z/aₙ, pₙ)</div>
+    <p>where g is entire and E(u,p) = (1−u)·exp(u + u²/2 + ··· + uᵖ/p) is the Weierstrass elementary factor.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Classic Example: sin(πz)</div>
+    <div class="formula">sin(πz) = πz · ∏_{n=1}^∞ (1 − z²/n²)</div>
+    <p>This factorization (Euler) gives the product formula for sine and, comparing with Taylor series, yields Σ1/n²=π²/6.</p>
+  </div>
+  <h3>Hadamard Factorization</h3>
+  <div class="thm-box">
+    <div class="lbl">Hadamard's Theorem</div>
+    <p>If f is entire of finite order ρ with zeros {aₙ}, then:</p>
+    <div class="formula">f(z) = z^m · e^(P(z)) · ∏ₙ E(z/aₙ, p)</div>
+    <p>where P is a polynomial of degree ≤ ρ and p = ⌊ρ⌋. The genus is h = max(p, deg P).</p>
+  </div>
+  <h3>Mittag-Leffler Theorem</h3>
+  <div class="thm-box">
+    <div class="lbl">Mittag-Leffler</div>
+    <p>Given any sequence {aₙ}→∞ and prescribed principal parts (finite-order poles), there exists a meromorphic function on ℂ with exactly those poles and principal parts.</p>
+    <div class="formula">f(z) = Σₙ [Pₙ(1/(z−aₙ)) − pₙ(z)]  + entire function</div>
+    <p>where pₙ(z) are polynomials added to ensure convergence.</p>
+  </div>
+</div>
+
+<!-- MEROMORPHIC -->
+<div class="sec" id="mero">
+  <h2>Meromorphic Functions</h2>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>A function is <strong>meromorphic</strong> on a domain D if it is holomorphic on D except at isolated poles.</p>
+    <p>Meromorphic functions on ℂ are precisely quotients of entire functions: f = g/h with g, h entire and h ≢ 0.</p>
+  </div>
+  <h3>Argument Principle (Review)</h3>
+  <div class="thm-box">
+    <div class="lbl">Argument Principle</div>
+    <div class="formula">(1/2πi) ∮_γ f'(z)/f(z) dz = Z − P</div>
+    <p>Z = number of zeros, P = number of poles (both counted with multiplicity) of f inside γ.</p>
+    <p>The left side equals the winding number of f(γ) around 0.</p>
+  </div>
+  <table>
+    <tr><th>Concept</th><th>Statement</th></tr>
+    <tr><td>Meromorphic on ℂ̂</td><td>Must be a rational function</td></tr>
+    <tr><td>Zeros of meromorphic f</td><td>Poles of 1/f</td></tr>
+    <tr><td>Order of zero/pole</td><td>Multiplicity in Laurent series</td></tr>
+    <tr><td>Elliptic functions</td><td>Meromorphic + doubly periodic</td></tr>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">An entire function is one that is holomorphic on:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> The unit disk only</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> All of ℂ</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> ℂ minus isolated singularities</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> The upper half-plane</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Little Picard's Theorem: a non-constant entire function f misses at most:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> No values (takes all of ℂ)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Exactly one value</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> At most one value</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Finitely many values</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The function eᶻ is an entire function of order:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> 1</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> 2</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> ∞</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Big Picard Theorem says: near an essential singularity, f takes every value with at most one exception:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> At most finitely often</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Infinitely often</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Exactly once</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> In a dense set</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Weierstrass product formula for sin(πz) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> πz · ∏(1 + z²/n²)</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> πz · ∏_{n=1}^∞ (1 − z²/n²)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> ∏_{n=0}^∞ (1 − z/nπ)</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> e^(πz) · ∏(1 − z/n)</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The order of the entire function e^(z³) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> 1</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> 2</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> 3</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> ∞</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The Mittag-Leffler theorem guarantees the existence of a meromorphic function with:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Prescribed zeros only</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Prescribed poles and principal parts</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A prescribed essential singularity</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> A prescribed order of growth</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Casorati-Weierstrass theorem: near an essential singularity z₀, the image f({0<|z−z₀|<δ}) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> A single point</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Dense in ℂ</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> A bounded set</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> A circle</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">A function meromorphic on the entire Riemann sphere ℂ̂ must be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> An entire function</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> A rational function</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> A Möbius transformation</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> A polynomial</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The value that eᶻ misses (never takes) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 1</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> −1</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 0</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> i</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Hadamard's factorization theorem applies to entire functions of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Infinite order</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Finite order</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Order exactly 1</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Order 0</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The Argument Principle formula (1/2πi)∮f'/f dz = Z−P computes:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> The number of poles only</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Zeros minus poles (with multiplicity) inside γ</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> The sum of residues</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> The order of growth</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Which function is NOT entire?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> eᶻ</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> sin z</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 1/(z−1)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> z² + 2z + 1</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">A non-constant entire function f with |f(z)| ≤ M|z|ⁿ for large |z| must be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> An exponential function</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> A polynomial of degree ≤ n</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> A trigonometric function</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> A rational function</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The Weierstrass product theorem guarantees: given any sequence {aₙ} with |aₙ|→∞, there exists an entire function whose zeros are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> Exactly the points {aₙ}</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> A subset of {aₙ}</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> The complement of {aₙ}</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Empty</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- UNIT 3 SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Unit 3 Complete Summary — Complex Analysis</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · All 8 Topics</div>
+    <div class="hero-title">Complex Analysis Mastery</div>
+    <div class="hero-sub">Review all topics covered in Unit 3</div>
+  </div>
+  <div class="unit-grid">
+    <a class="unit-card" href="CSIR_NET_U3_T01_ComplexNumbers.html">
+      <div class="u-num">T01</div>
+      <div class="u-title">Complex Numbers & Topology</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T02_AnalyticFunctions.html">
+      <div class="u-num">T02</div>
+      <div class="u-title">Analytic Functions & C-R Equations</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T03_CauchyTheorem.html">
+      <div class="u-num">T03</div>
+      <div class="u-title">Cauchy's Theorem & CIF</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T04_Laurent.html">
+      <div class="u-num">T04</div>
+      <div class="u-title">Laurent Series & Singularities</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T05_ResidueThm.html">
+      <div class="u-num">T05</div>
+      <div class="u-title">Residue Theorem</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T06_MaxModulus.html">
+      <div class="u-num">T06</div>
+      <div class="u-title">Max Modulus & Rouché</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T07_ConformalMaps.html">
+      <div class="u-num">T07</div>
+      <div class="u-title">Conformal Mappings</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U3_T08_EntireFunctions.html">
+      <div class="u-num">T08</div>
+      <div class="u-title">Entire & Meromorphic Functions</div>
+    </a>
+  </div>
+  <div class="btn-row" style="margin-top:24px">
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">← Back to Blueprint</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'c',3:'b',4:'b',5:'b',6:'c',7:'b',8:'b',9:'b',10:'c',11:'b',12:'b',13:'c',14:'b',15:'a'};
+const explain={
+  1:'An entire function is holomorphic on all of ℂ — no singularities anywhere. Examples: polynomials, eᶻ, sin z, cos z.',
+  2:'Little Picard: a non-constant entire function takes every complex value with at most one exception. (Not "exactly one" — it might take all values like sin z does.)',
+  3:'|eᶻ|=e^(Re z), and log log M(r)=log r, so ρ=1. eᶻ is an entire function of order 1.',
+  4:'Big Picard Theorem: near an essential singularity, f takes every value (with at most one exception) infinitely often. This is stronger than Casorati-Weierstrass (which only says dense).',
+  5:'Euler\'s product formula: sin(πz) = πz·∏_{n=1}^∞(1−z²/n²). This has zeros exactly at z=±n for n=1,2,3,... (same as sin(πz)).',
+  6:'|e^(z³)|=e^(Re(z³)). On |z|=r, max|e^(z³)|=e^(r³). So log log M(r) = log r³ = 3 log r, giving order ρ=3.',
+  7:'Mittag-Leffler theorem: given a sequence {aₙ}→∞ and prescribed principal parts at each aₙ, there exists a meromorphic function with exactly those poles and principal parts.',
+  8:'Casorati-Weierstrass: near an essential singularity, the image is dense in ℂ (comes arbitrarily close to any complex number). Big Picard strengthens this to "equals all of ℂ minus at most one point."',
+  9:'A function meromorphic on the entire Riemann sphere ℂ̂ must be a rational function (ratio of two polynomials). The poles form a finite set on the compact space ℂ̂.',
+  10:'eᶻ ≠ 0 for all z ∈ ℂ (since e⁻ᶻ is the inverse). So eᶻ omits the value 0. By Little Picard, this is the only value it misses.',
+  11:'Hadamard\'s factorization theorem applies to entire functions of finite order ρ<∞. It expresses f as z^m·e^(P(z))·∏E(z/aₙ,p) where P has degree ≤ ρ and p=⌊ρ⌋.',
+  12:'Argument Principle: (1/2πi)∮_γ f\'(z)/f(z)dz = Z−P, where Z=zeros and P=poles counted with multiplicity inside γ. This equals the winding number of f(γ) around 0.',
+  13:'1/(z−1) has a pole at z=1, so it is NOT holomorphic at z=1 and hence not entire. All other options are entire functions.',
+  14:'If |f(z)|≤M|z|ⁿ for all large |z| and f is entire, then f is a polynomial of degree ≤n. This follows from the Cauchy estimates applied to the Taylor coefficients: |aₖ|≤M/Rᵏ⁻ⁿ→0 for k>n.',
+  15:'Weierstrass product theorem: given ANY sequence {aₙ} with |aₙ|→∞, there exists an entire function with zeros exactly at {aₙ} (with prescribed multiplicities). This is the existence theorem for entire functions with prescribed zeros.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

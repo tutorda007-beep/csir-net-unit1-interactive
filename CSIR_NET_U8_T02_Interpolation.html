@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U8-T02 · Interpolation</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0f4c75;--acc2:#1b6ca8;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(15,76,117,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(15,76,117,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(15,76,117,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#e8f4f8,#bee3f8,#90cdf4)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(15,76,117,.08);color:var(--acc);font-weight:600;border:1px solid rgba(15,76,117,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#e8f4f8;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 8</span>
+  <span class="hdr-title">T02 · Interpolation</span>
+  <span class="hdr-badge">Numerical</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 8 · Numerical Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('lagrange',this)">Lagrange Interpolation</a>
+  <a class="nav-item" onclick="show('newton',this)">Newton Divided Differences</a>
+  <a class="nav-item" onclick="show('finite',this)">Finite Differences</a>
+  <a class="nav-item" onclick="show('error',this)">Interpolation Error</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U8_T01_ErrorAnalysis.html">← T01 · Error Analysis</a>
+  <a class="nav-item" href="CSIR_NET_U8_T03_NumericalIntegration.html">T03 · Numerical Integration →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 8 · Topic 02</div>
+    <div class="hero-title">Interpolation</div>
+    <div class="hero-sub">Lagrange · Newton divided differences · Finite differences · Error bounds · Uniqueness of interpolating polynomial</div>
+    <div class="hero-chips">
+      <span class="chip">Lagrange</span>
+      <span class="chip">Newton</span>
+      <span class="chip">Divided Differences</span>
+      <span class="chip">Finite Differences</span>
+      <span class="chip">Error Bound</span>
+      <span class="chip">Spline</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Given n+1 data points (x₀,y₀),…,(xₙ,yₙ) with distinct xᵢ, there exists a <strong>unique</strong> polynomial of degree ≤n passing through all points. Lagrange and Newton forms compute this polynomial; finite differences give computationally efficient formulas for equally-spaced nodes.</p>
+</div>
+
+<div class="sec" id="lagrange">
+  <h2>Lagrange Interpolation</h2>
+  <div class="thm-box">
+    <div class="lbl">Existence & Uniqueness</div>
+    <p>For n+1 distinct nodes x₀,…,xₙ, there is a unique polynomial Pₙ(x) of degree ≤n with Pₙ(xᵢ)=yᵢ for all i.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Lagrange Form</div>
+    <div class="formula">Pₙ(x) = Σ_{i=0}^n yᵢ · Lᵢ(x)
+
+Lᵢ(x) = Π_{j≠i} (x−xⱼ)/(xᵢ−xⱼ)   (Lagrange basis polynomials)</div>
+    <p>Properties: Lᵢ(xⱼ)=δᵢⱼ (Kronecker delta), Σᵢ Lᵢ(x)≡1.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Example (3 points)</div>
+    <p>x₀=0,y₀=1; x₁=1,y₁=3; x₂=2,y₂=7. L₀=(x−1)(x−2)/((0−1)(0−2))=(x−1)(x−2)/2.</p>
+    <p>L₁=(x−0)(x−2)/((1−0)(1−2))=−x(x−2). L₂=x(x−1)/2.</p>
+    <p>P(x)=1·(x−1)(x−2)/2 + 3·(−x)(x−2) + 7·x(x−1)/2 = x²+x+1.</p>
+  </div>
+</div>
+
+<div class="sec" id="newton">
+  <h2>Newton Divided Differences</h2>
+  <div class="def-box">
+    <div class="lbl">Divided Difference Table</div>
+    <div class="formula">f[xᵢ] = yᵢ
+f[xᵢ,xᵢ₊₁] = (f[xᵢ₊₁]−f[xᵢ])/(xᵢ₊₁−xᵢ)
+f[xᵢ,xᵢ₊₁,xᵢ₊₂] = (f[xᵢ₊₁,xᵢ₊₂]−f[xᵢ,xᵢ₊₁])/(xᵢ₊₂−xᵢ)</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Newton's Divided Difference Formula</div>
+    <div class="formula">Pₙ(x) = f[x₀] + f[x₀,x₁](x−x₀) + f[x₀,x₁,x₂](x−x₀)(x−x₁) + …
+       + f[x₀,…,xₙ](x−x₀)…(x−xₙ₋₁)</div>
+    <p>f[x₀,…,xₙ] = leading coefficient = coefficient of xⁿ in Pₙ. Adding a new point xₙ₊₁ only requires computing one new divided difference — easy to update.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Symmetric property</div>
+    <p>f[x₀,x₁,…,xₙ] is symmetric in its arguments: f[x₀,x₁]=f[x₁,x₀]. This means the formula gives the same polynomial regardless of node ordering.</p>
+  </div>
+</div>
+
+<div class="sec" id="finite">
+  <h2>Finite Differences (Equal Spacing)</h2>
+  <div class="def-box">
+    <div class="lbl">Operators (step size h)</div>
+    <div class="formula">Forward:   Δfᵢ = fᵢ₊₁ − fᵢ,  Δ²fᵢ = fᵢ₊₂−2fᵢ₊₁+fᵢ
+Backward:  ∇fᵢ = fᵢ − fᵢ₋₁
+Central:   δfᵢ = fᵢ₊½ − fᵢ₋½</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Newton Forward Interpolation (equal spacing)</div>
+    <div class="formula">Pₙ(x₀+sh) = Σ_{k=0}^n C(s,k) Δᵏf₀
+
+where C(s,k) = s(s−1)…(s−k+1)/k! (binomial coefficient in s)</div>
+    <p>Best for interpolation near x₀ (beginning of table).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Newton Backward Interpolation</div>
+    <div class="formula">Pₙ(xₙ+sh) = Σ_{k=0}^n (−1)^k C(−s,k) ∇ᵏfₙ</div>
+    <p>Best for interpolation near xₙ (end of table).</p>
+  </div>
+</div>
+
+<div class="sec" id="error">
+  <h2>Interpolation Error</h2>
+  <div class="thm-box">
+    <div class="lbl">Error Formula</div>
+    <div class="formula">f(x) − Pₙ(x) = f^(n+1)(ξ)/(n+1)! · ω_{n+1}(x)
+
+ω_{n+1}(x) = (x−x₀)(x−x₁)…(x−xₙ)
+
+where ξ ∈ (min xᵢ, max xᵢ) depends on x.</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Chebyshev Nodes (Minimize Error)</div>
+    <p>To minimize max|ω_{n+1}(x)| on [a,b], choose Chebyshev nodes:</p>
+    <div class="formula">xᵢ = (a+b)/2 + (b−a)/2 · cos((2i+1)π/(2(n+1))),   i=0,…,n
+
+This gives: max_x |ω_{n+1}(x)| = (b−a)^(n+1) / (2^(2n+1))</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Runge's Phenomenon</div>
+    <p>For equally-spaced nodes on [−1,1], the error can grow as n→∞ for functions like f(x)=1/(1+25x²). Chebyshev nodes avoid this. Alternatively: use splines.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Cubic Splines</div>
+    <p>Instead of one degree-n polynomial, use piecewise cubic polynomials (splines) on each subinterval, joined smoothly. Natural cubic spline: S″(x₀)=S″(xₙ)=0. Avoids Runge's phenomenon.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The unique interpolating polynomial through n+1 distinct data points has degree at most:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> n+1</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> n</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> 2n</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> n−1</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The Lagrange basis polynomial Lᵢ(x) satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Lᵢ(x)=1 for all x</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Lᵢ(xⱼ)=δᵢⱼ (1 if i=j, 0 otherwise)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Lᵢ(xⱼ)=yⱼ</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Σ Lᵢ(x)=0</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The interpolation error for Pₙ(x) approximating f(x) involves:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> f′(ξ)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> f^(n+1)(ξ)/(n+1)! · (x−x₀)…(x−xₙ)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> f(x)/n</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Σyᵢ</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The first divided difference f[x₀,x₁] equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> f(x₁)+f(x₀)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> (f(x₁)−f(x₀))/(x₁−x₀)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> f(x₁)−f(x₀)</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> f′(x₀)</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Chebyshev nodes are used to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Maximize interpolation error</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Minimize the maximum of |ω_{n+1}(x)| over [a,b], reducing interpolation error</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Equally space nodes</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Compute derivatives</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Runge's phenomenon refers to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Convergence of interpolation as n→∞</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Large oscillations near endpoints when using equally-spaced nodes for high-degree polynomial interpolation</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Error in numerical integration</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Divergence in ODE solvers</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Newton's forward difference polynomial uses:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Backward differences</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Forward differences Δᵏf₀ and binomial coefficients C(s,k)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Divided differences only</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Lagrange basis</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The second forward difference Δ²fᵢ equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> fᵢ₊₂−fᵢ</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> fᵢ₊₂−2fᵢ₊₁+fᵢ</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> (fᵢ₊₁−fᵢ)²</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 2(fᵢ₊₁−fᵢ)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The sum Σᵢ Lᵢ(x) (sum of Lagrange basis polynomials) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> 0</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 1 (for all x)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> n</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> x</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">How many data points are needed to uniquely determine a degree-2 polynomial?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 2</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> 3</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 4</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The divided difference f[x₀,x₁,…,xₙ] is the leading coefficient of Pₙ. For equally spaced nodes (step h), f[x₀,…,xₙ] equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Δⁿf₀</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Δⁿf₀/(n!·hⁿ)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> hⁿ</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> n!·hⁿ</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">A natural cubic spline on n+1 nodes satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> S(xᵢ)=0</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> S is piecewise cubic, S∈C²([x₀,xₙ]), and S″(x₀)=S″(xₙ)=0</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> S is piecewise linear</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> S has jumps at nodes</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The interpolation error for a cubic polynomial (n=3) involves the 4th derivative because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> The 3rd derivative is always zero</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Error formula involves f^(n+1) = f^(4): the first derivative not reproduced by the cubic</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> We need 4 nodes</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> The cubic is exact for f^(4)</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Newton's divided difference formula is preferred over Lagrange because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> It gives a different polynomial</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Adding a new point requires only one additional divided difference, without recomputing everything</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> It only works for 3 points</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> It is less accurate</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">For a function f with |f^(n+1)(x)| ≤ M on [a,b], the interpolation error with n+1 equally-spaced nodes is bounded by:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> Mhⁿ/n!</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> M·hⁿ⁺¹/(4(n+1))</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> M/(n+1)!</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> M·n</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Uniqueness</h4><p>n+1 distinct points ⟹ unique poly of degree ≤n. Both Lagrange and Newton give the same polynomial.</p></div>
+    <div class="sum-card"><h4>Lagrange Form</h4><p>Pₙ=ΣyᵢLᵢ(x). Lᵢ(xⱼ)=δᵢⱼ, ΣLᵢ≡1. Conceptually simple.</p></div>
+    <div class="sum-card"><h4>Newton Form</h4><p>Uses divided differences. Easy to update when new points added. Nested (Horner) form is efficient.</p></div>
+    <div class="sum-card"><h4>Finite Differences</h4><p>Equal spacing: Δᵏf₀ replaces divided differences. Forward/backward formulas near x₀/xₙ.</p></div>
+    <div class="sum-card"><h4>Error Bound</h4><p>f(x)−Pₙ(x)=f^(n+1)(ξ)/(n+1)!·ω_{n+1}(x). Minimized with Chebyshev nodes.</p></div>
+    <div class="sum-card"><h4>Cubic Splines</h4><p>Piecewise cubic, C² smooth. Avoids Runge's phenomenon for large n.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U8_T01_ErrorAnalysis.html">← T01: Error Analysis</a>
+    <a class="btn btn-acc" href="CSIR_NET_U8_T03_NumericalIntegration.html">T03: Numerical Integration →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'n+1 data points uniquely determine a polynomial of degree AT MOST n. (n+1 coefficients, n+1 equations.) Degree is exactly n if the leading divided difference f[x₀,…,xₙ]≠0.',
+  2:'Lagrange basis: Lᵢ(x)=Π_{j≠i}(x−xⱼ)/(xᵢ−xⱼ). Key property: Lᵢ(xⱼ)=1 if i=j, 0 if i≠j (Kronecker delta). Thus Pₙ(xᵢ)=Σyⱼ Lⱼ(xᵢ)=yᵢ·1=yᵢ. Also Σᵢ Lᵢ(x)≡1 (interpolate f=1 exactly).',
+  3:'Interpolation error: f(x)−Pₙ(x)=f^(n+1)(ξ)/(n+1)! · (x−x₀)(x−x₁)…(x−xₙ) for some ξ between the nodes. This is analogous to the Lagrange remainder in Taylor\'s theorem.',
+  4:'First divided difference: f[x₀,x₁]=(f(x₁)−f(x₀))/(x₁−x₀). This is the slope of the secant line — a finite difference approximation to f′. For equal spacing h: f[xᵢ,xᵢ₊₁]=Δfᵢ/h.',
+  5:'Chebyshev nodes xᵢ=(a+b)/2+(b−a)/2·cos((2i+1)π/(2n+2)): they minimize max|ω_{n+1}(x)|=(b−a)^(n+1)/2^(2n+1) over all node choices. This gives near-optimal interpolation error.',
+  6:'Runge (1901): interpolating f(x)=1/(1+25x²) on [−1,1] with equally-spaced nodes and increasing degree n. Error GROWS near ±1 even as n→∞. Chebyshev nodes fix this; splines are another remedy.',
+  7:'Newton forward: Pₙ(x₀+sh)=Σ_{k=0}^n C(s,k)Δᵏf₀ where C(s,k)=s(s−1)…(s−k+1)/k!. Best used when interpolating near x₀. Backward formula uses ∇ᵏfₙ and is best near xₙ.',
+  8:'Δ²fᵢ=Δ(Δfᵢ)=Δ(fᵢ₊₁−fᵢ)=(fᵢ₊₂−fᵢ₊₁)−(fᵢ₊₁−fᵢ)=fᵢ₊₂−2fᵢ₊₁+fᵢ. This is the finite difference analog of the second derivative: Δ²fᵢ/h²≈f″(xᵢ).',
+  9:'Σᵢ Lᵢ(x)≡1. Proof: apply Lagrange formula to f(x)=1 with yᵢ=1: P(x)=Σ·1·Lᵢ(x)=Σ Lᵢ(x). But f=1 ⟹ P=1 (since constant polynomial is exact). So Σ Lᵢ(x)=1.',
+  10:'Degree-2 polynomial has 3 coefficients (a,b,c in ax²+bx+c). Need exactly 3 equations ⟹ 3 data points. In general: n+1 points for degree-n polynomial.',
+  11:'For equally spaced nodes with step h, the nth divided difference f[x₀,…,xₙ]=Δⁿf₀/(n!hⁿ). The connection: divided difference = nth forward difference / (n!hⁿ).',
+  12:'Natural cubic spline: (i) S is cubic on each [xᵢ,xᵢ₊₁], (ii) S∈C²([x₀,xₙ]) (continuity of S,S′,S″ at interior nodes), (iii) natural BCs: S″(x₀)=S″(xₙ)=0. Minimum-curvature property.',
+  13:'Error formula: f(x)−Pₙ(x)=f^(n+1)(ξ)/(n+1)!·ωₙ₊₁(x). For n=3 (cubic): f^(3+1)=f^(4) appears. Pₙ reproduces f exactly when f is polynomial of degree ≤n (error=0 since f^(n+1)=0).',
+  14:'Newton\'s efficiency: to add point x_{n+1}, compute one new divided difference f[x₀,…,x_{n+1}] and add one term. Lagrange requires recomputing ALL basis polynomials. Newton also allows Horner\'s nested evaluation.',
+  15:'Equal-spacing step h=(b−a)/n. Error bound: |f(x)−Pₙ(x)|≤M·hⁿ⁺¹/[4(n+1)] where M=max|f^(n+1)|. This decays as h→0 (n→∞ fixed step) at rate O(hⁿ⁺¹).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

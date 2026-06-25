@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U7-T03 · Heat Equation</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 7</span>
+  <span class="hdr-title">T03 · Heat Equation</span>
+  <span class="hdr-badge">PDE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 7 · PDEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('ibvp',this)">IBVP & Separation</a>
+  <a class="nav-item" onclick="show('kernel',this)">Heat Kernel</a>
+  <a class="nav-item" onclick="show('maximum',this)">Maximum Principle</a>
+  <a class="nav-item" onclick="show('nonhom',this)">Non-Homogeneous</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U7_T02_WaveEquation.html">← T02 · Wave Equation</a>
+  <a class="nav-item" href="CSIR_NET_U7_T04_LaplaceEquation.html">T04 · Laplace Equation →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 7 · Topic 03</div>
+    <div class="hero-title">The Heat Equation</div>
+    <div class="hero-sub">Diffusion · Heat kernel · Maximum principle · Infinite speed propagation · Smoothing</div>
+    <div class="hero-chips">
+      <span class="chip">Diffusion</span>
+      <span class="chip">Heat Kernel</span>
+      <span class="chip">Maximum Principle</span>
+      <span class="chip">Separation of Variables</span>
+      <span class="chip">Fourier Series</span>
+      <span class="chip">Smoothing Effect</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The heat equation u_t = k·u_xx models heat diffusion, Brownian motion, and many physical processes. Unlike the wave equation, it is irreversible (parabolic), has infinite speed of propagation, and instantly smooths initial data. Solutions decay exponentially as t→∞.</p>
+</div>
+
+<div class="sec" id="ibvp">
+  <h2>IBVP & Separation of Variables</h2>
+  <div class="def-box">
+    <div class="lbl">Heat IBVP (finite rod)</div>
+    <div class="formula">u_t = k·u_xx,   0 < x < L, t > 0
+u(0,t) = 0,  u(L,t) = 0   (Dirichlet BCs)
+u(x,0) = f(x)              (initial condition)</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Separation u(x,t)=X(x)T(t)</div>
+    <p>T′/kT = X″/X = −λ. BCs: X(0)=X(L)=0 ⟹ λₙ=(nπ/L)², Xₙ=sin(nπx/L). Then T_n(t)=e^(−kλₙt) = e^(−k(nπ/L)²t).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Full Solution</div>
+    <div class="formula">u(x,t) = Σ_{n=1}^∞ bₙ sin(nπx/L) e^{−k(nπ/L)²t}
+
+bₙ = (2/L)∫₀ᴸ f(x)sin(nπx/L)dx</div>
+    <p>Each mode decays exponentially. The dominant term as t→∞ is b₁sin(πx/L)e^(−k(π/L)²t).</p>
+  </div>
+  <table>
+    <tr><th>BC Type</th><th>Eigenfunctions</th><th>Eigenvalues</th></tr>
+    <tr><td>u(0)=u(L)=0 (Dirichlet)</td><td>sin(nπx/L)</td><td>(nπ/L)²</td></tr>
+    <tr><td>u_x(0)=u_x(L)=0 (Neumann)</td><td>cos(nπx/L)</td><td>(nπ/L)², n=0,1,…</td></tr>
+    <tr><td>Periodic [0,2L]</td><td>sin(nπx/L), cos(nπx/L)</td><td>(nπ/L)²</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="kernel">
+  <h2>Heat Kernel (Fundamental Solution)</h2>
+  <div class="thm-box">
+    <div class="lbl">Heat Kernel on ℝ</div>
+    <div class="formula">K(x,t) = (1/√(4πkt)) · e^{−x²/(4kt)},   t > 0</div>
+    <p>Properties: K(x,t)>0, ∫_{-∞}^∞ K(x,t)dx=1 (it's a Gaussian/probability distribution), K→δ(x) as t→0⁺.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Solution via Heat Kernel (Cauchy Problem on ℝ)</div>
+    <div class="formula">u(x,t) = ∫_{-∞}^∞ K(x−y,t) f(y) dy = (K*f)(x)   (convolution in x)</div>
+    <p>This is valid for bounded continuous f. Note: u is instantly C^∞ for t>0 even if f is discontinuous — the <strong>smoothing effect</strong>.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Infinite Speed of Propagation</div>
+    <p>Even if f is compactly supported, u(x,t)>0 for ALL x immediately (t>0). This contrasts with the wave equation's finite speed c.</p>
+  </div>
+</div>
+
+<div class="sec" id="maximum">
+  <h2>Maximum Principle</h2>
+  <div class="thm-box">
+    <div class="lbl">Weak Maximum Principle</div>
+    <p>Let u satisfy u_t=ku_xx in Q_T=(0,L)×(0,T]. Then max u attained on the <strong>parabolic boundary</strong> Γ_T = {t=0} ∪ {x=0} ∪ {x=L}.</p>
+    <div class="formula">max_{Q̄_T} u = max_{Γ_T} u</div>
+    <p>Similarly for the minimum. Consequence: if u=0 on parabolic boundary, then u≡0 in Q_T.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Consequences</div>
+    <ul>
+      <li><strong>Uniqueness:</strong> IBVP has at most one solution.</li>
+      <li><strong>Comparison:</strong> if u≤v on Γ_T then u≤v in Q_T.</li>
+      <li><strong>Stability:</strong> max|u|≤max_{Γ_T}|f|+T·max|source|.</li>
+    </ul>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Strong Maximum Principle</div>
+    <p>If u attains its maximum at an interior point, then u is constant. (Irreversibility — heat diffuses, cannot concentrate.)</p>
+  </div>
+</div>
+
+<div class="sec" id="nonhom">
+  <h2>Non-Homogeneous & Steady State</h2>
+  <div class="proof-box">
+    <div class="lbl">Steady-State Solution</div>
+    <p>For u_t=ku_xx with u(0,t)=T₁, u(L,t)=T₂: steady state satisfies u_ss″=0 ⟹ u_ss=T₁+(T₂−T₁)x/L (linear).</p>
+    <p>Write u=u_ss+v; then v satisfies homogeneous BCs and decays to 0.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Non-Homogeneous Source (Duhamel's Principle)</div>
+    <div class="formula">u_t = k·u_xx + F(x,t),  u(x,0)=0
+u(x,t) = ∫₀^t v(x,t−s;s) ds</div>
+    <p>where v(x,τ;s) solves the homogeneous heat equation with IC v(x,0;s)=F(x,s).</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The heat equation u_t=ku_xx is classified as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Elliptic</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Parabolic</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> Hyperbolic</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Nonlinear</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The separated time factor for the heat IBVP with Dirichlet BCs is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> sin(nπct/L)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> e^{−k(nπ/L)²t}</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> cos(nπt/L)</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> t^n</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The heat kernel K(x,t)=(4πkt)^{−1/2}e^{−x²/(4kt)} satisfies ∫K(x,t)dx=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> 1</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> √(πk)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> t</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The maximum principle for the heat equation says the maximum of u in Q̄_T is attained:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> At t=T (final time)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> On the parabolic boundary (t=0 or x=0 or x=L)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> At an interior point</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Nowhere (no max exists)</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">As t→∞, the solution of the heat IBVP with zero BCs:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Oscillates</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Decays to 0 exponentially</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Grows without bound</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Stays constant</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The heat equation has infinite speed of propagation because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> It is hyperbolic</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> The heat kernel is positive for all x,t>0, so compactly supported data is instantly felt everywhere</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Solutions blow up</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> It has no characteristics</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The steady-state solution for u_t=ku_xx, u(0)=0, u(L)=T is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> u_ss=T·sin(πx/L)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> u_ss=T·x/L</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> u_ss=T·e^(−x)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> u_ss=T (constant)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The Fourier coefficient bₙ for u(x,0)=f(x) in the heat IBVP (Dirichlet, [0,L]) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> (1/L)∫₀ᴸf(x)sin(nπx/L)dx</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> (2/L)∫₀ᴸf(x)sin(nπx/L)dx</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> ∫₀ᴸf(x)cos(nπx/L)dx</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 2∫₀ᴸf(x)dx</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Uniqueness for the heat IBVP follows from:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> d'Alembert's formula</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> The maximum principle (zero data ⟹ max=min=0 ⟹ u≡0)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Green's theorem</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Banach fixed point theorem</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The dominant mode as t→∞ for the heat equation u_t=ku_xx (Dirichlet [0,L]) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> b₂sin(2πx/L)e^{−4k(π/L)²t}</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> b₁sin(πx/L)e^{−k(π/L)²t}</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 1 (the constant mode)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> bₙ for n→∞</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The "smoothing effect" of the heat equation means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Solutions can develop singularities</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> For t>0, u is C^∞ even if initial data f is only continuous</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Initial sharp gradients grow sharper</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> The solution becomes periodic</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Duhamel's principle for non-homogeneous heat equation u_t=ku_xx+F gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> u=∫₀^∞ F(x,t)dt</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> u(x,t)=∫₀^t v(x,t−s;s)ds where v solves heat equation with IC F(x,s)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> u=F(x,t)/k</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> u=∂F/∂t</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The heat kernel K(x,t) as t→0⁺ converges to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> The Dirac delta distribution δ(x)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 1</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> The Heaviside function H(x)</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The backward heat equation (solving for t < 0 given data at t=0) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Well-posed and stable</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Ill-posed: high-frequency modes grow exponentially backward</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Well-posed but non-unique</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Parabolic with real characteristics</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">For Neumann BCs u_x(0,t)=u_x(L,t)=0, the eigenfunctions are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> sin(nπx/L)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> cos(nπx/L), n=0,1,2,… (including n=0 constant)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> e^(nπx/L)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> sin(nπx/L)+cos(nπx/L)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Separation</h4><p>u=Σbₙsin(nπx/L)e^{−k(nπ/L)²t}. bₙ=(2/L)∫f·sin.</p></div>
+    <div class="sum-card"><h4>Heat Kernel</h4><p>K=(4πkt)^{−½}e^{−x²/4kt}. u=K*f. Normalized Gaussian.</p></div>
+    <div class="sum-card"><h4>Smoothing</h4><p>u∈C^∞ for t>0. Infinite speed of propagation (K>0 everywhere).</p></div>
+    <div class="sum-card"><h4>Max Principle</h4><p>max u = max on parabolic boundary Γ_T. Gives uniqueness and stability.</p></div>
+    <div class="sum-card"><h4>Decay</h4><p>All modes decay: e^{−kλₙt}→0. Dominant mode n=1.</p></div>
+    <div class="sum-card"><h4>Non-Homogeneous</h4><p>Duhamel: u=∫₀^t v(x,t−s;s)ds. Steady state = linear profile.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U7_T02_WaveEquation.html">← T02: Wave Equation</a>
+    <a class="btn btn-acc" href="CSIR_NET_U7_T04_LaplaceEquation.html">T04: Laplace Equation →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Heat equation u_t=ku_xx: treat as A=k,B=0,C=0 (in x-t plane). Δ=0²−4k·0=0 → parabolic. Models diffusion: heat spreads, no oscillation, irreversible.',
+  2:'Separation gives X(x)T(t): T′/kT=X″/X=−λₙ=(nπ/L)². Time ODE T′=−kλₙT ⟹ T_n(t)=e^{−kλₙt}=e^{−k(nπ/L)²t}. Modes decay exponentially.',
+  3:'Heat kernel: ∫_{-∞}^∞(4πkt)^{−½}e^{−x²/(4kt)}dx=1 for all t>0. It is a Gaussian probability density with mean 0 and variance 2kt. The normalization is key to the convolution formula u=K*f.',
+  4:'Weak Maximum Principle: u_t=ku_xx in Q_T=(0,L)×(0,T]. The maximum of u over the closure Q̄_T is attained on the parabolic boundary Γ_T={t=0,0≤x≤L}∪{x=0,0≤t≤T}∪{x=L,0≤t≤T}.',
+  5:'Each mode bₙsin(nπx/L)e^{−k(nπ/L)²t}→0 as t→∞ (all λₙ>0). The solution decays exponentially to the steady state (which is 0 for zero BCs). Rate governed by smallest eigenvalue λ₁=(π/L)².',
+  6:'The heat kernel K(x,t)>0 for ALL x∈ℝ when t>0. So even if f is supported only near 0, u(x,t)=∫K(x−y,t)f(y)dy>0 for all x. Contrast: wave equation has finite speed c.',
+  7:'Steady state: u_t=0 ⟹ u_ss″=0 (ODE in x). General: u_ss=Ax+B. BCs: u_ss(0)=0 ⟹ B=0; u_ss(L)=T ⟹ A=T/L. So u_ss=Tx/L (linear interpolation between 0 and T).',
+  8:'Fourier sine coefficients: bₙ=⟨f,sin(nπx/L)⟩/‖sin(nπx/L)‖²=(2/L)∫₀ᴸf(x)sin(nπx/L)dx. The factor 2/L comes from ‖sin(nπx/L)‖²=L/2.',
+  9:'Uniqueness: if u₁,u₂ solve the same IBVP, w=u₁−u₂ satisfies zero BCs and IC. Max principle: max w=min w=0 ⟹ w≡0 ⟹ u₁=u₂.',
+  10:'As t→∞, e^{−kλₙt}→0 fastest for large n. The slowest-decaying mode has n=1 (smallest λ₁=(π/L)²). So u≈b₁sin(πx/L)e^{−k(π/L)²t} eventually.',
+  11:'The heat kernel K∈C^∞(ℝ×(0,∞)) is smooth, so u=K*f is C^∞ for t>0 regardless of f\'s smoothness. Physically: heat diffusion instantly eliminates sharp temperature gradients.',
+  12:'Duhamel\'s principle: for u_t−ku_xx=F, u(x,t)=∫₀^t v(x,t−s;s)ds where v_τ=kv_xx (t-parameter frozen), v(x,0;s)=F(x,s). Each slice of forcing contributes a heat-evolved piece.',
+  13:'K(x,t)=(4πkt)^{−½}e^{−x²/(4kt)}→δ(x) as t→0⁺: the Gaussian peaks and narrows (variance 2kt→0) while its integral stays 1. So ∫K(x,t)f(y)dy→f(x) as t→0⁺.',
+  14:'Backward heat equation: substitute t→−t, getting u_t=−ku_xx. Mode amplitudes grow as e^{k(nπ/L)²t} instead of decaying. Small perturbation in initial data → exponentially large error backwards → ill-posed.',
+  15:'Neumann BCs u_x(0)=u_x(L)=0: X′(0)=X′(L)=0. Solutions X=cos(nπx/L), n=0,1,2,… The n=0 mode X₀=1 (constant) has λ₀=0, giving T₀=const — the spatial average is conserved.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

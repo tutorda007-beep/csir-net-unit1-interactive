@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U4-T03 · Group Actions & Sylow Theorems</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid #34d399;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 4</span>
+  <span class="hdr-title">T03 · Group Actions & Sylow Theorems</span>
+  <span class="hdr-badge">Abstract Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 4 · Abstract Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('actions',this)">Group Actions</a>
+  <a class="nav-item" onclick="show('orbit',this)">Orbits & Stabilizers</a>
+  <a class="nav-item" onclick="show('cauchy',this)">Cauchy's & Class Equation</a>
+  <a class="nav-item" onclick="show('sylow',this)">Sylow Theorems</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U4_T02_NormalSubgroups.html">← T02 · Normal Subgroups</a>
+  <a class="nav-item" href="CSIR_NET_U4_T04_Rings.html">T04 · Rings →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 4 · Topic 03</div>
+    <div class="hero-title">Group Actions & Sylow Theorems</div>
+    <div class="hero-sub">Group actions · Orbit-stabilizer · Class equation · Sylow's three theorems</div>
+    <div class="hero-chips">
+      <span class="chip">Group Actions</span>
+      <span class="chip">Orbits</span>
+      <span class="chip">Stabilizers</span>
+      <span class="chip">Class Equation</span>
+      <span class="chip">Sylow Theorems</span>
+      <span class="chip">p-groups</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Group actions formalize the idea of a group "acting" on a set. The orbit-stabilizer theorem and class equation are powerful counting tools. Sylow's theorems use these to probe the subgroup structure of any finite group — they are among the most applicable results in finite group theory.</p>
+</div>
+
+<div class="sec" id="actions">
+  <h2>Group Actions</h2>
+  <div class="def-box">
+    <div class="lbl">Group Action</div>
+    <p>A <strong>group action</strong> of G on a set X is a map G × X → X, (g,x) ↦ g·x, satisfying:</p>
+    <ol>
+      <li>e·x = x for all x ∈ X (identity acts trivially)</li>
+      <li>(gh)·x = g·(h·x) for all g,h ∈ G, x ∈ X (compatibility)</li>
+    </ol>
+  </div>
+  <h3>Standard Examples</h3>
+  <table>
+    <tr><th>Group G</th><th>Set X</th><th>Action</th></tr>
+    <tr><td>Sₙ</td><td>{1,...,n}</td><td>σ·i = σ(i)</td></tr>
+    <tr><td>G</td><td>G</td><td>Left multiplication: g·x = gx</td></tr>
+    <tr><td>G</td><td>G</td><td>Conjugation: g·x = gxg⁻¹</td></tr>
+    <tr><td>G</td><td>subgroups of G</td><td>Conjugation: g·H = gHg⁻¹</td></tr>
+    <tr><td>GL(n,ℝ)</td><td>ℝⁿ</td><td>Matrix-vector product</td></tr>
+    <tr><td>G</td><td>G/H (cosets)</td><td>Left mult: g·(xH) = gxH</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="orbit">
+  <h2>Orbits & Stabilizers</h2>
+  <div class="def-box">
+    <div class="lbl">Orbit and Stabilizer</div>
+    <p><strong>Orbit</strong> of x ∈ X: Orb(x) = G·x = {g·x : g ∈ G}</p>
+    <p><strong>Stabilizer</strong> (isotropy group) of x: Stab(x) = Gₓ = {g ∈ G : g·x = x} ≤ G</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Orbit-Stabilizer Theorem</div>
+    <div class="formula">|G| = |Orb(x)| · |Stab(x)|</div>
+    <p>Equivalently: |Orb(x)| = [G : Stab(x)] = |G|/|Stab(x)|.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Burnside's Lemma (counting orbits)</div>
+    <p>The number of orbits of G acting on X is:</p>
+    <div class="formula">|X/G| = (1/|G|) · Σ_{g∈G} |X^g|</div>
+    <p>where X^g = {x ∈ X : g·x = x} = fixed points of g. Used for combinatorial counting.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Conjugacy Classes</div>
+    <p>Under conjugation action g·x = gxg⁻¹: orbits are <strong>conjugacy classes</strong>. Stabilizer of x is the <strong>centralizer</strong> C(x) = {g: gx=xg}.</p>
+    <p>|conj class of x| = [G:C(x)] = |G|/|C(x)|.</p>
+  </div>
+</div>
+
+<div class="sec" id="cauchy">
+  <h2>Cauchy's Theorem & Class Equation</h2>
+  <div class="thm-box">
+    <div class="lbl">Class Equation</div>
+    <p>Partition G into conjugacy classes. The center Z(G) consists of all size-1 classes. For the remaining classes with representatives x₁,...,xₖ (outside Z(G)):</p>
+    <div class="formula">|G| = |Z(G)| + Σᵢ [G : C(xᵢ)]</div>
+    <p>Each term [G:C(xᵢ)] > 1 divides |G|.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Cauchy's Theorem</div>
+    <p>If p is a prime and p | |G|, then G has an element of order p (equivalently, a subgroup of order p).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">p-groups</div>
+    <p>G is a <strong>p-group</strong> if |G| = pⁿ for some prime p and n ≥ 1.</p>
+    <ul>
+      <li>Every p-group has non-trivial center: Z(G) ≠ {e}.</li>
+      <li>Every group of order p² is abelian (isomorphic to ℤ_{p²} or ℤₚ × ℤₚ).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="sylow">
+  <h2>Sylow's Theorems</h2>
+  <p>Let |G| = pⁿm where p is prime and gcd(p,m) = 1. A <strong>Sylow p-subgroup</strong> is a subgroup of order pⁿ.</p>
+  <div class="thm-box">
+    <div class="lbl">Sylow's First Theorem (Existence)</div>
+    <p>Every finite group G has a Sylow p-subgroup for each prime p dividing |G|.</p>
+    <p>More generally: for every k with 0 ≤ k ≤ n, G has a subgroup of order pᵏ.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Sylow's Second Theorem (Conjugacy)</div>
+    <p>All Sylow p-subgroups of G are conjugate to each other: if P, Q are both Sylow p-subgroups, then Q = gPg⁻¹ for some g ∈ G.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Sylow's Third Theorem (Number of Sylow Subgroups)</div>
+    <p>Let nₚ = number of Sylow p-subgroups of G. Then:</p>
+    <ul>
+      <li>nₚ ≡ 1 (mod p)</li>
+      <li>nₚ | m (where |G| = pⁿm)</li>
+      <li>nₚ = [G : N_G(P)] where N_G(P) is the normalizer of any Sylow p-subgroup P</li>
+    </ul>
+    <p><strong>Unique Sylow ⟹ Normal:</strong> if nₚ = 1, the unique Sylow p-subgroup is normal in G.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Application: Groups of order 15</div>
+    <p>|G|=15=3·5. n₃|5 and n₃≡1(mod 3), so n₃=1. n₅|3 and n₅≡1(mod 5), so n₅=1. Both Sylow subgroups are unique, hence normal. G≅ℤ₃×ℤ₅≅ℤ₁₅.</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Application: No simple group of order 56</div>
+    <p>|G|=56=2³·7. n₇|8 and n₇≡1(mod 7), so n₇∈{1,8}. If n₇=1, the Sylow 7-subgroup is normal → G not simple. If n₇=8: 8 Sylow 7-subgroups give 8·6=48 elements of order 7. The remaining 8=2³ elements form a unique Sylow 2-subgroup, which is normal → G not simple.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The Orbit-Stabilizer Theorem states: |G| = |Orb(x)| × ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> |G|</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> |Stab(x)|</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> |X|</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Cauchy's Theorem guarantees: if prime p divides |G|, then G has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> A normal subgroup of order p</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> An element of order p</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Exactly p elements of order p</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> A Sylow p-subgroup of order p</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">For |G| = p^n·m with gcd(p,m)=1, a Sylow p-subgroup has order:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> p</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> pⁿ</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> m</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> pⁿm</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">If nₚ is the number of Sylow p-subgroups, which conditions must nₚ satisfy?</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> nₚ ≡ 0 (mod p) and nₚ | |G|</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> nₚ ≡ 1 (mod p) and nₚ | m</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> nₚ = 1 always</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> nₚ | p</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Every p-group (group of order pⁿ) has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Trivial center Z(G) = {e}</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Non-trivial center Z(G) ≠ {e}</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Z(G) = G</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> No normal subgroups</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The class equation for a finite group G is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> |G| = |Z(G)| · Σ|C(xᵢ)|</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> |G| = |Z(G)| + Σ[G:C(xᵢ)] (sum over non-central classes)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> |G| = Σ|Stab(xᵢ)|</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> |G| = |Z(G)| · [G:Z(G)]</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">How many Sylow 3-subgroups can a group of order 12 have?</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Only 1</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> 1 or 4</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> 1, 2, or 3</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> 3 or 6</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Burnside's Lemma counts the number of distinct orbits as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> |G| · Σ|X^g|</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> (1/|G|) · Σ_{g∈G}|X^g| (average number of fixed points)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> |X| / |G|</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> |G| / |X|</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">All Sylow p-subgroups of G are (Sylow's 2nd Theorem):</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Identical</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Conjugate to each other</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Normal in G</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Disjoint</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">A group of order p² (p prime) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Always cyclic</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Always abelian</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Always simple</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Non-abelian</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The unique Sylow p-subgroup (when nₚ=1) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Cyclic</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Normal in G</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> The center Z(G)</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Abelian</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">For a group of order 30 = 2·3·5, which statement follows from Sylow's theorems?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> G must be simple</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> G has at most one Sylow 5-subgroup (n₅ = 1 or 6), but n₅ must divide 6 and ≡1 mod 5, so n₅=1 or 6</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> G has exactly 5 Sylow 2-subgroups</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> G ≅ ℤ₃₀</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The action of G on itself by conjugation has orbits equal to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Left cosets</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Conjugacy classes</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Normal subgroups</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Sylow subgroups</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The stabilizer of x under conjugation action (g·x = gxg⁻¹) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> The center Z(G)</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> The centralizer C_G(x) = {g∈G : gx=xg}</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> The normalizer N_G(x)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> The Sylow subgroup containing x</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">A group of order 35 = 5·7 must be cyclic because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> All groups of odd order are cyclic</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> n₅=1 and n₇=1 by Sylow's 3rd theorem, so both unique Sylow subgroups are normal, giving G≅ℤ₅×ℤ₇≅ℤ₃₅</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> 35 is a prime power</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Sylow subgroups of order 5 and 7 are always cyclic</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">G×X</div>
+      <h4>Group Action</h4>
+      <p>e·x=x, (gh)·x=g·(h·x). Orbits partition X.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">|G|=</div>
+      <h4>Orbit-Stabilizer</h4>
+      <p>|G|=|Orb(x)|·|Stab(x)|. Orbits = conjugacy classes for conjugation action.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">p||G|</div>
+      <h4>Cauchy's Thm</h4>
+      <p>p prime, p||G| ⟹ G has element of order p.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">Z≠{e}</div>
+      <h4>p-groups</h4>
+      <p>|G|=pⁿ ⟹ Z(G)≠{e}. Order p² ⟹ abelian.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">nₚ</div>
+      <h4>Sylow 3rd Thm</h4>
+      <p>nₚ≡1(mod p), nₚ|m. nₚ=1 ⟹ Sylow subgroup is normal.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">conj</div>
+      <h4>Sylow 2nd Thm</h4>
+      <p>All Sylow p-subgroups are conjugate to each other.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U4_T04_Rings.html">Next: Rings →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Orbit-Stabilizer Theorem: |G|=|Orb(x)|·|Stab(x)|. The size of the orbit times the size of the stabilizer equals the order of the group.',
+  2:'Cauchy\'s Theorem: if prime p divides |G|, then G has an element of order p (and hence a cyclic subgroup of order p). This is a partial converse to Lagrange\'s theorem.',
+  3:'A Sylow p-subgroup has the maximum possible p-power order. If |G|=pⁿm with gcd(p,m)=1, the Sylow p-subgroup has order pⁿ.',
+  4:'Sylow\'s 3rd Theorem: nₚ≡1(mod p) and nₚ divides m (where |G|=pⁿm). Note nₚ divides m, not |G|.',
+  5:'Every p-group has non-trivial center. Proof via class equation: |G|=|Z(G)|+Σ[G:C(xᵢ)]. Each term [G:C(xᵢ)] is divisible by p (since it divides |G|=pⁿ and is >1). So p||Z(G)|, meaning Z(G)≠{e}.',
+  6:'Class Equation: |G|=|Z(G)|+Σ[G:C(xᵢ)] where the sum is over representatives of conjugacy classes with more than one element.',
+  7:'|G|=12=2²·3. n₃ divides 4 and n₃≡1(mod 3): candidates are 1 and 4. So n₃=1 or 4.',
+  8:'Burnside\'s Lemma: number of orbits = (1/|G|)·Σ_{g∈G}|X^g| (average number of fixed points per group element).',
+  9:'Sylow\'s 2nd Theorem: all Sylow p-subgroups are conjugate to each other (P and Q Sylow p-subgroups ⟹ Q=gPg⁻¹ for some g∈G).',
+  10:'Every group of order p² is abelian. It is either cyclic (≅ℤ_{p²}) or isomorphic to ℤₚ×ℤₚ, both abelian. This follows from the class equation and the fact that the center is non-trivial.',
+  11:'If nₚ=1, the unique Sylow p-subgroup P satisfies gPg⁻¹=P for all g∈G (since all Sylow p-subgroups are conjugate and P is the only one). This means P◁G.',
+  12:'For |G|=30=2·3·5: n₅ must divide 6 and n₅≡1(mod 5), so n₅∈{1,6}. n₃ divides 10 and n₃≡1(mod 3), so n₃∈{1,10}. n₂ divides 15 and n₂≡1(mod 2), so n₂∈{1,3,5,15}. The statement about n₅ is the most accurate.',
+  13:'Under conjugation action g·x=gxg⁻¹, the orbit of x is {gxg⁻¹: g∈G} = conjugacy class of x. So orbits = conjugacy classes.',
+  14:'Stab(x) under conjugation = {g∈G: gxg⁻¹=x} = {g∈G: gx=xg} = centralizer C_G(x).',
+  15:'|G|=35=5·7. n₅ divides 7 and n₅≡1(mod 5): n₅=1 (since 7≢1(mod 5) fails, so n₅=1 only). n₇ divides 5 and n₇≡1(mod 7): n₇=1. Both unique Sylow subgroups are normal and intersect trivially, so G≅ℤ₅×ℤ₇≅ℤ₃₅.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

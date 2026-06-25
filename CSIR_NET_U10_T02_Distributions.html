@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U10-T02 · Probability Distributions</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 10 · T02</span>
+  <span class="hdr-title">Probability Distributions</span>
+  <span class="hdr-badge">Distributions</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 10 · T02</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('discrete',this)">Discrete Distributions</a>
+  <a class="nav-item" onclick="show('continuous',this)">Continuous Distributions</a>
+  <a class="nav-item" onclick="show('special',this)">Special Distributions</a>
+  <a class="nav-item" onclick="show('theorems',this)">CLT & Limit Theorems</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U10_T01_Probability.html">← T01 · Probability</a>
+  <a class="nav-item" href="CSIR_NET_U10_T03_Statistics.html">T03 · Statistics →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 10 · Topic 02</div>
+    <div class="hero-title">Probability Distributions</div>
+    <div class="hero-sub">Binomial · Poisson · Normal · Exponential · Gamma · Beta · CLT · Law of Large Numbers</div>
+    <div class="hero-chips">
+      <span class="chip">Binomial</span>
+      <span class="chip">Poisson</span>
+      <span class="chip">Normal N(μ,σ²)</span>
+      <span class="chip">Exponential</span>
+      <span class="chip">Gamma · Beta</span>
+      <span class="chip">CLT</span>
+    </div>
+  </div>
+  <h2>Standard Distributions</h2>
+  <p>The table below summarises key properties. Knowing these cold — mean, variance, MGF — is essential for CSIR NET. Note the Poisson limit of Binomial and the connection between Exponential and Gamma.</p>
+</div>
+
+<div class="sec" id="discrete">
+  <h2>Discrete Distributions</h2>
+  <table>
+    <tr><th>Distribution</th><th>PMF</th><th>Mean</th><th>Variance</th><th>MGF</th></tr>
+    <tr><td>Bernoulli(p)</td><td>p^x(1−p)^{1−x}, x∈{0,1}</td><td>p</td><td>p(1−p)</td><td>1−p+pe^t</td></tr>
+    <tr><td>Binomial(n,p)</td><td>C(n,k)p^k(1−p)^{n−k}</td><td>np</td><td>np(1−p)</td><td>(1−p+pe^t)^n</td></tr>
+    <tr><td>Poisson(λ)</td><td>e^{−λ}λ^k/k!, k≥0</td><td>λ</td><td>λ</td><td>e^{λ(e^t−1)}</td></tr>
+    <tr><td>Geometric(p)</td><td>(1−p)^{k−1}p, k≥1</td><td>1/p</td><td>(1−p)/p²</td><td>pe^t/(1−(1−p)e^t)</td></tr>
+    <tr><td>Negative Binomial(r,p)</td><td>C(k−1,r−1)p^r(1−p)^{k−r}</td><td>r/p</td><td>r(1−p)/p²</td><td>(pe^t/(1−(1−p)e^t))^r</td></tr>
+    <tr><td>Hypergeometric(N,K,n)</td><td>C(K,k)C(N−K,n−k)/C(N,n)</td><td>nK/N</td><td>nK(N−K)(N−n)/[N²(N−1)]</td><td>—</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Poisson Approximation to Binomial</div>
+    <p>If n→∞, p→0, np→λ, then Bin(n,p)→Poisson(λ). Rule of thumb: n≥100, p≤0.01.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Memoryless Property (Geometric)</div>
+    <div class="formula">P(X>m+n | X>m) = P(X>n)</div>
+    <p>The geometric distribution is the only discrete memoryless distribution.</p>
+  </div>
+</div>
+
+<div class="sec" id="continuous">
+  <h2>Continuous Distributions</h2>
+  <table>
+    <tr><th>Distribution</th><th>PDF f(x)</th><th>Mean</th><th>Variance</th><th>MGF</th></tr>
+    <tr><td>Uniform(a,b)</td><td>1/(b−a), a≤x≤b</td><td>(a+b)/2</td><td>(b−a)²/12</td><td>(e^{tb}−e^{ta})/[t(b−a)]</td></tr>
+    <tr><td>Normal(μ,σ²)</td><td>(2πσ²)^{−½}exp(−(x−μ)²/2σ²)</td><td>μ</td><td>σ²</td><td>e^{μt+σ²t²/2}</td></tr>
+    <tr><td>Exponential(λ)</td><td>λe^{−λx}, x≥0</td><td>1/λ</td><td>1/λ²</td><td>λ/(λ−t), t&lt;λ</td></tr>
+    <tr><td>Gamma(α,β)</td><td>x^{α−1}e^{−x/β}/(β^α Γ(α))</td><td>αβ</td><td>αβ²</td><td>(1−βt)^{−α}</td></tr>
+    <tr><td>Beta(α,β)</td><td>x^{α−1}(1−x)^{β−1}/B(α,β), 0&lt;x&lt;1</td><td>α/(α+β)</td><td>αβ/[(α+β)²(α+β+1)]</td><td>—</td></tr>
+    <tr><td>Chi-squared(k)</td><td>Gamma(k/2, 2) special case</td><td>k</td><td>2k</td><td>(1−2t)^{−k/2}</td></tr>
+  </table>
+  <div class="def-box">
+    <div class="lbl">Memoryless Property (Exponential)</div>
+    <div class="formula">P(X>s+t | X>s) = P(X>t)</div>
+    <p>The exponential is the only continuous memoryless distribution. Models time between Poisson events.</p>
+  </div>
+</div>
+
+<div class="sec" id="special">
+  <h2>Normal Distribution Properties</h2>
+  <div class="def-box">
+    <div class="lbl">Standard Normal Z~N(0,1)</div>
+    <div class="formula">φ(z) = (1/√(2π))e^{−z²/2}   (PDF)
+Φ(z) = ∫_{−∞}^z φ(t)dt   (CDF, no closed form)
+
+Key values: Φ(1.645)≈0.95, Φ(1.96)≈0.975, Φ(2.576)≈0.995</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Linear Transformations</div>
+    <ul>
+      <li>X~N(μ,σ²) ⟹ aX+b~N(aμ+b, a²σ²)</li>
+      <li>X~N(μ₁,σ₁²), Y~N(μ₂,σ₂²) independent ⟹ X+Y~N(μ₁+μ₂, σ₁²+σ₂²)</li>
+      <li>Z=(X−μ)/σ~N(0,1) (standardisation)</li>
+      <li>Z²~χ²(1); if Z₁,…,Zₙ iid N(0,1) then ΣZᵢ²~χ²(n)</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Relationships Between Distributions</div>
+    <ul>
+      <li>Exponential(λ) = Gamma(1,1/λ)</li>
+      <li>χ²(k) = Gamma(k/2, 2)</li>
+      <li>If X~Gamma(α,β), Y~Gamma(γ,β) independent: X+Y~Gamma(α+γ,β)</li>
+      <li>Poisson(λ) limit of Bin(n,λ/n)</li>
+      <li>Normal limit of Bin and Poisson (by CLT)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="theorems">
+  <h2>Limit Theorems</h2>
+  <div class="thm-box">
+    <div class="lbl">Weak Law of Large Numbers (WLLN)</div>
+    <p>If X₁,X₂,… iid with E[X]=μ, Var(X)<∞:</p>
+    <div class="formula">X̄ₙ = (X₁+…+Xₙ)/n →^P μ  (convergence in probability)</div>
+    <p>Proof via Chebyshev: P(|X̄ₙ−μ|≥ε)≤Var(X)/(nε²)→0.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Central Limit Theorem (CLT)</div>
+    <p>If X₁,X₂,… iid with E[X]=μ, Var(X)=σ²<∞:</p>
+    <div class="formula">√n(X̄ₙ−μ)/σ →^d N(0,1)  (convergence in distribution)</div>
+    <p>Remarkable: works for any distribution with finite mean and variance. Used to justify normal approximations.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Modes of Convergence</div>
+    <ul>
+      <li>Almost sure: Xₙ→X a.s. (SLLN: X̄ₙ→μ a.s. under E[|X|]&lt;∞)</li>
+      <li>In probability: for all ε>0, P(|Xₙ−X|>ε)→0</li>
+      <li>In distribution: Fₙ(x)→F(x) at all continuity points of F</li>
+      <li>In Lp: E[|Xₙ−X|^p]→0</li>
+      <li>a.s. ⟹ in probability ⟹ in distribution (none reverse in general)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">If X~Binomial(n,p), then E[X] and Var(X) are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> E[X]=p, Var(X)=np</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> E[X]=np, Var(X)=np(1−p)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> E[X]=np, Var(X)=np²</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> E[X]=n/p, Var(X)=np</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">For X~Poisson(λ), both E[X] and Var(X) equal:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> λ²</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> λ</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> √λ</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> 1/λ</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">X~Exponential(λ): the memoryless property states P(X>s+t|X>s)=</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> e^{−λs}</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> P(X>t) = e^{−λt}</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> e^{−λ(s+t)}</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> 1−e^{−λt}</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Central Limit Theorem states that √n(X̄ₙ−μ)/σ converges in distribution to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Poisson(1)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> N(0,1) (standard normal)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> χ²(1)</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Exponential(1)</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">If Z₁,Z₂,…,Zₙ are iid N(0,1), then ΣZᵢ² follows:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Normal(0,n)</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> χ²(n) distribution</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Exponential(n)</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Poisson(n)</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">For X~N(μ,σ²), the MGF is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> e^{μt}</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> e^{μt + σ²t²/2}</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> (1−σ²t)^{−1}</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> e^{σ²t²}</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The geometric distribution (number of trials until first success) has mean:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> p</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> 1/p</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> p(1−p)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> 1/(1−p)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The sum of two independent Normal RVs X~N(μ₁,σ₁²) and Y~N(μ₂,σ₂²) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> N(μ₁μ₂, σ₁²σ₂²)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> N(μ₁+μ₂, σ₁²+σ₂²)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> N(μ₁+μ₂, σ₁²·σ₂²)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> N(μ₁/μ₂, σ₁²+σ₂²)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The variance of Uniform(a,b) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> (b−a)/2</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> (b−a)²/12</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> (b+a)²/4</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 1/(b−a)</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Poisson(λ) arises as a limit of Bin(n,p) when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> n→∞, p→1, np→λ</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> n→∞, p→0, np→λ (fixed λ)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> n fixed, p→0</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> n→∞, p fixed</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">If X~Gamma(α,β), then E[X] and Var(X) equal:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> E[X]=α, Var(X)=β</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> E[X]=αβ, Var(X)=αβ²</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> E[X]=α/β, Var(X)=α/β²</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> E[X]=β, Var(X)=αβ</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The WLLN (Weak Law of Large Numbers) states: X̄ₙ converges to μ</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Almost surely</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> In probability (P(|X̄ₙ−μ|≥ε)→0 for all ε>0)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> In distribution</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> In L∞</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The mean of Beta(α,β) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> αβ</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> α/(α+β)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> β/(α+β)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> 1/(α+β)</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Which mode of convergence is strongest (implies all others)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Convergence in distribution</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Almost sure convergence (Xₙ→X a.s.)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Convergence in probability</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Convergence in mean</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The χ²(k) distribution has mean k and variance:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> k</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> 2k</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> k²</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> k/2</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Bin(n,p): each trial contributes p to mean. E[X]=np (sum of n Bernoulli means). Var(X)=np(1−p) (sum of n independent Bernoulli variances p(1−p)). MGF=(1−p+pe^t)^n.',
+  2:'Poisson(λ) is the unique discrete distribution where mean=variance=λ. PMF: P(X=k)=e^{−λ}λ^k/k!. MGF: e^{λ(e^t−1)}. Sum of independent Poisson(λ₁),Poisson(λ₂) is Poisson(λ₁+λ₂).',
+  3:'Exponential memoryless: P(X>s+t|X>s)=P(X>s+t)/P(X>s)=e^{−λ(s+t)}/e^{−λs}=e^{−λt}=P(X>t). The additional waiting time has the same exponential distribution regardless of how long you\'ve already waited.',
+  4:'CLT: for iid X₁,X₂,… with mean μ and variance σ², the standardized sample mean √n(X̄ₙ−μ)/σ →^d N(0,1). This is one of the most important theorems in mathematics — enables normal approximation for virtually any sum of iid RVs.',
+  5:'Z²~χ²(1) since Z~N(0,1). By reproductive property of χ²: if Z₁,…,Zₙ iid N(0,1), then Z₁²+…+Zₙ²~χ²(n). χ²(n)=Gamma(n/2,2). Used in goodness-of-fit and independence tests.',
+  6:'Normal MGF: M_X(t)=E[e^{tX}]=e^{μt+σ²t²/2}. Completing the square in the exponent of the integrand. Differentiating: M_X′(0)=μ, M_X″(0)=μ²+σ², confirming E[X]=μ, Var(X)=σ².',
+  7:'Geometric(p) (# trials until first success): E[X]=1/p. Derivation: E[X]=Σ_{k=1}^∞ k(1−p)^{k−1}p = p·d/dp[Σ(−(1−p)^k)] = 1/p. Var(X)=(1−p)/p². Model: number of coin flips until first heads with p=½ gives E=2.',
+  8:'If X,Y independent Normal: X+Y~N(μ₁+μ₂, σ₁²+σ₂²). Proof via MGFs: M_{X+Y}(t)=M_X(t)M_Y(t)=e^{μ₁t+σ₁²t²/2}·e^{μ₂t+σ₂²t²/2}=e^{(μ₁+μ₂)t+(σ₁²+σ₂²)t²/2}. Variances add (not std devs).',
+  9:'Uniform(a,b): E[X]=(a+b)/2, E[X²]=(a²+ab+b²)/3. Var(X)=E[X²]−(E[X])²=(a²+ab+b²)/3−(a+b)²/4=(b−a)²/12. Special case: Uniform(0,1) has Var=1/12.',
+  10:'Poisson limit theorem: Bin(n,p)→Poisson(λ) as n→∞, p→0, np=λ (fixed). Rate p of each event is rare, but so many n events that the total count λ=np stays finite. This is why Poisson models rare event counts (calls per hour, defects per unit).',
+  11:'Gamma(α,β) with shape α and scale β: E[X]=αβ, Var(X)=αβ². Special cases: Gamma(1,1/λ)=Exp(λ) [E=1/λ, Var=1/λ²]; Gamma(k/2,2)=χ²(k) [E=k, Var=2k]. The Gamma function Γ(α)=∫_0^∞ x^{α−1}e^{−x}dx satisfies Γ(n)=(n−1)!.',
+  12:'WLLN: convergence in probability (P-convergence). Proved via Chebyshev. The SLLN (Strong LLN) gives almost sure convergence under E[|X|]<∞ (Kolmogorov SLLN). Almost sure convergence is stronger: a.s. ⟹ in probability ⟹ in distribution.',
+  13:'Beta(α,β) on (0,1): E[X]=α/(α+β). Interpretations: Beta(1,1)=Uniform(0,1); posterior for binomial proportion with Uniform prior and k successes in n−k failures is Beta(k+1,n−k+1). Mean=(k+1)/(n+2) (Bayesian estimate).',
+  14:'Almost sure convergence (X_n→X a.s.) is the strongest. Hierarchy: a.s. ⟹ in probability ⟹ in distribution. In Lp ⟹ in probability. Convergence in distribution is weakest — it says only that the CDFs converge, not the RVs themselves.',
+  15:'χ²(k)=Gamma(k/2,2): E[X]=k·(2/2)=k·1=k; wait, for Gamma(α,β) E=αβ. Here α=k/2, β=2 ⟹ E=k. Var=αβ²=(k/2)·4=2k. For k=1: Var(Z²)=2 where Z~N(0,1), consistent with E[Z⁴]−(E[Z²])²=3−1=2.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U6-T04 · Series Solutions of ODEs</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0f4c75;--acc2:#1b6ca8;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(15,76,117,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(15,76,117,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(15,76,117,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#e8f4f8,#bee3f8,#90cdf4)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(15,76,117,.08);color:var(--acc);font-weight:600;border:1px solid rgba(15,76,117,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#e8f4f8;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 6</span>
+  <span class="hdr-title">T04 · Series Solutions of ODEs</span>
+  <span class="hdr-badge">ODE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 6 · ODEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('ordinary',this)">Ordinary Points</a>
+  <a class="nav-item" onclick="show('singular',this)">Regular Singular Points</a>
+  <a class="nav-item" onclick="show('frobenius',this)">Frobenius Method</a>
+  <a class="nav-item" onclick="show('special',this)">Special ODEs</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U6_T03_SystemsODE.html">← T03 · Systems</a>
+  <a class="nav-item" href="CSIR_NET_U6_T05_SturmLiouville.html">T05 · Sturm-Liouville →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 6 · Topic 04</div>
+    <div class="hero-title">Series Solutions of ODEs</div>
+    <div class="hero-sub">Power series · Ordinary points · Regular singular points · Frobenius method · Bessel & Legendre</div>
+    <div class="hero-chips">
+      <span class="chip">Power Series</span>
+      <span class="chip">Ordinary Point</span>
+      <span class="chip">Regular Singular</span>
+      <span class="chip">Frobenius Method</span>
+      <span class="chip">Indicial Equation</span>
+      <span class="chip">Bessel & Legendre</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>When an ODE has variable coefficients that are not of Cauchy-Euler type, power series methods provide solutions. The key distinction is between <em>ordinary points</em> (where series solutions are power series) and <em>regular singular points</em> (where the Frobenius method gives series in xʳ). Bessel and Legendre equations are the most important special cases.</p>
+</div>
+
+<div class="sec" id="ordinary">
+  <h2>Power Series at Ordinary Points</h2>
+  <div class="def-box">
+    <div class="lbl">Ordinary Point</div>
+    <p>For y'' + P(x)y' + Q(x)y = 0, x₀ is an <strong>ordinary point</strong> if P and Q are analytic at x₀ (have convergent power series there).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Theorem</div>
+    <p>If x₀ is an ordinary point, two linearly independent power series solutions exist:</p>
+    <div class="formula">y = Σ_{n=0}^∞ aₙ(x−x₀)ⁿ</div>
+    <p>converging in |x−x₀| < R, where R = distance from x₀ to the nearest singular point (in ℂ).</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Method</div>
+    <p>Substitute y=Σaₙxⁿ into the ODE. Match coefficients of each power of x to get a recurrence relation for aₙ. Two free parameters a₀,a₁ give the two independent solutions.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Example: Airy Equation</div>
+    <p>y''−xy=0. Substitute y=Σaₙxⁿ. Recurrence: aₙ₊₃ = aₙ/((n+2)(n+3)). Two independent series from a₀=1,a₁=0 and a₀=0,a₁=1. Radius of convergence: ∞ (x=0 is ordinary).</p>
+  </div>
+</div>
+
+<div class="sec" id="singular">
+  <h2>Singular Points</h2>
+  <div class="def-box">
+    <div class="lbl">Regular vs Irregular Singular Points</div>
+    <p>x₀ is a <strong>singular point</strong> if P(x) or Q(x) is not analytic there. It is <strong>regular singular</strong> if:</p>
+    <div class="formula">(x−x₀)P(x) and (x−x₀)²Q(x) are both analytic at x₀</div>
+    <p>Otherwise it is an <strong>irregular singular point</strong> (harder — no Frobenius method).</p>
+  </div>
+  <h3>Examples</h3>
+  <table>
+    <tr><th>ODE</th><th>Singular Point</th><th>Type</th></tr>
+    <tr><td>Bessel: x²y''+xy'+(x²−ν²)y=0</td><td>x=0</td><td>Regular singular</td></tr>
+    <tr><td>Legendre: (1−x²)y''−2xy'+n(n+1)y=0</td><td>x=±1</td><td>Regular singular</td></tr>
+    <tr><td>y''+(1/x²)y=0</td><td>x=0</td><td>Irregular singular</td></tr>
+    <tr><td>Hermite: y''−2xy'+2ny=0</td><td>None (x=∞ is irregular)</td><td>Ordinary everywhere finite</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="frobenius">
+  <h2>Frobenius Method</h2>
+  <div class="def-box">
+    <div class="lbl">Frobenius Series</div>
+    <p>At a regular singular point x₀=0, try:</p>
+    <div class="formula">y = xʳ Σ_{n=0}^∞ aₙxⁿ = Σ_{n=0}^∞ aₙx^(n+r),   a₀≠0</div>
+    <p>The <strong>indicial equation</strong> for r is obtained by setting n=0 in the recurrence.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Indicial Equation</div>
+    <p>Write (x−x₀)P(x) = Σpₙxⁿ and (x−x₀)²Q(x) = Σqₙxⁿ. The indicial equation is:</p>
+    <div class="formula">r(r−1) + p₀r + q₀ = 0</div>
+    <p>whose roots r₁≥r₂ determine the form of solutions.</p>
+  </div>
+  <table>
+    <tr><th>Roots r₁, r₂</th><th>Two solutions</th></tr>
+    <tr><td>r₁−r₂ ∉ ℤ</td><td>y₁=xʳ¹Σaₙxⁿ, y₂=xʳ²Σbₙxⁿ</td></tr>
+    <tr><td>r₁=r₂ (equal)</td><td>y₁=xʳ¹Σaₙxⁿ, y₂=y₁ln x + xʳ¹Σcₙxⁿ</td></tr>
+    <tr><td>r₁−r₂=N (positive integer)</td><td>y₁=xʳ¹Σaₙxⁿ, y₂=c·y₁ln x + xʳ²Σbₙxⁿ (c may be 0)</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="special">
+  <h2>Special ODEs: Bessel & Legendre</h2>
+  <h3>Bessel's Equation</h3>
+  <div class="def-box">
+    <div class="lbl">Bessel Equation of Order ν</div>
+    <div class="formula">x²y'' + xy' + (x²−ν²)y = 0</div>
+    <p>Regular singular point at x=0. Indicial equation: r²−ν²=0 ⟹ r=±ν.</p>
+    <p><strong>Bessel function of first kind:</strong> J_ν(x) = Σ_{m=0}^∞ (−1)ᵐ/(m!Γ(m+ν+1)) · (x/2)^(2m+ν)</p>
+    <p><strong>Bessel function of second kind:</strong> Y_ν(x) = (J_ν cos νπ − J_{−ν})/sin νπ (for non-integer ν)</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Key Bessel Identities</div>
+    <ul>
+      <li>d/dx[xᵛJ_ν(x)] = xᵛJ_{ν−1}(x)</li>
+      <li>d/dx[x^(−ν)J_ν(x)] = −x^(−ν)J_{ν+1}(x)</li>
+      <li>J_{ν−1}(x) + J_{ν+1}(x) = (2ν/x)J_ν(x)</li>
+      <li>J₀(0)=1, J_ν(0)=0 for ν>0</li>
+    </ul>
+  </div>
+  <h3>Legendre's Equation</h3>
+  <div class="def-box">
+    <div class="lbl">Legendre Equation</div>
+    <div class="formula">(1−x²)y'' − 2xy' + n(n+1)y = 0</div>
+    <p>x=0 is ordinary. When n is a non-negative integer, one solution is a polynomial: the <strong>Legendre polynomial</strong> Pₙ(x).</p>
+    <p>P₀=1, P₁=x, P₂=(3x²−1)/2, P₃=(5x³−3x)/2, Pₙ(1)=1.</p>
+    <p><strong>Rodrigues' formula:</strong> Pₙ(x) = (1/2ⁿn!) dⁿ/dxⁿ [(x²−1)ⁿ]</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Orthogonality</div>
+    <p>∫₋₁¹ Pₘ(x)Pₙ(x)dx = 0 if m≠n, = 2/(2n+1) if m=n. Used in Fourier-Legendre expansions.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">At an ordinary point x₀, the power series solution y=Σaₙ(x−x₀)ⁿ converges for:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> All x</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> |x−x₀| < R where R is distance to nearest singular point (in ℂ)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> Only at x=x₀</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> |x−x₀| < 1 always</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">x=0 is a regular singular point of x²y''+xy'+(x²−ν²)y=0 because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> The equation has no solution at x=0</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> xP(x)=1 and x²Q(x)=x²−ν² are both analytic at x=0</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> P and Q are both analytic at x=0</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> The coefficients are polynomials</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The indicial equation for the Bessel equation of order ν at x=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> r²+ν²=0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> r²−ν²=0</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> r(r−1)=0</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> r+ν=0</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">If the indicial roots differ by a non-integer, the two Frobenius solutions are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Both involve ln x</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> xʳ¹Σaₙxⁿ and xʳ²Σbₙxⁿ (no logarithm needed)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Both are polynomials</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Identical up to sign</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">When the indicial roots are equal (r₁=r₂=r), the second Frobenius solution contains:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> A different power xʳ²</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> A logarithmic term: y₂ = y₁ ln x + xʳ Σcₙxⁿ</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Only exponential terms</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> A Bessel function</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Legendre polynomial P₂(x) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> x²</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> (3x²−1)/2</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> (5x³−3x)/2</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> 3x²−1</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The orthogonality of Legendre polynomials states: ∫₋₁¹ Pₘ(x)Pₙ(x)dx =</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> 0 always</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> 0 if m≠n, and 2/(2n+1) if m=n</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> 1 if m=n, 0 if m≠n</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> n!/(2n+1)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">J₀(0) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> 0</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> 1</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> ∞</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> π</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Rodrigues' formula for Legendre polynomials is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Pₙ(x) = (1/n!)(d/dx)ⁿ(x²−1)ⁿ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Pₙ(x) = (1/(2ⁿn!))(d/dx)ⁿ(x²−1)ⁿ</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Pₙ(x) = xⁿ/n!</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Pₙ(x) = cos(n·arccos x)</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Bessel recurrence relation is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> J_{ν+1}=J_ν−J_{ν−1}</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> J_{ν−1}(x)+J_{ν+1}(x)=(2ν/x)J_ν(x)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> J_ν=J_{ν+1}·J_{ν−1}</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> J_ν(x)=J_{−ν}(x)</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The singular point x=0 of y''+y'/x+y=0 is regular because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> P(x)=1/x is bounded</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> x·P(x)=1 and x²·Q(x)=x² are both analytic at 0</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> The ODE is homogeneous</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> The equation has constant coefficients</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The Airy equation y''=xy has x=0 as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Regular singular point</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Ordinary point</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Irregular singular point</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Essential singular point</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">For the Legendre equation with n=3, the polynomial solution P₃(x) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> (5x³−3x)/2</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> 5x³/2</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 3x³−x</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> x³</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The Frobenius series y=xʳΣaₙxⁿ is applicable when x=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> An ordinary point</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> A regular singular point</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> An irregular singular point</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> A boundary point only</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Which identity relates Bessel functions of consecutive orders?</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> d/dx[xᵛJ_ν(x)] = xᵛJ_{ν+1}(x)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> d/dx[xᵛJ_ν(x)] = xᵛJ_{ν−1}(x)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> J_ν(x) = J_{ν+1}(x) + J_{ν−1}(x)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> xJ_ν′(x) = νJ_ν(x)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Ordinary Point</h4><p>P,Q analytic at x₀. Power series y=Σaₙ(x−x₀)ⁿ converges for |x−x₀|<R.</p></div>
+    <div class="sum-card"><h4>Regular Singular</h4><p>xP(x), x²Q(x) analytic at 0. Frobenius: y=xʳΣaₙxⁿ. Indicial equation r²+(p₀−1)r+q₀=0.</p></div>
+    <div class="sum-card"><h4>Frobenius Cases</h4><p>Roots differ by non-integer: two series. Equal roots or integer difference: ln x term appears.</p></div>
+    <div class="sum-card"><h4>Bessel</h4><p>x²y''+xy'+(x²−ν²)y=0. J_ν(x): Frobenius series at 0. J_ν−1+J_ν+1=(2ν/x)J_ν.</p></div>
+    <div class="sum-card"><h4>Legendre</h4><p>(1−x²)y''−2xy'+n(n+1)y=0. Pₙ(x) polynomial solution. ∫₋₁¹PₘPₙ=2/(2n+1)·δₘₙ.</p></div>
+    <div class="sum-card"><h4>Rodrigues</h4><p>Pₙ(x)=(1/2ⁿn!)(d/dx)ⁿ(x²−1)ⁿ. Pₙ(1)=1, Pₙ(−1)=(−1)ⁿ.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U6_T03_SystemsODE.html">← T03: Systems</a>
+    <a class="btn btn-acc" href="CSIR_NET_U6_T05_SturmLiouville.html">T05: Sturm-Liouville →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'a',14:'b',15:'b'};
+const explain={
+  1:'The power series solution at an ordinary point x₀ converges for |x−x₀|<R where R equals the distance from x₀ to the nearest singular point IN THE COMPLEX PLANE. E.g., for y\'\'+(1/(1+x²))y=0, x=0 is ordinary, nearest singular points are ±i at distance 1, so R=1.',
+  2:'Regular singular point: x₀ is singular but x·P(x) and x²·Q(x) are both analytic at x₀. For Bessel: P(x)=1/x (not analytic), but xP(x)=1 (analytic); Q(x)=(x²−ν²)/x² (not analytic), but x²Q(x)=x²−ν² (analytic). So x=0 is regular singular.',
+  3:'For Bessel equation x²y\'\'+xy\'+(x²−ν²)y=0: divide by x²: y\'\'+(1/x)y\'+(1−ν²/x²)y=0. So xP(x)=1, x²Q(x)=x²−ν². At x=0: p₀=1, q₀=−ν². Indicial: r(r−1)+r+(−ν²)=r²−ν²=0, so r=±ν.',
+  4:'If r₁−r₂∉ℤ (roots differ by non-integer), two independent Frobenius series exist: y₁=xʳ¹Σaₙxⁿ and y₂=xʳ²Σbₙxⁿ. No logarithm needed in either solution.',
+  5:'Equal indicial roots r₁=r₂=r: one Frobenius series y₁=xʳΣaₙxⁿ exists. The second solution must include a logarithmic term: y₂=y₁·ln x + xʳΣcₙxⁿ.',
+  6:'Legendre polynomials: P₀=1, P₁=x, P₂=(3x²−1)/2, P₃=(5x³−3x)/2. These satisfy the normalization Pₙ(1)=1.',
+  7:'Orthogonality: ∫₋₁¹Pₘ(x)Pₙ(x)dx=0 if m≠n (orthogonality), and =2/(2n+1) if m=n (normalization). Used in Fourier-Legendre series expansions.',
+  8:'J₀(x)=Σ_{m=0}^∞(−1)ᵐ(x/2)^(2m)/(m!)² . At x=0: J₀(0)=1 (m=0 term; all others vanish). For ν>0: J_ν(0)=0.',
+  9:'Rodrigues formula: Pₙ(x)=(1/(2ⁿn!))·(d/dx)ⁿ(x²−1)ⁿ. This gives polynomials of degree n satisfying Pₙ(1)=1 and the Legendre ODE.',
+  10:'Bessel recurrence: J_{ν−1}(x)+J_{ν+1}(x)=(2ν/x)J_ν(x). Also: J_{ν−1}(x)−J_{ν+1}(x)=2J_ν\'(x).',
+  11:'y\'\'+(1/x)y\'+y=0: P(x)=1/x, Q(x)=1. xP(x)=1 (analytic at 0), x²Q(x)=x² (analytic at 0). So x=0 is a regular singular point. This is exactly the ν=0 Bessel equation (J₀).',
+  12:'Airy equation y\'\'=xy, i.e., y\'\'−xy=0: P(x)=0 (analytic), Q(x)=−x (analytic). So x=0 is an ORDINARY point. Power series solution converges for all x.',
+  13:'P₃(x)=(5x³−3x)/2. Check: degree 3, P₃(1)=(5−3)/2=1 ✓, odd function.',
+  14:'Frobenius method applies at REGULAR singular points. At ordinary points, use plain power series. At irregular singular points, Frobenius method fails; need asymptotic methods.',
+  15:'d/dx[xᵛJ_ν(x)]=xᵛJ_{ν−1}(x). Equivalently: xJ_ν\'(x)+νJ_ν(x)=xJ_{ν−1}(x). The other identity is d/dx[x^(−ν)J_ν(x)]=−x^(−ν)J_{ν+1}(x).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

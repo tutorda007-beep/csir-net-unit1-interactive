@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U7-T02 · Wave Equation</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#5b21b6;--acc2:#7c3aed;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(91,33,182,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(91,33,182,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(91,33,182,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(91,33,182,.08);color:var(--acc);font-weight:600;border:1px solid rgba(91,33,182,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#f5f3ff;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 7</span>
+  <span class="hdr-title">T02 · Wave Equation</span>
+  <span class="hdr-badge">PDE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 7 · PDEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('d1',this)">1D Wave Equation</a>
+  <a class="nav-item" onclick="show('dalembert',this)">d'Alembert's Formula</a>
+  <a class="nav-item" onclick="show('separation',this)">Separation of Variables</a>
+  <a class="nav-item" onclick="show('energy',this)">Energy & Domain of Influence</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U7_T01_PDEClassification.html">← T01 · Classification</a>
+  <a class="nav-item" href="CSIR_NET_U7_T03_HeatEquation.html">T03 · Heat Equation →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 7 · Topic 02</div>
+    <div class="hero-title">The Wave Equation</div>
+    <div class="hero-sub">d'Alembert's formula · Separation of variables · Domain of influence · Finite speed propagation</div>
+    <div class="hero-chips">
+      <span class="chip">d'Alembert</span>
+      <span class="chip">Standing Waves</span>
+      <span class="chip">Finite Speed</span>
+      <span class="chip">Domain of Influence</span>
+      <span class="chip">Separation of Variables</span>
+      <span class="chip">Fourier Series</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The wave equation u_tt = c²u_xx models vibrating strings, sound waves, and electromagnetic waves. It is hyperbolic, and solutions propagate at finite speed c. Key feature: information travels along the characteristics x±ct=const.</p>
+</div>
+
+<div class="sec" id="d1">
+  <h2>1D Wave Equation</h2>
+  <div class="def-box">
+    <div class="lbl">Cauchy Problem (Infinite String)</div>
+    <div class="formula">u_tt = c²u_xx,   x ∈ ℝ, t > 0
+u(x,0) = f(x)     (initial displacement)
+u_t(x,0) = g(x)   (initial velocity)</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">IBVP (Finite String)</div>
+    <div class="formula">u_tt = c²u_xx,   0 < x < L, t > 0
+u(0,t) = 0,  u(L,t) = 0    (Dirichlet BCs)
+u(x,0) = f(x),  u_t(x,0) = g(x)</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Factorization</div>
+    <p>u_tt−c²u_xx = (∂_t−c∂_x)(∂_t+c∂_x)u = 0.</p>
+    <p>New variables ξ=x−ct, η=x+ct convert to u_ξη=0, giving general solution u=F(x−ct)+G(x+ct) (superposition of right-traveling and left-traveling waves).</p>
+  </div>
+</div>
+
+<div class="sec" id="dalembert">
+  <h2>d'Alembert's Formula</h2>
+  <div class="thm-box">
+    <div class="lbl">d'Alembert's Formula (Cauchy Problem)</div>
+    <div class="formula">u(x,t) = [f(x−ct)+f(x+ct)]/2 + (1/2c)∫_{x−ct}^{x+ct} g(s)ds</div>
+    <p>This is the unique solution to the Cauchy problem. It is valid for all (x,t) with t≥0, requiring f∈C² and g∈C¹.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Domain of Dependence</div>
+    <p>u(x₀,t₀) depends only on initial data in the interval [x₀−ct₀, x₀+ct₀]. The <strong>domain of dependence</strong> is this interval on the initial line.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Domain of Influence</div>
+    <p>The data at x₀ affects u(x,t) only in the region |x−x₀| ≤ ct (inside the forward light cone). Signals travel at speed at most c.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Example</div>
+    <p>f(x)=sin(x), g(x)=0, c=1: u=(sin(x−t)+sin(x+t))/2=sin(x)cos(t). Standing wave!</p>
+  </div>
+</div>
+
+<div class="sec" id="separation">
+  <h2>Separation of Variables (Finite String)</h2>
+  <div class="proof-box">
+    <div class="lbl">Method</div>
+    <p>Assume u(x,t)=X(x)T(t). Substituting: T″X = c²X″T ⟹ T″/(c²T) = X″/X = −λ.</p>
+    <p>BCs: X(0)=X(L)=0 ⟹ λ_n=(nπ/L)², X_n=sin(nπx/L). For each n: T_n=A_n cos(nπct/L)+B_n sin(nπct/L).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Full Solution (Fourier Series)</div>
+    <div class="formula">u(x,t) = Σ_{n=1}^∞ sin(nπx/L)[Aₙcos(nπct/L) + Bₙsin(nπct/L)]
+
+Aₙ = (2/L)∫₀ᴸ f(x)sin(nπx/L)dx
+Bₙ = (2/nπc)∫₀ᴸ g(x)sin(nπx/L)dx</div>
+    <p>Each term sin(nπx/L)cos(nπct/L) is a standing wave with frequency ω_n=nπc/L and wavelength 2L/n.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Normal Modes</div>
+    <p>The nth mode has frequency ωₙ=nπc/L (rad/s) or fₙ=nc/(2L) Hz. The fundamental frequency is f₁=c/(2L). Higher modes are overtones (harmonics).</p>
+  </div>
+</div>
+
+<div class="sec" id="energy">
+  <h2>Energy & Domain of Influence</h2>
+  <div class="thm-box">
+    <div class="lbl">Energy Conservation</div>
+    <div class="formula">E(t) = (1/2)∫₀ᴸ [u_t² + c²u_x²] dx = const</div>
+    <p>The energy (kinetic + potential) is conserved. This proves uniqueness: if f=g=0 then E(0)=0 ⟹ E(t)=0 ⟹ u=0.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Finite Speed of Propagation</div>
+    <p>If f and g are supported in [a,b], then u(x,t)=0 outside [a−ct,b+ct]. Information travels at speed exactly c.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Huygens' Principle (odd dimensions)</div>
+    <p>In 3D, disturbances propagate exactly on the light cone (not inside). In 2D (even dimensions), disturbances persist inside the cone — "afterglow" effect. 1D: half-Huygens (d'Alembert formula has a continuous part).</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The general solution of u_tt=c²u_xx is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> u=F(x)G(t)</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> u=F(x−ct)+G(x+ct)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> u=e^(cx)cos(t)</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> u=F(x²−c²t²)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">d'Alembert's formula for u_tt=c²u_xx with u(x,0)=f(x), u_t(x,0)=g(x) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> u=[f(x+ct)+f(x−ct)]/2</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> u=[f(x+ct)+f(x−ct)]/2 + (1/2c)∫_{x−ct}^{x+ct}g(s)ds</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> u=f(x)cos(ct)</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> u=f(x)+tg(x)</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The domain of dependence of u(x₀,t₀) for the wave equation u_tt=c²u_xx is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> The entire real line</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> [x₀−ct₀, x₀+ct₀]</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> {x₀} only</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> [0,L]</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The eigenvalues for the separated spatial ODE X″+λX=0, X(0)=X(L)=0 are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> λₙ=n</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> λₙ=(nπ/L)², n=1,2,…</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> λₙ=nπ</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> λₙ=n²/L</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The solution u(x,0)=f(x), u_t(x,0)=0, c=1 gives (by d'Alembert):</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> u=f(x)e^(−t)</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> u=[f(x−t)+f(x+t)]/2</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> u=f(x+t)</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> u=f(x)cos(t)</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The fundamental frequency of a vibrating string of length L, tension T, density ρ is f₁=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> 1/(2L)</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> c/(2L) where c=√(T/ρ)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> πc/L</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> L/c</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Energy E(t)=(1/2)∫[u_t²+c²u_x²]dx for the wave equation is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Increasing</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Conserved (constant in t)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Decreasing</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Oscillating</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The Fourier coefficient Bₙ for the wave IBVP with u(x,0)=f(x), u_t(x,0)=g(x) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> (2/L)∫₀ᴸg(x)sin(nπx/L)dx</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> (2/nπc)∫₀ᴸg(x)sin(nπx/L)dx</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> ∫₀ᴸg(x)cos(nπx/L)dx</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> g(nπ/L)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Huygens' principle holds exactly (disturbance on the wavefront only, no tail) in:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Even spatial dimensions</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Odd spatial dimensions ≥ 3</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> All dimensions</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Only 1D</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">If f=0 and g(x)=1 (unit initial velocity), d'Alembert gives u(x,t)=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> t</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> t (since (1/2c)∫_{x−ct}^{x+ct}1 ds = (1/2c)(2ct) = t)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 0</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> cos(t)</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The characteristics of u_tt−c²u_xx=0 are the curves:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> t=const</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> x±ct=const</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> x²+c²t²=const</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> x=ct</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The wave equation is classified as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Elliptic</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Hyperbolic</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Parabolic</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Quasi-linear</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The nth normal mode of the string (0,L) has frequency:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> nπL/c</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> nπc/L (angular) or nc/(2L) (hertz)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> n/L</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> c/(nL)</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Energy conservation for the wave equation proves:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Existence</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Uniqueness (zero data ⟹ zero solution)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> The solution is periodic</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> The solution blows up</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">u(x,0)=sin(x), u_t(x,0)=0, c=1: d'Alembert gives u(x,t)=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> sin(x−t)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> sin(x)cos(t)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> cos(x)sin(t)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> sin(x+t)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>General Solution</h4><p>u=F(x−ct)+G(x+ct). Right/left traveling waves superimposed.</p></div>
+    <div class="sum-card"><h4>d'Alembert</h4><p>u=[f(x−ct)+f(x+ct)]/2 + (1/2c)∫g. Requires f∈C², g∈C¹.</p></div>
+    <div class="sum-card"><h4>Domain of Dependence</h4><p>u(x₀,t₀) uses data on [x₀−ct₀,x₀+ct₀]. Finite speed = c.</p></div>
+    <div class="sum-card"><h4>Separation</h4><p>Modes sin(nπx/L)[Aₙcos(ωₙt)+Bₙsin(ωₙt)], ωₙ=nπc/L.</p></div>
+    <div class="sum-card"><h4>Energy</h4><p>E=∫[u_t²+c²u_x²]dx/2 = constant. Proves uniqueness.</p></div>
+    <div class="sum-card"><h4>Huygens</h4><p>Holds (sharp wavefront) in odd dims ≥3. 2D: tail persists.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U7_T01_PDEClassification.html">← T01: Classification</a>
+    <a class="btn btn-acc" href="CSIR_NET_U7_T03_HeatEquation.html">T03: Heat Equation →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'General solution: u=F(x−ct)+G(x+ct), F right-traveling wave, G left-traveling. Derived by changing variables ξ=x−ct, η=x+ct to get u_ξη=0 ⟹ u=F(ξ)+G(η).',
+  2:'d\'Alembert\'s formula: u(x,t)=[f(x−ct)+f(x+ct)]/2+(1/2c)∫_{x−ct}^{x+ct}g(s)ds. The first term splits the initial displacement into left/right components; the second integrates the initial velocity over the domain of dependence.',
+  3:'Domain of dependence: u(x₀,t₀) depends only on data in [x₀−ct₀,x₀+ct₀]. The "backward light cone" intersects t=0 at this interval. Data outside this interval has no influence on u(x₀,t₀).',
+  4:'X″+λX=0, X(0)=X(L)=0: solutions X=sin(√λ·x). BC X(L)=0: sin(√λ·L)=0 ⟹ √λ·L=nπ ⟹ λₙ=(nπ/L)², n=1,2,… Eigenfunctions Xₙ=sin(nπx/L).',
+  5:'With g=0, d\'Alembert gives u=[f(x−t)+f(x+t)]/2. This shows the initial profile splits into two half-amplitude waves traveling in opposite directions.',
+  6:'Wave speed c=√(T/ρ) where T=tension, ρ=linear density. Fundamental angular frequency ω₁=πc/L, fundamental frequency f₁=c/(2L). This is why a longer/denser string has lower pitch.',
+  7:'dE/dt=∫(u_t·u_tt+c²u_x·u_xt)dx=∫(c²u_t·u_xx+c²u_x·u_xt)dx=[c²u_t·u_x]₀ᴸ=0 (with Dirichlet BCs). Energy is conserved.',
+  8:'For u_t(x,0)=g: Bₙ·(nπc/L)=(2/L)∫₀ᴸg(x)sin(nπx/L)dx, so Bₙ=(2/nπc)∫₀ᴸg(x)sin(nπx/L)dx. The nπc/L comes from differentiating the time part sin(nπct/L).',
+  9:'Huygens\' principle holds in odd dimensions n≥3 (e.g., 3D): sharp wavefront, no interior disturbance. In even dimensions (e.g., 2D) and 1D, there is a \'tail\' inside the light cone.',
+  10:'f=0, g=1: u=(1/2c)∫_{x−ct}^{x+ct}1 ds=(1/2c)(2ct)=t. Physically, a uniform initial velocity gives uniform linear growth in displacement.',
+  11:'Characteristics of u_tt−c²u_xx=0: (dt)²−c²(dx)² factored as (dt−c·dx)(dt+c·dx)=0, giving dt/dx=±c, i.e., x±ct=const. These are the two characteristic families.',
+  12:'Wave equation u_tt=c²u_xx: A=1,B=0,C=−c². Discriminant Δ=0²−4(1)(−c²)=4c²>0 → hyperbolic. Models propagation at finite speed.',
+  13:'Angular frequency ωₙ=nπc/L, physical frequency fₙ=ωₙ/(2π)=nc/(2L). n=1: fundamental; n=2,3,…: harmonics.',
+  14:'Energy conservation gives uniqueness: if u satisfies zero ICs and homogeneous wave equation, E(0)=0 ⟹ E(t)=0 ⟹ u_t=u_x=0 ⟹ u=0.',
+  15:'u=[sin(x−t)+sin(x+t)]/2=[2sin(x)cos(t)]/2=sin(x)cos(t). This is a standing wave — spatial pattern sin(x) oscillates in time as cos(t).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

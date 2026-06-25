@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U6-T02 · Higher Order Linear ODEs</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#5b21b6;--acc2:#7c3aed;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(91,33,182,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(91,33,182,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(91,33,182,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(91,33,182,.08);color:var(--acc);font-weight:600;border:1px solid rgba(91,33,182,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#f5f3ff;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 6</span>
+  <span class="hdr-title">T02 · Higher Order Linear ODEs</span>
+  <span class="hdr-badge">ODE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 6 · ODEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('structure',this)">Solution Structure</a>
+  <a class="nav-item" onclick="show('const',this)">Constant Coefficients</a>
+  <a class="nav-item" onclick="show('varparam',this)">Variation of Parameters</a>
+  <a class="nav-item" onclick="show('cauchy',this)">Cauchy-Euler Equation</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U6_T01_FirstOrderODE.html">← T01 · First Order</a>
+  <a class="nav-item" href="CSIR_NET_U6_T03_SystemsODE.html">T03 · Systems of ODEs →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 6 · Topic 02</div>
+    <div class="hero-title">Higher Order Linear ODEs</div>
+    <div class="hero-sub">Solution structure · Characteristic equation · Variation of parameters · Cauchy-Euler</div>
+    <div class="hero-chips">
+      <span class="chip">Characteristic Eq.</span>
+      <span class="chip">Wronskian</span>
+      <span class="chip">Undetermined Coefficients</span>
+      <span class="chip">Variation of Parameters</span>
+      <span class="chip">Cauchy-Euler</span>
+      <span class="chip">Reduction of Order</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The second-order (and higher) linear ODE Ly = aₙy^(n) + … + a₁y' + a₀y = f(x) is the backbone of mathematical physics. The general solution is y = yₕ + y_p, where yₕ is the homogeneous solution and y_p is any particular solution.</p>
+</div>
+
+<div class="sec" id="structure">
+  <h2>Solution Structure</h2>
+  <div class="thm-box">
+    <div class="lbl">Superposition Principle</div>
+    <p>For L[y] = aₙy^(n)+…+a₀y = 0 (homogeneous, linear), the solution set forms a <strong>vector space</strong> of dimension n (the order).</p>
+    <p>For L[y]=f(x), general solution: y = yₕ + y_p where yₕ is general solution of homogeneous and y_p is any particular solution.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Wronskian</div>
+    <p>For y₁,…,yₙ solutions of the homogeneous equation:</p>
+    <div class="formula">W(y₁,…,yₙ) = det[yᵢ^(j−1)] (i=row, j=col)</div>
+    <p>They form a fundamental set iff W≠0 on the interval.</p>
+    <p><strong>Abel's identity:</strong> W(x) = W(x₀)·exp(−∫_{x₀}^x aₙ₋₁(t)/aₙ(t) dt).</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Reduction of Order</div>
+    <p>If y₁ is one known solution of Ly=0, set y₂=v(x)y₁ and substitute to reduce to a first-order ODE in v'.</p>
+    <div class="formula">v = ∫ e^(−∫P dx)/y₁² dx   (for 2nd order y''+Py'+Qy=0)</div>
+  </div>
+</div>
+
+<div class="sec" id="const">
+  <h2>Constant Coefficient ODEs</h2>
+  <div class="def-box">
+    <div class="lbl">Characteristic Equation</div>
+    <p>For aₙy^(n)+…+a₁y'+a₀y = 0, substitute y=e^(rx) to get the characteristic polynomial:</p>
+    <div class="formula">aₙrⁿ + aₙ₋₁rⁿ⁻¹ + … + a₁r + a₀ = 0</div>
+  </div>
+  <table>
+    <tr><th>Root Type</th><th>Contribution to yₕ</th></tr>
+    <tr><td>Real distinct r</td><td>e^(rx)</td></tr>
+    <tr><td>Real repeated r (multiplicity m)</td><td>e^(rx), xe^(rx), …, x^(m−1)e^(rx)</td></tr>
+    <tr><td>Complex r = α±βi</td><td>e^(αx)cos(βx), e^(αx)sin(βx)</td></tr>
+    <tr><td>Complex repeated (multiplicity m)</td><td>xe^(αx)cos(βx), xe^(αx)sin(βx), …</td></tr>
+  </table>
+  <h3>Method of Undetermined Coefficients</h3>
+  <p>For y_p when f(x) is polynomial, exponential, sin, cos, or their products:</p>
+  <table>
+    <tr><th>f(x)</th><th>Trial y_p</th></tr>
+    <tr><td>Pₙ(x) (degree n poly)</td><td>Qₙ(x) (degree n poly)</td></tr>
+    <tr><td>e^(αx)Pₙ(x)</td><td>e^(αx)Qₙ(x) (if α not a root; else ×x^m)</td></tr>
+    <tr><td>e^(αx)sin(βx) or cos(βx)</td><td>e^(αx)(A sin βx + B cos βx)</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Modification Rule</div>
+    <p>If the trial y_p is already a solution of the homogeneous equation (root of multiplicity m), multiply the trial by x^m.</p>
+  </div>
+</div>
+
+<div class="sec" id="varparam">
+  <h2>Variation of Parameters</h2>
+  <div class="def-box">
+    <div class="lbl">Method (2nd Order)</div>
+    <p>For y'' + P(x)y' + Q(x)y = R(x) with fundamental solutions y₁, y₂:</p>
+    <div class="formula">y_p = −y₁∫(y₂R/W)dx + y₂∫(y₁R/W)dx</div>
+    <p>where W = W(y₁,y₂) is the Wronskian.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Derivation Idea</div>
+    <p>Write y_p = u₁(x)y₁ + u₂(x)y₂. Impose u₁'y₁+u₂'y₂=0 and u₁'y₁'+u₂'y₂'=R. Solve by Cramer's rule: u₁'=−y₂R/W, u₂'=y₁R/W.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Advantage over Undetermined Coefficients</div>
+    <p>Variation of parameters works for ANY f(x) as long as f is continuous (not just special forms). But requires knowing the homogeneous solutions.</p>
+  </div>
+</div>
+
+<div class="sec" id="cauchy">
+  <h2>Cauchy-Euler Equation</h2>
+  <div class="def-box">
+    <div class="lbl">Cauchy-Euler (Euler-Cauchy) ODE</div>
+    <p>x²y'' + bxy' + cy = 0 (or more generally xⁿy^(n)+…). Variable coefficients but special form.</p>
+    <p>Substitute x = e^t (i.e., t = ln x) to convert to constant-coefficient ODE in t.</p>
+    <p>Or try y = xʳ directly: r(r−1)+br+c = 0 (characteristic equation).</p>
+  </div>
+  <table>
+    <tr><th>Roots of r(r−1)+br+c=0</th><th>Solution y</th></tr>
+    <tr><td>Real distinct r₁≠r₂</td><td>C₁xʳ¹ + C₂xʳ²</td></tr>
+    <tr><td>Repeated r₁=r₂=r</td><td>(C₁+C₂ ln x)xʳ</td></tr>
+    <tr><td>Complex r = α±βi</td><td>xᵅ[C₁cos(β ln x)+C₂sin(β ln x)]</td></tr>
+  </table>
+  <div class="proof-box">
+    <div class="lbl">Example</div>
+    <p>x²y''−xy'+y=0. Try y=xʳ: r(r−1)−r+1=0 ⟹ r²−2r+1=0 ⟹ (r−1)²=0 ⟹ r=1 (double). Solution: y=(C₁+C₂ ln x)x.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The general solution of an nth-order homogeneous linear ODE is a:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Single function</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Vector space of dimension n</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> Set with n+1 elements</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Always exponential functions</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">For y'' − 5y' + 6y = 0, the characteristic roots are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> r = 1, 6</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> r = 2, 3</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> r = −2, −3</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> r = ±√5</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">If the characteristic equation has a repeated root r=2 (multiplicity 2), the homogeneous solutions are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> e^(2x) and e^(4x)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> e^(2x) and xe^(2x)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> e^(2x) and e^(−2x)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> cos(2x) and sin(2x)</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">For y'' + 4y = 0, the general solution is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> C₁e^(2x) + C₂e^(−2x)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> C₁cos(2x) + C₂sin(2x)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> C₁e^(4x) + C₂</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> C₁x² + C₂x</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Wronskian W(y₁,y₂)≠0 implies y₁, y₂ are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Periodic</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Linearly independent</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Both exponentials</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Orthogonal</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">For y'' − y = eˣ, the correct trial particular solution (undetermined coefficients) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Aeˣ</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Axeˣ (since eˣ is a homogeneous solution)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Ax²eˣ</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> A/eˣ</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Variation of parameters formula for y_p in y''+Py'+Qy=R is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> y_p = y₁∫(y₂R/W)dx + y₂∫(y₁R/W)dx</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> y_p = −y₁∫(y₂R/W)dx + y₂∫(y₁R/W)dx</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> y_p = y₁y₂/W</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> y_p = R/W</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Abel's identity for the Wronskian W of y''+P(x)y'+Q(x)y=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> W = constant</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> W(x) = W(x₀)e^(−∫P(t)dt)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> W = e^(∫P dx)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> W = y₁+y₂</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">For the Cauchy-Euler equation x²y''+bxy'+cy=0, we substitute y=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> e^(rx)</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> xʳ</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> sin(rx)</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> x+r</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Cauchy-Euler equation x²y''−3xy'+4y=0 has characteristic roots r satisfying:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> r²+r+4=0</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> r(r−1)−3r+4=0, i.e., r²−4r+4=0</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> r²−3r+4=0</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> r²=4</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The general solution of x²y''−3xy'+4y=0 (repeated root r=2) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> C₁x²+C₂x⁴</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> (C₁+C₂ ln x)x²</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> C₁cos(2 ln x)+C₂sin(2 ln x)</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> C₁e^(2x)+C₂xe^(2x)</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The general solution of y'' + y = sec x (using variation of parameters) involves:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Polynomial particular solution</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> x cos x + sin x · ln|sec x + tan x| type terms</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Purely trigonometric particular solution</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Exponential particular solution</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">For the ODE y''' − 6y'' + 11y' − 6y = 0, the characteristic roots are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> r = 1,2,3</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> r = −1,−2,−3</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> r = 0,1,2</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> r = ±1, 2</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">If y₁=eˣ is known to satisfy y''−y=0, the second solution by reduction of order is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> xe^x</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> e^(−x)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> x²e^x</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> e^x ln x</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">For y'' + 4y = sin(2x), the correct trial particular solution is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> A sin(2x)+B cos(2x)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> x(A sin(2x)+B cos(2x)) (since sin(2x) is a homogeneous solution)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> A sin(4x)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Axsin(2x)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>General Solution</h4><p>y=yₕ+y_p. yₕ spans n-dim vector space. Fundamental set iff W≠0.</p></div>
+    <div class="sum-card"><h4>Characteristic Eq.</h4><p>Constant coeff: substitute y=e^(rx). Roots → solutions (×xᵐ for repeated roots).</p></div>
+    <div class="sum-card"><h4>Undetermined Coeff.</h4><p>Trial y_p for poly, exp, trig f(x). Multiply by xᵐ if trial satisfies homogeneous eq.</p></div>
+    <div class="sum-card"><h4>Variation of Params.</h4><p>y_p=−y₁∫(y₂R/W)dx+y₂∫(y₁R/W)dx. Works for any continuous R(x).</p></div>
+    <div class="sum-card"><h4>Cauchy-Euler</h4><p>x²y''+bxy'+cy=0. Substitute y=xʳ. Roots give xʳ, xʳln x, xᵅcos(β ln x), etc.</p></div>
+    <div class="sum-card"><h4>Abel's Identity</h4><p>W(x)=W(x₀)e^(−∫P dt). Either W=0 everywhere or W≠0 everywhere.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U6_T01_FirstOrderODE.html">← T01: First Order</a>
+    <a class="btn btn-acc" href="CSIR_NET_U6_T03_SystemsODE.html">T03: Systems of ODEs →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'a',14:'b',15:'b'};
+const explain={
+  1:'By the existence-uniqueness theorem for linear ODEs, the solution space of an nth-order homogeneous linear ODE is a vector space of dimension exactly n. Any n linearly independent solutions form a fundamental set.',
+  2:'Characteristic equation: r²−5r+6=0 ⟹ (r−2)(r−3)=0 ⟹ r=2 and r=3. General solution: y=C₁e^(2x)+C₂e^(3x).',
+  3:'A repeated root r=2 (multiplicity 2) gives two linearly independent solutions: e^(2x) and xe^(2x). The factor x is multiplied to get the second solution when the root is repeated.',
+  4:'y''+4y=0: characteristic equation r²+4=0 ⟹ r=±2i. Complex roots α=0, β=2 give y=C₁cos(2x)+C₂sin(2x).',
+  5:'W(y₁,y₂)≠0 iff y₁,y₂ are linearly independent. For solutions of a linear ODE, W is either identically 0 (linearly dependent) or never 0 (linearly independent) on the interval.',
+  6:'Characteristic roots of y\'\'−y=0: r²−1=0 ⟹ r=±1. So e^x IS a homogeneous solution. By the modification rule, the trial for e^x is Axe^x (multiply by x).',
+  7:'Variation of parameters: y_p = −y₁∫(y₂R/W)dx + y₂∫(y₁R/W)dx. (Signs: first term is minus, second is plus. Remember by the Cramer rule derivation.)',
+  8:'Abel\'s identity: W(x)=W(x₀)exp(−∫_{x₀}^x P(t)dt) for y\'+P(x)y\'+Q(x)y=0. This shows W is either always 0 or never 0.',
+  9:'Cauchy-Euler: substitute y=x^r to get an algebraic equation for r. The resulting polynomial in r (the "indicial equation") determines the solutions.',
+  10:'x²y\'\'−3xy\'+4y=0: try y=xʳ. Then x²·r(r−1)xʳ⁻²−3x·rxʳ⁻¹+4xʳ=0 ⟹ r(r−1)−3r+4=0 ⟹ r²−r−3r+4=r²−4r+4=(r−2)²=0. Repeated root r=2.',
+  11:'Repeated root r=2 in Cauchy-Euler: y=(C₁+C₂ ln x)x². (Analogue of (C₁+C₂x)e^(rx) but with ln x instead of x as the multiplier.)',
+  12:'y\'+y=sec x: homogeneous solutions y₁=cos x, y₂=sin x, W=1. Variation of parameters gives y_p=−cos x∫sin x·sec x dx+sin x∫cos x·sec x dx=x sin x+cos x·ln|cos x| (approximately). The key point is it involves x cos x and logarithmic terms.',
+  13:'r³−6r²+11r−6=0. Test r=1: 1−6+11−6=0 ✓. Factor: (r−1)(r²−5r+6)=(r−1)(r−2)(r−3). Roots: r=1,2,3. Solution: y=C₁e^x+C₂e^(2x)+C₃e^(3x).',
+  14:'y\'\'−y=0 has characteristic roots r=±1. Known solution y₁=e^x. Reduction of order: set y₂=ve^x. Substituting gives v\'\'=0 ⟹ v=Ax+B. Take A=0, B=1 only → gives e^x again (trivial). Take A=1: y₂=xe^x? But the actual second solution is e^(−x). Via formula: v=∫e^(−∫P dx)/y₁² dx=∫1/e^(2x)dx=−e^(−2x)/2, so y₂=−e^(−2x)·e^x/2=−e^(−x)/2 ∝ e^(−x).',
+  15:'y\'+4y=sin(2x): characteristic equation r²+4=0 gives r=±2i. The homogeneous solutions are cos(2x) and sin(2x). Since sin(2x) is already a homogeneous solution, the trial A sin(2x)+B cos(2x) must be multiplied by x. Trial: x(A sin(2x)+B cos(2x)).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

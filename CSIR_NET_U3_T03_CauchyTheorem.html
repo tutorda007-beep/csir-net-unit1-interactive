@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U3-T03 · Cauchy's Theorem & Integral Formula</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c2d12;--acc2:#c2410c;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(124,45,18,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(124,45,18,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(124,45,18,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fed7aa)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(124,45,18,.12),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(124,45,18,.08);color:var(--acc);font-weight:600;border:1px solid rgba(124,45,18,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff7ed;border-left:4px solid #fb923c;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 3</span>
+  <span class="hdr-title">T03 · Cauchy's Theorem & Integral Formula</span>
+  <span class="hdr-badge">Complex Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 3 · Complex Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('contour',this)">Contour Integrals</a>
+  <a class="nav-item" onclick="show('cauthy',this)">Cauchy's Theorem</a>
+  <a class="nav-item" onclick="show('cif',this)">Cauchy Integral Formula</a>
+  <a class="nav-item" onclick="show('conseq',this)">Consequences</a>
+  <a class="nav-item" onclick="show('liouville',this)">Liouville & Morera</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 3 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U3_T02_AnalyticFunctions.html">T02 · Analytic Functions</a>
+  <a class="nav-item" href="CSIR_NET_U3_T04_Laurent.html">T04 · Laurent Series</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · Topic 03</div>
+    <div class="hero-title">Cauchy's Theorem & Integral Formula</div>
+    <div class="hero-sub">Contour integration · Cauchy's theorem · Integral formula · Liouville's theorem</div>
+    <div class="hero-chips">
+      <span class="chip">Contour Integral</span>
+      <span class="chip">Cauchy's Theorem</span>
+      <span class="chip">Cauchy Integral Formula</span>
+      <span class="chip">Morera's Theorem</span>
+      <span class="chip">Liouville's Theorem</span>
+      <span class="chip">Mean Value Property</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Cauchy's theorem is the fundamental result of complex analysis: the integral of a holomorphic function around a closed curve is zero. From this flows the Cauchy Integral Formula, which says that the values of an analytic function inside a curve are completely determined by its values on the curve — an extraordinary rigidity.</p>
+</div>
+
+<!-- CONTOUR INTEGRALS -->
+<div class="sec" id="contour">
+  <h2>Contour Integrals</h2>
+  <div class="def-box">
+    <div class="lbl">Complex Line Integral</div>
+    <p>Let γ: [a,b] → ℂ be a smooth curve (contour) and f continuous on γ. The <strong>contour integral</strong> is:</p>
+    <div class="formula">∫_γ f(z) dz = ∫_a^b f(γ(t)) · γ'(t) dt</div>
+    <p>Properties: ∫_γ (αf+βg) = α∫_γ f + β∫_γ g. ∫_{−γ} f = −∫_γ f. |∫_γ f dz| ≤ max|f|·length(γ) (ML-inequality).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">ML Inequality (Estimation Lemma)</div>
+    <div class="formula">|∫_γ f(z) dz| ≤ M · L</div>
+    <p>where M = max_{z ∈ γ} |f(z)| and L = length(γ). Essential for showing integrals → 0 over large/small arcs.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Key Example</div>
+    <p>∮_{|z|=r} zⁿ dz: parameterize γ(t) = re^(it), t ∈ [0,2π]. Then ∫ = ∫_0^{2π} rⁿe^(int)·ire^(it)dt = irⁿ⁺¹∫_0^{2π} e^(i(n+1)t)dt. This equals 0 if n≠−1 and 2πi if n=−1.</p>
+  </div>
+</div>
+
+<!-- CAUCHY'S THEOREM -->
+<div class="sec" id="cauthy">
+  <h2>Cauchy's Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Cauchy's Theorem (Goursat version)</div>
+    <p>If f is holomorphic on a simply connected domain Ω, then for every closed curve γ in Ω:</p>
+    <div class="formula">∮_γ f(z) dz = 0</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Cauchy's Theorem (General form)</div>
+    <p>If f is holomorphic on an open set containing a simple closed curve γ and its interior, then ∮_γ f(z) dz = 0.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Winding Number</div>
+    <p>The <strong>winding number</strong> (index) of a closed curve γ about a point z₀ ∉ γ is:</p>
+    <div class="formula">n(γ, z₀) = (1/2πi) ∮_γ dz/(z−z₀) ∈ ℤ</div>
+    <p>It counts how many times γ winds around z₀ counterclockwise. For a positively oriented simple closed curve: n(γ,z₀) = 1 for z₀ inside, 0 for z₀ outside.</p>
+  </div>
+</div>
+
+<!-- CAUCHY INTEGRAL FORMULA -->
+<div class="sec" id="cif">
+  <h2>Cauchy Integral Formula</h2>
+  <div class="thm-box">
+    <div class="lbl">Cauchy Integral Formula</div>
+    <p>If f is holomorphic on a domain containing a simple closed curve γ and its interior, and z₀ is inside γ, then:</p>
+    <div class="formula">f(z₀) = (1/2πi) ∮_γ f(z)/(z−z₀) dz</div>
+    <p>The value of f at any interior point z₀ is completely determined by f on the boundary γ!</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Generalized Cauchy Integral Formula (Higher Derivatives)</div>
+    <div class="formula">f^(n)(z₀) = (n!/(2πi)) ∮_γ f(z)/(z−z₀)^(n+1) dz</div>
+    <p>Remarkable: every holomorphic function is infinitely differentiable (C^∞)! And each derivative is again holomorphic.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: Compute ∮_{|z|=2} e^z/(z−1) dz</div>
+    <p>f(z) = eᶻ is entire, z₀=1 is inside |z|=2. By CIF: ∮ eᶻ/(z−1)dz = 2πi·f(1) = 2πi·e.</p>
+  </div>
+</div>
+
+<!-- CONSEQUENCES -->
+<div class="sec" id="conseq">
+  <h2>Consequences of CIF</h2>
+  <div class="thm-box">
+    <div class="lbl">Power Series Expansion</div>
+    <p>Every holomorphic function has a convergent power series (Taylor series) at each point: a holomorphic function IS a power series locally. The radius of convergence extends to the nearest singularity.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Mean Value Property</div>
+    <p>If f is holomorphic on D(z₀,r), then:</p>
+    <div class="formula">f(z₀) = (1/2π) ∫_0^{2π} f(z₀ + re^(iθ)) dθ</div>
+    <p>The value at the center equals the average over any circle in the domain of holomorphicity.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Maximum Modulus Principle (Preview)</div>
+    <p>If f is holomorphic and non-constant on a domain Ω, then |f(z)| has no maximum in Ω. The maximum of |f| on a closed bounded domain is attained on the boundary.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Identity Theorem</div>
+    <p>If two holomorphic functions f, g on a connected domain Ω agree on a set with a limit point in Ω (e.g., a sequence converging to a point in Ω), then f ≡ g on all of Ω.</p>
+  </div>
+</div>
+
+<!-- LIOUVILLE & MORERA -->
+<div class="sec" id="liouville">
+  <h2>Liouville's Theorem & Morera's Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Liouville's Theorem</div>
+    <p>Every <strong>bounded</strong> entire function is constant.</p>
+    <p>Proof: If |f(z)|≤M for all z∈ℂ, then by CIF: |f'(z₀)| ≤ M/R for any R>0. Letting R→∞: f'(z₀)=0, so f is constant.</p>
+    <p><strong>Consequence:</strong> Fundamental Theorem of Algebra — every non-constant polynomial p(z) has a root in ℂ (if it had no root, 1/p(z) would be bounded and entire, hence constant, contradiction).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Morera's Theorem (Converse of Cauchy)</div>
+    <p>If f is continuous on a domain Ω and ∮_γ f(z) dz = 0 for every closed triangle γ in Ω, then f is holomorphic on Ω.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Cauchy's Inequality</div>
+    <div class="formula">|f^(n)(z₀)| ≤ n! · M_r / rⁿ</div>
+    <p>where M_r = max_{|z−z₀|=r} |f(z)|. Follows from the generalized CIF and ML-inequality.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">∮_{|z|=1} dz/z (counterclockwise) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> 0</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 2πi</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> π</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Cauchy's theorem: if f is holomorphic on a simply connected domain Ω and γ is any closed curve in Ω, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> ∮_γ f(z)dz = f(z₀) for some z₀</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> ∮_γ f(z)dz = 0</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> ∮_γ f(z)dz = 2πi</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> ∮_γ f(z)dz = length(γ)</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">By the Cauchy Integral Formula, if f is holomorphic inside and on |z|=1 and z₀=0 is inside, then (1/2πi)∮_{|z|=1} f(z)/z dz =</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> f(0)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> f'(0)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> 2πi·f(0)</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The value of ∮_{|z|=2} eᶻ/(z−1) dz is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> 0</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> 2πi·e</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> πi</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> 2πi</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Every holomorphic function is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Only once differentiable</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Infinitely differentiable (C^∞) and locally representable as a power series</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Bounded</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Constant</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Liouville's theorem states:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Every entire function is bounded</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Every bounded entire function is constant</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Every constant function is holomorphic</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Every entire function has a zero</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The ML-inequality (estimation lemma) states |∫_γ f dz| ≤ ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> M/L where L = length(γ)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> M · L where M = max|f| on γ</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> M + L</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> M²·L</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The mean value property says: if f is holomorphic on D(z₀,r), then f(z₀) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> max on the circle |z−z₀|=r</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> (1/2π)∫₀^(2π) f(z₀+re^(iθ)) dθ</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> f(z₀+r)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Fundamental Theorem of Algebra follows from Liouville's theorem because: if p(z) has no roots, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> p(z) = 0</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 1/p(z) is a bounded entire function, hence constant — contradicting deg(p) ≥ 1</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> p(z) is identically 1</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> p(z) has infinitely many roots</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Morera's theorem (converse of Cauchy) states: if f is continuous on Ω and ∮ over every closed triangle = 0, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> f is bounded</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> f is holomorphic on Ω</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> f is constant</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> f has no zeros</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The generalized CIF gives: f''(z₀) = ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> (1/2πi)∮ f(z)/(z−z₀)² dz</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> (2!/2πi)∮ f(z)/(z−z₀)³ dz</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> ∮ f(z)dz</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> (1/2πi)∮ f'(z)dz</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The winding number n(γ, z₀) for a counterclockwise circle γ around z₀ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> 0</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> −1</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> 1</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> 2πi</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">∮_{|z|=3} z²/(z−2) dz (counterclockwise) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> 8πi</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 2πi</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> 4πi</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Cauchy's inequality: |f^(n)(z₀)| ≤ ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> M_r · rⁿ</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> n! · M_r / rⁿ where M_r = max|f| on circle of radius r</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> M_r / n!</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The identity theorem says: if f, g are holomorphic on a connected domain Ω and f(zₙ) = g(zₙ) for a sequence zₙ → z* ∈ Ω, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> f and g differ by a constant</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> f ≡ g on all of Ω</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> f = 0 on Ω</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> f and g are both constant</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Cauchy's Theorem & Integral Formula</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">∮</div>
+      <h4>Cauchy's Theorem</h4>
+      <p>∮_γ f dz = 0 for f holomorphic, γ closed in simply connected domain.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📍</div>
+      <h4>CIF</h4>
+      <p>f(z₀)=(1/2πi)∮f(z)/(z−z₀)dz. f^(n)(z₀)=(n!/2πi)∮f(z)/(z−z₀)^(n+1)dz.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">ML</div>
+      <h4>ML Inequality</h4>
+      <p>|∮f dz|≤M·L. Key tool for bounding integrals and showing they vanish.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">∞</div>
+      <h4>Liouville</h4>
+      <p>Bounded + entire ⟹ constant. Implies Fundamental Theorem of Algebra.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⊙</div>
+      <h4>Mean Value</h4>
+      <p>f(z₀)=(1/2π)∫f(z₀+re^(iθ))dθ. Value = average on circle.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">≡</div>
+      <h4>Identity Theorem</h4>
+      <p>Holomorphic functions agreeing on a convergent sequence in a connected domain are identical.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U3_T04_Laurent.html">Next: Laurent Series →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'c',13:'b',14:'b',15:'b'};
+const explain={
+  1:'∮_{|z|=1}dz/z=2πi. Parameterize: γ(t)=e^(it), γ\'(t)=ie^(it), ∫dz/z=∫_0^{2π}(ie^(it)/e^(it))dt=∫_0^{2π}i dt=2πi. Or: winding number of |z|=1 about 0 is 1, so n(γ,0)·2πi=2πi.',
+  2:'Cauchy\'s theorem: if f is holomorphic on a simply connected domain, then ∮_γ f(z)dz=0 for every closed curve γ in the domain.',
+  3:'By CIF: (1/2πi)∮_{|z|=1}f(z)/(z−0)dz=f(0).',
+  4:'f(z)=eᶻ is entire; z₀=1 is inside |z|=2. By CIF: ∮_{|z|=2}eᶻ/(z−1)dz=2πi·f(1)=2πi·e.',
+  5:'Every holomorphic function is analytic (locally = power series) and hence C^∞. This is a key distinction from real analysis where once-differentiable ≠ infinitely differentiable.',
+  6:'Liouville\'s theorem: a bounded entire function must be constant. This is powerful because most non-trivial functions (eᶻ, sin z, etc.) are NOT bounded.',
+  7:'ML-inequality: |∫_γ f dz|≤max_{z∈γ}|f(z)|·length(γ)=M·L.',
+  8:'The mean value property for holomorphic functions: f(z₀)=(1/2π)∫_0^{2π}f(z₀+re^(iθ))dθ for any r small enough. Analogue of the harmonic mean value property.',
+  9:'If p(z)≠0 for all z∈ℂ, then 1/p(z) is entire. For large|z|, |p(z)|→∞ so |1/p(z)|→0; it\'s bounded. By Liouville, 1/p(z)=constant, so p=constant, contradicting deg(p)≥1.',
+  10:'Morera\'s theorem: continuous f with ∮ over every closed triangle = 0 implies f is holomorphic. Converse of Cauchy.',
+  11:'Generalized CIF: f^(n)(z₀)=(n!/2πi)∮f(z)/(z−z₀)^(n+1)dz. For n=2: f\'\'(z₀)=(2!/2πi)∮f(z)/(z−z₀)³dz.',
+  12:'The winding number of a counterclockwise circle about an interior point is n(γ,z₀)=1. For a clockwise circle: n=−1.',
+  13:'f(z)=z², z₀=2 inside |z|=3. By CIF: ∮z²/(z−2)dz=2πi·f(2)=2πi·4=8πi.',
+  14:'Cauchy\'s inequality: |f^(n)(z₀)|≤n!M_r/rⁿ where M_r=max_{|z−z₀|=r}|f(z)|. Proof: apply ML to the generalized CIF integral.',
+  15:'The identity theorem: if f=g on a sequence with a limit point in the connected domain, then f≡g on the whole domain. Analytic functions cannot "partially agree".'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

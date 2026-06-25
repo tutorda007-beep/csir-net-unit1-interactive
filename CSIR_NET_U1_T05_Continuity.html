@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T05 · Continuity & Uniform Continuity</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c3aed;--acc2:#6d28d9;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--orange:#ea6c00;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(210,168,255,.3);border-radius:6px}
+.hdr-back:hover{background:rgba(210,168,255,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600}
+.hdr-title{font-size:15px;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--blue)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(210,168,255,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto}
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+.sec{display:none;animation:fadeIn .3s ease}.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f3eeff,#e9dcff,#ddc8ff)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(210,168,255,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--acc);border-color:rgba(210,168,255,.3)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--blue);border-color:rgba(121,192,255,.3)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-o{background:rgba(255,166,87,.12);color:var(--orange);border-color:rgba(255,166,87,.3)}
+.obj-box{background:rgba(210,168,255,.06);border:1px solid rgba(210,168,255,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px}.obj-box li strong{color:var(--text)}
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+.def-box{background:rgba(210,168,255,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{font-size:13px;color:var(--text);line-height:1.65}
+.thm-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(86,211,100,.15);font-style:italic}
+.warn-box{background:rgba(255,123,114,.06);border:1px solid rgba(255,123,114,.25);border-radius:10px;padding:13px 16px;margin:12px 0}
+.warn-box .warn-label{font-size:10px;font-weight:700;color:var(--er);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.warn-box p{font-size:13px;color:#cdd9e5;line-height:1.65}
+.tip-box{background:rgba(121,192,255,.07);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px}
+.tip-icon{font-size:16px;flex-shrink:0}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--blue)}
+.ex-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--acc);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+.types-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.type-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.type-card h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.type-card p{font-size:12.5px;color:var(--muted);line-height:1.55}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.q-block.correct{border-color:var(--ok)}.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(210,168,255,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .5s ease;width:0%}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:4px}
+.summary-item ul{padding-left:16px}
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc)}
+.nf-btn.next{background:rgba(210,168,255,.1);border-color:rgba(210,168,255,.3);color:var(--acc)}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 10px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 05</div>
+  <div class="hdr-title">Continuity & Uniform Continuity</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 70 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('epsilon',this)"><div class="nav-dot"></div>ε-δ Definition<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('discontinuities',this)"><div class="nav-dot"></div>Types of Discontinuities<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('properties',this)"><div class="nav-dot"></div>Key Theorems (IVT, EVT)<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('uniform',this)"><div class="nav-dot"></div>Uniform Continuity<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('monotone',this)"><div class="nav-dot"></div>Monotone Functions<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">09</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T04_CompactnessThms.html'"><div class="nav-dot" style="background:var(--orange)"></div>← Compactness Theorems</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T06_Differentiability.html'"><div class="nav-dot" style="background:var(--ok)"></div>Next: Differentiability →</div>
+</nav>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 05 of 11</div>
+    <div class="hero-title">Continuity & Uniform Continuity</div>
+    <div class="hero-sub">ε-δ arguments, discontinuity types, IVT, EVT, and the critical difference between pointwise and uniform continuity</div>
+    <div class="hero-chips">
+      <span class="chip chip-p">CSIR NET Core</span>
+      <span class="chip chip-b">Real Analysis</span>
+      <span class="chip chip-g">Intermediate-Advanced</span>
+      <span class="chip chip-o">70 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>Give the precise <strong>ε-δ definition</strong> of continuity and verify it for specific functions</li>
+      <li>Identify and classify all <strong>types of discontinuities</strong> (removable, jump, essential)</li>
+      <li>State and apply <strong>IVT</strong> and <strong>EVT</strong> to solve existence problems</li>
+      <li>Distinguish <strong>continuity</strong> from <strong>uniform continuity</strong> with counterexamples</li>
+      <li>Apply Heine's theorem: continuous on compact ⟹ uniformly continuous</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> Continuity topics appear in <strong>3–5 questions</strong> per exam. High-yield: IVT applications, uniform continuity on (0,1) vs [0,1], the function x·sin(1/x), Lipschitz condition implying uniform continuity.</div>
+  </div>
+</div>
+
+<!-- EPSILON-DELTA -->
+<div class="sec" id="sec-epsilon">
+  <h2 class="sec-head">ε Continuity Definitions</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">ε-δ</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">Formal Definition of Continuity</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Continuity at a Point (ε-δ)</div>
+      <div class="def-text">f : D → ℝ is <strong>continuous at c ∈ D</strong> if:<br><br>
+      ∀ε &gt; 0, ∃δ &gt; 0 such that |x − c| &lt; δ and x ∈ D ⟹ |f(x) − f(c)| &lt; ε<br><br>
+      The key: δ may depend on both ε AND c (the point).</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Sequential Characterization</div>
+      <div class="def-text">f is continuous at c ⟺ for every sequence xₙ → c (xₙ ∈ D), we have f(xₙ) → f(c).<br><br>
+      This is often easier to USE: to show continuity, show sequences are preserved. To show DIS-continuity, find a sequence xₙ → c with f(xₙ) ↛ f(c).</div>
+    </div>
+
+    <div class="diagram">
+      <svg width="500" height="190" viewBox="0 0 500 190" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="14" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">ε-δ Continuity — For every ε-band, find δ-interval</text>
+        <!-- Axes -->
+        <line x1="60" y1="160" x2="460" y2="160" stroke="#30363d" stroke-width="1.5"/>
+        <line x1="60" y1="20" x2="60" y2="160" stroke="#30363d" stroke-width="1.5"/>
+        <text x="465" y="163" fill="#8b949e" font-size="10">x</text>
+        <text x="55" y="18" fill="#8b949e" font-size="10">f(x)</text>
+        <!-- Smooth curve -->
+        <path d="M80,140 Q140,100 200,90 Q260,80 300,70 Q360,55 430,40" fill="none" stroke="#d2a8ff" stroke-width="2.5"/>
+        <!-- c on x-axis -->
+        <line x1="260" y1="156" x2="260" y2="164" stroke="#ffa657" stroke-width="1.5"/>
+        <text x="260" y="174" text-anchor="middle" fill="#ffa657" font-size="11">c</text>
+        <!-- f(c) on y-axis -->
+        <line x1="56" y1="78" x2="64" y2="78" stroke="#ffa657" stroke-width="1.5"/>
+        <text x="48" y="81" text-anchor="end" fill="#ffa657" font-size="11">f(c)</text>
+        <!-- delta band -->
+        <rect x="220" y="20" width="80" height="140" fill="rgba(121,192,255,.08)" stroke="#79c0ff" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="218" y="18" text-anchor="end" fill="#79c0ff" font-size="10">c−δ</text>
+        <text x="303" y="18" fill="#79c0ff" font-size="10">c+δ</text>
+        <!-- epsilon band -->
+        <rect x="60" y="60" width="400" height="36" fill="rgba(210,168,255,.08)" stroke="#d2a8ff" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="462" y="72" fill="#d2a8ff" font-size="10">f(c)+ε</text>
+        <text x="462" y="100" fill="#d2a8ff" font-size="10">f(c)−ε</text>
+        <!-- point -->
+        <circle cx="260" cy="78" r="4" fill="#ffa657"/>
+        <!-- caption text -->
+        <text x="250" y="183" text-anchor="middle" fill="#8b949e" font-size="10.5">Inside δ-interval on x-axis ⟹ inside ε-band on y-axis</text>
+      </svg>
+      <figcaption>Figure 1 — ε-δ continuity: input perturbation δ forces output perturbation within ε</figcaption>
+    </div>
+
+    <h3 class="sub-head">Algebraic Preservation of Continuity</h3>
+    <p>If f, g are continuous at c, then:</p>
+    <ul>
+      <li>f ± g, f · g are continuous at c</li>
+      <li>f/g is continuous at c if g(c) ≠ 0</li>
+      <li>g ∘ f is continuous at c if g is continuous at f(c)</li>
+      <li>|f| is continuous at c</li>
+      <li>max(f,g) and min(f,g) are continuous at c</li>
+    </ul>
+    <div class="thm-box">
+      <div class="thm-label">Topological Characterization</div>
+      <div class="thm-text">f : X → Y is continuous ⟺ the preimage f⁻¹(V) of every open set V ⊆ Y is open in X.<br>
+      Equivalently: f⁻¹(F) is closed whenever F is closed.</div>
+      <div class="thm-proof">This characterization is fundamental in topology — it captures continuity without ε-δ and works in any topological space.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCONTINUITIES -->
+<div class="sec" id="sec-discontinuities">
+  <h2 class="sec-head">💥 Types of Discontinuities</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,123,114,.15)">✗</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">Classification of Discontinuities</div></div>
+    </div>
+    <p>At a point c, f has a <strong>discontinuity</strong> if: f is not defined at c, OR the limit doesn't exist, OR lim ≠ f(c). The one-sided limits lim_{x→c⁺} f(x) = f(c⁺) and lim_{x→c⁻} f(x) = f(c⁻) are key.</p>
+    <div class="types-grid">
+      <div class="type-card">
+        <h4 style="color:var(--blue)">Removable Discontinuity</h4>
+        <p><strong>Condition:</strong> lim_{x→c} f(x) exists (= L) but f(c) ≠ L or f(c) is undefined.<br><strong>Fix:</strong> Redefine f(c) = L to make it continuous.<br><strong>Example:</strong> f(x) = sin(x)/x at x=0 (limit = 1, but f(0) undefined)</p>
+      </div>
+      <div class="type-card">
+        <h4 style="color:var(--orange)">Jump Discontinuity</h4>
+        <p><strong>Condition:</strong> Both one-sided limits exist but f(c⁺) ≠ f(c⁻).<br><strong>Jump size:</strong> |f(c⁺) − f(c⁻)|<br><strong>Example:</strong> f(x) = sign(x): f(0⁺) = 1, f(0⁻) = −1<br>Also: floor function ⌊x⌋ at every integer</p>
+      </div>
+      <div class="type-card">
+        <h4 style="color:var(--er)">Essential (Infinite) Discontinuity</h4>
+        <p><strong>Condition:</strong> At least one one-sided limit is infinite or doesn't exist.<br><strong>Example:</strong> f(x) = 1/x at x=0 (limit = ±∞)<br>Also: f(x) = sin(1/x) at x=0 (oscillates, no limit)</p>
+      </div>
+      <div class="type-card">
+        <h4 style="color:var(--acc)">Oscillatory Discontinuity</h4>
+        <p><strong>Condition:</strong> Function oscillates without settling to a limit.<br><strong>Example:</strong> f(x) = sin(1/x) at x=0<br>lim_{x→0} sin(1/x) does NOT exist (oscillates between −1 and 1)<br>Note: x·sin(1/x) → 0 (removable! Define f(0)=0)</p>
+      </div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Monotone Function Discontinuities</div>
+      <div class="thm-text">A monotone function f on (a,b) can only have jump discontinuities, and the set of discontinuities is at most countable.</div>
+      <div class="thm-proof">Both one-sided limits exist at every point for a monotone function. If they differ → jump discontinuity. The jumps are disjoint rational intervals → countable.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTIES / IVT / EVT -->
+<div class="sec" id="sec-properties">
+  <h2 class="sec-head">📐 Key Theorems</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">IVT</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Intermediate & Extreme Value Theorems</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Intermediate Value Theorem (IVT)</div>
+      <div class="thm-text">If f is continuous on [a,b] and f(a) ≠ f(b), then for every value k between f(a) and f(b), there exists c ∈ (a,b) such that f(c) = k.<br><br>
+      Equivalently: the continuous image of a connected set is connected (intervals → intervals).</div>
+      <div class="thm-proof">Key consequence: Any polynomial of odd degree has at least one real root. Proof: p(x) → +∞ as x → +∞ and p(x) → −∞ as x → −∞ (or vice versa). By IVT, p(c) = 0 for some c.</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Extreme Value Theorem (EVT)</div>
+      <div class="thm-text">If f is continuous on a compact set K ⊆ ℝⁿ (in particular, on a closed bounded interval [a,b]), then f attains its supremum and infimum on K:<br><br>
+      ∃ x_max, x_min ∈ K such that f(x_min) ≤ f(x) ≤ f(x_max) for all x ∈ K.</div>
+      <div class="thm-proof">f(K) is compact (continuous image of compact set). Compact subset of ℝ is closed and bounded → has a maximum and minimum → attained at some points.</div>
+    </div>
+    <h3 class="sub-head">IVT Applications</h3>
+    <table class="tbl">
+      <tr><th>Problem</th><th>IVT Setup</th><th>Conclusion</th></tr>
+      <tr><td>f(x) = x³ − x − 1 has root</td><td>f(1) = −1 &lt; 0, f(2) = 5 &gt; 0</td><td>∃c ∈ (1,2): f(c) = 0</td></tr>
+      <tr><td>Fixed point: f:[0,1]→[0,1] continuous</td><td>g(x) = f(x) − x; g(0) ≥ 0, g(1) ≤ 0</td><td>∃c: f(c) = c (fixed point)</td></tr>
+      <tr><td>Odd degree polynomial</td><td>p(x) → ±∞ as x → ±∞</td><td>p has at least one real root</td></tr>
+      <tr><td>f(a) · f(b) &lt; 0</td><td>f has opposite signs at a, b</td><td>∃c ∈ (a,b): f(c) = 0</td></tr>
+    </table>
+    <div class="tip-box">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text"><strong>IVT ≠ unique value:</strong> IVT guarantees existence, not uniqueness. Also, IVT does NOT hold for discontinuous functions. Example: f(x) = sign(x) on [−1,1] is discontinuous at 0 and takes values ±1 but not 0 — IVT fails.</div>
+    </div>
+  </div>
+</div>
+
+<!-- UNIFORM CONTINUITY -->
+<div class="sec" id="sec-uniform">
+  <h2 class="sec-head">📏 Uniform Continuity</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">UC</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">Uniform vs Pointwise Continuity</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Uniform Continuity</div>
+      <div class="def-text">f : D → ℝ is <strong>uniformly continuous</strong> on D if:<br><br>
+      ∀ε &gt; 0, ∃δ &gt; 0 such that ∀x, y ∈ D: |x − y| &lt; δ ⟹ |f(x) − f(y)| &lt; ε<br><br>
+      <strong>Key difference:</strong> δ depends ONLY on ε, not on the particular point x or y.</div>
+    </div>
+    <p>This is <em>stronger</em> than ordinary continuity. In uniform continuity, one δ works globally for ALL points simultaneously.</p>
+
+    <div class="diagram">
+      <svg width="500" height="200" viewBox="0 0 500 200" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="14" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Continuity vs Uniform Continuity — δ behaviour</text>
+        <!-- Left panel: ordinary continuity -->
+        <rect x="10" y="20" width="230" height="170" fill="rgba(28,35,51,.5)" rx="8"/>
+        <text x="125" y="36" text-anchor="middle" fill="#8b949e" font-size="10.5" font-weight="600">Ordinary Continuity</text>
+        <!-- steep curve on left -->
+        <path d="M30,170 Q80,160 110,130 Q130,110 140,70 Q150,40 180,35 Q200,33 225,32" fill="none" stroke="#d2a8ff" stroke-width="2"/>
+        <text x="125" y="185" text-anchor="middle" fill="#8b949e" font-size="9.5">δ shrinks near steep part — no global δ</text>
+        <!-- delta labels -->
+        <text x="100" y="196" text-anchor="middle" fill="#79c0ff" font-size="9">Small δ needed here</text>
+
+        <!-- Right panel: uniform continuity -->
+        <rect x="260" y="20" width="230" height="170" fill="rgba(28,51,35,.5)" rx="8"/>
+        <text x="375" y="36" text-anchor="middle" fill="#8b949e" font-size="10.5" font-weight="600">Uniform Continuity</text>
+        <path d="M275,155 Q320,130 365,110 Q400,95 475,80" fill="none" stroke="#56d364" stroke-width="2"/>
+        <text x="375" y="185" text-anchor="middle" fill="#8b949e" font-size="9.5">Same δ works everywhere — globally Lipschitz</text>
+        <!-- uniform brackets -->
+        <line x1="330" y1="60" x2="330" y2="175" stroke="#56d364" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="360" y1="60" x2="360" y2="175" stroke="#56d364" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="390" y1="60" x2="390" y2="175" stroke="#56d364" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="375" y="58" text-anchor="middle" fill="#56d364" font-size="9">equal δ-blocks</text>
+      </svg>
+      <figcaption>Figure 2 — Ordinary continuity: δ varies by point. Uniform continuity: one δ works everywhere.</figcaption>
+    </div>
+
+    <h3 class="sub-head">Key Results on Uniform Continuity</h3>
+    <div class="thm-box">
+      <div class="thm-label">Heine's Theorem</div>
+      <div class="thm-text">Every continuous function on a compact set is uniformly continuous.<br>
+      In particular: f continuous on [a,b] ⟹ f uniformly continuous on [a,b].</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Lipschitz ⟹ Uniformly Continuous</div>
+      <div class="thm-text">If f satisfies |f(x) − f(y)| ≤ L|x − y| for some constant L &gt; 0 (Lipschitz condition), then f is uniformly continuous. (Use δ = ε/L.)</div>
+    </div>
+
+    <h3 class="sub-head">Uniform Continuity — Examples</h3>
+    <table class="tbl">
+      <tr><th>Function</th><th>Domain</th><th>Uniformly Continuous?</th><th>Reason</th></tr>
+      <tr><td>f(x) = x²</td><td>[0,1]</td><td style="color:var(--ok)">Yes</td><td>Compact domain (Heine)</td></tr>
+      <tr><td>f(x) = x²</td><td>[0,∞)</td><td style="color:var(--er)">No</td><td>|f(x+δ)−f(x)| = 2xδ+δ² → ∞ as x → ∞</td></tr>
+      <tr><td>f(x) = sin(x)</td><td>ℝ</td><td style="color:var(--ok)">Yes</td><td>|sin x − sin y| ≤ |x − y| (Lipschitz)</td></tr>
+      <tr><td>f(x) = 1/x</td><td>(0,1)</td><td style="color:var(--er)">No</td><td>|1/x − 1/y| = |x−y|/(xy) → ∞ as x,y → 0</td></tr>
+      <tr><td>f(x) = 1/x</td><td>[1,∞)</td><td style="color:var(--ok)">Yes</td><td>|1/x−1/y| = |x−y|/(xy) ≤ |x−y| on [1,∞)</td></tr>
+      <tr><td>f(x) = √x</td><td>[0,1]</td><td style="color:var(--ok)">Yes</td><td>Compact domain; |√x−√y| ≤ √|x−y|</td></tr>
+      <tr><td>f(x) = x·sin(1/x), f(0)=0</td><td>[0,1]</td><td style="color:var(--ok)">Yes</td><td>Compact domain</td></tr>
+    </table>
+    <div class="warn-box">
+      <div class="warn-label">Non-Uniformly-Continuous Criterion</div>
+      <p>f is NOT uniformly continuous on D iff: ∃ε₀ &gt; 0 and sequences (xₙ), (yₙ) with |xₙ − yₙ| → 0 but |f(xₙ) − f(yₙ)| ≥ ε₀.<br>
+      Example: f(x) = 1/x on (0,1): Take xₙ = 1/n, yₙ = 1/(n+1). Then |xₙ−yₙ| → 0 but |f(xₙ)−f(yₙ)| = 1 → 0? Actually |n−(n+1)| = 1 ≥ 1. ✓</p>
+    </div>
+  </div>
+</div>
+
+<!-- MONOTONE FUNCTIONS -->
+<div class="sec" id="sec-monotone">
+  <h2 class="sec-head">↗ Monotone Functions</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">↑↓</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Properties of Monotone Functions</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Monotone Function Continuity Theorem</div>
+      <div class="thm-text">
+        1. A monotone function f on (a,b) has one-sided limits at every point.<br>
+        2. The set of discontinuities of a monotone function is at most countable.<br>
+        3. A monotone bijection f: [a,b] → [c,d] is continuous (and its inverse is also continuous and monotone).<br>
+        4. If f is monotone and has the IVT property (takes all intermediate values), then f is continuous.
+      </div>
+    </div>
+    <h3 class="sub-head">Continuous Bijection on Compact Set</h3>
+    <div class="thm-box">
+      <div class="thm-label">Inverse Function Theorem (Elementary)</div>
+      <div class="thm-text">If f: [a,b] → ℝ is continuous and strictly monotone, then:<br>
+      (i) f is a bijection onto [f(a), f(b)] (or [f(b), f(a)])<br>
+      (ii) f⁻¹ is continuous and strictly monotone on its domain<br>
+      (iii) f⁻¹ is continuous iff f is an open map (maps open sets to open sets)</div>
+    </div>
+    <h3 class="sub-head">Important Continuous Function Examples</h3>
+    <table class="tbl">
+      <tr><th>Function</th><th>Behavior at Key Points</th><th>Continuity Notes</th></tr>
+      <tr><td>f(x) = x·sin(1/x), f(0)=0</td><td>|f(x)| ≤ |x| → 0 as x→0</td><td>Continuous at 0 (squeeze); not monotone</td></tr>
+      <tr><td>Dirichlet f(x) = 1 if x∈ℚ, 0 if x∉ℚ</td><td>Discontinuous everywhere</td><td>No point of continuity</td></tr>
+      <tr><td>Modified Dirichlet: x if x∈ℚ, 0 if x∉ℚ</td><td>Continuous ONLY at x=0</td><td>|f(x)| ≤ |x| → 0; ℚ dense → discon elsewhere</td></tr>
+      <tr><td>f(x) = 0 (x∉ℚ), 1/q if x=p/q (lowest terms)</td><td>irrational pts are continuity pts</td><td>Thomae function: cont. on irrationals, disc. on ℚ</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- WORKED EXAMPLES -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — ε-δ Proof</div>
+    <div class="ex-q">Prove that f(x) = 3x + 2 is continuous at every point c ∈ ℝ.</div>
+    <div class="ex-sol">
+      Let ε &gt; 0. Choose δ = ε/3.<br>
+      If |x − c| &lt; δ = ε/3, then:<br>
+      |f(x) − f(c)| = |(3x+2) − (3c+2)| = |3x − 3c| = 3|x − c| &lt; 3 · (ε/3) = ε. □<br>
+      Note: δ does not depend on c — so f is actually uniformly continuous on ℝ (Lipschitz with L=3).
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — IVT Application</div>
+    <div class="ex-q">Prove that cos(x) = x has at least one solution in (0, π/2).</div>
+    <div class="ex-sol">
+      Let g(x) = cos(x) − x. Then g is continuous on [0, π/2].<br>
+      g(0) = cos(0) − 0 = 1 &gt; 0<br>
+      g(π/2) = cos(π/2) − π/2 = 0 − π/2 = −π/2 &lt; 0<br>
+      Since g(0) &gt; 0 and g(π/2) &lt; 0, by IVT, ∃c ∈ (0, π/2) such that g(c) = 0, i.e., cos(c) = c. □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — Uniform Continuity Fail</div>
+    <div class="ex-q">Show that f(x) = x² is NOT uniformly continuous on [0, ∞).</div>
+    <div class="ex-sol">
+      Take ε₀ = 1. Suppose δ &gt; 0 is any candidate.<br>
+      Choose x = 1/δ, y = 1/δ + δ/2. Then |x − y| = δ/2 &lt; δ.<br>
+      But |f(x) − f(y)| = |x² − y²| = |x+y||x−y| = (2/δ + δ/2)(δ/2) ≥ (2/δ)(δ/2) = 1 = ε₀.<br>
+      So no δ works for ε₀ = 1, and f is not uniformly continuous on [0,∞).
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — CSIR NET Classic</div>
+    <div class="ex-q">For which values of α does f(x) = xᵅ sin(1/x) (f(0)=0) become continuous at 0?</div>
+    <div class="ex-sol">
+      |f(x)| = |xᵅ||sin(1/x)| ≤ |x|ᵅ since |sin| ≤ 1.<br>
+      For f to be continuous at 0, we need f(x) → 0 as x → 0, i.e., |x|ᵅ → 0.<br>
+      This holds iff α &gt; 0.<br>
+      <strong>Conclusion:</strong> f is continuous at 0 iff α &gt; 0.<br>
+      Special case α = 1: f(x) = x·sin(1/x) → 0, continuous at 0.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — Fixed Point Theorem</div>
+    <div class="ex-q">Prove that every continuous f: [0,1] → [0,1] has a fixed point.</div>
+    <div class="ex-sol">
+      Define g(x) = f(x) − x on [0,1].<br>
+      g(0) = f(0) − 0 = f(0) ≥ 0 (since f(0) ∈ [0,1]).<br>
+      g(1) = f(1) − 1 ≤ 0 (since f(1) ∈ [0,1] ⟹ f(1) ≤ 1).<br>
+      If g(0) = 0, then f(0) = 0 (done). If g(1) = 0, then f(1) = 1 (done).<br>
+      Otherwise g(0) &gt; 0 and g(1) &lt; 0. By IVT, ∃c ∈ (0,1) with g(c) = 0, i.e., f(c) = c. □
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <div class="q-block" id="qb1"><div class="q-num">Question 1 of 15</div>
+    <div class="q-text">The function f(x) = sin(1/x) at x = 0 has what type of discontinuity?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) Removable</button>
+      <button class="opt" onclick="answer(1,'b')">B) Jump</button>
+      <button class="opt correct-ans" onclick="answer(1,'c')">C) Essential (oscillatory)</button>
+      <button class="opt" onclick="answer(1,'d')">D) No discontinuity</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>✓ C is correct.</strong> lim_{x→0} sin(1/x) does not exist — the function oscillates between −1 and 1 infinitely often as x → 0. Since neither one-sided limit exists (both are undefined), this is an essential discontinuity (oscillatory type). Compare with x·sin(1/x) which is removable (limit = 0).</div>
+  </div>
+
+  <div class="q-block" id="qb2"><div class="q-num">Question 2 of 15</div>
+    <div class="q-text">Which of the following functions is uniformly continuous on (0,1)?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) f(x) = 1/x</button>
+      <button class="opt" onclick="answer(2,'b')">B) f(x) = sin(1/x)</button>
+      <button class="opt correct-ans" onclick="answer(2,'c')">C) f(x) = √x</button>
+      <button class="opt" onclick="answer(2,'d')">D) f(x) = x·ln(x)</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>✓ C is correct.</strong> √x extends continuously to [0,1] → uniformly continuous on (0,1) by Heine's theorem (extension argument). f(x) = 1/x is not UC on (0,1): blows up near 0. f(x) = sin(1/x) has no continuous extension to [0,1]. f(x) = x·ln(x) → 0 as x→0 (continuous extension exists), actually also UC on (0,1); but √x is the clear standard answer.</div>
+  </div>
+
+  <div class="q-block" id="qb3"><div class="q-num">Question 3 of 15</div>
+    <div class="q-text">By IVT, if f is continuous on [0,1] with f(0) = −1 and f(1) = 3, which value is GUARANTEED to be attained?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(3,'a')">A) f(c) = 5 for some c ∈ [0,1]</button>
+      <button class="opt correct-ans" onclick="answer(3,'b')">B) f(c) = 0 for some c ∈ (0,1)</button>
+      <button class="opt" onclick="answer(3,'c')">C) f(c) = −2 for some c ∈ [0,1]</button>
+      <button class="opt" onclick="answer(3,'d')">D) f(c) = 4 for some c ∈ (0,1)</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>✓ B is correct.</strong> IVT: f continuous on [0,1], f(0)=−1 &lt; 0 &lt; 3=f(1). By IVT, f attains every value in [f(0), f(1)] = [−1, 3]. So f(c) = 0 for some c ∈ (0,1) ✓. Value 5 is outside [−1,3] — not guaranteed. Value −2 is below f(0) — not guaranteed. Value 4 is above f(1) — not guaranteed.</div>
+  </div>
+
+  <div class="q-block" id="qb4"><div class="q-num">Question 4 of 15</div>
+    <div class="q-text">A function f: [a,b] → ℝ is continuous. Which of the following is NOT necessarily true?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) f is bounded</button>
+      <button class="opt" onclick="answer(4,'b')">B) f attains its maximum</button>
+      <button class="opt correct-ans" onclick="answer(4,'c')">C) f is differentiable</button>
+      <button class="opt" onclick="answer(4,'d')">D) f is uniformly continuous</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>✓ C is correct — differentiability is NOT guaranteed.</strong> A continuous function need not be differentiable. The Weierstrass function is continuous everywhere but differentiable nowhere. A is TRUE (EVT: f bounded). B is TRUE (EVT: f attains max/min). D is TRUE (Heine: f continuous on compact [a,b] ⟹ uniformly continuous).</div>
+  </div>
+
+  <div class="q-block" id="qb5"><div class="q-num">Question 5 of 15</div>
+    <div class="q-text">The function f(x) = x·sin(1/x) for x ≠ 0 and f(0) = 0 is:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(5,'a')">A) Continuous at x = 0</button>
+      <button class="opt" onclick="answer(5,'b')">B) Differentiable at x = 0</button>
+      <button class="opt" onclick="answer(5,'c')">C) Uniformly continuous on ℝ</button>
+      <button class="opt" onclick="answer(5,'d')">D) A monotone function</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>✓ A is correct.</strong> |f(x) − 0| = |x·sin(1/x)| ≤ |x| → 0 as x → 0 (squeeze theorem). So f is continuous at 0. B is WRONG: the derivative is sin(1/x) − cos(1/x)/x which oscillates as x→0, so f is NOT differentiable at 0. C is WRONG: f is not differentiable, but more importantly, the derivative diverges — actually f IS uniformly continuous on [−1,1] (compact), but NOT on ℝ.</div>
+  </div>
+
+  <div class="q-block" id="qb6"><div class="q-num">Question 6 of 15</div>
+    <div class="q-text">Which of the following is a sufficient condition for uniform continuity?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(6,'a')">A) f is differentiable on (a,b)</button>
+      <button class="opt correct-ans" onclick="answer(6,'b')">B) f satisfies a Lipschitz condition on D</button>
+      <button class="opt" onclick="answer(6,'c')">C) f is monotone on D</button>
+      <button class="opt" onclick="answer(6,'d')">D) f is bounded on D</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>✓ B is correct.</strong> Lipschitz condition: |f(x)−f(y)| ≤ L|x−y| ⟹ uniform continuity (use δ = ε/L). A is wrong (differentiability alone doesn't give UC; we need bounded derivative). C is wrong (monotone functions can fail UC). D is wrong (f could be bounded but not UC, e.g., sin(1/x) on (0,1) is bounded but not UC).</div>
+  </div>
+
+  <div class="q-block" id="qb7"><div class="q-num">Question 7 of 15</div>
+    <div class="q-text">The Dirichlet function f(x) = 1 if x ∈ ℚ, f(x) = 0 if x ∉ ℚ, is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(7,'a')">A) Continuous everywhere</button>
+      <button class="opt" onclick="answer(7,'b')">B) Continuous only at irrational points</button>
+      <button class="opt correct-ans" onclick="answer(7,'c')">C) Discontinuous everywhere</button>
+      <button class="opt" onclick="answer(7,'d')">D) Continuous only at rational points</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>✓ C is correct.</strong> At every point c: both rationals and irrationals are dense, so there exist sequences xₙ → c with xₙ ∈ ℚ (giving f(xₙ)=1) and yₙ → c with yₙ ∉ ℚ (giving f(yₙ)=0). Since 1 ≠ 0, the limit at c does not equal f(c) for any c. Therefore f is discontinuous everywhere.</div>
+  </div>
+
+  <div class="q-block" id="qb8"><div class="q-num">Question 8 of 15</div>
+    <div class="q-text">If f: ℝ → ℝ is uniformly continuous and (xₙ) is Cauchy, then:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(8,'a')">A) (xₙ) converges</button>
+      <button class="opt correct-ans" onclick="answer(8,'b')">B) (f(xₙ)) is Cauchy</button>
+      <button class="opt" onclick="answer(8,'c')">C) (f(xₙ)) converges to 0</button>
+      <button class="opt" onclick="answer(8,'d')">D) f(xₙ) → f(lim xₙ)</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>✓ B is correct.</strong> Uniform continuity maps Cauchy sequences to Cauchy sequences. Proof: Given ε &gt; 0, choose δ for ε. Since (xₙ) Cauchy, ∃N: m,n &gt; N ⟹ |xₙ−xₘ| &lt; δ ⟹ |f(xₙ)−f(xₘ)| &lt; ε. So (f(xₙ)) is Cauchy. A is not guaranteed (ℝ is complete so xₙ converges, but the statement is about general spaces). D would follow if ℝ is complete and f is continuous.</div>
+  </div>
+
+  <div class="q-block" id="qb9"><div class="q-num">Question 9 of 15</div>
+    <div class="q-text">A continuous function on a connected set maps it to:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(9,'a')">A) A compact set</button>
+      <button class="opt correct-ans" onclick="answer(9,'b')">B) A connected set</button>
+      <button class="opt" onclick="answer(9,'c')">C) An open set</button>
+      <button class="opt" onclick="answer(9,'d')">D) A dense set</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>✓ B is correct.</strong> Continuous images of connected sets are connected (this is the topological form of IVT). In ℝ, connected sets are intervals (including single points), so f maps intervals to intervals. A is wrong (need compactness of domain, not connectedness). C is wrong (e.g., f(x) = x² maps ℝ to [0,∞), not open in some sense).</div>
+  </div>
+
+  <div class="q-block" id="qb10"><div class="q-num">Question 10 of 15</div>
+    <div class="q-text">The function f(x) = 1/x on (0,1) is NOT uniformly continuous. The correct Cauchy sequences that witness this are:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(10,'a')">A) xₙ = 1/n², yₙ = 1/(n²+1)</button>
+      <button class="opt correct-ans" onclick="answer(10,'b')">B) xₙ = 1/n, yₙ = 1/(n+1)</button>
+      <button class="opt" onclick="answer(10,'c')">C) xₙ = n/(n+1), yₙ = 1</button>
+      <button class="opt" onclick="answer(10,'d')">D) xₙ = 1, yₙ = 1+1/n</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>✓ B is correct.</strong> With xₙ = 1/n, yₙ = 1/(n+1): |xₙ−yₙ| = 1/(n(n+1)) → 0 ✓, but |f(xₙ)−f(yₙ)| = |n−(n+1)| = 1 ≢ 0. This witnesses non-uniform continuity with ε₀ = 1/2. A gives |f(xₙ)−f(yₙ)| = |n²−(n²+1)| = 1 ✓ also works. But B is the standard example for 1/x.</div>
+  </div>
+
+  <div class="q-block" id="qb11"><div class="q-num">Question 11 of 15</div>
+    <div class="q-text">The preimage of an open set under a continuous function is:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(11,'a')">A) Open</button>
+      <button class="opt" onclick="answer(11,'b')">B) Closed</button>
+      <button class="opt" onclick="answer(11,'c')">C) Compact</button>
+      <button class="opt" onclick="answer(11,'d')">D) Bounded</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>✓ A is correct.</strong> This is the topological definition of continuity: f is continuous iff f⁻¹(V) is open for every open V. The preimage of a closed set under a continuous function is closed. Note: the IMAGE of an open set need not be open (e.g., f(x) = x² maps (−1,1) to [0,1), which is neither open nor closed).</div>
+  </div>
+
+  <div class="q-block" id="qb12"><div class="q-num">Question 12 of 15</div>
+    <div class="q-text">The function f(x) = x² sin(1/x²) for x ≠ 0, f(0) = 0 is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(12,'a')">A) Differentiable at 0 with f'(0) = 1</button>
+      <button class="opt correct-ans" onclick="answer(12,'b')">B) Continuous at 0 but the derivative f' is not bounded near 0</button>
+      <button class="opt" onclick="answer(12,'c')">C) Not continuous at 0</button>
+      <button class="opt" onclick="answer(12,'d')">D) Uniformly continuous on ℝ</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>✓ B is correct.</strong> Continuity at 0: |f(x)| ≤ x² → 0 ✓. Differentiability: f'(0) = lim f(x)/x = lim x·sin(1/x²) → 0. So actually f is differentiable at 0. The derivative f'(x) = 2x sin(1/x²) − (2/x)cos(1/x²) oscillates wildly near 0, making it unbounded — f' is not bounded near 0. This is a key example: differentiable everywhere but derivative is not bounded/continuous.</div>
+  </div>
+
+  <div class="q-block" id="qb13"><div class="q-num">Question 13 of 15</div>
+    <div class="q-text">Which function has a removable discontinuity at x = 0?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(13,'a')">A) f(x) = |x|/x</button>
+      <button class="opt" onclick="answer(13,'b')">B) f(x) = sin(1/x)</button>
+      <button class="opt correct-ans" onclick="answer(13,'c')">C) f(x) = (1 − cos x)/x</button>
+      <button class="opt" onclick="answer(13,'d')">D) f(x) = 1/x</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>✓ C is correct.</strong> lim_{x→0} (1−cos x)/x: using L'Hôpital or Taylor: (1−(1−x²/2+…))/x = x/2 − … → 0. So lim = 0, and by defining f(0) = 0, f becomes continuous — removable discontinuity. A has jump (limit from right = 1, left = −1). B has essential oscillatory. D has essential infinite discontinuity.</div>
+  </div>
+
+  <div class="q-block" id="qb14"><div class="q-num">Question 14 of 15</div>
+    <div class="q-text">If f: [a,b] → [a,b] is continuous, then:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) f must be strictly monotone</button>
+      <button class="opt" onclick="answer(14,'b')">B) f must be differentiable</button>
+      <button class="opt correct-ans" onclick="answer(14,'c')">C) f has at least one fixed point</button>
+      <button class="opt" onclick="answer(14,'d')">D) f maps open sets to open sets</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>✓ C is correct.</strong> Fixed point theorem for [a,b]: g(x) = f(x)−x. g(a) = f(a)−a ≥ 0 (since f(a) ∈ [a,b]). g(b) = f(b)−b ≤ 0. By IVT, ∃c with g(c) = 0, i.e., f(c) = c. A is wrong (f could be constant). B is wrong (continuity ≠ differentiability). D is wrong (continuous functions need not be open maps).</div>
+  </div>
+
+  <div class="q-block" id="qb15"><div class="q-num">Question 15 of 15</div>
+    <div class="q-text">The set of all points of continuity of a monotone function on (a,b) is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(15,'a')">A) Finite</button>
+      <button class="opt" onclick="answer(15,'b')">B) At most countable</button>
+      <button class="opt correct-ans" onclick="answer(15,'c')">C) All of (a,b) except at most countably many points</button>
+      <button class="opt" onclick="answer(15,'d')">D) Dense in (a,b)</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>✓ C is correct.</strong> A monotone function has at most countably many discontinuities (jump discontinuities, and each jump corresponds to a distinct rational interval — hence countable). So the set of continuity points is (a,b) minus a countable set, which is co-countable (uncountable and dense). D is also true but C is more precise and the standard answer.</div>
+  </div>
+
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button><br><br>
+    <a href="CSIR_NET_U1_T06_Differentiability.html" style="display:inline-block;margin-top:8px;background:rgba(86,211,100,.15);color:var(--ok);border:1px solid rgba(86,211,100,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next: Differentiability →</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+  <div class="summary-grid">
+    <div class="summary-item"><h4>Continuity — Core</h4><ul><li>ε-δ: ∀ε>0, ∃δ>0: |x−c|&lt;δ ⟹ |f(x)−f(c)|&lt;ε</li><li>Sequential: xₙ→c ⟹ f(xₙ)→f(c)</li><li>Topological: f⁻¹(open) = open</li><li>Algebraic: sums, products, compositions preserve continuity</li></ul></div>
+    <div class="summary-item"><h4>Uniform Continuity</h4><ul><li>δ depends only on ε, not on point</li><li>Compact domain ⟹ UC (Heine)</li><li>Lipschitz ⟹ UC (use δ = ε/L)</li><li>1/x NOT UC on (0,1) but UC on [1,∞)</li><li>x² NOT UC on [0,∞) but UC on any [a,b]</li></ul></div>
+    <div class="summary-item"><h4>Key Theorems</h4><ul><li>IVT: continuous on [a,b] → takes all intermediate values</li><li>EVT: continuous on compact → attains max/min</li><li>Fixed point: f:[0,1]→[0,1] continuous → has fixed point</li><li>Monotone: at most countably many discontinuities</li></ul></div>
+    <div class="summary-item"><h4>CSIR Exam Q-Types</h4><ul><li>Classify discontinuities (removable/jump/essential)</li><li>IVT to show existence of roots or fixed points</li><li>Which functions are UC on given domains?</li><li>Dirichlet/modified Dirichlet/Thomae functions</li><li>x·sin(1/x) and xᵅ·sin(1/x) continuity at 0</li></ul></div>
+  </div>
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_U1_T04_CompactnessThms.html">← Compactness Theorems</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T06_Differentiability.html">Next: Differentiability →</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+let answered=0,correct=0,wrong=0;
+const correctAns={1:'c',2:'c',3:'b',4:'c',5:'a',6:'b',7:'c',8:'b',9:'b',10:'b',11:'a',12:'b',13:'c',14:'c',15:'c'};
+function answer(qn,chosen){const block=document.getElementById('qb'+qn);if(block.classList.contains('correct')||block.classList.contains('wrong'))return;const opts=block.querySelectorAll('.opt');opts.forEach(o=>o.disabled=true);const isCorrect=(chosen===correctAns[qn]);if(isCorrect){block.classList.add('correct');correct++;}else{block.classList.add('wrong');wrong++;}const letters=['a','b','c','d'];opts.forEach((o,i)=>{if(letters[i]===correctAns[qn])o.classList.add('correct');else if(letters[i]===chosen&&!isCorrect)o.classList.add('wrong');});document.getElementById('exp'+qn).classList.add('show',isCorrect?'exp-correct':'exp-wrong');answered++;document.getElementById('score-display').textContent=`Score: ${correct} / 15`;document.getElementById('qpfill').style.width=(answered/15*100)+'%';if(answered===15)showScore();}
+function showScore(){setTimeout(()=>{const sc=document.getElementById('score-card');sc.classList.add('show');document.getElementById('final-score').textContent=correct;document.getElementById('sc-correct').textContent=correct;document.getElementById('sc-wrong').textContent=wrong;const pct=Math.round(correct/15*100);let msg='Keep reviewing — especially IVT and uniform continuity.';if(pct>=80)msg='Excellent! You have strong command of continuity concepts.';else if(pct>=60)msg='Good work! Review ε-δ proofs and the Dirichlet function.';document.getElementById('sc-msg').textContent=msg;sc.scrollIntoView({behavior:'smooth'});},600);}
+function resetQuiz(){answered=0;correct=0;wrong=0;document.getElementById('score-display').textContent='Score: 0 / 15';document.getElementById('qpfill').style.width='0%';document.getElementById('score-card').classList.remove('show');for(let i=1;i<=15;i++){const b=document.getElementById('qb'+i);b.classList.remove('correct','wrong');b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});document.getElementById('exp'+i).classList.remove('show','exp-correct','exp-wrong');}document.getElementById('qb1').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

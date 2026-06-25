@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U6-T01 · First Order ODEs</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 6</span>
+  <span class="hdr-title">T01 · First Order ODEs</span>
+  <span class="hdr-badge">ODE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 6 · ODEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('types',this)">Types & Classification</a>
+  <a class="nav-item" onclick="show('separable',this)">Separable & Linear</a>
+  <a class="nav-item" onclick="show('exact',this)">Exact Equations</a>
+  <a class="nav-item" onclick="show('existence',this)">Existence & Uniqueness</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U6_T02_HigherOrderODE.html">T02 · Higher Order →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 6 · Topic 01</div>
+    <div class="hero-title">First Order ODEs</div>
+    <div class="hero-sub">Separable · Linear · Exact · Bernoulli · Existence & Uniqueness (Picard-Lindelöf)</div>
+    <div class="hero-chips">
+      <span class="chip">Separable</span>
+      <span class="chip">Linear 1st Order</span>
+      <span class="chip">Exact Equations</span>
+      <span class="chip">Integrating Factor</span>
+      <span class="chip">Bernoulli</span>
+      <span class="chip">Picard-Lindelöf</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Ordinary differential equations (ODEs) involve derivatives of a function of one variable. First-order ODEs involve only y and y'. The main solution techniques — separation of variables, integrating factors, exactness — and the fundamental existence-uniqueness theorem (Picard-Lindelöf) are core CSIR NET topics.</p>
+</div>
+
+<div class="sec" id="types">
+  <h2>Types & Classification</h2>
+  <div class="def-box">
+    <div class="lbl">ODE Order & Degree</div>
+    <p>The <strong>order</strong> of an ODE is the order of the highest derivative. The <strong>degree</strong> is the power of the highest-order derivative (after clearing fractions/radicals).</p>
+  </div>
+  <table>
+    <tr><th>Type</th><th>Form</th><th>Method</th></tr>
+    <tr><td>Separable</td><td>dy/dx = f(x)g(y)</td><td>Separate variables, integrate</td></tr>
+    <tr><td>Linear 1st order</td><td>y' + P(x)y = Q(x)</td><td>Integrating factor μ=e^(∫P dx)</td></tr>
+    <tr><td>Exact</td><td>M dx + N dy = 0, ∂M/∂y=∂N/∂x</td><td>Find potential F: dF=0</td></tr>
+    <tr><td>Homogeneous</td><td>dy/dx = f(y/x)</td><td>Substitution v=y/x</td></tr>
+    <tr><td>Bernoulli</td><td>y' + P(x)y = Q(x)yⁿ</td><td>Substitution z=y^(1−n)</td></tr>
+    <tr><td>Ricatti</td><td>y' = P+Qy+Ry²</td><td>One particular solution known→linear</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="separable">
+  <h2>Separable & Linear Equations</h2>
+  <h3>Separable ODEs</h3>
+  <div class="def-box">
+    <div class="lbl">Method</div>
+    <p>dy/dx = f(x)g(y): separate as dy/g(y) = f(x)dx, then integrate both sides.</p>
+    <div class="formula">∫ dy/g(y) = ∫ f(x) dx + C</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Example</div>
+    <p>dy/dx = xy: Separate → dy/y = x dx → ln|y| = x²/2 + C → y = Ae^(x²/2).</p>
+  </div>
+  <h3>First-Order Linear ODEs</h3>
+  <div class="def-box">
+    <div class="lbl">Integrating Factor Method</div>
+    <p>y' + P(x)y = Q(x). Multiply by μ(x) = e^(∫P(x)dx):</p>
+    <div class="formula">d/dx[μy] = μQ(x)   ⟹   μy = ∫μQ dx + C   ⟹   y = (1/μ)∫μQ dx + C/μ</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Example</div>
+    <p>y' + (2/x)y = x² (x>0). μ=e^(∫2/x dx)=x². Multiply: d/dx[x²y]=x⁴. Integrate: x²y = x⁵/5+C → y = x³/5 + C/x².</p>
+  </div>
+  <h3>Bernoulli Equation</h3>
+  <div class="def-box">
+    <div class="lbl">Reduction</div>
+    <p>y' + P(x)y = Q(x)yⁿ (n≠0,1). Let z = y^(1−n). Then z' + (1−n)P(x)z = (1−n)Q(x) — linear in z.</p>
+  </div>
+</div>
+
+<div class="sec" id="exact">
+  <h2>Exact Equations</h2>
+  <div class="def-box">
+    <div class="lbl">Exact ODE</div>
+    <p>M(x,y)dx + N(x,y)dy = 0 is <strong>exact</strong> if ∂M/∂y = ∂N/∂x (on a simply connected domain).</p>
+    <p>Then ∃ F(x,y) with ∂F/∂x = M, ∂F/∂y = N, and solution is F(x,y) = C.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Finding F</div>
+    <p>F(x,y) = ∫M dx + g(y), then ∂F/∂y = N gives g'(y), so integrate to find g(y).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Integrating Factors for Non-Exact</div>
+    <p>If not exact, find μ such that μM dx + μN dy = 0 is exact.</p>
+    <ul>
+      <li>If (∂M/∂y − ∂N/∂x)/N depends only on x: μ = e^(∫h(x)dx).</li>
+      <li>If (∂N/∂x − ∂M/∂y)/M depends only on y: μ = e^(∫k(y)dy).</li>
+    </ul>
+  </div>
+  <h3>Homogeneous Substitution</h3>
+  <div class="def-box">
+    <div class="lbl">v = y/x</div>
+    <p>If dy/dx = f(y/x), let v=y/x (so y=vx). Then dy/dx = v + x·dv/dx. Substitute and separate in x,v.</p>
+  </div>
+</div>
+
+<div class="sec" id="existence">
+  <h2>Existence & Uniqueness Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Picard-Lindelöf Theorem</div>
+    <p>Consider IVP: y' = f(x,y), y(x₀) = y₀.</p>
+    <p>If f is continuous on a rectangle R = {|x−x₀|≤a, |y−y₀|≤b} and satisfies a <strong>Lipschitz condition</strong> in y:</p>
+    <div class="formula">|f(x,y₁) − f(x,y₂)| ≤ L|y₁ − y₂|</div>
+    <p>then ∃ unique solution on |x−x₀| ≤ h, where h = min(a, b/M) and M = max|f| on R.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Peano Existence Theorem</div>
+    <p>If f is merely continuous (no Lipschitz), then at least one solution exists (but uniqueness may fail).</p>
+    <p>Example: y' = y^(1/3), y(0)=0 has infinitely many solutions: y≡0 and y=(2x/3)^(3/2).</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Singular Solutions</div>
+    <p>Solutions not obtainable from the general solution by fixing the constant C are <strong>singular solutions</strong>. Example: y'=y^(2/3) has singular solution y=0 and general solution y=(x/3+C)³.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Picard Iteration</div>
+    <p>Define y₀(x)=y₀ and yₙ₊₁(x)=y₀+∫_{x₀}^x f(t,yₙ(t))dt. Under Lipschitz, yₙ→y uniformly (contraction mapping on C[x₀-h, x₀+h]).</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The ODE dy/dx = x²/y is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Linear</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Separable</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> Exact</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Bernoulli</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The integrating factor for y' + (3/x)y = x² is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> e^x</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> x³</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 1/x</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> x²</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">M dx + N dy = 0 is exact iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> M = N</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> ∂M/∂y = ∂N/∂x</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> ∂M/∂x = ∂N/∂y</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> M+N = 0</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The general solution of dy/dx = y is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> y = x + C</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> y = Ce^x</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> y = C/x</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> y = ln|x| + C</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Picard-Lindelöf theorem guarantees a unique solution when f satisfies a Lipschitz condition in:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> x</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> y</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Both x and y</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Neither x nor y</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">For the Bernoulli equation y' + P(x)y = Q(x)y³, the substitution is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> z = y²</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> z = y^(−2) = 1/y²</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> z = y³</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> z = 1/y</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The IVP y' = y^(1/3), y(0)=0 has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> A unique solution</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> No solution</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Infinitely many solutions (Lipschitz fails at y=0)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Exactly two solutions</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">For the homogeneous ODE dy/dx = (y²+xy)/x², the substitution v = y/x gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> A linear ODE in v</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> A separable ODE in x and v</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> An exact ODE</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> A Bernoulli ODE</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Picard iteration yₙ₊₁(x) = y₀ + ∫_{x₀}^x f(t,yₙ(t))dt converges because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> f is bounded</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> The iteration is a contraction on C[x₀-h, x₀+h] (Banach fixed-point theorem)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> f is analytic</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> yₙ is monotone</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The ODE (2xy+y²)dx + (x²+2xy)dy = 0 is exact because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> M=N</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> ∂M/∂y = 2x+2y = ∂N/∂x</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> M and N are polynomials</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> The equation is separable</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The solution of y' = ky (k constant), y(0)=y₀ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> y = y₀ + kt</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> y = y₀e^(kt)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> y = y₀cos(kt)</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> y = y₀/k</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The Peano existence theorem guarantees a solution when f(x,y) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Lipschitz in y</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Merely continuous</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Analytic</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Bounded and increasing</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Which ODE has a singular solution?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> y' + y = 0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> y' = y^(2/3); singular solution y ≡ 0</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> y' = x; no singular solution possible</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> y' + 2y = e^x</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The solution of dy/dx = x/y with y(0)=2 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> y = x² + 2</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> y = √(x²+4)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> y = e^(x²/2)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> y = 2e^x</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">For the ODE y' + P(x)y = Q(x), the general solution is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> y = e^(−∫P dx) · C</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> y = e^(−∫P dx)·(∫Qe^(∫P dx)dx + C)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> y = ∫Q dx + C</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> y = Q/P</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Separable</h4><p>dy/g(y)=f(x)dx. Integrate both sides. Works when RHS factors as f(x)g(y).</p></div>
+    <div class="sum-card"><h4>Linear 1st Order</h4><p>y'+Py=Q. Multiply by μ=e^(∫P dx). Then d(μy)/dx=μQ. Integrate.</p></div>
+    <div class="sum-card"><h4>Exact</h4><p>∂M/∂y=∂N/∂x ⟹ exact. Find F with Fx=M, Fy=N. Solution: F=C.</p></div>
+    <div class="sum-card"><h4>Bernoulli</h4><p>y'+Py=Qyⁿ. z=y^(1−n) linearizes. Then solve linear ODE for z.</p></div>
+    <div class="sum-card"><h4>Picard-Lindelöf</h4><p>f Lipschitz in y ⟹ unique local solution. Iteration converges via Banach FPT.</p></div>
+    <div class="sum-card"><h4>Singular Solutions</h4><p>Not in general solution. Arise when Lipschitz condition fails (e.g., y^(1/3) at y=0).</p></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U6_T02_HigherOrderODE.html">T02: Higher Order ODEs →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'c',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'dy/dx=x²/y: rewrite as y dy=x² dx — variables separate. It\'s separable. It is NOT linear (y appears in denominator), not exact as written, not Bernoulli form.',
+  2:'For y\'+(3/x)y=x²: integrating factor μ=e^(∫3/x dx)=e^(3ln|x|)=x³.',
+  3:'M dx+N dy=0 is exact iff ∂M/∂y=∂N/∂x (on a simply connected domain). This is equivalent to saying M dx+N dy is an exact differential dF.',
+  4:'dy/dx=y: separate → dy/y=dx → ln|y|=x+C → y=Ae^x (A=±e^C). General solution y=Ce^x.',
+  5:'Picard-Lindelöf: unique solution guaranteed when f is Lipschitz in y (not necessarily in x). Continuity in x plus Lipschitz in y suffices.',
+  6:'Bernoulli with n=3: substitute z=y^(1−3)=y^(−2)=1/y². Then z\'=−2y^(−3)y\'. Multiply the equation by −2y^(−3) and get a linear ODE in z.',
+  7:'y\'=y^(1/3): f(x,y)=y^(1/3) is continuous but NOT Lipschitz in y at y=0 (∂f/∂y=(1/3)y^(−2/3)→∞ as y→0). Picard-Lindelöf fails. By Peano existence exists a solution, but uniqueness fails — both y≡0 and y=(2x/3)^(3/2) satisfy y(0)=0.',
+  8:'For homogeneous ODE dy/dx=f(y/x), substituting v=y/x (y=vx) gives dy/dx=v+xv\'. The resulting ODE in v and x is separable: v+xdv/dx=f(v) ⟹ xdv/dx=f(v)−v ⟹ dv/(f(v)−v)=dx/x.',
+  9:'Picard iteration defines a map T on C[x₀-h,x₀+h] by (Ty)(x)=y₀+∫f(t,y(t))dt. The Lipschitz condition makes T a contraction (‖Ty₁−Ty₂‖≤Lh‖y₁−y₂‖ with Lh<1 for small h). Banach FPT gives unique fixed point = solution.',
+  10:'M=2xy+y², N=x²+2xy. ∂M/∂y=2x+2y. ∂N/∂x=2x+2y. Equal, so exact. Solution F: ∂F/∂x=M gives F=x²y+xy²+g(y); ∂F/∂y=x²+2xy=N=x²+2xy, so g\'=0, g=const. Solution: x²y+xy²=C.',
+  11:'y\'=ky, y(0)=y₀: separate → dy/y=k dt → ln|y|=kt+lnC → y=Ce^(kt). With y(0)=y₀: y=y₀e^(kt). Classic exponential growth/decay.',
+  12:'Peano Existence Theorem: if f:ℝ→ℝ is continuous on a rectangle near (x₀,y₀), then the IVP has at least one solution. No Lipschitz condition needed. But uniqueness may fail.',
+  13:'y\'=y^(2/3): general solution is y=(x/3+C)³. The function y≡0 satisfies the ODE but cannot be obtained from (x/3+C)³ for any finite C. So y=0 is a singular solution.',
+  14:'dy/dx=x/y: y dy=x dx. Integrate: y²/2=x²/2+C. With y(0)=2: 4/2=0+C, C=2. So y²=x²+4, y=√(x²+4) (taking positive root since y(0)=2>0).',
+  15:'General solution of y\'+P(x)y=Q(x): multiply by μ=e^(∫P dx): d(μy)/dx=μQ. Integrate: μy=∫μQ dx+C. Hence y=e^(−∫P dx)·(∫Qe^(∫P dx)dx+C).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

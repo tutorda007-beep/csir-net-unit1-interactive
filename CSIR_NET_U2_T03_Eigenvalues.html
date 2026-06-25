@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T03 · Eigenvalues & Eigenvectors</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#6d28d9;--acc2:#7c3aed;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--orange:#ea6c00;--green:#16a34a;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(109,40,217,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(109,40,217,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(109,40,217,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(109,40,217,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(109,40,217,.08);color:var(--acc);font-weight:600;border:1px solid rgba(109,40,217,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#b45309;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T03 · Eigenvalues & Eigenvectors</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('def',this)">Definitions</a>
+  <a class="nav-item" onclick="show('char',this)">Characteristic Polynomial</a>
+  <a class="nav-item" onclick="show('mult',this)">Algebraic & Geometric Multiplicity</a>
+  <a class="nav-item" onclick="show('diag',this)">Diagonalization</a>
+  <a class="nav-item" onclick="show('ch',this)">Cayley-Hamilton Theorem</a>
+  <a class="nav-item" onclick="show('min',this)">Minimal Polynomial</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 2 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U2_T02_LinearTransformations.html">T02 · Linear Transformations</a>
+  <a class="nav-item" href="CSIR_NET_U2_T04_InnerProduct.html">T04 · Inner Product Spaces</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 03</div>
+    <div class="hero-title">Eigenvalues & Eigenvectors</div>
+    <div class="hero-sub">Characteristic Polynomial · Diagonalization · Cayley-Hamilton · Minimal Polynomial</div>
+    <div class="hero-chips">
+      <span class="chip">Eigenvalue</span>
+      <span class="chip">Eigenvector</span>
+      <span class="chip">Char. Polynomial</span>
+      <span class="chip">Algebraic Multiplicity</span>
+      <span class="chip">Geometric Multiplicity</span>
+      <span class="chip">Diagonalizable</span>
+      <span class="chip">Cayley-Hamilton</span>
+      <span class="chip">Minimal Polynomial</span>
+    </div>
+  </div>
+  <h2>Why Eigenvalues?</h2>
+  <p>Eigenvalues capture the "stretching factors" of a linear transformation. When T has enough eigenvectors to form a basis, the matrix becomes diagonal in that basis — making computations like matrix powers and exponentials trivial.</p>
+  <div class="grid2">
+    <div class="card">
+      <h4>Key Questions</h4>
+      <ul>
+        <li>What values of λ make (A − λI) singular?</li>
+        <li>For each λ, what is the eigenspace?</li>
+        <li>When can A be diagonalized?</li>
+        <li>What is the minimal polynomial of A?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>CSIR NET Focus</h4>
+      <ul>
+        <li>Computing eigenvalues from char. poly.</li>
+        <li>Algebraic vs geometric multiplicity</li>
+        <li>Diagonalizability criteria</li>
+        <li>Using Cayley-Hamilton to find A⁻¹, Aⁿ</li>
+        <li>Trace = Σλᵢ, det = Πλᵢ relations</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DEFINITIONS -->
+<div class="sec" id="def">
+  <h2>Definitions</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Eigenvalue & Eigenvector</div>
+    <p>Let A be an n×n matrix (or T: V→V a linear operator). A scalar λ ∈ 𝔽 is an <strong>eigenvalue</strong> of A if there exists a non-zero vector v (the <strong>eigenvector</strong>) such that:</p>
+    <div class="formula">Av = λv  ⟺  (A − λI)v = 0  ⟺  A − λI is singular</div>
+    <p>The <strong>eigenspace</strong> for eigenvalue λ is E_λ = ker(A − λI) = {v : Av = λv}. It includes the zero vector but eigenvectors are non-zero by definition.</p>
+  </div>
+  <h3>Key Observations</h3>
+  <ul>
+    <li>v is an eigenvector iff v ∈ E_λ\{0} for some eigenvalue λ</li>
+    <li>If v is an eigenvector for λ, so is αv for any α ≠ 0</li>
+    <li>Eigenspaces are subspaces (always contain 0, but eigenvectors exclude 0)</li>
+    <li>Eigenvectors for distinct eigenvalues are linearly independent</li>
+    <li>λ = 0 is an eigenvalue iff A is singular (non-invertible)</li>
+  </ul>
+  <div class="info-box">
+    <div class="lbl">Geometric Interpretation (ℝ²)</div>
+    <p>Av = λv means the transformation T: x↦Ax leaves the direction of v unchanged. If λ > 0, the vector is stretched by factor λ. If λ &lt; 0, it is reflected and stretched. If λ = 1, v is fixed. If λ = 0, v is collapsed to 0.</p>
+  </div>
+  <table>
+    <tr><th>Matrix A</th><th>Eigenvalues</th><th>Eigenvectors</th></tr>
+    <tr><td>I (identity)</td><td>λ = 1 (multiplicity n)</td><td>All non-zero vectors</td></tr>
+    <tr><td>cI (scalar)</td><td>λ = c (multiplicity n)</td><td>All non-zero vectors</td></tr>
+    <tr><td>Nilpotent Nᵏ=0</td><td>λ = 0 only</td><td>Vectors in ker(N)</td></tr>
+    <tr><td>Diagonal diag(d₁,...,dₙ)</td><td>λ = d₁,...,dₙ</td><td>Standard basis vectors eᵢ</td></tr>
+    <tr><td>Projection (P²=P)</td><td>λ = 0 or 1</td><td>ker P (for 0), im P (for 1)</td></tr>
+  </table>
+</div>
+
+<!-- CHARACTERISTIC POLYNOMIAL -->
+<div class="sec" id="char">
+  <h2>Characteristic Polynomial</h2>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>The <strong>characteristic polynomial</strong> of A is:</p>
+    <div class="formula">p_A(λ) = det(A − λI) = det(λI − A) (up to sign)</div>
+    <p>This is a polynomial of degree n in λ. The eigenvalues are exactly the roots of p_A(λ).</p>
+  </div>
+  <h3>Computing Characteristic Polynomial</h3>
+  <p>For a 2×2 matrix A = [[a,b],[c,d]]:</p>
+  <div class="formula">p_A(λ) = det(A−λI) = (a−λ)(d−λ) − bc = λ² − (a+d)λ + (ad−bc) = λ² − tr(A)λ + det(A)</div>
+  <div class="info-box">
+    <div class="lbl">Key Relations (any n×n matrix)</div>
+    <ul>
+      <li><strong>Trace = sum of eigenvalues:</strong> tr(A) = λ₁ + λ₂ + ... + λₙ</li>
+      <li><strong>Determinant = product of eigenvalues:</strong> det(A) = λ₁ · λ₂ · ... · λₙ</li>
+      <li>Coefficients of char. poly. are symmetric functions of eigenvalues</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Fundamental Theorem of Algebra Consequence</div>
+    <p>Over ℂ, p_A(λ) always has exactly n roots (counting multiplicity). Over ℝ, complex roots occur in conjugate pairs. Every real matrix has real characteristic polynomial, but may have complex eigenvalues.</p>
+  </div>
+  <h3>Example: 3×3 Matrix</h3>
+  <div class="info-box">
+    <div class="lbl">Example</div>
+    <p>A = [[2,1,0],[0,2,0],[0,0,3]]. Then det(A−λI) = (2−λ)²(3−λ). Eigenvalues: λ₁=2 (multiplicity 2), λ₂=3 (multiplicity 1).</p>
+    <p>tr(A) = 2+2+3 = 7 = 2+2+3 ✓. det(A) = 4·3 = 12 = 2·2·3 ✓.</p>
+  </div>
+</div>
+
+<!-- ALGEBRAIC & GEOMETRIC MULTIPLICITY -->
+<div class="sec" id="mult">
+  <h2>Algebraic and Geometric Multiplicity</h2>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p><strong>Algebraic multiplicity</strong> (AM) of eigenvalue λ: multiplicity of λ as a root of p_A(λ).</p>
+    <p><strong>Geometric multiplicity</strong> (GM) of eigenvalue λ: dim(E_λ) = dim(ker(A−λI)) = nullity(A−λI).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Inequality</div>
+    <div class="formula">1 ≤ GM(λ) ≤ AM(λ)</div>
+    <p>The geometric multiplicity is at least 1 (since λ is an eigenvalue, there is at least one eigenvector) and at most the algebraic multiplicity.</p>
+  </div>
+  <h3>Significance</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>GM = AM for all λ</h4>
+      <p>A is diagonalizable. There exists a basis of eigenvectors. P⁻¹AP = D (diagonal).</p>
+    </div>
+    <div class="card">
+      <h4>GM &lt; AM for some λ</h4>
+      <p>A is NOT diagonalizable. The "missing" eigenvectors lead to Jordan blocks. A requires Jordan canonical form.</p>
+    </div>
+  </div>
+  <table>
+    <tr><th>Matrix</th><th>Eigenvalue</th><th>AM</th><th>GM</th><th>Diagonalizable?</th></tr>
+    <tr><td>[[2,0],[0,3]]</td><td>2, 3</td><td>1, 1</td><td>1, 1</td><td>Yes (already diagonal)</td></tr>
+    <tr><td>[[2,1],[0,2]]</td><td>2</td><td>2</td><td>1</td><td>No (Jordan block)</td></tr>
+    <tr><td>[[2,0],[0,2]] = 2I</td><td>2</td><td>2</td><td>2</td><td>Yes (scalar matrix)</td></tr>
+    <tr><td>[[0,−1],[1,0]]</td><td>±i</td><td>1,1</td><td>1,1 over ℂ</td><td>Yes over ℂ, No over ℝ</td></tr>
+  </table>
+  <div class="warn-box">
+    <div class="lbl">Common Exam Trap</div>
+    <p>For a 3×3 matrix with eigenvalues 1,1,2 (AM: 2 for λ=1, 1 for λ=2), you must check if GM(1) = 1 or 2. If GM(1)=1, the matrix is NOT diagonalizable. If GM(1)=2, it IS diagonalizable.</p>
+  </div>
+</div>
+
+<!-- DIAGONALIZATION -->
+<div class="sec" id="diag">
+  <h2>Diagonalization</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Diagonalizable</div>
+    <p>A is <strong>diagonalizable</strong> if A = PDP⁻¹ for some invertible P and diagonal D. Equivalently, A has n linearly independent eigenvectors (forming the columns of P).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Criteria for Diagonalizability</div>
+    <p>An n×n matrix A is diagonalizable iff any ONE of:</p>
+    <ol>
+      <li>A has n linearly independent eigenvectors</li>
+      <li>For every eigenvalue λ: GM(λ) = AM(λ)</li>
+      <li>The minimal polynomial of A has no repeated roots</li>
+      <li>V = E_{λ₁} ⊕ E_{λ₂} ⊕ ... ⊕ E_{λₖ} (eigenspace direct sum = V)</li>
+    </ol>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Diagonalization Procedure</div>
+    <ol>
+      <li>Find char. poly. p_A(λ) = det(A−λI)</li>
+      <li>Find eigenvalues (roots of p_A)</li>
+      <li>For each eigenvalue λᵢ, solve (A−λᵢI)v = 0 to find eigenvectors</li>
+      <li>If total eigenvectors = n, form P = [v₁|v₂|...|vₙ] and D = diag(λ₁,...,λₙ)</li>
+      <li>Verify: A = PDP⁻¹</li>
+    </ol>
+  </div>
+  <h3>Applications of Diagonalization</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>Matrix Powers</h4>
+      <p>Aⁿ = PDⁿP⁻¹ = P·diag(λ₁ⁿ,...,λₖⁿ)·P⁻¹. Computing high powers becomes trivial.</p>
+    </div>
+    <div class="card">
+      <h4>Matrix Exponential</h4>
+      <p>e^A = Pe^D P⁻¹ = P·diag(e^λ₁,...,e^λₖ)·P⁻¹. Used in solving systems of ODEs.</p>
+    </div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Important Classes of Diagonalizable Matrices</div>
+    <ul>
+      <li>Symmetric real matrices are always diagonalizable over ℝ (Spectral Theorem)</li>
+      <li>Matrices with n distinct eigenvalues are always diagonalizable</li>
+      <li>Hermitian matrices are diagonalizable over ℂ</li>
+      <li>Unitary and orthogonal matrices are diagonalizable over ℂ</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CAYLEY-HAMILTON -->
+<div class="sec" id="ch">
+  <h2>Cayley-Hamilton Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Cayley-Hamilton Theorem</div>
+    <p>Every square matrix satisfies its own characteristic equation:</p>
+    <div class="formula">p_A(A) = 0</div>
+    <p>If p_A(λ) = λⁿ + c_{n−1}λⁿ⁻¹ + ... + c₁λ + c₀, then Aⁿ + c_{n−1}Aⁿ⁻¹ + ... + c₁A + c₀I = 0.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example (2×2)</div>
+    <p>A = [[1,2],[3,4]]. p_A(λ) = λ²−5λ−2. By Cayley-Hamilton: A²−5A−2I = 0.</p>
+    <p>This gives A² = 5A + 2I — expresses A² in terms of A and I.</p>
+  </div>
+  <h3>Applications of Cayley-Hamilton</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>Computing A⁻¹</h4>
+      <p>If c₀ = det(A) ≠ 0: from p_A(A)=0, Aⁿ + ... + c₀I = 0, so c₀I = −Aⁿ − ... − c₁A. Multiply by A⁻¹: c₀A⁻¹ = −Aⁿ⁻¹ − ... − c₁I. Thus A⁻¹ = (−1/c₀)(Aⁿ⁻¹ + ... + c₁I).</p>
+    </div>
+    <div class="card">
+      <h4>Reducing High Powers</h4>
+      <p>Use p_A(A)=0 to write Aⁿ = −c_{n−1}Aⁿ⁻¹ − ... − c₀I. Iteratively reduce any power Aᵏ (k≥n) to a polynomial of degree &lt; n in A.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MINIMAL POLYNOMIAL -->
+<div class="sec" id="min">
+  <h2>Minimal Polynomial</h2>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>The <strong>minimal polynomial</strong> m_A(λ) of A is the monic polynomial of smallest degree such that m_A(A) = 0.</p>
+    <ul>
+      <li>m_A(λ) divides p_A(λ) (characteristic polynomial)</li>
+      <li>Every eigenvalue of A is a root of m_A(λ)</li>
+      <li>The roots of m_A(λ) are exactly the eigenvalues (but with possibly smaller multiplicities)</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Relationship: Minimal vs Characteristic Polynomial</div>
+    <table>
+      <tr><th>Property</th><th>Char. poly. p_A</th><th>Min. poly. m_A</th></tr>
+      <tr><td>Degree</td><td>n (always)</td><td>1 to n</td></tr>
+      <tr><td>A satisfies</td><td>Yes (C-H)</td><td>Yes (definition)</td></tr>
+      <tr><td>Roots</td><td>All eigenvalues with AM</td><td>All eigenvalues (with smaller mult.)</td></tr>
+      <tr><td>Monic?</td><td>Up to sign convention</td><td>Yes by definition</td></tr>
+    </table>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Theorem</div>
+    <p>A is diagonalizable ⟺ m_A(λ) has no repeated roots ⟺ m_A splits into distinct linear factors over 𝔽.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Examples</div>
+    <ul>
+      <li>A = diag(1,2,2): p_A = (λ−1)(λ−2)², m_A = (λ−1)(λ−2). A is diagonalizable (m_A has no repeated roots).</li>
+      <li>A = [[1,1],[0,1]]: p_A = (λ−1)², m_A = (λ−1)². A is NOT diagonalizable (m_A has repeated root).</li>
+      <li>A = 2I: p_A = (λ−2)³, m_A = (λ−2). A is diagonalizable (trivially).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question. Instant feedback provided.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The eigenvalues of the matrix A = [[3,1],[0,3]] are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> 3 and 0</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 3 only (algebraic multiplicity 2)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> 3 and 1</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> 0 and 1</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">For A = [[3,1],[0,3]], the geometric multiplicity of eigenvalue 3 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> 2</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> 1</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 0</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">If A is an n×n matrix with eigenvalues λ₁,...,λₙ, then det(A) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> λ₁ + λ₂ + ... + λₙ</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> λ₁ · λ₂ · ... · λₙ</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> max(λ₁,...,λₙ)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> λ₁² + λ₂² + ... + λₙ²</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">A real symmetric matrix always has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Complex eigenvalues only</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> All real eigenvalues and is diagonalizable over ℝ</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Exactly one eigenvalue</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> All positive eigenvalues</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Let A = [[2,0,0],[0,2,1],[0,0,2]]. The characteristic polynomial of A is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> (λ−2)²(λ−1)</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> (λ−2)³</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> λ³ − 6λ² + 12λ − 8</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> (λ−2)(λ²−4)</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Which of the following matrices is NOT diagonalizable over ℝ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> [[1,0],[0,2]] (diagonal)</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> [[0,1],[−1,0]] (rotation by 90°)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> [[1,0],[0,1]] (identity)</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> [[2,1],[1,2]] (symmetric)</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Cayley-Hamilton theorem states that for A with char. poly. p_A(λ):</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> p_A(λ) = 0 for all λ</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> p_A(A) = 0 (the matrix satisfies its own equation)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A = p_A(I)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> det(A) = p_A(0)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The trace of a 3×3 matrix A with eigenvalues 1, 2, −3 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> −6</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> 6</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> 0</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 14</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">If λ is an eigenvalue of an invertible matrix A, then which of the following is an eigenvalue of A⁻¹?</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> −λ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 1/λ</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> λ²</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> λ − 1</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">A matrix is diagonalizable if and only if its minimal polynomial:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Equals the characteristic polynomial</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Has no repeated roots</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Has degree n</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Is a constant</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The eigenvalues of A³ when A has eigenvalues 1, 2, −1 are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> 1, 6, −3</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> 3, 6, −3</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> 1, 8, −1</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> 1, 4, 1</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Which statement about eigenvectors for DISTINCT eigenvalues is true?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> They may be linearly dependent</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> They are always linearly independent</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> They must be orthogonal</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> They must span the whole space</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">If A² = A (A is idempotent), the possible eigenvalues are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 0, 1, −1</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Any real number</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Only 0 and 1</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Only 1</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">For a nilpotent matrix N (Nᵏ=0 for some k≥1), all eigenvalues are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> 1</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> ±1</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> 0</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Complex</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The minimal polynomial of A = diag(1,1,2) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> (λ−1)²(λ−2)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> (λ−1)(λ−2)²</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> (λ−1)(λ−2)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> λ(λ−1)(λ−2)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Eigenvalues & Eigenvectors</div>
+    <div class="hero-sub">Key facts for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">λ</div>
+      <h4>Eigenvalue</h4>
+      <p>Av=λv, v≠0. λ is root of det(A−λI)=0. λ=0 iff A singular.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📊</div>
+      <h4>tr & det</h4>
+      <p>tr(A)=Σλᵢ. det(A)=Πλᵢ. Use these to find missing eigenvalue quickly.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⚖️</div>
+      <h4>AM vs GM</h4>
+      <p>1 ≤ GM ≤ AM always. GM=AM for all λ ⟺ A diagonalizable.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Diagonalization</h4>
+      <p>A=PDP⁻¹. Aⁿ=PDⁿP⁻¹. Works iff n independent eigenvectors exist.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🏛️</div>
+      <h4>Cayley-Hamilton</h4>
+      <p>p_A(A)=0. Use to reduce Aⁿ, find A⁻¹, express matrix polynomials.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔍</div>
+      <h4>Minimal Poly</h4>
+      <p>m_A divides p_A. m_A has same roots. No repeated roots ⟺ diagonalizable.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U2_T04_InnerProduct.html">Next: Inner Product Spaces →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'c',9:'b',10:'b',11:'c',12:'b',13:'c',14:'c',15:'c'};
+const explain={
+  1:'det(A−λI) = (3−λ)(3−λ) − 0 = (3−λ)². So λ=3 with AM=2 is the only eigenvalue.',
+  2:'E₃ = ker(A−3I) = ker([[0,1],[0,0]]). Solutions: {(t,0): t∈ℝ} — one free variable. GM(3)=1 < AM(3)=2. So A is NOT diagonalizable.',
+  3:'det(A) = product of all eigenvalues = λ₁·λ₂·...·λₙ. This is the constant term (up to sign) of the characteristic polynomial.',
+  4:'Real symmetric matrices: all eigenvalues are real (can be proved using ⟨Av,v⟩=⟨v,Av⟩ for real inner product), and they are always diagonalizable over ℝ (Spectral Theorem).',
+  5:'A=[[2,0,0],[0,2,1],[0,0,2]] is upper triangular. The eigenvalues are the diagonal entries: all equal 2. So p_A(λ)=(λ−2)³.',
+  6:'[[0,1],[−1,0]] has char. poly. λ²+1=0 with complex roots ±i. No real eigenvalues ⟹ not diagonalizable over ℝ (but diagonalizable over ℂ).',
+  7:'Cayley-Hamilton: substitute the matrix A in place of λ in p_A(λ) to get the zero matrix. p_A(A)=0.',
+  8:'tr(A) = sum of eigenvalues = 1+2+(−3) = 0.',
+  9:'If Av=λv then A⁻¹v = (1/λ)v. So 1/λ is an eigenvalue of A⁻¹ with the same eigenvector v.',
+  10:'A diagonalizable ⟺ m_A(λ) has no repeated roots (splits into distinct linear factors). Equivalently, GM=AM for every eigenvalue.',
+  11:'If Av=λv, then A³v=λ³v. Eigenvalues of A³ are cubes of eigenvalues of A: 1³=1, 2³=8, (−1)³=−1.',
+  12:'Eigenvectors corresponding to distinct eigenvalues are always linearly independent. This is proved by induction on the number of eigenvalues.',
+  13:'If Av=λv and A²=A, then A²v=Av ⟹ λ²v=λv ⟹ λ²=λ ⟹ λ(λ−1)=0 ⟹ λ=0 or λ=1.',
+  14:'If Nv=λv and Nᵏ=0, then Nᵏv=λᵏv=0·v=0. Since v≠0: λᵏ=0 ⟹ λ=0. All eigenvalues of a nilpotent matrix are 0.',
+  15:'A=diag(1,1,2). The minimal polynomial must vanish at A. The smallest such monic poly with roots 1 and 2 (each appearing) is m_A=(λ−1)(λ−2). Since A is diagonal, GM=AM for all eigenvalues, so no repeated roots in m_A.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

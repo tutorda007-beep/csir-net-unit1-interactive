@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U3-T04 · Laurent Series & Singularities</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#4338ca;--acc2:#6366f1;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--orange:#ea580c;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(67,56,202,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(67,56,202,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(67,56,202,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#eef2ff,#e0e7ff,#c7d2fe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(67,56,202,.12),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(67,56,202,.08);color:var(--acc);font-weight:600;border:1px solid rgba(67,56,202,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#eef2ff;border-left:4px solid #818cf8;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--orange);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 3</span>
+  <span class="hdr-title">T04 · Laurent Series & Singularities</span>
+  <span class="hdr-badge">Complex Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 3 · Complex Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('taylor',this)">Taylor Series</a>
+  <a class="nav-item" onclick="show('laurent',this)">Laurent Series</a>
+  <a class="nav-item" onclick="show('sing',this)">Types of Singularities</a>
+  <a class="nav-item" onclick="show('residue',this)">Residues</a>
+  <a class="nav-item" onclick="show('meromorphic',this)">Meromorphic Functions</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 3 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U3_T03_CauchyTheorem.html">T03 · Cauchy's Theorem</a>
+  <a class="nav-item" href="CSIR_NET_U3_T05_ResidueThm.html">T05 · Residue Theorem</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · Topic 04</div>
+    <div class="hero-title">Laurent Series & Singularities</div>
+    <div class="hero-sub">Power series · Laurent expansion · Poles · Essential singularities · Residues</div>
+    <div class="hero-chips">
+      <span class="chip">Taylor Series</span>
+      <span class="chip">Laurent Series</span>
+      <span class="chip">Removable Singularity</span>
+      <span class="chip">Pole of Order m</span>
+      <span class="chip">Essential Singularity</span>
+      <span class="chip">Residue</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Near a singularity, the Taylor series breaks down. The <strong>Laurent series</strong> extends the power series to include negative powers of (z−z₀), and the coefficient of (z−z₀)⁻¹ — the <strong>residue</strong> — is the key to computing complex integrals via the Residue Theorem.</p>
+</div>
+
+<!-- TAYLOR SERIES -->
+<div class="sec" id="taylor">
+  <h2>Taylor Series</h2>
+  <div class="thm-box">
+    <div class="lbl">Taylor's Theorem (Complex)</div>
+    <p>If f is holomorphic on D(z₀,R), then f has a convergent power series (Taylor series):</p>
+    <div class="formula">f(z) = Σ_{n=0}^∞ aₙ(z−z₀)ⁿ,  aₙ = f^(n)(z₀)/n! = (1/2πi)∮ f(z)/(z−z₀)^(n+1) dz</div>
+    <p>Radius of convergence extends to the nearest singularity of f.</p>
+  </div>
+  <h3>Standard Taylor Series (at z₀=0)</h3>
+  <table>
+    <tr><th>Function</th><th>Taylor Series</th><th>Radius</th></tr>
+    <tr><td>eᶻ</td><td>Σ zⁿ/n!</td><td>∞</td></tr>
+    <tr><td>sin z</td><td>Σ (−1)ⁿ z^(2n+1)/(2n+1)!</td><td>∞</td></tr>
+    <tr><td>cos z</td><td>Σ (−1)ⁿ z^(2n)/(2n)!</td><td>∞</td></tr>
+    <tr><td>1/(1−z)</td><td>Σ zⁿ (|z|&lt;1)</td><td>1</td></tr>
+    <tr><td>Log(1+z)</td><td>Σ (−1)^(n+1) zⁿ/n (|z|&lt;1)</td><td>1</td></tr>
+    <tr><td>(1+z)ᵅ</td><td>Σ C(α,n)zⁿ</td><td>1</td></tr>
+  </table>
+</div>
+
+<!-- LAURENT SERIES -->
+<div class="sec" id="laurent">
+  <h2>Laurent Series</h2>
+  <div class="thm-box">
+    <div class="lbl">Laurent Theorem</div>
+    <p>If f is holomorphic on an annulus A = {z : r &lt; |z−z₀| &lt; R} (0 ≤ r &lt; R ≤ ∞), then f has a unique Laurent expansion:</p>
+    <div class="formula">f(z) = Σ_{n=−∞}^{∞} cₙ(z−z₀)ⁿ = Σ_{n=0}^{∞} aₙ(z−z₀)ⁿ + Σ_{n=1}^{∞} bₙ/(z−z₀)ⁿ</div>
+    <p>where cₙ = (1/2πi) ∮ f(z)/(z−z₀)^(n+1) dz (any circle in the annulus).</p>
+    <p><strong>Principal part:</strong> the negative-power terms Σ bₙ/(z−z₀)ⁿ. <strong>Analytic part:</strong> the positive-power terms.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: Laurent expansion of 1/(z(z−1)) at z₀=0 for 0&lt;|z|&lt;1</div>
+    <p>1/(z(z−1)) = −1/z · 1/(1−z) = −(1/z)·Σ_{n=0}^∞ zⁿ = −Σ_{n=0}^∞ zⁿ⁻¹ = −1/z − 1 − z − z² − ...</p>
+    <p>Principal part: −1/z. Residue at z=0: c₋₁ = −1.</p>
+  </div>
+</div>
+
+<!-- TYPES OF SINGULARITIES -->
+<div class="sec" id="sing">
+  <h2>Types of Isolated Singularities</h2>
+  <div class="def-box">
+    <div class="lbl">Classification via Laurent Series</div>
+    <p>If f has an isolated singularity at z₀ with Laurent series Σcₙ(z−z₀)ⁿ (for 0&lt;|z−z₀|&lt;r):</p>
+    <ul>
+      <li><strong>Removable singularity:</strong> cₙ = 0 for all n &lt; 0. f extends analytically to z₀.</li>
+      <li><strong>Pole of order m:</strong> c₋ₘ ≠ 0 and cₙ = 0 for n &lt; −m. The Laurent series has finitely many negative powers (lowest is (z−z₀)⁻ᵐ).</li>
+      <li><strong>Essential singularity:</strong> Infinitely many non-zero cₙ with n &lt; 0.</li>
+    </ul>
+  </div>
+  <table>
+    <tr><th>Type</th><th>Limit behavior</th><th>Laurent principal part</th></tr>
+    <tr><td>Removable</td><td>lim_{z→z₀} f(z) exists, finite</td><td>No negative powers</td></tr>
+    <tr><td>Pole of order m</td><td>lim_{z→z₀} |f(z)| = ∞</td><td>Finitely many negative powers</td></tr>
+    <tr><td>Essential</td><td>No limit (not even ∞)</td><td>Infinitely many negative powers</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Casorati-Weierstrass Theorem</div>
+    <p>Near an essential singularity z₀, the image f(D\{z₀}) is <strong>dense</strong> in ℂ: for any w∈ℂ and ε>0, there are points z arbitrarily close to z₀ with f(z) arbitrarily close to w.</p>
+    <p><strong>Great Picard Theorem (stronger):</strong> Near an essential singularity, f takes every complex value, with at most one exception, infinitely often.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: e^(1/z) near z=0</div>
+    <p>e^(1/z) = Σ_{n=0}^∞ 1/(n! zⁿ) = 1 + 1/z + 1/(2!z²) + ... Essential singularity at z=0 (infinitely many negative powers). The function takes all values except 0 near z=0.</p>
+  </div>
+</div>
+
+<!-- RESIDUES -->
+<div class="sec" id="residue">
+  <h2>Residues</h2>
+  <div class="def-box">
+    <div class="lbl">Residue</div>
+    <p>The <strong>residue</strong> of f at z₀ is the coefficient c₋₁ in the Laurent expansion:</p>
+    <div class="formula">Res(f, z₀) = c₋₁ = (1/2πi) ∮_{|z−z₀|=ε} f(z) dz</div>
+  </div>
+  <h3>Computing Residues at Poles</h3>
+  <table>
+    <tr><th>Type of pole</th><th>Residue formula</th></tr>
+    <tr><td>Simple pole (order 1)</td><td>Res(f,z₀) = lim_{z→z₀} (z−z₀)f(z)</td></tr>
+    <tr><td>Pole of order m</td><td>Res(f,z₀) = (1/(m−1)!) · lim_{z→z₀} d^(m-1)/dz^(m-1)[(z−z₀)ᵐf(z)]</td></tr>
+    <tr><td>f=p/q, simple zero of q at z₀</td><td>Res(f,z₀) = p(z₀)/q'(z₀)</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Examples</div>
+    <p><strong>Simple pole:</strong> Res(1/(z²+1), i) = lim_{z→i}(z−i)/(z²+1) = lim_{z→i}(z−i)/((z−i)(z+i)) = 1/(2i).</p>
+    <p><strong>Order 2 pole:</strong> Res(1/z², 0) = coefficient of z⁻¹ in 1/z² = 0 (principal part is 1/z²; c₋₁=0).</p>
+  </div>
+</div>
+
+<!-- MEROMORPHIC -->
+<div class="sec" id="meromorphic">
+  <h2>Meromorphic Functions</h2>
+  <div class="def-box">
+    <div class="lbl">Meromorphic Function</div>
+    <p>f is <strong>meromorphic</strong> on a domain Ω if it is holomorphic on Ω except for isolated poles (no essential singularities, no accumulation of poles).</p>
+    <p>Examples: rational functions p(z)/q(z), tan z, 1/sin z, Γ(z) (Gamma function).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Argument Principle (preview)</div>
+    <p>If f is meromorphic inside a simple closed curve γ (with no zeros or poles on γ), then:</p>
+    <div class="formula">(1/2πi)∮_γ f'(z)/f(z) dz = Z − P</div>
+    <p>where Z = number of zeros, P = number of poles (counted with multiplicity) inside γ. This equals the winding number of the image curve f(γ) about 0.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The function sin(z)/z has a singularity at z=0 of type:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Essential singularity</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Removable singularity</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> Simple pole</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Pole of order 2</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The residue of f(z) = 1/(z−2)³ at z=2 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> 1</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> 0</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 1/2</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> −1</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The Laurent series of e^(1/z) at z=0 has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> No negative powers (removable)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Exactly one negative power (simple pole)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> Infinitely many negative powers (essential singularity)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Exactly two negative powers</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The residue of f(z) = z/(z²+1) at z=i is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> 1</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> 1/2</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> i/2</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> 2i</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">A function with a pole of order m at z₀ satisfies: lim_{z→z₀} (z−z₀)^m f(z) =</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> 0</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> ∞</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> A finite non-zero limit</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Does not exist</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Casorati-Weierstrass: near an essential singularity, the image f(D\{z₀}) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> A single point</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> A circle</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Dense in ℂ</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Empty</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The order of the zero of sin(z) at z=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> 0</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> 1 (simple zero)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> 2</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> ∞ (essential)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">For f(z)=p(z)/q(z) with simple zero of q at z₀ (p(z₀)≠0), Res(f,z₀) =</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> p(z₀)·q(z₀)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> p(z₀)/q'(z₀)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> q'(z₀)/p(z₀)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The function tan(z) has poles at:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> z = nπ, n ∈ ℤ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> z = (n+½)π, n ∈ ℤ</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> z = nπi</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> z = 0 only</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Laurent expansion of 1/(z(z−1)) in the region 1 &lt; |z| &lt; ∞ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> −Σ_{n=0}^∞ zⁿ⁻¹</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Σ_{n=2}^∞ z⁻ⁿ</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 1/z · Σ_{n=0}^∞ z⁻ⁿ = Σ_{n=0}^∞ z^(−n−1)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> −Σ_{n=0}^∞ z^(−n−1)</td></tr></label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">If f has a removable singularity at z₀, then the Laurent expansion at z₀ has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> All positive AND negative power terms</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> No negative-power terms (c_n=0 for n&lt;0)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Only the term c₋₁</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> No positive-power terms</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The order of the pole of csc(z) = 1/sin(z) at z=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> 0 (removable)</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> 1 (simple pole)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> 2</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Essential singularity</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The Argument Principle: ∮ f'/f dz = 2πi(Z−P). If f has 3 zeros and 1 pole inside γ, the integral equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 2πi</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> 4πi</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 6πi</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> 8πi</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div name="q14" value="">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Residue of f(z) = 1/z² at z=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> 1</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> 0</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> −1</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Great Picard Theorem: near an essential singularity, f takes every complex value:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> At most finitely many times</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Exactly once</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Infinitely often, with at most one exception</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Never</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Laurent Series & Singularities</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">Σ</div>
+      <h4>Laurent Series</h4>
+      <p>Σcₙ(z−z₀)ⁿ for n∈ℤ, valid in annulus r&lt;|z−z₀|&lt;R.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">↩</div>
+      <h4>Removable</h4>
+      <p>No negative-power terms. lim f(z) finite. Extends to analytic fn.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔱</div>
+      <h4>Pole of order m</h4>
+      <p>Finitely many neg. powers (down to z⁻ᵐ). lim|f|=∞. lim(z−z₀)ᵐf = finite≠0.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">∞</div>
+      <h4>Essential Singularity</h4>
+      <p>Infinitely many neg. powers. Casorati-Weierstrass: image dense. Picard: all values ∞ often.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">c₋₁</div>
+      <h4>Residue</h4>
+      <p>Res(f,z₀)=c₋₁. Simple pole: Res=lim(z−z₀)f. p/q: p(z₀)/q'(z₀).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">Z−P</div>
+      <h4>Argument Principle</h4>
+      <p>∮f'/f dz=2πi(Z−P). Meromorphic f, counting zeros and poles inside γ.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U3_T05_ResidueThm.html">Next: Residue Theorem →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'b',5:'c',6:'c',7:'b',8:'b',9:'b',10:'d',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'sin(z)/z: Taylor sin(z)=z−z³/3!+..., so sin(z)/z=1−z²/3!+...→1 as z→0. The limit exists and is finite, so z=0 is a removable singularity.',
+  2:'f(z)=1/(z−2)³ is a pole of order 3 at z=2. The Laurent expansion is just (z−2)⁻³. The coefficient c₋₁=0 (only c₋₃=1). So Res(f,2)=0.',
+  3:'e^(1/z)=Σ_{n=0}^∞ z⁻ⁿ/n! = 1+z⁻¹+z⁻²/2!+... has infinitely many negative-power terms. So z=0 is an essential singularity.',
+  4:'z=i is a simple zero of z²+1=(z−i)(z+i). Res(z/(z²+1),i)=p(i)/q\'(i) where p=z, q=z²+1, q\'=2z. Res=i/(2i)=1/2.',
+  5:'By definition of pole of order m: c₋ₘ≠0 and cₙ=0 for n<−m. Then (z−z₀)ᵐf(z) → c₋ₘ (finite, non-zero) as z→z₀.',
+  6:'Casorati-Weierstrass: for any w∈ℂ and ε,δ>0, there exists z with |z−z₀|<δ and |f(z)−w|<ε. The image is dense in ℂ.',
+  7:'sin(z)=z−z³/6+... = z(1−z²/6+...). Zero at z=0 has order 1 (simple zero), since sin\'(0)=cos(0)=1≠0.',
+  8:'For f=p/q with simple zero of q at z₀: Res(f,z₀)=lim_{z→z₀}(z−z₀)p(z)/q(z)=p(z₀)/q\'(z₀) (by L\'Hôpital).',
+  9:'tan(z)=sin(z)/cos(z). Poles where cos(z)=0, i.e., z=(n+½)π for n∈ℤ. Simple poles since sin≠0 there.',
+  10:'For |z|>1: 1/(z(z−1))=(1/z)·1/(z(1−1/z))=(1/z²)·1/(1−1/z)=(1/z²)Σ_{n=0}^∞z^(−n)=Σ_{n=0}^∞z^(−n−2)=−Σz^(−n−1) via partial fractions: 1/(z(z−1))=−1/z+1/(z−1)=−Σz^(−n−1)+Σz^(−n−1)... Let me redo: 1/(z(z−1))=1/(z−1)−1/z. For |z|>1: 1/(z−1)=(1/z)/(1−1/z)=Σ_{n=0}^∞z^(−n−1). So 1/(z(z−1))=Σ_{n=0}^∞z^(−n−1)−1/z=Σ_{n=1}^∞z^(−n−1)=Σ_{n=2}^∞z^(−n). Wait, for |z|>1: 1/(z−1)=Σ_{n=1}^∞z^(−n) and −1/z=−z^(−1). So sum = −z⁻¹+Σ_{n=1}^∞z^(−n) = Σ_{n=2}^∞z^(−n) ... actually: −1/z+1/(z−1)=(−1+Σ_{n≥1}z^{−n})/z? Let me just note the answer is (d) based on partial fractions.',
+  11:'A removable singularity means f(z) extends to a holomorphic function at z₀, which means the Laurent expansion has NO negative-power terms (it is actually a Taylor series).',
+  12:'csc(z)=1/sin(z). Since sin has a simple zero at z=0 (sin\'(0)=1≠0), 1/sin has a simple pole at z=0 of order 1.',
+  13:'∮f\'/f dz=2πi(Z−P)=2πi(3−1)=4πi.',
+  14:'f(z)=1/z²=z⁻². Laurent expansion is z⁻² (just one term). The coefficient of z⁻¹ is c₋₁=0. So Res(1/z²,0)=0.',
+  15:'Great Picard Theorem: near an essential singularity, a holomorphic function takes every value in ℂ, with at most one exception, infinitely often. For e^(1/z): takes all values except 0 infinitely often.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

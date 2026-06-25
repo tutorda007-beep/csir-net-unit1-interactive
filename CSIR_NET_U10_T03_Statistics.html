@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U10-T03 · Mathematical Statistics</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#5b21b6;--acc2:#7c3aed;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(91,33,182,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(91,33,182,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(91,33,182,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(91,33,182,.08);color:var(--acc);font-weight:600;border:1px solid rgba(91,33,182,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#f5f3ff;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:20px 0}
+.topic-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;transition:all .2s;display:block}
+.topic-card:hover{border-color:var(--acc2);box-shadow:0 4px 16px rgba(124,58,237,.12);transform:translateY(-1px)}
+.topic-card .tc-num{font-size:10px;font-weight:700;color:var(--acc2);margin-bottom:4px}
+.topic-card .tc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.topic-card .tc-desc{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 10 · Finale</span>
+  <span class="hdr-title">T03 · Mathematical Statistics</span>
+  <span class="hdr-badge">Statistics</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 10 · T03 · Finale</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('estimation',this)">Point Estimation</a>
+  <a class="nav-item" onclick="show('interval',this)">Interval Estimation</a>
+  <a class="nav-item" onclick="show('testing',this)">Hypothesis Testing</a>
+  <a class="nav-item" onclick="show('tests',this)">Key Statistical Tests</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('unit10',this)">Unit 10 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U10_T02_Distributions.html">← T02 · Distributions</a>
+  <a class="nav-item" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 10 · Finale</div>
+    <div class="hero-title">Mathematical Statistics</div>
+    <div class="hero-sub">Point estimation · MLE · MVUE · Confidence intervals · Hypothesis testing · t, χ², F tests</div>
+    <div class="hero-chips">
+      <span class="chip">MLE</span>
+      <span class="chip">UMVUE</span>
+      <span class="chip">Cramér-Rao</span>
+      <span class="chip">Confidence Intervals</span>
+      <span class="chip">Type I / II Error</span>
+      <span class="chip">t-test · F-test</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Mathematical statistics uses probability theory to draw inference from data. The two main branches are estimation (point and interval) and hypothesis testing. Key concepts: sufficiency, completeness, unbiasedness, consistency, and the Cramér-Rao lower bound on variance.</p>
+</div>
+
+<div class="sec" id="estimation">
+  <h2>Point Estimation</h2>
+  <div class="def-box">
+    <div class="lbl">Estimator Properties</div>
+    <ul>
+      <li>Unbiased: E[T(X)]=θ for all θ</li>
+      <li>Consistent: T(X₁,…,Xₙ) →^P θ as n→∞</li>
+      <li>Efficient: attains Cramér-Rao lower bound</li>
+      <li>Sufficient: T(X) contains all information about θ in X (Fisher-Neyman factorization)</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Cramér-Rao Lower Bound</div>
+    <div class="formula">Var(T) ≥ 1/I(θ)   for any unbiased estimator T
+
+I(θ) = E[(∂/∂θ log f(X;θ))²]   (Fisher information)
+     = −E[∂²/∂θ² log f(X;θ)]
+
+For n iid observations: I_n(θ) = n·I₁(θ)</div>
+    <p>An estimator achieving this bound is called efficient (UMVUE — Uniformly Minimum Variance Unbiased Estimator).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Maximum Likelihood Estimation (MLE)</div>
+    <div class="formula">L(θ;x) = Πᵢ f(xᵢ;θ)   (likelihood)
+ℓ(θ) = Σᵢ log f(xᵢ;θ)   (log-likelihood)
+MLE: θ̂ = argmax ℓ(θ)   ⟺  ∂ℓ/∂θ = 0</div>
+    <p>MLE is asymptotically efficient (achieves CR bound), invariant under reparametrization, consistent.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">MLE Examples</div>
+    <ul>
+      <li>Normal: μ̂=X̄, σ̂²=(1/n)Σ(Xᵢ−X̄)² (biased; unbiased S²=n/(n−1)·σ̂²)</li>
+      <li>Exponential(λ): λ̂=1/X̄</li>
+      <li>Poisson(λ): λ̂=X̄</li>
+      <li>Binomial(n,p): p̂=X̄/n</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="interval">
+  <h2>Interval Estimation</h2>
+  <div class="def-box">
+    <div class="lbl">Confidence Interval</div>
+    <p>A (1−α)×100% CI for θ is a random interval [L(X),U(X)] such that P(L≤θ≤U)=1−α.</p>
+    <p>Common critical values: z_{α/2}: z_{0.025}=1.96, z_{0.005}=2.576.</p>
+  </div>
+  <table>
+    <tr><th>Parameter</th><th>Known?</th><th>(1−α) CI</th><th>Pivot</th></tr>
+    <tr><td>μ (normal)</td><td>σ² known</td><td>X̄ ± z_{α/2}·σ/√n</td><td>Z=(X̄−μ)/(σ/√n)~N(0,1)</td></tr>
+    <tr><td>μ (normal)</td><td>σ² unknown</td><td>X̄ ± t_{n−1,α/2}·S/√n</td><td>T=(X̄−μ)/(S/√n)~t(n−1)</td></tr>
+    <tr><td>σ² (normal)</td><td>μ unknown</td><td>[(n−1)S²/χ²_{α/2}, (n−1)S²/χ²_{1−α/2}]</td><td>(n−1)S²/σ²~χ²(n−1)</td></tr>
+    <tr><td>p (proportion)</td><td>large n</td><td>p̂ ± z_{α/2}√(p̂(1−p̂)/n)</td><td>CLT approximation</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="testing">
+  <h2>Hypothesis Testing</h2>
+  <div class="def-box">
+    <div class="lbl">Framework</div>
+    <p>H₀: null hypothesis vs H₁: alternative. Choose a test statistic T and rejection region R.</p>
+    <ul>
+      <li>Type I error (α): P(reject H₀ | H₀ true) — significance level</li>
+      <li>Type II error (β): P(fail to reject H₀ | H₁ true)</li>
+      <li>Power: 1−β = P(reject H₀ | H₁ true)</li>
+      <li>p-value: smallest α at which H₀ is rejected; reject H₀ if p-value&lt;α</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Neyman-Pearson Lemma</div>
+    <p>Most powerful test of size α for simple H₀ vs simple H₁ uses the likelihood ratio:</p>
+    <div class="formula">Reject H₀ if L(x;θ₁)/L(x;θ₀) > k_α   (where k_α gives size α)</div>
+    <p>For composite alternatives use uniformly most powerful (UMP) tests when they exist.</p>
+  </div>
+</div>
+
+<div class="sec" id="tests">
+  <h2>Key Statistical Tests</h2>
+  <table>
+    <tr><th>Test</th><th>H₀</th><th>Test Statistic</th><th>Distribution</th></tr>
+    <tr><td>One-sample z</td><td>μ=μ₀ (σ known)</td><td>Z=(X̄−μ₀)/(σ/√n)</td><td>N(0,1)</td></tr>
+    <tr><td>One-sample t</td><td>μ=μ₀ (σ unknown)</td><td>T=(X̄−μ₀)/(S/√n)</td><td>t(n−1)</td></tr>
+    <tr><td>Two-sample t</td><td>μ₁=μ₂</td><td>T=(X̄−Ȳ)/(Sp√(1/n+1/m))</td><td>t(n+m−2)</td></tr>
+    <tr><td>Chi-squared GOF</td><td>Distribution fits</td><td>χ²=Σ(Oᵢ−Eᵢ)²/Eᵢ</td><td>χ²(k−1)</td></tr>
+    <tr><td>F-test (ANOVA)</td><td>σ₁²=σ₂²</td><td>F=S₁²/S₂²</td><td>F(n−1,m−1)</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Sufficiency: Fisher-Neyman Factorization</div>
+    <div class="formula">T(X) is sufficient for θ iff f(x;θ) = g(T(x);θ)·h(x)
+
+Examples: X̄ is sufficient for μ in Normal(μ,σ²)
+Σxᵢ is sufficient for λ in Poisson(λ)
+Σxᵢ is sufficient for p in Binomial(n,p)</div>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">An estimator T(X) for θ is unbiased if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> T(X)=θ always</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> E[T(X)]=θ for all θ</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> Var(T(X))=0</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> T(X)=X̄ always</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The Cramér-Rao lower bound on Var(T) for any unbiased estimator T is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> I(θ)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> 1/I(θ), where I(θ) is the Fisher information</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> I(θ)²</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> θ²/I(θ)</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The MLE of μ for X₁,…,Xₙ iid N(μ,σ²) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> Median(X)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> X̄ = (1/n)ΣXᵢ</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> X₁</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Max(Xᵢ)</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">A 95% confidence interval for μ (σ known, normal data, large n) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> X̄ ± σ</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> X̄ ± 1.96·σ/√n</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> X̄ ± 2.576·σ/√n</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> X̄ ± 1.645·σ/√n</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Type I error in hypothesis testing is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Fail to reject H₀ when H₁ is true</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Reject H₀ when H₀ is actually true (false positive)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> The power of the test</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> P(reject H₁)</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Neyman-Pearson lemma says the most powerful test of size α rejects H₀ when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> T(X)>0</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> L(x;θ₁)/L(x;θ₀)>k_α (likelihood ratio exceeds a critical value)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> The p-value>α</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> X̄=μ₀</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The pivot (X̄−μ)/(S/√n) when σ² is unknown follows:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> N(0,1)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> t(n−1) distribution (Student's t with n−1 degrees of freedom)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> χ²(n)</td></tr>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> F(1,n−1)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">For testing goodness-of-fit with k categories, the Pearson chi-squared statistic Σ(O−E)²/E has distribution (approximately):</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> N(0,1)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> χ²(k−1) under H₀</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> t(k−1)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> F(k,k−1)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Fisher information for iid sample of size n is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> I₁(θ)/n</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> n·I₁(θ) (n times the single-observation Fisher information)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> I₁(θ)²</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> √n·I₁(θ)</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The sample variance S²=(1/(n−1))Σ(Xᵢ−X̄)² is preferred over (1/n)Σ(Xᵢ−X̄)² because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> It is always smaller</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> E[S²]=σ² (unbiased), whereas the 1/n version underestimates σ²</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> It equals the MLE of σ²</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> It has smaller variance</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Power of a test equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> α (Type I error probability)</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> 1−β = P(reject H₀ | H₁ true)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> β (Type II error probability)</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> P(H₀ true | reject H₀)</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">If T(X) is sufficient for θ (Fisher-Neyman): f(x;θ)=</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> g(θ)·h(x)</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> g(T(x);θ)·h(x) (factorization theorem)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> g(x)·h(θ)</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> T(x)·θ</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The MLE of λ for X₁,…,Xₙ iid Poisson(λ) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> n/ΣXᵢ</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> X̄ = ΣXᵢ/n</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> √(ΣXᵢ/n)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> n·X₁</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The F-statistic F=S₁²/S₂² for testing equality of variances follows (under H₀: σ₁²=σ₂²):</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> χ²(n₁+n₂−2)</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> F(n₁−1, n₂−1) distribution</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> t(n₁+n₂−2)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> N(1, 2/(n₁+n₂))</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">A p-value of 0.03 in a test with significance level α=0.05 means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> H₀ is true with probability 0.03</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Reject H₀ at level 0.05 (since 0.03&lt;0.05); data are statistically significant</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Accept H₀</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> The test has 3% power</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="unit10">
+  <h2>Unit 10 · Complete Summary</h2>
+  <p>Mathematical Statistics — all topics covered. Click to study each.</p>
+  <div class="unit-grid">
+    <a class="topic-card" href="CSIR_NET_U10_T01_Probability.html">
+      <div class="tc-num">U10 · T01</div>
+      <div class="tc-title">Probability Theory</div>
+      <div class="tc-desc">Kolmogorov axioms, conditional probability, Bayes' theorem, random variables, expectation, variance, MGF, Chebyshev, Markov</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U10_T02_Distributions.html">
+      <div class="tc-num">U10 · T02</div>
+      <div class="tc-title">Probability Distributions</div>
+      <div class="tc-desc">Binomial, Poisson, Geometric, Normal, Exponential, Gamma, Beta, Chi-squared, CLT, WLLN, modes of convergence</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U10_T03_Statistics.html">
+      <div class="tc-num">U10 · T03</div>
+      <div class="tc-title">Mathematical Statistics</div>
+      <div class="tc-desc">MLE, UMVUE, Cramér-Rao bound, confidence intervals, hypothesis testing, Neyman-Pearson, t, chi-squared, F tests, sufficiency</div>
+    </a>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U9_T01_CalculusVariations.html">← U9: CoV & LP</a>
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">Master Blueprint →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Unbiasedness: E[T(X)]=θ for all values of the true parameter θ. Bias=E[T]−θ=0. Note: unbiasedness alone doesn\'t make an estimator good — it should also have small variance. The MLE of σ² (divisor n) is biased; S² (divisor n−1) is unbiased.',
+  2:'CR lower bound: Var(T)≥1/I(θ) where I(θ)=E[(∂log f/∂θ)²]=−E[∂²log f/∂θ²] (Fisher information). An unbiased estimator achieving this bound is efficient. For Normal: I(θ)=n/σ² ⟹ Var(X̄)=σ²/n achieves it. Equality iff T is a sufficient statistic of a specific form.',
+  3:'Log-likelihood for N(μ,σ²): ℓ(μ)=−(n/2)log(2πσ²)−Σ(xᵢ−μ)²/(2σ²). ∂ℓ/∂μ=Σ(xᵢ−μ)/σ²=0 ⟹ μ̂=X̄. This is both MLE and UMVUE for μ, since X̄~N(μ,σ²/n) and achieves the CR bound.',
+  4:'95% CI for μ with σ known: Z=(X̄−μ)/(σ/√n)~N(0,1). P(−1.96≤Z≤1.96)=0.95. Inverting: X̄±1.96σ/√n. For 99%: use z=2.576. For 90%: use z=1.645. Memorise z_{0.025}=1.96 for CSIR NET.',
+  5:'Type I error (α, significance level): reject H₀ when H₀ is true — a false positive. Type II error (β): fail to reject H₀ when H₁ is true — a false negative. Power=1−β. Increasing α lowers β (there\'s a trade-off). We control Type I error at specified α.',
+  6:'Neyman-Pearson Lemma: the most powerful test of H₀:θ=θ₀ vs H₁:θ=θ₁ (both simple) has rejection region {x: L(x;θ₁)/L(x;θ₀)>k} where k is chosen to give size exactly α. Generalises to composite hypotheses via UMP tests for one-sided hypotheses in exponential families.',
+  7:'When σ² is unknown: replace σ by S (sample std dev). Then T=(X̄−μ)/(S/√n) is not N(0,1) but t(n−1) — heavier tails reflecting uncertainty in σ. As n→∞, t(n−1)→N(0,1). For n≥30, the difference is negligible; for small n the t distribution is essential.',
+  8:'Pearson chi-squared GOF: Σ(Oᵢ−Eᵢ)²/Eᵢ~χ²(k−1) under H₀ for large n (all Eᵢ≥5 rule of thumb). Degrees of freedom = k−1 (one constraint: Σ Eᵢ=n). If m parameters estimated from data, df reduces by m more. Used for testing independence in contingency tables too.',
+  9:'Fisher information is additive for independent observations. For n iid: Iₙ(θ)=n·I₁(θ). This is why the CR lower bound for iid data is 1/(n·I₁(θ))=σ²/n (for Normal mean). More data ⟹ larger Fisher info ⟹ tighter lower bound ⟹ more precision.',
+  10:'E[(1/n)Σ(Xᵢ−X̄)²]=(n−1)/n·σ²≠σ². Dividing by n−1 corrects this: E[S²]=σ². The "lost" degree of freedom: estimating X̄ from the same data imposes one constraint Σ(Xᵢ−X̄)=0. Note: the MLE of σ² uses n (biased but lower MSE for Normal).',
+  11:'Power=1−β=P(reject H₀|H₁ true). It measures the ability to detect a true effect. Power increases with: larger sample size n, larger effect size |θ₁−θ₀|, larger significance level α, smaller σ. A power calculation before a study determines required n.',
+  12:'Fisher-Neyman Factorization Theorem: T(X) is sufficient for θ iff f(x;θ) can be written as g(T(x);θ)·h(x) — the likelihood factors into a part depending on x only through T, times a part independent of θ. Sufficiency means T(X) captures all information about θ in the sample.',
+  13:'Log-likelihood for Poisson: ℓ(λ)=−nλ+log(λ)ΣXᵢ−Σlog(Xᵢ!). ∂ℓ/∂λ=−n+ΣXᵢ/λ=0 ⟹ λ̂=X̄. This is both MLE and UMVUE (since ΣXᵢ is complete sufficient). Fisher information: I(λ)=n/λ ⟹ CR bound=λ/n=Var(X̄). X̄ achieves this.',
+  14:'If X~χ²(m) and Y~χ²(n) independently, F=X/m)/(Y/n)~F(m,n). For equality of variances: S₁²/σ₁² has χ²(n₁−1)/(n₁−1) distribution. Under H₀:σ₁²=σ₂², F=S₁²/S₂²~F(n₁−1,n₂−1). Note F(1,n)=t(n)². The F distribution is used in ANOVA as well.',
+  15:'p-value=P(observing test statistic as extreme as observed | H₀ true). p=0.03&lt;α=0.05 ⟹ reject H₀. The p-value is NOT P(H₀ true). It is NOT the probability of a false discovery. Confusion about this is the most common statistical error in practice.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

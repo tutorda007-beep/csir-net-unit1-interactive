@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T11 · Normed Linear Spaces & Banach Spaces</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#9d174d;--acc2:#be185d;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--teal:#0e7490;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(157,23,77,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(157,23,77,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(157,23,77,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff0f6,#ffe0ee,#ffcce2)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(157,23,77,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(157,23,77,.08);color:var(--acc);font-weight:600;border:1px solid rgba(157,23,77,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#b45309;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+svg{display:block;margin:16px auto}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 1</span>
+  <span class="hdr-title">T11 · Normed Linear Spaces & Banach Spaces</span>
+  <span class="hdr-badge">Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 1 · Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('nls',this)">Normed Spaces</a>
+  <a class="nav-item" onclick="show('banach',this)">Banach Spaces</a>
+  <a class="nav-item" onclick="show('lf',this)">Linear Functionals</a>
+  <a class="nav-item" onclick="show('hb',this)">Hahn-Banach Theorem</a>
+  <a class="nav-item" onclick="show('ubs',this)">Uniform Boundedness</a>
+  <a class="nav-item" onclick="show('oft',this)">Open Mapping & Closed Graph</a>
+  <a class="nav-item" onclick="show('inner',this)">Inner Product Spaces</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('sum',this)">Summary</a>
+  <div class="nav-sec">Other Topics</div>
+  <a class="nav-item" href="CSIR_NET_U1_T10_MetricSpaces.html">T10 · Metric Spaces</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 · Topic 11</div>
+    <div class="hero-title">Normed Linear Spaces & Banach Spaces</div>
+    <div class="hero-sub">Norms · Banach Spaces · Bounded Operators · Fundamental Theorems</div>
+    <div class="hero-chips">
+      <span class="chip">Norm Axioms</span>
+      <span class="chip">Banach Space</span>
+      <span class="chip">Bounded Operators</span>
+      <span class="chip">Hahn-Banach</span>
+      <span class="chip">Uniform Boundedness</span>
+      <span class="chip">Open Mapping</span>
+      <span class="chip">Hilbert Space</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>A <strong>normed linear space</strong> combines the algebraic structure of a vector space with the geometric structure of a metric (via the norm). When complete, it becomes a <strong>Banach space</strong> — the natural setting for most of functional analysis. The four fundamental theorems of functional analysis all concern Banach and Hilbert spaces.</p>
+  <div class="grid2">
+    <div class="card">
+      <h4>Why Normed Spaces?</h4>
+      <ul>
+        <li>Generalize ℝⁿ to infinite dimensions</li>
+        <li>Study differential/integral equations as linear maps</li>
+        <li>Quantify "size" of functions and operators</li>
+        <li>Foundation for quantum mechanics (Hilbert spaces)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>CSIR NET Focus</h4>
+      <ul>
+        <li>Norm vs inner product: which implies which</li>
+        <li>Identifying Banach spaces</li>
+        <li>Operator norm and bounded operators</li>
+        <li>Four fundamental theorems (HB, UBP, OMT, CGT)</li>
+      </ul>
+    </div>
+  </div>
+  <h2>Hierarchy</h2>
+  <svg width="560" height="170" viewBox="0 0 560 170">
+    <rect width="560" height="170" fill="#fff0f6" rx="10"/>
+    <rect x="10" y="15" width="540" height="140" rx="8" fill="#ffe0ee" stroke="#9d174d" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="270" y="35" text-anchor="middle" font-size="11" fill="#9d174d" font-weight="700">Normed Linear Space (V, ‖·‖)</text>
+    <rect x="30" y="50" width="500" height="95" rx="8" fill="#ffcce2" stroke="#be185d" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="280" y="70" text-anchor="middle" font-size="11" fill="#be185d" font-weight="700">Banach Space (complete normed space)</text>
+    <rect x="60" y="82" width="440" height="55" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="280" y="100" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="700">Inner Product Space (V, ⟨·,·⟩)</text>
+    <rect x="130" y="112" width="300" height="20" rx="6" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1.2"/>
+    <text x="280" y="126" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="700">Hilbert Space (complete inner product space)</text>
+  </svg>
+</div>
+
+<!-- NORMED SPACES -->
+<div class="sec" id="nls">
+  <h2>Normed Linear Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Norm</div>
+    <p>A <strong>norm</strong> on a vector space V (over ℝ or ℂ) is a function ‖·‖: V → ℝ satisfying for all x,y ∈ V, α ∈ 𝔽:</p>
+    <ol>
+      <li><strong>Non-negativity:</strong> ‖x‖ ≥ 0 and ‖x‖ = 0 ⟺ x = 0</li>
+      <li><strong>Scalar multiplication:</strong> ‖αx‖ = |α|·‖x‖</li>
+      <li><strong>Triangle inequality:</strong> ‖x + y‖ ≤ ‖x‖ + ‖y‖</li>
+    </ol>
+    <p>A <strong>normed linear space (NLS)</strong> is a pair (V, ‖·‖).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Norm Induces Metric</div>
+    <p>Every norm induces a metric: d(x,y) = ‖x−y‖. This metric satisfies translation invariance: d(x+z, y+z) = d(x,y), and homogeneity: d(αx, αy) = |α|·d(x,y).</p>
+  </div>
+  <h3>Standard Examples of NLS</h3>
+  <table>
+    <tr><th>Space</th><th>Norm ‖x‖</th><th>Banach?</th></tr>
+    <tr><td>ℝⁿ (Euclidean)</td><td>√(Σ|xᵢ|²) = ‖x‖₂</td><td>Yes</td></tr>
+    <tr><td>ℝⁿ (taxicab)</td><td>Σ|xᵢ| = ‖x‖₁</td><td>Yes</td></tr>
+    <tr><td>ℝⁿ (sup-norm)</td><td>max|xᵢ| = ‖x‖∞</td><td>Yes</td></tr>
+    <tr><td>ℓ¹ (sequences)</td><td>Σ|xₙ|</td><td>Yes</td></tr>
+    <tr><td>ℓ² (sequences)</td><td>√(Σ|xₙ|²)</td><td>Yes (Hilbert)</td></tr>
+    <tr><td>ℓ∞ (bounded seqs)</td><td>sup|xₙ|</td><td>Yes</td></tr>
+    <tr><td>C[a,b] (cont. fns)</td><td>max|f(t)|</td><td>Yes</td></tr>
+    <tr><td>Lᵖ[a,b], 1≤p&lt;∞</td><td>(∫|f|ᵖ)^(1/p)</td><td>Yes (Riesz-Fischer)</td></tr>
+    <tr><td>Polynomials on [0,1]</td><td>max|p(t)|</td><td>No (not complete)</td></tr>
+  </table>
+  <h3>Equivalent Norms</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>Two norms ‖·‖₁ and ‖·‖₂ on V are <strong>equivalent</strong> if ∃ c₁,c₂ > 0 such that c₁‖x‖₁ ≤ ‖x‖₂ ≤ c₂‖x‖₁ for all x ∈ V.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Theorem — Finite Dimensions</div>
+    <p>On a <strong>finite-dimensional</strong> vector space, all norms are equivalent. Completeness depends only on the vector space, not the choice of norm.</p>
+    <p>On <strong>infinite-dimensional</strong> spaces, norms can be inequivalent. E.g., on C[0,1], ‖f‖₁ = ∫|f| and ‖f‖∞ = max|f| are not equivalent.</p>
+  </div>
+  <h3>Series in Normed Spaces</h3>
+  <div class="def-box">
+    <div class="lbl">Absolutely Convergent Series</div>
+    <p>A series Σxₙ in a normed space is <strong>absolutely convergent</strong> if Σ‖xₙ‖ &lt; ∞.</p>
+    <p><strong>Key theorem:</strong> A normed space is a Banach space ⟺ every absolutely convergent series converges (in the space). This is extremely useful for proving completeness.</p>
+  </div>
+</div>
+
+<!-- BANACH SPACES -->
+<div class="sec" id="banach">
+  <h2>Banach Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Banach Space</div>
+    <p>A <strong>Banach space</strong> is a normed linear space (V, ‖·‖) that is complete with respect to the induced metric d(x,y) = ‖x−y‖.</p>
+  </div>
+  <h3>Proving Completeness</h3>
+  <div class="thm-box">
+    <div class="lbl">Method 1: Direct</div>
+    <p>Take an arbitrary Cauchy sequence (xₙ). Find a candidate limit x. Show ‖xₙ − x‖ → 0 and x ∈ V.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Method 2: Absolutely Convergent Series</div>
+    <p>Show that Σ‖xₙ‖ &lt; ∞ implies Σxₙ converges in V. If this holds, V is Banach.</p>
+  </div>
+  <h3>Subspaces of Banach Spaces</h3>
+  <div class="info-box">
+    <div class="lbl">Theorem</div>
+    <p>A closed subspace of a Banach space is a Banach space. A finite-dimensional subspace of a normed space is always closed. An infinite-dimensional subspace may or may not be closed.</p>
+  </div>
+  <h3>Quotient Spaces</h3>
+  <div class="def-box">
+    <div class="lbl">Quotient Norm</div>
+    <p>If M is a closed subspace of Banach space X, the quotient space X/M with norm ‖[x]‖ = inf_{m∈M} ‖x−m‖ is a Banach space.</p>
+  </div>
+  <h3>Linear Operators</h3>
+  <div class="def-box">
+    <div class="lbl">Definition — Bounded Linear Operator</div>
+    <p>T: X → Y (X,Y normed spaces) is a <strong>bounded linear operator</strong> if:</p>
+    <ul>
+      <li>T is linear: T(αx+βy) = αT(x)+βT(y)</li>
+      <li>T is bounded: ‖T‖ = sup{‖Tx‖_Y / ‖x‖_X : x ≠ 0} &lt; ∞</li>
+    </ul>
+    <p>The <strong>operator norm</strong> ‖T‖ = sup_{‖x‖≤1} ‖Tx‖ = sup_{‖x‖=1} ‖Tx‖.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Theorem — Continuity ↔ Boundedness</div>
+    <p>For a linear operator T: X → Y, the following are equivalent:</p>
+    <ol>
+      <li>T is continuous everywhere on X</li>
+      <li>T is continuous at 0</li>
+      <li>T is bounded (‖T‖ &lt; ∞)</li>
+      <li>∃ C > 0: ‖Tx‖ ≤ C‖x‖ for all x ∈ X</li>
+    </ol>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Unbounded Operators</div>
+    <p>On infinite-dimensional spaces, linear operators can be unbounded (discontinuous). Example: differentiation d/dx on C¹[0,1] ⊂ C[0,1] with sup-norm is unbounded — take fₙ(x) = sin(nx)/n, then ‖fₙ‖ → 0 but ‖f'ₙ‖ = ‖cos(nx)‖ = 1.</p>
+  </div>
+  <h3>Space of Bounded Operators</h3>
+  <div class="thm-box">
+    <div class="lbl">Theorem</div>
+    <p>B(X,Y) = {T: X→Y : T bounded linear} with operator norm is a normed space. If Y is a Banach space, then B(X,Y) is a Banach space.</p>
+    <p>In particular, X* = B(X,𝔽) (the dual space of X) is always a Banach space.</p>
+  </div>
+</div>
+
+<!-- LINEAR FUNCTIONALS -->
+<div class="sec" id="lf">
+  <h2>Linear Functionals & Dual Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Linear Functional</div>
+    <p>A <strong>linear functional</strong> on a normed space X is a linear map f: X → 𝔽 (where 𝔽 = ℝ or ℂ). A bounded linear functional satisfies |f(x)| ≤ C‖x‖ for some C.</p>
+    <p>The <strong>dual space</strong> X* = B(X,𝔽) with norm ‖f‖ = sup_{‖x‖≤1} |f(x)| is always a Banach space.</p>
+  </div>
+  <h3>Examples of Dual Spaces</h3>
+  <table>
+    <tr><th>Space X</th><th>Dual X*</th><th>Identification</th></tr>
+    <tr><td>ℓ¹</td><td>ℓ∞</td><td>f(x) = Σ aₙxₙ, (aₙ) ∈ ℓ∞</td></tr>
+    <tr><td>ℓᵖ (1&lt;p&lt;∞)</td><td>ℓq (1/p+1/q=1)</td><td>Hölder conjugate</td></tr>
+    <tr><td>ℓ∞</td><td>Strictly larger than ℓ¹</td><td>ba(ℕ) — bounded additive measures</td></tr>
+    <tr><td>Lᵖ[a,b] (1&lt;p&lt;∞)</td><td>Lq[a,b]</td><td>f(g) = ∫fg, via Riesz representation</td></tr>
+    <tr><td>C[a,b]</td><td>Regular Borel measures</td><td>Riesz-Markov theorem: f(g) = ∫g dμ</td></tr>
+    <tr><td>Hilbert space H</td><td>H itself</td><td>Riesz representation: f(x) = ⟨x,y⟩</td></tr>
+  </table>
+  <h3>Reflexive Spaces</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <p>X is <strong>reflexive</strong> if the canonical embedding J: X → X** defined by J(x)(f) = f(x) is surjective. Every reflexive Banach space is weakly sequentially compact.</p>
+    <p>Reflexive: Hilbert spaces, Lᵖ (1&lt;p&lt;∞), ℓᵖ (1&lt;p&lt;∞). Non-reflexive: ℓ¹, ℓ∞, C[0,1], L¹, L∞.</p>
+  </div>
+</div>
+
+<!-- HAHN-BANACH -->
+<div class="sec" id="hb">
+  <h2>Hahn-Banach Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Hahn-Banach Theorem (Extension Form)</div>
+    <p>Let M be a subspace of a normed space X and f ∈ M* (bounded linear functional on M). Then there exists F ∈ X* (bounded linear functional on X) such that:</p>
+    <ul>
+      <li>F(x) = f(x) for all x ∈ M (F extends f)</li>
+      <li>‖F‖_{X*} = ‖f‖_{M*} (norm is preserved)</li>
+    </ul>
+  </div>
+  <h3>Important Corollaries</h3>
+  <div class="proof-box">
+    <div class="lbl">Corollaries</div>
+    <ol>
+      <li>For any x₀ ≠ 0 in X, there exists F ∈ X* with ‖F‖=1 and F(x₀) = ‖x₀‖.</li>
+      <li>X* separates points: if x ≠ y, then there exists F ∈ X* with F(x) ≠ F(y).</li>
+      <li>‖x‖ = sup{|F(x)| : F ∈ X*, ‖F‖ = 1} (norm realized by functionals).</li>
+      <li>If F(x₀) = 0 for all F ∈ X*, then x₀ = 0.</li>
+    </ol>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Separation Theorem (Geometric Hahn-Banach)</div>
+    <p>If A and B are disjoint convex sets in X with A open, then there exists a continuous linear functional F and c ∈ ℝ such that F(a) &lt; c ≤ F(b) for all a ∈ A, b ∈ B. (Separating hyperplane theorem.)</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Key Point</div>
+    <p>Hahn-Banach does NOT require completeness — it works on any normed space, even incomplete ones. This is one reason why completeness and Hahn-Banach are separated as distinct theorems.</p>
+  </div>
+</div>
+
+<!-- UNIFORM BOUNDEDNESS -->
+<div class="sec" id="ubs">
+  <h2>Uniform Boundedness Principle</h2>
+  <div class="thm-box">
+    <div class="lbl">Banach-Steinhaus (Uniform Boundedness Principle)</div>
+    <p>Let X be a <strong>Banach space</strong> and Y a normed space. Let {Tα} ⊆ B(X,Y) be a family of bounded linear operators. If sup_α ‖Tα x‖ &lt; ∞ for each fixed x ∈ X (pointwise bounded), then sup_α ‖Tα‖ &lt; ∞ (uniformly bounded).</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Idea</div>
+    <p>Uses Baire Category Theorem: X = ⋃ₙ Aₙ where Aₙ = {x : sup_α‖Tαx‖ ≤ n}. Since X is complete (Baire), some Aₙ contains an open ball B(x₀,r). Any x ∈ B(0,r) can be written as (x₀+x) − x₀, so ‖Tαx‖ ≤ ‖Tα(x₀+x)‖ + ‖Tαx₀‖ ≤ 2n. Thus ‖Tα‖ ≤ 2n/r for all α.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Consequence: Divergence Phenomenon</div>
+    <p>If pointwise boundedness fails (i.e., sup_α‖Tαx‖ = ∞ for SOME x), then by Baire, the set of "bad" x is actually a dense G_δ set. So "most" x are bad. Example: Fourier series of continuous functions can diverge at every point of a dense set.</p>
+  </div>
+  <h3>Application: Pointwise Convergence</h3>
+  <div class="thm-box">
+    <div class="lbl">Corollary</div>
+    <p>If Tₙx → Tx for all x ∈ Banach space X (pointwise), and each Tₙ is bounded, then T is bounded and ‖T‖ ≤ lim inf ‖Tₙ‖. Also, sup_n ‖Tₙ‖ &lt; ∞.</p>
+  </div>
+</div>
+
+<!-- OPEN MAPPING & CLOSED GRAPH -->
+<div class="sec" id="oft">
+  <h2>Open Mapping & Closed Graph Theorems</h2>
+  <div class="thm-box">
+    <div class="lbl">Open Mapping Theorem</div>
+    <p>Let X and Y be <strong>Banach spaces</strong> and T ∈ B(X,Y) be <strong>surjective</strong>. Then T is an <strong>open map</strong>: T maps open sets to open sets.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Bounded Inverse Theorem (Corollary)</div>
+    <p>If T: X → Y is a <strong>bijective</strong> bounded linear operator between Banach spaces, then T⁻¹: Y → X is also bounded. (Bijective bounded linear map ⟹ bounded inverse.)</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Completeness Is Essential</div>
+    <p>Both Banach space hypotheses are needed. Without completeness, bounded bijections can have unbounded inverses. The inclusion i: (ℓ², ‖·‖₁) → (ℓ², ‖·‖₂) has no bounded inverse when ‖·‖₁ and ‖·‖₂ are inequivalent on infinite dimensions.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Closed Graph Theorem</div>
+    <p>Let X and Y be Banach spaces and T: X → Y a linear operator. T is bounded ⟺ T has a closed graph, i.e., if xₙ → x and Txₙ → y, then Tx = y.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Using CGT in Practice</div>
+    <p>To prove T is bounded: assume xₙ → x and Txₙ → y, then use the properties of T to show Tx = y. This is often easier than directly bounding ‖Tx‖/‖x‖.</p>
+  </div>
+  <h3>Summary of Four Fundamental Theorems</h3>
+  <table>
+    <tr><th>Theorem</th><th>Hypotheses</th><th>Conclusion</th></tr>
+    <tr><td>Hahn-Banach</td><td>NLS (no completeness needed)</td><td>Extension of bounded functionals</td></tr>
+    <tr><td>Uniform Boundedness</td><td>X Banach, Y normed</td><td>Pointwise bounded ⟹ uniformly bounded</td></tr>
+    <tr><td>Open Mapping</td><td>X,Y Banach, T surjective</td><td>T is open map</td></tr>
+    <tr><td>Closed Graph</td><td>X,Y Banach, T linear</td><td>Closed graph ⟺ bounded</td></tr>
+  </table>
+</div>
+
+<!-- INNER PRODUCT SPACES -->
+<div class="sec" id="inner">
+  <h2>Inner Product Spaces & Hilbert Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Inner Product</div>
+    <p>An <strong>inner product</strong> on V (over ℂ) is ⟨·,·⟩: V×V → ℂ satisfying for all x,y,z ∈ V, α ∈ ℂ:</p>
+    <ol>
+      <li><strong>Conjugate symmetry:</strong> ⟨x,y⟩ = ⟨y,x⟩* (overline = complex conjugate)</li>
+      <li><strong>Linearity in first argument:</strong> ⟨αx+βy,z⟩ = α⟨x,z⟩ + β⟨y,z⟩</li>
+      <li><strong>Positive definiteness:</strong> ⟨x,x⟩ ≥ 0 with equality iff x = 0</li>
+    </ol>
+    <p>The <strong>induced norm</strong>: ‖x‖ = √⟨x,x⟩. A <strong>Hilbert space</strong> is a complete inner product space.</p>
+  </div>
+  <h3>Cauchy-Schwarz Inequality</h3>
+  <div class="thm-box">
+    <div class="lbl">Cauchy-Schwarz Inequality</div>
+    <p>|⟨x,y⟩| ≤ ‖x‖·‖y‖, with equality iff x and y are linearly dependent.</p>
+    <p>In ℝⁿ: (Σxᵢyᵢ)² ≤ (Σxᵢ²)(Σyᵢ²). In L²: (∫fg)² ≤ (∫f²)(∫g²).</p>
+  </div>
+  <h3>Parallelogram Law</h3>
+  <div class="thm-box">
+    <div class="lbl">Parallelogram Identity</div>
+    <p>In an inner product space: ‖x+y‖² + ‖x−y‖² = 2(‖x‖² + ‖y‖²)</p>
+    <p>A normed space comes from an inner product ⟺ the parallelogram law holds. So ℓ¹, ℓ∞, L¹, L∞ are NOT Hilbert spaces (they fail the parallelogram law).</p>
+  </div>
+  <h3>Orthogonality & Projections</h3>
+  <div class="def-box">
+    <div class="lbl">Orthogonality</div>
+    <p>x ⊥ y if ⟨x,y⟩ = 0. Pythagorean theorem: x ⊥ y ⟹ ‖x+y‖² = ‖x‖² + ‖y‖².</p>
+    <p>M⊥ = {x ∈ H : ⟨x,m⟩ = 0 for all m ∈ M} is always a closed subspace.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Projection Theorem</div>
+    <p>Let M be a closed subspace of a Hilbert space H. Then every x ∈ H has a unique decomposition x = m + m⊥ with m ∈ M and m⊥ ∈ M⊥. The map x ↦ m is the orthogonal projection onto M.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Riesz Representation Theorem</div>
+    <p>Every bounded linear functional f on a Hilbert space H is of the form f(x) = ⟨x,y⟩ for a unique y ∈ H, and ‖f‖ = ‖y‖. Thus H* ≅ H (Hilbert spaces are self-dual).</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question. Instant feedback provided.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is NOT a norm axiom?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> ‖x‖ ≥ 0, with ‖x‖=0 iff x=0</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> ‖αx‖ = |α|·‖x‖</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> ‖x+y‖ ≤ ‖x‖+‖y‖</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> ‖x+y‖ = ‖x‖+‖y‖ for all x,y</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">A normed space X is a Banach space if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> X is finite-dimensional</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Every absolutely convergent series in X converges</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> X has a countable dense subset</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Every bounded sequence has a convergent subsequence</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">For a linear operator T: X → Y between normed spaces, "T is continuous" is equivalent to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> T is injective</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> T maps bounded sets to bounded sets (T is bounded)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> T is surjective</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> T is an isometry</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The space C[0,1] with the sup-norm ‖f‖ = max|f(t)| is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> A Hilbert space</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> A Banach space but not a Hilbert space</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Not a Banach space</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> A finite-dimensional space</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Hahn-Banach theorem requires which hypothesis on the space X?</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> X must be a Banach space</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> X must be a Hilbert space</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> X must be finite-dimensional</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> X need only be a normed space (no completeness required)</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Uniform Boundedness Principle (Banach-Steinhaus) requires X to be a:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Normed space only</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Hilbert space</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Banach space</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Finite-dimensional space</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">A normed space V arises from an inner product if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> V is complete</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> The parallelogram law holds: ‖x+y‖²+‖x−y‖² = 2(‖x‖²+‖y‖²)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> V is finite-dimensional</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Cauchy-Schwarz inequality holds</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The dual of ℓ¹ (space of absolutely summable sequences) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> ℓ¹</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> ℓ²</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> ℓ∞</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> ℓ³</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Riesz Representation Theorem for Hilbert spaces states that every bounded linear functional f on H is given by:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> f(x) = ‖x‖ for some normalization</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> f(x) = ⟨x,y⟩ for a unique y ∈ H</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> f(x) = ∫x dμ for some measure μ</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> f(x) = Tx for some bounded operator T</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Open Mapping Theorem concludes that T: X→Y (Banach to Banach, surjective bounded linear) is an open map. Which hypothesis can be weakened?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Completeness of X</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Completeness of Y</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Surjectivity of T</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> None — all hypotheses are essential</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Which of the following spaces is NOT a Hilbert space?</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> ℓ² (square-summable sequences)</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> L²[0,1] (square-integrable functions)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> ℝⁿ with Euclidean norm</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> C[0,1] with sup-norm</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">On finite-dimensional normed spaces, which statement is TRUE?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> There exist linear operators that are not bounded</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> All norms are equivalent</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> The space may not be complete</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> The closed unit ball is not compact</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">In a Hilbert space H, if M is a closed subspace, then (M⊥)⊥ equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> {0}</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> H</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> M</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> M⊥</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The Closed Graph Theorem states: T: X→Y (Banach spaces) is bounded iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> T is injective</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> The graph {(x,Tx)} is closed in X×Y</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> T maps bounded sequences to bounded sequences</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> T is surjective</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Which space is reflexive (i.e., isometrically isomorphic to its bidual)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> ℓ¹</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> ℓ∞</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> C[0,1]</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> ℓ² </label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sum">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Key Theorems & Facts</div>
+    <div class="hero-sub">Normed & Banach Spaces for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">📏</div>
+      <h4>Norm Axioms</h4>
+      <p>Non-negativity (‖x‖=0⟺x=0), homogeneity ‖αx‖=|α|‖x‖, triangle inequality.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🏛️</div>
+      <h4>Banach Space</h4>
+      <p>Complete normed space. Equiv: every absolutely convergent series converges.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔗</div>
+      <h4>Bounded Operators</h4>
+      <p>Linear T is continuous ⟺ bounded (‖T‖&lt;∞). Operator norm = sup on unit ball.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔭</div>
+      <h4>Hahn-Banach</h4>
+      <p>Extends functionals norm-preservingly. Works on any NLS (no completeness needed).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⚖️</div>
+      <h4>Uniform Boundedness</h4>
+      <p>Banach + pointwise bounded family ⟹ uniformly bounded. Proof uses Baire category.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🗺️</div>
+      <h4>Open Mapping</h4>
+      <p>Banach-to-Banach surjective bounded T is open. Bijective ⟹ bounded inverse.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Hilbert Spaces</h4>
+      <p>Complete inner product space. Parallelogram law characterizes IPS. Riesz: H*≅H.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔄</div>
+      <h4>Duals</h4>
+      <p>(ℓᵖ)* = ℓq (1/p+1/q=1). ℓ∞ is not reflexive. Hilbert spaces are self-dual.</p>
+    </div>
+  </div>
+  <h3>The Four Fundamental Theorems</h3>
+  <table>
+    <tr><th>#</th><th>Theorem</th><th>Key Requirement</th><th>Conclusion</th></tr>
+    <tr><td>1</td><td>Hahn-Banach</td><td>Any NLS</td><td>Norm-preserving extension of functionals</td></tr>
+    <tr><td>2</td><td>Uniform Boundedness</td><td>X Banach</td><td>Pointwise bounded ⟹ uniformly bounded</td></tr>
+    <tr><td>3</td><td>Open Mapping</td><td>X,Y Banach + T surjective</td><td>T is open; bijective ⟹ bounded inverse</td></tr>
+    <tr><td>4</td><td>Closed Graph</td><td>X,Y Banach</td><td>Closed graph ⟺ bounded</td></tr>
+  </table>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_Master_Blueprint.html">← Back to Blueprint</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'d',2:'b',3:'b',4:'b',5:'d',6:'c',7:'b',8:'c',9:'b',10:'d',11:'d',12:'b',13:'c',14:'b',15:'d'};
+const explain={
+  1:'‖x+y‖ = ‖x‖+‖y‖ for ALL x,y (equality in triangle inequality always) is too strong and is NOT required. Equality holds iff x and y are positively proportional.',
+  2:'Completeness criterion: X is Banach ⟺ every absolutely convergent series (Σ‖xₙ‖<∞) converges in X. This is equivalent to the Cauchy-completeness definition but often easier to use.',
+  3:'For linear operators between normed spaces: continuous ⟺ bounded. Bounded here means ‖Tx‖≤C‖x‖ for some constant C, equivalently ‖T‖<∞.',
+  4:'C[0,1] with sup-norm is a Banach space (uniform limit of continuous functions is continuous). But it does not come from an inner product (fails the parallelogram law), so it is NOT a Hilbert space.',
+  5:'Hahn-Banach works for any normed space — completeness is NOT required. This distinguishes it from Baire-based theorems (UBP, OMT, CGT) that need Banach spaces.',
+  6:'The Uniform Boundedness Principle (Banach-Steinhaus) requires the domain X to be a Banach space. The proof uses the Baire Category Theorem, which requires completeness.',
+  7:'Jordan-von Neumann theorem: a normed space comes from an inner product ⟺ the parallelogram law ‖x+y‖²+‖x−y‖²=2(‖x‖²+‖y‖²) holds. Completeness alone is not sufficient.',
+  8:'The dual of ℓ¹ is ℓ∞. Every bounded functional on ℓ¹ is given by f(x)=Σaₙxₙ for some bounded sequence (aₙ)∈ℓ∞, and ‖f‖=‖(aₙ)‖∞.',
+  9:'Riesz Representation Theorem for Hilbert spaces: every f∈H* is uniquely represented as f(x)=⟨x,y⟩ for some y∈H, with ‖f‖=‖y‖. This shows H*≅H.',
+  10:'All three hypotheses (X Banach, Y Banach, T surjective) are essential in the Open Mapping Theorem. Removing any one can yield a counterexample.',
+  11:'C[0,1] with sup-norm fails the parallelogram law (take f=constant 1, g=identity), so it does not come from an inner product and is NOT a Hilbert space. The others (ℓ², L², ℝⁿ) are all Hilbert spaces.',
+  12:'On finite-dimensional vector spaces: all norms are equivalent, all linear operators are bounded, the space is always complete (and hence Banach), and the closed unit ball is compact.',
+  13:'For a closed subspace M of a Hilbert space H: (M⊥)⊥ = M. This follows from the projection theorem: every x = m + m⊥ decomposition shows that if x is orthogonal to all of M⊥, then x ∈ M.',
+  14:'Closed Graph Theorem: T is bounded ⟺ the graph {(x,Tx): x∈X} is a closed subset of X×Y (with product norm). This gives an alternative way to prove boundedness.',
+  15:'ℓ² is a Hilbert space, so it is self-dual: (ℓ²)*=ℓ². Therefore (ℓ²)**=ℓ², and ℓ² is reflexive. ℓ¹ has (ℓ¹)*=ℓ∞ and (ℓ¹)**≠ℓ¹, so ℓ¹ is not reflexive.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U8-T04 · Root Finding & Linear Systems · Unit 8 Finale</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:20px 0}
+.topic-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;transition:all .2s;display:block}
+.topic-card:hover{border-color:var(--acc2);box-shadow:0 4px 16px rgba(5,150,105,.12);transform:translateY(-1px)}
+.topic-card .tc-num{font-size:10px;font-weight:700;color:var(--acc2);margin-bottom:4px}
+.topic-card .tc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.topic-card .tc-desc{font-size:12px;color:var(--muted)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 8</span>
+  <span class="hdr-title">T04 · Root Finding, Linear Systems & Unit 8 Finale</span>
+  <span class="hdr-badge">Numerical Finale</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 8 · Numerical Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('rootfinding',this)">Root Finding Methods</a>
+  <a class="nav-item" onclick="show('linear',this)">Linear Systems</a>
+  <a class="nav-item" onclick="show('numodes',this)">Numerical ODEs</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('unit8',this)">Unit 8 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U8_T03_NumericalIntegration.html">← T03 · Numerical Integration</a>
+  <a class="nav-item" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 8 · Topic 04 · Finale</div>
+    <div class="hero-title">Root Finding, Linear Systems & Numerical ODEs</div>
+    <div class="hero-sub">Bisection · Newton-Raphson · Fixed point · Gaussian elimination · LU · Euler · Runge-Kutta</div>
+    <div class="hero-chips">
+      <span class="chip">Bisection</span>
+      <span class="chip">Newton-Raphson</span>
+      <span class="chip">Gaussian Elimination</span>
+      <span class="chip">LU Decomposition</span>
+      <span class="chip">Euler Method</span>
+      <span class="chip">Runge-Kutta 4</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>This finale covers root finding (solving f(x)=0), numerical linear algebra (Ax=b), and numerical ODE solvers. These are core computational mathematics topics tested in CSIR NET.</p>
+</div>
+
+<div class="sec" id="rootfinding">
+  <h2>Root Finding Methods</h2>
+  <div class="def-box">
+    <div class="lbl">Bisection Method</div>
+    <div class="formula">Given f(a)f(b) &lt; 0, set c=(a+b)/2.
+If f(c)=0: done. If f(a)f(c)&lt;0: set b=c. Else: set a=c.
+Error after n steps: ≤(b−a)/2ⁿ.  Order: p=1, rate C=1/2.</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Newton-Raphson Method</div>
+    <div class="formula">x_{n+1} = xₙ − f(xₙ)/f′(xₙ)
+
+Order p=2 (quadratic) near simple root. Fails if f′(x*)=0.
+Requires: good initial guess, f′≠0.</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Secant & Fixed-Point</div>
+    <div class="formula">Secant:   x_{n+1}=xₙ − f(xₙ)(xₙ−x_{n−1})/(f(xₙ)−f(x_{n−1}))
+Order p=(1+√5)/2≈1.618
+
+Fixed-point: xₙ₊₁=g(xₙ)
+Converges if |g′(x*)|&lt;1, rate C=|g′(x*)|</div>
+  </div>
+  <table>
+    <tr><th>Method</th><th>Order</th><th>Pros</th><th>Cons</th></tr>
+    <tr><td>Bisection</td><td>1</td><td>Always converges, robust</td><td>Slow, needs sign change</td></tr>
+    <tr><td>Newton-Raphson</td><td>2</td><td>Fast near root</td><td>Needs f′, may diverge</td></tr>
+    <tr><td>Secant</td><td>≈1.618</td><td>No f′ needed</td><td>Needs 2 starting points</td></tr>
+    <tr><td>Fixed-point</td><td>1</td><td>Simple</td><td>Convergence not guaranteed</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="linear">
+  <h2>Numerical Linear Algebra</h2>
+  <div class="def-box">
+    <div class="lbl">Gaussian Elimination</div>
+    <p>Forward elimination to upper triangular form, then back substitution. Complexity: O(n³). With partial pivoting: swap rows to put largest |aᵢⱼ| in pivot position (improves stability).</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">LU Decomposition</div>
+    <div class="formula">A = LU   (L lower triangular, U upper triangular)
+Solve Ax=b: Ly=b (forward sub), then Ux=y (back sub)
+Advantage: once A=LU, solve for multiple b efficiently.</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Iterative Methods</div>
+    <div class="formula">Jacobi:  x_i^(k+1) = (bᵢ − Σ_{j≠i}aᵢⱼxⱼ^(k))/aᵢᵢ
+Gauss-Seidel: uses updated xⱼ^(k+1) as soon as computed (faster)
+
+Converge if A is diagonally dominant: |aᵢᵢ| > Σ_{j≠i}|aᵢⱼ|</div>
+  </div>
+</div>
+
+<div class="sec" id="numodes">
+  <h2>Numerical ODEs</h2>
+  <div class="def-box">
+    <div class="lbl">Euler Methods for y′=f(t,y), y(t₀)=y₀</div>
+    <div class="formula">Forward Euler:  y_{n+1} = yₙ + h·f(tₙ,yₙ)          Order O(h) global
+Backward Euler: y_{n+1} = yₙ + h·f(t_{n+1},y_{n+1}) (implicit, O(h))
+Midpoint:       y_{n+1} = yₙ + h·f(tₙ+h/2, yₙ+h/2·f(tₙ,yₙ)) O(h²)</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Runge-Kutta 4 (RK4)</div>
+    <div class="formula">k₁ = h·f(tₙ, yₙ)
+k₂ = h·f(tₙ+h/2, yₙ+k₁/2)
+k₃ = h·f(tₙ+h/2, yₙ+k₂/2)
+k₄ = h·f(tₙ+h, yₙ+k₃)
+y_{n+1} = yₙ + (k₁+2k₂+2k₃+k₄)/6
+
+Global error: O(h⁴). Local truncation error: O(h⁵).</div>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Stability</div>
+    <p>For y′=λy (test equation, Re(λ)<0): Euler stable if |1+hλ|<1. For hλ real and negative, need h|λ|<2. Backward Euler stable for all h>0 (A-stable). RK4 has a finite stability region.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Newton-Raphson iteration formula is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> x_{n+1}=xₙ+f(xₙ)/f′(xₙ)</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> x_{n+1}=xₙ−f(xₙ)/f′(xₙ)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> x_{n+1}=(xₙ+xₙ₋₁)/2</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> x_{n+1}=f(xₙ)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The RK4 method for y′=f(t,y) has global error:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> O(h)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> O(h⁴)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> O(h²)</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> O(h⁵)</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Fixed-point iteration xₙ₊₁=g(xₙ) converges near a root x* if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> g′(x*)>1</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> |g′(x*)|<1</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> g′(x*)=0</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> g(x*)=0</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">LU decomposition A=LU is used to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Find eigenvalues</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Efficiently solve Ax=b (and Ax=c) once A is factored</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Compute determinant only</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Diagonalize A</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The bisection method requires:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> f′(x) at each step</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> f(a)·f(b)<0 (sign change at endpoints)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> f(a)>0 only</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> f″ to be positive</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The forward Euler method y_{n+1}=yₙ+hf(tₙ,yₙ) has global error:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> O(h⁴)</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> O(h) (first-order method)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> O(h²)</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Exact</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Gauss-Seidel method converges for Ax=b when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> A is symmetric</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> A is strictly diagonally dominant (|aᵢᵢ|>Σ_{j≠i}|aᵢⱼ|)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A is invertible only</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> All entries are positive</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The secant method uses:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Only one starting point</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Two previous iterates xₙ₋₁,xₙ to approximate the derivative</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Exact derivative f′</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> A sign change</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The backward Euler method is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Explicit: uses only yₙ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Implicit: y_{n+1}=yₙ+h·f(t_{n+1},y_{n+1}); A-stable (stable for all h>0 for stiff problems)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Order O(h²)</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Unstable always</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Newton-Raphson applied to f(x)=x²−2 starting at x₀=1: x₁=?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 1</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> 1.5 (=1−(−1)/2=1+0.5)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 2</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> 0.5</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Gaussian elimination with partial pivoting:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Makes the method O(n²) instead of O(n³)</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Swaps rows to use the largest available pivot, improving numerical stability</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Requires A to be symmetric</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Is never needed for well-conditioned systems</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The number of correct decimal digits roughly doubles each step for:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Bisection</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Newton-Raphson (quadratic convergence p=2)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Secant method</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Euler method</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">RK4 uses how many function evaluations per step?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 1</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> 4 (k₁,k₂,k₃,k₄)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 2</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> 6</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Forward Euler applied to y′=−10y (stiff) is stable only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> h>0</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> h<0.2 (i.e., h|λ|=10h<2)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> h=1</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> h>2</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The order of convergence of the secant method (p≈1.618) arises because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> It uses two derivatives</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Its error satisfies |eₙ₊₁|≈C|eₙ||eₙ₋₁|; the order p satisfies p²=p+1, giving p=(1+√5)/2</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> It is a modification of bisection</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Convergence is linear always</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="unit8">
+  <h2>Unit 8 · Complete Summary</h2>
+  <p>Numerical Analysis — all four topics. Click any card to study.</p>
+  <div class="unit-grid">
+    <a class="topic-card" href="CSIR_NET_U8_T01_ErrorAnalysis.html">
+      <div class="tc-num">U8 · T01</div>
+      <div class="tc-title">Error Analysis</div>
+      <div class="tc-desc">Absolute/relative error, round-off vs truncation, floating-point, machine epsilon, convergence order, condition number</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U8_T02_Interpolation.html">
+      <div class="tc-num">U8 · T02</div>
+      <div class="tc-title">Interpolation</div>
+      <div class="tc-desc">Lagrange form, Newton divided differences, finite differences, error formula, Chebyshev nodes, cubic splines</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U8_T03_NumericalIntegration.html">
+      <div class="tc-num">U8 · T03</div>
+      <div class="tc-title">Numerical Integration</div>
+      <div class="tc-desc">Trapezoidal O(h²), Simpson's O(h⁴), Gauss-Legendre (2n−1 precision), Richardson extrapolation, Romberg</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U8_T04_RootFinding.html">
+      <div class="tc-num">U8 · T04</div>
+      <div class="tc-title">Root Finding & ODEs</div>
+      <div class="tc-desc">Bisection, Newton-Raphson (p=2), secant (p≈1.618), Gaussian elimination, LU, Euler O(h), RK4 O(h⁴)</div>
+    </a>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U8_T03_NumericalIntegration.html">← T03: Numerical Integration</a>
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Newton-Raphson: x_{n+1}=xₙ−f(xₙ)/f′(xₙ). Geometrically: the tangent line at (xₙ,f(xₙ)) intersects x-axis at x_{n+1}. Quadratic convergence near simple root: error |eₙ₊₁|≈|f″(x*)/(2f′(x*))|·eₙ².',
+  2:'RK4 local truncation error is O(h⁵); global error accumulated over O(1/h) steps is O(h⁴). It uses 4 function evaluations per step (k₁,k₂,k₃,k₄) with weights 1/6,2/6,2/6,1/6.',
+  3:'Fixed-point theorem: if g is a contraction (|g′(x*)|<1) near x*, then xₙ₊₁=g(xₙ) converges to x* for x₀ near x*. Rate C=|g′(x*)| (linear convergence). If g′(x*)=0: superlinear.',
+  4:'Once A=LU, solving Ax=b reduces to Ly=b (O(n²)) and Ux=y (O(n²)). Multiple right-hand sides bᵢ can be solved efficiently. det(A)=det(L)det(U)=product of U\'s diagonal.',
+  5:'Bisection requires f(a)f(b)<0 (opposite signs at endpoints), ensuring a root in [a,b] by IVT. Converges always (doesn\'t need differentiability) but requires sign change — can\'t find even-multiplicity roots.',
+  6:'Forward Euler: y_{n+1}=yₙ+hf(tₙ,yₙ). Local truncation error O(h²) per step, global error O(h) over fixed interval. Explicit, simple, but requires small h for stiff problems.',
+  7:'Gauss-Seidel convergence guaranteed if A is strictly diagonally dominant (|aᵢᵢ|>Σ_{j≠i}|aᵢⱼ| for all i) or if A is symmetric positive definite. Gauss-Seidel generally converges faster than Jacobi.',
+  8:'Secant: x_{n+1}=xₙ−f(xₙ)(xₙ−x_{n-1})/(f(xₙ)−f(x_{n-1})). Approximates f′ by finite difference using two previous points. No explicit derivative needed. Order p=(1+√5)/2≈1.618.',
+  9:'Backward Euler: y_{n+1}=yₙ+h·f(t_{n+1},y_{n+1}). Implicit (solve for y_{n+1}, often nonlinearly). A-stable: stability region includes entire left half of complex plane, so stable for any h for stiff equations.',
+  10:'f(x)=x²−2, f′(x)=2x, x₀=1. x₁=1−f(1)/f′(1)=1−(1−2)/2=1−(−1/2)=1.5. Indeed, 1.5 is closer to √2≈1.4142 than x₀=1.',
+  11:'Partial pivoting: before each elimination step, swap rows so the element with largest absolute value is the pivot. This avoids dividing by small numbers (which amplifies round-off). Does not change complexity O(n³).',
+  12:'Quadratic convergence (p=2): |e_{n+1}|≈C|eₙ|². If eₙ≈10⁻ᵏ, then eₙ₊₁≈10⁻²ᵏ: digits double. Starting from 1 correct digit: 1→2→4→8→16 in just 4 steps — extremely fast.',
+  13:'RK4 evaluates f four times per step: k₁=hf(tₙ,yₙ), k₂=hf(tₙ+h/2,yₙ+k₁/2), k₃=hf(tₙ+h/2,yₙ+k₂/2), k₄=hf(tₙ+h,yₙ+k₃). Then y_{n+1}=yₙ+(k₁+2k₂+2k₃+k₄)/6.',
+  14:'Forward Euler for y′=λy: y_{n+1}=(1+hλ)yₙ. Stable iff |1+hλ|<1. For λ=−10 (real): |1−10h|<1 ⟹ −1<1−10h<1 ⟹ 0<h<0.2. Stiffness requires very small h!',
+  15:'Secant error: |eₙ₊₁|≈C|eₙ||eₙ₋₁|. If order is p, then |eₙ|≈K^(pⁿ), so |eₙ₊₁|≈K^(p^(n+1))=K^(p·pⁿ)≈(K^(pⁿ))(K^(pⁿ⁻¹))^1. Setting p^(n+1)=p·pⁿ+pⁿ⁻¹: p=1+1/p, so p²=p+1, p=(1+√5)/2≈1.618.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

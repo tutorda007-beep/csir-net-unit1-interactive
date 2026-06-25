@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U6-T05 · Sturm-Liouville Theory</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 6</span>
+  <span class="hdr-title">T05 · Sturm-Liouville Theory</span>
+  <span class="hdr-badge">ODE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 6 · ODEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('slproblem',this)">S-L Problem</a>
+  <a class="nav-item" onclick="show('properties',this)">Eigenvalue Properties</a>
+  <a class="nav-item" onclick="show('examples',this)">Standard Examples</a>
+  <a class="nav-item" onclick="show('expansion',this)">Eigenfunction Expansion</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U6_T04_SeriesSolutions.html">← T04 · Series Solutions</a>
+  <a class="nav-item" href="CSIR_NET_U6_T06_LaplacePDE.html">T06 · Laplace & PDE →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 6 · Topic 05</div>
+    <div class="hero-title">Sturm-Liouville Theory</div>
+    <div class="hero-sub">S-L eigenvalue problems · Self-adjointness · Orthogonality · Eigenfunction expansions</div>
+    <div class="hero-chips">
+      <span class="chip">S-L Problem</span>
+      <span class="chip">Eigenvalues</span>
+      <span class="chip">Self-Adjoint</span>
+      <span class="chip">Orthogonality</span>
+      <span class="chip">Weight Function</span>
+      <span class="chip">Completeness</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Sturm-Liouville (S-L) theory provides a unified framework for boundary value problems arising in mathematical physics (heat equation, wave equation, Schrödinger equation). The key results are: real eigenvalues, orthogonal eigenfunctions, and completeness — allowing arbitrary functions to be expanded in eigenfunctions.</p>
+</div>
+
+<div class="sec" id="slproblem">
+  <h2>The Sturm-Liouville Problem</h2>
+  <div class="def-box">
+    <div class="lbl">S-L Equation</div>
+    <div class="formula">−(p(x)y′)′ + q(x)y = λw(x)y,   a &lt; x &lt; b</div>
+    <p>with boundary conditions: α₁y(a)+α₂y′(a)=0 and β₁y(b)+β₂y′(b)=0.</p>
+    <p>Here: p(x)>0, w(x)>0 (weight function), q(x) real, p,q,w continuous on [a,b].</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Self-Adjoint / Symmetric Operator</div>
+    <p>The S-L operator Ly = −(py′)′+qy is <strong>self-adjoint</strong> (symmetric) in the Hilbert space L²([a,b], w dx):</p>
+    <div class="formula">⟨Lu, v⟩_w = ⟨u, Lv⟩_w   where ⟨f,g⟩_w = ∫_a^b f(x)g(x)w(x)dx</div>
+    <p>This follows from integration by parts plus the boundary conditions.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Converting to S-L Form</div>
+    <p>Any second-order linear ODE y′′+P(x)y′+(Q(x)+λR(x))y=0 can be written in S-L form by multiplying by the integrating factor μ=e^(∫P dx).</p>
+  </div>
+</div>
+
+<div class="sec" id="properties">
+  <h2>Eigenvalue Properties</h2>
+  <div class="thm-box">
+    <div class="lbl">Main Theorem (Regular S-L Problem)</div>
+    <ol>
+      <li><strong>Eigenvalues are real.</strong></li>
+      <li><strong>Eigenvalues form a discrete sequence</strong> λ₁ < λ₂ < λ₃ < … → +∞.</li>
+      <li><strong>Each eigenvalue has exactly one (linearly independent) eigenfunction</strong> φₙ (up to scalar multiple).</li>
+      <li><strong>Eigenfunctions for distinct eigenvalues are orthogonal</strong> w.r.t. weight w:
+        <div class="formula">⟨φₘ, φₙ⟩_w = ∫_a^b φₘ(x)φₙ(x)w(x)dx = 0   if m≠n</div>
+      </li>
+      <li><strong>The eigenfunctions are complete</strong>: any piecewise smooth f on [a,b] can be expanded as f(x) = Σcₙφₙ(x) where cₙ = ⟨f,φₙ⟩_w/‖φₙ‖²_w.</li>
+    </ol>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Oscillation Theorem</div>
+    <p>The nth eigenfunction φₙ has exactly n−1 zeros in the open interval (a,b). (φ₁ has 0 zeros, φ₂ has 1 zero, etc.)</p>
+  </div>
+</div>
+
+<div class="sec" id="examples">
+  <h2>Standard S-L Examples</h2>
+  <table>
+    <tr><th>Problem</th><th>Eigenvalues λₙ</th><th>Eigenfunctions φₙ</th><th>Weight</th></tr>
+    <tr><td>y′′+λy=0, y(0)=y(L)=0</td><td>(nπ/L)², n=1,2,…</td><td>sin(nπx/L)</td><td>w=1</td></tr>
+    <tr><td>y′′+λy=0, y′(0)=y′(L)=0</td><td>(nπ/L)², n=0,1,2,…</td><td>cos(nπx/L)</td><td>w=1</td></tr>
+    <tr><td>y′′+λy=0, periodic BCs [0,2π]</td><td>n², n=0,1,2,…</td><td>cos(nx), sin(nx)</td><td>w=1</td></tr>
+    <tr><td>Legendre: (1−x²)y′′−2xy′=−λy</td><td>n(n+1), n=0,1,2,…</td><td>Pₙ(x)</td><td>w=1 on [−1,1]</td></tr>
+    <tr><td>Bessel: (xy′)′+(λx−ν²/x)y=0</td><td>jₙ,ν²/a² (jₙ,ν zeros of J_ν)</td><td>J_ν(jₙ,νx/a)</td><td>w=x on [0,a]</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="expansion">
+  <h2>Eigenfunction Expansion</h2>
+  <div class="def-box">
+    <div class="lbl">Generalized Fourier Series</div>
+    <p>Given a regular S-L problem with eigenfunctions {φₙ} and weight w, any piecewise smooth f has:</p>
+    <div class="formula">f(x) = Σ_{n=1}^∞ cₙφₙ(x),   cₙ = ∫_a^b f(x)φₙ(x)w(x)dx / ∫_a^b φₙ²(x)w(x)dx</div>
+    <p>The series converges in the L²_w norm (Parseval's identity: Σcₙ²‖φₙ‖² = ‖f‖²_w).</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Example: Fourier Sine Series</div>
+    <p>y′′+λy=0, y(0)=y(π)=0: eigenfunctions sin(nx), n=1,2,… f(x)=Σbₙsin(nx) where bₙ=(2/π)∫₀^π f(x)sin(nx)dx.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Parseval's Identity</div>
+    <div class="formula">‖f‖²_w = ∫_a^b |f(x)|²w(x)dx = Σ_{n=1}^∞ |cₙ|²‖φₙ‖²_w</div>
+    <p>This is the completeness of {φₙ} as an orthonormal basis in L²_w([a,b]).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Green's Function Connection</div>
+    <p>The S-L BVP Ly=f (with λ not an eigenvalue) has a unique solution y=∫G(x,t)f(t)dt where G is the Green's function. Green's function is symmetric: G(x,t)=G(t,x).</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The Sturm-Liouville operator L = −d/dx(p d/dx) + q is self-adjoint in L²([a,b],w dx) meaning:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Lu=u for all u</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> ⟨Lu,v⟩_w = ⟨u,Lv⟩_w for all u,v satisfying the BCs</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> L is invertible</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> All eigenvalues are zero</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Eigenvalues of a regular S-L problem are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Complex in general</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Real, discrete, tending to +∞</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> All negative</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> All positive</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Eigenfunctions corresponding to distinct eigenvalues of an S-L problem are orthogonal with respect to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> The usual L² inner product ∫fg dx</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> The weighted inner product ∫fg·w dx</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> The sup norm</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> The Wronskian</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The eigenvalues of y′′+λy=0 with y(0)=y(π)=0 are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> λₙ = n (n=1,2,3,…)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> λₙ = n² (n=1,2,3,…)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> λₙ = nπ</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> λₙ = −n²</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Fourier coefficient cₙ for f in terms of eigenfunctions φₙ of an S-L problem is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> cₙ = ∫f·φₙ dx</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> cₙ = ∫f·φₙ·w dx / ∫φₙ²·w dx</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> cₙ = f(xₙ) where xₙ is the nth zero</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> cₙ = λₙ</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Oscillation Theorem states: the nth eigenfunction φₙ has exactly:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> n zeros in [a,b]</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> n−1 zeros in the open interval (a,b)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> No zeros</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Infinitely many zeros</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The Legendre ODE (1−x²)y''−2xy'+n(n+1)y=0 in S-L form has eigenvalues:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> λₙ = n</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> λₙ = n(n+1), n=0,1,2,…</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> λₙ = n²</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> λₙ = (2n+1)</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Parseval's identity for S-L eigenfunctions states:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Σcₙ = ‖f‖</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> ‖f‖²_w = Σ|cₙ|²‖φₙ‖²_w</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Σcₙφₙ=0</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> cₙ=0 for all but finitely many n</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The S-L problem y′′+λy=0, y′(0)=0, y′(L)=0 has eigenvalues:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> (nπ/L)², n=1,2,…</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> (nπ/L)², n=0,1,2,… (including λ₀=0)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> All positive integers</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> λₙ = n</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The weight function w(x) for the Bessel S-L problem on [0,a] is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> w=1</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> w=x</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> w=x²</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> w=1/x</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Green's function G(x,t) for the S-L BVP Ly=f is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Antisymmetric: G(x,t)=−G(t,x)</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Symmetric: G(x,t)=G(t,x)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Zero everywhere</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Depends only on x−t</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The completeness of eigenfunctions {φₙ} means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Only finitely many φₙ are nonzero</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Any piecewise smooth f can be expanded as f=Σcₙφₙ (convergence in L²_w)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> φₙ→0 pointwise</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> The BVP has only finitely many solutions</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The S-L form of the Legendre equation (1−x²)y''−2xy'+n(n+1)y=0 has p(x)=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> x</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> 1−x²</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 1</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> x²−1</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">For a Fourier sine expansion f(x)=Σbₙsin(nπx/L) on [0,L], the coefficient bₙ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> bₙ = (1/L)∫₀ᴸ f(x)sin(nπx/L)dx</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> bₙ = (2/L)∫₀ᴸ f(x)sin(nπx/L)dx</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> bₙ = ∫₀ᴸ f(x)dx</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> bₙ = n·f(nπ/L)</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">If λ is NOT an eigenvalue of the S-L problem, the BVP Ly=λwy+f has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> No solution</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> A unique solution given by y=∫G(x,t)f(t)dt</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Infinitely many solutions</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Only the trivial solution y=0</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>S-L Problem</h4><p>−(py′)′+qy=λwy with separated BCs. p>0, w>0. Self-adjoint in L²_w.</p></div>
+    <div class="sum-card"><h4>Eigenvalues</h4><p>Real, discrete λ₁<λ₂<…→+∞. Each has one eigenfunction (up to scalar).</p></div>
+    <div class="sum-card"><h4>Orthogonality</h4><p>∫φₘφₙw dx=0 for m≠n. Inner product weighted by w(x).</p></div>
+    <div class="sum-card"><h4>Completeness</h4><p>f=Σcₙφₙ in L²_w. cₙ=⟨f,φₙ⟩_w/‖φₙ‖²_w. Parseval holds.</p></div>
+    <div class="sum-card"><h4>Oscillation</h4><p>φₙ has n−1 zeros in (a,b). Between consecutive zeros of φₙ, φₙ₊₁ has exactly one zero.</p></div>
+    <div class="sum-card"><h4>Green's Function</h4><p>G(x,t)=G(t,x). Unique solution y=∫G(x,t)f(t)dt when λ≠eigenvalue.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U6_T04_SeriesSolutions.html">← T04: Series Solutions</a>
+    <a class="btn btn-acc" href="CSIR_NET_U6_T06_LaplacePDE.html">T06: Laplace & PDE →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Self-adjoint (symmetric): ⟨Lu,v⟩_w=⟨u,Lv⟩_w for all u,v satisfying the boundary conditions. Proved by integration by parts: ∫(Lu)v·w dx=∫u(Lv)·w dx + boundary terms=0 (BCs cancel boundary terms).',
+  2:'Regular S-L problem has: (i) eigenvalues are real (self-adjointness), (ii) they form a discrete sequence λ₁<λ₂<…→+∞, (iii) each eigenvalue is simple (one independent eigenfunction).',
+  3:'Eigenfunctions φₘ,φₙ (λₘ≠λₙ) satisfy ∫_a^b φₘφₙ·w dx=0, i.e., they are orthogonal WITH RESPECT TO THE WEIGHT w. The weight w(x) appears because the S-L inner product is ⟨f,g⟩_w=∫fgw dx.',
+  4:'y′′+λy=0 with y(0)=y(π)=0: try y=sin(√λ·x). BC y(π)=0: sin(√λ·π)=0 ⟹ √λ=n ⟹ λₙ=n², n=1,2,3,…. Eigenfunctions φₙ=sin(nx).',
+  5:'The generalized Fourier coefficient: cₙ=⟨f,φₙ⟩_w/‖φₙ‖²_w=∫f·φₙ·w dx/∫φₙ²·w dx. This projects f onto the nth eigenfunction in the weighted inner product space.',
+  6:'Oscillation Theorem: the nth eigenfunction φₙ has exactly n−1 zeros in the OPEN interval (a,b). φ₁ has 0 zeros (is one-signed), φ₂ has 1 zero, etc.',
+  7:'Legendre ODE in S-L form: −d/dx[(1−x²)dy/dx]=λy on [−1,1]. The eigenvalues are λₙ=n(n+1) for n=0,1,2,… with eigenfunctions Pₙ(x).',
+  8:'Parseval\'s identity: ‖f‖²_w=Σ|cₙ|²‖φₙ‖²_w. This expresses that the sum of squared Fourier coefficients (weighted) equals the weighted norm of f. Equivalent to completeness of {φₙ} in L²_w.',
+  9:'y′′+λy=0 with y′(0)=y′(L)=0: try y=cos(√λ·x). y′=−√λ sin(√λ·x). y′(0)=0 ✓ always. y′(L)=0 ⟹ sin(√λ·L)=0 ⟹ √λ=nπ/L ⟹ λₙ=(nπ/L)², n=0,1,2,… (n=0 gives λ₀=0, φ₀=1 constant).',
+  10:'Bessel S-L: (xy′)′+(λx−ν²/x)y=0. Here p(x)=x and w(x)=x. The orthogonality is ∫₀ᵃ J_ν(jₙ,νx/a)J_ν(jₘ,νx/a)·x dx=0 for n≠m.',
+  11:'Green\'s function G(x,t) for a self-adjoint S-L operator is symmetric: G(x,t)=G(t,x). This follows from the self-adjointness of the operator.',
+  12:'Completeness: {φₙ} form a complete orthonormal system in L²_w([a,b]). Any f∈L²_w can be written f=Σcₙφₙ with convergence in the L²_w norm. Parseval\'s identity is equivalent to completeness.',
+  13:'Legendre in S-L form: −(1−x²)y′′+2xy′=λy, i.e., −d/dx[(1−x²)y′]=λy. So p(x)=1−x², q(x)=0, w(x)=1.',
+  14:'Sine series: bₙ=⟨f,sin(nπx/L)⟩/‖sin(nπx/L)‖². With ‖sin(nπx/L)‖²=L/2: bₙ=(2/L)∫₀ᴸf(x)sin(nπx/L)dx.',
+  15:'When λ is NOT an eigenvalue, Ly−λwy=f has a unique solution y=∫_a^b G(x,t)f(t)dt where G(x,t) is the Green\'s function. If λ IS an eigenvalue, existence requires ⟨f,φₙ⟩_w=0 (Fredholm alternative).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

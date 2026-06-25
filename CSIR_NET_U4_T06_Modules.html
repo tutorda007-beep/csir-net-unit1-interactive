@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U4-T06 · Modules & Unit 4 Summary</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#701a75;--acc2:#a21caf;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(112,26,117,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(112,26,117,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(112,26,117,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fdf4ff,#fae8ff,#f5d0fe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(112,26,117,.08);color:var(--acc);font-weight:600;border:1px solid rgba(112,26,117,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fdf4ff;border-left:4px solid #d946ef;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:20px}
+.unit-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px;text-decoration:none;color:var(--text);transition:box-shadow .15s}
+.unit-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.unit-card .u-num{font-size:10px;color:var(--acc);font-weight:700;margin-bottom:4px}
+.unit-card .u-title{font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 4</span>
+  <span class="hdr-title">T06 · Modules & Unit 4 Summary</span>
+  <span class="hdr-badge">Abstract Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 4 · Abstract Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('modules',this)">Modules: Basics</a>
+  <a class="nav-item" onclick="show('submod',this)">Submodules & Quotients</a>
+  <a class="nav-item" onclick="show('free',this)">Free & Projective Modules</a>
+  <a class="nav-item" onclick="show('structure',this)">Structure Theorem</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Unit 4 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U4_T05_Fields.html">← T05 · Fields</a>
+  <a class="nav-item" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 4 · Topic 06 · Unit Finale</div>
+    <div class="hero-title">Modules & Unit 4 Summary</div>
+    <div class="hero-sub">Module axioms · Submodules · Free modules · Structure theorem for finitely generated modules</div>
+    <div class="hero-chips">
+      <span class="chip">R-Modules</span>
+      <span class="chip">Submodules</span>
+      <span class="chip">Quotient Modules</span>
+      <span class="chip">Free Modules</span>
+      <span class="chip">Structure Theorem</span>
+      <span class="chip">Finitely Generated</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Modules are the natural generalization of vector spaces, where the scalar field is replaced by a ring. Every abelian group is a ℤ-module; every vector space is an F-module (F a field). The structure theorem for finitely generated modules over PIDs unifies the classification of abelian groups and the theory of the Jordan/rational canonical form.</p>
+</div>
+
+<div class="sec" id="modules">
+  <h2>Modules: Basic Definitions</h2>
+  <div class="def-box">
+    <div class="lbl">Left R-Module</div>
+    <p>A <strong>left R-module</strong> M is an abelian group (M,+) with a ring R acting on M via R × M → M, (r,m) ↦ rm, satisfying:</p>
+    <ol>
+      <li>r(m+n) = rm+rn</li>
+      <li>(r+s)m = rm+sm</li>
+      <li>(rs)m = r(sm)</li>
+      <li>1·m = m (if R has unity)</li>
+    </ol>
+  </div>
+  <h3>Key Examples</h3>
+  <table>
+    <tr><th>Ring R</th><th>Module M</th><th>Name</th></tr>
+    <tr><td>Field F</td><td>Any F-module</td><td>Vector space</td></tr>
+    <tr><td>ℤ</td><td>Any abelian group</td><td>ℤ-module</td></tr>
+    <tr><td>R</td><td>R itself</td><td>Regular module</td></tr>
+    <tr><td>R</td><td>Rⁿ</td><td>Free module of rank n</td></tr>
+    <tr><td>F[x]</td><td>Vector space V (via T:V→V)</td><td>F[x]-module via x·v=T(v)</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Module Homomorphism</div>
+    <p>φ: M → N is an R-module homomorphism if φ(m+n)=φ(m)+φ(n) and φ(rm)=rφ(m).</p>
+    <p>ker φ is a submodule of M; im φ is a submodule of N.</p>
+    <p>For vector spaces (R=F), module homomorphisms are linear maps.</p>
+  </div>
+</div>
+
+<div class="sec" id="submod">
+  <h2>Submodules & Quotient Modules</h2>
+  <div class="def-box">
+    <div class="lbl">Submodule</div>
+    <p>N ≤ M (N is a submodule of M) if N is a subgroup of M closed under R-action: rn∈N for all r∈R, n∈N.</p>
+    <p>For vector spaces: submodules = subspaces. For ℤ-modules (abelian groups): submodules = subgroups. For R as R-module: submodules = ideals.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Quotient Module</div>
+    <p>For submodule N ≤ M: M/N = {m+N : m∈M} is an R-module with r(m+N) = rm+N.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">First Isomorphism Theorem (Modules)</div>
+    <div class="formula">M/ker φ ≅ im φ</div>
+    <p>for any R-module homomorphism φ: M → N.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Noetherian Modules</div>
+    <p>An R-module M is <strong>Noetherian</strong> if every ascending chain of submodules stabilizes: N₁⊆N₂⊆... ⟹ Nₖ=Nₖ₊₁=... for some k.</p>
+    <p>Equivalently: every submodule of M is finitely generated.</p>
+    <p>ℤ is Noetherian (Hilbert basis theorem: if R is Noetherian, so is R[x]).</p>
+  </div>
+</div>
+
+<div class="sec" id="free">
+  <h2>Free & Projective Modules</h2>
+  <div class="def-box">
+    <div class="lbl">Free Module</div>
+    <p>M is <strong>free</strong> of rank n if M ≅ Rⁿ as R-modules (basis of n elements).</p>
+    <p>Properties: every element has a unique representation as a finite linear combination of basis elements.</p>
+    <p>Vector spaces over a field are always free. Free ℤ-modules are free abelian groups ≅ ℤⁿ.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Projective and Injective Modules</div>
+    <p><strong>Projective:</strong> P such that every surjection N→P splits (P is a direct summand of any module surjecting onto it). Direct summand of a free module.</p>
+    <p><strong>Injective:</strong> I such that every injection I→N splits. Over PID: injective ⟺ divisible.</p>
+    <p>Over a field: all modules are both projective and injective (= vector spaces).</p>
+  </div>
+</div>
+
+<div class="sec" id="structure">
+  <h2>Structure Theorem for Finitely Generated Modules</h2>
+  <div class="thm-box">
+    <div class="lbl">Structure Theorem over PIDs</div>
+    <p>Every finitely generated module M over a PID R is isomorphic to:</p>
+    <div class="formula">M ≅ Rᵣ ⊕ R/(a₁) ⊕ R/(a₂) ⊕ ... ⊕ R/(aₖ)</div>
+    <p>where r ≥ 0 (free rank), and a₁|a₂|...|aₖ (invariant factors, each non-unit).</p>
+    <p>Alternatively (primary decomposition): M ≅ Rʳ ⊕ R/(p₁^{e₁}) ⊕ ... ⊕ R/(pₘ^{eₘ}) where the pᵢ are (not necessarily distinct) primes.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Applications</div>
+    <ul>
+      <li><strong>Finite abelian groups (R=ℤ):</strong> Every finite abelian group G ≅ ℤ_{n₁}⊕...⊕ℤ_{nₖ} with n₁|n₂|...|nₖ. Equivalently ≅ ℤ_{p^{a₁}}⊕...⊕ℤ_{p^{aₘ}} (primary decomposition).</li>
+      <li><strong>Linear algebra (R=F[x]):</strong> A vector space V with linear operator T is an F[x]-module. Structure theorem gives Jordan canonical form and rational canonical form.</li>
+    </ul>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Classification of Finite Abelian Groups</div>
+    <p>Up to isomorphism, every abelian group of order n is determined by its invariant factors d₁|d₂|...|dₖ with d₁d₂···dₖ=n, or equivalently by the prime power decomposition.</p>
+    <p>Example: groups of order 12: ℤ₁₂≅ℤ₄×ℤ₃ or ℤ₂×ℤ₂×ℤ₃≅ℤ₂×ℤ₆. Two non-isomorphic groups of order 12 (abelian): ℤ₁₂ and ℤ₂×ℤ₆.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Every abelian group is naturally a module over:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> ℝ</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> ℤ</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> ℚ</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Any field</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Submodules of R (as an R-module over itself) are exactly:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Subgroups of (R,+)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Left ideals of R</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Units of R</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Maximal ideals</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">A free R-module of rank n is isomorphic to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> R/nR</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Rⁿ (direct sum of n copies of R)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> R^{1/n}</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> The n-th power of the group R</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">How many non-isomorphic abelian groups of order 8 are there?</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> 2</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> 3</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> 4</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Structure Theorem says: every finitely generated module over a PID is isomorphic to a direct sum of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Simple modules</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Cyclic modules R/(aᵢ) and free copies of R</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Projective modules only</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Injective modules only</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The connection between F[x]-modules and linear algebra is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> No connection</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> A vector space V with linear operator T is an F[x]-module via x·v = T(v)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> F[x]-modules are always finite-dimensional</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> F[x]-modules correspond to matrices only</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">A Noetherian module satisfies which ascending chain condition?</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Every descending chain of submodules stabilizes</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Every ascending chain of submodules stabilizes</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> All submodules are cyclic</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> The module is finite</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">How many non-isomorphic abelian groups of order 36 = 4·9 are there?</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> 2</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> 4</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> 6</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The invariant factor decomposition of ℤ₂ × ℤ₄ × ℤ₃ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> ℤ₂₄</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> ℤ₂ × ℤ₁₂</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> ℤ₄ × ℤ₆</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> ℤ₆ × ℤ₄</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Every vector space over a field F is a free F-module. This means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Every vector space has a unique basis</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Every vector space has a basis (a set of linearly independent generators)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Every vector space is finite-dimensional</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Every vector space is trivial</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The Structure Theorem for finitely generated modules over F[x] (via operator T) gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Basis theorem only</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Jordan and Rational Canonical Forms for T</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Schur's lemma</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Dimension formula</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">A projective module P has the property:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> P is always free</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Every surjection onto P splits (P is a direct summand of any free module surjecting onto it)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> P has no submodules</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> P is always finitely generated</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">For a module homomorphism φ: M → N, the first isomorphism theorem gives:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> M ≅ N</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> M/ker φ ≅ im φ</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> M ≅ ker φ ⊕ N</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> ker φ ≅ im φ</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The primary decomposition of ℤ₁₂ as a ℤ-module (abelian group) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> ℤ₃ × ℤ₄</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> ℤ₂ × ℤ₆</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> ℤ₁₂</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> ℤ₂ × ℤ₂ × ℤ₃</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">How many non-isomorphic abelian groups of order p² (p prime) are there?</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> 1</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> 2</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> p</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> p²</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- UNIT 4 SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Unit 4 Complete Summary — Abstract Algebra</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 4 · All 6 Topics</div>
+    <div class="hero-title">Abstract Algebra Mastery</div>
+    <div class="hero-sub">Groups · Rings · Fields · Modules — the pillars of modern algebra</div>
+  </div>
+  <div class="unit-grid">
+    <a class="unit-card" href="CSIR_NET_U4_T01_Groups.html">
+      <div class="u-num">T01</div>
+      <div class="u-title">Groups: Definitions & Subgroups</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U4_T02_NormalSubgroups.html">
+      <div class="u-num">T02</div>
+      <div class="u-title">Normal Subgroups & Homomorphisms</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U4_T03_GroupActions.html">
+      <div class="u-num">T03</div>
+      <div class="u-title">Group Actions & Sylow Theorems</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U4_T04_Rings.html">
+      <div class="u-num">T04</div>
+      <div class="u-title">Rings, Ideals & Homomorphisms</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U4_T05_Fields.html">
+      <div class="u-num">T05</div>
+      <div class="u-title">Fields & Field Extensions</div>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U4_T06_Modules.html">
+      <div class="u-num">T06</div>
+      <div class="u-title">Modules & Structure Theorem</div>
+    </a>
+  </div>
+  <div class="btn-row" style="margin-top:24px">
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">← Back to Blueprint</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'a',15:'b'};
+const explain={
+  1:'Every abelian group G is a ℤ-module: the action is n·g = g+g+...+g (n times) for n>0, 0·g=0, (−n)·g=−(ng). This satisfies all module axioms.',
+  2:'Submodules of R as a left R-module over itself = subsets N closed under addition and left multiplication by R = left ideals of R.',
+  3:'A free R-module of rank n is Rⁿ = R⊕R⊕...⊕R (n copies), with basis {e₁,...,eₙ} where eᵢ has 1 in position i and 0 elsewhere.',
+  4:'For order 8=2³, partition 3 into unordered integer partitions: {3}, {2,1}, {1,1,1} → ℤ₈, ℤ₄×ℤ₂, ℤ₂×ℤ₂×ℤ₂. So 3 non-isomorphic abelian groups.',
+  5:'Structure Theorem over PID: M≅Rʳ⊕R/(a₁)⊕...⊕R/(aₖ) with a₁|a₂|...|aₖ (invariant factors) and r≥0 (free rank).',
+  6:'A vector space V with linear operator T:V→V becomes an F[x]-module by defining x·v=T(v) and extending by linearity (p(x)·v=p(T)v). The Structure Theorem then gives JCF/RCF for T.',
+  7:'Noetherian: every ASCENDING chain N₁⊆N₂⊆... of submodules stabilizes (eventually all equal). Equivalent to every submodule being finitely generated.',
+  8:'36=4·9=2²·3². Partitions of 2 (for 2²): {2},{1,1} → 2 choices. Partitions of 2 (for 3²): {2},{1,1} → 2 choices. Total: 2×2=4 non-isomorphic abelian groups of order 36.',
+  9:'ℤ₂×ℤ₄×ℤ₃: primary decomposition shows elementary divisors 2, 4, 3. To find invariant factors: 2|4 and gcd(2,3)=1. Invariant factors: 2 and lcm(4,3)=12. So ℤ₂×ℤ₄×ℤ₃≅ℤ₂×ℤ₁₂.',
+  10:'Every vector space has a basis (by axiom of choice / Zorn\'s lemma). A basis makes V a free F-module: V≅F^(dim V). Bases are not unique (but all have the same cardinality).',
+  11:'Viewing vector space V with operator T as an F[x]-module via x·v=T(v), the Structure Theorem gives V≅⊕F[x]/(fᵢ(x)) with f₁|f₂|...|fₖ — this is exactly the Rational Canonical Form. The primary decomposition gives Jordan Canonical Form.',
+  12:'P is projective if every epimorphism N→P splits (there exists a right inverse). Equivalently: P is a direct summand of every free module surjecting onto it. Free modules are projective, but not vice versa over non-PIDs.',
+  13:'First Isomorphism Theorem for modules: for φ:M→N module homomorphism, M/ker φ≅im φ.',
+  14:'12=4·3=2²·3. Primary decomposition: ℤ₁₂≅ℤ₄×ℤ₃ (since gcd(4,3)=1, ℤ₄×ℤ₃≅ℤ₁₂ by CRT). This is the primary decomposition into p-components.',
+  15:'For order p²: partitions of 2 give {2}→ℤ_{p²} and {1,1}→ℤₚ×ℤₚ. So exactly 2 non-isomorphic abelian groups of order p².'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

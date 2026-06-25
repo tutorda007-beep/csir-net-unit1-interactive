@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T03 · Compactness</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c2d12;--acc2:#c2410c;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(124,45,18,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(124,45,18,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(124,45,18,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fed7aa)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(124,45,18,.08);color:var(--acc);font-weight:600;border:1px solid rgba(124,45,18,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff7ed;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T03 · Compactness</span>
+  <span class="hdr-badge">Topology</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('defn',this)">Definitions</a>
+  <a class="nav-item" onclick="show('heine',this)">Heine-Borel Theorem</a>
+  <a class="nav-item" onclick="show('props',this)">Properties of Compact Sets</a>
+  <a class="nav-item" onclick="show('applications',this)">Applications</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T02_Completeness.html">← T02 · Completeness</a>
+  <a class="nav-item" href="CSIR_NET_U5_T04_Connectedness.html">T04 · Connectedness →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 03</div>
+    <div class="hero-title">Compactness</div>
+    <div class="hero-sub">Open covers · Heine-Borel · Sequential compactness · Continuous maps · Applications</div>
+    <div class="hero-chips">
+      <span class="chip">Open Covers</span>
+      <span class="chip">Heine-Borel</span>
+      <span class="chip">Sequential Compact</span>
+      <span class="chip">Extreme Value Thm</span>
+      <span class="chip">Uniform Continuity</span>
+      <span class="chip">Lebesgue Number</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Compactness generalizes "closed and bounded" from ℝⁿ to abstract spaces. A compact space is one where "every open cover has a finite subcover" — a finiteness condition that has powerful analytical consequences.</p>
+</div>
+
+<div class="sec" id="defn">
+  <h2>Definitions of Compactness</h2>
+  <div class="def-box">
+    <div class="lbl">Open Cover / Compact</div>
+    <p>An <strong>open cover</strong> of X is a collection {Uα} of open sets with X ⊆ ⋃Uα.</p>
+    <p>(X,d) is <strong>compact</strong> if every open cover has a <em>finite subcover</em>.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Sequential Compactness</div>
+    <p>(X,d) is <strong>sequentially compact</strong> if every sequence has a convergent subsequence.</p>
+    <p>In metric spaces: <strong>compact ⟺ sequentially compact</strong>.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Countable Compactness</div>
+    <p>Every countable open cover has a finite subcover. In metric spaces this is equivalent to compactness.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Characterization in Metric Spaces</div>
+    <p>A metric space is compact iff it is <strong>complete and totally bounded</strong>.</p>
+    <p>This gives three equivalent notions for metric spaces: compact ↔ sequentially compact ↔ complete + totally bounded.</p>
+  </div>
+</div>
+
+<div class="sec" id="heine">
+  <h2>Heine-Borel Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Heine-Borel Theorem (ℝⁿ)</div>
+    <p>A subset K ⊆ ℝⁿ is compact (in the Euclidean topology) <strong>iff</strong> K is <strong>closed and bounded</strong>.</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Fails in Infinite Dimensions</div>
+    <p>In infinite-dimensional normed spaces (e.g., ℓ², C[0,1]), closed and bounded ≠ compact. The closed unit ball of ℓ² is closed and bounded but NOT compact (the sequence of standard basis vectors eₙ has no convergent subsequence).</p>
+  </div>
+  <h3>Examples</h3>
+  <table>
+    <tr><th>Set in ℝⁿ</th><th>Compact?</th><th>Reason</th></tr>
+    <tr><td>[0,1] (ℝ)</td><td>Yes</td><td>Closed and bounded</td></tr>
+    <tr><td>(0,1) (ℝ)</td><td>No</td><td>Not closed</td></tr>
+    <tr><td>ℝ (entire line)</td><td>No</td><td>Not bounded</td></tr>
+    <tr><td>Closed unit ball in ℝⁿ</td><td>Yes</td><td>Closed and bounded</td></tr>
+    <tr><td>{1/n : n∈ℕ} in ℝ</td><td>No</td><td>Not closed (0 is limit point not in set)</td></tr>
+    <tr><td>{1/n}∪{0} in ℝ</td><td>Yes</td><td>Closed and bounded</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="props">
+  <h2>Properties of Compact Sets</h2>
+  <div class="thm-box">
+    <div class="lbl">Key Properties</div>
+    <ul>
+      <li>Every compact subset of a metric space is <strong>closed and bounded</strong>.</li>
+      <li>A closed subset of a compact space is <strong>compact</strong>.</li>
+      <li>Finite unions and arbitrary intersections of compact sets are compact.</li>
+      <li>The continuous image of a compact set is compact.</li>
+      <li>A compact metric space is <strong>separable</strong> (has a countable dense subset).</li>
+      <li>A compact metric space has the <strong>Bolzano-Weierstrass property</strong>: every infinite subset has a limit point.</li>
+    </ul>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Lebesgue Number Lemma</div>
+    <p>If {Uα} is an open cover of a compact metric space X, there exists δ>0 (Lebesgue number) such that every subset of X with diameter < δ is contained in some Uα.</p>
+  </div>
+</div>
+
+<div class="sec" id="applications">
+  <h2>Applications of Compactness</h2>
+  <div class="thm-box">
+    <div class="lbl">Extreme Value Theorem</div>
+    <p>If f: K→ℝ is continuous and K is compact, then f attains its maximum and minimum on K.</p>
+    <p>Proof: f(K) is compact in ℝ, hence closed and bounded. Therefore sup f(K) ∈ f(K).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Heine-Cantor Theorem</div>
+    <p>Every continuous function f: K→Y where K is compact is <strong>uniformly continuous</strong>.</p>
+    <p>Key step: use the Lebesgue number lemma for the cover {f⁻¹(B(y,ε/2))}.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Arzelà-Ascoli Theorem</div>
+    <p>A subset F ⊆ C[a,b] is compact (in sup norm) iff F is <strong>bounded and equicontinuous</strong>.</p>
+    <p>Equicontinuous: ∀ε>0, ∃δ>0: |x−y|<δ ⟹ |f(x)−f(y)|<ε for ALL f∈F.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Bolzano-Weierstrass Theorem (ℝⁿ)</div>
+    <p>Every bounded sequence in ℝⁿ has a convergent subsequence. This follows from compactness of closed bounded subsets of ℝⁿ.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">A topological space X is compact if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Every sequence in X converges</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Every open cover of X has a finite subcover</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> X is closed and bounded</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> X has a countable dense subset</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The Heine-Borel theorem says a subset K⊆ℝⁿ is compact iff K is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Open and bounded</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Closed and bounded</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Connected and closed</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Bounded and dense</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Which of the following subsets of ℝ is compact?</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> ℝ</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> (0,1)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> ℤ</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> [−1, 1]</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">In a metric space, compact sets are always:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Open</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Closed and bounded</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Dense</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Countable</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The continuous image of a compact set under f: X→Y is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Open in Y</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Compact in Y</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Dense in Y</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Closed only if Y=ℝ</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Extreme Value Theorem states: if f: K→ℝ is continuous and K is compact, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> f is bounded but may not attain its bounds</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> f attains both its maximum and minimum values on K</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> f is monotone</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> f is differentiable on K</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The closed unit ball in ℓ² (infinite-dimensional Hilbert space) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Compact</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Not compact (closed, bounded, but not totally bounded)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Neither closed nor bounded</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Complete but not bounded</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">A subset F ⊆ C[a,b] is compact (sup norm) iff F is bounded and:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Closed</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Equicontinuous (Arzelà-Ascoli)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Differentiable</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Dense</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Sequential compactness in metric spaces is equivalent to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Only countable compactness</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Compactness (every open cover has finite subcover)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Completeness only</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Total boundedness only</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Lebesgue number δ of an open cover {Uα} of compact X guarantees:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> The cover is finite</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Any set of diameter < δ is contained in some Uα</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Every open ball of radius δ is compact</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> X has diameter δ</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The Heine-Cantor theorem states: if K is compact and f: K→Y is continuous, then f is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Differentiable</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Uniformly continuous</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Bounded only if Y=ℝ</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Open mapping</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Which property implies a metric space is sequentially compact?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Complete + totally bounded</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Complete only</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Totally bounded only</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Bounded + separable</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">A closed subspace of a compact metric space is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Open</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Compact</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Dense</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Connected</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The Bolzano-Weierstrass theorem (every bounded sequence in ℝⁿ has a convergent subsequence) is a consequence of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> The Baire Category Theorem</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Compactness of closed bounded subsets of ℝⁿ (Heine-Borel)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> The Contraction Mapping Theorem</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> The Open Mapping Theorem</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The set {1/n : n∈ℕ} ∪ {0} ⊆ ℝ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> Not compact (not bounded)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Compact (closed and bounded in ℝ)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Not compact (not closed)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Compact only in the discrete metric</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Compact (Def)</h4><p>Every open cover has a finite subcover.</p></div>
+    <div class="sum-card"><h4>Heine-Borel</h4><p>In ℝⁿ: compact ↔ closed and bounded. Fails in infinite dim.</p></div>
+    <div class="sum-card"><h4>Metric Space</h4><p>Compact ↔ seq. compact ↔ complete + totally bounded.</p></div>
+    <div class="sum-card"><h4>EVT</h4><p>Continuous f on compact K attains max and min.</p></div>
+    <div class="sum-card"><h4>Heine-Cantor</h4><p>Compact domain ⟹ uniform continuity.</p></div>
+    <div class="sum-card"><h4>Arzelà-Ascoli</h4><p>Compact in C[a,b] ↔ bounded + equicontinuous.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U5_T02_Completeness.html">← T02: Completeness</a>
+    <a class="btn btn-acc" href="CSIR_NET_U5_T04_Connectedness.html">T04: Connectedness →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'d',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'a',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Compactness means every open cover has a finite subcover. In metric spaces this is equivalent to sequential compactness (every sequence has a convergent subsequence).',
+  2:'Heine-Borel: K⊆ℝⁿ is compact iff K is closed and bounded. This is special to ℝⁿ and fails in infinite-dimensional spaces.',
+  3:'[−1,1] is closed and bounded in ℝ, hence compact by Heine-Borel. ℝ is unbounded, (0,1) is not closed, ℤ is closed but unbounded.',
+  4:'Every compact subset K of a metric space is closed (K contains all its limit points) and bounded (K⊆B(x₀,R) for some R). Both follow from properties of convergent sequences.',
+  5:'If K is compact and f:K→Y is continuous, then f(K) is compact in Y. Proof: take any open cover of f(K), pull back to open cover of K, extract finite subcover, push forward.',
+  6:'Extreme Value Theorem: f(K) is compact in ℝ (continuous image of compact), hence closed and bounded, so sup f(K) and inf f(K) exist and are attained.',
+  7:'The closed unit ball B̄ in ℓ² is closed and bounded, but NOT compact. The sequence (eₙ) of standard basis vectors satisfies ‖eₙ−eₘ‖=√2 for m≠n, so no convergent subsequence exists. Totally bounded fails here.',
+  8:'Arzelà-Ascoli: a subset F of C[a,b] is compact (in sup norm) iff F is bounded (‖f‖∞≤M for all f∈F) AND equicontinuous (uniform equi-ε-δ).',
+  9:'In metric spaces (NOT general topological spaces), sequential compactness and compactness (every open cover has finite subcover) are equivalent.',
+  10:'Lebesgue Number Lemma: any open cover of a compact metric space X has a Lebesgue number δ>0 such that B(x,δ)⊆Uα for some α, for every x∈X.',
+  11:'Heine-Cantor: every continuous f:K→Y with K compact is uniformly continuous. The key is using the Lebesgue number of the cover {f⁻¹(B(y,ε/2))}.',
+  12:'In metric spaces: compact ↔ complete AND totally bounded. Total boundedness ensures that every sequence has a Cauchy subsequence; completeness ensures it converges.',
+  13:'A closed subset F of a compact metric space X is compact: any open cover of F, together with X\\F (open), covers X; extract finite subcover; remove X\\F to get finite cover of F.',
+  14:'Bolzano-Weierstrass in ℝⁿ: a bounded sequence lives in some box [−M,M]ⁿ, which is compact by Heine-Borel. In a compact metric space every sequence has a convergent subsequence.',
+  15:'{1/n: n∈ℕ}∪{0} is bounded (all elements in [0,1]) and closed (the only limit point of {1/n} is 0, which IS in the set). Hence compact by Heine-Borel.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

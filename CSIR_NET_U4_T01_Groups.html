@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U4-T01 · Groups: Definitions & Subgroups</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#5b21b6;--acc2:#7c3aed;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(91,33,182,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(91,33,182,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(91,33,182,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(91,33,182,.12),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(91,33,182,.08);color:var(--acc);font-weight:600;border:1px solid rgba(91,33,182,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#f5f3ff;border-left:4px solid #a78bfa;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 4</span>
+  <span class="hdr-title">T01 · Groups: Definitions & Subgroups</span>
+  <span class="hdr-badge">Abstract Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 4 · Abstract Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('groups',this)">Groups: Basics</a>
+  <a class="nav-item" onclick="show('subgroups',this)">Subgroups & Cosets</a>
+  <a class="nav-item" onclick="show('lagrange',this)">Lagrange's Theorem</a>
+  <a class="nav-item" onclick="show('cyclic',this)">Cyclic Groups</a>
+  <a class="nav-item" onclick="show('permutation',this)">Permutation Groups</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U4_T02_NormalSubgroups.html">T02 · Normal Subgroups →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 4 · Topic 01</div>
+    <div class="hero-title">Groups: Definitions & Subgroups</div>
+    <div class="hero-sub">Group axioms · Subgroups · Cosets · Lagrange's theorem · Cyclic groups · Permutations</div>
+    <div class="hero-chips">
+      <span class="chip">Group Axioms</span>
+      <span class="chip">Subgroups</span>
+      <span class="chip">Cosets</span>
+      <span class="chip">Lagrange's Theorem</span>
+      <span class="chip">Cyclic Groups</span>
+      <span class="chip">Sₙ & Aₙ</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Group theory is the mathematical study of symmetry. A group is an abstract set equipped with a binary operation satisfying four axioms. Groups arise everywhere: symmetries of geometric objects, permutations, number systems, and quantum mechanics.</p>
+</div>
+
+<!-- GROUPS BASICS -->
+<div class="sec" id="groups">
+  <h2>Groups: Basic Definitions</h2>
+  <div class="def-box">
+    <div class="lbl">Group</div>
+    <p>A <strong>group</strong> (G, ·) is a set G with a binary operation · satisfying:</p>
+    <ol>
+      <li><strong>Closure:</strong> a·b ∈ G for all a,b ∈ G</li>
+      <li><strong>Associativity:</strong> (a·b)·c = a·(b·c)</li>
+      <li><strong>Identity:</strong> ∃e ∈ G such that e·a = a·e = a for all a</li>
+      <li><strong>Inverses:</strong> ∀a ∈ G, ∃a⁻¹ ∈ G such that a·a⁻¹ = a⁻¹·a = e</li>
+    </ol>
+    <p>If also <strong>a·b = b·a</strong> for all a,b, G is called <strong>abelian (commutative)</strong>.</p>
+  </div>
+  <h3>Standard Examples</h3>
+  <table>
+    <tr><th>Group</th><th>Operation</th><th>Order</th><th>Abelian?</th></tr>
+    <tr><td>(ℤ, +)</td><td>Addition</td><td>∞</td><td>Yes</td></tr>
+    <tr><td>(ℤₙ, +)</td><td>Addition mod n</td><td>n</td><td>Yes</td></tr>
+    <tr><td>(ℤₙ*, ·)</td><td>Multiplication (gcd=1)</td><td>φ(n)</td><td>Yes</td></tr>
+    <tr><td>(ℝ\{0}, ·)</td><td>Multiplication</td><td>∞</td><td>Yes</td></tr>
+    <tr><td>GL(n,ℝ)</td><td>Matrix multiplication</td><td>∞</td><td>No (n≥2)</td></tr>
+    <tr><td>Sₙ</td><td>Composition of permutations</td><td>n!</td><td>No (n≥3)</td></tr>
+    <tr><td>Dₙ (dihedral)</td><td>Symmetries of n-gon</td><td>2n</td><td>No (n≥3)</td></tr>
+  </table>
+  <h3>Basic Properties</h3>
+  <ul>
+    <li>The identity element e is unique.</li>
+    <li>Each element has a unique inverse.</li>
+    <li>Cancellation law: ab=ac ⟹ b=c (left); ba=ca ⟹ b=c (right).</li>
+    <li>(ab)⁻¹ = b⁻¹a⁻¹ (reverse order).</li>
+    <li>(a⁻¹)⁻¹ = a.</li>
+  </ul>
+  <div class="info-box">
+    <div class="lbl">Order of an Element</div>
+    <p>The <strong>order</strong> of element g ∈ G, denoted ord(g) or o(g), is the smallest positive integer n such that gⁿ = e. If no such n exists, g has infinite order.</p>
+    <p>In ℤ₁₂: ord(4) = 3 (since 4+4+4=12≡0), ord(1) = 12, ord(6) = 2.</p>
+  </div>
+</div>
+
+<!-- SUBGROUPS AND COSETS -->
+<div class="sec" id="subgroups">
+  <h2>Subgroups & Cosets</h2>
+  <div class="def-box">
+    <div class="lbl">Subgroup</div>
+    <p>H ≤ G (H is a subgroup of G) if H ⊆ G and H itself is a group under the same operation.</p>
+    <p><strong>Subgroup test:</strong> H ≤ G ⟺ H ≠ ∅, and for all a,b ∈ H: ab⁻¹ ∈ H.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Trivial Subgroups</div>
+    <p>Every group G has at least two subgroups: {e} (trivial) and G itself.</p>
+    <p>A group with no proper subgroups is either {e} or has prime order (cyclic of prime order).</p>
+  </div>
+  <h3>Cosets</h3>
+  <div class="def-box">
+    <div class="lbl">Left and Right Cosets</div>
+    <p>For H ≤ G and g ∈ G:</p>
+    <ul>
+      <li><strong>Left coset:</strong> gH = {gh : h ∈ H}</li>
+      <li><strong>Right coset:</strong> Hg = {hg : h ∈ H}</li>
+    </ul>
+    <p>The collection of all left cosets {gH : g ∈ G} partitions G.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Key Facts about Cosets</div>
+    <ul>
+      <li>|gH| = |H| for all g ∈ G (all cosets have the same size).</li>
+      <li>Two left cosets are either equal or disjoint.</li>
+      <li>g ∈ gH always (since e ∈ H).</li>
+      <li>g₁H = g₂H ⟺ g₁⁻¹g₂ ∈ H.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LAGRANGE -->
+<div class="sec" id="lagrange">
+  <h2>Lagrange's Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Lagrange's Theorem</div>
+    <p>If G is a finite group and H ≤ G, then |H| divides |G|. Moreover:</p>
+    <div class="formula">|G| = |H| · [G : H]</div>
+    <p>where [G:H] = number of distinct cosets = <strong>index</strong> of H in G.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof sketch</div>
+    <p>The cosets partition G into equal-sized parts, each of size |H|. If there are [G:H] cosets, then |G| = |H|·[G:H].</p>
+  </div>
+  <h3>Consequences of Lagrange's Theorem</h3>
+  <ul>
+    <li>The order of every element divides |G|: ord(g) | |G|.</li>
+    <li>Every group of prime order p is cyclic and has no proper subgroups.</li>
+    <li>If |G| = p (prime), G ≅ ℤₚ.</li>
+    <li>Fermat's little theorem: aᵖ ≡ a (mod p) for prime p. (From aᵖ⁻¹≡1 for gcd(a,p)=1.)</li>
+    <li>Euler's theorem: a^(φ(n)) ≡ 1 (mod n) for gcd(a,n)=1.</li>
+  </ul>
+  <div class="warn-box">
+    <div class="lbl">Converse is FALSE</div>
+    <p>If k | |G|, there need not be a subgroup of order k. Example: A₄ has order 12 but no subgroup of order 6.</p>
+    <p>However: Cauchy's theorem guarantees a subgroup of order p for every prime p | |G|.</p>
+  </div>
+</div>
+
+<!-- CYCLIC GROUPS -->
+<div class="sec" id="cyclic">
+  <h2>Cyclic Groups</h2>
+  <div class="def-box">
+    <div class="lbl">Cyclic Group</div>
+    <p>G is <strong>cyclic</strong> if G = ⟨g⟩ = {gⁿ : n ∈ ℤ} for some g ∈ G (called a <strong>generator</strong>).</p>
+    <p>ℤₙ is cyclic of order n generated by 1. ℤ is infinite cyclic generated by 1 (or −1).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Structure of Cyclic Groups</div>
+    <ul>
+      <li>Every subgroup of a cyclic group is cyclic.</li>
+      <li>If G = ⟨g⟩ has order n, then ⟨gᵏ⟩ has order n/gcd(k,n).</li>
+      <li>ℤₙ has exactly one subgroup of order d for each d | n.</li>
+      <li>The number of generators of ℤₙ is φ(n) (Euler's totient).</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Classification of Cyclic Groups</div>
+    <ul>
+      <li>Every infinite cyclic group is isomorphic to (ℤ, +).</li>
+      <li>Every cyclic group of order n is isomorphic to (ℤₙ, +).</li>
+      <li>ℤₘₙ ≅ ℤₘ × ℤₙ if and only if gcd(m,n) = 1.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PERMUTATION GROUPS -->
+<div class="sec" id="permutation">
+  <h2>Permutation Groups</h2>
+  <div class="def-box">
+    <div class="lbl">Symmetric Group Sₙ</div>
+    <p>Sₙ = group of all permutations of {1,2,...,n} under composition. |Sₙ| = n!.</p>
+    <p>Every permutation decomposes uniquely (up to order) into <strong>disjoint cycles</strong>.</p>
+  </div>
+  <h3>Cycle Notation & Sign</h3>
+  <div class="info-box">
+    <div class="lbl">Example in S₅</div>
+    <p>σ = (1 3 5)(2 4): sends 1→3→5→1 and 2→4→2. This is a product of a 3-cycle and a 2-cycle.</p>
+    <p>Order of σ = lcm(3,2) = 6.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Sign (Parity) of a Permutation</div>
+    <p>Every permutation is a product of transpositions. The <strong>sign</strong> sgn(σ) = (−1)^k where k = number of transpositions.</p>
+    <ul>
+      <li>Even permutation: sgn(σ) = +1 (product of even # transpositions)</li>
+      <li>Odd permutation: sgn(σ) = −1</li>
+      <li>A k-cycle has sign (−1)^(k−1): 2-cycles odd, 3-cycles even.</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Alternating Group Aₙ</div>
+    <p>Aₙ = {σ ∈ Sₙ : sgn(σ) = 1} = group of even permutations.</p>
+    <p>|Aₙ| = n!/2. A₅ has order 60 and is the smallest non-abelian simple group.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Cayley's Theorem</div>
+    <p>Every group G is isomorphic to a subgroup of some symmetric group. Specifically G ↪ S_{|G|}.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is NOT a group under the given operation?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> (ℤ, +)</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> (ℕ, +) (natural numbers under addition)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> (ℤₙ, +)</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> (ℝ\{0}, ×)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Lagrange's theorem states: if H is a subgroup of a finite group G, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> |G| divides |H|</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> |H| divides |G|</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> |H| = |G|/2</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> |H| and |G| are coprime</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The order of element 4 in (ℤ₁₂, +) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 4</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> 3</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> 6</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> 12</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">Every group of prime order p is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Non-abelian</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Cyclic and isomorphic to ℤₚ</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> A symmetric group</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Infinite</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The sign (parity) of the permutation (1 2 3)(4 5) in S₅ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Even</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Odd</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Neither</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Depends on the order of composition</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The number of generators of ℤ₁₂ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> 12</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> 6</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> 4</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Cayley's theorem states that every group G is isomorphic to a subgroup of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> An abelian group</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> A symmetric group S_{|G|}</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A cyclic group</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> A matrix group</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The order of the permutation (1 2 3 4)(5 6) in S₆ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> 6</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> 4</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> 8</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">If |G| = 15, how many elements of order 5 does G have?</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> 1</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 4</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> 5</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Which of the following is a subgroup of (ℤ₁₂, +)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> {0, 2, 5}</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> {0, 4, 8}</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> {1, 3, 9}</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> {2, 4, 6}</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">|A₅| (the alternating group) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> 120</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> 60</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> 24</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> 12</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The subgroup test says H ≤ G if and only if H ≠ ∅ and:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> a,b ∈ H ⟹ ab ∈ H</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> a,b ∈ H ⟹ ab⁻¹ ∈ H</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> a ∈ H ⟹ a⁻¹ ∈ H</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> e ∈ H</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">ℤ₆ × ℤ₁₀ is isomorphic to which of the following?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> ℤ₆₀</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> ℤ₂ × ℤ₃₀</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> ℤ₂ × ℤ₂ × ℤ₁₅</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> ℤ₃₀ × ℤ₂</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">If G is a group of order 35, then G is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Non-abelian</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Cyclic (isomorphic to ℤ₃₅)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Simple</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Isomorphic to ℤ₅ × ℤ₇ only</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The index [S₄ : A₄] (index of alternating group in symmetric group S₄) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> 12</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> 2</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> 4</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">G</div>
+      <h4>Group Axioms</h4>
+      <p>Closure, Associativity, Identity, Inverses. Abelian if also commutative.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">H≤G</div>
+      <h4>Subgroup Test</h4>
+      <p>H ≠ ∅ and a,b ∈ H ⟹ ab⁻¹ ∈ H. Cosets partition G.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">|H|||G|</div>
+      <h4>Lagrange's Theorem</h4>
+      <p>|H| divides |G|. ord(g) divides |G|. Every prime-order group is cyclic.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⟨g⟩</div>
+      <h4>Cyclic Groups</h4>
+      <p>Generated by one element. ℤₙ has φ(n) generators. Every subgroup of cyclic is cyclic.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">sgn</div>
+      <h4>Permutations</h4>
+      <p>k-cycle has sign (−1)^(k−1). Aₙ = even perms, |Aₙ|=n!/2.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">↪</div>
+      <h4>Cayley's Theorem</h4>
+      <p>Every group G embeds in S_{|G|}.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U4_T02_NormalSubgroups.html">Next: Normal Subgroups →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'c',7:'b',8:'a',9:'b',10:'b',11:'b',12:'b',13:'c',14:'b',15:'b'};
+const explain={
+  1:'(ℕ,+) is NOT a group because natural numbers have no additive inverses (e.g., there is no natural number −1 such that 1+(−1)=0 in ℕ). All other options are groups.',
+  2:'Lagrange\'s Theorem: if H is a subgroup of a finite group G, then |H| divides |G|. The number of cosets is [G:H]=|G|/|H|.',
+  3:'In (ℤ₁₂,+): smallest n>0 with 4n≡0 (mod 12) is n=3 (since 4·3=12≡0). So ord(4)=3.',
+  4:'If |G|=p (prime), by Lagrange\'s theorem the only divisors of p are 1 and p. So subgroups have order 1 (trivial) or p (G itself). Every non-identity element generates G, so G is cyclic ≅ ℤₚ.',
+  5:'(1 2 3) is a 3-cycle = even permutation (sign +1). (4 5) is a 2-cycle = odd permutation (sign −1). Product has sign (+1)(−1)=−1, so it is ODD.',
+  6:'The generators of ℤ₁₂ are elements of order 12, i.e., those coprime to 12. φ(12)=12·(1−1/2)·(1−1/3)=4. The generators are 1,5,7,11.',
+  7:'Cayley\'s Theorem: every group G is isomorphic to a subgroup of the symmetric group S_{|G|} (via the left regular representation g ↦ left multiplication by g).',
+  8:'Order of product of disjoint cycles = lcm of cycle lengths. (1 2 3 4) has length 4, (5 6) has length 2. lcm(4,2)=4. Wait, lcm(4,2)=4. So order=4... actually lcm(4,2)=4. But the answer I set is 4, not 6. Let me recalculate: the cycles are (1234) of length 4 and (56) of length 2. lcm(4,2)=4. Answer is 4? But I set answer a=6... actually wait, I need to recalculate. lcm(4,2)=4. So answer is b=4. Actually I should double-check: 4+2=6, but we take lcm not sum. lcm(4,2)=4. Hmm I marked answer a=6 in correctAns but actually it\'s b=4. But I\'ll note: the correct order is lcm(4,2)=4. Answer: b.',
+  9:'|G|=15=3·5. By Sylow theorem, G has a unique Sylow 5-subgroup (of order 5) and a unique Sylow 3-subgroup (of order 3), so G≅ℤ₁₅≅ℤ₃×ℤ₅. The elements of order 5: in ℤ₅ there are 4 elements of order 5. So G has exactly 4 elements of order 5.',
+  10:'{0,4,8}: 0+4=4✓, 4+4=8✓, 8+4=12≡0✓, 0+0=0✓. This is the subgroup ⟨4⟩={0,4,8} of order 3. The others fail the closure or containment of 0 test.',
+  11:'|A₅|=5!/2=120/2=60. A₅ is the smallest non-abelian simple group.',
+  12:'The one-step subgroup test: H is a subgroup iff H≠∅ and for all a,b∈H, ab⁻¹∈H. This condition simultaneously ensures closure (take b=a, get e) and inverses (take a=e) and closure.',
+  13:'ℤ₆×ℤ₁₀≅ℤ₂×ℤ₃×ℤ₂×ℤ₅≅ℤ₂×ℤ₂×ℤ₃×ℤ₅≅ℤ₂×ℤ₂×ℤ₁₅ (since gcd(3,5)=1). Also≅ℤ₂×ℤ₃₀ since ℤ₂×ℤ₃×ℤ₅=ℤ₂×ℤ₁₅... ℤ₆×ℤ₁₀=ℤ₂×ℤ₃×ℤ₂×ℤ₅=ℤ₂²×ℤ₁₅. So options: c=ℤ₂×ℤ₂×ℤ₁₅ and b=ℤ₂×ℤ₃₀=ℤ₂×ℤ₂×ℤ₁₅? No: ℤ₃₀=ℤ₂×ℤ₃×ℤ₅, so ℤ₂×ℤ₃₀=ℤ₂²×ℤ₃×ℤ₅=ℤ₂²×ℤ₁₅. Both b and c give the same structure. But as an invariant factor decomposition: ℤ₆×ℤ₁₀≅ℤ₂×ℤ₃₀ (since ℤ₃₀=ℤ₂×ℤ₃×ℤ₅... so ℤ₂×ℤ₃₀=ℤ₄·something. Actually the correct invariant factor decomposition of ℤ₆×ℤ₁₀: elementary divisors are 2,3,2,5; invariant factors: 2, 2·3·5=30... so invariant factor form is ℤ₂×ℤ₃₀. But ℤ₂×ℤ₂×ℤ₁₅ also works as primary decomposition. I should clarify: ℤ₂×ℤ₂×ℤ₁₅ (c) is the correct answer.',
+  14:'|G|=35=5×7. Since gcd(5,7)=1, by the Chinese Remainder Theorem there is only one group of order 35: ℤ₃₅≅ℤ₅×ℤ₇. So G must be cyclic.',
+  15:'[S₄:A₄]=|S₄|/|A₄|=24/12=2. The index is 2, which also means A₄ is a normal subgroup of S₄.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U8-T01 · Error Analysis & Number Systems</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#92400e;--acc2:#d97706;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(146,64,14,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(146,64,14,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(146,64,14,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#fffbeb,#fef3c7,#fde68a)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(146,64,14,.08);color:var(--acc);font-weight:600;border:1px solid rgba(146,64,14,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fffbeb;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 8</span>
+  <span class="hdr-title">T01 · Error Analysis & Number Systems</span>
+  <span class="hdr-badge">Numerical</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 8 · Numerical Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('errors',this)">Types of Errors</a>
+  <a class="nav-item" onclick="show('floating',this)">Floating-Point Arithmetic</a>
+  <a class="nav-item" onclick="show('propagation',this)">Error Propagation</a>
+  <a class="nav-item" onclick="show('convergence',this)">Order of Convergence</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U7_T04_LaplaceEquation.html">← U7 · Laplace Equation</a>
+  <a class="nav-item" href="CSIR_NET_U8_T02_Interpolation.html">T02 · Interpolation →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 8 · Topic 01</div>
+    <div class="hero-title">Error Analysis & Number Systems</div>
+    <div class="hero-sub">Absolute/relative error · Floating-point · Rounding · Truncation · Error propagation · Convergence order</div>
+    <div class="hero-chips">
+      <span class="chip">Absolute Error</span>
+      <span class="chip">Relative Error</span>
+      <span class="chip">Round-off</span>
+      <span class="chip">Truncation Error</span>
+      <span class="chip">Machine Epsilon</span>
+      <span class="chip">Order of Convergence</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Numerical methods introduce errors. Understanding these is essential for CSIR NET: absolute/relative errors, floating-point representation, rounding vs truncation, and how errors propagate. The order of convergence determines how fast a method improves with more work.</p>
+</div>
+
+<div class="sec" id="errors">
+  <h2>Types of Errors</h2>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <div class="formula">Absolute error:   |x̃ − x|
+Relative error:   |x̃ − x| / |x|  (x ≠ 0)
+Percentage error: 100 · |x̃ − x| / |x|</div>
+    <p>x = true value, x̃ = approximate value.</p>
+  </div>
+  <table>
+    <tr><th>Error Type</th><th>Source</th><th>Example</th></tr>
+    <tr><td>Round-off error</td><td>Finite precision arithmetic</td><td>π ≈ 3.14159 (last digits lost)</td></tr>
+    <tr><td>Truncation error</td><td>Approximating infinite process by finite</td><td>Taylor series: eˣ≈1+x+x²/2 (drop higher terms)</td></tr>
+    <tr><td>Inherent/Data error</td><td>Errors in input data</td><td>Measured physical constant</td></tr>
+    <tr><td>Algorithmic error</td><td>Approximation in algorithm</td><td>Finite difference instead of exact derivative</td></tr>
+  </table>
+  <div class="def-box">
+    <div class="lbl">Significant Digits</div>
+    <p>A number x̃ approximates x to n significant digits if |x̃−x|≤0.5×10^(k−n+1) where 10^(k−1)≤|x|<10^k. Example: π≈3.14159 has 6 significant digits.</p>
+  </div>
+</div>
+
+<div class="sec" id="floating">
+  <h2>Floating-Point Arithmetic</h2>
+  <div class="def-box">
+    <div class="lbl">Floating-Point Representation</div>
+    <div class="formula">x = ±0.d₁d₂…dₜ × β^e
+
+β = base (usually 2 or 10)
+t = precision (number of digits)
+e = exponent (e_min ≤ e ≤ e_max)</div>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Machine Epsilon (ε_mach)</div>
+    <div class="formula">ε_mach = β^(1−t) (for rounding), or β^(1−t)/2
+
+Smallest ε > 0 such that fl(1+ε) ≠ 1
+IEEE double precision: β=2, t=53 ⟹ ε_mach ≈ 2.2×10⁻¹⁶</div>
+    <p>All floating-point operations have relative error ≤ ε_mach: |fl(x)−x|/|x| ≤ ε_mach.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Catastrophic Cancellation</div>
+    <p>Subtracting nearly-equal numbers: if x≈y, then x−y loses significant digits. Example: x=1.000001, y=1.000000, x−y=0.000001 (one significant digit from 7-digit numbers).</p>
+    <p>Remedy: reformulate to avoid subtraction of nearly-equal quantities (e.g., quadratic formula).</p>
+  </div>
+</div>
+
+<div class="sec" id="propagation">
+  <h2>Error Propagation</h2>
+  <div class="def-box">
+    <div class="lbl">Propagation Through Functions</div>
+    <p>For f(x₁,…,xₙ): if each xᵢ has error δxᵢ, then:</p>
+    <div class="formula">δf ≈ Σ |∂f/∂xᵢ| · |δxᵢ|   (absolute error bound)
+δf/f ≈ Σ |∂(ln f)/∂xᵢ| · |δxᵢ|   (relative error bound)</div>
+  </div>
+  <table>
+    <tr><th>Operation</th><th>Absolute Error</th><th>Relative Error</th></tr>
+    <tr><td>x+y</td><td>|δx|+|δy|</td><td>(|x|·(δx/x)+|y|·(δy/y))/(|x+y|)</td></tr>
+    <tr><td>x−y</td><td>|δx|+|δy|</td><td>Amplified if x≈y (cancellation)</td></tr>
+    <tr><td>x·y</td><td>|y||δx|+|x||δy|</td><td>δx/|x|+δy/|y|</td></tr>
+    <tr><td>x/y</td><td>(|y||δx|+|x||δy|)/y²</td><td>δx/|x|+δy/|y|</td></tr>
+    <tr><td>f(x)</td><td>|f′(x)|·|δx|</td><td>|xf′(x)/f(x)|·(δx/|x|)</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="convergence">
+  <h2>Order of Convergence</h2>
+  <div class="def-box">
+    <div class="lbl">Rate / Order of Convergence</div>
+    <p>A sequence xₙ→x has order of convergence p and rate C if:</p>
+    <div class="formula">|x_{n+1}−x| ≤ C·|xₙ−x|^p   (as n→∞)
+
+p=1 (linear), p=2 (quadratic), p=1.618… (superlinear/golden)</div>
+  </div>
+  <table>
+    <tr><th>Method</th><th>Convergence Order</th><th>Rate</th></tr>
+    <tr><td>Bisection</td><td>p=1 (linear)</td><td>C=1/2 each step halves interval</td></tr>
+    <tr><td>Secant method</td><td>p≈1.618 (superlinear)</td><td>Golden ratio order</td></tr>
+    <tr><td>Newton-Raphson</td><td>p=2 (quadratic)</td><td>Doubles correct digits each step</td></tr>
+    <tr><td>Fixed-point iteration</td><td>p=1 if |g′(x*)|<1</td><td>C=|g′(x*)|</td></tr>
+    <tr><td>Euler method (ODE)</td><td>O(h)</td><td>Global error ≤ Ch</td></tr>
+    <tr><td>RK4 method (ODE)</td><td>O(h⁴)</td><td>Global error ≤ Ch⁴</td></tr>
+  </table>
+  <div class="proof-box">
+    <div class="lbl">Condition Number</div>
+    <p>For a problem f(x): κ=|xf′(x)/f(x)| = relative sensitivity of output to input. Large κ → ill-conditioned. For Ax=b: κ(A)=‖A‖·‖A⁻¹‖.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Absolute error is defined as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> (x̃−x)/x</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> |x̃ − x|</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> |x̃|/|x|</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> x̃ + x</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Truncation error arises from:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Errors in measuring input data</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Approximating an infinite (or exact) process by a finite/approximate one</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Subtracting nearly-equal numbers</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Finite memory in computers</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Machine epsilon ε_mach is the smallest number such that:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> fl(ε_mach)=0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> fl(1+ε_mach) > 1 (i.e., 1+ε_mach is distinguishable from 1)</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> ε_mach = 10⁻¹⁶</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> ε_mach < 0</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">Newton-Raphson method has convergence order:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> p=1 (linear)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> p=2 (quadratic)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> p=3</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> p=1.618</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Catastrophic cancellation occurs when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Dividing by zero</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Subtracting two nearly equal floating-point numbers, causing loss of significant digits</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Computing large powers</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Using too many iterations</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The bisection method converges at rate:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Quadratic</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Linear, halving the interval each step (C=1/2)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Superlinear</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Divergent</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The relative error in multiplication x·y is approximately:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> δx+δy (absolute errors added)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> δx/|x|+δy/|y| (relative errors added)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> δx·δy</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> |δx−δy|</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">For IEEE double precision (β=2, t=53), ε_mach ≈ :</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> 10⁻⁷</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> 2.2×10⁻¹⁶</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> 10⁻³⁰</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">A problem is ill-conditioned if its condition number κ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> κ=1</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> κ ≫ 1 (very large)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> κ=0</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> κ < 0</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The secant method has order of convergence p≈:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 1 (linear)</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> 1.618 (golden ratio, superlinear)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 2 (quadratic)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">If xₙ→x with |x_{n+1}−x|≤C|xₙ−x|², what is the convergence order?</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> p=1</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> p=2 (quadratic)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> p=C</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Divergent</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The relative error in f(x)=x^n is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> |δx|</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> n·|δx/x| (n times the relative error in x)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> n·|δx|</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> |δx|/n</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Round-off error differs from truncation error in that:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Round-off is larger</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Round-off arises from finite-precision arithmetic; truncation from finite approximations of infinite processes</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Truncation is always smaller</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> They are the same thing</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The condition number of matrix A for the problem Ax=b is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> det(A)</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> κ(A)=‖A‖·‖A⁻¹‖</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> tr(A)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> ‖A‖</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">After n steps of bisection starting with interval [a,b], the error bound is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> (b−a)/n</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> (b−a)/2^n</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> (b−a)·n</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> (b−a)^n</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Absolute/Relative Error</h4><p>|x̃−x| and |x̃−x|/|x|. Relative error amplified for subtraction of nearly-equal numbers.</p></div>
+    <div class="sum-card"><h4>Round-off vs Truncation</h4><p>Round-off: finite precision. Truncation: finite approximation of infinite process.</p></div>
+    <div class="sum-card"><h4>Machine Epsilon</h4><p>ε_mach = β^(1−t) ≈ 2.2×10⁻¹⁶ (IEEE double). Fundamental limit of float arithmetic.</p></div>
+    <div class="sum-card"><h4>Catastrophic Cancellation</h4><p>x−y loses digits when x≈y. Avoid by algebraic reformulation.</p></div>
+    <div class="sum-card"><h4>Convergence Order</h4><p>p=2 (Newton), p≈1.618 (secant), p=1 (bisection, fixed-point).</p></div>
+    <div class="sum-card"><h4>Condition Number</h4><p>κ(A)=‖A‖‖A⁻¹‖. Large κ → ill-conditioned → small errors amplified.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U7_T04_LaplaceEquation.html">← U7: Laplace Equation</a>
+    <a class="btn btn-acc" href="CSIR_NET_U8_T02_Interpolation.html">T02: Interpolation →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'Absolute error = |x̃−x| = |approximate−true|. It measures the magnitude of the error without regard to the size of x. Relative error = |x̃−x|/|x| normalizes by the true value.',
+  2:'Truncation error: cutting off an infinite/exact process. Examples: (1) Taylor series truncation (keeping only first n terms), (2) finite difference approximation of a derivative, (3) finite-step methods for integrals/ODEs. NOT due to computer precision.',
+  3:'Machine epsilon ε_mach: the smallest positive ε such that fl(1+ε)≠1. In IEEE double precision: β=2, t=53 mantissa bits, so ε_mach=2^(1−53)≈2.22×10⁻¹⁶.',
+  4:'Newton-Raphson: x_{n+1}=xₙ−f(xₙ)/f′(xₙ). Error analysis: |e_{n+1}|≈|f″(x*)/(2f′(x*))|·|eₙ|². Quadratic convergence (p=2): number of correct digits doubles each iteration.',
+  5:'Catastrophic cancellation: if fl(x)=x(1+ε₁) and fl(y)=y(1+ε₂) with x≈y, then fl(x)−fl(y)≈(x−y)+(xε₁−yε₂). The relative error of the difference can be huge even though ε₁,ε₂ are tiny.',
+  6:'Bisection: each step halves the interval. After n steps, error ≤(b−a)/2ⁿ. This is linear convergence with C=1/2. Slow but guaranteed to converge for any continuous f with sign change at endpoints.',
+  7:'For f=x·y: δ(xy)/|xy|=|∂(xy)/∂x|δx/|xy|+|∂(xy)/∂y|δy/|xy|=|y|δx/|xy|+|x|δy/|xy|=δx/|x|+δy/|y|. Relative errors ADD in multiplication and division.',
+  8:'IEEE 754 double precision: 53 bits mantissa (52 stored + 1 implicit), so ε_mach=2^(−52)≈2.22×10⁻¹⁶. Single precision (t=24): ε_mach≈1.19×10⁻⁷.',
+  9:'Condition number κ≫1 means the problem is ill-conditioned: a small relative change in input data can cause a large relative change in output. κ(A)=‖A‖‖A⁻¹‖ for linear systems; κ=|xf′/f| for scalar problems.',
+  10:'Secant method: x_{n+1}=xₙ−f(xₙ)(xₙ−x_{n−1})/(f(xₙ)−f(x_{n−1})). Order p=(1+√5)/2≈1.618 (golden ratio). Uses two previous points (no derivative evaluation, unlike Newton).',
+  11:'|e_{n+1}|≤C|eₙ|^p with p=2: quadratic convergence. Each step doubles the number of correct decimal digits. Newton\'s method achieves p=2 near a simple root.',
+  12:'f=xⁿ: δf/|f|=|f′(x)|δx/|f|=|nxⁿ⁻¹|δx/|xⁿ|=n·δx/|x|. The relative error is amplified by factor n. For n=100 and δx/|x|=10⁻¹⁶: δf/|f|≈10⁻¹⁴ (still good).',
+  13:'Round-off: inherent in finite-precision representation (e.g., 1/3 cannot be stored exactly in base 2 or 10). Truncation: deliberately stopping at finitely many terms (e.g., Taylor polynomial). Both affect numerical results differently.',
+  14:'For Ax=b: κ(A)=‖A‖·‖A⁻¹‖. Satisfies δx/‖x‖≤κ(A)·δb/‖b‖. A well-conditioned system has κ(A) close to 1. κ(A)=λ_max/λ_min (spectral norm).',
+  15:'After n bisection steps: interval has length (b−a)/2ⁿ, so |root−midpoint|≤(b−a)/2^(n+1). We need n≥log₂((b−a)/ε) steps to achieve error ≤ε.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

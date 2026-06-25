@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T07 · Systems of Equations & Determinants</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0f766e;--acc2:#14b8a6;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(15,118,110,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(15,118,110,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(15,118,110,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f0fdfa,#ccfbf1,#99f6e4)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(15,118,110,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(15,118,110,.08);color:var(--acc);font-weight:600;border:1px solid rgba(15,118,110,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0f766e;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T07 · Systems of Equations & Determinants</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('det',this)">Determinants</a>
+  <a class="nav-item" onclick="show('prop',this)">Properties of Determinants</a>
+  <a class="nav-item" onclick="show('sys',this)">Linear Systems</a>
+  <a class="nav-item" onclick="show('rk',this)">Rank & Rouché-Capelli</a>
+  <a class="nav-item" onclick="show('cramer',this)">Cramer's Rule & Inverse</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 2 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U2_T06_JordanForm.html">T06 · Jordan Form</a>
+  <a class="nav-item" href="CSIR_NET_U2_T08_Spectral.html">T08 · Spectral Applications</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 07</div>
+    <div class="hero-title">Systems of Linear Equations & Determinants</div>
+    <div class="hero-sub">Gaussian elimination · Rank · Rouché-Capelli theorem · Cramer's rule</div>
+    <div class="hero-chips">
+      <span class="chip">Determinant</span>
+      <span class="chip">Row Reduction</span>
+      <span class="chip">Rank</span>
+      <span class="chip">Nullity</span>
+      <span class="chip">Rouché-Capelli</span>
+      <span class="chip">Cramer's Rule</span>
+      <span class="chip">Adjugate/Inverse</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The theory of linear systems Ax=b is completely governed by the rank of the coefficient matrix A and the augmented matrix [A|b]. Determinants provide a powerful computational and theoretical tool for characterizing invertibility and solving small systems.</p>
+</div>
+
+<!-- DETERMINANTS -->
+<div class="sec" id="det">
+  <h2>Determinants</h2>
+  <div class="def-box">
+    <div class="lbl">Definition (Leibniz Formula)</div>
+    <p>For an n×n matrix A, the determinant is:</p>
+    <div class="formula">det(A) = Σ_{σ∈Sₙ} sgn(σ) · a_{1,σ(1)} · a_{2,σ(2)} · ... · a_{n,σ(n)}</div>
+    <p>where the sum runs over all permutations σ of {1,...,n} and sgn(σ) = ±1 (sign of permutation).</p>
+  </div>
+  <h3>Cofactor Expansion</h3>
+  <div class="def-box">
+    <div class="lbl">Expansion along Row i (Laplace Expansion)</div>
+    <div class="formula">det(A) = Σⱼ aᵢⱼ · Cᵢⱼ  where Cᵢⱼ = (−1)^(i+j) Mᵢⱼ</div>
+    <p>Mᵢⱼ = minor (det of matrix with row i and col j removed). Cᵢⱼ = cofactor.</p>
+  </div>
+  <h3>2×2 and 3×3 Determinants</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>2×2</h4>
+      <div class="formula">det([[a,b],[c,d]]) = ad − bc</div>
+    </div>
+    <div class="card">
+      <h4>3×3 (Sarrus' Rule)</h4>
+      <div class="formula">det(A) = a(ei−fh) − b(di−fg) + c(dh−eg)</div>
+      <p>for A = [[a,b,c],[d,e,f],[g,h,i]].</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTIES -->
+<div class="sec" id="prop">
+  <h2>Properties of Determinants</h2>
+  <div class="thm-box">
+    <div class="lbl">Fundamental Properties</div>
+    <ol>
+      <li><strong>Multilinear:</strong> Linear in each row (or column) separately</li>
+      <li><strong>Alternating:</strong> det changes sign when two rows are swapped</li>
+      <li><strong>Normalization:</strong> det(I) = 1</li>
+      <li><strong>Row of zeros:</strong> det = 0 if A has a zero row</li>
+      <li><strong>Proportional rows:</strong> det = 0 if two rows are proportional</li>
+      <li><strong>Row operation:</strong> Adding multiple of one row to another leaves det unchanged</li>
+      <li><strong>Scalar factor:</strong> det(αA) = αⁿ det(A) for n×n matrix A</li>
+    </ol>
+  </div>
+  <table>
+    <tr><th>Property</th><th>Formula</th></tr>
+    <tr><td>Product rule</td><td>det(AB) = det(A)·det(B)</td></tr>
+    <tr><td>Transpose</td><td>det(Aᵀ) = det(A)</td></tr>
+    <tr><td>Inverse</td><td>det(A⁻¹) = 1/det(A)</td></tr>
+    <tr><td>Singular</td><td>A singular iff det(A) = 0</td></tr>
+    <tr><td>Eigenvalues</td><td>det(A) = λ₁·λ₂·...·λₙ (product of all eigenvalues)</td></tr>
+    <tr><td>Block triangular</td><td>det([[A,B],[0,C]]) = det(A)·det(C)</td></tr>
+    <tr><td>Trace-det (2×2)</td><td>λ²−tr(A)λ+det(A)=0 (characteristic eq.)</td></tr>
+  </table>
+</div>
+
+<!-- LINEAR SYSTEMS -->
+<div class="sec" id="sys">
+  <h2>Linear Systems Ax = b</h2>
+  <div class="def-box">
+    <div class="lbl">Types of Solutions</div>
+    <ul>
+      <li><strong>Unique solution:</strong> rank(A) = rank([A|b]) = n (number of unknowns)</li>
+      <li><strong>Infinitely many solutions:</strong> rank(A) = rank([A|b]) &lt; n</li>
+      <li><strong>No solution (inconsistent):</strong> rank(A) &lt; rank([A|b])</li>
+    </ul>
+  </div>
+  <h3>Gaussian Elimination</h3>
+  <div class="info-box">
+    <div class="lbl">Row Reduction to REF/RREF</div>
+    <p>Perform <strong>elementary row operations</strong> on the augmented matrix [A|b]:</p>
+    <ol>
+      <li><strong>R_i ↔ R_j:</strong> Swap two rows (det changes sign)</li>
+      <li><strong>R_i ← α·R_i:</strong> Scale a row by α≠0 (det multiplied by α)</li>
+      <li><strong>R_i ← R_i + α·R_j:</strong> Add multiple of one row to another (det unchanged)</li>
+    </ol>
+    <p>Reduce to <strong>Row Echelon Form (REF)</strong>: zeros below each pivot. Then back-substitute. <strong>RREF</strong> (reduced REF): additionally, each pivot = 1 and zeros above as well.</p>
+  </div>
+  <h3>Homogeneous Systems</h3>
+  <div class="thm-box">
+    <div class="lbl">Ax = 0 (Homogeneous)</div>
+    <p>Always has the trivial solution x=0. Has non-trivial solutions iff rank(A) &lt; n iff det(A)=0 (square matrix case). The solution set (null space) has dimension n−rank(A) = nullity(A).</p>
+  </div>
+</div>
+
+<!-- ROUCHE-CAPELLI -->
+<div class="sec" id="rk">
+  <h2>Rank & Rouché-Capelli Theorem</h2>
+  <div class="def-box">
+    <div class="lbl">Rank of a Matrix</div>
+    <p><strong>rank(A)</strong> = number of pivots in REF = dimension of column space = dimension of row space. By rank-nullity: rank(A) + nullity(A) = n (number of columns).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Rouché-Capelli (Kronecker-Capelli) Theorem</div>
+    <p>The system Ax=b (m equations, n unknowns) is consistent iff:</p>
+    <div class="formula">rank(A) = rank([A|b])</div>
+    <p>When consistent, the number of free variables = n − rank(A), and the solution space is an affine subspace of dimension n − rank(A).</p>
+  </div>
+  <table>
+    <tr><th>rank(A)</th><th>rank([A|b])</th><th>Solutions</th></tr>
+    <tr><td>r</td><td>r</td><td>∞^(n−r) solutions (n−r free variables)</td></tr>
+    <tr><td>r</td><td>r+1 (> r)</td><td>No solution (inconsistent)</td></tr>
+    <tr><td>r = n</td><td>r = n</td><td>Unique solution</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Example</div>
+    <p>3×3 system Ax=b with rank(A)=2, rank([A|b])=2, n=3: consistent with n−r=1 free variable → infinitely many solutions (a line in ℝ³).</p>
+  </div>
+</div>
+
+<!-- CRAMER'S RULE & INVERSE -->
+<div class="sec" id="cramer">
+  <h2>Cramer's Rule & Matrix Inverse</h2>
+  <div class="thm-box">
+    <div class="lbl">Cramer's Rule</div>
+    <p>If A is n×n with det(A) ≠ 0, the unique solution to Ax=b is:</p>
+    <div class="formula">xⱼ = det(Aⱼ)/det(A)</div>
+    <p>where Aⱼ is A with the j-th column replaced by b. Useful for theoretical purposes; inefficient for large n.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Inverse via Adjugate</div>
+    <div class="formula">A⁻¹ = (1/det(A)) · adj(A)</div>
+    <p>where adj(A) = [Cⱼᵢ] is the <strong>adjugate (classical adjoint)</strong> = transpose of the cofactor matrix.</p>
+    <p>2×2: A⁻¹ = (1/(ad−bc))·[[d,−b],[−c,a]]</p>
+  </div>
+  <h3>Additional Determinant Applications</h3>
+  <table>
+    <tr><th>Application</th><th>Formula</th></tr>
+    <tr><td>Area of parallelogram (ℝ²)</td><td>|det([u,v])| where u,v are column vectors</td></tr>
+    <tr><td>Volume of parallelepiped (ℝ³)</td><td>|det([u,v,w])|</td></tr>
+    <tr><td>Jacobian (change of variables)</td><td>∫∫ f(x,y) dx dy = ∫∫ f(x(u,v),y(u,v)) |∂(x,y)/∂(u,v)| du dv</td></tr>
+    <tr><td>Characteristic polynomial</td><td>p_A(λ) = det(A−λI)</td></tr>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">det([[3,1],[2,4]]) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> 8</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 10</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> 14</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> 12</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">If A is a 3×3 matrix with det(A)=5, what is det(2A)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> 10</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> 25</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 40</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> 15</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The system Ax=b (3 equations, 4 unknowns) has rank(A)=rank([A|b])=3. It has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> No solution</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Unique solution</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> Infinitely many solutions (1 free variable)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Infinitely many solutions (3 free variables)</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">Adding a multiple of one row to another row changes the determinant by:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Multiplying it by the multiple</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Changing its sign</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> No change (determinant unchanged)</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Adding the multiple to the determinant</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The system Ax=b has rank(A)=2 and rank([A|b])=3 (A is 3×3). This means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Unique solution</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Infinitely many solutions</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> No solution</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Two solutions</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">det(AB) for square matrices A,B equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> det(A) + det(B)</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> det(A) · det(B)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> det(A) − det(B)</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> det(B) · det(A⁻¹)</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">For a 4×4 matrix A with all eigenvalues λ₁=1, λ₂=2, λ₃=3, λ₄=4, what is det(A)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> 10 (sum of eigenvalues)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> 24 (product of eigenvalues)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> 16 (product of squares)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">Cramer's rule is applicable when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> The system is underdetermined</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> The coefficient matrix A is square with det(A) ≠ 0</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> The system has infinitely many solutions</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> All entries of A are positive</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">If rank(A)=r for an m×n matrix, then dim(null space of A) = nullity(A) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> m − r</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> n − r</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> r</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> m + n − r</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Swapping two rows of a matrix multiplies the determinant by:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 2</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> 0</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> −1</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The inverse of A = [[2,1],[5,3]] is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> [[3,−1],[−5,2]]</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> [[3,1],[5,2]]</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> (1/11)[[3,−1],[−5,2]]</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> [[2,−1],[−5,3]]</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The homogeneous system Ax=0 (A is n×n) has only the trivial solution iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> rank(A) &lt; n</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> det(A) ≠ 0</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> tr(A) ≠ 0</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> A has distinct eigenvalues</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">A square matrix A is invertible iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> tr(A) ≠ 0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> A is symmetric</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> det(A) ≠ 0</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> All entries of A are non-zero</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The area of the parallelogram spanned by u=(2,3) and v=(1,4) in ℝ² equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> 5</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> 11</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> 8</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> 14</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">For block triangular matrix M = [[A,B],[0,C]] (A is p×p, C is q×q):</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> det(M) = det(A) + det(C)</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> det(M) = det(A) · det(C)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> det(M) = det(B)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> det(M) = det(A) · det(B) · det(C)</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Linear Systems & Determinants</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">📊</div>
+      <h4>Determinant</h4>
+      <p>det(AB)=det(A)det(B). Row swap: ×(−1). Scale row by c: ×c. Add multiple: unchanged.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔍</div>
+      <h4>Rouché-Capelli</h4>
+      <p>Consistent iff rank(A)=rank([A|b]). Free vars = n−rank(A). Inconsistent: ranks differ.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Rank-Nullity</h4>
+      <p>rank(A) + nullity(A) = n (cols). Row rank = Col rank. Max rank = min(m,n).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⚡</div>
+      <h4>Invertibility</h4>
+      <p>Equivalent: det(A)≠0, rank=n, trivial null space, unique solution to Ax=b for all b.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔑</div>
+      <h4>Cramer's Rule</h4>
+      <p>xⱼ=det(Aⱼ)/det(A). Only for square invertible A. Geometric: area/volume via det.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⁻¹</div>
+      <h4>Inverse Formula</h4>
+      <p>A⁻¹=(1/det(A))adj(A). For 2×2: swap diagonal, negate off-diagonal, divide by det.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U2_T08_Spectral.html">Next: Spectral Applications →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'c',3:'c',4:'c',5:'c',6:'b',7:'b',8:'b',9:'b',10:'c',11:'a',12:'b',13:'c',14:'a',15:'b'};
+const explain={
+  1:'det([[3,1],[2,4]])=3·4−1·2=12−2=10.',
+  2:'det(αA)=αⁿdet(A). For n=3: det(2A)=2³·det(A)=8·5=40.',
+  3:'rank(A)=rank([A|b])=3, n=4 unknowns. Consistent with 4−3=1 free variable, giving infinitely many solutions.',
+  4:'Adding a scalar multiple of one row to another is an elementary row operation of type III. It does NOT change the determinant.',
+  5:'rank(A)=2 < rank([A|b])=3. By Rouché-Capelli, the system is inconsistent — no solution.',
+  6:'det(AB)=det(A)·det(B). This is the multiplicativity of determinants (also written |AB|=|A||B|).',
+  7:'det(A) = product of all eigenvalues = λ₁·λ₂·λ₃·λ₄ = 1·2·3·4 = 24.',
+  8:'Cramer\'s rule applies when A is square with det(A)≠0 (A invertible). The formula gives xⱼ=det(Aⱼ)/det(A).',
+  9:'By the Rank-Nullity theorem: rank(A)+nullity(A)=n (number of columns). So nullity(A)=n−r.',
+  10:'Swapping two rows is a type I elementary operation. It multiplies the determinant by −1.',
+  11:'det(A)=2·3−1·5=6−5=1. A⁻¹=(1/1)·[[3,−1],[−5,2]]=[[3,−1],[−5,2]]. (Use: swap diagonal entries, negate off-diagonal, divide by det=1.)',
+  12:'Ax=0 has only trivial solution iff null space is {0} iff nullity=0 iff rank(A)=n iff det(A)≠0 (for square A).',
+  13:'A square matrix A is invertible iff det(A)≠0 iff rank(A)=n iff the null space is trivial iff the columns are linearly independent.',
+  14:'Area = |det([[2,1],[3,4]])| = |2·4−1·3| = |8−3| = 5.',
+  15:'For block triangular matrix [[A,B],[0,C]], the determinant equals det(A)·det(C) regardless of B. This follows from expanding along the first p rows.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

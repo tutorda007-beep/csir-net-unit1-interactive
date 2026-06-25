@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T01 · Elementary Set Theory</title>
+<style>
+:root{
+  --bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;
+  --text:#1a1d2e;--muted:#5a6480;--acc:#c23b1e;--acc2:#d97706;
+  --ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;
+  --hdr:60px;--side:260px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(247,129,102,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(247,129,102,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:16px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--blue)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+/* SIDEBAR */
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(247,129,102,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto;flex-shrink:0}
+/* MAIN */
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+/* SECTION */
+.sec{display:none;animation:fadeIn .3s ease}
+.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* HERO BANNER */
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff0ed,#ffe4dc,#ffd5c8)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(247,129,102,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px;line-height:1.2}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-r{background:rgba(247,129,102,.12);color:var(--acc);border-color:rgba(247,129,102,.3)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--blue);border-color:rgba(121,192,255,.3)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--purple);border-color:rgba(210,168,255,.3)}
+/* OBJECTIVES */
+.obj-box{background:rgba(121,192,255,.06);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px;line-height:1.6}
+.obj-box li strong{color:var(--text)}
+/* CONCEPT BLOCK */
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:1px}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+/* DEFINITION BOX */
+.def-box{background:rgba(247,129,102,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{color:var(--text);line-height:1.65}
+/* THEOREM BOX */
+.thm-box{background:rgba(210,168,255,.06);border:1px solid rgba(210,168,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--purple);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(210,168,255,.15);font-style:italic}
+/* FORMULA */
+.fm{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-family:'Courier New',monospace;font-size:13px;color:#f0f6fc;margin:10px 0;overflow-x:auto}
+/* EXAMPLE BOX */
+.ex-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+/* TIP BOX */
+.tip-box{background:rgba(255,166,87,.07);border:1px solid rgba(255,166,87,.25);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px;align-items:flex-start}
+.tip-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--acc2)}
+/* SVG DIAGRAM WRAPPER */
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--blue);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+/* QUIZ SECTION */
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .5s ease;width:0%}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px;transition:border-color .2s}
+.q-block.correct{border-color:var(--ok)}
+.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(247,129,102,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+/* SCORE CARD */
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;letter-spacing:.3px}
+/* SUMMARY */
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item p,.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65}
+.summary-item ul{padding-left:16px}
+/* NAV FOOTER */
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc);background:rgba(247,129,102,.07)}
+.nf-btn.next{background:rgba(247,129,102,.1);border-color:rgba(247,129,102,.3);color:var(--acc)}
+.divider{height:1px;background:var(--border);margin:28px 0}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--acc2);margin:20px 0 10px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 01</div>
+  <div class="hdr-title">Elementary Set Theory</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 60 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('basics',this)"><div class="nav-dot"></div>Sets & Operations<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('types',this)"><div class="nav-dot"></div>Types of Sets<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('countability',this)"><div class="nav-dot"></div>Countability<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('cantor',this)"><div class="nav-dot"></div>Cantor's Theory & Cardinality<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('theorems',this)"><div class="nav-dot"></div>Key Theorems<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">09</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T02_RealNumbers.html'"><div class="nav-dot" style="background:var(--blue)"></div>Next: Real Numbers →</div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- ==================== SECTION: OVERVIEW ==================== -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 01 of 11</div>
+    <div class="hero-title">Elementary Set Theory</div>
+    <div class="hero-sub">Foundation of all mathematics — sets, operations, countability, and Cantor's cardinality theory</div>
+    <div class="hero-chips">
+      <span class="chip chip-r">CSIR NET Core</span>
+      <span class="chip chip-b">Analysis Foundation</span>
+      <span class="chip chip-g">Beginner–Intermediate</span>
+      <span class="chip chip-p">60 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>Define a <strong>set</strong> and use set-builder notation fluently</li>
+      <li>Apply all <strong>set operations</strong> (union, intersection, difference, complement) and De Morgan's laws</li>
+      <li>Distinguish between <strong>finite, countably infinite, and uncountably infinite</strong> sets with examples</li>
+      <li>Understand <strong>cardinality</strong> and prove two sets have the same cardinality using bijections</li>
+      <li>State and apply <strong>Cantor's theorem</strong>, the <strong>Schroeder-Bernstein theorem</strong>, and Cantor's diagonal argument</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> Set theory questions appear in <strong>2–3 questions</strong> each exam, usually testing countability of standard sets (ℚ, ℝ∖ℚ, ℝ) or cardinality comparisons. Master the bijection technique — it's the key to 4.75-mark Part C questions.</div>
+  </div>
+</div>
+
+<!-- ==================== SECTION: BASICS ==================== -->
+<div class="sec" id="sec-basics">
+  <h2 class="sec-head">📦 Sets & Operations</h2>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(247,129,102,.15)">📘</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">What Is a Set?</div></div>
+    </div>
+    <p>A <strong>set</strong> is a well-defined collection of distinct objects called <em>elements</em>. The phrase "well-defined" is crucial — for any object, we can determine unambiguously whether it belongs to the set or not.</p>
+    <div class="def-box">
+      <div class="def-label">Notation</div>
+      <div class="def-text">
+        • <strong>Roster form:</strong> A = {1, 2, 3, 4, 5}<br>
+        • <strong>Set-builder form:</strong> A = {x ∈ ℤ : 1 ≤ x ≤ 5}<br>
+        • <strong>Membership:</strong> 3 ∈ A means "3 is an element of A"<br>
+        • <strong>Non-membership:</strong> 6 ∉ A means "6 is not an element of A"
+      </div>
+    </div>
+    <h3 class="sub-head">Standard Sets in Mathematics</h3>
+    <table class="tbl">
+      <tr><th>Symbol</th><th>Name</th><th>Description</th><th>Cardinality</th></tr>
+      <tr><td>ℕ</td><td>Natural Numbers</td><td>{1, 2, 3, 4, …} or {0, 1, 2, 3, …}</td><td>ℵ₀ (countably infinite)</td></tr>
+      <tr><td>ℤ</td><td>Integers</td><td>{…, −2, −1, 0, 1, 2, …}</td><td>ℵ₀ (countably infinite)</td></tr>
+      <tr><td>ℚ</td><td>Rationals</td><td>{p/q : p, q ∈ ℤ, q ≠ 0}</td><td>ℵ₀ (countably infinite)</td></tr>
+      <tr><td>ℝ</td><td>Reals</td><td>Complete ordered field</td><td>𝔠 = 2^ℵ₀ (uncountably infinite)</td></tr>
+      <tr><td>ℂ</td><td>Complex Numbers</td><td>{a + bi : a, b ∈ ℝ}</td><td>𝔠 (uncountably infinite)</td></tr>
+    </table>
+  </div>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">⚙️</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">Set Operations</div></div>
+    </div>
+
+    <div class="diagram">
+      <svg width="560" height="200" viewBox="0 0 560 200" font-family="'Segoe UI',Arial,sans-serif">
+        <!-- UNION -->
+        <text x="70" y="20" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">UNION A ∪ B</text>
+        <ellipse cx="55" cy="100" rx="45" ry="60" fill="rgba(247,129,102,0.35)" stroke="#f78166" stroke-width="1.5"/>
+        <ellipse cx="85" cy="100" rx="45" ry="60" fill="rgba(247,129,102,0.25)" stroke="#f78166" stroke-width="1.5"/>
+        <text x="40" y="104" fill="#f78166" font-size="13" font-weight="700">A</text>
+        <text x="92" y="104" fill="#f78166" font-size="13" font-weight="700">B</text>
+        <!-- INTERSECTION -->
+        <text x="210" y="20" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">INTERSECTION A ∩ B</text>
+        <ellipse cx="195" cy="100" rx="45" ry="60" fill="rgba(210,168,255,0.15)" stroke="#d2a8ff" stroke-width="1.5"/>
+        <ellipse cx="225" cy="100" rx="45" ry="60" fill="rgba(210,168,255,0.15)" stroke="#d2a8ff" stroke-width="1.5"/>
+        <ellipse cx="210" cy="100" rx="17" ry="40" fill="rgba(210,168,255,0.55)"/>
+        <text x="180" y="104" fill="#d2a8ff" font-size="13" font-weight="700">A</text>
+        <text x="233" y="104" fill="#d2a8ff" font-size="13" font-weight="700">B</text>
+        <!-- DIFFERENCE -->
+        <text x="355" y="20" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">DIFFERENCE A ∖ B</text>
+        <ellipse cx="335" cy="100" rx="45" ry="60" fill="rgba(86,211,100,0.3)" stroke="#56d364" stroke-width="1.5"/>
+        <ellipse cx="365" cy="100" rx="45" ry="60" fill="rgba(86,211,100,0.05)" stroke="#56d364" stroke-width="1.5"/>
+        <ellipse cx="348" cy="100" rx="17" ry="40" fill="rgba(22,27,34,0.9)"/>
+        <text x="318" y="104" fill="#56d364" font-size="13" font-weight="700">A</text>
+        <text x="372" y="104" fill="#56d364" font-size="13" font-weight="700">B</text>
+        <!-- COMPLEMENT -->
+        <text x="490" y="20" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">COMPLEMENT Aᶜ</text>
+        <rect x="455" y="40" width="80" height="120" rx="5" fill="rgba(121,192,255,0.25)" stroke="#79c0ff" stroke-width="1.5"/>
+        <ellipse cx="495" cy="100" rx="30" ry="45" fill="rgba(22,27,34,0.85)" stroke="#79c0ff" stroke-width="1.5"/>
+        <text x="490" y="104" fill="#79c0ff" font-size="13" font-weight="700">A</text>
+        <text x="472" y="70" fill="#79c0ff" font-size="10">Aᶜ</text>
+      </svg>
+      <figcaption>Figure 1 — Venn diagram representations of fundamental set operations</figcaption>
+    </div>
+
+    <div class="def-box">
+      <div class="def-label">Formal Definitions</div>
+      <div class="def-text">
+        <strong>Union:</strong> A ∪ B = {x : x ∈ A or x ∈ B}<br>
+        <strong>Intersection:</strong> A ∩ B = {x : x ∈ A and x ∈ B}<br>
+        <strong>Difference:</strong> A ∖ B = {x : x ∈ A and x ∉ B}<br>
+        <strong>Complement:</strong> Aᶜ = {x ∈ U : x ∉ A} (relative to universal set U)<br>
+        <strong>Symmetric Difference:</strong> A △ B = (A ∖ B) ∪ (B ∖ A)
+      </div>
+    </div>
+
+    <h3 class="sub-head">De Morgan's Laws — Extremely Important!</h3>
+    <div class="fm">(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ<br>(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ</div>
+    <p>These generalize to arbitrary (even infinite) collections: (⋃ Aᵢ)ᶜ = ⋂ Aᵢᶜ and (⋂ Aᵢ)ᶜ = ⋃ Aᵢᶜ.</p>
+
+    <h3 class="sub-head">Distributive & Other Laws</h3>
+    <table class="tbl">
+      <tr><th>Law</th><th>Statement</th></tr>
+      <tr><td>Distributive</td><td>A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</td></tr>
+      <tr><td>Distributive</td><td>A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</td></tr>
+      <tr><td>Idempotent</td><td>A ∪ A = A, A ∩ A = A</td></tr>
+      <tr><td>Absorption</td><td>A ∪ (A ∩ B) = A, A ∩ (A ∪ B) = A</td></tr>
+      <tr><td>Involution</td><td>(Aᶜ)ᶜ = A</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ==================== SECTION: TYPES ==================== -->
+<div class="sec" id="sec-types">
+  <h2 class="sec-head">🗂 Types of Sets</h2>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">📁</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Special Sets</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Empty Set ∅</div>
+      <div class="def-text">The set containing no elements. Unique. ∅ ⊆ A for every set A. <strong>|∅| = 0.</strong><br>Note: {∅} is NOT empty — it contains one element (the empty set itself).</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Subset & Proper Subset</div>
+      <div class="def-text">
+        A ⊆ B ⟺ (∀x)(x ∈ A ⟹ x ∈ B)<br>
+        A ⊊ B ⟺ A ⊆ B and A ≠ B (proper subset)
+      </div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Power Set</div>
+      <div class="def-text">𝒫(A) = {S : S ⊆ A}. If |A| = n, then |𝒫(A)| = 2ⁿ.<br>Example: 𝒫({a,b}) = {∅, {a}, {b}, {a,b}} → has 4 = 2² elements.</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Cartesian Product</div>
+      <div class="def-text">A × B = {(a,b) : a ∈ A, b ∈ B}.<br>If |A| = m and |B| = n, then |A × B| = mn.<br>ℝ² = ℝ × ℝ is the usual coordinate plane.</div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">⚡</div>
+      <div class="tip-text"><strong>CSIR Trap:</strong> The number of subsets of A is 2^|A|, but the number of PROPER subsets is 2^|A| − 1. Don't confuse these!</div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">🔗</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">Relations and Functions (Key Link)</div></div>
+    </div>
+    <p>A <strong>relation</strong> R from A to B is a subset of A × B. A <strong>function</strong> f : A → B is a relation where every element of A is paired with exactly one element of B.</p>
+    <div class="def-box">
+      <div class="def-label">Types of Functions</div>
+      <div class="def-text">
+        <strong>Injective (one-to-one):</strong> f(a₁) = f(a₂) ⟹ a₁ = a₂<br>
+        <strong>Surjective (onto):</strong> ∀b ∈ B, ∃a ∈ A such that f(a) = b<br>
+        <strong>Bijective:</strong> Both injective and surjective (one-to-one correspondence)
+      </div>
+    </div>
+    <p>Bijections are the tool to compare infinite set sizes — if a bijection f : A → B exists, then A and B have the <strong>same cardinality</strong>.</p>
+  </div>
+</div>
+
+<!-- ==================== SECTION: COUNTABILITY ==================== -->
+<div class="sec" id="sec-countability">
+  <h2 class="sec-head">♾ Countability</h2>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">🔢</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Finite vs Infinite Sets</div></div>
+    </div>
+    <p>A set A is <strong>finite</strong> if it is empty or can be put in bijection with {1, 2, …, n} for some n ∈ ℕ. Otherwise A is <strong>infinite</strong>.</p>
+
+    <div class="def-box">
+      <div class="def-label">Countably Infinite</div>
+      <div class="def-text">A set A is countably infinite if there exists a bijection f : ℕ → A. This means elements of A can be listed in a sequence: a₁, a₂, a₃, …<br>Such a set has cardinality <strong>ℵ₀</strong> (aleph-null).</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Countable</div>
+      <div class="def-text">A set is countable if it is either finite or countably infinite.</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Uncountably Infinite</div>
+      <div class="def-text">A set is uncountable if it is infinite but NOT countably infinite. No bijection with ℕ exists. The set ℝ is uncountably infinite with cardinality 𝔠 = 2^ℵ₀.</div>
+    </div>
+
+    <h3 class="sub-head">Countability of Standard Sets</h3>
+    <table class="tbl">
+      <tr><th>Set</th><th>Countable?</th><th>Key Reason / Bijection</th></tr>
+      <tr><td>ℕ = {1,2,3,…}</td><td style="color:var(--ok)">✓ Countable</td><td>Identity bijection</td></tr>
+      <tr><td>ℤ = {…,−1,0,1,…}</td><td style="color:var(--ok)">✓ Countable</td><td>f(n)= n/2 (even) or −(n+1)/2 (odd); or list: 0,1,−1,2,−2,…</td></tr>
+      <tr><td>ℕ × ℕ</td><td style="color:var(--ok)">✓ Countable</td><td>Diagonal enumeration of grid</td></tr>
+      <tr><td>ℚ (rationals)</td><td style="color:var(--ok)">✓ Countable</td><td>ℚ ⊆ ℤ × ℤ; list fractions by diagonals</td></tr>
+      <tr><td>Algebraic numbers</td><td style="color:var(--ok)">✓ Countable</td><td>Each polynomial has finitely many roots; countable union</td></tr>
+      <tr><td>ℝ (reals)</td><td style="color:var(--er)">✗ Uncountable</td><td>Cantor's diagonal argument</td></tr>
+      <tr><td>ℝ∖ℚ (irrationals)</td><td style="color:var(--er)">✗ Uncountable</td><td>ℝ = ℚ ∪ (ℝ∖ℚ); if ℝ∖ℚ countable, ℝ = countable ∪ countable = countable → contradiction</td></tr>
+      <tr><td>(0,1) ⊂ ℝ</td><td style="color:var(--er)">✗ Uncountable</td><td>Bijection with ℝ via f(x)=tan(π(x−½))</td></tr>
+      <tr><td>𝒫(ℕ)</td><td style="color:var(--er)">✗ Uncountable</td><td>Cantor's theorem: |𝒫(ℕ)| = 2^ℵ₀ = 𝔠</td></tr>
+      <tr><td>Finite union of countable sets</td><td style="color:var(--ok)">✓ Countable</td><td>Countable union of countable sets is countable</td></tr>
+    </table>
+
+    <div class="diagram">
+      <svg width="520" height="180" viewBox="0 0 520 180" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="260" y="18" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Cantor's Diagonal Enumeration of ℕ × ℕ</text>
+        <!-- Grid lines -->
+        <g stroke="#30363d" stroke-width="0.7">
+          <line x1="80" y1="35" x2="80" y2="165"/>
+          <line x1="150" y1="35" x2="150" y2="165"/>
+          <line x1="220" y1="35" x2="220" y2="165"/>
+          <line x1="290" y1="35" x2="290" y2="165"/>
+          <line x1="80" y1="35" x2="310" y2="35"/>
+          <line x1="80" y1="75" x2="310" y2="75"/>
+          <line x1="80" y1="115" x2="310" y2="115"/>
+          <line x1="80" y1="155" x2="310" y2="155"/>
+        </g>
+        <!-- Pairs -->
+        <text x="115" y="60" text-anchor="middle" fill="#f78166" font-size="12" font-weight="700">(1,1)</text>
+        <text x="185" y="60" text-anchor="middle" fill="#d2a8ff" font-size="12" font-weight="700">(1,2)</text>
+        <text x="255" y="60" text-anchor="middle" fill="#56d364" font-size="12" font-weight="700">(1,3)</text>
+        <text x="115" y="100" text-anchor="middle" fill="#d2a8ff" font-size="12" font-weight="700">(2,1)</text>
+        <text x="185" y="100" text-anchor="middle" fill="#56d364" font-size="12" font-weight="700">(2,2)</text>
+        <text x="255" y="100" text-anchor="middle" fill="#79c0ff" font-size="12" font-weight="700">(2,3)</text>
+        <text x="115" y="140" text-anchor="middle" fill="#56d364" font-size="12" font-weight="700">(3,1)</text>
+        <text x="185" y="140" text-anchor="middle" fill="#79c0ff" font-size="12" font-weight="700">(3,2)</text>
+        <text x="255" y="140" text-anchor="middle" fill="#ffa657" font-size="12" font-weight="700">(3,3)</text>
+        <!-- Diagonal arrows -->
+        <path d="M115,60 L185,60 L115,100" stroke="#f78166" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <path d="M115,100 L185,60" stroke="#f78166" stroke-width="1.5" fill="none"/>
+        <!-- Labels -->
+        <text x="115" y="53" text-anchor="middle" fill="#f78166" font-size="9">①</text>
+        <text x="185" y="53" text-anchor="middle" fill="#d2a8ff" font-size="9">②</text>
+        <text x="115" y="93" text-anchor="middle" fill="#d2a8ff" font-size="9">③</text>
+        <text x="115" y="133" text-anchor="middle" fill="#56d364" font-size="9">④</text>
+        <text x="185" y="93" text-anchor="middle" fill="#56d364" font-size="9">⑤</text>
+        <text x="255" y="53" text-anchor="middle" fill="#56d364" font-size="9">⑥</text>
+        <!-- Sequence label -->
+        <text x="360" y="60" fill="#8b949e" font-size="11">Order:</text>
+        <text x="360" y="80" fill="#f78166" font-size="11">① (1,1)</text>
+        <text x="360" y="97" fill="#d2a8ff" font-size="11">② (1,2)</text>
+        <text x="360" y="114" fill="#d2a8ff" font-size="11">③ (2,1)</text>
+        <text x="360" y="131" fill="#56d364" font-size="11">④ (3,1)</text>
+        <text x="360" y="148" fill="#56d364" font-size="11">⑤ (2,2)</text>
+        <text x="360" y="165" fill="#56d364" font-size="11">⑥ (1,3) …</text>
+      </svg>
+      <figcaption>Figure 2 — Diagonal enumeration proves ℕ × ℕ is countable, hence ℚ is countable</figcaption>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">🧠</div>
+      <div class="tip-text"><strong>Memory Aid — Countable sets:</strong> ℕ ⊂ ℤ ⊂ ℚ ⊂ Algebraic numbers. All countable! Then ℝ (reals) = first uncountable set. Everything from ℝ onwards (ℝ, ℂ, 𝒫(ℕ), ℝⁿ, C[0,1]) is uncountable.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION: CANTOR ==================== -->
+<div class="sec" id="sec-cantor">
+  <h2 class="sec-head">🔬 Cantor's Theory & Cardinality</h2>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">∞</div>
+      <div><div class="concept-tag">Concept 6</div><div class="concept-title">Cardinality and Comparing Infinite Sets</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Cardinality (|A|)</div>
+      <div class="def-text">
+        |A| = |B| ⟺ ∃ a bijection f : A → B<br>
+        |A| ≤ |B| ⟺ ∃ an injection f : A → B<br>
+        |A| &lt; |B| ⟺ |A| ≤ |B| but |A| ≠ |B|
+      </div>
+    </div>
+
+    <h3 class="sub-head">Cantor's Diagonal Argument — Proof that ℝ is Uncountable</h3>
+    <p>Suppose for contradiction that all real numbers in (0,1) can be listed: r₁, r₂, r₃, … Write each in decimal:</p>
+    <div class="fm">r₁ = 0. <span style="color:#f78166;font-weight:700">d₁₁</span> d₁₂ d₁₃ d₁₄ …
+r₂ = 0. d₂₁ <span style="color:#f78166;font-weight:700">d₂₂</span> d₂₃ d₂₄ …
+r₃ = 0. d₃₁ d₃₂ <span style="color:#f78166;font-weight:700">d₃₃</span> d₃₄ …
+r₄ = 0. d₄₁ d₄₂ d₄₃ <span style="color:#f78166;font-weight:700">d₄₄</span> …</div>
+
+    <p>Construct x = 0.x₁x₂x₃… where xₙ ≠ dₙₙ (e.g., xₙ = 5 if dₙₙ ≠ 5, else xₙ = 4). Then x differs from every rₙ in the n-th decimal place. So x ∉ {r₁, r₂, r₃, …} — <strong>contradiction!</strong></p>
+
+    <div class="diagram">
+      <svg width="480" height="160" viewBox="0 0 480 160" font-family="'Courier New',monospace">
+        <text x="20" y="18" fill="#8b949e" font-size="10">Diagonal highlighted in red — the constructed number differs from each rₙ at position n</text>
+        <text x="20" y="45" fill="#8b949e" font-size="12">r₁ = 0.</text>
+        <text x="80" y="45" fill="#f78166" font-size="13" font-weight="700">3</text>
+        <text x="95" y="45" fill="#cdd9e5" font-size="13">1 4 1 5 9 …</text>
+        <text x="20" y="70" fill="#8b949e" font-size="12">r₂ = 0.</text>
+        <text x="80" y="70" fill="#cdd9e5" font-size="13">7</text>
+        <text x="95" y="70" fill="#f78166" font-size="13" font-weight="700">2</text>
+        <text x="108" y="70" fill="#cdd9e5" font-size="13">8 1 8 2 …</text>
+        <text x="20" y="95" fill="#8b949e" font-size="12">r₃ = 0.</text>
+        <text x="80" y="95" fill="#cdd9e5" font-size="13">5 0</text>
+        <text x="107" y="95" fill="#f78166" font-size="13" font-weight="700">0</text>
+        <text x="120" y="95" fill="#cdd9e5" font-size="13">0 0 0 …</text>
+        <text x="20" y="120" fill="#8b949e" font-size="12">r₄ = 0.</text>
+        <text x="80" y="120" fill="#cdd9e5" font-size="13">6 1 8</text>
+        <text x="120" y="120" fill="#f78166" font-size="13" font-weight="700">0</text>
+        <text x="133" y="120" fill="#cdd9e5" font-size="13">3 3 …</text>
+        <text x="280" y="50" fill="#8b949e" font-size="11">Diagonal digits: 3, 2, 0, 0, …</text>
+        <text x="280" y="72" fill="#56d364" font-size="11">Construct x: 4, 5, 1, 1, …</text>
+        <text x="280" y="94" fill="#56d364" font-size="12" font-weight="700">x = 0.4511…</text>
+        <text x="280" y="116" fill="#ffa657" font-size="11">x differs from every rₙ!</text>
+        <text x="280" y="138" fill="#ff7b72" font-size="11">∴ (0,1) is uncountable</text>
+      </svg>
+      <figcaption>Figure 3 — Cantor's diagonal argument: no list can exhaust (0,1)</figcaption>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">📐</div>
+      <div><div class="concept-tag">Concept 7</div><div class="concept-title">Cardinality Comparisons</div></div>
+    </div>
+    <div class="fm">ℵ₀ = |ℕ| = |ℤ| = |ℚ|  &lt;  𝔠 = |ℝ| = |(0,1)| = |𝒫(ℕ)| = 2^ℵ₀</div>
+    <p>The <strong>Continuum Hypothesis</strong> (undecidable in ZFC) states there is no cardinal strictly between ℵ₀ and 𝔠.</p>
+    <table class="tbl">
+      <tr><th>Set A</th><th>Set B</th><th>Relationship</th><th>Bijection</th></tr>
+      <tr><td>(0,1)</td><td>ℝ</td><td>Same cardinality</td><td>f(x) = tan(π(x − ½))</td></tr>
+      <tr><td>(0,1)</td><td>[0,1]</td><td>Same cardinality</td><td>Schroeder-Bernstein</td></tr>
+      <tr><td>ℝ</td><td>ℝ²</td><td>Same cardinality</td><td>Interleaving decimal digits</td></tr>
+      <tr><td>ℕ</td><td>2ℕ (even numbers)</td><td>Same cardinality</td><td>f(n) = 2n</td></tr>
+      <tr><td>A (any set)</td><td>𝒫(A)</td><td>|A| &lt; |𝒫(A)|</td><td>No surjection exists (Cantor)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ==================== SECTION: THEOREMS ==================== -->
+<div class="sec" id="sec-theorems">
+  <h2 class="sec-head">📜 Key Theorems</h2>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 1 — Cantor's Theorem</div>
+    <div class="thm-text">For any set A, the power set 𝒫(A) has strictly greater cardinality than A:<br>|A| &lt; |𝒫(A)|</div>
+    <div class="thm-proof"><strong>Proof idea:</strong> The function f : A → 𝒫(A) given by f(a) = {a} is injective, so |A| ≤ |𝒫(A)|. Suppose g : A → 𝒫(A) were surjective; define D = {a ∈ A : a ∉ g(a)}. Then D ∈ 𝒫(A) but D ≠ g(a) for any a — contradiction. Hence no surjection exists, so |A| &lt; |𝒫(A)|. □</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 2 — Schroeder-Bernstein Theorem</div>
+    <div class="thm-text">If |A| ≤ |B| and |B| ≤ |A|, then |A| = |B|.<br>Equivalently: if there exist injections f : A → B and g : B → A, then there exists a bijection h : A → B.</div>
+    <div class="thm-proof"><strong>Why it matters:</strong> To show two sets have equal cardinality, it suffices to find injections in both directions — you don't need to explicitly construct a bijection. Used to prove |(0,1)| = |[0,1]|.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 3 — Countable Union of Countable Sets</div>
+    <div class="thm-text">A countable union of countable sets is countable.<br>If A₁, A₂, A₃, … are countable sets, then ⋃_{n=1}^∞ Aₙ is countable.</div>
+    <div class="thm-proof"><strong>Application:</strong> ℚ = ⋃_{n=1}^∞ {p/n : p ∈ ℤ} is a countable union of countable sets → ℚ is countable.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 4 — Characterization of Uncountable Sets</div>
+    <div class="thm-text">Every infinite subset of a countable set is countable. Hence if A contains an uncountable subset B (with |B| ≤ |A|), then A itself is uncountable.</div>
+    <div class="thm-proof"><strong>Use:</strong> (a,b) ⊂ ℝ is uncountable because ℝ is uncountable and injections exist both ways.</div>
+  </div>
+
+  <div class="thm-box">
+    <div class="thm-label">Theorem 5 — Finite Intersection Property (FIP)</div>
+    <div class="thm-text">A collection 𝒞 of sets has the FIP if every finite subcollection has non-empty intersection. A topological space is compact iff every collection of closed sets with the FIP has non-empty total intersection.</div>
+    <div class="thm-proof"><strong>Relevance:</strong> Connects pure set theory to topology and analysis — concepts built in Unit 5.</div>
+  </div>
+</div>
+
+<!-- ==================== SECTION: EXAMPLES ==================== -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — CSIR NET 2019 Style</div>
+    <div class="ex-q">Show that the set of all polynomials with integer coefficients is countable.</div>
+    <div class="ex-sol">
+      <strong>Solution:</strong> Let Pₙ = set of all polynomials with integer coefficients of degree exactly n.<br>
+      Each such polynomial is determined by (n+1) integer coefficients, so Pₙ is in bijection with ℤⁿ⁺¹. Since ℤ is countable, ℤⁿ⁺¹ is a finite product of countable sets → countable. Hence Pₙ is countable.<br>
+      The set of all polynomials with integer coefficients = ⋃_{n=0}^∞ Pₙ, a countable union of countable sets → <strong>countable</strong>. □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — Bijection Construction</div>
+    <div class="ex-q">Show that |ℕ| = |{n² : n ∈ ℕ}| (the set of perfect squares has the same cardinality as ℕ).</div>
+    <div class="ex-sol">
+      <strong>Solution:</strong> Define f : ℕ → {n² : n ∈ ℕ} by f(n) = n².<br>
+      <em>Injective:</em> If f(m) = f(n), then m² = n², so m = n (since m, n > 0).<br>
+      <em>Surjective:</em> Any perfect square k² is f(k) for k ∈ ℕ.<br>
+      So f is bijective → |ℕ| = |{perfect squares}| = ℵ₀. This counterintuitive result (a proper subset has the same cardinality) is characteristic of infinite sets.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — Power Set Cardinality</div>
+    <div class="ex-q">If A = {1, 2, 3}, list 𝒫(A) and verify |𝒫(A)| = 2³.</div>
+    <div class="ex-sol">
+      <strong>Solution:</strong> 𝒫({1,2,3}) = {∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}}<br>
+      Count: 8 elements = 2³ ✓<br>
+      Note: ∅ and A itself are always in 𝒫(A).
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — Schroeder-Bernstein Application</div>
+    <div class="ex-q">Show |(0,1)| = |[0,1]| without explicitly constructing a bijection.</div>
+    <div class="ex-sol">
+      <strong>Solution:</strong> We use Schroeder-Bernstein.<br>
+      • Injection f : (0,1) → [0,1]: The inclusion map f(x) = x is injective.<br>
+      • Injection g : [0,1] → (0,1): Define g(x) = x/2 + 1/4. Then g maps [0,1] into [1/4, 3/4] ⊂ (0,1), and g is clearly injective.<br>
+      By Schroeder-Bernstein, a bijection exists → |(0,1)| = |[0,1]|. □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — Countability by Listing</div>
+    <div class="ex-q">Is the set S = {1/n : n ∈ ℕ} countable?</div>
+    <div class="ex-sol">
+      <strong>Solution:</strong> Define f : ℕ → S by f(n) = 1/n. This is a bijection (injective: 1/m = 1/n ⟹ m = n; surjective: 1/n = f(n)). So S is countably infinite. In fact, S can be listed: 1, 1/2, 1/3, 1/4, … Note: S ≠ ℚ ∩ (0,1] even though both are countable.
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION: QUIZ ==================== -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <!-- Q1 -->
+  <div class="q-block" id="qb1">
+    <div class="q-num">Question 1 of 15</div>
+    <div class="q-text">Which of the following sets is uncountable?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) The set of all integers ℤ</button>
+      <button class="opt" onclick="answer(1,'b')">B) The set of rational numbers ℚ</button>
+      <button class="opt" onclick="answer(1,'c')">C) The set of algebraic numbers</button>
+      <button class="opt correct-ans" onclick="answer(1,'d')">D) The set of irrational numbers ℝ∖ℚ</button>
+    </div>
+    <div class="explanation" id="exp1">
+      <strong>✓ D is correct.</strong> ℤ and ℚ are countably infinite. Algebraic numbers are also countable (countable union of roots of integer polynomials). ℝ∖ℚ is uncountable: if it were countable, then ℝ = ℚ ∪ (ℝ∖ℚ) would be a union of two countable sets → countable. But ℝ is uncountable — contradiction.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-block" id="qb2">
+    <div class="q-num">Question 2 of 15</div>
+    <div class="q-text">If |A| = n, the number of proper subsets of A is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) 2ⁿ</button>
+      <button class="opt correct-ans" onclick="answer(2,'b')">B) 2ⁿ − 1</button>
+      <button class="opt" onclick="answer(2,'c')">C) 2ⁿ − 2</button>
+      <button class="opt" onclick="answer(2,'d')">D) n!</button>
+    </div>
+    <div class="explanation" id="exp2">
+      <strong>✓ B is correct.</strong> Total subsets of A = 2ⁿ (including A itself). Proper subsets exclude A itself, so the count is 2ⁿ − 1. Note: Some textbooks also exclude ∅, giving 2ⁿ − 2, but the standard definition includes ∅ as a proper subset of any non-empty set.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-block" id="qb3">
+    <div class="q-num">Question 3 of 15</div>
+    <div class="q-text">The set ℚ of rational numbers is countable. Which of the following best explains this?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(3,'a')">A) ℚ is finite</button>
+      <button class="opt" onclick="answer(3,'b')">B) ℚ ⊂ ℝ and ℝ is countable</button>
+      <button class="opt correct-ans" onclick="answer(3,'c')">C) There is a bijection between ℕ and ℚ</button>
+      <button class="opt" onclick="answer(3,'d')">D) ℚ has the same cardinality as ℝ</button>
+    </div>
+    <div class="explanation" id="exp3">
+      <strong>✓ C is correct.</strong> A set is countably infinite iff there exists a bijection with ℕ. For ℚ: write rationals as p/q and enumerate by diagonalizing the grid ℤ × ℕ. This explicit listing gives a bijection. A is wrong (ℚ is infinite). B is wrong (ℝ is uncountable). D is false since |ℚ| = ℵ₀ &lt; 𝔠 = |ℝ|.
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-block" id="qb4">
+    <div class="q-num">Question 4 of 15</div>
+    <div class="q-text">Let A = {1, 2} and B = {a, b, c}. What is |𝒫(A × B)|?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) 32</button>
+      <button class="opt" onclick="answer(4,'b')">B) 36</button>
+      <button class="opt correct-ans" onclick="answer(4,'c')">C) 64</button>
+      <button class="opt" onclick="answer(4,'d')">D) 12</button>
+    </div>
+    <div class="explanation" id="exp4">
+      <strong>✓ C is correct.</strong> |A × B| = |A| · |B| = 2 × 3 = 6. The power set of a set with 6 elements has 2⁶ = 64 elements. So |𝒫(A × B)| = 2^6 = 64.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-block" id="qb5">
+    <div class="q-num">Question 5 of 15</div>
+    <div class="q-text">Which of the following is TRUE about De Morgan's law for an indexed family {Aₙ}?</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(5,'a')">A) (⋃ Aₙ)ᶜ = ⋂ Aₙᶜ</button>
+      <button class="opt" onclick="answer(5,'b')">B) (⋃ Aₙ)ᶜ = ⋃ Aₙᶜ</button>
+      <button class="opt" onclick="answer(5,'c')">C) (⋂ Aₙ)ᶜ = ⋂ Aₙᶜ</button>
+      <button class="opt" onclick="answer(5,'d')">D) None of the above</button>
+    </div>
+    <div class="explanation" id="exp5">
+      <strong>✓ A is correct.</strong> De Morgan's law: (⋃ Aₙ)ᶜ = ⋂ Aₙᶜ (complement of union = intersection of complements). Similarly, (⋂ Aₙ)ᶜ = ⋃ Aₙᶜ. These hold for arbitrary (even uncountable) indexed families.
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-block" id="qb6">
+    <div class="q-num">Question 6 of 15</div>
+    <div class="q-text">Consider the open intervals (0, 1/n) for n = 1, 2, 3, … What is ⋂_{n=1}^∞ (0, 1/n)?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(6,'a')">A) {0}</button>
+      <button class="opt correct-ans" onclick="answer(6,'b')">B) ∅</button>
+      <button class="opt" onclick="answer(6,'c')">C) (0, 1)</button>
+      <button class="opt" onclick="answer(6,'d')">D) {0, 1}</button>
+    </div>
+    <div class="explanation" id="exp6">
+      <strong>✓ B is correct.</strong> ⋂ (0, 1/n) = ∅. For any x > 0, by the Archimedean property there exists n such that 1/n &lt; x, so x ∉ (0, 1/n). And 0 ∉ (0, 1/n) since the interval is open. Hence no element belongs to all intervals, so the intersection is empty. This is a classic example where an infinite intersection of non-empty sets can be empty.
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-block" id="qb7">
+    <div class="q-num">Question 7 of 15</div>
+    <div class="q-text">The cardinality of 𝒫(ℕ) (power set of natural numbers) equals:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(7,'a')">A) ℵ₀</button>
+      <button class="opt" onclick="answer(7,'b')">B) ℵ₁</button>
+      <button class="opt correct-ans" onclick="answer(7,'c')">C) 2^ℵ₀ = 𝔠</button>
+      <button class="opt" onclick="answer(7,'d')">D) ℵ₀²</button>
+    </div>
+    <div class="explanation" id="exp7">
+      <strong>✓ C is correct.</strong> |𝒫(ℕ)| = 2^|ℕ| = 2^ℵ₀ = 𝔠 (the cardinality of the continuum). This equals |ℝ|. Note: ℵ₁ is the next cardinal after ℵ₀ (under AC), and whether 𝔠 = ℵ₁ is the Continuum Hypothesis — independent of ZFC.
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-block" id="qb8">
+    <div class="q-num">Question 8 of 15</div>
+    <div class="q-text">A function f : A → B is said to be a bijection if it is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(8,'a')">A) Injective only</button>
+      <button class="opt" onclick="answer(8,'b')">B) Surjective only</button>
+      <button class="opt correct-ans" onclick="answer(8,'c')">C) Both injective and surjective</button>
+      <button class="opt" onclick="answer(8,'d')">D) Neither injective nor surjective</button>
+    </div>
+    <div class="explanation" id="exp8">
+      <strong>✓ C is correct.</strong> A bijection (one-to-one correspondence) must be both injective (one-to-one: distinct inputs give distinct outputs) and surjective (onto: every element of B is an output). Bijections are used to define equal cardinality between sets.
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-block" id="qb9">
+    <div class="q-num">Question 9 of 15</div>
+    <div class="q-text">Which of the following statements is FALSE? (CSIR NET 2023 style)</div>
+    <div class="options">
+      <button class="opt" onclick="answer(9,'a')">A) Every infinite subset of ℕ is countably infinite</button>
+      <button class="opt" onclick="answer(9,'b')">B) ℤ and ℕ have the same cardinality</button>
+      <button class="opt correct-ans" onclick="answer(9,'c')">C) Every subset of an uncountable set is uncountable</button>
+      <button class="opt" onclick="answer(9,'d')">D) The set of all finite subsets of ℕ is countable</button>
+    </div>
+    <div class="explanation" id="exp9">
+      <strong>✓ C is FALSE (hence the correct answer).</strong> A is TRUE: infinite subsets of countable sets are countable. B is TRUE: bijection f: ℕ→ℤ by 0,1,−1,2,−2,… C is FALSE: ℝ is uncountable but ℚ ⊂ ℝ is countable — a subset of an uncountable set need not be uncountable! D is TRUE: finite subsets of ℕ can be enumerated (they form a countable collection).
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-block" id="qb10">
+    <div class="q-num">Question 10 of 15</div>
+    <div class="q-text">The symmetric difference A △ B equals:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(10,'a')">A) (A ∪ B) ∖ (A ∩ B)</button>
+      <button class="opt" onclick="answer(10,'b')">B) (A ∩ B) ∖ (A ∪ B)</button>
+      <button class="opt" onclick="answer(10,'c')">C) A ∪ B</button>
+      <button class="opt" onclick="answer(10,'d')">D) Aᶜ ∩ Bᶜ</button>
+    </div>
+    <div class="explanation" id="exp10">
+      <strong>✓ A is correct.</strong> A △ B = (A ∖ B) ∪ (B ∖ A) = elements in exactly one of A or B = (A ∪ B) ∖ (A ∩ B). This operation is commutative and associative, and (A △ B) △ C = A △ (B △ C).
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-block" id="qb11">
+    <div class="q-num">Question 11 of 15</div>
+    <div class="q-text">Cantor's theorem states that for any set A:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(11,'a')">A) |A| = |𝒫(A)|</button>
+      <button class="opt" onclick="answer(11,'b')">B) |A| > |𝒫(A)|</button>
+      <button class="opt correct-ans" onclick="answer(11,'c')">C) |A| &lt; |𝒫(A)|</button>
+      <button class="opt" onclick="answer(11,'d')">D) A and 𝒫(A) are always disjoint</button>
+    </div>
+    <div class="explanation" id="exp11">
+      <strong>✓ C is correct.</strong> Cantor's theorem: |A| &lt; |𝒫(A)| for every set A. This holds even for infinite sets: |ℕ| &lt; |𝒫(ℕ)| (ℵ₀ &lt; 2^ℵ₀). Consequence: there is no "largest" infinite set — you can always take the power set to get a bigger one.
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-block" id="qb12">
+    <div class="q-num">Question 12 of 15</div>
+    <div class="q-text">If A is a countably infinite set and B is a finite set, what is the cardinality of A ∪ B?</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(12,'a')">A) ℵ₀</button>
+      <button class="opt" onclick="answer(12,'b')">B) ℵ₀ + |B|</button>
+      <button class="opt" onclick="answer(12,'c')">C) 2^ℵ₀</button>
+      <button class="opt" onclick="answer(12,'d')">D) Depends on whether A ∩ B = ∅</button>
+    </div>
+    <div class="explanation" id="exp12">
+      <strong>✓ A is correct.</strong> A ∪ B is a finite-or-countable union (A countable, B finite), so A ∪ B is countable. Since A ⊆ A ∪ B, we have |A ∪ B| ≥ ℵ₀. And A ∪ B ⊆ A ∪ B is countable, so |A ∪ B| = ℵ₀. Note: "ℵ₀ + n = ℵ₀" for any finite n — adding finitely many elements to an infinite countable set doesn't change its cardinality.
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-block" id="qb13">
+    <div class="q-num">Question 13 of 15</div>
+    <div class="q-text">The set S = {x ∈ ℝ : x is a root of a polynomial with integer coefficients} (algebraic numbers) is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(13,'a')">A) Finite</button>
+      <button class="opt correct-ans" onclick="answer(13,'b')">B) Countably infinite</button>
+      <button class="opt" onclick="answer(13,'c')">C) Uncountably infinite</button>
+      <button class="opt" onclick="answer(13,'d')">D) Depends on the degree of polynomials</button>
+    </div>
+    <div class="explanation" id="exp13">
+      <strong>✓ B is correct.</strong> Polynomials with integer coefficients are countable (bounded by their degree and coefficients). Each polynomial of degree n has at most n real roots. A countable union of finite sets is countable. Hence algebraic numbers form a countable set. This implies most real numbers are transcendental (non-algebraic) — the transcendentals are uncountable!
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-block" id="qb14">
+    <div class="q-num">Question 14 of 15</div>
+    <div class="q-text">The Schroeder-Bernstein theorem is used to conclude |A| = |B| from:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) A bijection from A to B</button>
+      <button class="opt" onclick="answer(14,'b')">B) A surjection from A to B</button>
+      <button class="opt correct-ans" onclick="answer(14,'c')">C) Injections from A to B and from B to A</button>
+      <button class="opt" onclick="answer(14,'d')">D) A surjection from A to B and an injection from B to A</button>
+    </div>
+    <div class="explanation" id="exp14">
+      <strong>✓ C is correct.</strong> Schroeder-Bernstein: if f : A → B injective and g : B → A injective, then |A| = |B|. It is powerful because finding explicit bijections for infinite sets is often hard (e.g., (0,1) vs [0,1]), but injections in both directions are easy to construct. Note: D also gives |A| = |B| by similar logic but is not the standard statement.
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-block" id="qb15">
+    <div class="q-num">Question 15 of 15</div>
+    <div class="q-text">Let f : ℕ → ℕ be defined by f(n) = n + 1. Which statement is TRUE?</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(15,'a')">A) f is injective but not surjective</button>
+      <button class="opt" onclick="answer(15,'b')">B) f is surjective but not injective</button>
+      <button class="opt" onclick="answer(15,'c')">C) f is bijective</button>
+      <button class="opt" onclick="answer(15,'d')">D) f is neither injective nor surjective</button>
+    </div>
+    <div class="explanation" id="exp15">
+      <strong>✓ A is correct.</strong> Injective: f(m) = f(n) ⟹ m+1 = n+1 ⟹ m = n ✓. Not surjective: 1 ∈ ℕ has no preimage since f(n) = n+1 ≥ 2 for all n ∈ ℕ (taking ℕ = {1,2,3,…}). This shows an infinite set can have injections from itself to a proper subset — impossible for finite sets (pigeonhole principle). This is one characterization of infinite sets (Dedekind's definition).
+    </div>
+  </div>
+
+  <!-- SCORE CARD -->
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button>
+    <br><br>
+    <a href="CSIR_NET_U1_T02_RealNumbers.html" style="display:inline-block;margin-top:8px;background:rgba(121,192,255,.15);color:var(--blue);border:1px solid rgba(121,192,255,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next Topic: Real Numbers →</a>
+  </div>
+</div>
+
+<!-- ==================== SECTION: SUMMARY ==================== -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+
+  <div class="summary-grid">
+    <div class="summary-item">
+      <h4>Must-Know Facts</h4>
+      <ul>
+        <li>ℕ, ℤ, ℚ, algebraic numbers → countable (ℵ₀)</li>
+        <li>ℝ, ℂ, ℝⁿ, 𝒫(ℕ), (a,b) → uncountable (𝔠 = 2^ℵ₀)</li>
+        <li>Countable ∪ Countable = Countable</li>
+        <li>|𝒫(A)| = 2^|A| always</li>
+        <li>Cantor: |A| &lt; |𝒫(A)| for all A</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>Key Theorems</h4>
+      <ul>
+        <li>Cantor's Diagonal Argument → ℝ uncountable</li>
+        <li>Schroeder-Bernstein → injections both ways ⟹ bijection</li>
+        <li>Countable union of countable sets = countable</li>
+        <li>Infinite subset of countable = countable</li>
+        <li>Any proper subset of infinite set can have same cardinality</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>CSIR NET Common Q-Types</h4>
+      <ul>
+        <li>Identify countable/uncountable sets (2–3 Qs)</li>
+        <li>Power set cardinality computation</li>
+        <li>True/False about cardinality properties</li>
+        <li>De Morgan's law application</li>
+        <li>Bijection construction for standard sets</li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <h4>Common Mistakes to Avoid</h4>
+      <ul>
+        <li>∅ ≠ {∅} — empty set vs. set containing empty set</li>
+        <li>Proper subsets: 2ⁿ − 1 (not 2ⁿ)</li>
+        <li>Subset of uncountable set need NOT be uncountable</li>
+        <li>(0,1) and ℝ have the SAME cardinality</li>
+        <li>ℵ₀ + ℵ₀ = ℵ₀ (cardinal arithmetic)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:20px">
+    <div class="tip-icon">🏆</div>
+    <div class="tip-text"><strong>CSIR NET Exam Strategy:</strong> In Part B (2-mark questions), set theory questions are usually direct — know the countability table by heart. In Part C (4.75-mark questions), questions require constructing bijections or applying Cantor/Schroeder-Bernstein. Always verify both injectivity and surjectivity when claiming a bijection.</div>
+  </div>
+
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_Master_Blueprint.html">← Blueprint Home</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T02_RealNumbers.html">Next: Real Number System →</a>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// NAVIGATION
+function show(id, el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// QUIZ
+let answered=0, correct=0, wrong=0;
+const correctAns={1:'d',2:'b',3:'c',4:'c',5:'a',6:'b',7:'c',8:'c',9:'c',10:'a',11:'c',12:'a',13:'b',14:'c',15:'a'};
+
+function answer(qn, chosen){
+  const block=document.getElementById('qb'+qn);
+  if(block.classList.contains('correct')||block.classList.contains('wrong')) return;
+  const opts=block.querySelectorAll('.opt');
+  opts.forEach(o=>o.disabled=true);
+  const isCorrect=(chosen===correctAns[qn]);
+  if(isCorrect){block.classList.add('correct');correct++;}
+  else{block.classList.add('wrong');wrong++;}
+  // highlight correct answer
+  const letters=['a','b','c','d'];
+  opts.forEach((o,i)=>{
+    if(letters[i]===correctAns[qn]) o.classList.add('correct');
+    else if(letters[i]===chosen && !isCorrect) o.classList.add('wrong');
+  });
+  const exp=document.getElementById('exp'+qn);
+  exp.classList.add('show',isCorrect?'exp-correct':'exp-wrong');
+  answered++;
+  document.getElementById('score-display').textContent=`Score: ${correct} / 15`;
+  document.getElementById('qpfill').style.width=(answered/15*100)+'%';
+  if(answered===15) showScore();
+}
+
+function showScore(){
+  setTimeout(()=>{
+    const sc=document.getElementById('score-card');
+    sc.classList.add('show');
+    document.getElementById('final-score').textContent=correct;
+    document.getElementById('sc-correct').textContent=correct;
+    document.getElementById('sc-wrong').textContent=wrong;
+    const pct=correct/15*100;
+    const msgs=['Keep practising! Review the concepts and try again.','Good start! Focus on the incorrect ones.','Good performance! Review explanations carefully.','Excellent! Almost there.','Perfect score! Ready for CSIR NET!'];
+    document.getElementById('sc-msg').textContent=msgs[Math.min(Math.floor(pct/21),4)];
+    sc.scrollIntoView({behavior:'smooth'});
+  },600);
+}
+
+function resetQuiz(){
+  answered=0;correct=0;wrong=0;
+  document.getElementById('score-display').textContent='Score: 0 / 15';
+  document.getElementById('qpfill').style.width='0%';
+  document.getElementById('score-card').classList.remove('show');
+  for(let i=1;i<=15;i++){
+    const b=document.getElementById('qb'+i);
+    b.classList.remove('correct','wrong');
+    b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});
+    const e=document.getElementById('exp'+i);
+    e.classList.remove('show','exp-correct','exp-wrong');
+  }
+  document.getElementById('qb1').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T04 · Connectedness</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#5b21b6;--acc2:#7c3aed;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(91,33,182,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(91,33,182,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(91,33,182,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(91,33,182,.08);color:var(--acc);font-weight:600;border:1px solid rgba(91,33,182,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#f5f3ff;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T04 · Connectedness</span>
+  <span class="hdr-badge">Topology</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('defn',this)">Connected Spaces</a>
+  <a class="nav-item" onclick="show('path',this)">Path Connectedness</a>
+  <a class="nav-item" onclick="show('components',this)">Connected Components</a>
+  <a class="nav-item" onclick="show('ivt',this)">Intermediate Value Theorem</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T03_Compactness.html">← T03 · Compactness</a>
+  <a class="nav-item" href="CSIR_NET_U5_T05_Continuity.html">T05 · Continuity →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 04</div>
+    <div class="hero-title">Connectedness</div>
+    <div class="hero-sub">Connected spaces · Path connectedness · Components · Intermediate Value Theorem</div>
+    <div class="hero-chips">
+      <span class="chip">Disconnection</span>
+      <span class="chip">Path Connected</span>
+      <span class="chip">Components</span>
+      <span class="chip">IVT</span>
+      <span class="chip">Locally Connected</span>
+      <span class="chip">Totally Disconnected</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Connectedness captures the intuitive idea of a space "in one piece". There are multiple notions — topological connectedness (no separation), path-connectedness (any two points can be joined by a path), and local variants. These properties are preserved under continuous maps and are key in topology and analysis.</p>
+</div>
+
+<div class="sec" id="defn">
+  <h2>Connected Spaces</h2>
+  <div class="def-box">
+    <div class="lbl">Connected Space</div>
+    <p>X is <strong>connected</strong> if it cannot be written as a disjoint union of two non-empty open sets U and V (a "separation").</p>
+    <p>Equivalently: X is connected iff the only subsets that are both open and closed (clopen) are ∅ and X.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Disconnected / Separation</div>
+    <p>X is <strong>disconnected</strong> if X = U ∪ V where U, V are non-empty, open, and disjoint. Such {U,V} is called a <em>separation</em> of X.</p>
+  </div>
+  <h3>Examples</h3>
+  <table>
+    <tr><th>Space</th><th>Connected?</th><th>Reason</th></tr>
+    <tr><td>ℝ, ℝⁿ</td><td>Yes</td><td>Intervals are connected; products of connected spaces are connected</td></tr>
+    <tr><td>Any interval [a,b], (a,b)</td><td>Yes</td><td>IVT characterization</td></tr>
+    <tr><td>ℚ (rationals)</td><td>No</td><td>ℚ=(ℚ∩(−∞,√2)) ∪ (ℚ∩(√2,∞)) is a separation</td></tr>
+    <tr><td>Two disjoint open intervals</td><td>No</td><td>Each interval is clopen in the union</td></tr>
+    <tr><td>Cantor set C</td><td>No (totally disconnected)</td><td>Every connected component is a single point</td></tr>
+    <tr><td>ℂ\{0} = ℝ²\{0}</td><td>Yes</td><td>Path connected (circle detour)</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Connected Subsets of ℝ</div>
+    <p>A subset A ⊆ ℝ is connected iff A is an interval (including rays and ℝ itself).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Continuous Image</div>
+    <p>The continuous image of a connected space is connected. If f: X→Y is continuous and X is connected, then f(X) is connected.</p>
+  </div>
+</div>
+
+<div class="sec" id="path">
+  <h2>Path Connectedness</h2>
+  <div class="def-box">
+    <div class="lbl">Path Connected</div>
+    <p>X is <strong>path connected</strong> if for any x,y ∈ X, there exists a continuous γ: [0,1]→X with γ(0)=x and γ(1)=y.</p>
+    <p>Path connected ⟹ connected. The converse fails in general.</p>
+  </div>
+  <div class="warn-box">
+    <div class="lbl">Topologist's Sine Curve</div>
+    <p>S = {(x, sin(1/x)) : x>0} ∪ {(0,y) : −1≤y≤1} is connected but NOT path connected. Any path from (0,0) to a point on the sine curve must pass through infinitely many oscillations.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Convex ⟹ Path Connected ⟹ Connected</div>
+    <p>In a normed space: convex ⟹ path connected (straight-line path γ(t)=(1−t)x+ty). Path connected ⟹ connected. Neither converse holds in general.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">For Open Subsets of ℝⁿ</div>
+    <p>An open subset U ⊆ ℝⁿ is connected iff it is path connected.</p>
+  </div>
+</div>
+
+<div class="sec" id="components">
+  <h2>Connected Components</h2>
+  <div class="def-box">
+    <div class="lbl">Connected Component</div>
+    <p>The <strong>connected component</strong> of x ∈ X is the largest connected subset of X containing x. Components are always closed. They partition X into disjoint closed sets.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Totally Disconnected</div>
+    <p>X is <strong>totally disconnected</strong> if every connected component consists of a single point. Examples: ℚ, ℤ, Cantor set.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Locally Connected</div>
+    <p>X is <strong>locally connected</strong> if every point has a neighborhood basis of connected open sets. ℝⁿ is locally connected. ℚ is NOT locally connected.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Path Components</div>
+    <p>Similarly, path components partition X. For manifolds: connected ↔ path connected ↔ path component = whole space.</p>
+  </div>
+</div>
+
+<div class="sec" id="ivt">
+  <h2>Intermediate Value Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Intermediate Value Theorem (General Form)</div>
+    <p>If f: X→ℝ is continuous and X is connected, then f(X) is an interval. In particular: if f(a)<c<f(b) and X is connected, then ∃x with f(x)=c.</p>
+    <p>Classical form: f: [a,b]→ℝ continuous, f(a) and f(b) have opposite signs ⟹ ∃c∈(a,b) with f(c)=0.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Sketch</div>
+    <p>f([a,b]) is a continuous image of a connected set [a,b], hence connected in ℝ, hence an interval. Since it contains f(a) and f(b), it contains all values between them.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Fixed Point (Brouwer 1D)</div>
+    <p>If f: [0,1]→[0,1] is continuous, then f has a fixed point (∃x: f(x)=x).</p>
+    <p>Proof: apply IVT to g(x)=f(x)−x: g(0)≥0 and g(1)≤0.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Applications</div>
+    <ul>
+      <li>Root finding: Bisection method.</li>
+      <li>Existence proofs: ODE solutions, Nash equilibria.</li>
+      <li>Connected components: IVT shows ℝ\{point} is disconnected (⟹ ℝ is not homeomorphic to ℝⁿ for n≥2).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">X is connected iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Every open cover is finite</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> The only clopen subsets of X are ∅ and X</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> X is compact</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Every sequence converges</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Which of the following subsets of ℝ is connected?</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> ℚ</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> (0,1) ∪ (2,3)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> [0,1]</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> ℤ</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Path connectedness implies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> Compactness</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> Connectedness</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> Completeness</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Separability</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The topologist's sine curve is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Both connected and path connected</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Connected but NOT path connected</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Path connected but not connected</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Neither connected nor path connected</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The continuous image of a connected set is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Compact</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Connected</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Open</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Closed</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">A subset A ⊆ ℝ is connected iff A is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Bounded</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> An interval (possibly unbounded, possibly degenerate)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Closed</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Open</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Connected components of X are always:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Open</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Closed</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Countable</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Compact</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The IVT (intermediate value theorem) requires f: [a,b]→ℝ to be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Differentiable</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Continuous</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Monotone</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Injective</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Cantor set is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Connected</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Totally disconnected, compact, perfect</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Path connected</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Open in ℝ</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">ℝⁿ\{0} for n≥2 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Disconnected</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Connected (path connected)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Compact</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Totally disconnected</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">An open connected subset of ℝⁿ is always:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Compact</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Path connected</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Bounded</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> A single interval</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">If f: [0,1]→[0,1] is continuous, by the 1D Brouwer fixed point theorem:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> f has no fixed point unless f is linear</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> f has at least one fixed point</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> f has exactly one fixed point</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> f has a fixed point only if monotone</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">A locally connected space is one where:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> X is compact</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Every point has a neighborhood basis of connected open sets</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> X is path connected</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> X has finitely many connected components</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">ℚ (rational numbers) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Connected</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Totally disconnected</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Path connected</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Locally connected</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The product X×Y (with product topology) is connected iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> X and Y are compact</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Both X and Y are connected</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> X or Y is connected</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> X and Y are path connected and compact</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Connected</h4><p>No separation into two open disjoint non-empty sets. Equivalently: only clopen sets are ∅ and X.</p></div>
+    <div class="sum-card"><h4>ℝ Subsets</h4><p>Connected iff an interval. Path connected iff connected for open subsets of ℝⁿ.</p></div>
+    <div class="sum-card"><h4>Path Connected</h4><p>Any two points joined by a path. Path connected ⟹ connected. Converse fails (topologist's sine curve).</p></div>
+    <div class="sum-card"><h4>Components</h4><p>Maximal connected subsets. Always closed. Totally disconnected: each component = {point}.</p></div>
+    <div class="sum-card"><h4>IVT</h4><p>f continuous, X connected ⟹ f(X) is connected (interval in ℝ). Generalizes classical IVT.</p></div>
+    <div class="sum-card"><h4>Brouwer 1D</h4><p>f: [0,1]→[0,1] continuous ⟹ ∃ fixed point. Proof via IVT on g(x)=f(x)−x.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U5_T03_Compactness.html">← T03: Compactness</a>
+    <a class="btn btn-acc" href="CSIR_NET_U5_T05_Continuity.html">T05: Continuity →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'c',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'X is connected iff the only subsets that are both open AND closed (clopen) are ∅ and X. Equivalently, X has no separation into two disjoint non-empty open sets.',
+  2:'[0,1] is an interval in ℝ, hence connected. ℚ is totally disconnected, (0,1)∪(2,3) is a separation of itself, ℤ is totally disconnected.',
+  3:'Path connected ⟹ connected. If X is path connected, any separation X=U∪V would force any path from U to V to cross between two disjoint open sets, impossible by IVT.',
+  4:'The topologist\'s sine curve S = cl{(x,sin1/x):x>0} is connected (cannot separate the limit segment from the oscillating part) but NOT path connected (no path can reach the segment {0}×[−1,1] from the sine part).',
+  5:'The continuous image of a connected set is connected. Proof: if f(X)=U∪V (separation), then X=f⁻¹(U)∪f⁻¹(V) would be a separation of X.',
+  6:'Connected subsets of ℝ are exactly intervals (possibly degenerate like {a} or ∅). This follows from the IVT characterization.',
+  7:'Connected components are always closed (the closure of a connected set is connected, so the component is already closed). They need not be open (e.g., components of ℚ are singletons, which are closed but not open in ℚ).',
+  8:'IVT requires f to be continuous on [a,b] (which is a connected set). Differentiability is not needed.',
+  9:'The Cantor set C is totally disconnected (components are singletons), compact (closed bounded in ℝ), and perfect (closed, no isolated points). It is homeomorphic to {0,1}^ℕ.',
+  10:'ℝⁿ\\{0} for n≥2 is path connected: given any two non-zero points x,y, detour around 0. Contrast: ℝ\\{0}=(−∞,0)∪(0,∞) IS disconnected.',
+  11:'An open connected subset of ℝⁿ is always path connected. Any two points can be connected by a piecewise linear path (local convexity of open sets lets you hop from ball to ball).',
+  12:'1D Brouwer fixed point: g(x)=f(x)−x. g(0)=f(0)−0≥0, g(1)=f(1)−1≤0. By IVT, ∃c: g(c)=0, i.e., f(c)=c. There is at least one fixed point.',
+  13:'Locally connected: every point has arbitrarily small connected neighborhoods. ℝⁿ is locally connected. ℚ is NOT (every neighborhood of a rational contains non-rationals, disconnecting it).',
+  14:'ℚ is totally disconnected: for any two distinct rationals p<q, pick irrational r between them. Then (ℚ∩(−∞,r))∪(ℚ∩(r,∞)) separates ℚ, so {p} and {q} are in different components.',
+  15:'X×Y is connected iff both X and Y are connected. Proof: X×{y₀} is homeomorphic to X (connected), {x₀}×Y is homeomorphic to Y (connected). Any two points can be connected via a corner.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

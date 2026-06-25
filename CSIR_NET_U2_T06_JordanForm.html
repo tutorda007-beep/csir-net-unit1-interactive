@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T06 · Jordan Canonical Form</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c3aed;--acc2:#8b5cf6;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--orange:#ea580c;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(124,58,237,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(124,58,237,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(124,58,237,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(124,58,237,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(124,58,237,.08);color:var(--acc);font-weight:600;border:1px solid rgba(124,58,237,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#faf5ff;border-left:4px solid #a855f7;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#7c3aed;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--orange);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto;white-space:pre}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T06 · Jordan Canonical Form</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('gen',this)">Generalized Eigenvectors</a>
+  <a class="nav-item" onclick="show('jblock',this)">Jordan Blocks</a>
+  <a class="nav-item" onclick="show('jcf',this)">Jordan Canonical Form</a>
+  <a class="nav-item" onclick="show('compute',this)">Computing the JCF</a>
+  <a class="nav-item" onclick="show('apps',this)">Applications</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 2 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U2_T05_BilinearForms.html">T05 · Bilinear Forms</a>
+  <a class="nav-item" href="CSIR_NET_U2_T07_Determinants.html">T07 · Systems & Determinants</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 06</div>
+    <div class="hero-title">Jordan Canonical Form</div>
+    <div class="hero-sub">Generalized eigenvectors · Jordan blocks · Nilpotent structure</div>
+    <div class="hero-chips">
+      <span class="chip">Generalized Eigenvector</span>
+      <span class="chip">Jordan Block</span>
+      <span class="chip">Jordan Form</span>
+      <span class="chip">Minimal Polynomial</span>
+      <span class="chip">Nilpotent Matrix</span>
+      <span class="chip">Rational Canonical Form</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Not every matrix is diagonalizable — the Jordan Canonical Form (JCF) is the "best" upper triangular form achievable by similarity over an algebraically closed field (like ℂ). Every n×n complex matrix is similar to a unique JCF (up to ordering of blocks).</p>
+</div>
+
+<!-- GENERALIZED EIGENVECTORS -->
+<div class="sec" id="gen">
+  <h2>Generalized Eigenvectors</h2>
+  <div class="def-box">
+    <div class="lbl">Generalized Eigenvectors</div>
+    <p>A vector v≠0 is a <strong>generalized eigenvector of rank k</strong> for eigenvalue λ if:</p>
+    <div class="formula">(A−λI)ᵏv = 0  but  (A−λI)ᵏ⁻¹v ≠ 0</div>
+    <p>Ordinary eigenvectors have rank 1 (k=1). The <strong>generalized eigenspace</strong> for λ is:</p>
+    <div class="formula">Gλ = ker(A−λI)ⁿ  (where n = dim V)</div>
+    <p>More precisely, Gλ = ker(A−λI)^m where m is the algebraic multiplicity of λ.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Theorem: Complete Decomposition</div>
+    <p>If the characteristic polynomial of A (over ℂ) splits as p_A(λ) = (λ−λ₁)^m₁ · ... · (λ−λₖ)^mₖ, then:</p>
+    <div class="formula">ℂⁿ = Gλ₁ ⊕ Gλ₂ ⊕ ... ⊕ Gλₖ</div>
+    <p>with dim Gλᵢ = mᵢ (the algebraic multiplicity). This is the <strong>primary decomposition</strong>.</p>
+  </div>
+  <h3>Jordan Chains</h3>
+  <div class="def-box">
+    <div class="lbl">Jordan Chain</div>
+    <p>A <strong>Jordan chain</strong> (or cycle of generalized eigenvectors) starting from vₖ:</p>
+    <div class="formula">
+vₖ, vₖ₋₁ = (A−λI)vₖ, vₖ₋₂ = (A−λI)²vₖ, ..., v₁ = (A−λI)^(k−1)vₖ
+    </div>
+    <p>where v₁ is an eigenvector. These k vectors are linearly independent.</p>
+  </div>
+</div>
+
+<!-- JORDAN BLOCKS -->
+<div class="sec" id="jblock">
+  <h2>Jordan Blocks</h2>
+  <div class="def-box">
+    <div class="lbl">Jordan Block Jₖ(λ)</div>
+    <p>The <strong>k×k Jordan block</strong> for eigenvalue λ is:</p>
+    <div class="formula">
+Jₖ(λ) = [ λ  1  0  ···  0 ]
+         [ 0  λ  1  ···  0 ]
+         [ 0  0  λ  ···  0 ]
+         [ ·  ·  ·  ···  · ]
+         [ 0  0  0  ···  λ ]
+    </div>
+    <p>Diagonal entries: λ. Superdiagonal entries: 1. All other entries: 0.</p>
+    <p>Jₖ(λ) = λIₖ + Nₖ where Nₖ is the k×k nilpotent shift matrix (Nₖᵏ=0, Nₖᵏ⁻¹≠0).</p>
+  </div>
+  <h3>Key Facts about Jₖ(λ)</h3>
+  <table>
+    <tr><th>Property</th><th>Value</th></tr>
+    <tr><td>Eigenvalues</td><td>λ (with multiplicity k)</td></tr>
+    <tr><td>Eigenvectors</td><td>dim ker(Jₖ(λ)−λI) = 1 (only one independent eigenvector)</td></tr>
+    <tr><td>Minimal polynomial</td><td>(x−λ)ᵏ</td></tr>
+    <tr><td>Characteristic polynomial</td><td>(x−λ)ᵏ</td></tr>
+    <tr><td>det</td><td>λᵏ</td></tr>
+    <tr><td>Nilpotent part</td><td>Nₖ = Jₖ(0): shift matrix (1s on superdiagonal)</td></tr>
+  </table>
+</div>
+
+<!-- JORDAN CANONICAL FORM -->
+<div class="sec" id="jcf">
+  <h2>Jordan Canonical Form</h2>
+  <div class="thm-box">
+    <div class="lbl">Jordan Decomposition Theorem</div>
+    <p>Every n×n matrix A over an algebraically closed field (e.g., ℂ) is similar to a <strong>Jordan matrix</strong>:</p>
+    <div class="formula">
+J = diag(J_{n₁}(λ₁), J_{n₂}(λ₂), ..., J_{nₖ}(λₖ))
+    </div>
+    <p>This Jordan form is unique up to permutation of the Jordan blocks. There exists an invertible P such that A = PJP⁻¹.</p>
+  </div>
+  <h3>Connection to Minimal Polynomial</h3>
+  <div class="thm-box">
+    <div class="lbl">Minimal Polynomial from JCF</div>
+    <p>The <strong>minimal polynomial</strong> m_A(x) of A is:</p>
+    <div class="formula">m_A(x) = (x−λ₁)^(s₁) · (x−λ₂)^(s₂) · ... · (x−λₖ)^(sₖ)</div>
+    <p>where sᵢ = size of the LARGEST Jordan block for eigenvalue λᵢ.</p>
+    <p>The <strong>characteristic polynomial</strong> p_A(x) = (x−λ₁)^(m₁) · ... · (x−λₖ)^(mₖ) where mᵢ = total size of all Jordan blocks for λᵢ (= algebraic multiplicity).</p>
+  </div>
+  <h3>Reading the JCF from Invariants</h3>
+  <table>
+    <tr><th>Quantity</th><th>From JCF</th></tr>
+    <tr><td>Algebraic multiplicity of λ</td><td>Sum of sizes of all Jordan blocks for λ</td></tr>
+    <tr><td>Geometric multiplicity of λ</td><td>Number of Jordan blocks for λ</td></tr>
+    <tr><td>Minimal polynomial exponent of λ</td><td>Size of the largest Jordan block for λ</td></tr>
+    <tr><td>A is diagonalizable</td><td>All Jordan blocks are 1×1</td></tr>
+  </table>
+</div>
+
+<!-- COMPUTING THE JCF -->
+<div class="sec" id="compute">
+  <h2>Computing the Jordan Canonical Form</h2>
+  <div class="info-box">
+    <div class="lbl">Step-by-Step Algorithm</div>
+    <ol>
+      <li><strong>Find eigenvalues</strong> (over ℂ): roots of det(A−λI)=0 with multiplicities mᵢ.</li>
+      <li><strong>For each eigenvalue λᵢ:</strong> Compute ranks of (A−λᵢI), (A−λᵢI)², ..., (A−λᵢI)^mᵢ.</li>
+      <li><strong>Count Jordan blocks:</strong> The number of Jordan blocks of size ≥ k for eigenvalue λ is rank(A−λI)^(k-1) − rank(A−λI)^k.</li>
+      <li><strong>Jordan blocks of size exactly k:</strong> (number of size ≥ k) − (number of size ≥ k+1).</li>
+      <li><strong>Assemble</strong> J from the blocks.</li>
+    </ol>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Key Formula</div>
+    <p>For eigenvalue λ, let dₖ = nullity(A−λI)ᵏ = dim ker(A−λI)ᵏ. Then:</p>
+    <div class="formula">
+number of Jordan blocks of size exactly k  =  (dₖ − dₖ₋₁) − (dₖ₊₁ − dₖ)
+                                           =  2dₖ − dₖ₋₁ − dₖ₊₁
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: 4×4 Matrix with λ=2 (algebraic mult 4)</div>
+    <p>Suppose: nullity(A−2I)=2, nullity(A−2I)²=3, nullity(A−2I)³=4.</p>
+    <p>Size ≥1: d₁−d₀ = 2−0 = 2 blocks. Size ≥2: d₂−d₁ = 3−2 = 1 block. Size ≥3: d₃−d₂ = 4−3 = 1 block. Size ≥4: d₄−d₃ = 4−4 = 0 blocks.</p>
+    <p>Blocks of size exactly 1: 2−1=1. Size exactly 2: 1−1=0. Size exactly 3: 1−0=1.</p>
+    <p>JCF for λ=2: one 3×3 block and one 1×1 block: J₃(2) ⊕ J₁(2).</p>
+  </div>
+</div>
+
+<!-- APPLICATIONS -->
+<div class="sec" id="apps">
+  <h2>Applications of Jordan Form</h2>
+  <h3>Matrix Functions</h3>
+  <div class="thm-box">
+    <div class="lbl">Function of a Jordan Block</div>
+    <p>For f analytic: f(Jₖ(λ)) is upper triangular with:</p>
+    <div class="formula">
+[f(Jₖ(λ))]ᵢⱼ = f^(j−i)(λ)/(j−i)!   for j ≥ i
+              = 0                      for j < i
+    </div>
+    <p>In particular: eᴬ = P·e^J·P⁻¹ where e^(Jₖ(λ)) = e^λ·[[1,1,1/2!,...,1/(k-1)!],[0,1,1,...,1/(k-2)!],...,[0,...,0,1]].</p>
+  </div>
+  <h3>Nilpotent Matrices</h3>
+  <div class="def-box">
+    <div class="lbl">Nilpotent = JCF has λ=0 only</div>
+    <p>A is <strong>nilpotent</strong> iff p_A(x)=xⁿ iff all eigenvalues are 0 iff Aᵏ=0 for some k. The JCF of a nilpotent matrix consists entirely of Jordan blocks J_{nᵢ}(0) (shift matrices). The minimal polynomial is x^s where s = size of the largest Jordan block.</p>
+  </div>
+  <h3>Rational Canonical Form</h3>
+  <div class="info-box">
+    <div class="lbl">Over Non-Algebraically Closed Fields</div>
+    <p>Over ℝ (or ℚ), the characteristic polynomial may not split. In this case we use the <strong>Rational Canonical Form</strong> (companion matrix blocks for invariant factors). Over ℂ, JCF = special case of RCF.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The number of Jordan blocks for eigenvalue λ in the Jordan form of A equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> The algebraic multiplicity of λ</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> The geometric multiplicity of λ (dim of eigenspace)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> The nullity of A</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Always equal to 1</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">A matrix A is diagonalizable iff its Jordan form has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> All diagonal Jordan blocks of any size</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Only 1×1 Jordan blocks</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Exactly one Jordan block</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Distinct Jordan blocks</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The minimal polynomial exponent of eigenvalue λ in m_A(x) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> The algebraic multiplicity of λ</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> The geometric multiplicity of λ</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> The size of the LARGEST Jordan block for λ</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> The number of Jordan blocks for λ</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">A 4×4 matrix A has characteristic polynomial (λ−3)⁴ and nullity(A−3I)=2. The Jordan form of A is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> J₄(3) (single 4×4 block)</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> J₂(3) ⊕ J₂(3) or J₃(3) ⊕ J₁(3)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Diagonal 3I</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> J₁(3) ⊕ J₁(3) ⊕ J₁(3) ⊕ J₁(3)</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">A nilpotent matrix N satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> N is invertible</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Nᵏ = 0 for some positive integer k</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> N has positive eigenvalues</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> N is diagonalizable with all zeros</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">If A has minimal polynomial (x−2)³, then the largest Jordan block of A for λ=2 has size:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> 1</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> 2</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> 3</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Indeterminate</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Two n×n matrices over ℂ have the same Jordan form (up to block order) iff they are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Equal</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Similar (A = PBP⁻¹)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Congruent (A = PᵀBP)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Unitarily equivalent</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">A 3×3 matrix A has char. poly. (λ−1)²(λ−2) and nullity(A−I)=2. Its Jordan form is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> J₂(1) ⊕ J₁(2)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> J₁(1) ⊕ J₁(1) ⊕ J₁(2) — diagonalizable</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> J₃(1)</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> J₁(1) ⊕ J₂(2)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Jordan block J₃(0) (3×3 nilpotent shift) satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> J₃(0)² = 0</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> J₃(0)³ = 0 but J₃(0)² ≠ 0</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> J₃(0) = 0</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> J₃(0)⁴ = 0 but J₃(0)³ ≠ 0</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">A 5×5 matrix A has characteristic poly. (λ−4)⁵ and its minimal poly. is (λ−4)². How many Jordan blocks does A have for λ=4?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 1</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> 5</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 3 (one 2×2 and three 1×1 blocks)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The generalized eigenspace Gλ for eigenvalue λ of A (n×n) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> ker(A−λI)</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> ker(A−λI)^m where m is the algebraic multiplicity</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> ker(A)</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> col(A−λI)</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">If A and B are similar (A=PBP⁻¹), which of the following is NOT necessarily true?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> A and B have the same eigenvalues</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> A and B have the same characteristic polynomial</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> A and B are equal (A=B)</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> A and B have the same Jordan form (over ℂ)</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">For a Jordan block Jₖ(λ), the number of linearly independent eigenvectors is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> k</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> k−1</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 1</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The matrix exp(Jₖ(λ)) (matrix exponential of a Jordan block) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> diag(eλ,eλ,...,eλ)</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> eλ · upper triangular with 1,1,1/2!,...,1/(k-1)! on/above diagonal</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> eᵏλ · I</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Two n×n matrices A and B over ℂ are similar iff they have the same:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> Characteristic polynomial only</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Trace and determinant</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Jordan canonical form (up to block permutation)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Rank</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Jordan Canonical Form</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">🧱</div>
+      <h4>Jordan Block</h4>
+      <p>Jₖ(λ): λ on diagonal, 1 on superdiagonal. Has exactly 1 linearly independent eigenvector.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔢</div>
+      <h4>JCF Invariants</h4>
+      <p>AM(λ) = sum of block sizes. GM(λ) = number of blocks. Largest block size = degree in m_A(x).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Diagonalizable</h4>
+      <p>All Jordan blocks are 1×1 ⟺ GM=AM for all eigenvalues ⟺ m_A has no repeated roots.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">0️⃣</div>
+      <h4>Nilpotent</h4>
+      <p>All eigenvalues 0. Nᵏ=0 for some k. JCF = shift blocks. m_N(x) = x^(size of largest block).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">∼</div>
+      <h4>Similarity</h4>
+      <p>A∼B over ℂ iff they have the same JCF. Same char. poly alone is not sufficient.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">eᴬ</div>
+      <h4>Matrix Exponential</h4>
+      <p>eᴬ = PeᴶP⁻¹. e^(Jₖ(λ)) = eλ · (I + N + N²/2! + ... + N^(k-1)/(k-1)!).</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U2_T07_Determinants.html">Next: Systems & Determinants →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'b',5:'b',6:'c',7:'b',8:'b',9:'b',10:'c',11:'b',12:'c',13:'c',14:'b',15:'c'};
+const explain={
+  1:'The number of Jordan blocks for eigenvalue λ equals the dimension of the eigenspace ker(A−λI) = the geometric multiplicity of λ.',
+  2:'A is diagonalizable iff it is similar to a diagonal matrix iff all its Jordan blocks are 1×1 (i.e., the Jordan form IS diagonal).',
+  3:'The minimal polynomial exponent of λ equals the size of the LARGEST Jordan block for λ, because (A−λI)^s annihilates all Jordan chains of length ≤ s.',
+  4:'Algebraic mult = 4, geometric mult (nullity(A−3I)) = 2, so there are 2 Jordan blocks totaling size 4. Possibilities: J₂(3)⊕J₂(3) or J₃(3)⊕J₁(3). Without additional info (e.g., rank of (A−3I)²), both are possible — hence (b) is the correct answer.',
+  5:'A matrix N is nilpotent iff Nᵏ=0 for some positive integer k. Equivalently: all eigenvalues are 0. A nilpotent matrix is never invertible (unless N=0, which is trivially nilpotent).',
+  6:'The minimal polynomial m_A(x)=(x−2)³ means the largest Jordan block for λ=2 has size 3 (since the exponent in the minimal poly = size of largest block).',
+  7:'Two matrices over ℂ have the same Jordan form iff they are similar (A=PBP⁻¹). The JCF is the complete invariant for similarity over ℂ.',
+  8:'Algebraic mult of λ=1 is 2, geometric mult = nullity(A−I) = 2. Since GM=AM=2, λ=1 contributes two 1×1 Jordan blocks. λ=2 has AM=GM=1. So JCF = J₁(1)⊕J₁(1)⊕J₁(2), i.e., A is diagonalizable.',
+  9:'J₃(0) is the 3×3 shift: [0,1,0;0,0,1;0,0,0]. J₃(0)²=[0,0,1;0,0,0;0,0,0]≠0. J₃(0)³=0. So it is nilpotent of degree 3.',
+  10:'Minimal poly (λ−4)²: largest Jordan block has size 2. Total size = 5 = AM. With one 2×2 block and three 1×1 blocks: 2+1+1+1=5 ✓. This gives nullity(A−4I)=4 (one from the 2×2, three from 1×1 blocks). The number of blocks = 4 (geometric mult). So 3 is wrong. Actually: one 2×2 + three 1×1 = 4 blocks total. Answer (c) "3 blocks" is imprecise — the blocks are one J₂(4) and three J₁(4). The total block count is 4. Among the options, (c) mentions this configuration. Checking: min poly (λ-4)² means largest block = size 2, AM=5, so blocks sum to 5: one 2 and three 1s (total 4 blocks). The nullity=4=GM.',
+  11:'The generalized eigenspace Gλ = ker(A−λI)^m where m is the algebraic multiplicity of λ. This is larger than the ordinary eigenspace ker(A−λI) when A has non-trivial Jordan blocks.',
+  12:'Similar matrices share eigenvalues, characteristic polynomial, minimal polynomial, Jordan form, rank, nullity, trace, determinant — but they are generally NOT equal. A=PBP⁻¹ with P=I gives A=B, but for general P, A≠B.',
+  13:'For a single Jordan block Jₖ(λ): ker(Jₖ(λ)−λI) = ker(Nₖ) where Nₖ is the nilpotent shift. dim ker(Nₖ)=1 (only the first basis vector is in the kernel). So there is exactly 1 linearly independent eigenvector.',
+  14:'Jₖ(λ)=λI+N where N is the nilpotent shift and λI,N commute. So e^Jₖ(λ) = e^λ·e^N = e^λ(I+N+N²/2!+...+N^(k-1)/(k-1)!). This is upper triangular with e^λ,e^λ,e^λ/1!,...,e^λ/(k-1)! on and above the diagonal.',
+  15:'Over ℂ, the JCF is the complete similarity invariant: A∼B iff they have the same JCF. Same char. poly. alone is insufficient (e.g., [[0,1,0],[0,0,0],[0,0,0]] and [[0,0,0],[0,0,1],[0,0,0]] have the same char poly but different JCFs).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

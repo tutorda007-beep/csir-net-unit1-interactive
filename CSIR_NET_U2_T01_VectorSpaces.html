@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T01 · Vector Spaces</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1e40af;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--green:#16a34a;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(30,64,175,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(30,64,175,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(30,64,175,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#eff6ff,#dbeafe,#bfdbfe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(30,64,175,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(30,64,175,.08);color:var(--acc);font-weight:600;border:1px solid rgba(30,64,175,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#b45309;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+svg{display:block;margin:16px auto}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T01 · Vector Spaces</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('vs',this)">Vector Space Axioms</a>
+  <a class="nav-item" onclick="show('sub',this)">Subspaces</a>
+  <a class="nav-item" onclick="show('span',this)">Span & Linear Independence</a>
+  <a class="nav-item" onclick="show('basis',this)">Basis & Dimension</a>
+  <a class="nav-item" onclick="show('coord',this)">Coordinates & Isomorphisms</a>
+  <a class="nav-item" onclick="show('sum',this)">Direct Sums</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 2 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U2_T02_LinearTransformations.html">T02 · Linear Transformations</a>
+  <a class="nav-item" href="CSIR_NET_U2_T03_Eigenvalues.html">T03 · Eigenvalues</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 01</div>
+    <div class="hero-title">Vector Spaces</div>
+    <div class="hero-sub">Axioms · Subspaces · Linear Independence · Basis · Dimension</div>
+    <div class="hero-chips">
+      <span class="chip">Vector Space</span>
+      <span class="chip">Subspace</span>
+      <span class="chip">Span</span>
+      <span class="chip">Linear Independence</span>
+      <span class="chip">Basis</span>
+      <span class="chip">Dimension</span>
+      <span class="chip">Direct Sum</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>A <strong>vector space</strong> is a set with two operations — vector addition and scalar multiplication — satisfying eight axioms. This abstraction unifies geometric vectors in ℝⁿ, polynomials, matrices, and function spaces under one framework.</p>
+  <div class="grid2">
+    <div class="card">
+      <h4>Key Structures</h4>
+      <ul>
+        <li>ℝⁿ, ℂⁿ — coordinate n-space</li>
+        <li>Mₘₓₙ(𝔽) — matrices over field 𝔽</li>
+        <li>Pₙ(𝔽) — polynomials of degree ≤ n</li>
+        <li>C[a,b] — continuous functions</li>
+        <li>Solution set of homogeneous linear ODE</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>CSIR NET Focus</h4>
+      <ul>
+        <li>Verifying subspace criterion</li>
+        <li>Finding basis and dimension</li>
+        <li>Dimension formula for sum of subspaces</li>
+        <li>Linear independence vs spanning sets</li>
+        <li>Direct sum decomposition</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- VECTOR SPACE AXIOMS -->
+<div class="sec" id="vs">
+  <h2>Vector Space Axioms</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Vector Space</div>
+    <p>A <strong>vector space</strong> V over a field 𝔽 is a set with operations + : V×V → V and · : 𝔽×V → V satisfying:</p>
+    <ol>
+      <li><strong>Commutativity:</strong> u + v = v + u</li>
+      <li><strong>Associativity:</strong> (u+v)+w = u+(v+w)</li>
+      <li><strong>Zero vector:</strong> ∃ 0 ∈ V: v + 0 = v for all v</li>
+      <li><strong>Additive inverse:</strong> ∀ v ∈ V, ∃ −v: v + (−v) = 0</li>
+      <li><strong>Scalar identity:</strong> 1·v = v</li>
+      <li><strong>Scalar associativity:</strong> (αβ)v = α(βv)</li>
+      <li><strong>Distributivity over vectors:</strong> α(u+v) = αu + αv</li>
+      <li><strong>Distributivity over scalars:</strong> (α+β)v = αv + βv</li>
+    </ol>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Consequences of Axioms</div>
+    <ul>
+      <li>0·v = 0 (zero scalar → zero vector)</li>
+      <li>α·0 = 0 (any scalar times zero vector = zero vector)</li>
+      <li>(−1)·v = −v (additive inverse from scalar −1)</li>
+      <li>If αv = 0, then α = 0 or v = 0</li>
+    </ul>
+  </div>
+  <h3>Standard Examples</h3>
+  <table>
+    <tr><th>Space V</th><th>Field 𝔽</th><th>Operations</th><th>dim V</th></tr>
+    <tr><td>ℝⁿ</td><td>ℝ</td><td>Coordinate addition/scaling</td><td>n</td></tr>
+    <tr><td>ℂ over ℝ</td><td>ℝ</td><td>Real addition, real scaling</td><td>2</td></tr>
+    <tr><td>ℂ over ℂ</td><td>ℂ</td><td>Complex addition/scaling</td><td>1</td></tr>
+    <tr><td>Mₘₓₙ(𝔽)</td><td>𝔽</td><td>Matrix addition, scalar×matrix</td><td>mn</td></tr>
+    <tr><td>Pₙ(𝔽)</td><td>𝔽</td><td>Polynomial addition/scaling</td><td>n+1</td></tr>
+    <tr><td>P(𝔽) (all polynomials)</td><td>𝔽</td><td>Polynomial addition/scaling</td><td>∞</td></tr>
+    <tr><td>{0}</td><td>Any</td><td>Trivial</td><td>0</td></tr>
+  </table>
+  <div class="warn-box">
+    <div class="lbl">Non-Examples</div>
+    <ul>
+      <li>ℤ over ℤ: ℤ is not a field (no multiplicative inverses for non-±1)</li>
+      <li>ℝ⁺ (positive reals) with usual operations: no additive inverse</li>
+      <li>ℝⁿ with non-standard addition (u+v ≠ v+u): fails commutativity</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SUBSPACES -->
+<div class="sec" id="sub">
+  <h2>Subspaces</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Subspace</div>
+    <p>A non-empty subset W ⊆ V is a <strong>subspace</strong> of V if W is closed under addition and scalar multiplication. The <strong>subspace test</strong>: W is a subspace iff:</p>
+    <ol>
+      <li>0 ∈ W (zero vector)</li>
+      <li>u, v ∈ W ⟹ u + v ∈ W (closed under addition)</li>
+      <li>α ∈ 𝔽, v ∈ W ⟹ αv ∈ W (closed under scalar multiplication)</li>
+    </ol>
+    <p>Equivalently: W is a subspace iff ∀ u,v ∈ W and α,β ∈ 𝔽: αu + βv ∈ W.</p>
+  </div>
+  <h3>Examples of Subspaces</h3>
+  <table>
+    <tr><th>V</th><th>Subspace W</th><th>Dimension</th></tr>
+    <tr><td>ℝ³</td><td>Any line through origin: {t(a,b,c) : t ∈ ℝ}</td><td>1</td></tr>
+    <tr><td>ℝ³</td><td>Any plane through origin: {(x,y,z): ax+by+cz=0}</td><td>2</td></tr>
+    <tr><td>M₂ₓ₂(ℝ)</td><td>Symmetric matrices: {A : Aᵀ = A}</td><td>3</td></tr>
+    <tr><td>M₂ₓ₂(ℝ)</td><td>Upper triangular matrices</td><td>3</td></tr>
+    <tr><td>Pₙ(𝔽)</td><td>Polynomials with p(0)=0: {p : p(0)=0}</td><td>n</td></tr>
+    <tr><td>C[a,b]</td><td>Solutions of p''+ p = 0: {A cos x + B sin x}</td><td>2</td></tr>
+  </table>
+  <div class="warn-box">
+    <div class="lbl">Non-Subspaces</div>
+    <ul>
+      <li>Lines/planes NOT through origin: {(x,y,z) : x+y+z = 1} — missing zero vector</li>
+      <li>Unit sphere in ℝ³ — not closed under addition</li>
+      <li>ℤⁿ ⊂ ℝⁿ — not closed under real scalar multiplication (½ · (1,0) = (½,0) ∉ ℤ²)</li>
+    </ul>
+  </div>
+  <h3>Sum and Intersection of Subspaces</h3>
+  <div class="thm-box">
+    <div class="lbl">Theorem</div>
+    <ul>
+      <li>W₁ ∩ W₂ is always a subspace of V</li>
+      <li>W₁ ∪ W₂ is a subspace iff W₁ ⊆ W₂ or W₂ ⊆ W₁</li>
+      <li>W₁ + W₂ = {w₁ + w₂ : w₁ ∈ W₁, w₂ ∈ W₂} is always a subspace</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Dimension Formula (Grassmann)</div>
+    <div class="formula">dim(W₁ + W₂) = dim W₁ + dim W₂ − dim(W₁ ∩ W₂)</div>
+    <p>This is the subspace analogue of the inclusion-exclusion principle.</p>
+  </div>
+</div>
+
+<!-- SPAN & LINEAR INDEPENDENCE -->
+<div class="sec" id="span">
+  <h2>Span and Linear Independence</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Linear Combination & Span</div>
+    <p>A <strong>linear combination</strong> of v₁,...,vₖ ∈ V is α₁v₁ + α₂v₂ + ... + αₖvₖ (αᵢ ∈ 𝔽).</p>
+    <p><strong>Span</strong>: span{v₁,...,vₖ} = set of all linear combinations of v₁,...,vₖ. This is the smallest subspace containing all vᵢ.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Definition — Linear Independence</div>
+    <p>Vectors v₁,...,vₖ are <strong>linearly independent</strong> if α₁v₁ + ... + αₖvₖ = 0 ⟹ α₁ = α₂ = ... = αₖ = 0.</p>
+    <p>They are <strong>linearly dependent</strong> if some non-trivial combination equals zero (some αᵢ ≠ 0).</p>
+  </div>
+  <h3>Key Facts About Linear Independence</h3>
+  <ul>
+    <li>A single non-zero vector is always linearly independent</li>
+    <li>The zero vector makes any set linearly dependent</li>
+    <li>If vᵢ ∈ span{v₁,...,vᵢ₋₁}, the set is linearly dependent</li>
+    <li>Any subset of a linearly independent set is linearly independent</li>
+    <li>In ℝⁿ, any set of more than n vectors is linearly dependent</li>
+  </ul>
+  <div class="thm-box">
+    <div class="lbl">Testing Linear Independence via Row Reduction</div>
+    <p>To test if v₁,...,vₖ ∈ ℝⁿ are linearly independent, form the matrix [v₁ | v₂ | ... | vₖ] and row reduce. The vectors are linearly independent iff the reduced matrix has no free variables (rank = k).</p>
+  </div>
+  <svg width="520" height="160" viewBox="0 0 520 160">
+    <rect width="520" height="160" fill="#eff6ff" rx="8"/>
+    <text x="260" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#1e40af">Linear Dependence in ℝ²</text>
+    <line x1="50" y1="130" x2="470" y2="130" stroke="#d0d5dd" stroke-width="1"/>
+    <line x1="100" y1="20" x2="100" y2="155" stroke="#d0d5dd" stroke-width="1"/>
+    <!-- Independent vectors -->
+    <line x1="100" y1="130" x2="170" y2="60" stroke="#1e40af" stroke-width="2.5" marker-end="url(#arrowB)"/>
+    <line x1="100" y1="130" x2="190" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowB2)"/>
+    <text x="175" y="55" font-size="11" fill="#1e40af" font-weight="700">v₁</text>
+    <text x="195" y="115" font-size="11" fill="#2563eb" font-weight="700">v₂</text>
+    <text x="100" y="150" text-anchor="middle" font-size="11" fill="#1e40af">Independent</text>
+    <!-- Dependent vectors -->
+    <line x1="320" y1="130" x2="390" y2="60" stroke="#7c3aed" stroke-width="2.5"/>
+    <line x1="320" y1="130" x2="440" y2="30" stroke="#be185d" stroke-width="2.5" stroke-dasharray="5,3"/>
+    <text x="395" y="55" font-size="11" fill="#7c3aed" font-weight="700">u</text>
+    <text x="445" y="28" font-size="11" fill="#be185d" font-weight="700">2u</text>
+    <text x="370" y="150" text-anchor="middle" font-size="11" fill="#7c3aed">Dependent (parallel)</text>
+    <defs>
+      <marker id="arrowB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#1e40af"/></marker>
+      <marker id="arrowB2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#2563eb"/></marker>
+    </defs>
+  </svg>
+</div>
+
+<!-- BASIS & DIMENSION -->
+<div class="sec" id="basis">
+  <h2>Basis and Dimension</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Basis</div>
+    <p>A <strong>basis</strong> for V is a set B = {v₁,...,vₙ} that is both:</p>
+    <ul>
+      <li><strong>Linearly independent</strong>, AND</li>
+      <li><strong>Spanning</strong>: span(B) = V</li>
+    </ul>
+    <p>Every vector in V has a <strong>unique</strong> representation as a linear combination of basis vectors.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Definition — Dimension</div>
+    <p>The <strong>dimension</strong> dim(V) is the number of vectors in any basis of V. If V has no finite basis, dim(V) = ∞.</p>
+  </div>
+  <h3>Standard Bases</h3>
+  <table>
+    <tr><th>Space</th><th>Standard Basis</th><th>dim</th></tr>
+    <tr><td>ℝⁿ (or ℂⁿ)</td><td>e₁=(1,0,...,0), e₂=(0,1,...,0), ..., eₙ=(0,...,0,1)</td><td>n</td></tr>
+    <tr><td>Mₘₓₙ(𝔽)</td><td>Eᵢⱼ (matrix with 1 in (i,j), 0 elsewhere)</td><td>mn</td></tr>
+    <tr><td>Pₙ(𝔽)</td><td>{1, x, x², ..., xⁿ}</td><td>n+1</td></tr>
+    <tr><td>Sym₂(ℝ) (2×2 symm.)</td><td>{[[1,0],[0,0]], [[0,1],[1,0]], [[0,0],[0,1]]}</td><td>3</td></tr>
+  </table>
+  <h3>Key Theorems</h3>
+  <div class="thm-box">
+    <div class="lbl">Basis Extension Theorem</div>
+    <p>Any linearly independent set in a finite-dimensional V can be extended to a basis of V. Any spanning set contains a basis as a subset.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Dimension Theorem</div>
+    <p>All bases of a finite-dimensional vector space have the same cardinality. This common number is the dimension.</p>
+    <p>Consequences:</p>
+    <ul>
+      <li>A set of exactly dim(V) vectors that spans V is a basis</li>
+      <li>A set of exactly dim(V) linearly independent vectors is a basis</li>
+      <li>Any set of more than dim(V) vectors is linearly dependent</li>
+      <li>No spanning set has fewer than dim(V) vectors</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Finding a Basis by Row Reduction</div>
+    <p>Given vectors v₁,...,vₖ, form the matrix with these as rows. Row reduce to echelon form. The vectors corresponding to pivot rows form a basis for span{v₁,...,vₖ}. The rank = number of pivots = dimension of span.</p>
+  </div>
+</div>
+
+<!-- COORDINATES & ISOMORPHISMS -->
+<div class="sec" id="coord">
+  <h2>Coordinates and Isomorphisms</h2>
+  <div class="def-box">
+    <div class="lbl">Coordinate Vector</div>
+    <p>Given basis B = {b₁,...,bₙ} for V, every v ∈ V has a unique representation v = α₁b₁ + ... + αₙbₙ. The <strong>coordinate vector</strong> of v with respect to B is [v]_B = (α₁,...,αₙ) ∈ 𝔽ⁿ.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Theorem — Isomorphism</div>
+    <p>Every n-dimensional vector space over 𝔽 is isomorphic to 𝔽ⁿ. The isomorphism is given by the coordinate map v ↦ [v]_B.</p>
+    <p>Two vector spaces over the same field are isomorphic iff they have the same dimension.</p>
+  </div>
+  <h3>Change of Basis</h3>
+  <div class="def-box">
+    <div class="lbl">Change of Basis Matrix</div>
+    <p>Let B = {b₁,...,bₙ} and C = {c₁,...,cₙ} be two bases of V. The <strong>change of basis matrix</strong> from B to C is P = [[b₁]_C | [b₂]_C | ... | [bₙ]_C].</p>
+    <p>Then [v]_C = P·[v]_B. The matrix P is invertible, and P⁻¹ is the change of basis matrix from C to B.</p>
+  </div>
+  <div class="formula">If A = [T]_B (matrix of T in basis B), then [T]_C = P⁻¹·A·P (similar matrices)</div>
+</div>
+
+<!-- DIRECT SUMS -->
+<div class="sec" id="sum">
+  <h2>Direct Sums</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Direct Sum</div>
+    <p>V = W₁ ⊕ W₂ (<strong>direct sum</strong>) if:</p>
+    <ul>
+      <li>V = W₁ + W₂ (every v = w₁ + w₂)</li>
+      <li>W₁ ∩ W₂ = {0} (decomposition is unique)</li>
+    </ul>
+    <p>Equivalently: each v ∈ V has a unique representation v = w₁ + w₂ with w₁ ∈ W₁, w₂ ∈ W₂.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Dimension of Direct Sum</div>
+    <p>If V = W₁ ⊕ W₂, then dim V = dim W₁ + dim W₂. More generally:</p>
+    <p>V = W₁ ⊕ W₂ ⊕ ... ⊕ Wₖ ⟹ dim V = Σ dim Wᵢ</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Complement of a Subspace</div>
+    <p>For any subspace W ⊆ V (finite-dimensional), there exists a <strong>complement</strong> W' such that V = W ⊕ W'. (Note: the complement is NOT unique unless dim W = 0 or dim W = dim V.)</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Examples</div>
+    <ul>
+      <li>ℝ² = {(x,0)} ⊕ {(0,y)}: x-axis and y-axis</li>
+      <li>M₂ₓ₂ = Sym₂ ⊕ SkewSym₂: symmetric + skew-symmetric matrices (A = (A+Aᵀ)/2 + (A−Aᵀ)/2)</li>
+      <li>Pₙ = (even polys) ⊕ (odd polys)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question. Instant feedback provided.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is a vector space over ℝ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> ℝ⁺ (positive reals) with usual addition and scalar multiplication</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> The set of all polynomials of degree exactly 3</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> M₂ₓ₂(ℝ) — set of all 2×2 real matrices</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> {(x,y) ∈ ℝ² : x² + y² = 1} (unit circle)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Which of the following subsets of ℝ³ is a subspace?</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> {(x,y,z) : x + y + z = 1}</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> {(x,y,z) : x² + y² + z² = 0}</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> {(x,y,z) : xy = 0}</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> {(x,y,z) : x ≥ 0}</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The dimension of the space of all symmetric 3×3 real matrices is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 9</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> 6</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> 3</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> 4</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">Let W₁ and W₂ be subspaces of ℝ⁵ with dim W₁ = 3 and dim W₂ = 3. The minimum possible dimension of W₁ ∩ W₂ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> 0</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> 1</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> 2</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The vectors v₁ = (1,2,3), v₂ = (0,1,2), v₃ = (1,3,5) in ℝ³ are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Linearly independent and form a basis of ℝ³</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Linearly dependent (v₃ = v₁ + v₂)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Spanning but not independent</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Independent but not spanning</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">If V = W₁ ⊕ W₂, dim V = 7, dim W₁ = 4, then dim W₂ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> 4</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> 3</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> 11</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">In a vector space V with dim V = n, a set of n linearly independent vectors:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Must be extended to be a basis</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Is automatically a basis of V</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> May or may not span V</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Cannot exist</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The set {1, sin²x, cos²x} in the vector space of functions over ℝ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Linearly independent</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Linearly dependent (since sin²x + cos²x = 1)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> A basis for continuous functions on ℝ</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Neither independent nor spanning</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Let W₁ = span{(1,0,0),(0,1,0)} and W₂ = span{(0,1,0),(0,0,1)} in ℝ³. Then dim(W₁ + W₂) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> 4</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> 3</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> 2</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Which statement correctly describes the relationship between two vector spaces V and W over the same field 𝔽?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> V ≅ W iff V = W as sets</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> V ≅ W iff dim V = dim W</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> V ≅ W iff they have the same basis</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> V ≅ W iff one is a subspace of the other</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The dimension of P₄(ℝ) (real polynomials of degree at most 4) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> 4</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> 5</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> ∞</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> 3</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">If W is a subspace of V with dim W = dim V (and V is finite-dimensional), then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> W may be a proper subspace of V</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> W = V</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> W must equal {0}</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> W contains no basis of V</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The union W₁ ∪ W₂ of two subspaces is a subspace if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> W₁ ∩ W₂ = {0}</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> W₁ ⊆ W₂ or W₂ ⊆ W₁</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> dim W₁ = dim W₂</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> W₁ + W₂ = V</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Let V = M₂ₓ₂(ℝ). The dimension of the subspace of upper triangular matrices is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> 2</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> 3</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> 4</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">M₂ₓ₂(ℝ) = Sym ⊕ Skew, where Sym = symmetric and Skew = skew-symmetric 2×2 matrices. If dim Sym = 3, then dim Skew is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> 4</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> 3</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> 1</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Vector Spaces</div>
+    <div class="hero-sub">Key facts for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">🔤</div>
+      <h4>8 Axioms</h4>
+      <p>Commutativity, associativity, zero, inverse, scalar identity, scalar assoc, two distributivities.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔍</div>
+      <h4>Subspace Test</h4>
+      <p>0 ∈ W; closed under + and scalar ×. Equivalently: αu+βv ∈ W for all u,v∈W, α,β∈𝔽.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>Basis</h4>
+      <p>Linearly independent + spanning. In n-dim space: n vectors that are independent OR spanning form a basis.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📏</div>
+      <h4>Grassmann Formula</h4>
+      <p>dim(W₁+W₂) = dim W₁ + dim W₂ − dim(W₁∩W₂)</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">➕</div>
+      <h4>Direct Sum</h4>
+      <p>V = W₁⊕W₂ iff V=W₁+W₂ and W₁∩W₂={0}. dim V = dim W₁ + dim W₂.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔄</div>
+      <h4>Isomorphism</h4>
+      <p>V ≅ W (same field) ⟺ dim V = dim W. Every n-dim space ≅ 𝔽ⁿ.</p>
+    </div>
+  </div>
+  <h3>Dimension Quick Reference</h3>
+  <table>
+    <tr><th>Space</th><th>dim</th><th>Standard Basis</th></tr>
+    <tr><td>ℝⁿ</td><td>n</td><td>e₁,...,eₙ</td></tr>
+    <tr><td>Mₘₓₙ(𝔽)</td><td>mn</td><td>Eᵢⱼ matrices</td></tr>
+    <tr><td>Pₙ(𝔽)</td><td>n+1</td><td>1,x,...,xⁿ</td></tr>
+    <tr><td>Sym_n(ℝ)</td><td>n(n+1)/2</td><td>Eᵢⱼ+Eⱼᵢ (i≤j)</td></tr>
+    <tr><td>Skew_n(ℝ)</td><td>n(n−1)/2</td><td>Eᵢⱼ−Eⱼᵢ (i&lt;j)</td></tr>
+  </table>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U2_T02_LinearTransformations.html">Next: Linear Transformations →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'c',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'M₂ₓ₂(ℝ) is a vector space (matrix addition and scalar multiplication satisfy all 8 axioms). ℝ⁺ lacks additive inverses (no negative positives). Degree-exactly-3 polynomials: sum of two degree-3 polys may cancel the x³ term. Unit circle: not closed under addition.',
+  2:'{(x,y,z): x²+y²+z²=0} = {(0,0,0)}, the zero subspace, which is a subspace. x+y+z=1 excludes zero. xy=0: (1,0,0)+(0,1,0)=(1,1,0) and 1·1≠0. x≥0: not closed under scalar mult (−1·(1,0,0)=(−1,0,0) has x<0).',
+  3:'A 3×3 symmetric matrix has 3 free diagonal entries and 3 free upper-triangle entries = 6 free entries. So dim = n(n+1)/2 = 3·4/2 = 6.',
+  4:'By Grassmann: dim(W₁∩W₂) = dim W₁ + dim W₂ − dim(W₁+W₂) ≥ 3+3−5=1. So the minimum is 1.',
+  5:'v₃ = (1,3,5) = (1,2,3)+(0,1,2) = v₁+v₂. So 1·v₁+1·v₂−1·v₃=0 is a non-trivial dependence relation.',
+  6:'In a direct sum V=W₁⊕W₂: dim V = dim W₁ + dim W₂ → 7 = 4 + dim W₂ → dim W₂ = 3.',
+  7:'In an n-dimensional space, n linearly independent vectors automatically span V (by the dimension theorem), so they form a basis. No extension needed.',
+  8:'Since sin²x + cos²x = 1, we have 1·sin²x + 1·cos²x − 1·1 = 0. This is a non-trivial relation, so {1, sin²x, cos²x} is linearly dependent.',
+  9:'W₁+W₂ = span{(1,0,0),(0,1,0),(0,0,1)} = ℝ³. So dim(W₁+W₂)=3. Verify: dim W₁=2, dim W₂=2, dim(W₁∩W₂)=dim{(0,1,0)}=1. Grassmann: 2+2−1=3.',
+  10:'Two finite-dimensional vector spaces over the same field are isomorphic iff they have the same dimension. This is the classification theorem for f.d. vector spaces.',
+  11:'P₄(ℝ) = {a₀+a₁x+a₂x²+a₃x³+a₄x⁴}. Basis: {1,x,x²,x³,x⁴} — five elements. dim = 4+1 = 5.',
+  12:'If W⊆V is a subspace with dim W = dim V (finite), then W = V. Any basis of W is a set of dim V linearly independent vectors in V, which must span V, so W = span(basis) = V.',
+  13:'W₁∪W₂ is a subspace iff one contains the other. If neither contains the other, pick u∈W₁\\W₂ and v∈W₂\\W₁: then u+v may not be in W₁ or W₂.',
+  14:'Upper triangular 2×2 matrices: [[a,b],[0,d]] with a,b,d free. Three parameters → dim = 3. Basis: [[1,0],[0,0]], [[0,1],[0,0]], [[0,0],[0,1]].',
+  15:'M₂ₓ₂(ℝ) has dim 4. Sym has dim 3. Direct sum: dim Skew = 4−3 = 1. Indeed, 2×2 skew-symmetric: [[0,a],[−a,0]], one parameter.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

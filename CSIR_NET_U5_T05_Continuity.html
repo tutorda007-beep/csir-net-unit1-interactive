@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T05 · Continuity & Homeomorphisms</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0f4c75;--acc2:#1b6ca8;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(15,76,117,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(15,76,117,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(15,76,117,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#e8f4f8,#bee3f8,#90cdf4)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(15,76,117,.08);color:var(--acc);font-weight:600;border:1px solid rgba(15,76,117,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#e8f4f8;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff7ed;border-left:4px solid #f97316;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#c2410c;margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T05 · Continuity & Homeomorphisms</span>
+  <span class="hdr-badge">Topology</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('cont',this)">Topological Continuity</a>
+  <a class="nav-item" onclick="show('homeo',this)">Homeomorphisms</a>
+  <a class="nav-item" onclick="show('invariants',this)">Topological Invariants</a>
+  <a class="nav-item" onclick="show('open_closed',this)">Open & Closed Maps</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T04_Connectedness.html">← T04 · Connectedness</a>
+  <a class="nav-item" href="CSIR_NET_U5_T06_SeparationAxioms.html">T06 · Separation Axioms →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 05</div>
+    <div class="hero-title">Continuity & Homeomorphisms</div>
+    <div class="hero-sub">Topological continuity · Homeomorphisms · Topological invariants · Open/closed maps</div>
+    <div class="hero-chips">
+      <span class="chip">Continuous Maps</span>
+      <span class="chip">Homeomorphism</span>
+      <span class="chip">Invariants</span>
+      <span class="chip">Embedding</span>
+      <span class="chip">Open Maps</span>
+      <span class="chip">Closed Maps</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Topology studies properties preserved under homeomorphisms — continuous bijections with continuous inverses. Two homeomorphic spaces are "topologically identical". Topological invariants (like compactness, connectedness, homotopy type) are unchanged by homeomorphisms.</p>
+</div>
+
+<div class="sec" id="cont">
+  <h2>Topological Continuity</h2>
+  <div class="def-box">
+    <div class="lbl">Continuous Map (Topological)</div>
+    <p>f: X→Y is <strong>continuous</strong> if f⁻¹(V) is open in X for every open V ⊆ Y.</p>
+    <p>Equivalently: f⁻¹(F) is closed for every closed F, or f preserves convergence of sequences (in metric spaces).</p>
+  </div>
+  <h3>Types of Continuous Maps</h3>
+  <table>
+    <tr><th>Type</th><th>Condition</th><th>Notes</th></tr>
+    <tr><td>Continuous</td><td>f⁻¹(open) = open</td><td>Basic requirement</td></tr>
+    <tr><td>Homeomorphism</td><td>Bijective, f and f⁻¹ continuous</td><td>Topological isomorphism</td></tr>
+    <tr><td>Embedding</td><td>f homeomorphism onto f(X)</td><td>Topological copy inside Y</td></tr>
+    <tr><td>Open map</td><td>f(U) open for every open U</td><td>f⁻¹ continuous is stronger</td></tr>
+    <tr><td>Closed map</td><td>f(F) closed for every closed F</td><td>Different from open map</td></tr>
+    <tr><td>Quotient map</td><td>V open iff f⁻¹(V) open</td><td>Defines quotient topology</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Continuous Bijection vs Homeomorphism</div>
+    <p>A continuous bijection need NOT be a homeomorphism. Example: f: [0,1)→S¹ (circle) by f(t)=e^(2πit) is continuous and bijective but NOT a homeomorphism (f⁻¹ is not continuous: S¹ is compact, [0,1) is not).</p>
+  </div>
+</div>
+
+<div class="sec" id="homeo">
+  <h2>Homeomorphisms</h2>
+  <div class="def-box">
+    <div class="lbl">Homeomorphism</div>
+    <p>f: X→Y is a <strong>homeomorphism</strong> if f is bijective, f is continuous, and f⁻¹ is continuous. Write X ≅ Y.</p>
+  </div>
+  <h3>Key Homeomorphisms</h3>
+  <table>
+    <tr><th>Example</th><th>Homeomorphism</th></tr>
+    <tr><td>(0,1) ≅ ℝ</td><td>f(x) = tan(π(x−1/2)) or f(x)=x/(1−|x|)</td></tr>
+    <tr><td>[0,1] ≅ [a,b]</td><td>Linear rescaling</td></tr>
+    <tr><td>Any open interval ≅ ℝ</td><td>Stretch to ±∞</td></tr>
+    <tr><td>Sⁿ \ {pt} ≅ ℝⁿ</td><td>Stereographic projection</td></tr>
+    <tr><td>Dⁿ \ ∂Dⁿ ≅ ℝⁿ</td><td>Stretch boundary to infinity</td></tr>
+  </table>
+  <div class="warn-box">
+    <div class="lbl">Non-homeomorphisms</div>
+    <p>[0,1] ≇ (0,1): removing any point from [0,1] can disconnect it (endpoints), while removing any point from (0,1) also disconnects. BUT: [0,1] is compact and (0,1) is not. So [0,1] ≇ (0,1). Also: ℝ ≇ ℝ² (ℝ\{pt} disconnects, ℝ²\{pt} does not).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Compact + Bijective Continuous ⟹ Homeomorphism</div>
+    <p>If f: X→Y is continuous, bijective, X is compact, and Y is Hausdorff, then f is a homeomorphism.</p>
+    <p>Proof: f(F) is closed for any closed F⊆X (compact → compact → closed in Hausdorff Y). So f⁻¹ is continuous.</p>
+  </div>
+</div>
+
+<div class="sec" id="invariants">
+  <h2>Topological Invariants</h2>
+  <p>A topological invariant is a property preserved by homeomorphisms.</p>
+  <table>
+    <tr><th>Invariant</th><th>Preserved by Homeo?</th><th>Example Separation</th></tr>
+    <tr><td>Compactness</td><td>Yes</td><td>[0,1] ≇ (0,1) (one compact, other not)</td></tr>
+    <tr><td>Connectedness</td><td>Yes</td><td>ℝ ≇ ℝ\{0} (one connected, other not)</td></tr>
+    <tr><td>Path connectedness</td><td>Yes</td><td>Sine curve ≇ circle</td></tr>
+    <tr><td>Cardinality</td><td>Not a topo invariant</td><td>(0,1) ≅ ℝ, same cardinality anyway</td></tr>
+    <tr><td>Separability</td><td>Yes</td><td>— </td></tr>
+    <tr><td>Number of components</td><td>Yes</td><td>ℝ\{0} ≇ ℝ\{two points}</td></tr>
+  </table>
+  <div class="proof-box">
+    <div class="lbl">ℝ ≇ ℝⁿ (n≥2): Proof via Invariant</div>
+    <p>ℝ\{p} is disconnected. ℝⁿ\{p} for n≥2 is connected (path connected: go around the point). Since homeomorphisms preserve connectedness, ℝ ≇ ℝⁿ for n≥2.</p>
+  </div>
+</div>
+
+<div class="sec" id="open_closed">
+  <h2>Open & Closed Maps</h2>
+  <div class="def-box">
+    <div class="lbl">Open Map</div>
+    <p>f: X→Y is an <strong>open map</strong> if f(U) is open in Y for every open U ⊆ X.</p>
+    <p>Bijective + continuous + open map ⟹ homeomorphism.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Closed Map</div>
+    <p>f: X→Y is a <strong>closed map</strong> if f(F) is closed in Y for every closed F ⊆ X.</p>
+    <p>Every continuous map from a compact space to a Hausdorff space is a closed map.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Open Mapping Theorem (Functional Analysis)</div>
+    <p>Every surjective bounded linear operator between Banach spaces is an open map. This powerful theorem implies: bijective bounded linear operator between Banach spaces has bounded inverse.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Closed Graph Theorem</div>
+    <p>A linear map T: X→Y between Banach spaces is continuous iff its graph {(x,Tx)} is closed in X×Y.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">f: X→Y is continuous (topologically) iff for every open V⊆Y:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> f(V) is open</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> f⁻¹(V) is open</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> V is compact</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> f⁻¹(V) is closed</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">A homeomorphism is a map that is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Continuous and surjective</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Bijective with f and f⁻¹ both continuous</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Isometric (distance-preserving)</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Linear and bijective</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">(0,1) and ℝ are homeomorphic because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> They have the same cardinality</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> f(x)=tan(π(x−1/2)) is a homeomorphism from (0,1) to ℝ</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> Both are Banach spaces</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> Both are connected subsets of ℝ</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">[0,1] and (0,1) are NOT homeomorphic because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> One is an open set and the other is not</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> [0,1] is compact but (0,1) is not</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> They have different cardinalities</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> [0,1] is not connected</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">If f: X→Y is continuous and bijective with X compact and Y Hausdorff, then f is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Open but not closed</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> A homeomorphism</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Not necessarily continuous</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> An isometry</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Which is a topological invariant?</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> The specific metric d</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Compactness</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> The diameter of the space</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Completeness (of the specific metric)</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">ℝ ≇ ℝ² (not homeomorphic) can be shown because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> ℝ is 1D and ℝ² is 2D (dimension is topological invariant)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Removing a point from ℝ disconnects it, but ℝ²\{point} remains connected</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> ℝ is compact and ℝ² is not</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> ℝ² is a field but ℝ is not</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">An open map f: X→Y satisfies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> f⁻¹(V) is open for all open V</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> f(U) is open in Y for every open U ⊆ X</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> f is bijective</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> f preserves distances</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The stereographic projection from Sⁿ\{north pole} to ℝⁿ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Not continuous</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> A homeomorphism</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> A bijection but not a homeomorphism</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> An isometry</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">The Open Mapping Theorem says: a surjective bounded linear operator between Banach spaces is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> A closed map</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> An open map</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> An isometry</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Compact</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">A topological embedding f: X→Y means:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> f is surjective</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> f is a homeomorphism from X onto f(X) ⊆ Y</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> f is isometric</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> f is linear</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">Which map f: [0,1)→S¹ (unit circle) given by f(t)=e^(2πit) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> A homeomorphism</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Continuous and bijective but NOT a homeomorphism</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Not continuous</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Not bijective</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Number of connected components is a topological invariant. ℝ\{0,1} has how many components?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 2</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> 3</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 1</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Uncountably many</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">f: X→Y is a closed map if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> f⁻¹ of every closed set is closed</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> f of every closed set is closed in Y</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> f is closed as a subset of X×Y</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> f(X) is closed in Y</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The Closed Graph Theorem states: T: X→Y linear between Banach spaces is bounded iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> T is surjective</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> T is a closed map</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Graph {(x,Tx)} is closed in X×Y</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> T is compact</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Continuous</h4><p>f⁻¹(open)=open. Equivalently: f⁻¹(closed)=closed or sequential continuity in metric spaces.</p></div>
+    <div class="sum-card"><h4>Homeomorphism</h4><p>Bijective, f and f⁻¹ continuous. Topological isomorphism. X≅Y means same topology.</p></div>
+    <div class="sum-card"><h4>Compact+Hausdorff</h4><p>Continuous bijection from compact to Hausdorff is automatically a homeomorphism.</p></div>
+    <div class="sum-card"><h4>Invariants</h4><p>Compactness, connectedness, # components, separability preserved by homeomorphisms.</p></div>
+    <div class="sum-card"><h4>Open Map</h4><p>f(U) open for all open U. OMT: surjective bounded linear between Banach spaces is open.</p></div>
+    <div class="sum-card"><h4>ℝ≇ℝⁿ</h4><p>Removing a point from ℝ disconnects it; ℝⁿ\{pt} (n≥2) remains connected. Key invariant argument.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U5_T04_Connectedness.html">← T04: Connectedness</a>
+    <a class="btn btn-acc" href="CSIR_NET_U5_T06_SeparationAxioms.html">T06: Separation Axioms →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'f:X→Y is continuous (topologically) iff f⁻¹(V) is open in X for every open V⊆Y. This generalizes the metric-space ε-δ definition.',
+  2:'A homeomorphism is a bijective map f:X→Y where both f AND f⁻¹ are continuous. Isometric maps are homeomorphisms but stronger (distance-preserving). Linear bijective maps are homeomorphisms only when the inverse is also continuous (= bounded).',
+  3:'f(x)=tan(π(x−1/2)) maps (0,1) bijectively and continuously to ℝ, with continuous inverse arctan(y)/π+1/2. This is a homeomorphism showing (0,1)≅ℝ.',
+  4:'[0,1] is compact and (0,1) is not compact. Since compactness is a topological invariant (preserved by homeomorphisms), [0,1]≇(0,1).',
+  5:'If f:X→Y is continuous bijection, X compact, Y Hausdorff: for any closed F⊆X, f(F) is compact (continuous image) hence closed in Y (compact subset of Hausdorff). So f is a closed map, hence f⁻¹ is continuous — f is a homeomorphism.',
+  6:'Compactness is a topological invariant (preserved by homeomorphisms). The specific metric, diameter, and metric-completeness are NOT topological invariants ((0,1)≅ℝ but different diameters and different completeness).',
+  7:'ℝ\{p} = (−∞,p)∪(p,∞) has two components (disconnected). ℝ²\{p} is path connected (go around the removed point), hence one component. Since number of components is a topological invariant, ℝ≇ℝ².',
+  8:'f is an open map if f(U) is open in Y for every open U⊆X. The preimage definition (f⁻¹(V) open) characterizes continuity, not open maps.',
+  9:'Stereographic projection from Sⁿ\\{N} to ℝⁿ is a homeomorphism: it is bijective, continuous, and has a continuous inverse (explicit formula exists).',
+  10:'Open Mapping Theorem (Banach): a surjective bounded linear operator T:X→Y between Banach spaces is an open map. Corollary: if T is also bijective, T⁻¹ is bounded.',
+  11:'A topological embedding f:X→Y means f is a homeomorphism onto its image f(X)⊆Y (with the subspace topology). f(X) is a topological copy of X inside Y.',
+  12:'f(t)=e^(2πit):[0,1)→S¹ is continuous (standard) and bijective. But f⁻¹ is not continuous at 1∈S¹: points near 1 in S¹ correspond to points near 0 AND near 1 in [0,1), which are far apart. So f is NOT a homeomorphism.',
+  13:'ℝ\\{0,1}=(−∞,0)∪(0,1)∪(1,∞): three disjoint open intervals, hence 3 connected components.',
+  14:'f is a closed map if f(F) is closed in Y for every closed F⊆X. This is different from f being continuous (where f⁻¹(closed)=closed).',
+  15:'Closed Graph Theorem: T:X→Y (Banach spaces, linear) is continuous (bounded) iff the graph G(T)={(x,Tx):x∈X} is a closed subset of X×Y.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

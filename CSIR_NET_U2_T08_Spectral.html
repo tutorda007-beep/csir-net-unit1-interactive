@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T08 · Spectral Theory & Applications</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#be185d;--acc2:#ec4899;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(190,24,93,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(190,24,93,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(190,24,93,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fdf2f8,#fce7f3,#fbcfe8)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(190,24,93,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(190,24,93,.08);color:var(--acc);font-weight:600;border:1px solid rgba(190,24,93,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fdf2f8;border-left:4px solid #f472b6;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T08 · Spectral Theory & Applications</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('svd',this)">Singular Value Decomposition</a>
+  <a class="nav-item" onclick="show('matfun',this)">Matrix Functions</a>
+  <a class="nav-item" onclick="show('nonneg',this)">Non-Negative Matrices</a>
+  <a class="nav-item" onclick="show('companion',this)">Companion Matrix & Rational Form</a>
+  <a class="nav-item" onclick="show('summary_thm',this)">Big Theorems Summary</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Unit 2 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U2_T07_Determinants.html">T07 · Determinants</a>
+  <a class="nav-item" href="CSIR_NET_Master_Blueprint.html">Master Blueprint</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 08</div>
+    <div class="hero-title">Spectral Theory & Applications</div>
+    <div class="hero-sub">SVD · Matrix Exponential · Perron-Frobenius · Companion Matrix</div>
+    <div class="hero-chips">
+      <span class="chip">SVD</span>
+      <span class="chip">Singular Values</span>
+      <span class="chip">Matrix Exponential</span>
+      <span class="chip">Perron-Frobenius</span>
+      <span class="chip">Companion Matrix</span>
+      <span class="chip">Gershgorin Discs</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Spectral theory extends far beyond eigenvalues of square matrices. The <strong>Singular Value Decomposition (SVD)</strong> applies to every matrix (rectangular or square, real or complex) and underlies modern data science. <strong>Perron-Frobenius</strong> governs non-negative matrices, and <strong>matrix functions</strong> (exponential, logarithm) are key to differential equations.</p>
+</div>
+
+<!-- SVD -->
+<div class="sec" id="svd">
+  <h2>Singular Value Decomposition (SVD)</h2>
+  <div class="thm-box">
+    <div class="lbl">SVD Theorem</div>
+    <p>Every real m×n matrix A can be written as:</p>
+    <div class="formula">A = UΣVᵀ</div>
+    <p>where U is m×m orthogonal, V is n×n orthogonal, and Σ is m×n diagonal with non-negative <strong>singular values</strong> σ₁ ≥ σ₂ ≥ ... ≥ σᵣ > 0 = σᵣ₊₁ = ... (r = rank A) on the diagonal.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Computing SVD</div>
+    <ul>
+      <li><strong>Singular values:</strong> σᵢ = √(λᵢ(AᵀA)) where λᵢ are eigenvalues of AᵀA (≥0).</li>
+      <li><strong>Right singular vectors:</strong> columns of V = eigenvectors of AᵀA.</li>
+      <li><strong>Left singular vectors:</strong> columns of U = eigenvectors of AAᵀ.</li>
+      <li>Relation: Avᵢ = σᵢuᵢ, Aᵀuᵢ = σᵢvᵢ.</li>
+    </ul>
+  </div>
+  <table>
+    <tr><th>SVD quantity</th><th>Meaning</th></tr>
+    <tr><td>rank(A)</td><td>Number of non-zero singular values</td></tr>
+    <tr><td>‖A‖₂ (spectral norm)</td><td>σ₁ (largest singular value)</td></tr>
+    <tr><td>‖A‖_F (Frobenius norm)</td><td>√(σ₁²+...+σᵣ²)</td></tr>
+    <tr><td>Pseudoinverse A⁺</td><td>VΣ⁺Uᵀ where Σ⁺ inverts non-zero σᵢ</td></tr>
+    <tr><td>Condition number</td><td>σ₁/σᵣ (ratio largest to smallest non-zero singular value)</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Low-Rank Approximation (Eckart-Young Theorem)</div>
+    <p>The best rank-k approximation to A (in spectral or Frobenius norm) is:</p>
+    <div class="formula">Aₖ = U diag(σ₁,...,σₖ,0,...,0) Vᵀ = Σᵢ₌₁ᵏ σᵢ uᵢvᵢᵀ</div>
+    <p>with error ‖A−Aₖ‖₂ = σₖ₊₁ and ‖A−Aₖ‖_F = √(σₖ₊₁²+...+σᵣ²).</p>
+  </div>
+</div>
+
+<!-- MATRIX FUNCTIONS -->
+<div class="sec" id="matfun">
+  <h2>Matrix Functions</h2>
+  <h3>Matrix Exponential</h3>
+  <div class="def-box">
+    <div class="lbl">Definition</div>
+    <div class="formula">eᴬ = I + A + A²/2! + A³/3! + ... = Σₙ₌₀^∞ Aⁿ/n!</div>
+    <p>This series always converges for every matrix A. Key properties:</p>
+    <ul>
+      <li>e^(A+B) = eᴬeᴮ if AB = BA (commuting matrices)</li>
+      <li>(eᴬ)⁻¹ = e^(−A)</li>
+      <li>det(eᴬ) = e^(tr A)</li>
+      <li>If A = PDP⁻¹ (diagonalizable): eᴬ = Pe^D P⁻¹</li>
+      <li>Solution to x'(t)=Ax, x(0)=x₀ is x(t) = e^(tA)·x₀</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Computing e^A via Diagonalization</div>
+    <p>If A = PDP⁻¹ with D = diag(λ₁,...,λₙ), then eᴬ = P·diag(e^λ₁,...,e^λₙ)·P⁻¹.</p>
+    <p>For Jordan form A = PJP⁻¹: e^A = P·e^J·P⁻¹ where e^(Jₖ(λ)) is computed using the formula from T06.</p>
+  </div>
+  <h3>Cayley-Hamilton Method</h3>
+  <div class="thm-box">
+    <div class="lbl">Computing f(A) via Cayley-Hamilton</div>
+    <p>For any analytic function f, f(A) can be written as a polynomial of degree ≤ n−1 in A (by reducing using p_A(A)=0). Specifically, write f(λ) ≡ q(λ) mod p_A(λ) and then f(A) = q(A).</p>
+  </div>
+</div>
+
+<!-- NON-NEGATIVE MATRICES -->
+<div class="sec" id="nonneg">
+  <h2>Non-Negative Matrices</h2>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p>A matrix A is <strong>non-negative</strong> (A≥0) if all entries aᵢⱼ≥0. It is <strong>positive</strong> (A>0) if all aᵢⱼ>0. A is <strong>stochastic</strong> if A≥0 and each row sums to 1.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Perron-Frobenius Theorem</div>
+    <p><strong>Positive matrices (A>0):</strong> There exists a unique positive eigenvalue ρ(A) (the Perron root or spectral radius) such that:</p>
+    <ul>
+      <li>ρ(A) is a simple eigenvalue (algebraic multiplicity 1)</li>
+      <li>|λ| &lt; ρ(A) for all other eigenvalues λ</li>
+      <li>The eigenvector for ρ(A) has all positive entries (Perron vector)</li>
+    </ul>
+    <p><strong>Non-negative irreducible matrices:</strong> Same conclusions hold for irreducible A≥0 (no permutation gives block triangular form).</p>
+  </div>
+  <h3>Gershgorin Circle Theorem</h3>
+  <div class="thm-box">
+    <div class="lbl">Gershgorin Discs</div>
+    <p>Every eigenvalue of A lies in at least one <strong>Gershgorin disc</strong>:</p>
+    <div class="formula">Dᵢ = { z ∈ ℂ : |z − aᵢᵢ| ≤ Rᵢ }  where  Rᵢ = Σⱼ≠ᵢ |aᵢⱼ|</div>
+    <p>If k discs form a connected component isolated from the rest, exactly k eigenvalues lie in their union.</p>
+  </div>
+</div>
+
+<!-- COMPANION MATRIX & RATIONAL FORM -->
+<div class="sec" id="companion">
+  <h2>Companion Matrix & Rational Canonical Form</h2>
+  <div class="def-box">
+    <div class="lbl">Companion Matrix</div>
+    <p>The <strong>companion matrix</strong> of monic polynomial p(x) = xⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀ is:</p>
+    <div class="formula">
+C(p) = [ 0  0  ···  0   −a₀  ]
+       [ 1  0  ···  0   −a₁  ]
+       [ 0  1  ···  0   −a₂  ]
+       [ ·  ·  ···  ·    ·   ]
+       [ 0  0  ···  1  −aₙ₋₁ ]
+    </div>
+    <p>The characteristic polynomial of C(p) equals p(x). So any polynomial is the characteristic polynomial of some matrix.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Rational Canonical Form (RCF)</div>
+    <p>Every matrix A is similar (over any field F) to a block-diagonal matrix of companion matrices:</p>
+    <div class="formula">A ∼ diag(C(f₁), C(f₂), ..., C(fₖ))  with  f₁|f₂|...|fₖ</div>
+    <p>The <strong>invariant factors</strong> f₁,...,fₖ satisfy fᵢ|fᵢ₊₁. The largest invariant factor fₖ = minimal polynomial of A. The product f₁·f₂·...·fₖ = characteristic polynomial of A.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">RCF vs JCF</div>
+    <p>RCF works over any field (no need for algebraically closed). JCF is a special case of RCF over ℂ where each invariant factor is a power of a linear factor (x−λ)^k.</p>
+  </div>
+</div>
+
+<!-- BIG THEOREMS -->
+<div class="sec" id="summary_thm">
+  <h2>Big Theorems — Unit 2 Recap</h2>
+  <table>
+    <tr><th>Theorem</th><th>Statement</th></tr>
+    <tr><td>Rank-Nullity</td><td>rank(T) + nullity(T) = dim(V)</td></tr>
+    <tr><td>Spectral Theorem</td><td>Real symmetric A: A = QDQᵀ, all λ real, orthonormal eigenvectors</td></tr>
+    <tr><td>Jordan Theorem</td><td>Every complex matrix ∼ unique JCF (up to block order)</td></tr>
+    <tr><td>Cayley-Hamilton</td><td>p_A(A) = 0 for every matrix A</td></tr>
+    <tr><td>Sylvester's Law</td><td>Signature (p,q) of real quadratic form is a congruence invariant</td></tr>
+    <tr><td>Gram-Schmidt</td><td>Every finite inner product space has an orthonormal basis</td></tr>
+    <tr><td>Rouché-Capelli</td><td>Ax=b consistent iff rank(A)=rank([A|b])</td></tr>
+    <tr><td>Perron-Frobenius</td><td>Positive matrix has unique maximal real eigenvalue with positive eigenvector</td></tr>
+    <tr><td>Eckart-Young</td><td>Best rank-k approx to A is Aₖ = Σᵢ₌₁ᵏ σᵢuᵢvᵢᵀ</td></tr>
+    <tr><td>Sylvester's Criterion</td><td>A is positive definite iff all leading principal minors > 0</td></tr>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The singular values of a matrix A are the square roots of the eigenvalues of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> A</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> AᵀA</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> A²</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> A+Aᵀ</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">For any matrix A, det(eᴬ) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> eᵈᵉᵗ⁽ᴬ⁾</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> e^tr(A)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 1</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> tr(eᴬ)</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The spectral norm ‖A‖₂ of a matrix A equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> The Frobenius norm √(Σaᵢⱼ²)</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> The largest singular value σ₁</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> The largest eigenvalue</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> det(A)</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Perron-Frobenius theorem guarantees that a strictly positive matrix A>0 has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> All eigenvalues equal</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> A dominant positive eigenvalue (spectral radius) with a positive eigenvector</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> det(A) > 0</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Only real eigenvalues</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Every eigenvalue of A lies in the union of the Gershgorin discs Dᵢ = {z : |z−aᵢᵢ| ≤ Rᵢ} where Rᵢ equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> |aᵢᵢ|</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Σⱼ |aᵢⱼ| (sum of all entries in row i)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Σⱼ≠ᵢ |aᵢⱼ| (sum of off-diagonal entries in row i)</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> max_j |aᵢⱼ|</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">In SVD A = UΣVᵀ, the columns of U are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Eigenvectors of AᵀA</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Eigenvectors of AAᵀ (left singular vectors)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> The singular values</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Columns of A</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">If A = PDP⁻¹ with D=diag(λ₁,...,λₙ), then e^A equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> diag(e^λ₁,...,e^λₙ)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> P·diag(e^λ₁,...,e^λₙ)·P⁻¹</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> P·D·P⁻¹ + I</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> e^(det A)·I</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The characteristic polynomial of the companion matrix of p(x) = x³ − 2x² + x − 3 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> x³ + 2x² − x + 3</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> x³ − 2x² + x − 3</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> (x−1)³</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> x² − 2x + 1</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Eckart-Young theorem says the best rank-k approximation to A (in Frobenius norm) has error:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> σ₁</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> σₖ</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> √(σₖ₊₁² + ... + σᵣ²)</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">e^A + e^(−A) = 2I if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> A = I</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> A = 0</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> A is symmetric</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> A² = 0 (A is nilpotent of order 2)</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The Frobenius norm of A (in terms of singular values σ₁≥...≥σᵣ) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> σ₁</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> σ₁ + σ₂ + ... + σᵣ</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> √(σ₁² + σ₂² + ... + σᵣ²)</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> σ₁ · σ₂ · ... · σᵣ</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">For the matrix exponential, e^(A+B) = e^A · e^B is guaranteed when:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> A and B are both symmetric</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> AB = BA (A and B commute)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> A and B are both diagonal</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> A + B is invertible</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The rank of A equals (in terms of the SVD):</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> The number of columns of U</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> The number of non-zero singular values</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> The largest singular value</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> det(Σ)</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">For a stochastic matrix (rows summing to 1, all entries ≥0), by Perron-Frobenius, the spectral radius ρ(A) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> 0</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> n (number of states)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> 1</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> det(A)</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The largest invariant factor in the Rational Canonical Form of A equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> The characteristic polynomial of A</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> The minimal polynomial of A</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> x^n (always)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> The determinant of A</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- UNIT 2 SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Unit 2 Complete Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 — Linear Algebra</div>
+    <div class="hero-title">All 8 Topics at a Glance</div>
+    <div class="hero-sub">Complete revision for CSIR NET Mathematics</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">🏗️</div>
+      <h4>T01 Vector Spaces</h4>
+      <p>8 axioms, subspace test, Grassmann formula, dim(Sym)=n(n+1)/2.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔄</div>
+      <h4>T02 Linear Maps</h4>
+      <p>Rank-Nullity, matrix of T, similar matrices, projections T²=T.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">λ</div>
+      <h4>T03 Eigenvalues</h4>
+      <p>1≤GM≤AM. Diagonalizable iff GM=AM all λ. Cayley-Hamilton p_A(A)=0.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⟨·⟩</div>
+      <h4>T04 Inner Products</h4>
+      <p>Cauchy-Schwarz, Gram-Schmidt, Spectral Thm (sym.), PD iff all λ>0.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📐</div>
+      <h4>T05 Bilinear Forms</h4>
+      <p>Quadratic form xᵀAx. Sylvester's law: signature (p,q) invariant under congruence.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🧱</div>
+      <h4>T06 Jordan Form</h4>
+      <p>JCF = diag(Jₙᵢ(λᵢ)). GM = #blocks. m_A exponent = largest block size.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">∑</div>
+      <h4>T07 Determinants</h4>
+      <p>det(AB)=det A·det B. Rouché-Capelli: consistent iff rank(A)=rank([A|b]).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">σ</div>
+      <h4>T08 Spectral Apps</h4>
+      <p>SVD A=UΣVᵀ, singular values from AᵀA. det(eᴬ)=e^tr(A). Perron-Frobenius.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">Back to Blueprint</a>
+    <button class="btn btn-out" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'c',6:'b',7:'b',8:'b',9:'c',10:'d',11:'c',12:'b',13:'b',14:'c',15:'b'};
+const explain={
+  1:'The singular values σᵢ of A are defined as σᵢ = √λᵢ where λᵢ ≥ 0 are the eigenvalues of AᵀA (which is symmetric positive semidefinite).',
+  2:'det(eᴬ) = e^(tr A). Proof: if A = PDP⁻¹, then eᴬ=Pe^DP⁻¹ and det(eᴬ)=det(e^D)=e^(λ₁+...+λₙ)=e^(tr A). This identity holds in general.',
+  3:'The spectral norm ‖A‖₂ = max_{‖x‖=1} ‖Ax‖ = σ₁ (the largest singular value). It measures the maximum stretch factor of A.',
+  4:'Perron-Frobenius for A>0: there is a unique eigenvalue ρ(A)>0 (the spectral radius) strictly larger in modulus than all other eigenvalues, with a corresponding eigenvector with all positive components.',
+  5:'The Gershgorin disc for row i has center aᵢᵢ and radius Rᵢ = Σⱼ≠ᵢ |aᵢⱼ| (sum of absolute values of OFF-diagonal entries in row i). Every eigenvalue lies in ∪ᵢDᵢ.',
+  6:'In SVD A=UΣVᵀ: columns of V are eigenvectors of AᵀA (right singular vectors), columns of U are eigenvectors of AAᵀ (left singular vectors). Avᵢ=σᵢuᵢ.',
+  7:'If A=PDP⁻¹ then f(A)=P·f(D)·P⁻¹ for any matrix function f. So eᴬ=P·diag(e^λ₁,...,e^λₙ)·P⁻¹.',
+  8:'The companion matrix of a monic polynomial p(x) has characteristic polynomial exactly p(x). So the char. poly. of C(p(x)) is p(x) itself = x³−2x²+x−3.',
+  9:'Eckart-Young (Frobenius norm): ‖A−Aₖ‖_F = √(σₖ₊₁²+...+σᵣ²) where r=rank(A). In spectral norm, ‖A−Aₖ‖₂=σₖ₊₁.',
+  10:'e^A = I + A + A²/2! + ... = Σ Aⁿ/n!. So e^A+e^(−A)=2(I+A²/2!+A⁴/4!+...)=2I requires A²/2!+A⁴/4!+...=0. If A²=0 (nilpotent of order 2), then all higher powers vanish and e^A=I+A, e^(−A)=I−A, so e^A+e^(−A)=2I.',
+  11:'‖A‖_F = √(Σᵢⱼ aᵢⱼ²) = √(tr(AᵀA)) = √(σ₁²+...+σᵣ²). The Frobenius norm is the ℓ² norm of the vector of singular values.',
+  12:'e^(A+B)=e^A·e^B iff AB=BA. This is because the Baker-Campbell-Hausdorff formula has commutator terms that vanish only when AB=BA.',
+  13:'rank(A) = number of non-zero singular values in the SVD. The singular values are non-negative, so rank = number of positive (non-zero) σᵢ.',
+  14:'A stochastic matrix has the vector (1,1,...,1)ᵀ as an eigenvector with eigenvalue 1 (each row sums to 1). By Perron-Frobenius, |λ|≤1 for all eigenvalues and λ=1 is the spectral radius. So ρ(A)=1.',
+  15:'In the Rational Canonical Form with invariant factors f₁|f₂|...|fₖ, the LARGEST invariant factor fₖ equals the minimal polynomial of A (since it has the highest degree and all others divide it).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U4-T04 · Rings, Ideals & Ring Homomorphisms</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c2d12;--acc2:#c2410c;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(124,45,18,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(124,45,18,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(124,45,18,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fed7aa)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(124,45,18,.08);color:var(--acc);font-weight:600;border:1px solid rgba(124,45,18,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff7ed;border-left:4px solid #fb923c;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 4</span>
+  <span class="hdr-title">T04 · Rings, Ideals & Ring Homomorphisms</span>
+  <span class="hdr-badge">Abstract Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 4 · Abstract Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('rings',this)">Rings: Basics</a>
+  <a class="nav-item" onclick="show('ideals',this)">Ideals</a>
+  <a class="nav-item" onclick="show('quotient',this)">Quotient Rings</a>
+  <a class="nav-item" onclick="show('ringhomo',this)">Ring Homomorphisms</a>
+  <a class="nav-item" onclick="show('domains',this)">Integral Domains & Fields</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U4_T03_GroupActions.html">← T03 · Group Actions</a>
+  <a class="nav-item" href="CSIR_NET_U4_T05_Fields.html">T05 · Fields →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 4 · Topic 04</div>
+    <div class="hero-title">Rings, Ideals & Ring Homomorphisms</div>
+    <div class="hero-sub">Ring axioms · Ideals · Quotient rings · CRT · Integral domains · Fields</div>
+    <div class="hero-chips">
+      <span class="chip">Ring Axioms</span>
+      <span class="chip">Ideals</span>
+      <span class="chip">Quotient Rings</span>
+      <span class="chip">CRT</span>
+      <span class="chip">Integral Domains</span>
+      <span class="chip">PID & UFD</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Rings generalize familiar number systems: ℤ, ℚ, ℝ, ℂ are all rings. Rings have two operations (addition and multiplication). Ideals play the role in rings that normal subgroups play in groups — they allow us to form quotient rings. The structure theory of rings (PID, UFD, fields) underlies much of modern algebra and number theory.</p>
+</div>
+
+<div class="sec" id="rings">
+  <h2>Rings: Basic Definitions</h2>
+  <div class="def-box">
+    <div class="lbl">Ring</div>
+    <p>A <strong>ring</strong> (R, +, ·) is a set with two operations satisfying:</p>
+    <ol>
+      <li>(R, +) is an abelian group (with identity 0)</li>
+      <li>(R, ·) is associative</li>
+      <li>Distributivity: a(b+c) = ab+ac and (b+c)a = ba+ca</li>
+    </ol>
+    <p>If also 1∈R with 1·a=a·1=a: <strong>ring with unity</strong>. If ab=ba for all a,b: <strong>commutative ring</strong>.</p>
+  </div>
+  <table>
+    <tr><th>Ring</th><th>Commutative?</th><th>Unity?</th><th>Type</th></tr>
+    <tr><td>ℤ, ℚ, ℝ, ℂ</td><td>Yes</td><td>Yes (1)</td><td>Integral domains / fields</td></tr>
+    <tr><td>ℤₙ</td><td>Yes</td><td>Yes (1)</td><td>Field iff n prime</td></tr>
+    <tr><td>ℤ[x], ℝ[x]</td><td>Yes</td><td>Yes (1)</td><td>Polynomial ring (PID over field)</td></tr>
+    <tr><td>Mₙ(ℝ) (n×n matrices)</td><td>No (n≥2)</td><td>Yes (Iₙ)</td><td>Non-commutative ring</td></tr>
+    <tr><td>2ℤ</td><td>Yes</td><td>No</td><td>Ring without unity</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Units and Zero Divisors</div>
+    <p><strong>Unit:</strong> a∈R with a multiplicative inverse a⁻¹∈R. Group of units = R*.</p>
+    <p><strong>Zero divisor:</strong> nonzero a∈R with ab=0 or ba=0 for some nonzero b.</p>
+    <p>In ℤ₆: 2·3=6≡0, so 2 and 3 are zero divisors. Units of ℤ₆: {1,5}.</p>
+  </div>
+</div>
+
+<div class="sec" id="ideals">
+  <h2>Ideals</h2>
+  <div class="def-box">
+    <div class="lbl">Ideal</div>
+    <p>A subset I ⊆ R is an <strong>ideal</strong> if:</p>
+    <ol>
+      <li>(I, +) is a subgroup of (R, +)</li>
+      <li>For all r∈R and a∈I: ra ∈ I and ar ∈ I</li>
+    </ol>
+    <p><strong>Left ideal:</strong> only ra∈I. <strong>Right ideal:</strong> only ar∈I. <strong>Two-sided ideal:</strong> both.</p>
+  </div>
+  <h3>Principal Ideals</h3>
+  <div class="def-box">
+    <div class="lbl">Principal Ideal</div>
+    <p>The ideal generated by element a: (a) = {ra : r∈R} (in commutative ring with unity).</p>
+    <p>In ℤ: every ideal is principal — (n) = nℤ = {multiples of n}.</p>
+  </div>
+  <h3>Special Ideals</h3>
+  <div class="thm-box">
+    <div class="lbl">Prime and Maximal Ideals</div>
+    <p><strong>Prime ideal</strong> P: if ab∈P then a∈P or b∈P. (R/P is an integral domain.)</p>
+    <p><strong>Maximal ideal</strong> M: no ideal strictly between M and R. (R/M is a field.)</p>
+    <p>Every maximal ideal is prime. In PID, prime ⟺ maximal (for proper ideals).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Examples in ℤ</div>
+    <ul>
+      <li>(p) = pℤ is prime ⟺ p is prime integer. Also maximal in ℤ since ℤ is PID.</li>
+      <li>(0) is prime (since ℤ is an integral domain) but not maximal.</li>
+      <li>(6) is not prime: 2·3∈(6) but 2∉(6) and 3∉(6).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="quotient">
+  <h2>Quotient Rings</h2>
+  <div class="def-box">
+    <div class="lbl">Quotient Ring R/I</div>
+    <p>For ideal I ⊲ R: R/I = {a+I : a∈R} with operations:</p>
+    <div class="formula">(a+I) + (b+I) = (a+b)+I,   (a+I)(b+I) = ab+I</div>
+    <p>This is well-defined because I is an ideal (not just a subgroup).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Key Examples</div>
+    <ul>
+      <li>ℤ/(n) ≅ ℤₙ.</li>
+      <li>ℝ[x]/(x²+1) ≅ ℂ (complex numbers!).</li>
+      <li>ℤ/(p) ≅ 𝔽ₚ (finite field, p prime).</li>
+      <li>ℤ[x]/(x²−2) ≅ ℤ[√2].</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Chinese Remainder Theorem (Ring version)</div>
+    <p>If I, J are ideals with I+J=R (coprime ideals), then:</p>
+    <div class="formula">R/(I∩J) ≅ R/I × R/J</div>
+    <p>For ℤ: if gcd(m,n)=1, then ℤ/mnℤ ≅ ℤ/mℤ × ℤ/nℤ.</p>
+  </div>
+</div>
+
+<div class="sec" id="ringhomo">
+  <h2>Ring Homomorphisms</h2>
+  <div class="def-box">
+    <div class="lbl">Ring Homomorphism</div>
+    <p>φ: R → S is a ring homomorphism if:</p>
+    <ul>
+      <li>φ(a+b) = φ(a)+φ(b)</li>
+      <li>φ(ab) = φ(a)φ(b)</li>
+      <li>φ(1_R) = 1_S (if rings have unity)</li>
+    </ul>
+    <p>ker φ = {r∈R: φ(r)=0} is an ideal of R. im φ is a subring of S.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">First Isomorphism Theorem (Rings)</div>
+    <div class="formula">R/ker φ ≅ im φ</div>
+    <p>Exact parallel with the group version.</p>
+  </div>
+</div>
+
+<div class="sec" id="domains">
+  <h2>Integral Domains, PIDs, UFDs & Fields</h2>
+  <table>
+    <tr><th>Type</th><th>Definition</th><th>Examples</th></tr>
+    <tr><td>Integral Domain</td><td>Commutative ring with 1, no zero divisors</td><td>ℤ, ℝ[x], ℤ[i]</td></tr>
+    <tr><td>PID</td><td>Integral domain where every ideal is principal</td><td>ℤ, F[x] (F field)</td></tr>
+    <tr><td>UFD</td><td>Integral domain with unique factorization</td><td>ℤ, ℤ[x], F[x]</td></tr>
+    <tr><td>Euclidean Domain</td><td>Has division algorithm (Euclidean function)</td><td>ℤ, F[x], ℤ[i]</td></tr>
+    <tr><td>Field</td><td>Commutative ring where every nonzero element has inverse</td><td>ℚ, ℝ, ℂ, 𝔽ₚ</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Chain of Inclusions</div>
+    <div class="formula">Fields ⊊ Euclidean Domains ⊊ PIDs ⊊ UFDs ⊊ Integral Domains ⊊ Commutative Rings</div>
+    <p>ℤ[x] is a UFD but NOT a PID (ideal (2,x) is not principal). ℤ[√−5] is an integral domain but NOT a UFD.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Key Theorem</div>
+    <p>In a PID: prime ⟺ irreducible ⟺ (p) is a maximal ideal. Every PID is a UFD.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">ℤ₆ has zero divisors because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> 6 is composite</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 2·3 = 6 ≡ 0 (mod 6), with 2≠0 and 3≠0</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> ℤ₆ is not commutative</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> ℤ₆ has no unity</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The kernel of a ring homomorphism φ: R → S is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> A subgroup of (S,+)</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> An ideal of R</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> A subring of R with unity</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> The unit group R*</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">ℝ[x]/(x²+1) is isomorphic to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> ℝ</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> ℂ</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> ℝ×ℝ</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> ℤ</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">An ideal P is a prime ideal iff R/P is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> A field</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> An integral domain</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> A cyclic group</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> A vector space</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">A maximal ideal M in a commutative ring R with 1 gives R/M which is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> An integral domain (but not necessarily a field)</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> A field</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> A ring with zero divisors</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> The zero ring</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">ℤ is a PID (Principal Ideal Domain) because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> ℤ is a field</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Every ideal of ℤ has the form nℤ for some n ≥ 0</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> ℤ has no zero divisors</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> ℤ is commutative</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">By CRT, ℤ/6ℤ ≅ ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> ℤ/2ℤ + ℤ/3ℤ (direct sum)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> ℤ/2ℤ × ℤ/3ℤ</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> ℤ/6ℤ × ℤ/6ℤ</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> ℤ/36ℤ</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The ideal (2, x) in ℤ[x] is NOT principal because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> (2,x) is the zero ideal</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> No single element a∈ℤ[x] generates (2,x) (showing ℤ[x] is NOT a PID)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> 2 and x are not coprime</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> ℤ[x] is not an integral domain</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">In ℤ[x]: which of the following is an irreducible element?</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> x² − 4</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> x² + 1</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> 2x</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> x² − x</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">𝔽ₚ = ℤ/pℤ is a field if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> p is odd</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> p is prime</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> p is a power of 2</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> p > 5</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">An integral domain with finitely many elements is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> A PID</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> A field</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> A UFD only</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> A group</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The correct inclusion chain is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> UFDs ⊊ PIDs ⊊ Euclidean Domains ⊊ Fields</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Fields ⊊ Euclidean Domains ⊊ PIDs ⊊ UFDs ⊊ Integral Domains</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> PIDs ⊊ Fields ⊊ UFDs</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Integral Domains ⊊ PIDs ⊊ Euclidean Domains ⊊ Fields</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">In a PID, every prime ideal (other than (0)) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Principal but not maximal</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Maximal</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Equal to (0)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Generated by a unit</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Which is an example of a UFD that is NOT a PID?</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> ℤ</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> ℤ[x]</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> ℝ[x]</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> ℚ</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The units (invertible elements) of ℤ are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> All positive integers</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> {1, −1}</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> All integers</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> All primes</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">R</div>
+      <h4>Ring</h4>
+      <p>Two operations: abelian group under +, associative ·, distributive. Units R*, zero divisors.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">I⊲R</div>
+      <h4>Ideal</h4>
+      <p>Closed under +, and rI⊆I for all r∈R. (a)=principal ideal.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">R/I</div>
+      <h4>Quotient Ring</h4>
+      <p>P prime ⟹ R/P integral domain. M maximal ⟹ R/M field.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">CRT</div>
+      <h4>Chinese Remainder</h4>
+      <p>gcd(m,n)=1 ⟹ ℤ/mnℤ≅ℤ/mℤ × ℤ/nℤ.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⊊</div>
+      <h4>Hierarchy</h4>
+      <p>Fields ⊊ Eucl. Domains ⊊ PIDs ⊊ UFDs ⊊ Integral Domains.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">ℂ</div>
+      <h4>Key Example</h4>
+      <p>ℝ[x]/(x²+1)≅ℂ. ℤ/pℤ is a field iff p prime.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U4_T05_Fields.html">Next: Fields & Extensions →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'In ℤ₆: 2·3=6≡0 (mod 6), yet 2≠0 and 3≠0. So 2 and 3 are zero divisors. ℤₙ has zero divisors exactly when n is composite.',
+  2:'ker φ = {r∈R: φ(r)=0_S} is an ideal of R. It absorbs ring multiplication: if a∈ker φ and r∈R, then φ(ra)=φ(r)φ(a)=φ(r)·0=0, so ra∈ker φ.',
+  3:'In ℝ[x]/(x²+1), the coset [x] satisfies [x]²+1=0, so [x] acts like i=√(−1). The ring has elements {a+b[x]: a,b∈ℝ}≅ℂ.',
+  4:'P is a prime ideal iff ab∈P⟹a∈P or b∈P, which is exactly the condition that R/P has no zero divisors (is an integral domain).',
+  5:'M is maximal iff there is no ideal strictly between M and R, which is equivalent to R/M having no proper ideals ≠ 0, i.e., R/M is a field.',
+  6:'Every ideal of ℤ is of the form nℤ (generated by n≥0), so every ideal is principal. This makes ℤ a PID. (Proof uses division algorithm.)',
+  7:'By CRT: gcd(2,3)=1, so ℤ/6ℤ≅ℤ/2ℤ×ℤ/3ℤ as rings.',
+  8:'(2,x) = {polynomials in ℤ[x] with even constant term} is generated by 2 and x. If (2,x)=(f) for some f, then f|2 and f|x. f|2 means f=±1 or ±2. If f=1: (f)=ℤ[x]≠(2,x). If f=2: (2)⊄(2,x) since x∉(2). Contradiction. So (2,x) is not principal.',
+  9:'x²+1 has no roots in ℤ (try ±1: neither gives 0), and doesn\'t factor as (ax+b)(cx+d) with integer coefficients (would need a=c=1, b+d=0, bd=1, so b=d=±1 but b+d=0 is impossible). So x²+1 is irreducible in ℤ[x].',
+  10:'ℤₚ=ℤ/pℤ is a field iff p is prime. If p is prime, every nonzero element has a multiplicative inverse (since gcd(a,p)=1 for a not divisible by p). If p is composite, zero divisors exist.',
+  11:'Every finite integral domain is a field. Proof: for nonzero a, the map x↦ax is injective (no zero divisors), and by finiteness, injective⟹surjective, so 1 is in the image: a·b=1 for some b.',
+  12:'The correct chain is: Fields ⊊ Euclidean Domains ⊊ PIDs ⊊ UFDs ⊊ Integral Domains ⊊ Commutative Rings.',
+  13:'In a PID, every nonzero prime ideal is maximal. Proof: (p) prime, suppose (p)⊆(a)⊆R. Then a|p. Since p is prime (irreducible in PID), a is a unit or associate of p. If unit: (a)=R. If associate: (a)=(p). So (p) is maximal.',
+  14:'ℤ[x] is a UFD (since ℤ is a UFD and polynomial rings over UFDs are UFDs — Gauss\'s theorem). But ℤ[x] is NOT a PID: ideal (2,x) is not principal.',
+  15:'Units of ℤ are elements with multiplicative inverses in ℤ. Only 1·1=1 and (−1)·(−1)=1 work. So units = {1,−1}.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

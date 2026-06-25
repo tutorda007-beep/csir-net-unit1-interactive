@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T06 · Separation Axioms</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#92400e;--acc2:#d97706;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(146,64,14,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(146,64,14,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(146,64,14,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#fffbeb,#fef3c7,#fde68a)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(146,64,14,.08);color:var(--acc);font-weight:600;border:1px solid rgba(146,64,14,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fffbeb;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T06 · Separation Axioms</span>
+  <span class="hdr-badge">Topology</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('axioms',this)">T₀ through T₄ Axioms</a>
+  <a class="nav-item" onclick="show('normal',this)">Normal Spaces & Urysohn</a>
+  <a class="nav-item" onclick="show('tietze',this)">Tietze Extension</a>
+  <a class="nav-item" onclick="show('examples',this)">Examples & Hierarchy</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T05_Continuity.html">← T05 · Continuity</a>
+  <a class="nav-item" href="CSIR_NET_U5_T07_QuotientProduct.html">T07 · Quotient & Product →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 06</div>
+    <div class="hero-title">Separation Axioms</div>
+    <div class="hero-sub">T₀ through T₄ · Hausdorff · Normal · Urysohn · Tietze</div>
+    <div class="hero-chips">
+      <span class="chip">T₀ Kolmogorov</span>
+      <span class="chip">T₁ Fréchet</span>
+      <span class="chip">T₂ Hausdorff</span>
+      <span class="chip">T₃ Regular</span>
+      <span class="chip">T₄ Normal</span>
+      <span class="chip">Urysohn Lemma</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Separation axioms describe how well a topological space can separate points and sets by open sets. The hierarchy T₀ ⊆ T₁ ⊆ T₂ ⊆ T₃ ⊆ T₄ gives progressively stronger separation. Most spaces in analysis (metric spaces) are T₄ (normal). The Urysohn lemma and Tietze extension are fundamental tools in analysis and topology.</p>
+</div>
+
+<div class="sec" id="axioms">
+  <h2>Separation Axioms T₀ through T₄</h2>
+  <table>
+    <tr><th>Axiom</th><th>Name</th><th>Condition</th></tr>
+    <tr><td>T₀</td><td>Kolmogorov</td><td>For any two distinct points x≠y, ∃ open set containing one but not the other</td></tr>
+    <tr><td>T₁</td><td>Fréchet</td><td>For x≠y, ∃ open set containing x but not y AND one containing y but not x</td></tr>
+    <tr><td>T₂</td><td>Hausdorff</td><td>For x≠y, ∃ disjoint open sets U∋x and V∋y</td></tr>
+    <tr><td>T₃</td><td>Regular</td><td>T₁ + any closed set F and point x∉F can be separated by disjoint open sets</td></tr>
+    <tr><td>T₄</td><td>Normal</td><td>T₁ + any two disjoint closed sets can be separated by disjoint open sets</td></tr>
+  </table>
+  <div class="def-box">
+    <div class="lbl">T₁ Equivalent</div>
+    <p>X is T₁ iff every singleton {x} is a closed set. Equivalently: for every x, ⋂{U open : x∈U} = {x}.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">T₂ (Hausdorff)</div>
+    <p>In a Hausdorff space: limits of sequences are unique; compact subsets are closed; continuous maps to Hausdorff spaces are closed on compact domains.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Hierarchy</div>
+    <p>Every metric space is T₄ (normal). T₄ ⟹ T₃ ⟹ T₂ ⟹ T₁ ⟹ T₀. None of these implications reverses in general.</p>
+  </div>
+</div>
+
+<div class="sec" id="normal">
+  <h2>Normal Spaces & Urysohn's Lemma</h2>
+  <div class="def-box">
+    <div class="lbl">Normal Space (T₄)</div>
+    <p>X is <strong>normal</strong> if it is T₁ and: for any two disjoint closed sets A, B ⊆ X, there exist disjoint open sets U⊇A and V⊇B.</p>
+    <p>Every metric space is normal. Every compact Hausdorff space is normal.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Urysohn's Lemma</div>
+    <p>X is normal iff: for any two disjoint closed sets A, B, there exists a continuous function f: X→[0,1] with f≡0 on A and f≡1 on B.</p>
+    <p>Such f is called an <strong>Urysohn function</strong> separating A and B.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Idea</div>
+    <p>Construct f by assigning rational values to nested open sets: U_{p} for p∈ℚ∩[0,1] with A⊆U_p and cl(U_p)⊆U_q for p&lt;q, B⊆X\U_1. Set f(x)=inf{p: x∈U_p}.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Urysohn Metrization Theorem</div>
+    <p>Every regular (T₃) second-countable topological space is metrizable (can be given a metric inducing the same topology).</p>
+    <p>Every separable metrizable space embeds into [0,1]^ℕ (Hilbert cube).</p>
+  </div>
+</div>
+
+<div class="sec" id="tietze">
+  <h2>Tietze Extension Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Tietze Extension Theorem</div>
+    <p>X is normal iff: for every closed subset A⊆X and every continuous f: A→[a,b] (or f: A→ℝ), there exists a continuous extension F: X→[a,b] (resp. F: X→ℝ) with F|_A = f.</p>
+    <p>Equivalently: normal ↔ every continuous function on a closed subspace extends to the whole space.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Comparison with Urysohn</div>
+    <p>Urysohn: gives ONE specific function separating two closed sets.<br>
+    Tietze: extends ANY continuous function from a closed subset.<br>
+    Both require normality; Tietze is derived using Urysohn's lemma.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Partition of Unity</div>
+    <p>On a paracompact Hausdorff space (e.g., any metric space, any manifold), for every open cover {Uα} there exists a <strong>partition of unity</strong> {φα} subordinate to the cover: continuous φα≥0, support(φα)⊆Uα, Σφα=1.</p>
+    <p>Used to: patch local constructions globally, define integrals on manifolds.</p>
+  </div>
+</div>
+
+<div class="sec" id="examples">
+  <h2>Examples & Hierarchy</h2>
+  <table>
+    <tr><th>Space</th><th>T₀</th><th>T₁</th><th>T₂</th><th>T₃</th><th>T₄</th></tr>
+    <tr><td>Any metric space</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>ℝⁿ, Euclidean</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Indiscrete {∅,X} (|X|≥2)</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>Sierpiński space {0,1}</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>Finite T₁ space</td><td>Yes</td><td>Yes</td><td>Yes (discrete)</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Lower limit topology ℝ_ℓ</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes*</td></tr>
+  </table>
+  <div class="info-box">
+    <div class="lbl">Compact Hausdorff Spaces</div>
+    <p>Every compact Hausdorff space is normal (T₄). Proof: use compactness to build the separating open sets from the T₂ separation of individual points.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Second Countability + T₃ = Metrizable</div>
+    <p>Urysohn Metrization: second-countable T₃ ⟹ metrizable. In practice: separable metric spaces are second-countable, hence the two notions align.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">A Hausdorff (T₂) space requires: for distinct x, y:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> An open set containing x but not y</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Disjoint open sets U∋x and V∋y</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> A closed set separating x and y</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> A continuous function separating x and y</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">In a T₁ space, every singleton {x} is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Open</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Closed</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Dense</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Compact but not closed</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Every metric space satisfies which separation axiom(s)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> T₀ only</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> T₂ only</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> T₄ (and hence all of T₀ through T₄)</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> T₁ only</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">Urysohn's Lemma states: X is normal iff for disjoint closed A, B there exists f: X→[0,1] continuous with:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> f=1/2 on both A and B</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> f=0 on A and f=1 on B</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> f=0 everywhere</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> f is linear between A and B</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Tietze Extension Theorem requires X to be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Compact</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Normal (T₄)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Connected</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Second countable</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">A T₃ (regular) space must also be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Compact</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> T₂ (Hausdorff)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Normal</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Connected</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">In a Hausdorff space, limits of sequences (and nets) are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Non-unique in general</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Always unique</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Unique only if the space is compact</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Unique only in metric spaces</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The Urysohn Metrization Theorem says: a second-countable T₃ space is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Compact</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Metrizable</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Normal but not metrizable</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Connected</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">A normal space (T₄) allows which of the following?</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Separation of points by open sets only</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Separation of disjoint closed sets by disjoint open sets</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> Extension of bounded functions to the sphere</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Every open cover has a finite subcover</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Which space is T₁ but NOT T₂?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> ℝ with usual topology</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> ℝ with cofinite topology (closed sets = finite sets ∪ ∅)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Any metric space</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Discrete topology on ℝ</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Every compact Hausdorff space is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> T₁ only</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Normal (T₄)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> T₂ only</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Separable</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">A partition of unity subordinate to an open cover {Uα} consists of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> A finite subcover of {Uα}</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Continuous functions φα≥0 with support in Uα and Σφα=1</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> A single continuous function equaling 1 on each Uα</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> A closed refinement of {Uα}</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">In the indiscrete topology on X = {a,b} (open sets: ∅ and X), the space is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> T₂</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Not even T₀</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> T₁</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Normal</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The Tietze Extension Theorem says: if A⊆X is closed (X normal) and f: A→[0,1] continuous, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> f cannot be extended to X</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> There exists F: X→[0,1] continuous with F|_A = f</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> f extends but only to a larger closed set</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> f must be bounded to extend</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Which implication in the T hierarchy is correct?</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> T₁ ⟹ T₂</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> T₄ ⟹ T₃ ⟹ T₂ ⟹ T₁ ⟹ T₀</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> T₀ ⟹ T₄</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> T₂ ⟹ T₄</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>T₀–T₄ Hierarchy</h4><p>T₄⟹T₃⟹T₂⟹T₁⟹T₀. Every metric space is T₄.</p></div>
+    <div class="sum-card"><h4>Hausdorff (T₂)</h4><p>Distinct points separated by disjoint opens. Unique limits. Compact subsets closed.</p></div>
+    <div class="sum-card"><h4>Normal (T₄)</h4><p>Disjoint closed sets separated by disjoint opens. Metric spaces and compact Hausdorff are normal.</p></div>
+    <div class="sum-card"><h4>Urysohn Lemma</h4><p>Normal ↔ ∃ Urysohn function f:X→[0,1] with f=0 on A, f=1 on B (disjoint closed A,B).</p></div>
+    <div class="sum-card"><h4>Tietze Ext.</h4><p>Normal ↔ every continuous f on closed A⊆X extends to F:X→ℝ.</p></div>
+    <div class="sum-card"><h4>Urysohn Metrization</h4><p>T₃ + second countable ⟹ metrizable ⟹ embeds in Hilbert cube [0,1]^ℕ.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U5_T05_Continuity.html">← T05: Continuity</a>
+    <a class="btn btn-acc" href="CSIR_NET_U5_T07_QuotientProduct.html">T07: Quotient & Product →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'T₂ (Hausdorff): for any distinct x,y∈X, ∃ open sets U,V with x∈U, y∈V, and U∩V=∅. This is stronger than T₁ (which only requires open sets containing one but not the other, not necessarily disjoint).',
+  2:'In a T₁ space, every singleton {x} is a closed set. Equivalent: for any x≠y, there exist open sets U∋x,y∉U and V∋y,x∉V (each point can be separated individually, not necessarily disjoint).',
+  3:'Every metric space is normal (T₄). Given disjoint closed sets A,B in metric space (X,d): let U={x:d(x,A)<d(x,B)} and V={x:d(x,B)<d(x,A)}; these are disjoint open sets separating A and B.',
+  4:'Urysohn\'s Lemma: X normal ↔ for disjoint closed A,B, ∃ continuous f:X→[0,1] with f|_A=0 and f|_B=1. This f is called an Urysohn function separating A from B.',
+  5:'Tietze Extension Theorem requires X to be normal (T₄). In that case, any continuous function f:A→[a,b] on a closed subset A⊆X extends to a continuous F:X→[a,b].',
+  6:'T₃ (regular) ⟹ T₂ (Hausdorff). Regular means T₁ + any closed set and point not in it can be separated by disjoint opens. Taking A={y} (closed in T₁) gives Hausdorff separation.',
+  7:'In a Hausdorff space: if xₙ→x and xₙ→y with x≠y, take disjoint open U∋x,V∋y. Eventually xₙ∈U and xₙ∈V, contradiction. So limits are unique.',
+  8:'Urysohn Metrization Theorem: every second-countable T₃ (regular) space is metrizable. It can be embedded as a subspace of the Hilbert cube [0,1]^ℕ.',
+  9:'Normal (T₄): for any two disjoint closed sets A,B there exist disjoint open sets U⊇A and V⊇B. Urysohn\'s lemma and Tietze extension are equivalent reformulations.',
+  10:'The cofinite topology on an infinite set X: open sets are complements of finite sets (plus ∅). Singletons are closed (T₁). But any two non-empty open sets U,V have U∩V non-empty (both complements of finite sets, and X is infinite), so T₂ fails.',
+  11:'Every compact Hausdorff space is normal (T₄). Proof: use T₂ to separate points; use compactness to build finite covers; combine to separate disjoint closed sets.',
+  12:'A partition of unity {φα} subordinate to {Uα}: each φα:X→[0,1] is continuous, support(φα)⊆Uα, and Σ_α φα(x)=1 for all x. Exists on paracompact Hausdorff spaces (e.g., manifolds, metric spaces).',
+  13:'Indiscrete topology: only ∅ and X are open. For distinct a,b: there is no open set containing a but not b (X contains both; ∅ contains neither). So it fails T₀, let alone T₁,T₂.',
+  14:'Tietze Extension: if X is normal, A⊆X closed, f:A→[a,b] continuous, then ∃ F:X→[a,b] continuous with F|_A=f. This also works for f:A→ℝ (unbounded target).',
+  15:'The separation axiom hierarchy: T₄⟹T₃⟹T₂⟹T₁⟹T₀. None of these implications reverses in general. Metric spaces satisfy all of them (T₄ and hence T₀–T₃).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

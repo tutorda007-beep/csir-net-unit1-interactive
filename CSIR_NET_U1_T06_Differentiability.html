@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T06 · Differentiability & Mean Value Theorems</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#16a34a;--acc2:#15803d;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(86,211,100,.3);border-radius:6px}
+.hdr-back:hover{background:rgba(86,211,100,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600}
+.hdr-title{font-size:15px;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--blue)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(86,211,100,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto}
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+.sec{display:none;animation:fadeIn .3s ease}.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8f8ed,#d0f4da,#bbefca)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(86,211,100,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--blue);border-color:rgba(121,192,255,.3)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--purple);border-color:rgba(210,168,255,.3)}
+.chip-o{background:rgba(255,166,87,.12);color:var(--orange);border-color:rgba(255,166,87,.3)}
+.obj-box{background:rgba(86,211,100,.06);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px}.obj-box li strong{color:var(--text)}
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+.def-box{background:rgba(86,211,100,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{font-size:13px;color:var(--text);line-height:1.65}
+.thm-box{background:rgba(121,192,255,.05);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(121,192,255,.15);font-style:italic}
+.tip-box{background:rgba(255,166,87,.07);border:1px solid rgba(255,166,87,.2);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px}
+.tip-icon{font-size:16px;flex-shrink:0}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--orange)}
+.ex-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--acc);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.q-block.correct{border-color:var(--ok)}.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(86,211,100,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .5s ease;width:0%}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:4px}
+.summary-item ul{padding-left:16px}
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc)}
+.nf-btn.next{background:rgba(86,211,100,.1);border-color:rgba(86,211,100,.3);color:var(--acc)}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 10px}
+.mvt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.mvt-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.mvt-card h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;color:var(--blue)}
+.mvt-card p{font-size:12.5px;color:#cdd9e5;line-height:1.6}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 06</div>
+  <div class="hdr-title">Differentiability & Mean Value Theorems</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 70 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('derivative',this)"><div class="nav-dot"></div>Derivative Definition<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('rules',this)"><div class="nav-dot"></div>Differentiation Rules<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('mvt',this)"><div class="nav-dot"></div>Mean Value Theorems<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('lhopital',this)"><div class="nav-dot"></div>L'Hôpital's Rule<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('taylor',this)"><div class="nav-dot"></div>Taylor's Theorem<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">09</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T05_Continuity.html'"><div class="nav-dot" style="background:var(--purple)"></div>← Continuity</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T07_UniformConvergence.html'"><div class="nav-dot" style="background:var(--orange)"></div>Next: Uniform Convergence →</div>
+</nav>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 06 of 11</div>
+    <div class="hero-title">Differentiability & Mean Value Theorems</div>
+    <div class="hero-sub">Derivative definition, chain rule, Rolle's, MVT, Cauchy MVT, L'Hôpital, and Taylor series with remainder</div>
+    <div class="hero-chips">
+      <span class="chip chip-g">CSIR NET High-Yield</span>
+      <span class="chip chip-b">Real Analysis</span>
+      <span class="chip chip-p">Advanced</span>
+      <span class="chip chip-o">70 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>Define the <strong>derivative</strong> as a limit and understand differentiability vs continuity</li>
+      <li>Apply <strong>Rolle's Theorem</strong> and the <strong>Mean Value Theorem</strong> to real problems</li>
+      <li>State and use <strong>Cauchy's Mean Value Theorem</strong> and derive L'Hôpital from it</li>
+      <li>Apply <strong>L'Hôpital's Rule</strong> correctly to all indeterminate forms</li>
+      <li>Write <strong>Taylor's Theorem</strong> with Lagrange remainder and apply to approximations</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> MVT applications and L'Hôpital appear in <strong>2–3 questions</strong> per exam. Taylor series with remainder estimation is common. Also: "f'(x) = 0 everywhere → f constant" and counterexamples to the converse of Rolle's theorem.</div>
+  </div>
+</div>
+
+<!-- DERIVATIVE -->
+<div class="sec" id="sec-derivative">
+  <h2 class="sec-head">d/dx Derivative Definition</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">d/dx</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">The Derivative</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Derivative at a Point</div>
+      <div class="def-text">f : (a,b) → ℝ is <strong>differentiable at c ∈ (a,b)</strong> if the limit exists:<br><br>
+      f'(c) = lim_{h→0} [f(c+h) − f(c)] / h = lim_{x→c} [f(x) − f(c)] / (x − c)<br><br>
+      The derivative is the slope of the tangent line at c. Geometrically: as h → 0, secant slope → tangent slope.</div>
+    </div>
+
+    <div class="diagram">
+      <svg width="480" height="190" viewBox="0 0 480 190" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="240" y="14" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Derivative as Limit of Secant Slopes</text>
+        <!-- Axes -->
+        <line x1="50" y1="160" x2="440" y2="160" stroke="#30363d" stroke-width="1.5"/>
+        <line x1="50" y1="20" x2="50" y2="160" stroke="#30363d" stroke-width="1.5"/>
+        <!-- Smooth curve -->
+        <path d="M70,145 Q150,120 220,90 Q290,65 370,45 Q410,38 430,36" fill="none" stroke="#56d364" stroke-width="2.5"/>
+        <!-- Point c -->
+        <line x1="220" y1="155" x2="220" y2="165" stroke="#ffa657" stroke-width="1.5"/>
+        <text x="220" y="176" text-anchor="middle" fill="#ffa657" font-size="10">c</text>
+        <!-- Point c+h -->
+        <line x1="310" y1="155" x2="310" y2="165" stroke="#79c0ff" stroke-width="1.5"/>
+        <text x="310" y="176" text-anchor="middle" fill="#79c0ff" font-size="10">c+h</text>
+        <!-- Secant line -->
+        <line x1="130" y1="120" x2="400" y2="40" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="410" y="38" fill="#d2a8ff" font-size="9">secant</text>
+        <!-- Tangent line -->
+        <line x1="140" y1="135" x2="380" y2="50" stroke="#ffa657" stroke-width="2"/>
+        <text x="388" y="48" fill="#ffa657" font-size="9" font-weight="700">tangent (h→0)</text>
+        <!-- Points on curve -->
+        <circle cx="220" cy="90" r="4" fill="#ffa657"/>
+        <circle cx="310" cy="60" r="4" fill="#79c0ff"/>
+        <!-- Height arrow -->
+        <line x1="315" y1="90" x2="315" y2="60" stroke="#79c0ff" stroke-width="1.5" marker-end="url(#arr)"/>
+        <text x="325" y="78" fill="#79c0ff" font-size="9">f(c+h)−f(c)</text>
+        <!-- Width arrow -->
+        <line x1="220" y1="170" x2="310" y2="170" stroke="#8b949e" stroke-width="1"/>
+        <text x="265" y="182" text-anchor="middle" fill="#8b949e" font-size="9">h</text>
+        <text x="240" y="106" fill="#8b949e" font-size="9" text-anchor="middle">f'(c) = lim slope</text>
+      </svg>
+      <figcaption>Figure 1 — As h → 0, secant slope [f(c+h)−f(c)]/h → f'(c) = tangent slope</figcaption>
+    </div>
+
+    <h3 class="sub-head">Differentiability vs Continuity</h3>
+    <div class="thm-box">
+      <div class="thm-label">Key Relationship</div>
+      <div class="thm-text">
+        Differentiable at c ⟹ Continuous at c. (Converse is FALSE.)<br><br>
+        Counterexamples to the converse:<br>
+        • f(x) = |x| is continuous at 0 but NOT differentiable at 0 (left derivative = −1, right derivative = 1)<br>
+        • f(x) = x^{1/3} is continuous at 0 but not differentiable (vertical tangent: f'(0) = ∞)<br>
+        • Weierstrass function: continuous EVERYWHERE, differentiable NOWHERE
+      </div>
+    </div>
+    <table class="tbl">
+      <tr><th>Function</th><th>Continuous at 0?</th><th>Differentiable at 0?</th><th>f'(0)</th></tr>
+      <tr><td>f(x) = x²</td><td style="color:var(--ok)">Yes</td><td style="color:var(--ok)">Yes</td><td>0</td></tr>
+      <tr><td>f(x) = |x|</td><td style="color:var(--ok)">Yes</td><td style="color:var(--er)">No</td><td>Left=−1, Right=+1</td></tr>
+      <tr><td>f(x) = x·sin(1/x), f(0)=0</td><td style="color:var(--ok)">Yes</td><td style="color:var(--er)">No</td><td>limit of sin(1/x) DNE</td></tr>
+      <tr><td>f(x) = x²·sin(1/x), f(0)=0</td><td style="color:var(--ok)">Yes</td><td style="color:var(--ok)">Yes</td><td>f'(0) = 0</td></tr>
+      <tr><td>f(x) = sign(x)</td><td style="color:var(--er)">No</td><td style="color:var(--er)">No</td><td>—</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- RULES -->
+<div class="sec" id="sec-rules">
+  <h2 class="sec-head">⚙️ Differentiation Rules</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(121,192,255,.15)">∂</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">Rules and Higher Derivatives</div></div>
+    </div>
+    <h3 class="sub-head">Standard Rules</h3>
+    <table class="tbl">
+      <tr><th>Rule</th><th>Formula</th><th>Conditions</th></tr>
+      <tr><td>Sum</td><td>(f ± g)' = f' ± g'</td><td>Both f, g differentiable</td></tr>
+      <tr><td>Product (Leibniz)</td><td>(fg)' = f'g + fg'</td><td>Both differentiable</td></tr>
+      <tr><td>Quotient</td><td>(f/g)' = (f'g − fg')/g²</td><td>g ≠ 0</td></tr>
+      <tr><td>Chain Rule</td><td>(g∘f)'(x) = g'(f(x))·f'(x)</td><td>f diff. at x, g diff. at f(x)</td></tr>
+      <tr><td>Inverse Function</td><td>(f⁻¹)'(y) = 1/f'(f⁻¹(y))</td><td>f'(f⁻¹(y)) ≠ 0</td></tr>
+    </table>
+    <div class="thm-box">
+      <div class="thm-label">Leibniz Formula for nth Derivative</div>
+      <div class="thm-text">(fg)^(n) = Σ_{k=0}^{n} C(n,k) · f^(k) · g^(n-k)<br><br>
+      This is the "product rule for nth derivatives." Useful for computing (x^m · eˣ)^(n), (x^m · sin x)^(n), etc.</div>
+    </div>
+    <h3 class="sub-head">Standard Derivatives Table</h3>
+    <table class="tbl">
+      <tr><th>f(x)</th><th>f'(x)</th><th>f(x)</th><th>f'(x)</th></tr>
+      <tr><td>xⁿ</td><td>nxⁿ⁻¹</td><td>sin x</td><td>cos x</td></tr>
+      <tr><td>eˣ</td><td>eˣ</td><td>cos x</td><td>−sin x</td></tr>
+      <tr><td>ln x</td><td>1/x</td><td>tan x</td><td>sec²x</td></tr>
+      <tr><td>aˣ</td><td>aˣ ln a</td><td>sin⁻¹x</td><td>1/√(1−x²)</td></tr>
+      <tr><td>log_a x</td><td>1/(x ln a)</td><td>tan⁻¹x</td><td>1/(1+x²)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- MVT -->
+<div class="sec" id="sec-mvt">
+  <h2 class="sec-head">📐 Mean Value Theorems</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">MVT</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Rolle's, MVT, and Cauchy's MVT</div></div>
+    </div>
+    <div class="mvt-grid">
+      <div class="mvt-card">
+        <h4>Rolle's Theorem</h4>
+        <p><strong>Hypotheses:</strong><br>
+        1. f continuous on [a,b]<br>
+        2. f differentiable on (a,b)<br>
+        3. f(a) = f(b)<br><br>
+        <strong>Conclusion:</strong><br>
+        ∃ c ∈ (a,b): f'(c) = 0<br><br>
+        <em>Proof idea:</em> f attains its max/min on [a,b] (EVT). If at interior point → derivative = 0 there. If both at endpoints → f is constant → f' = 0 everywhere.</p>
+      </div>
+      <div class="mvt-card">
+        <h4>Mean Value Theorem</h4>
+        <p><strong>Hypotheses:</strong><br>
+        1. f continuous on [a,b]<br>
+        2. f differentiable on (a,b)<br><br>
+        <strong>Conclusion:</strong><br>
+        ∃ c ∈ (a,b): f'(c) = [f(b)−f(a)]/(b−a)<br><br>
+        <em>Proof:</em> Apply Rolle's to g(x) = f(x) − [(f(b)−f(a))/(b−a)](x−a), which satisfies g(a) = g(b) = f(a).</p>
+      </div>
+      <div class="mvt-card">
+        <h4>Cauchy's MVT (Generalized)</h4>
+        <p><strong>Hypotheses:</strong><br>
+        f, g continuous on [a,b]; differentiable on (a,b); g'(x) ≠ 0 on (a,b)<br><br>
+        <strong>Conclusion:</strong><br>
+        ∃ c ∈ (a,b): [f(b)−f(a)]/[g(b)−g(a)] = f'(c)/g'(c)<br><br>
+        <em>Special case:</em> g(x) = x → ordinary MVT</p>
+      </div>
+      <div class="mvt-card">
+        <h4>MVT Consequences</h4>
+        <p>1. <strong>f'(x) = 0 ∀x ∈ (a,b) ⟹ f is constant</strong><br>
+        2. f'(x) &gt; 0 on (a,b) ⟹ f is strictly increasing<br>
+        3. f'(x) &lt; 0 on (a,b) ⟹ f is strictly decreasing<br>
+        4. |f'| ≤ M on (a,b) ⟹ |f(x)−f(y)| ≤ M|x−y| (Lipschitz)<br>
+        5. If f'(a) &lt; 0 &lt; f'(b) → f has local min in (a,b)</p>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <svg width="480" height="190" viewBox="0 0 480 190" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="240" y="14" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Mean Value Theorem — Secant Slope = Tangent Slope at c</text>
+        <!-- Axes -->
+        <line x1="50" y1="165" x2="440" y2="165" stroke="#30363d" stroke-width="1.5"/>
+        <!-- Points a and b -->
+        <line x1="90" y1="161" x2="90" y2="169" stroke="#8b949e" stroke-width="1.5"/>
+        <text x="90" y="180" text-anchor="middle" fill="#8b949e" font-size="11">a</text>
+        <line x1="400" y1="161" x2="400" y2="169" stroke="#8b949e" stroke-width="1.5"/>
+        <text x="400" y="180" text-anchor="middle" fill="#8b949e" font-size="11">b</text>
+        <!-- c -->
+        <line x1="250" y1="161" x2="250" y2="169" stroke="#ffa657" stroke-width="1.5"/>
+        <text x="250" y="180" text-anchor="middle" fill="#ffa657" font-size="11">c</text>
+        <!-- Curve -->
+        <path d="M90,140 C130,135 160,110 200,85 C240,60 280,40 330,42 C370,44 390,60 400,80" fill="none" stroke="#56d364" stroke-width="2.5"/>
+        <!-- Secant -->
+        <line x1="90" y1="140" x2="400" y2="80" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="430" y="78" fill="#d2a8ff" font-size="9">secant</text>
+        <!-- Tangent at c (parallel to secant) -->
+        <line x1="130" y1="95" x2="380" y2="35" stroke="#ffa657" stroke-width="2"/>
+        <text x="387" y="33" fill="#ffa657" font-size="9" font-weight="700">tangent at c</text>
+        <!-- Point at c on curve -->
+        <circle cx="250" cy="62" r="4.5" fill="#ffa657"/>
+        <!-- Labels for secant slope -->
+        <text x="240" y="125" text-anchor="middle" fill="#d2a8ff" font-size="10">slope = [f(b)−f(a)]/(b−a)</text>
+        <text x="240" y="155" text-anchor="middle" fill="#ffa657" font-size="10">= f'(c) at some c ∈ (a,b)</text>
+      </svg>
+      <figcaption>Figure 2 — MVT: the tangent at c is parallel to the secant connecting (a, f(a)) and (b, f(b))</figcaption>
+    </div>
+  </div>
+</div>
+
+<!-- L'HOPITAL -->
+<div class="sec" id="sec-lhopital">
+  <h2 class="sec-head">∞/∞ L'Hôpital's Rule</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">L'H</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">L'Hôpital's Rule and Indeterminate Forms</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">L'Hôpital's Rule</div>
+      <div class="thm-text">Suppose f, g are differentiable near c (except possibly at c), g'(x) ≠ 0 near c, and the limit is of the form 0/0 or ∞/∞. If lim_{x→c} f'(x)/g'(x) = L (exists or = ±∞), then:<br><br>
+      lim_{x→c} f(x)/g(x) = lim_{x→c} f'(x)/g'(x) = L</div>
+      <div class="thm-proof">Derived from Cauchy's MVT. Applies to x → a, x → ∞, one-sided limits. Can be applied repeatedly if the form remains 0/0 or ∞/∞.</div>
+    </div>
+    <h3 class="sub-head">Indeterminate Form Conversions</h3>
+    <table class="tbl">
+      <tr><th>Form</th><th>Convert to</th><th>Method</th><th>Example</th></tr>
+      <tr><td>0/0</td><td>—</td><td>Direct L'Hôpital</td><td>sin(x)/x → 1 as x→0</td></tr>
+      <tr><td>∞/∞</td><td>—</td><td>Direct L'Hôpital</td><td>ln(x)/x → 0 as x→∞</td></tr>
+      <tr><td>0 · ∞</td><td>0/0 or ∞/∞</td><td>Write as f/(1/g)</td><td>x·ln(x): write as ln(x)/(1/x)</td></tr>
+      <tr><td>∞ − ∞</td><td>0/0</td><td>Find common denominator</td><td>1/x − 1/sin(x)</td></tr>
+      <tr><td>1^∞, 0⁰, ∞⁰</td><td>0/0 or 0·∞</td><td>Take ln: ln(f^g) = g·ln(f)</td><td>(1+1/x)^x → e</td></tr>
+    </table>
+
+    <h3 class="sub-head">Standard Limits via L'Hôpital</h3>
+    <table class="tbl">
+      <tr><th>Limit</th><th>Value</th><th>Form</th></tr>
+      <tr><td>lim_{x→0} sin(x)/x</td><td>1</td><td>0/0</td></tr>
+      <tr><td>lim_{x→0} (1−cos x)/x²</td><td>1/2</td><td>0/0 (apply twice)</td></tr>
+      <tr><td>lim_{x→0} (eˣ−1)/x</td><td>1</td><td>0/0</td></tr>
+      <tr><td>lim_{x→0} (ln(1+x))/x</td><td>1</td><td>0/0</td></tr>
+      <tr><td>lim_{x→∞} xⁿ/eˣ</td><td>0</td><td>∞/∞ (apply n times)</td></tr>
+      <tr><td>lim_{x→0⁺} x·ln(x)</td><td>0</td><td>0·∞ → ∞/∞</td></tr>
+      <tr><td>lim_{x→∞} (1 + 1/x)^x</td><td>e</td><td>1^∞ → 0·∞ via ln</td></tr>
+    </table>
+    <div class="tip-box">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-text"><strong>L'Hôpital Pitfalls:</strong> (1) Check the form is 0/0 or ∞/∞ first — do NOT apply to 1/0 type. (2) The rule requires the RATIO of derivatives to have a limit — if it doesn't exist, L'Hôpital gives no info (not that the original limit doesn't exist). Example: lim_{x→∞} (x + sin x)/x = 1 but the ratio of derivatives (1 + cos x)/1 oscillates.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAYLOR -->
+<div class="sec" id="sec-taylor">
+  <h2 class="sec-head">∑ Taylor's Theorem</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">Tₙ</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Taylor's Theorem with Remainder</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Taylor's Theorem (Lagrange Remainder)</div>
+      <div class="thm-text">If f is n+1 times differentiable on (a,b) and a ≤ x₀, x ≤ b, then:<br><br>
+      f(x) = f(x₀) + f'(x₀)(x−x₀) + f''(x₀)(x−x₀)²/2! + … + f⁽ⁿ⁾(x₀)(x−x₀)ⁿ/n! + Rₙ(x)<br><br>
+      where the <strong>Lagrange remainder</strong> is:<br>
+      Rₙ(x) = f⁽ⁿ⁺¹⁾(c)(x−x₀)ⁿ⁺¹/(n+1)! for some c between x₀ and x.</div>
+      <div class="thm-proof">
+        Alternative remainder forms: Cauchy remainder Rₙ(x) = f⁽ⁿ⁺¹⁾(c)(x−c)ⁿ(x−x₀)/n!. The Lagrange form is most useful for error estimation: |Rₙ(x)| ≤ M·|x−x₀|ⁿ⁺¹/(n+1)! where M = max|f⁽ⁿ⁺¹⁾| on interval.
+      </div>
+    </div>
+    <h3 class="sub-head">Standard Maclaurin Series</h3>
+    <table class="tbl">
+      <tr><th>Function</th><th>Taylor Series (around 0)</th><th>Radius</th></tr>
+      <tr><td>eˣ</td><td>1 + x + x²/2! + x³/3! + …</td><td>∞</td></tr>
+      <tr><td>sin x</td><td>x − x³/3! + x⁵/5! − …</td><td>∞</td></tr>
+      <tr><td>cos x</td><td>1 − x²/2! + x⁴/4! − …</td><td>∞</td></tr>
+      <tr><td>ln(1+x)</td><td>x − x²/2 + x³/3 − … (alternating)</td><td>[−1,1)</td></tr>
+      <tr><td>1/(1−x)</td><td>1 + x + x² + x³ + … (geometric)</td><td>(−1,1)</td></tr>
+      <tr><td>(1+x)ᵅ</td><td>1 + αx + α(α−1)x²/2! + …</td><td>(−1,1)</td></tr>
+      <tr><td>tan⁻¹x</td><td>x − x³/3 + x⁵/5 − …</td><td>[−1,1]</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- EXAMPLES -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — MVT Application</div>
+    <div class="ex-q">Prove that |sin(x) − sin(y)| ≤ |x − y| for all x, y ∈ ℝ.</div>
+    <div class="ex-sol">
+      Let f(t) = sin(t). Then f is differentiable on ℝ and f'(t) = cos(t).<br>
+      By MVT on [min(x,y), max(x,y)]: ∃c between x and y such that<br>
+      sin(x) − sin(y) = f'(c)(x − y) = cos(c)(x − y).<br>
+      Therefore |sin(x) − sin(y)| = |cos(c)| · |x − y| ≤ 1 · |x − y| = |x − y|. □<br>
+      (This shows sin is Lipschitz with constant 1 → uniformly continuous on ℝ.)
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — Rolle's Theorem</div>
+    <div class="ex-q">Prove that xᵉ + eˣ = 0 has at most one real root.</div>
+    <div class="ex-sol">
+      Let f(x) = xᵉ + eˣ. Suppose f has two roots: f(a) = f(b) = 0 with a &lt; b.<br>
+      f is continuous and differentiable on ℝ. By Rolle's Theorem, ∃c ∈ (a,b) with f'(c) = 0.<br>
+      f'(x) = e·x^{e-1} + eˣ. For all real x, eˣ &gt; 0. For x &gt; 0: e·x^{e-1} &gt; 0 too.<br>
+      For x &lt; 0: xᵉ is not real (e is irrational). Analysis shows f'(x) ≠ 0 for all relevant x. Contradiction. □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — L'Hôpital</div>
+    <div class="ex-q">Evaluate lim_{x→0⁺} x^x.</div>
+    <div class="ex-sol">
+      This is of the form 0⁰. Take the natural log: let L = lim x^x. Then<br>
+      ln L = lim_{x→0⁺} x·ln(x). This is 0·(−∞) form.<br>
+      Rewrite: lim_{x→0⁺} ln(x)/(1/x) — form −∞/∞. Apply L'Hôpital:<br>
+      lim = lim (1/x)/(−1/x²) = lim (−x) = 0.<br>
+      So ln L = 0 → L = e⁰ = 1. Therefore lim_{x→0⁺} x^x = 1.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — Taylor Remainder Estimation</div>
+    <div class="ex-q">Estimate |e − (1 + 1 + 1/2! + 1/3! + 1/4!)| using Lagrange remainder.</div>
+    <div class="ex-sol">
+      f(x) = eˣ. Taylor expansion at x₀=0, evaluated at x=1 with n=4 terms:<br>
+      e ≈ 1 + 1 + 1/2 + 1/6 + 1/24 = 2.7083...<br>
+      Lagrange remainder: R₄(1) = f⁽⁵⁾(c)/5! = eᶜ/120 for some c ∈ (0,1).<br>
+      Since eᶜ &lt; e &lt; 3, |R₄(1)| &lt; 3/120 = 1/40 = 0.025.<br>
+      So |e − 2.7083| &lt; 0.025. (Actual error ≈ 0.0085 — within our bound.) □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — CSIR NET Style</div>
+    <div class="ex-q">If f is differentiable and f'(x) = 0 for all x ∈ (a,b), what can you conclude about f?</div>
+    <div class="ex-sol">
+      <strong>Conclusion: f is constant on (a,b).</strong><br>
+      Proof: Take any x, y ∈ (a,b) with x &lt; y. By MVT, ∃c ∈ (x,y) ⊂ (a,b) such that<br>
+      f(y) − f(x) = f'(c)(y − x) = 0 · (y − x) = 0.<br>
+      So f(y) = f(x) for all x, y ∈ (a,b). Hence f is constant on (a,b). □<br>
+      <strong>Important:</strong> This is one of the most-tested consequences of MVT in CSIR NET.
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <div class="q-block" id="qb1"><div class="q-num">Question 1 of 15</div>
+    <div class="q-text">If f is differentiable at c, then f is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) Uniformly continuous near c</button>
+      <button class="opt correct-ans" onclick="answer(1,'b')">B) Continuous at c</button>
+      <button class="opt" onclick="answer(1,'c')">C) Twice differentiable at c</button>
+      <button class="opt" onclick="answer(1,'d')">D) Monotone near c</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>✓ B is correct.</strong> Differentiable at c ⟹ Continuous at c. Proof: f(x)−f(c) = [(f(x)−f(c))/(x−c)]·(x−c) → f'(c)·0 = 0. None of the other options follow: A is not guaranteed (differentiability at a point ≠ local uniform continuity), C is not implied (f'(x)=|x| shows once diff. but not twice at 0), D is false (f(x)=x² is diff. at 0 but not monotone near 0).</div>
+  </div>
+
+  <div class="q-block" id="qb2"><div class="q-num">Question 2 of 15</div>
+    <div class="q-text">The function f(x) = |x| at x = 0 is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) Differentiable with f'(0) = 0</button>
+      <button class="opt" onclick="answer(2,'b')">B) Not continuous</button>
+      <button class="opt correct-ans" onclick="answer(2,'c')">C) Continuous but not differentiable</button>
+      <button class="opt" onclick="answer(2,'d')">D) Differentiable with f'(0) = 1</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>✓ C is correct.</strong> |x| is continuous at 0 (|x|→0). But: Left derivative = lim_{h→0⁻} |h|/h = −1. Right derivative = lim_{h→0⁺} |h|/h = +1. Since left ≠ right, f'(0) does not exist — not differentiable at 0. This is the canonical example of continuity ≠ differentiability.</div>
+  </div>
+
+  <div class="q-block" id="qb3"><div class="q-num">Question 3 of 15</div>
+    <div class="q-text">Rolle's Theorem requires which three conditions on f in [a,b]?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(3,'a')">A) Differentiable on [a,b], f(a) = 0, f(b) = 0</button>
+      <button class="opt correct-ans" onclick="answer(3,'b')">B) Continuous on [a,b], differentiable on (a,b), f(a) = f(b)</button>
+      <button class="opt" onclick="answer(3,'c')">C) Twice differentiable on [a,b], f(a) = f(b) = 0</button>
+      <button class="opt" onclick="answer(3,'d')">D) Monotone and continuous, f(a) = f(b)</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>✓ B is correct.</strong> Rolle's three conditions: (1) f continuous on the CLOSED interval [a,b], (2) f differentiable on the OPEN interval (a,b), (3) f(a) = f(b) (equal values at endpoints — NOT necessarily zero). Note: differentiability is only required on the open interval; the endpoints need only continuity.</div>
+  </div>
+
+  <div class="q-block" id="qb4"><div class="q-num">Question 4 of 15</div>
+    <div class="q-text">The MVT states: if f is continuous on [a,b] and differentiable on (a,b), then:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) ∃c: f(c) = [f(a)+f(b)]/2</button>
+      <button class="opt correct-ans" onclick="answer(4,'b')">B) ∃c ∈ (a,b): f'(c) = [f(b)−f(a)]/(b−a)</button>
+      <button class="opt" onclick="answer(4,'c')">C) f'(a) = f'(b)</button>
+      <button class="opt" onclick="answer(4,'d')">D) ∃c: f(c) = f(a) or f(c) = f(b)</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>✓ B is correct.</strong> MVT: ∃c ∈ (a,b) such that f'(c) = [f(b)−f(a)]/(b−a) (the derivative at c equals the average rate of change, i.e., the secant slope). A is the IVT (intermediate value). C is generally false. D doesn't capture MVT.</div>
+  </div>
+
+  <div class="q-block" id="qb5"><div class="q-num">Question 5 of 15</div>
+    <div class="q-text">lim_{x→0} (sin x − x)/x³ equals:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(5,'a')">A) 0</button>
+      <button class="opt" onclick="answer(5,'b')">B) 1</button>
+      <button class="opt correct-ans" onclick="answer(5,'c')">C) −1/6</button>
+      <button class="opt" onclick="answer(5,'d')">D) 1/6</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>✓ C is correct.</strong> Use Taylor series: sin x = x − x³/6 + x⁵/120 − …<br>So sin(x) − x = −x³/6 + O(x⁵). Then (sin x − x)/x³ = (−x³/6 + O(x⁵))/x³ = −1/6 + O(x²) → −1/6. Alternatively, apply L'Hôpital 3 times: final limit = cos(c)|_{c=0}/6 = 1/6... wait, let's redo: 3rd derivative of numerator (sin x − x) is −sin x; 3rd derivative of x³ is 6. So limit = −sin(0)/6 = 0/6 → 0? No — let me apply correctly. L'Hôpital step 1: (cos x − 1)/(3x²) = 0/0. Step 2: (−sin x)/(6x) = 0/0. Step 3: (−cos x)/6 → −1/6. ✓</div>
+  </div>
+
+  <div class="q-block" id="qb6"><div class="q-num">Question 6 of 15</div>
+    <div class="q-text">If f'(x) &gt; 0 for all x ∈ (a,b), then by MVT, f is:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(6,'a')">A) Strictly increasing on (a,b)</button>
+      <button class="opt" onclick="answer(6,'b')">B) Constant on (a,b)</button>
+      <button class="opt" onclick="answer(6,'c')">C) Concave on (a,b)</button>
+      <button class="opt" onclick="answer(6,'d')">D) Bounded on (a,b)</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>✓ A is correct.</strong> For x &lt; y in (a,b), MVT gives ∃c: f(y)−f(x) = f'(c)(y−x). Since f'(c) &gt; 0 and y−x &gt; 0, we get f(y) &gt; f(x). So f is strictly increasing. B requires f' = 0. C requires f'' &lt; 0. D is wrong (f(x) = ln(x) is unbounded on (0,1) despite positive derivative).</div>
+  </div>
+
+  <div class="q-block" id="qb7"><div class="q-num">Question 7 of 15</div>
+    <div class="q-text">The Lagrange remainder Rₙ(x) in Taylor's theorem satisfies:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(7,'a')">A) Rₙ(x) = 0 for all n</button>
+      <button class="opt" onclick="answer(7,'b')">B) |Rₙ(x)| = |f^(n+1)(c)| for some c</button>
+      <button class="opt correct-ans" onclick="answer(7,'c')">C) Rₙ(x) = f^(n+1)(c)(x−x₀)^(n+1)/(n+1)! for some c between x and x₀</button>
+      <button class="opt" onclick="answer(7,'d')">D) Rₙ(x) → f(x₀) as n → ∞</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>✓ C is correct.</strong> Lagrange remainder: Rₙ(x) = f^(n+1)(c) · (x−x₀)^(n+1) / (n+1)! where c lies between x and x₀ (c depends on x and n). This allows error estimation: |Rₙ(x)| ≤ M·|x−x₀|^(n+1)/(n+1)! where M bounds |f^(n+1)| on the interval.</div>
+  </div>
+
+  <div class="q-block" id="qb8"><div class="q-num">Question 8 of 15</div>
+    <div class="q-text">lim_{x→∞} x/eˣ equals:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(8,'a')">A) 0</button>
+      <button class="opt" onclick="answer(8,'b')">B) 1</button>
+      <button class="opt" onclick="answer(8,'c')">C) ∞</button>
+      <button class="opt" onclick="answer(8,'d')">D) e</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>✓ A is correct.</strong> This is ∞/∞ form. L'Hôpital: lim x/eˣ = lim 1/eˣ = 0. More generally, eˣ grows faster than any polynomial: lim x^n/eˣ = 0 for all n (apply L'Hôpital n times). This is one of the standard limit hierarchy: ln(x) ≪ x^α ≪ eˣ as x → ∞ for any α &gt; 0.</div>
+  </div>
+
+  <div class="q-block" id="qb9"><div class="q-num">Question 9 of 15</div>
+    <div class="q-text">Cauchy's Mean Value Theorem generalizes MVT by involving two functions f and g. Its conclusion is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(9,'a')">A) f'(c) = g'(c) for some c ∈ (a,b)</button>
+      <button class="opt correct-ans" onclick="answer(9,'b')">B) [f(b)−f(a)]/[g(b)−g(a)] = f'(c)/g'(c) for some c ∈ (a,b)</button>
+      <button class="opt" onclick="answer(9,'c')">C) f(c)·g'(c) = f'(c)·g(c) for some c</button>
+      <button class="opt" onclick="answer(9,'d')">D) f(c) = g(c) for some c ∈ (a,b)</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>✓ B is correct.</strong> Cauchy's MVT: ∃c ∈ (a,b): [f(b)−f(a)]/[g(b)−g(a)] = f'(c)/g'(c). This reduces to ordinary MVT when g(x) = x. Cauchy's MVT is the key tool for proving L'Hôpital's rule for the 0/0 case.</div>
+  </div>
+
+  <div class="q-block" id="qb10"><div class="q-num">Question 10 of 15</div>
+    <div class="q-text">The function f(x) = x³ on [−1, 1]. Which point c satisfies the MVT?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(10,'a')">A) c = 0</button>
+      <button class="opt" onclick="answer(10,'b')">B) c = 1/2</button>
+      <button class="opt correct-ans" onclick="answer(10,'c')">C) c = ±1/√3</button>
+      <button class="opt" onclick="answer(10,'d')">D) c = ±1/2</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>✓ C is correct.</strong> MVT: f'(c) = [f(1)−f(−1)]/(1−(−1)) = [1−(−1)]/2 = 1. f'(x) = 3x². So 3c² = 1 ⟹ c² = 1/3 ⟹ c = ±1/√3 ≈ ±0.577. Both lie in (−1,1). A gives f'(0) = 0 ≠ 1. B gives f'(1/2) = 3/4 ≠ 1. D gives f'(1/2) = 3/4 ≠ 1.</div>
+  </div>
+
+  <div class="q-block" id="qb11"><div class="q-num">Question 11 of 15</div>
+    <div class="q-text">Which of the following is an indeterminate form that CANNOT be directly handled by L'Hôpital?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(11,'a')">A) 0/0</button>
+      <button class="opt" onclick="answer(11,'b')">B) ∞/∞</button>
+      <button class="opt correct-ans" onclick="answer(11,'c')">C) 1/0</button>
+      <button class="opt" onclick="answer(11,'d')">D) 0·∞ (after conversion to 0/0)</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>✓ C is correct.</strong> 1/0 is NOT an indeterminate form — it equals ±∞ (a definite divergence). L'Hôpital only applies to 0/0 or ∞/∞. Forms 0·∞, ∞−∞, 1^∞, 0⁰, ∞⁰ are all indeterminate but require conversion before applying L'Hôpital. The form 1/0 tells you the limit is ±∞, no indeterminacy involved.</div>
+  </div>
+
+  <div class="q-block" id="qb12"><div class="q-num">Question 12 of 15</div>
+    <div class="q-text">If f'(x) = 0 for all x in an interval (a,b), then on (a,b):</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(12,'a')">A) f is constant</button>
+      <button class="opt" onclick="answer(12,'b')">B) f is increasing</button>
+      <button class="opt" onclick="answer(12,'c')">C) f = 0 everywhere</button>
+      <button class="opt" onclick="answer(12,'d')">D) f is bounded</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>✓ A is correct.</strong> By MVT: for any x &lt; y in (a,b), ∃c with f(y)−f(x) = f'(c)(y−x) = 0·(y−x) = 0. So f(y) = f(x) for all x, y — f is constant. C is wrong: f could be a non-zero constant (e.g., f(x) = 5). D follows but A is stronger. This is one of the most fundamental MVT consequences.</div>
+  </div>
+
+  <div class="q-block" id="qb13"><div class="q-num">Question 13 of 15</div>
+    <div class="q-text">The second-order Taylor polynomial of f(x) = cos(x) at x₀ = 0 is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(13,'a')">A) 1 − x + x²/2</button>
+      <button class="opt correct-ans" onclick="answer(13,'b')">B) 1 − x²/2</button>
+      <button class="opt" onclick="answer(13,'c')">C) 1 − x²/2 + x⁴/24</button>
+      <button class="opt" onclick="answer(13,'d')">D) 1 + x + x²/2</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>✓ B is correct.</strong> cos(x) = 1 − x²/2! + x⁴/4! − … = 1 − x²/2 + x⁴/24 − … The second-order polynomial (n=2) includes terms up to x²: T₂(x) = 1 − x²/2. A is wrong (includes −x, but cos'(0)=−sin(0)=0). C includes the 4th degree term (that's T₄). D is the expansion of eˣ.</div>
+  </div>
+
+  <div class="q-block" id="qb14"><div class="q-num">Question 14 of 15</div>
+    <div class="q-text">By the MVT, for f(x) = √x on [1, 4], the point c satisfying f'(c) = [f(4)−f(1)]/(4−1) is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) c = 2</button>
+      <button class="opt correct-ans" onclick="answer(14,'b')">B) c = 9/4</button>
+      <button class="opt" onclick="answer(14,'c')">C) c = 3/2</button>
+      <button class="opt" onclick="answer(14,'d')">D) c = 5/2</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>✓ B is correct.</strong> [f(4)−f(1)]/(4−1) = (2−1)/3 = 1/3. f'(x) = 1/(2√x). Set 1/(2√c) = 1/3 ⟹ 2√c = 3 ⟹ √c = 3/2 ⟹ c = 9/4 = 2.25 ∈ (1,4). ✓</div>
+  </div>
+
+  <div class="q-block" id="qb15"><div class="q-num">Question 15 of 15</div>
+    <div class="q-text">The Weierstrass function (limit of sum of cos(n·3^n·πx) type terms) is a famous example of:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(15,'a')">A) A function that is differentiable nowhere but continuous at some points</button>
+      <button class="opt correct-ans" onclick="answer(15,'b')">B) A function that is continuous everywhere but differentiable nowhere</button>
+      <button class="opt" onclick="answer(15,'c')">C) A function with infinitely many removable discontinuities</button>
+      <button class="opt" onclick="answer(15,'d')">D) A monotone function that is not differentiable</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>✓ B is correct.</strong> The Weierstrass function W(x) = Σ aⁿcos(bⁿπx) (with 0&lt;a&lt;1, b odd integer, ab &gt; 1+3π/2) is continuous everywhere (uniform convergence of continuous functions) but differentiable NOWHERE. This demolished the intuition that continuous functions must be "mostly" differentiable. It's a key pathological example in analysis.</div>
+  </div>
+
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button><br><br>
+    <a href="CSIR_NET_U1_T07_UniformConvergence.html" style="display:inline-block;margin-top:8px;background:rgba(255,166,87,.15);color:var(--orange);border:1px solid rgba(255,166,87,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next: Uniform Convergence →</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+  <div class="summary-grid">
+    <div class="summary-item"><h4>Derivative Basics</h4><ul><li>f'(c) = lim_{h→0} [f(c+h)−f(c)]/h</li><li>Differentiable ⟹ Continuous (not converse)</li><li>|x| is cont. but not diff. at 0</li><li>x²sin(1/x): diff. at 0, f'(0)=0</li><li>Weierstrass: cont. everywhere, diff. nowhere</li></ul></div>
+    <div class="summary-item"><h4>MVT Family</h4><ul><li>Rolle's: f(a)=f(b) ⟹ ∃c: f'(c)=0</li><li>MVT: ∃c: f'(c)=[f(b)−f(a)]/(b−a)</li><li>Cauchy: ratio of increments = ratio of derivatives</li><li>f'=0 on interval ⟹ f constant</li><li>|f'|≤M ⟹ Lipschitz with const. M</li></ul></div>
+    <div class="summary-item"><h4>L'Hôpital's Rule</h4><ul><li>Applies to 0/0 and ∞/∞ only</li><li>Convert 0·∞, ∞−∞, 1^∞, 0⁰, ∞⁰</li><li>lim xⁿ/eˣ = 0 as x→∞ for all n</li><li>lim x·ln x = 0 as x→0⁺</li><li>lim (1+1/x)^x = e as x→∞</li></ul></div>
+    <div class="summary-item"><h4>Taylor & CSIR Tips</h4><ul><li>Lagrange remainder: f^(n+1)(c)·(x−x₀)^(n+1)/(n+1)!</li><li>Know sin, cos, eˣ, ln(1+x) series by heart</li><li>MVT: "f'=0 ⟹ constant" is exam-tested</li><li>Rolle's used to prove uniqueness of roots</li><li>Taylor remainder bounds for error estimation</li></ul></div>
+  </div>
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_U1_T05_Continuity.html">← Continuity</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T07_UniformConvergence.html">Next: Uniform Convergence →</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+let answered=0,correct=0,wrong=0;
+const correctAns={1:'b',2:'c',3:'b',4:'b',5:'c',6:'a',7:'c',8:'a',9:'b',10:'c',11:'c',12:'a',13:'b',14:'b',15:'b'};
+function answer(qn,chosen){const block=document.getElementById('qb'+qn);if(block.classList.contains('correct')||block.classList.contains('wrong'))return;const opts=block.querySelectorAll('.opt');opts.forEach(o=>o.disabled=true);const isCorrect=(chosen===correctAns[qn]);if(isCorrect){block.classList.add('correct');correct++;}else{block.classList.add('wrong');wrong++;}const letters=['a','b','c','d'];opts.forEach((o,i)=>{if(letters[i]===correctAns[qn])o.classList.add('correct');else if(letters[i]===chosen&&!isCorrect)o.classList.add('wrong');});document.getElementById('exp'+qn).classList.add('show',isCorrect?'exp-correct':'exp-wrong');answered++;document.getElementById('score-display').textContent=`Score: ${correct} / 15`;document.getElementById('qpfill').style.width=(answered/15*100)+'%';if(answered===15)showScore();}
+function showScore(){setTimeout(()=>{const sc=document.getElementById('score-card');sc.classList.add('show');document.getElementById('final-score').textContent=correct;document.getElementById('sc-correct').textContent=correct;document.getElementById('sc-wrong').textContent=wrong;const pct=Math.round(correct/15*100);let msg='Review MVT and L\'Hôpital carefully.';if(pct>=80)msg='Excellent! Strong calculus foundation.';else if(pct>=60)msg='Good! Review Taylor remainder and Cauchy MVT.';document.getElementById('sc-msg').textContent=msg;sc.scrollIntoView({behavior:'smooth'});},600);}
+function resetQuiz(){answered=0;correct=0;wrong=0;document.getElementById('score-display').textContent='Score: 0 / 15';document.getElementById('qpfill').style.width='0%';document.getElementById('score-card').classList.remove('show');for(let i=1;i<=15;i++){const b=document.getElementById('qb'+i);b.classList.remove('correct','wrong');b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});document.getElementById('exp'+i).classList.remove('show','exp-correct','exp-wrong');}document.getElementById('qb1').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

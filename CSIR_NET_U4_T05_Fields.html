@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U4-T05 · Fields & Field Extensions</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1e3a8a;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(30,58,138,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(30,58,138,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(30,58,138,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#eff6ff,#dbeafe,#bfdbfe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(30,58,138,.08);color:var(--acc);font-weight:600;border:1px solid rgba(30,58,138,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#eff6ff;border-left:4px solid #60a5fa;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 4</span>
+  <span class="hdr-title">T05 · Fields & Field Extensions</span>
+  <span class="hdr-badge">Abstract Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 4 · Abstract Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('fields',this)">Fields: Basics</a>
+  <a class="nav-item" onclick="show('extensions',this)">Field Extensions</a>
+  <a class="nav-item" onclick="show('algebraic',this)">Algebraic Extensions</a>
+  <a class="nav-item" onclick="show('finite',this)">Finite Fields</a>
+  <a class="nav-item" onclick="show('galois',this)">Galois Theory (Overview)</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U4_T04_Rings.html">← T04 · Rings</a>
+  <a class="nav-item" href="CSIR_NET_U4_T06_Modules.html">T06 · Modules →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 4 · Topic 05</div>
+    <div class="hero-title">Fields & Field Extensions</div>
+    <div class="hero-sub">Field axioms · Extensions · Algebraic elements · Degree · Finite fields · Galois groups</div>
+    <div class="hero-chips">
+      <span class="chip">Field Extensions</span>
+      <span class="chip">[K:F] Degree</span>
+      <span class="chip">Minimal Polynomial</span>
+      <span class="chip">Algebraic Closure</span>
+      <span class="chip">Finite Fields 𝔽_{pⁿ}</span>
+      <span class="chip">Galois Group</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Fields are rings where every nonzero element has a multiplicative inverse. Field extensions (larger fields containing a given field) arise when we adjoin roots of polynomials. The theory of field extensions — culminating in Galois theory — answers classical questions like: "Which polynomials are solvable by radicals?"</p>
+</div>
+
+<div class="sec" id="fields">
+  <h2>Fields: Basic Definitions</h2>
+  <div class="def-box">
+    <div class="lbl">Field</div>
+    <p>A <strong>field</strong> is a commutative ring with unity where every nonzero element has a multiplicative inverse.</p>
+    <p>Equivalently: F is a field iff F* = F\{0} is an abelian group under multiplication.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Characteristic of a Field</div>
+    <p>The <strong>characteristic</strong> char(F) is the smallest n≥1 with n·1=0, or 0 if no such n exists.</p>
+    <p>char(F) is always 0 or a prime p. Examples: char(ℚ)=char(ℝ)=char(ℂ)=0; char(𝔽ₚ)=p; char(𝔽_{p^n})=p.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Prime Subfield</div>
+    <p>Every field F contains a unique smallest subfield called its <strong>prime subfield</strong>:</p>
+    <ul>
+      <li>If char(F)=0: prime subfield ≅ ℚ</li>
+      <li>If char(F)=p: prime subfield ≅ 𝔽ₚ</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="extensions">
+  <h2>Field Extensions</h2>
+  <div class="def-box">
+    <div class="lbl">Field Extension</div>
+    <p>K/F (read "K over F") is a <strong>field extension</strong> if F is a subfield of K. K is an F-vector space, and its dimension [K:F] is the <strong>degree</strong> of the extension.</p>
+    <p><strong>Finite extension:</strong> [K:F] < ∞. <strong>Algebraic extension:</strong> every element of K is algebraic over F.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Tower Law (Multiplicativity of Degrees)</div>
+    <div class="formula">[K:F] = [K:E] · [E:F]</div>
+    <p>for field tower F ⊆ E ⊆ K.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Simple Extensions</div>
+    <p>F(α) = smallest field extension of F containing α. If p(x) = min poly of α over F (monic irreducible of degree n), then:</p>
+    <div class="formula">F(α) ≅ F[x]/(p(x))   and   [F(α):F] = deg p(x) = n</div>
+    <p>Basis: {1, α, α², ..., αⁿ⁻¹}.</p>
+  </div>
+</div>
+
+<div class="sec" id="algebraic">
+  <h2>Algebraic Extensions</h2>
+  <div class="def-box">
+    <div class="lbl">Algebraic Element</div>
+    <p>α ∈ K is <strong>algebraic over F</strong> if f(α)=0 for some nonzero f∈F[x].</p>
+    <p>The <strong>minimal polynomial</strong> of α over F = the unique monic irreducible polynomial in F[x] of which α is a root.</p>
+    <p>α is <strong>transcendental</strong> over F if no such polynomial exists (e.g., π, e over ℚ).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Algebraic Closure</div>
+    <p>Every field F has an algebraic closure F̄ — the unique (up to isomorphism) algebraically closed field extension of F in which every polynomial over F splits completely.</p>
+    <p>ℂ is the algebraic closure of ℝ. The algebraic closure of ℚ is Q̄ ⊂ ℂ (algebraic numbers).</p>
+  </div>
+  <table>
+    <tr><th>Extension</th><th>α</th><th>Min poly over ℚ</th><th>[ℚ(α):ℚ]</th></tr>
+    <tr><td>ℚ(√2)</td><td>√2</td><td>x²−2</td><td>2</td></tr>
+    <tr><td>ℚ(∛2)</td><td>∛2</td><td>x³−2</td><td>3</td></tr>
+    <tr><td>ℚ(i)</td><td>i</td><td>x²+1</td><td>2</td></tr>
+    <tr><td>ℚ(ζ₅) (5th roots)</td><td>e^(2πi/5)</td><td>x⁴+x³+x²+x+1</td><td>4</td></tr>
+    <tr><td>ℚ(√2,√3)</td><td>—</td><td>—</td><td>4</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="finite">
+  <h2>Finite Fields</h2>
+  <div class="thm-box">
+    <div class="lbl">Classification of Finite Fields</div>
+    <p>For every prime p and positive integer n, there exists a unique (up to isomorphism) field with pⁿ elements, denoted 𝔽_{pⁿ} or GF(pⁿ).</p>
+    <p>These are the only finite fields. |𝔽_{pⁿ}| = pⁿ and char(𝔽_{pⁿ}) = p.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Key Properties of 𝔽_{pⁿ}</div>
+    <ul>
+      <li>𝔽_{pⁿ} is the splitting field of xᵖⁿ − x over 𝔽ₚ.</li>
+      <li>The multiplicative group 𝔽*_{pⁿ} is cyclic of order pⁿ−1.</li>
+      <li>[𝔽_{pⁿ} : 𝔽ₚ] = n.</li>
+      <li>𝔽_{pᵐ} ⊆ 𝔽_{pⁿ} ⟺ m | n.</li>
+      <li>Frobenius automorphism: σ: x ↦ xᵖ is a field automorphism of order n.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="galois">
+  <h2>Galois Theory Overview</h2>
+  <div class="def-box">
+    <div class="lbl">Galois Group</div>
+    <p>For field extension K/F: the <strong>Galois group</strong> Gal(K/F) = {σ: K→K field automorphism with σ|_F = id_F}.</p>
+    <p>|Gal(K/F)| ≤ [K:F]. Equality holds when K/F is a <strong>Galois extension</strong> (normal + separable).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Fundamental Theorem of Galois Theory</div>
+    <p>For a finite Galois extension K/F with G = Gal(K/F), there is a bijection (Galois correspondence):</p>
+    <div class="formula">{subgroups H ≤ G} ←→ {intermediate fields F ⊆ E ⊆ K}</div>
+    <p>Via H ↦ K^H (fixed field) and E ↦ Gal(K/E). The correspondence reverses inclusions:</p>
+    <ul>
+      <li>H₁ ≤ H₂ ⟺ K^{H₁} ⊇ K^{H₂}</li>
+      <li>[K^H : F] = [G:H], [K:K^H] = |H|</li>
+      <li>E/F is Galois ⟺ Gal(K/E) ◁ G</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Solvability by Radicals</div>
+    <p>A polynomial f ∈ F[x] is <strong>solvable by radicals</strong> iff the Galois group of its splitting field is a solvable group.</p>
+    <p>The general polynomial of degree ≥ 5 is NOT solvable by radicals (Galois group = S₅ which is not solvable). This is the Abel-Ruffini theorem.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The characteristic of ℚ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> 1</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 0</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> 2</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> ∞</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">[ℚ(√2, √3) : ℚ] equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> 2</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> 4</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 6</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> 8</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The minimal polynomial of √2 over ℚ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> x−√2</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> x²−2</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> x²+2</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> x⁴−4</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The number of elements in 𝔽_{2³} is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> 6</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> 8</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> 9</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> 4</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The Tower Law: for F ⊆ E ⊆ K, [K:F] =</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> [K:E] + [E:F]</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> [K:E] · [E:F]</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> [K:F] − [E:F]</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> max([K:E],[E:F])</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">𝔽_{p^m} ⊆ 𝔽_{p^n} if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> m ≤ n</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> m divides n</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> n divides m</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> gcd(m,n)=1</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">ℝ[x]/(x²+1) ≅ ℂ because x²+1 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Reducible over ℝ</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Irreducible over ℝ (no real roots)</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> A perfect square over ℝ</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Irreducible over ℂ</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The multiplicative group 𝔽*_{pⁿ} is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> A symmetric group</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Cyclic of order pⁿ−1</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Non-abelian for n≥2</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Of order pⁿ</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Galois group Gal(ℚ(√2)/ℚ) is isomorphic to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> ℤ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> ℤ₂</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> S₂</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> ℤ₄</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">By the Fundamental Theorem of Galois Theory, intermediate fields F⊆E⊆K correspond bijectively to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Ideals of K</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Subgroups of Gal(K/F)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Normal subgroups of Gal(K/F)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Automorphisms of F</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The prime subfield of a field of characteristic p is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> ℚ</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> 𝔽ₚ = ℤ/pℤ</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> ℝ</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> ℤ</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">[ℚ(∛2):ℚ] =</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> 2</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> 3</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> 6</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> 9</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Abel-Ruffini theorem states that the general polynomial of degree ≥ 5:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Has no roots in ℂ</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Is not solvable by radicals (Galois group is S₅, not solvable)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Has exactly 5 roots</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Has irrational roots always</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The splitting field of x²−2 over ℚ is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> ℚ</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> ℚ(√2)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> ℚ(i)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> ℝ</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The Frobenius automorphism σ of 𝔽_{pⁿ} (over 𝔽ₚ) is defined by:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> σ(x) = x+p</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> σ(x) = xᵖ</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> σ(x) = px</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> σ(x) = xⁿ</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">𝔽</div>
+      <h4>Field</h4>
+      <p>Every nonzero element invertible. char=0 or prime p.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">[K:F]</div>
+      <h4>Degree</h4>
+      <p>Dimension of K as F-vector space. Tower law: [K:F]=[K:E][E:F].</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">min poly</div>
+      <h4>Algebraic</h4>
+      <p>α algebraic ↔ has minimal polynomial. F(α)≅F[x]/(minpoly).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">pⁿ</div>
+      <h4>Finite Fields</h4>
+      <p>Unique field 𝔽_{pⁿ} for each prime power pⁿ. 𝔽*_{pⁿ} cyclic.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">Gal</div>
+      <h4>Galois Group</h4>
+      <p>Gal(K/F) = automorphisms fixing F. |Gal|=[K:F] for Galois extensions.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">↔</div>
+      <h4>Galois Correspondence</h4>
+      <p>Subgroups of Gal ↔ intermediate fields (order-reversing bijection).</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U4_T06_Modules.html">Next: Modules →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'The characteristic of ℚ (and ℝ, ℂ) is 0, because n·1=1+1+...+1 (n times) is never 0 for positive integer n in these fields.',
+  2:'[ℚ(√2):ℚ]=2 and [ℚ(√3):ℚ(√2)]=2 (since √3∉ℚ(√2)). By tower law: [ℚ(√2,√3):ℚ]=[ℚ(√2,√3):ℚ(√2)]·[ℚ(√2):ℚ]=2·2=4.',
+  3:'Minimal polynomial of √2 over ℚ must be monic, irreducible over ℚ, and have √2 as root. x²−2=(x−√2)(x+√2) has √2 as root and is irreducible over ℚ (no rational roots: ±1,±2 fail). So min poly = x²−2.',
+  4:'𝔽_{2³}=𝔽_{8} has 2³=8 elements.',
+  5:'Tower Law: [K:F]=[K:E]·[E:F] (multiplicativity of degrees in towers of field extensions).',
+  6:'𝔽_{p^m} ⊆ 𝔽_{p^n} iff m divides n. This follows because 𝔽_{p^m} is the splitting field of x^{p^m}−x, and 𝔽_{p^n} contains 𝔽_{p^m} iff every root of x^{p^m}−x is a root of x^{p^n}−x, i.e., iff m|n.',
+  7:'x²+1 has no real roots (discriminant=−4<0), so it is irreducible over ℝ. By F[x]/(irreducible) is a field: ℝ[x]/(x²+1) is a field of degree 2 over ℝ, generated by [x] satisfying [x]²=−1. This is exactly ℂ.',
+  8:'𝔽*_{pⁿ} = 𝔽_{pⁿ}\\{0} is a group of order pⁿ−1. It is cyclic (this is a theorem: the multiplicative group of a finite field is always cyclic).',
+  9:'Gal(ℚ(√2)/ℚ) consists of automorphisms fixing ℚ. These are id (√2↦√2) and σ (√2↦−√2). |Gal|=2=[ℚ(√2):ℚ]. So Gal≅ℤ₂.',
+  10:'Fundamental Theorem of Galois Theory: for finite Galois extension K/F with G=Gal(K/F), there is a bijection between {subgroups H≤G} and {intermediate fields E: F⊆E⊆K}, via H↦K^H (fixed field).',
+  11:'If char(F)=p, the prime subfield (smallest subfield) is 𝔽ₚ=ℤ/pℤ, generated by 1 and satisfying p·1=0.',
+  12:'Min poly of ∛2 over ℚ is x³−2 (irreducible by Eisenstein with p=2). So [ℚ(∛2):ℚ]=deg(x³−2)=3.',
+  13:'Abel-Ruffini theorem (proved via Galois theory): the general polynomial of degree ≥5 has Galois group Sₙ (n≥5), which is not solvable. Therefore it cannot be solved by radicals.',
+  14:'x²−2=(x−√2)(x+√2). The splitting field must contain both √2 and −√2. Since −√2=−1·√2∈ℚ(√2), the splitting field is ℚ(√2).',
+  15:'Frobenius automorphism of 𝔽_{pⁿ} over 𝔽ₚ: σ(x)=xᵖ. This is a field automorphism (it\'s a ring homomorphism since (x+y)ᵖ=xᵖ+yᵖ in char p by Freshman\'s dream). It has order n and generates Gal(𝔽_{pⁿ}/𝔽ₚ)≅ℤₙ.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

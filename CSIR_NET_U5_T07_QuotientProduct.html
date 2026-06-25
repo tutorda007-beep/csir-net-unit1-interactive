@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U5-T07 · Quotient & Product Topology</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#1e3a5f;--acc2:#2563eb;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(30,58,95,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(30,58,95,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(30,58,95,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#eff6ff,#dbeafe,#bfdbfe)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(30,58,95,.08);color:var(--acc);font-weight:600;border:1px solid rgba(30,58,95,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#eff6ff;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:16px}
+.unit-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;transition:all .15s;display:block}
+.unit-card:hover{border-color:var(--acc);box-shadow:0 3px 12px rgba(30,58,95,.12);transform:translateY(-1px)}
+.unit-card .uc-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--acc);margin-bottom:6px}
+.unit-card h4{font-size:14px;font-weight:700;color:var(--text);margin:0 0 4px}
+.unit-card p{font-size:12px;color:var(--muted);margin:0}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 5</span>
+  <span class="hdr-title">T07 · Quotient & Product Topology</span>
+  <span class="hdr-badge">Topology · Finale</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 5 · Topology</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('product',this)">Product Topology</a>
+  <a class="nav-item" onclick="show('quotient',this)">Quotient Topology</a>
+  <a class="nav-item" onclick="show('examples',this)">Quotient Space Examples</a>
+  <a class="nav-item" onclick="show('tychonoff',this)">Tychonoff's Theorem</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('u5summ',this)">Unit 5 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U5_T06_SeparationAxioms.html">← T06 · Separation Axioms</a>
+  <a class="nav-item" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 5 · Topic 07 (Finale)</div>
+    <div class="hero-title">Quotient & Product Topology</div>
+    <div class="hero-sub">Product topology · Tychonoff theorem · Quotient spaces · Identification spaces · CW complexes</div>
+    <div class="hero-chips">
+      <span class="chip">Product Topology</span>
+      <span class="chip">Tychonoff</span>
+      <span class="chip">Quotient Map</span>
+      <span class="chip">Identification</span>
+      <span class="chip">Torus / Klein Bottle</span>
+      <span class="chip">Fundamental Polygon</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>Two fundamental constructions in topology: the <strong>product topology</strong> (build spaces from factors — the coarsest topology making projections continuous) and the <strong>quotient topology</strong> (build spaces by gluing — the finest topology making the quotient map continuous). Many classical spaces (torus, Möbius band, Klein bottle, projective plane) arise as quotients.</p>
+</div>
+
+<div class="sec" id="product">
+  <h2>Product Topology</h2>
+  <div class="def-box">
+    <div class="lbl">Product Topology (Finite)</div>
+    <p>On X×Y, the <strong>product topology</strong> has as basis the sets U×V where U is open in X and V is open in Y.</p>
+    <p>It is the <em>coarsest</em> topology on X×Y making both projections π₁:X×Y→X and π₂:X×Y→Y continuous.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Product Topology (Arbitrary)</div>
+    <p>On ∏_α Xα, the <strong>Tychonoff product topology</strong> has as a sub-basis the sets π_α⁻¹(Uα) for open Uα⊆Xα.</p>
+    <p>Basis: finite intersections of sub-basis elements (so only finitely many coordinates are restricted).</p>
+    <p>This is the coarsest topology making all projections πα continuous.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Box vs Product Topology</div>
+    <p>For infinite products, the <strong>box topology</strong> takes all ∏Uα (one open set per factor) as a basis. The box topology is strictly finer. The box topology loses many nice properties (e.g., Tychonoff fails). For countable products of ℝ: ℝ^ω under box topology is NOT metrizable by the standard diagonal argument.</p>
+  </div>
+  <h3>Properties Preserved by Products</h3>
+  <table>
+    <tr><th>Property</th><th>Finite product</th><th>Arbitrary (Tychonoff) product</th></tr>
+    <tr><td>Connectedness</td><td>Preserved</td><td>Preserved</td></tr>
+    <tr><td>Path connectedness</td><td>Preserved</td><td>Preserved</td></tr>
+    <tr><td>Compactness</td><td>Preserved</td><td>Preserved (Tychonoff!)</td></tr>
+    <tr><td>Hausdorff</td><td>Preserved</td><td>Preserved</td></tr>
+    <tr><td>Separability</td><td>Preserved (finite)</td><td>Only for ≤2^ℵ₀ factors</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="quotient">
+  <h2>Quotient Topology</h2>
+  <div class="def-box">
+    <div class="lbl">Quotient Map / Quotient Topology</div>
+    <p>Given f: X→Y surjective, the <strong>quotient topology</strong> on Y is: V⊆Y is open iff f⁻¹(V) is open in X.</p>
+    <p>It is the <em>finest</em> topology on Y making f continuous.</p>
+    <p>If f comes from an equivalence relation ∼ on X, then Y = X/∼ (equivalence classes) and f: x ↦ [x].</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Universal Property of Quotient</div>
+    <p>g: X/∼ → Z is continuous iff g∘f: X→Z is continuous.</p>
+    <p>Equivalently: continuous maps on X/∼ correspond to continuous maps on X that are constant on equivalence classes.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Quotient Map ≠ Open Map</div>
+    <p>A quotient map need not be open (images of open sets may not be open). But: a continuous surjection from a compact space to a Hausdorff space is always a quotient map.</p>
+  </div>
+</div>
+
+<div class="sec" id="examples">
+  <h2>Quotient Space Examples</h2>
+  <table>
+    <tr><th>Construction</th><th>Result</th><th>Description</th></tr>
+    <tr><td>[0,1] / {0,1}</td><td>S¹ (circle)</td><td>Glue endpoints of interval</td></tr>
+    <tr><td>D² / ∂D²</td><td>S²</td><td>Collapse boundary of disk to a point</td></tr>
+    <tr><td>[0,1]²/(x,0)∼(x,1)</td><td>Cylinder S¹×[0,1]</td><td>Glue top and bottom edges same direction</td></tr>
+    <tr><td>Square: top∼bottom, left∼right</td><td>Torus T²=S¹×S¹</td><td>Glue opposite edges parallel</td></tr>
+    <tr><td>Square: top∼bottom (rev)</td><td>Möbius band (w/ boundary)</td><td>Glue with a twist</td></tr>
+    <tr><td>Square: all four edges identified</td><td>Klein bottle</td><td>Non-orientable, no embedding in ℝ³</td></tr>
+    <tr><td>S¹ / (antipodal)</td><td>ℝP¹ ≅ S¹</td><td>Identify antipodal points on circle</td></tr>
+    <tr><td>S² / (antipodal)</td><td>ℝP² (projective plane)</td><td>Non-orientable; can't embed in ℝ³</td></tr>
+  </table>
+  <div class="proof-box">
+    <div class="lbl">Torus as Product</div>
+    <p>The torus T²=S¹×S¹ is both a quotient of [0,1]² (identifying edges) and a product of two circles. Key properties: compact (product of compact), connected (product of connected), T₂ (product of Hausdorff).</p>
+  </div>
+</div>
+
+<div class="sec" id="tychonoff">
+  <h2>Tychonoff's Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Tychonoff's Theorem</div>
+    <p>An arbitrary product of compact topological spaces is compact (in the product topology).</p>
+    <div class="formula">∏_{α∈I} Xα compact ⟺ each Xα is compact</div>
+    <p>This is one of the most important theorems in topology. It is equivalent to the Axiom of Choice.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Key Application</div>
+    <p>[0,1]^I is compact for any index set I (by Tychonoff, since [0,1] is compact). The Hilbert cube [0,1]^ℕ is compact. Every compact metrizable space embeds in [0,1]^ℕ (Urysohn metrization + separability).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Banach-Alaoglu Theorem</div>
+    <p>The closed unit ball of the dual X* of a Banach space X is compact in the weak* topology. Proof: the weak* topology is a subspace topology from a product of intervals, so Tychonoff applies.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Čech-Stone Compactification</div>
+    <p>Every completely regular (Tychonoff) space X has a compactification βX: a compact Hausdorff space containing X as a dense subspace, universal for continuous maps from X to compact Hausdorff spaces.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The product topology on X×Y is the coarsest topology making:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> The diagonal map continuous</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Both projections π₁: X×Y→X and π₂: X×Y→Y continuous</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> All inclusions X→X×Y continuous</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> The swap map (x,y)↦(y,x) continuous</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The quotient topology on Y=X/∼ declares V⊆Y open iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> V is a union of equivalence classes</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> f⁻¹(V) is open in X (where f:X→X/∼)</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> V is closed in X</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> V is compact in X</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">Tychonoff's Theorem states: an arbitrary product of compact spaces is compact in:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> The box topology</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> The product (Tychonoff) topology</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> The metric topology</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> The discrete topology</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The quotient [0,1]/{0,1} (collapsing the endpoints to a single point) is homeomorphic to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> ℝ</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> S¹ (the unit circle)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> [0,1]</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> S²</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The torus T² can be described as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> S² (the 2-sphere)</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> S¹×S¹ (product of two circles)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> The real projective plane ℝP²</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> The Klein bottle</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">A product X×Y is connected iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> X or Y is connected</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Both X and Y are connected</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> X×Y is compact</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> X×Y is Hausdorff</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The basis for the product topology on ∏_α Xα consists of:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Products ∏Uα with each Uα open</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Products ∏Uα with Uα open in Xα and Uα=Xα for all but finitely many α</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Only singletons</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> All subsets of the product</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The Banach-Alaoglu theorem (unit ball of X* is weak* compact) follows from Tychonoff applied to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> A product of unit balls</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> A product of compact intervals [−‖x‖,‖x‖] for x∈X</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> The dual space X* itself</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> A product of spheres</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The real projective plane ℝP² is defined as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> S¹ × S¹</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> S² with antipodal points identified</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> D² with opposite boundary points identified</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> The Möbius band</td></tr></label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">g: X/∼ → Z is continuous iff:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> g is injective</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> g∘f: X→Z is continuous (where f:X→X/∼)</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> g is open</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Z is Hausdorff</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The Hilbert cube [0,1]^ℕ is compact because:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> It is a closed bounded subset of ℓ∞</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> It is an infinite product of [0,1] (compact), hence compact by Tychonoff</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> It is finite-dimensional</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> It has countable dense subset</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The quotient of the square [0,1]² with top∼bottom (same direction) and left∼right (same direction) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> S²</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Torus T²</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Klein bottle</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> ℝP²</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Tychonoff's Theorem is equivalent (in ZF set theory) to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> The Continuum Hypothesis</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> The Axiom of Choice</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> Zorn's Lemma (but not AC)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> The Well-Ordering Theorem only</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div name="q14" value="q14">
+    <div class="q-num">Q14</div>
+    <div class="q-text">A continuous surjection f:X→Y from compact X to Hausdorff Y is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Open but not necessarily a quotient map</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> A quotient map</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> An embedding</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Not necessarily continuous</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The Klein bottle is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> Homeomorphic to the torus</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> Orientable and embeds in ℝ³</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> Non-orientable and does not embed in ℝ³ (but embeds in ℝ⁴)</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> The same as ℝP²</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="u5summ">
+  <h2>Unit 5 · Complete Summary</h2>
+  <p>All topics in Unit 5 Topology — click any card to open it.</p>
+  <div class="unit-grid">
+    <a class="unit-card" href="CSIR_NET_U5_T01_MetricSpaces.html">
+      <div class="uc-tag">T01</div>
+      <h4>Metric Spaces</h4>
+      <p>Metric axioms, open/closed sets, convergence, continuity, ε-δ</p>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U5_T02_Completeness.html">
+      <div class="uc-tag">T02</div>
+      <h4>Completeness & Baire</h4>
+      <p>Cauchy sequences, complete spaces, Baire Category Theorem, contraction mapping</p>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U5_T03_Compactness.html">
+      <div class="uc-tag">T03</div>
+      <h4>Compactness</h4>
+      <p>Open covers, Heine-Borel, sequential compactness, EVT, Arzelà-Ascoli</p>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U5_T04_Connectedness.html">
+      <div class="uc-tag">T04</div>
+      <h4>Connectedness</h4>
+      <p>Connected, path connected, components, IVT, topologist's sine curve</p>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U5_T05_Continuity.html">
+      <div class="uc-tag">T05</div>
+      <h4>Continuity & Homeomorphisms</h4>
+      <p>Topological continuity, homeomorphisms, invariants, open/closed maps</p>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U5_T06_SeparationAxioms.html">
+      <div class="uc-tag">T06</div>
+      <h4>Separation Axioms</h4>
+      <p>T₀–T₄, Hausdorff, normal, Urysohn lemma, Tietze extension</p>
+    </a>
+    <a class="unit-card" href="CSIR_NET_U5_T07_QuotientProduct.html">
+      <div class="uc-tag">T07</div>
+      <h4>Quotient & Product</h4>
+      <p>Product topology, Tychonoff, quotient spaces, torus, projective plane</p>
+    </a>
+  </div>
+  <div class="btn-row" style="margin-top:24px">
+    <a class="btn btn-out" href="CSIR_NET_U5_T06_SeparationAxioms.html">← T06: Separation</a>
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'The product topology is defined as the coarsest (fewest open sets) topology on X×Y making all projections πᵢ continuous. A basis is given by products U×V of open sets.',
+  2:'Quotient topology on Y=X/∼: V open in Y iff f⁻¹(V) open in X. This is the finest topology on Y making f:X→Y continuous. Equivalently: saturated open sets of X correspond to open sets of Y.',
+  3:'Tychonoff: arbitrary products of compact spaces are compact in the PRODUCT (Tychonoff) topology. The box topology (stronger) loses compactness for infinite products.',
+  4:'[0,1]/{0,1} identifies the two endpoints, creating a loop — homeomorphic to S¹. The map t↦e^(2πit) descends to a homeomorphism on the quotient.',
+  5:'The torus T²=S¹×S¹: product of two circles. Equivalently: identify opposite edges of [0,1]² with the same orientation (both horizontal and vertical pairs).',
+  6:'X×Y is connected iff both X and Y are connected. Proof: X×{y₀} (homeomorphic to X) and {x₀}×Y (homeomorphic to Y) are both connected and share the point (x₀,y₀), so their union is connected. Any (x,y) is reached.',
+  7:'Basis for the Tychonoff product topology on ∏_α Xα: open sets ∏Uα where Uα is open in Xα and Uα=Xα for all but FINITELY many α. This is what distinguishes it from the box topology.',
+  8:'Banach-Alaoglu: the weak* topology on B*={f∈X*: ‖f‖≤1} embeds into ∏_{x∈X}[−‖x‖,‖x‖] via f↦(f(x))_{x∈X}. Each factor [−‖x‖,‖x‖] is compact, so Tychonoff gives the product compact.',
+  9:'ℝP²=S²/(antipodal): identify each point with its antipode on S². Equivalently: identify the boundary of a disk with antipodal boundary points. It is non-orientable and embeds in ℝ⁴ but not ℝ³.',
+  10:'Universal property of quotients: g:X/∼→Z is continuous iff g∘f:X→Z is continuous (where f is the quotient map). This is because V open in Z ↔ (g∘f)⁻¹(V)=f⁻¹(g⁻¹(V)) open in X ↔ g⁻¹(V) open in X/∼.',
+  11:'[0,1]^ℕ = ∏_{n∈ℕ}[0,1]: countably infinite product of [0,1] (compact). By Tychonoff, the product is compact. It is also metrizable (use d((xₙ),(yₙ))=Σ|xₙ−yₙ|/2ⁿ).',
+  12:'Identifying top∼bottom (same direction) and left∼right (same direction) in [0,1]²: first identification gives a cylinder; second gives a torus T²=S¹×S¹.',
+  13:'Tychonoff\'s Theorem is equivalent to the Axiom of Choice in ZF set theory. (Proof: Tychonoff⟹AC via compact spaces from any collection; AC⟹Tychonoff via ultrafilter/net argument.)',
+  14:'If f:X→Y is a continuous surjection with X compact and Y Hausdorff, then f is a quotient map. Proof: f is a closed map (continuous image of closed compact is compact, which is closed in Hausdorff Y), hence quotient.',
+  15:'The Klein bottle K: non-orientable 2-manifold. Cannot be embedded in ℝ³ (only immersed with self-intersection); embeds in ℝ⁴. It is not homeomorphic to the torus (different fundamental group) or ℝP² (different homology).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

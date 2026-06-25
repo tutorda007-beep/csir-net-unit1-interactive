@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U1-T08 · Riemann Integration & Improper Integrals</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#c0392b;--acc2:#e74c3c;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(247,129,102,.3);border-radius:6px}
+.hdr-back:hover{background:rgba(247,129,102,.1)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600}
+.hdr-title{font-size:15px;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr-badges{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.hbadge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px}
+.hb-time{background:rgba(121,192,255,.15);color:var(--blue)}
+.hb-mcq{background:rgba(86,211,100,.15);color:var(--ok)}
+.sidebar{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--side);background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;z-index:100;padding:16px 0 24px}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+.nav-grp{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 16px 5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:500;border-left:3px solid transparent;transition:all .2s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(247,129,102,.07)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--acc)}
+.nav-num{font-size:10px;font-family:monospace;color:var(--muted);margin-left:auto}
+.main{margin-left:var(--side);margin-top:var(--hdr);padding:28px 32px;max-width:960px}
+.sec{display:none;animation:fadeIn .3s ease}.sec.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fff0ed,#ffe0d8,#ffccc0)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(247,129,102,.2),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:6px}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px solid var(--border)}
+.chip-r{background:rgba(247,129,102,.12);color:var(--acc);border-color:rgba(247,129,102,.3)}
+.chip-b{background:rgba(121,192,255,.12);color:var(--blue);border-color:rgba(121,192,255,.3)}
+.chip-g{background:rgba(86,211,100,.12);color:var(--ok);border-color:rgba(86,211,100,.3)}
+.chip-p{background:rgba(210,168,255,.12);color:var(--purple);border-color:rgba(210,168,255,.3)}
+.obj-box{background:rgba(247,129,102,.06);border:1px solid rgba(247,129,102,.2);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.obj-box h3{font-size:12px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.obj-box ol{padding-left:18px}
+.obj-box li{font-size:13px;color:var(--muted);margin-bottom:6px}.obj-box li strong{color:var(--text)}
+.concept{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.concept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.concept-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700;color:var(--acc)}
+.concept-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.concept-title{font-size:16px;font-weight:800;color:var(--text)}
+.concept p{font-size:13.5px;color:#cdd9e5;margin-bottom:12px;line-height:1.75}
+.concept ul,.concept ol{padding-left:20px;margin-bottom:12px}
+.concept li{font-size:13.5px;color:#cdd9e5;margin-bottom:6px;line-height:1.65}
+.def-box{background:rgba(247,129,102,.06);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+.def-box .def-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--acc);margin-bottom:4px}
+.def-box .def-text{font-size:13px;color:var(--text);line-height:1.65}
+.thm-box{background:rgba(121,192,255,.05);border:1px solid rgba(121,192,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0}
+.thm-box .thm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:6px}
+.thm-box .thm-text{font-size:13.5px;color:var(--text);line-height:1.7}
+.thm-box .thm-proof{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid rgba(121,192,255,.15);font-style:italic}
+.tip-box{background:rgba(255,166,87,.07);border:1px solid rgba(255,166,87,.2);border-radius:10px;padding:13px 16px;margin:12px 0;display:flex;gap:12px}
+.tip-icon{font-size:16px;flex-shrink:0}
+.tip-text{font-size:12.5px;color:#cdd9e5;line-height:1.65}
+.tip-text strong{color:var(--orange)}
+.ex-box{background:rgba(86,211,100,.05);border:1px solid rgba(86,211,100,.2);border-radius:10px;padding:16px 18px;margin:14px 0}
+.ex-box .ex-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ok);margin-bottom:8px}
+.ex-box .ex-q{font-size:13.5px;color:var(--text);margin-bottom:8px;font-weight:600}
+.ex-box .ex-sol{font-size:13px;color:#cdd9e5;line-height:1.7}
+.diagram{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.diagram figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+.tbl th{background:var(--surf);color:var(--acc);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:9px 12px;border-bottom:2px solid var(--border);text-align:left}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);color:#cdd9e5}
+.tbl tr:hover td{background:rgba(255,255,255,.03)}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.q-block.correct{border-color:var(--ok)}.q-block.wrong{border-color:var(--er)}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.q-text{font-size:14px;color:var(--text);font-weight:600;margin-bottom:14px;line-height:1.6}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{background:var(--surf);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:#cdd9e5;transition:all .18s;text-align:left;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--acc);background:rgba(247,129,102,.07);color:var(--text)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:rgba(86,211,100,.1);color:var(--ok)}
+.opt.wrong{border-color:var(--er);background:rgba(255,123,114,.1);color:var(--er)}
+.explanation{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:12.5px;line-height:1.65;color:#cdd9e5}
+.explanation.show{display:block}
+.exp-correct{background:rgba(86,211,100,.07);border:1px solid rgba(86,211,100,.2)}
+.exp-wrong{background:rgba(255,123,114,.07);border:1px solid rgba(255,123,114,.2)}
+.quiz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-progress-bar{height:5px;background:var(--border);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .5s ease;width:0%}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;display:none}
+.score-card.show{display:block}
+.score-num{font-size:52px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-label{font-size:14px;color:var(--muted);margin-bottom:16px}
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.score-bar-item{background:var(--surf);border-radius:8px;padding:12px;text-align:center}
+.score-bar-val{font-size:22px;font-weight:800}
+.score-bar-name{font-size:11px;color:var(--muted);margin-top:2px}
+.btn-reset{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.summary-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.summary-item h4{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.summary-item li{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:4px}
+.summary-item ul{padding-left:16px}
+.nav-footer{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.nf-btn{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:10px 16px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nf-btn:hover{border-color:var(--acc);color:var(--acc)}
+.nf-btn.next{background:rgba(247,129,102,.1);border-color:rgba(247,129,102,.3);color:var(--acc)}
+h2.sec-head{font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h3.sub-head{font-size:14px;font-weight:700;color:var(--blue);margin:18px 0 10px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <div class="hdr-unit">Unit 1 · Topic 08</div>
+  <div class="hdr-title">Riemann Integration & Improper Integrals</div>
+  <div class="hdr-badges">
+    <span class="hbadge hb-time">⏱ 75 min</span>
+    <span class="hbadge hb-mcq">📝 15 MCQs</span>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-grp">Sections</div>
+  <div class="nav-item active" onclick="show('overview',this)"><div class="nav-dot"></div>Overview & Objectives<div class="nav-num">01</div></div>
+  <div class="nav-item" onclick="show('partition',this)"><div class="nav-dot"></div>Partitions & Darboux Sums<div class="nav-num">02</div></div>
+  <div class="nav-item" onclick="show('riemann',this)"><div class="nav-dot"></div>Riemann Integrability<div class="nav-num">03</div></div>
+  <div class="nav-item" onclick="show('ftc',this)"><div class="nav-dot"></div>Fundamental Theorem<div class="nav-num">04</div></div>
+  <div class="nav-item" onclick="show('improper',this)"><div class="nav-dot"></div>Improper Integrals<div class="nav-num">05</div></div>
+  <div class="nav-item" onclick="show('tests',this)"><div class="nav-dot"></div>Convergence Tests<div class="nav-num">06</div></div>
+  <div class="nav-item" onclick="show('examples',this)"><div class="nav-dot"></div>Worked Examples<div class="nav-num">07</div></div>
+  <div class="nav-item" onclick="show('quiz',this)"><div class="nav-dot"></div>MCQ Quiz (15 Q)<div class="nav-num">08</div></div>
+  <div class="nav-item" onclick="show('summary',this)"><div class="nav-dot"></div>Summary & CSIR Tips<div class="nav-num">09</div></div>
+  <div class="nav-grp" style="margin-top:12px">Navigate</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T07_UniformConvergence.html'"><div class="nav-dot" style="background:var(--blue)"></div>← Uniform Convergence</div>
+  <div class="nav-item" onclick="location.href='CSIR_NET_U1_T09_MultivariableCalc.html'"><div class="nav-dot" style="background:var(--purple)"></div>Next: Multivariable Calc →</div>
+</nav>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="sec-overview">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 1 — Analysis · Topic 08 of 11</div>
+    <div class="hero-title">Riemann Integration & Improper Integrals</div>
+    <div class="hero-sub">Darboux sums, Riemann integrability criterion, FTC, and convergence of improper integrals via comparison tests</div>
+    <div class="hero-chips">
+      <span class="chip chip-r">CSIR NET Core</span>
+      <span class="chip chip-b">Integration Theory</span>
+      <span class="chip chip-g">Intermediate</span>
+      <span class="chip chip-p">75 min Study</span>
+    </div>
+  </div>
+  <div class="obj-box">
+    <h3>Learning Objectives</h3>
+    <ol>
+      <li>Define <strong>Darboux upper and lower sums</strong> and the Riemann integral</li>
+      <li>State the <strong>Riemann integrability criterion</strong>: f is integrable iff oscillation can be made small</li>
+      <li>Identify which functions are Riemann integrable (continuous, monotone, bounded with finite discontinuities)</li>
+      <li>State and apply both parts of the <strong>Fundamental Theorem of Calculus</strong></li>
+      <li>Evaluate and test convergence of <strong>improper integrals</strong> using comparison, limit comparison, and p-test</li>
+    </ol>
+  </div>
+  <div class="tip-box">
+    <div class="tip-icon">🎯</div>
+    <div class="tip-text"><strong>CSIR NET Frequency:</strong> Improper integrals appear in <strong>2–3 questions</strong> per exam. Key: ∫₁^∞ 1/xᵖ dx, ∫₀^1 1/xᵖ dx convergence conditions (p&lt;1 and p&lt;1 respectively), Gamma function Γ(n) = (n−1)!, comparison test applications.</div>
+  </div>
+</div>
+
+<!-- PARTITIONS -->
+<div class="sec" id="sec-partition">
+  <h2 class="sec-head">⊢ Partitions & Darboux Sums</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(247,129,102,.15)">∑</div>
+      <div><div class="concept-tag">Concept 1</div><div class="concept-title">Partitions and Darboux Upper/Lower Sums</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Partition</div>
+      <div class="def-text">A <strong>partition</strong> P of [a,b] is a finite set {x₀, x₁, …, xₙ} with a = x₀ &lt; x₁ &lt; … &lt; xₙ = b.<br><br>
+      The <strong>mesh</strong> (norm) of P: ‖P‖ = max₁≤ᵢ≤ₙ (xᵢ − xᵢ₋₁) = length of the largest subinterval.</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Darboux Upper and Lower Sums</div>
+      <div class="def-text">For f : [a,b] → ℝ bounded and partition P:<br>
+      Mᵢ = sup_{x∈[xᵢ₋₁,xᵢ]} f(x), &nbsp; mᵢ = inf_{x∈[xᵢ₋₁,xᵢ]} f(x)<br><br>
+      <strong>Upper sum:</strong> U(f,P) = Σ Mᵢ·(xᵢ − xᵢ₋₁)<br>
+      <strong>Lower sum:</strong> L(f,P) = Σ mᵢ·(xᵢ − xᵢ₋₁)<br><br>
+      Always: L(f,P) ≤ ∫f ≤ U(f,P) for any partition P.</div>
+    </div>
+
+    <div class="diagram">
+      <svg width="500" height="195" viewBox="0 0 500 195" font-family="'Segoe UI',Arial,sans-serif">
+        <text x="250" y="14" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="700">Darboux Upper and Lower Sums for a Partition</text>
+        <!-- Axes -->
+        <line x1="40" y1="170" x2="470" y2="170" stroke="#30363d" stroke-width="1.5"/>
+        <line x1="40" y1="25" x2="40" y2="170" stroke="#30363d" stroke-width="1.5"/>
+        <!-- Partition lines -->
+        <line x1="80" y1="165" x2="80" y2="175" stroke="#8b949e" stroke-width="1"/>
+        <line x1="160" y1="165" x2="160" y2="175" stroke="#8b949e" stroke-width="1"/>
+        <line x1="260" y1="165" x2="260" y2="175" stroke="#8b949e" stroke-width="1"/>
+        <line x1="360" y1="165" x2="360" y2="175" stroke="#8b949e" stroke-width="1"/>
+        <line x1="440" y1="165" x2="440" y2="175" stroke="#8b949e" stroke-width="1"/>
+        <text x="80" y="185" text-anchor="middle" fill="#8b949e" font-size="9">x₀</text>
+        <text x="160" y="185" text-anchor="middle" fill="#8b949e" font-size="9">x₁</text>
+        <text x="260" y="185" text-anchor="middle" fill="#8b949e" font-size="9">x₂</text>
+        <text x="360" y="185" text-anchor="middle" fill="#8b949e" font-size="9">x₃</text>
+        <text x="440" y="185" text-anchor="middle" fill="#8b949e" font-size="9">x₄</text>
+        <!-- Upper sums (red-orange bars) -->
+        <rect x="80" y="85" width="80" height="85" fill="rgba(247,129,102,.2)" stroke="rgba(247,129,102,.6)" stroke-width="1"/>
+        <rect x="160" y="55" width="100" height="115" fill="rgba(247,129,102,.2)" stroke="rgba(247,129,102,.6)" stroke-width="1"/>
+        <rect x="260" y="45" width="100" height="125" fill="rgba(247,129,102,.2)" stroke="rgba(247,129,102,.6)" stroke-width="1"/>
+        <rect x="360" y="60" width="80" height="110" fill="rgba(247,129,102,.2)" stroke="rgba(247,129,102,.6)" stroke-width="1"/>
+        <!-- Lower sums (blue bars) -->
+        <rect x="80" y="115" width="80" height="55" fill="rgba(121,192,255,.15)" stroke="rgba(121,192,255,.5)" stroke-width="1"/>
+        <rect x="160" y="80" width="100" height="90" fill="rgba(121,192,255,.15)" stroke="rgba(121,192,255,.5)" stroke-width="1"/>
+        <rect x="260" y="65" width="100" height="105" fill="rgba(121,192,255,.15)" stroke="rgba(121,192,255,.5)" stroke-width="1"/>
+        <rect x="360" y="80" width="80" height="90" fill="rgba(121,192,255,.15)" stroke="rgba(121,192,255,.5)" stroke-width="1"/>
+        <!-- Curve -->
+        <path d="M80,110 Q130,90 160,70 Q210,50 260,55 Q310,60 360,68 Q400,75 440,85" fill="none" stroke="#f78166" stroke-width="2.5"/>
+        <!-- Legend -->
+        <rect x="55" y="20" width="12" height="8" fill="rgba(247,129,102,.3)" stroke="rgba(247,129,102,.7)" stroke-width="1"/>
+        <text x="72" y="27" fill="#f78166" font-size="9">Upper sum U(f,P)</text>
+        <rect x="175" y="20" width="12" height="8" fill="rgba(121,192,255,.2)" stroke="rgba(121,192,255,.6)" stroke-width="1"/>
+        <text x="192" y="27" fill="#79c0ff" font-size="9">Lower sum L(f,P)</text>
+      </svg>
+      <figcaption>Figure 1 — Upper sum (orange rectangles reach max in each interval); Lower sum (blue reaches min). True integral lies between them.</figcaption>
+    </div>
+  </div>
+</div>
+
+<!-- RIEMANN INTEGRABILITY -->
+<div class="sec" id="sec-riemann">
+  <h2 class="sec-head">∫ Riemann Integrability</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">R</div>
+      <div><div class="concept-tag">Concept 2</div><div class="concept-title">Riemann Integral and Integrability Criterion</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Riemann Integrability</div>
+      <div class="def-text">A bounded function f : [a,b] → ℝ is <strong>Riemann integrable</strong> if:<br><br>
+      <strong>Upper integral</strong> = inf_P U(f,P) = <strong>Lower integral</strong> = sup_P L(f,P)<br><br>
+      The common value is ∫_a^b f(x) dx. Equivalently: ∀ε &gt; 0, ∃ partition P: U(f,P) − L(f,P) &lt; ε.</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Key Integrability Theorems</div>
+      <div class="thm-text">
+        1. <strong>Continuous ⟹ Integrable:</strong> If f is continuous on [a,b], then f is Riemann integrable.<br>
+        2. <strong>Monotone ⟹ Integrable:</strong> If f is monotone (increasing or decreasing) on [a,b], then f is Riemann integrable.<br>
+        3. <strong>Bounded + Finite Discontinuities ⟹ Integrable:</strong> If f is bounded on [a,b] and has only finitely many discontinuities, then f is Riemann integrable.<br>
+        4. <strong>Lebesgue Criterion:</strong> f is Riemann integrable iff f is bounded and the set of discontinuities has <strong>measure zero</strong>.
+      </div>
+    </div>
+    <h3 class="sub-head">Riemann Integrable vs Non-Integrable</h3>
+    <table class="tbl">
+      <tr><th>Function on [0,1]</th><th>R-Integrable?</th><th>Reason</th></tr>
+      <tr><td>f(x) = x²</td><td style="color:var(--ok)">Yes</td><td>Continuous</td></tr>
+      <tr><td>f(x) = ⌊x⌋ (floor)</td><td style="color:var(--ok)">Yes</td><td>Monotone; finite discontinuities</td></tr>
+      <tr><td>Dirichlet: f=1 on ℚ, f=0 on ℝ\ℚ</td><td style="color:var(--er)">No</td><td>Discontinuous EVERYWHERE; U=1, L=0 always</td></tr>
+      <tr><td>f(x) = sin(1/x), f(0)=0</td><td style="color:var(--ok)">Yes</td><td>Bounded; only 1 discontinuity (at 0)</td></tr>
+      <tr><td>f(x) = 1 (x rational), f(x) = x (irrational)</td><td style="color:var(--er)">No</td><td>Dense set of discontinuities, positive measure</td></tr>
+    </table>
+    <div class="thm-box">
+      <div class="thm-label">Properties of Riemann Integral</div>
+      <div class="thm-text">
+        If f, g are Riemann integrable on [a,b]:<br>
+        1. αf + βg is integrable: ∫(αf+βg) = α∫f + β∫g (linearity)<br>
+        2. fg is integrable; |f| is integrable<br>
+        3. |∫_a^b f| ≤ ∫_a^b |f| (triangle inequality)<br>
+        4. ∫_a^b f = ∫_a^c f + ∫_c^b f for any c ∈ [a,b]<br>
+        5. If f ≤ g on [a,b], then ∫f ≤ ∫g (monotonicity)<br>
+        6. Mean Value Theorem for Integrals: ∃c ∈ (a,b): ∫_a^b f(x)dx = f(c)(b−a)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FTC -->
+<div class="sec" id="sec-ftc">
+  <h2 class="sec-head">⟺ Fundamental Theorem of Calculus</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(210,168,255,.15)">FTC</div>
+      <div><div class="concept-tag">Concept 3</div><div class="concept-title">Both Parts of the FTC</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">FTC — Part 1 (Antiderivative)</div>
+      <div class="thm-text">Let f be Riemann integrable on [a,b] and define F(x) = ∫_a^x f(t) dt for x ∈ [a,b].<br><br>
+      Then F is continuous on [a,b]. Furthermore, if f is continuous at c ∈ [a,b], then F is differentiable at c with F'(c) = f(c).</div>
+      <div class="thm-proof">F'(c) = lim_{h→0} [F(c+h)−F(c)]/h = lim_{h→0} (1/h)∫_c^{c+h} f(t) dt = f(c) (by continuity of f at c).</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">FTC — Part 2 (Evaluation)</div>
+      <div class="thm-text">If f is continuous on [a,b] and F is any antiderivative of f (i.e., F' = f), then:<br><br>
+      ∫_a^b f(x) dx = F(b) − F(a) = [F(x)]_a^b</div>
+      <div class="thm-proof">This is the link between differentiation and integration — the two fundamental operations of calculus. It allows evaluation of definite integrals via antiderivatives.</div>
+    </div>
+    <h3 class="sub-head">Integration Techniques</h3>
+    <table class="tbl">
+      <tr><th>Technique</th><th>Formula</th><th>When to Use</th></tr>
+      <tr><td>Substitution</td><td>∫f(g(x))g'(x)dx = ∫f(u)du (u=g(x))</td><td>Composite functions</td></tr>
+      <tr><td>Integration by Parts</td><td>∫u dv = uv − ∫v du</td><td>Products: xeˣ, x·ln(x), etc.</td></tr>
+      <tr><td>Partial Fractions</td><td>Decompose rational function</td><td>Rational functions</td></tr>
+      <tr><td>Trig Substitution</td><td>x = a·sin θ, a·tan θ, a·sec θ</td><td>Integrands with √(a²−x²), etc.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- IMPROPER INTEGRALS -->
+<div class="sec" id="sec-improper">
+  <h2 class="sec-head">∞ Improper Integrals</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(255,166,87,.15)">∞</div>
+      <div><div class="concept-tag">Concept 4</div><div class="concept-title">Types and Definitions of Improper Integrals</div></div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Type I — Infinite Limits</div>
+      <div class="def-text">∫_a^∞ f(x) dx = lim_{b→∞} ∫_a^b f(x) dx (if limit exists and is finite → converges)<br><br>
+      ∫_{-∞}^∞ f(x) dx = lim_{a→−∞, b→∞} ∫_a^b f(x) dx<br>
+      (Note: must check BOTH limits separately)</div>
+    </div>
+    <div class="def-box">
+      <div class="def-label">Type II — Unbounded Integrand</div>
+      <div class="def-text">If f(x) → ±∞ as x → c (a singularity at c ∈ [a,b]):<br><br>
+      ∫_a^c f(x) dx = lim_{ε→0⁺} ∫_a^{c−ε} f(x) dx &nbsp;&nbsp; (left-sided singularity)</div>
+    </div>
+
+    <h3 class="sub-head">The p-Test for Improper Integrals</h3>
+    <table class="tbl">
+      <tr><th>Integral</th><th>Converges when</th><th>Diverges when</th></tr>
+      <tr><td>∫₁^∞ 1/xᵖ dx</td><td>p &gt; 1</td><td>p ≤ 1</td></tr>
+      <tr><td>∫₀^1 1/xᵖ dx</td><td>p &lt; 1</td><td>p ≥ 1</td></tr>
+      <tr><td>∫₀^∞ e^{−ax} dx (a&gt;0)</td><td>Always</td><td>Never (= 1/a)</td></tr>
+      <tr><td>∫₁^∞ 1/(x·(ln x)^p) dx</td><td>p &gt; 1</td><td>p ≤ 1</td></tr>
+    </table>
+    <div class="tip-box">
+      <div class="tip-icon">🔑</div>
+      <div class="tip-text"><strong>Memory Aid for p-Test:</strong><br>
+      At ∞: ∫₁^∞ 1/xᵖ converges iff p &gt; 1 (same as p-series ∑1/nᵖ).<br>
+      At 0: ∫₀^1 1/xᵖ converges iff p &lt; 1 (REVERSED — the singularity is at 0, not ∞).</div>
+    </div>
+
+    <h3 class="sub-head">Important Improper Integrals</h3>
+    <table class="tbl">
+      <tr><th>Integral</th><th>Value</th><th>Notes</th></tr>
+      <tr><td>∫₀^∞ e^{−x} dx</td><td>1</td><td>= Γ(1)</td></tr>
+      <tr><td>∫₀^∞ x^{n−1}e^{−x} dx</td><td>(n−1)! = Γ(n)</td><td>Gamma function; Γ(1/2)=√π</td></tr>
+      <tr><td>∫₀^∞ e^{−x²} dx</td><td>√π/2</td><td>Gaussian; hard to prove directly</td></tr>
+      <tr><td>∫₀^∞ sin(x)/x dx</td><td>π/2</td><td>Dirichlet integral; NOT absolutely convergent</td></tr>
+      <tr><td>∫₁^∞ 1/x dx</td><td>∞</td><td>Diverges (ln x → ∞)</td></tr>
+      <tr><td>∫₁^∞ 1/x² dx</td><td>1</td><td>Converges (−1/x |₁^∞ = 1)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- TESTS -->
+<div class="sec" id="sec-tests">
+  <h2 class="sec-head">🧪 Convergence Tests for Improper Integrals</h2>
+  <div class="concept">
+    <div class="concept-hdr">
+      <div class="concept-icon" style="background:rgba(86,211,100,.15)">⚖</div>
+      <div><div class="concept-tag">Concept 5</div><div class="concept-title">Comparison, Limit Comparison, Absolute Convergence</div></div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Comparison Test for Improper Integrals</div>
+      <div class="thm-text">If 0 ≤ f(x) ≤ g(x) for x ≥ a:<br>
+      • ∫_a^∞ g(x) dx converges ⟹ ∫_a^∞ f(x) dx converges<br>
+      • ∫_a^∞ f(x) dx diverges ⟹ ∫_a^∞ g(x) dx diverges</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Limit Comparison Test</div>
+      <div class="thm-text">If f, g &gt; 0 and lim_{x→∞} f(x)/g(x) = L (with 0 &lt; L &lt; ∞), then ∫f and ∫g either both converge or both diverge.</div>
+    </div>
+    <div class="thm-box">
+      <div class="thm-label">Absolute vs Conditional Convergence</div>
+      <div class="thm-text">∫_a^∞ f(x) dx is <strong>absolutely convergent</strong> if ∫|f| converges.<br>
+      ∫_a^∞ f(x) dx is <strong>conditionally convergent</strong> if ∫f converges but ∫|f| diverges.<br><br>
+      Absolute convergence ⟹ convergence (same as series).<br>
+      Example: ∫₀^∞ sin(x)/x dx is conditionally convergent (∫|sin(x)/x| diverges).</div>
+    </div>
+    <h3 class="sub-head">Convergence Test Strategy</h3>
+    <table class="tbl">
+      <tr><th>Step</th><th>Action</th></tr>
+      <tr><td>1</td><td>Identify the singularity type: at ∞ or at a finite point</td></tr>
+      <tr><td>2</td><td>Try to compute the integral directly (antiderivative)</td></tr>
+      <tr><td>3</td><td>If not directly computable, try comparison with a simpler function</td></tr>
+      <tr><td>4</td><td>For "similar growth" use limit comparison; near singularity compare with 1/xᵖ</td></tr>
+      <tr><td>5</td><td>Check both absolute convergence AND conditional convergence if needed</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- WORKED EXAMPLES -->
+<div class="sec" id="sec-examples">
+  <h2 class="sec-head">✏️ Worked Examples</h2>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 1 — Darboux Sum Computation</div>
+    <div class="ex-q">For f(x) = x on [0,1] with partition P = {0, 1/3, 2/3, 1}, compute U(f,P) and L(f,P).</div>
+    <div class="ex-sol">
+      On [0, 1/3]: M₁ = 1/3, m₁ = 0. On [1/3, 2/3]: M₂ = 2/3, m₂ = 1/3. On [2/3, 1]: M₃ = 1, m₃ = 2/3.<br>
+      U(f,P) = (1/3)(1/3) + (2/3)(1/3) + (1)(1/3) = (1/9 + 2/9 + 3/9) = 6/9 = 2/3.<br>
+      L(f,P) = (0)(1/3) + (1/3)(1/3) + (2/3)(1/3) = (0 + 1/9 + 2/9) = 3/9 = 1/3.<br>
+      True value: ∫₀¹ x dx = 1/2. Check: 1/3 &lt; 1/2 &lt; 2/3. ✓<br>
+      Gap: U − L = 1/3 → 0 as partition is refined.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 2 — FTC Application</div>
+    <div class="ex-q">Let F(x) = ∫₀^x sin(t²) dt. Find F'(x).</div>
+    <div class="ex-sol">
+      By FTC Part 1, since f(t) = sin(t²) is continuous, F'(x) = f(x) = sin(x²).<br>
+      More complex version: G(x) = ∫₀^{x²} sin(t) dt.<br>
+      By chain rule: G'(x) = sin(x²) · d/dx(x²) = sin(x²) · 2x.
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 3 — Improper Integral Type I</div>
+    <div class="ex-q">Determine whether ∫₁^∞ 1/(x² + 1) dx converges.</div>
+    <div class="ex-sol">
+      ∫₁^b 1/(x²+1) dx = [tan⁻¹(x)]₁^b = tan⁻¹(b) − tan⁻¹(1) = tan⁻¹(b) − π/4.<br>
+      As b → ∞: tan⁻¹(b) → π/2. So ∫₁^∞ = π/2 − π/4 = π/4.<br>
+      <strong>Converges to π/4.</strong>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 4 — Comparison Test</div>
+    <div class="ex-q">Does ∫₁^∞ (sin²x)/x² dx converge?</div>
+    <div class="ex-sol">
+      Note: 0 ≤ sin²x ≤ 1 for all x. So 0 ≤ sin²(x)/x² ≤ 1/x².<br>
+      ∫₁^∞ 1/x² dx = [−1/x]₁^∞ = 1 (converges).<br>
+      By comparison test: 0 ≤ sin²(x)/x² ≤ 1/x² and ∫1/x² converges ⟹ ∫sin²(x)/x² <strong>converges</strong>. □
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-label">Example 5 — Improper Type II (Singularity at 0)</div>
+    <div class="ex-q">Evaluate ∫₀^1 1/√x dx.</div>
+    <div class="ex-sol">
+      f(x) = 1/√x = x^{−1/2} has a singularity at x = 0. This is p-type with p = 1/2 &lt; 1 → should converge.<br>
+      ∫₀^1 x^{−1/2} dx = lim_{ε→0⁺} ∫_ε^1 x^{−1/2} dx = lim_{ε→0⁺} [2√x]_ε^1 = lim_{ε→0⁺} (2 − 2√ε) = 2.<br>
+      <strong>Converges to 2.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="sec-quiz">
+  <div class="quiz-hdr">
+    <h2 class="sec-head" style="margin-bottom:0">📝 MCQ Quiz — 15 Questions</h2>
+    <div id="score-display" style="font-size:13px;color:var(--muted)">Score: 0 / 15</div>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+
+  <div class="q-block" id="qb1"><div class="q-num">Question 1 of 15</div>
+    <div class="q-text">A bounded function f on [a,b] is Riemann integrable iff:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(1,'a')">A) f is continuous on [a,b]</button>
+      <button class="opt" onclick="answer(1,'b')">B) f is monotone on [a,b]</button>
+      <button class="opt correct-ans" onclick="answer(1,'c')">C) For every ε &gt; 0, ∃ partition P with U(f,P) − L(f,P) &lt; ε</button>
+      <button class="opt" onclick="answer(1,'d')">D) f has finitely many discontinuities</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>✓ C is correct.</strong> This is the Riemann integrability criterion: f is integrable iff the upper and lower Darboux sums can be made arbitrarily close by choosing a fine partition. A and B are sufficient conditions (but not necessary and sufficient). D is also sufficient but not necessary and sufficient. C is the exact characterization.</div>
+  </div>
+
+  <div class="q-block" id="qb2"><div class="q-num">Question 2 of 15</div>
+    <div class="q-text">The Dirichlet function f(x) = 1 (x∈ℚ), f(x) = 0 (x∉ℚ) on [0,1] is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(2,'a')">A) Riemann integrable with value 0</button>
+      <button class="opt" onclick="answer(2,'b')">B) Riemann integrable with value 1</button>
+      <button class="opt correct-ans" onclick="answer(2,'c')">C) Not Riemann integrable</button>
+      <button class="opt" onclick="answer(2,'d')">D) Riemann integrable with value 1/2</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>✓ C is correct.</strong> For any partition P: in each subinterval, both rationals and irrationals are dense. So Mᵢ = 1 (sup = 1) and mᵢ = 0 (inf = 0) for every subinterval. Hence U(f,P) = 1 and L(f,P) = 0 for every P. So U−L = 1 ≠ 0 — not integrable. (However, it is Lebesgue integrable with value 0.)</div>
+  </div>
+
+  <div class="q-block" id="qb3"><div class="q-num">Question 3 of 15</div>
+    <div class="q-text">The integral ∫₁^∞ 1/xᵖ dx converges iff:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(3,'a')">A) p &lt; 1</button>
+      <button class="opt" onclick="answer(3,'b')">B) p = 1</button>
+      <button class="opt correct-ans" onclick="answer(3,'c')">C) p &gt; 1</button>
+      <button class="opt" onclick="answer(3,'d')">D) p &gt; 0</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>✓ C is correct.</strong> ∫₁^b x^{−p} dx = [x^{1−p}/(1−p)]₁^b (p≠1). As b→∞: if p&gt;1, then 1−p&lt;0, so b^{1−p}→0 → integral = 1/(p−1). If p&lt;1, then 1−p&gt;0, so b^{1−p}→∞ → diverges. If p=1, ∫₁^∞ 1/x dx = ln(b)→∞ → diverges. So converges iff p&gt;1.</div>
+  </div>
+
+  <div class="q-block" id="qb4"><div class="q-num">Question 4 of 15</div>
+    <div class="q-text">By FTC Part 1, if F(x) = ∫₀^x sin(t²) dt, then F'(x) equals:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(4,'a')">A) cos(x²)</button>
+      <button class="opt correct-ans" onclick="answer(4,'b')">B) sin(x²)</button>
+      <button class="opt" onclick="answer(4,'c')">C) 2x·cos(x²)</button>
+      <button class="opt" onclick="answer(4,'d')">D) −cos(x²)+1</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>✓ B is correct.</strong> FTC Part 1: if F(x) = ∫_a^x f(t) dt and f is continuous, then F'(x) = f(x). Here f(t) = sin(t²), so F'(x) = sin(x²). Note: if the upper limit were x² instead of x, we'd need chain rule: G'(x) = sin(x⁴)·2x (if G(x) = ∫₀^{x²} sin(t²) dt).</div>
+  </div>
+
+  <div class="q-block" id="qb5"><div class="q-num">Question 5 of 15</div>
+    <div class="q-text">The integral ∫₀^1 1/√x dx:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(5,'a')">A) Diverges</button>
+      <button class="opt correct-ans" onclick="answer(5,'b')">B) Converges to 2</button>
+      <button class="opt" onclick="answer(5,'c')">C) Converges to 1</button>
+      <button class="opt" onclick="answer(5,'d')">D) Converges to 1/2</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>✓ B is correct.</strong> 1/√x = x^{−1/2}. p = 1/2 &lt; 1 → converges. ∫_ε^1 x^{−1/2} dx = [2x^{1/2}]_ε^1 = 2 − 2√ε → 2 as ε→0⁺. Value = 2.</div>
+  </div>
+
+  <div class="q-block" id="qb6"><div class="q-num">Question 6 of 15</div>
+    <div class="q-text">If f is continuous on [a,b], then the Mean Value Theorem for Integrals states:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(6,'a')">A) ∫f = f(a)+f(b)/2 · (b−a)</button>
+      <button class="opt correct-ans" onclick="answer(6,'b')">B) ∃c ∈ (a,b): ∫_a^b f(x) dx = f(c)(b−a)</button>
+      <button class="opt" onclick="answer(6,'c')">C) f attains ∫f/b−a at some point</button>
+      <button class="opt" onclick="answer(6,'d')">D) ∫f = f((a+b)/2)(b−a)</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>✓ B is correct.</strong> MVT for Integrals: if f is continuous on [a,b], ∃c ∈ (a,b) such that ∫_a^b f(x)dx = f(c)(b−a). Geometrically: there is a rectangle with base [a,b] and height f(c) with the same area as the region under f. Proof: use IVT on F(x) = ∫_a^x f(t)dt, then MVT on F gives F'(c) = f(c) = (F(b)−F(a))/(b−a).</div>
+  </div>
+
+  <div class="q-block" id="qb7"><div class="q-num">Question 7 of 15</div>
+    <div class="q-text">∫₀^∞ e^{−x²} dx equals:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(7,'a')">A) 1</button>
+      <button class="opt" onclick="answer(7,'b')">B) π</button>
+      <button class="opt correct-ans" onclick="answer(7,'c')">C) √π/2</button>
+      <button class="opt" onclick="answer(7,'d')">D) π/2</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>✓ C is correct.</strong> The Gaussian integral: ∫₋∞^∞ e^{−x²} dx = √π (proved by squaring and converting to polar coordinates). So ∫₀^∞ e^{−x²} dx = √π/2 (by symmetry). This is related to the Gamma function: Γ(1/2) = √π. This integral comes up frequently in probability (normal distribution) and CSIR NET.</div>
+  </div>
+
+  <div class="q-block" id="qb8"><div class="q-num">Question 8 of 15</div>
+    <div class="q-text">The integral ∫₀^1 1/xᵖ dx converges iff:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(8,'a')">A) p &lt; 1</button>
+      <button class="opt" onclick="answer(8,'b')">B) p &gt; 1</button>
+      <button class="opt" onclick="answer(8,'c')">C) p = 1</button>
+      <button class="opt" onclick="answer(8,'d')">D) p &gt; 0</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>✓ A is correct.</strong> ∫_ε^1 x^{−p} dx = [x^{1−p}/(1−p)]_ε^1 (p≠1). As ε→0⁺: if p&lt;1, then 1−p&gt;0, ε^{1−p}→0 → converges; value = 1/(1−p). If p&gt;1, ε^{1−p}→∞ → diverges. If p=1, ∫_ε^1 1/x dx = −ln ε → ∞ → diverges. Note: REVERSED compared to ∫₁^∞ case!</div>
+  </div>
+
+  <div class="q-block" id="qb9"><div class="q-num">Question 9 of 15</div>
+    <div class="q-text">Which function is NOT Riemann integrable on [0,1]?</div>
+    <div class="options">
+      <button class="opt" onclick="answer(9,'a')">A) f(x) = ⌊x⌋</button>
+      <button class="opt" onclick="answer(9,'b')">B) f(x) = sin(1/x), f(0) = 0</button>
+      <button class="opt correct-ans" onclick="answer(9,'c')">C) Dirichlet function f = 1 on ℚ, 0 on irrationals</button>
+      <button class="opt" onclick="answer(9,'d')">D) f(x) = x²·sin(1/x²), f(0)=0</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>✓ C is correct.</strong> The Dirichlet function is discontinuous EVERYWHERE on [0,1]. By Lebesgue's criterion, R-integrable iff set of discontinuities has measure zero. Here, the set of all rationals in [0,1] is dense (not measure zero — wait, it IS measure zero since ℚ is countable). Actually, by Lebesgue criterion: Dirichlet is NOT R-integrable because U=1, L=0 always, not because of measure — it's the uncountably many irrational discontinuities... Actually the discontinuity set is ALL of [0,1] (measure 1 ≠ 0) → not R-integrable.</div>
+  </div>
+
+  <div class="q-block" id="qb10"><div class="q-num">Question 10 of 15</div>
+    <div class="q-text">The Gamma function Γ(n) = ∫₀^∞ x^{n−1}e^{−x} dx satisfies:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(10,'a')">A) Γ(n) = n! for all n &gt; 0</button>
+      <button class="opt correct-ans" onclick="answer(10,'b')">B) Γ(n+1) = n·Γ(n), and Γ(n) = (n−1)! for positive integers n</button>
+      <button class="opt" onclick="answer(10,'c')">C) Γ(1/2) = 1/2</button>
+      <button class="opt" onclick="answer(10,'d')">D) Γ is defined only for positive integers</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>✓ B is correct.</strong> Γ satisfies the functional equation Γ(n+1) = n·Γ(n) (proved by integration by parts). With Γ(1) = ∫₀^∞ e^{−x}dx = 1, we get Γ(n) = (n−1)! for positive integers. A is wrong: Γ(n) = (n−1)! not n!. C is wrong: Γ(1/2) = √π (related to Gaussian integral). D is wrong: Γ extends to all positive reals (and beyond).</div>
+  </div>
+
+  <div class="q-block" id="qb11"><div class="q-num">Question 11 of 15</div>
+    <div class="q-text">To show ∫₁^∞ 1/(x² + √x) dx converges, the best comparison is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(11,'a')">A) Compare with ∫1/√x (diverges)</button>
+      <button class="opt correct-ans" onclick="answer(11,'b')">B) Compare with ∫1/x² (converges, since 1/(x²+√x) ≤ 1/x²)</button>
+      <button class="opt" onclick="answer(11,'c')">C) Compare with ∫1/x (diverges)</button>
+      <button class="opt" onclick="answer(11,'d')">D) No test can determine convergence here</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>✓ B is correct.</strong> For x ≥ 1: x² + √x ≥ x², so 1/(x²+√x) ≤ 1/x². Since ∫₁^∞ 1/x² dx = 1 (converges, p=2&gt;1), by comparison test ∫₁^∞ 1/(x²+√x) dx converges. Alternatively, limit comparison with 1/x²: lim x²/(x²+√x) = 1 (finite nonzero), both behave the same.</div>
+  </div>
+
+  <div class="q-block" id="qb12"><div class="q-num">Question 12 of 15</div>
+    <div class="q-text">∫₀^∞ sin(x)/x dx (Dirichlet integral) is:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(12,'a')">A) Absolutely convergent</button>
+      <button class="opt correct-ans" onclick="answer(12,'b')">B) Conditionally convergent (= π/2)</button>
+      <button class="opt" onclick="answer(12,'c')">C) Divergent</button>
+      <button class="opt" onclick="answer(12,'d')">D) Equal to 1</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>✓ B is correct.</strong> ∫₀^∞ sin(x)/x dx = π/2 (Dirichlet integral, classical result). However, ∫₀^∞ |sin(x)/x| dx diverges (since |sin x|/x ≥ C/n on each interval [nπ,(n+1)π] and ∑1/n diverges). So this integral is CONDITIONALLY convergent — it converges but not absolutely.</div>
+  </div>
+
+  <div class="q-block" id="qb13"><div class="q-num">Question 13 of 15</div>
+    <div class="q-text">If f is bounded on [a,b] and f has finitely many discontinuities, then:</div>
+    <div class="options">
+      <button class="opt correct-ans" onclick="answer(13,'a')">A) f is Riemann integrable on [a,b]</button>
+      <button class="opt" onclick="answer(13,'b')">B) f is continuous on [a,b]</button>
+      <button class="opt" onclick="answer(13,'c')">C) f may not be integrable</button>
+      <button class="opt" onclick="answer(13,'d')">D) The integral of f is zero</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>✓ A is correct.</strong> A bounded function with finitely many discontinuities on [a,b] is Riemann integrable. The finite discontinuity set has measure zero (Lebesgue criterion). One can show that around each discontinuity, one can choose a small interval contributing arbitrarily small amount to U−L.</div>
+  </div>
+
+  <div class="q-block" id="qb14"><div class="q-num">Question 14 of 15</div>
+    <div class="q-text">The antiderivative F(x) = ∫_a^x f(t) dt is always:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(14,'a')">A) Differentiable everywhere on [a,b]</button>
+      <button class="opt correct-ans" onclick="answer(14,'b')">B) Continuous on [a,b], and differentiable at points where f is continuous</button>
+      <button class="opt" onclick="answer(14,'c')">C) Equal to f(x) everywhere</button>
+      <button class="opt" onclick="answer(14,'d')">D) Differentiable everywhere if f is bounded</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>✓ B is correct.</strong> FTC Part 1: F is always continuous on [a,b] (even if f is just integrable, not continuous). F'(x) = f(x) at points where f is continuous. At discontinuities of f, F may still be differentiable (if the limit exists) but it's not guaranteed. The minimum guarantee is: F continuous everywhere, F' = f wherever f is continuous.</div>
+  </div>
+
+  <div class="q-block" id="qb15"><div class="q-num">Question 15 of 15</div>
+    <div class="q-text">∫₀^∞ x^{n−1}e^{−x} dx = Γ(n). For n = 1/2, Γ(1/2) equals:</div>
+    <div class="options">
+      <button class="opt" onclick="answer(15,'a')">A) 1/2</button>
+      <button class="opt" onclick="answer(15,'b')">B) 1</button>
+      <button class="opt correct-ans" onclick="answer(15,'c')">C) √π</button>
+      <button class="opt" onclick="answer(15,'d')">D) π/2</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>✓ C is correct.</strong> Γ(1/2) = ∫₀^∞ x^{−1/2}e^{−x} dx. Substitute x = t²: dx = 2t dt. Integral becomes ∫₀^∞ t^{−1}e^{−t²}·2t dt = 2∫₀^∞ e^{−t²} dt = 2·(√π/2) = √π. So Γ(1/2) = √π. This is a key value: Γ(3/2) = (1/2)·Γ(1/2) = √π/2, Γ(5/2) = (3/2)·√π/2 = 3√π/4, etc.</div>
+  </div>
+
+  <div class="score-card" id="score-card">
+    <div class="score-num" id="final-score">0</div>
+    <div class="score-label">out of 15 questions</div>
+    <div class="score-bars">
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-correct" style="color:var(--ok)">0</div><div class="score-bar-name">Correct</div></div>
+      <div class="score-bar-item"><div class="score-bar-val" id="sc-wrong" style="color:var(--er)">0</div><div class="score-bar-name">Wrong</div></div>
+    </div>
+    <div id="sc-msg" style="font-size:13px;color:var(--muted);margin:8px 0 16px"></div>
+    <button class="btn-reset" onclick="resetQuiz()">Retry Quiz</button><br><br>
+    <a href="CSIR_NET_U1_T09_MultivariableCalc.html" style="display:inline-block;margin-top:8px;background:rgba(210,168,255,.15);color:var(--purple);border:1px solid rgba(210,168,255,.3);border-radius:8px;padding:10px 22px;text-decoration:none;font-size:13px;font-weight:700">Next: Multivariable Calc →</a>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="sec-summary">
+  <h2 class="sec-head">📌 Summary & CSIR NET Tips</h2>
+  <div class="summary-grid">
+    <div class="summary-item"><h4>Riemann Integral</h4><ul><li>L(f,P) ≤ ∫f ≤ U(f,P) always</li><li>Integrable iff U−L can be made &lt;ε</li><li>Continuous ⟹ integrable</li><li>Monotone ⟹ integrable</li><li>Dirichlet function: NOT integrable</li><li>Lebesgue: integrable iff discon. set has measure 0</li></ul></div>
+    <div class="summary-item"><h4>FTC</h4><ul><li>Part 1: F(x)=∫_a^x f → F'=f where f continuous</li><li>Part 2: ∫_a^b f = F(b)−F(a) if F'=f</li><li>MVT for Integrals: ∫f = f(c)(b−a) for some c</li><li>Chain rule + FTC: d/dx[∫_a^{g(x)} f] = f(g(x))g'(x)</li></ul></div>
+    <div class="summary-item"><h4>Improper Integrals</h4><ul><li>∫₁^∞ 1/xᵖ: converges iff p&gt;1</li><li>∫₀^1 1/xᵖ: converges iff p&lt;1</li><li>Γ(n) = ∫₀^∞ x^{n-1}e^{-x}dx = (n-1)!</li><li>Γ(1/2) = √π</li><li>∫₀^∞ e^{-x²}dx = √π/2</li></ul></div>
+    <div class="summary-item"><h4>CSIR Exam Tips</h4><ul><li>p-test: most common improper integral question</li><li>Comparison test: 1/(x²+√x) ≤ 1/x²</li><li>Dirichlet integral ∫sin(x)/x: conditional (π/2)</li><li>Gamma function recurrence tested frequently</li><li>FTC Part 2 evaluation: most computation questions</li></ul></div>
+  </div>
+  <div class="nav-footer">
+    <a class="nf-btn" href="CSIR_NET_U1_T07_UniformConvergence.html">← Uniform Convergence</a>
+    <a class="nf-btn next" href="CSIR_NET_U1_T09_MultivariableCalc.html">Next: Multivariable Calc →</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+let answered=0,correct=0,wrong=0;
+const correctAns={1:'c',2:'c',3:'c',4:'b',5:'b',6:'b',7:'c',8:'a',9:'c',10:'b',11:'b',12:'b',13:'a',14:'b',15:'c'};
+function answer(qn,chosen){const block=document.getElementById('qb'+qn);if(block.classList.contains('correct')||block.classList.contains('wrong'))return;const opts=block.querySelectorAll('.opt');opts.forEach(o=>o.disabled=true);const isCorrect=(chosen===correctAns[qn]);if(isCorrect){block.classList.add('correct');correct++;}else{block.classList.add('wrong');wrong++;}const letters=['a','b','c','d'];opts.forEach((o,i)=>{if(letters[i]===correctAns[qn])o.classList.add('correct');else if(letters[i]===chosen&&!isCorrect)o.classList.add('wrong');});document.getElementById('exp'+qn).classList.add('show',isCorrect?'exp-correct':'exp-wrong');answered++;document.getElementById('score-display').textContent=`Score: ${correct} / 15`;document.getElementById('qpfill').style.width=(answered/15*100)+'%';if(answered===15)showScore();}
+function showScore(){setTimeout(()=>{const sc=document.getElementById('score-card');sc.classList.add('show');document.getElementById('final-score').textContent=correct;document.getElementById('sc-correct').textContent=correct;document.getElementById('sc-wrong').textContent=wrong;const pct=Math.round(correct/15*100);let msg='Review p-test and integrability criterion carefully.';if(pct>=80)msg='Excellent! Strong integration skills.';else if(pct>=60)msg='Good! Practice more improper integral problems.';document.getElementById('sc-msg').textContent=msg;sc.scrollIntoView({behavior:'smooth'});},600);}
+function resetQuiz(){answered=0;correct=0;wrong=0;document.getElementById('score-display').textContent='Score: 0 / 15';document.getElementById('qpfill').style.width='0%';document.getElementById('score-card').classList.remove('show');for(let i=1;i<=15;i++){const b=document.getElementById('qb'+i);b.classList.remove('correct','wrong');b.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong');});document.getElementById('exp'+i).classList.remove('show','exp-correct','exp-wrong');}document.getElementById('qb1').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET Mathematics — Master Blueprint</title>
+<style>
+:root{
+  --bg:#0d1117;--surface:#161b22;--card:#1c2333;--border:#30363d;
+  --text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;
+  --u1:#f78166;--u2:#56d364;--u3:#d2a8ff;--u4:#ffa657;
+  --u5:#79c0ff;--u6:#56d364;--u7:#ffa657;--u8:#ff7b72;
+  --u9:#d2a8ff;--u10:#79c0ff;
+  --done:#238636;--todo:#21262d;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#1c2333 100%);border-bottom:1px solid var(--border);padding:28px 32px 24px;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.hdr-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:20px}
+.hdr-logo{width:44px;height:44px;background:linear-gradient(135deg,#58a6ff,#a371f7);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.hdr-title{font-size:22px;font-weight:800;background:linear-gradient(90deg,#58a6ff,#a371f7,#f78166);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.hdr-stats{margin-left:auto;display:flex;gap:16px}
+.stat-chip{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:6px}
+.stat-chip span{color:var(--muted);font-weight:400}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:32px}
+
+/* HERO */
+.hero{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(88,166,255,.12),transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(163,113,247,.10),transparent 70%);pointer-events:none}
+.hero h1{font-size:28px;font-weight:800;margin-bottom:8px}
+.hero p{color:var(--muted);font-size:14px;max-width:680px;line-height:1.7;margin-bottom:20px}
+.legend{display:flex;flex-wrap:wrap;gap:12px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* PROGRESS BAR */
+.progress-section{margin-bottom:32px}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#58a6ff,#a371f7)}
+.units-progress{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}
+.unit-prog{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.unit-prog-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.unit-prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.unit-prog-fill{height:100%;border-radius:2px}
+.unit-prog-count{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* UNIT SECTION */
+.unit-block{margin-bottom:28px}
+.unit-hdr{display:flex;align-items:center;gap:12px;margin-bottom:14px;cursor:pointer;user-select:none}
+.unit-num{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.unit-title{font-size:17px;font-weight:700}
+.unit-sub{font-size:12px;color:var(--muted);margin-top:1px}
+.unit-toggle{margin-left:auto;color:var(--muted);font-size:18px;transition:transform .25s}
+.unit-toggle.open{transform:rotate(180deg)}
+.unit-count{font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600}
+
+/* TOPIC GRID */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;padding-bottom:4px}
+.topic-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;transition:all .2s;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+.topic-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.topic-card:hover{border-color:var(--accent);background:#1c2333;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.topic-card.done::before{background:var(--done)}
+.topic-card.todo::before{background:var(--border)}
+.topic-num{font-size:11px;font-weight:800;color:var(--muted);min-width:40px;padding-top:2px;font-family:'Courier New',monospace}
+.topic-body{flex:1;min-width:0}
+.topic-name{font-size:13px;font-weight:600;margin-bottom:4px;line-height:1.4}
+.topic-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+.tag-concepts{background:rgba(88,166,255,.15);color:#79c0ff}
+.tag-mcq{background:rgba(86,211,100,.15);color:#56d364}
+.tag-visual{background:rgba(210,168,255,.15);color:#d2a8ff}
+.tag-exam{background:rgba(247,129,102,.15);color:#f78166}
+.topic-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;flex-shrink:0;align-self:flex-start;margin-top:2px}
+.status-done{background:rgba(35,134,54,.2);color:#56d364;border:1px solid rgba(35,134,54,.3)}
+.status-todo{background:rgba(33,38,45,.8);color:var(--muted);border:1px solid var(--border)}
+.status-new{background:rgba(88,166,255,.15);color:#79c0ff;border:1px solid rgba(88,166,255,.3)}
+
+/* COLLAPSED */
+.topic-grid-wrap{overflow:hidden;max-height:0;transition:max-height .4s ease}
+.topic-grid-wrap.open{max-height:4000px}
+
+/* ROADMAP */
+.roadmap-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:32px}
+.roadmap-card h2{font-size:16px;font-weight:700;margin-bottom:16px;color:var(--accent)}
+.roadmap{display:flex;flex-wrap:wrap;gap:0;position:relative}
+.rm-step{display:flex;align-items:center;gap:0}
+.rm-node{background:var(--surface);border:2px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;white-space:nowrap}
+.rm-arrow{color:var(--muted);font-size:16px;padding:0 4px}
+.rm-break{width:100%;height:12px;position:relative}
+
+/* FOOTER */
+.footer{text-align:center;padding:32px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:32px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-logo">🧮</div>
+    <div>
+      <div class="hdr-title">CSIR NET Mathematics — Master Blueprint</div>
+      <div class="hdr-sub">Complete Self-Study Guide · 77 Individual Topic Files · 10 Units</div>
+    </div>
+    <div class="hdr-stats">
+      <div class="stat-chip">📚 <span>Units:</span> 10</div>
+      <div class="stat-chip">📄 <span>Topics:</span> 77</div>
+      <div class="stat-chip">❓ <span>MCQs:</span> 1100+</div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Complete CSIR NET Mathematics Roadmap</h1>
+    <p>77 individually crafted topic files, each containing elaborate concept explanations, inline SVG diagrams, worked examples, and 15+ CSIR NET–style MCQs. Study independently at your own pace, unit by unit, topic by topic.</p>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#56d364"></div>Completed</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#79c0ff"></div>New (Ready)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--border)"></div>Pending</div>
+    </div>
+  </div>
+
+  <!-- STUDY ROADMAP -->
+  <div class="roadmap-card">
+    <h2>⚡ Recommended Study Order</h2>
+    <div class="roadmap">
+      <div class="rm-step"><div class="rm-node" style="border-color:#f78166;color:#f78166">Unit 1: Analysis</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#56d364;color:#56d364">Unit 2: Linear Algebra</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#d2a8ff;color:#d2a8ff">Unit 3: Complex Analysis</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#ffa657;color:#ffa657">Unit 4: Algebra</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#79c0ff;color:#79c0ff">Unit 5: Topology</div></div>
+      <div class="rm-break"></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#56d364;color:#56d364">Unit 6: ODEs</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#ffa657;color:#ffa657">Unit 7: PDEs</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#ff7b72;color:#ff7b72">Unit 8: Numerical Analysis</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#d2a8ff;color:#d2a8ff">Unit 9: Calc of Variations</div><div class="rm-arrow">→</div></div>
+      <div class="rm-step"><div class="rm-node" style="border-color:#79c0ff;color:#79c0ff">Unit 10: Mechanics & Stats</div></div>
+    </div>
+  </div>
+
+  <!-- UNIT 1: ANALYSIS -->
+  <div class="unit-block">
+    <div class="unit-hdr" onclick="toggleUnit('u1')">
+      <div class="unit-num" style="background:rgba(247,129,102,.15);color:#f78166">1</div>
+      <div>
+        <div class="unit-title">Unit 1 — Analysis</div>
+        <div class="unit-sub">Real Analysis · Metric Spaces · Normed Spaces</div>
+      </div>
+      <div class="unit-count" style="background:rgba(247,129,102,.15);color:#f78166">11 Topics</div>
+      <div class="unit-toggle open" id="u1-toggle">▼</div>
+    </div>
+    <div class="topic-grid-wrap open" id="u1-grid">
+      <div class="topic-grid">
+        <a class="topic-card new" href="CSIR_NET_U1_T01_SetTheory.html" style="--c:#f78166">
+          <div class="topic-num">U1·T01</div>
+          <div class="topic-body">
+            <div class="topic-name">Elementary Set Theory</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Countable & uncountable sets, Cantor's theorem, Schroeder-Bernstein</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span><span class="tag tag-exam">CSIR Tips</span></div>
+          </div>
+          <div class="topic-status status-new">NEW</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T02_RealNumbers.html" style="--c:#f78166">
+          <div class="topic-num">U1·T02</div>
+          <div class="topic-body">
+            <div class="topic-name">Real Number System & Completeness</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Complete ordered field, Archimedean property, Sup & Inf</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T03_Sequences.html">
+          <div class="topic-num">U1·T03</div>
+          <div class="topic-body">
+            <div class="topic-name">Sequences & Series of Real Numbers</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Convergence, limsup, liminf, Cauchy sequences, series tests</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T04_CompactnessThms.html">
+          <div class="topic-num">U1·T04</div>
+          <div class="topic-body">
+            <div class="topic-name">Bolzano-Weierstrass & Heine-Borel</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Subsequences, accumulation points, compactness in ℝⁿ</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T05_Continuity.html">
+          <div class="topic-num">U1·T05</div>
+          <div class="topic-body">
+            <div class="topic-name">Continuity & Uniform Continuity</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">ε–δ definition, types of discontinuity, uniform continuity theorems</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T06_Differentiability.html">
+          <div class="topic-num">U1·T06</div>
+          <div class="topic-body">
+            <div class="topic-name">Differentiability & Mean Value Theorems</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Rolle, MVT, Lagrange, Taylor's theorem, L'Hôpital</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T07_UniformConvergence.html">
+          <div class="topic-num">U1·T07</div>
+          <div class="topic-body">
+            <div class="topic-name">Sequences/Series of Functions & Uniform Convergence</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Pointwise vs uniform, Weierstrass M-test, Dini's theorem</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T08_RiemannIntegral.html">
+          <div class="topic-num">U1·T08</div>
+          <div class="topic-body">
+            <div class="topic-name">Riemann Integration & Improper Integrals</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Darboux sums, integrability criteria, FTC, improper integrals</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T09_MultivariableCalc.html">
+          <div class="topic-num">U1·T09</div>
+          <div class="topic-body">
+            <div class="topic-name">Multivariable Calculus & Implicit Function Theorem</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Partial derivatives, directional derivatives, Jacobian, IFT</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T10_MetricSpaces.html">
+          <div class="topic-num">U1·T10</div>
+          <div class="topic-body">
+            <div class="topic-name">Metric Spaces — Completeness, Compactness, Connectedness</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Metric axioms, Banach fixed-point, open/closed sets, total boundedness</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+        <a class="topic-card todo" href="CSIR_NET_U1_T11_NormedSpaces.html">
+          <div class="topic-num">U1·T11</div>
+          <div class="topic-body">
+            <div class="topic-name">Normed Linear Spaces & Banach Spaces</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Norms, Banach spaces, C[a,b] as example, dual spaces intro</div>
+            <div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">SVG Diagrams</span></div>
+          </div>
+          <div class="topic-status status-todo">PENDING</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIT 2: LINEAR ALGEBRA -->
+  <div class="unit-block">
+    <div class="unit-hdr" onclick="toggleUnit('u2')">
+      <div class="unit-num" style="background:rgba(86,211,100,.15);color:#56d364">2</div>
+      <div>
+        <div class="unit-title">Unit 2 — Linear Algebra</div>
+        <div class="unit-sub">Vector Spaces · Matrices · Eigentheory · Quadratic Forms</div>
+      </div>
+      <div class="unit-count" style="background:rgba(86,211,100,.15);color:#56d364">8 Topics</div>
+      <div class="unit-toggle" id="u2-toggle">▼</div>
+    </div>
+    <div class="topic-grid-wrap" id="u2-grid">
+      <div class="topic-grid">
+        <a class="topic-card todo" href="CSIR_NET_U2_T01_VectorSpaces.html"><div class="topic-num">U2·T01</div><div class="topic-body"><div class="topic-name">Vector Spaces, Subspaces, Basis & Dimension</div><div style="font-size:11px;color:var(--muted)">Linear independence, span, basis, dimension theorem</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T02_LinearTransformations.html"><div class="topic-num">U2·T02</div><div class="topic-body"><div class="topic-name">Linear Transformations</div><div style="font-size:11px;color:var(--muted)">Kernel, image, rank-nullity theorem, isomorphisms</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T03_Matrices.html"><div class="topic-num">U2·T03</div><div class="topic-body"><div class="topic-name">Matrices, Rank, Determinants & Linear Equations</div><div style="font-size:11px;color:var(--muted)">Row reduction, determinant properties, Cramer's rule, systems</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T04_Eigentheory.html"><div class="topic-num">U2·T04</div><div class="topic-body"><div class="topic-name">Eigenvalues, Eigenvectors & Cayley-Hamilton</div><div style="font-size:11px;color:var(--muted)">Characteristic polynomial, diagonalization, CH theorem</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T05_CanonicalForms.html"><div class="topic-num">U2·T05</div><div class="topic-body"><div class="topic-name">Canonical Forms (Diagonal, Triangular, Jordan)</div><div style="font-size:11px;color:var(--muted)">Jordan normal form, rational canonical form, minimal polynomial</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T06_InnerProduct.html"><div class="topic-num">U2·T06</div><div class="topic-body"><div class="topic-name">Inner Product Spaces & Orthonormal Basis</div><div style="font-size:11px;color:var(--muted)">Gram-Schmidt, Cauchy-Schwarz, orthogonal complement</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T07_QuadraticForms.html"><div class="topic-num">U2·T07</div><div class="topic-body"><div class="topic-name">Quadratic Forms & Sylvester's Law</div><div style="font-size:11px;color:var(--muted)">Positive definite, index, signature, congruence of matrices</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U2_T08_ChangeOfBasis.html"><div class="topic-num">U2·T08</div><div class="topic-body"><div class="topic-name">Matrix Representation & Change of Basis</div><div style="font-size:11px;color:var(--muted)">Transition matrices, similar matrices, coordinate vectors</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIT 3: COMPLEX ANALYSIS -->
+  <div class="unit-block">
+    <div class="unit-hdr" onclick="toggleUnit('u3')">
+      <div class="unit-num" style="background:rgba(210,168,255,.15);color:#d2a8ff">3</div>
+      <div>
+        <div class="unit-title">Unit 3 — Complex Analysis</div>
+        <div class="unit-sub">Analytic Functions · Contour Integration · Residues · Conformal Maps</div>
+      </div>
+      <div class="unit-count" style="background:rgba(210,168,255,.15);color:#d2a8ff">8 Topics</div>
+      <div class="unit-toggle" id="u3-toggle">▼</div>
+    </div>
+    <div class="topic-grid-wrap" id="u3-grid">
+      <div class="topic-grid">
+        <a class="topic-card todo" href="CSIR_NET_U3_T01_ComplexNumbers.html"><div class="topic-num">U3·T01</div><div class="topic-body"><div class="topic-name">Algebra of Complex Numbers & Complex Plane</div><div style="font-size:11px;color:var(--muted)">Modulus, argument, polar form, roots of unity, stereographic projection</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T02_PowerSeries.html"><div class="topic-num">U3·T02</div><div class="topic-body"><div class="topic-name">Power Series & Transcendental Functions</div><div style="font-size:11px;color:var(--muted)">Radius of convergence, exp, trig, hyperbolic functions</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T03_AnalyticFunctions.html"><div class="topic-num">U3·T03</div><div class="topic-body"><div class="topic-name">Analytic Functions & Cauchy-Riemann Equations</div><div style="font-size:11px;color:var(--muted)">Holomorphic functions, CR equations, harmonic functions</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T04_ContourIntegration.html"><div class="topic-num">U3·T04</div><div class="topic-body"><div class="topic-name">Contour Integration & Cauchy's Theorem</div><div style="font-size:11px;color:var(--muted)">Line integrals, Cauchy-Goursat, deformation of contours</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T05_CauchyFormula.html"><div class="topic-num">U3·T05</div><div class="topic-body"><div class="topic-name">Cauchy's Integral Formula & Consequences</div><div style="font-size:11px;color:var(--muted)">Liouville, Maximum modulus, Schwarz lemma, Open mapping</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T06_TaylorLaurent.html"><div class="topic-num">U3·T06</div><div class="topic-body"><div class="topic-name">Taylor & Laurent Series</div><div style="font-size:11px;color:var(--muted)">Taylor expansion, Laurent series, singularities classification</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T07_ResidueTheorem.html"><div class="topic-num">U3·T07</div><div class="topic-body"><div class="topic-name">Calculus of Residues</div><div style="font-size:11px;color:var(--muted)">Residue theorem, poles, evaluation of real integrals</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U3_T08_ConformalMaps.html"><div class="topic-num">U3·T08</div><div class="topic-body"><div class="topic-name">Conformal Mappings & Möbius Transformations</div><div style="font-size:11px;color:var(--muted)">Angle-preserving maps, bilinear transformations, Riemann mapping</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIT 4: ALGEBRA -->
+  <div class="unit-block">
+    <div class="unit-hdr" onclick="toggleUnit('u4')">
+      <div class="unit-num" style="background:rgba(255,166,87,.15);color:#ffa657">4</div>
+      <div>
+        <div class="unit-title">Unit 4 — Abstract Algebra</div>
+        <div class="unit-sub">Number Theory · Groups · Rings · Fields · Galois Theory</div>
+      </div>
+      <div class="unit-count" style="background:rgba(255,166,87,.15);color:#ffa657">10 Topics</div>
+      <div class="unit-toggle" id="u4-toggle">▼</div>
+    </div>
+    <div class="topic-grid-wrap" id="u4-grid">
+      <div class="topic-grid">
+        <a class="topic-card todo" href="CSIR_NET_U4_T01_Combinatorics.html"><div class="topic-num">U4·T01</div><div class="topic-body"><div class="topic-name">Combinatorics (Permutations, Pigeon-hole, Inclusion-Exclusion)</div><div style="font-size:11px;color:var(--muted)">P(n,r), C(n,r), derangements, PIE formula</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T02_NumberTheory.html"><div class="topic-num">U4·T02</div><div class="topic-body"><div class="topic-name">Number Theory (Divisibility, GCD, Fundamental Theorem)</div><div style="font-size:11px;color:var(--muted)">Euclidean algorithm, primes, Bezout's identity, FTA</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T03_Congruences.html"><div class="topic-num">U4·T03</div><div class="topic-body"><div class="topic-name">Congruences, CRT & Euler's φ-function</div><div style="font-size:11px;color:var(--muted)">Modular arithmetic, Chinese Remainder Theorem, Fermat's little theorem</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T04_Groups.html"><div class="topic-num">U4·T04</div><div class="topic-body"><div class="topic-name">Groups, Subgroups & Lagrange's Theorem</div><div style="font-size:11px;color:var(--muted)">Group axioms, order, cosets, Lagrange's theorem</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T05_NormalSubgroups.html"><div class="topic-num">U4·T05</div><div class="topic-body"><div class="topic-name">Normal Subgroups, Quotient Groups & Homomorphisms</div><div style="font-size:11px;color:var(--muted)">Isomorphism theorems, kernel, image, factor groups</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T06_CyclicGroups.html"><div class="topic-num">U4·T06</div><div class="topic-body"><div class="topic-name">Cyclic Groups, Permutation Groups & Cayley's Theorem</div><div style="font-size:11px;color:var(--muted)">Generators, Sₙ, Aₙ, conjugacy, Cayley's embedding</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T07_SylowTheorems.html"><div class="topic-num">U4·T07</div><div class="topic-body"><div class="topic-name">Class Equation & Sylow Theorems</div><div style="font-size:11px;color:var(--muted)">Class equation, p-groups, Sylow's three theorems, applications</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T08_RingsIdeals.html"><div class="topic-num">U4·T08</div><div class="topic-body"><div class="topic-name">Rings, Ideals & Quotient Rings</div><div style="font-size:11px;color:var(--muted)">Ring axioms, prime/maximal ideals, R/I, zero divisors</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T09_Domains.html"><div class="topic-num">U4·T09</div><div class="topic-body"><div class="topic-name">UFD, PID, Euclidean Domains & Polynomial Rings</div><div style="font-size:11px;color:var(--muted)">Domain hierarchy, irreducibility criteria, Gauss's lemma</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U4_T10_FieldsGalois.html"><div class="topic-num">U4·T10</div><div class="topic-body"><div class="topic-name">Fields, Finite Fields, Extensions & Galois Theory</div><div style="font-size:11px;color:var(--muted)">Field extensions, splitting fields, Galois group, fundamental theorem</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIT 5: TOPOLOGY -->
+  <div class="unit-block">
+    <div class="unit-hdr" onclick="toggleUnit('u5')">
+      <div class="unit-num" style="background:rgba(121,192,255,.15);color:#79c0ff">5</div>
+      <div><div class="unit-title">Unit 5 — Topology</div><div class="unit-sub">Topological Spaces · Compactness · Connectedness · Separation Axioms</div></div>
+      <div class="unit-count" style="background:rgba(121,192,255,.15);color:#79c0ff">7 Topics</div>
+      <div class="unit-toggle" id="u5-toggle">▼</div>
+    </div>
+    <div class="topic-grid-wrap" id="u5-grid">
+      <div class="topic-grid">
+        <a class="topic-card todo" href="CSIR_NET_U5_T01_TopologicalSpaces.html"><div class="topic-num">U5·T01</div><div class="topic-body"><div class="topic-name">Topological Spaces, Basis & Subspace Topology</div><div style="font-size:11px;color:var(--muted)">Topology axioms, base for topology, order/subspace/product topology</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U5_T02_ClosedSets.html"><div class="topic-num">U5·T02</div><div class="topic-body"><div class="topic-name">Closed Sets, Limit Points & Hausdorff Spaces</div><div style="font-size:11px;color:var(--muted)">Closure, interior, boundary, T₁ and T₂ spaces</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U5_T03_ContinuousFunctions.html"><div class="topic-num">U5·T03</div><div class="topic-body"><div class="topic-name">Continuous Functions, Homeomorphisms & Product Topology</div><div style="font-size:11px;color:var(--muted)">Topological equivalence, quotient topology, metric topology</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U5_T04_Connectedness.html"><div class="topic-num">U5·T04</div><div class="topic-body"><div class="topic-name">Connected & Path-Connected Spaces</div><div style="font-size:11px;color:var(--muted)">Connectedness, IVT topological form, path components</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U5_T05_Compactness.html"><div class="topic-num">U5·T05</div><div class="topic-body"><div class="topic-name">Compact Spaces, Local Compactness & One-Point Compactification</div><div style="font-size:11px;color:var(--muted)">Open covers, finite subcovers, Tychonoff theorem</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U5_T06_SeparationAxioms.html"><div class="topic-num">U5·T06</div><div class="topic-body"><div class="topic-name">Countability & Separation Axioms, Urysohn's Lemma</div><div style="font-size:11px;color:var(--muted)">T₀–T₄ hierarchy, 1st/2nd countable, Urysohn, Tietze</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+        <a class="topic-card todo" href="CSIR_NET_U5_T07_NetsFilters.html"><div class="topic-num">U5·T07</div><div class="topic-body"><div class="topic-name">Nets, Filters & Tychonoff's Theorem</div><div style="font-size:11px;color:var(--muted)">Directed sets, ultrafilters, Tychonoff's theorem proof idea</div><div class="topic-meta"><span class="tag tag-concepts">Concepts</span><span class="tag tag-mcq">15 MCQs</span><span class="tag tag-visual">Visual</span></div></div><div class="topic-status status-todo">PENDING</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNITS 6–10 compact -->
+  <div class="topic-grid" style="margin-bottom:28px">
+    <!-- Unit 6 Card -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;border-left:4px solid #56d364">
+      <div style="font-size:13px;font-weight:700;color:#56d364;margin-bottom:10px">Unit 6 — Ordinary Differential Equations <span style="background:rgba(86,211,100,.1);color:#56d364;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:8px">6 Topics ✓</span></div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <a href="CSIR_NET_U6_T01_FirstOrderODE.html" style="color:#56d364;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T01 · First-Order ODEs (Separable, Linear, Exact, Bernoulli)</a>
+        <a href="CSIR_NET_U6_T02_HigherOrderODE.html" style="color:#56d364;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T02 · Higher-Order Linear ODEs & Method of Undetermined Coefficients</a>
+        <a href="CSIR_NET_U6_T03_SystemsODE.html" style="color:#56d364;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T03 · Systems of ODEs, Phase Plane & Stability</a>
+        <a href="CSIR_NET_U6_T04_SeriesSolutions.html" style="color:#56d364;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T04 · Series Solutions — Frobenius Method & Special Functions</a>
+        <a href="CSIR_NET_U6_T05_SturmLiouville.html" style="color:#56d364;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T05 · Sturm-Liouville BVP, Eigenvalues & Green's Functions</a>
+        <a href="CSIR_NET_U6_T06_LaplacePDE.html" style="color:#56d364;font-size:12px;text-decoration:none;padding:4px 0">T06 · Laplace Transform — Properties, Convolution & Applications ★ Finale</a>
+      </div>
+    </div>
+    <!-- Unit 7 Card -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;border-left:4px solid #ffa657">
+      <div style="font-size:13px;font-weight:700;color:#ffa657;margin-bottom:10px">Unit 7 — Partial Differential Equations <span style="background:rgba(255,166,87,.1);color:#ffa657;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:8px">4 Topics ✓</span></div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <a href="CSIR_NET_U7_T01_PDEClassification.html" style="color:#ffa657;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T01 · Classification of PDEs — Elliptic, Parabolic, Hyperbolic</a>
+        <a href="CSIR_NET_U7_T02_WaveEquation.html" style="color:#ffa657;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T02 · Wave Equation — d'Alembert, Separation of Variables, Energy</a>
+        <a href="CSIR_NET_U7_T03_HeatEquation.html" style="color:#ffa657;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T03 · Heat Equation — Kernel, Maximum Principle, Duhamel</a>
+        <a href="CSIR_NET_U7_T04_LaplaceEquation.html" style="color:#ffa657;font-size:12px;text-decoration:none;padding:4px 0">T04 · Laplace & Poisson Equation — Harmonic Functions, Green's Function ★ Finale</a>
+      </div>
+    </div>
+    <!-- Unit 8 Card -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;border-left:4px solid #ff7b72">
+      <div style="font-size:13px;font-weight:700;color:#ff7b72;margin-bottom:10px">Unit 8 — Numerical Analysis <span style="background:rgba(255,123,114,.1);color:#ff7b72;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:8px">4 Topics ✓</span></div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <a href="CSIR_NET_U8_T01_ErrorAnalysis.html" style="color:#ff7b72;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T01 · Error Analysis — Round-off, Truncation, Machine Epsilon, Condition Number</a>
+        <a href="CSIR_NET_U8_T02_Interpolation.html" style="color:#ff7b72;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T02 · Interpolation — Lagrange, Newton Divided Differences, Splines</a>
+        <a href="CSIR_NET_U8_T03_NumericalIntegration.html" style="color:#ff7b72;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T03 · Numerical Integration — Newton-Cotes, Gauss-Legendre, Richardson</a>
+        <a href="CSIR_NET_U8_T04_RootFinding.html" style="color:#ff7b72;font-size:12px;text-decoration:none;padding:4px 0">T04 · Root Finding, Linear Systems & Numerical ODEs (Euler, RK4) ★ Finale</a>
+      </div>
+    </div>
+    <!-- Unit 9 Card -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;border-left:4px solid #d2a8ff">
+      <div style="font-size:13px;font-weight:700;color:#d2a8ff;margin-bottom:10px">Unit 9 — Calculus of Variations & Linear Programming <span style="background:rgba(210,168,255,.1);color:#d2a8ff;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:8px">1 Topic ✓</span></div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <a href="CSIR_NET_U9_T01_CalculusVariations.html" style="color:#d2a8ff;font-size:12px;text-decoration:none;padding:4px 0">T01 · Euler-Lagrange, Beltrami Identity, Brachistochrone, Isoperimetric, LP Duality ★ Finale</a>
+      </div>
+    </div>
+    <!-- Unit 10 Card -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;border-left:4px solid #79c0ff;grid-column:span 2">
+      <div style="font-size:13px;font-weight:700;color:#79c0ff;margin-bottom:10px">Unit 10 — Probability Theory & Mathematical Statistics <span style="background:rgba(121,192,255,.1);color:#79c0ff;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:8px">3 Topics ✓</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+        <a href="CSIR_NET_U10_T01_Probability.html" style="color:#79c0ff;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T01 · Probability Theory — Kolmogorov Axioms, Conditional Probability, Bayes, MGF</a>
+        <a href="CSIR_NET_U10_T02_Distributions.html" style="color:#79c0ff;font-size:12px;text-decoration:none;padding:4px 0;border-bottom:1px solid var(--border)">T02 · Distributions — Binomial, Poisson, Normal, Exponential, Gamma, Beta, CLT</a>
+        <a href="CSIR_NET_U10_T03_Statistics.html" style="color:#79c0ff;font-size:12px;text-decoration:none;padding:4px 0">T03 · Mathematical Statistics — MLE, Cramér-Rao, CI, Hypothesis Testing ★ Finale</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">CSIR NET Mathematics · Master Blueprint · Units 1–10 Complete · 50+ Topic Files · 750+ MCQs</div>
+
+<script>
+function toggleUnit(id){
+  const grid=document.getElementById(id+'-grid');
+  const toggle=document.getElementById(id+'-toggle');
+  const open=grid.classList.toggle('open');
+  toggle.classList.toggle('open',open);
+}
+// Open u1 by default already done in HTML; open others on load collapsed
+</script>
+</body>
+</html>

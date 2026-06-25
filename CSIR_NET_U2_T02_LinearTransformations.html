@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U2-T02 · Linear Transformations</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#4338ca;--acc2:#6366f1;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--orange:#ea6c00;--green:#16a34a;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(67,56,202,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(67,56,202,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(67,56,202,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#eef2ff,#e0e7ff,#c7d2fe)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(67,56,202,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(67,56,202,.08);color:var(--acc);font-weight:600;border:1px solid rgba(67,56,202,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#b45309;margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.info-box{background:#eff6ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+svg{display:block;margin:16px auto}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 2</span>
+  <span class="hdr-title">T02 · Linear Transformations</span>
+  <span class="hdr-badge">Linear Algebra</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 2 · Linear Algebra</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('def',this)">Definition & Examples</a>
+  <a class="nav-item" onclick="show('ker',this)">Kernel & Image</a>
+  <a class="nav-item" onclick="show('rnt',this)">Rank-Nullity Theorem</a>
+  <a class="nav-item" onclick="show('mat',this)">Matrix Representation</a>
+  <a class="nav-item" onclick="show('inv',this)">Invertibility</a>
+  <a class="nav-item" onclick="show('dual',this)">Dual Transformations</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 2 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U2_T01_VectorSpaces.html">T01 · Vector Spaces</a>
+  <a class="nav-item" href="CSIR_NET_U2_T03_Eigenvalues.html">T03 · Eigenvalues</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 2 · Topic 02</div>
+    <div class="hero-title">Linear Transformations</div>
+    <div class="hero-sub">Kernel · Image · Rank-Nullity · Matrix Representation</div>
+    <div class="hero-chips">
+      <span class="chip">Linear Map</span>
+      <span class="chip">Kernel (Null Space)</span>
+      <span class="chip">Image (Range)</span>
+      <span class="chip">Rank-Nullity</span>
+      <span class="chip">Matrix of T</span>
+      <span class="chip">Isomorphism</span>
+      <span class="chip">Dual Map</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>A <strong>linear transformation</strong> is a map between vector spaces that preserves the two operations (addition and scalar multiplication). These are the structure-preserving maps of linear algebra, and they can always be represented by matrices once bases are chosen.</p>
+  <div class="grid2">
+    <div class="card">
+      <h4>Key Concepts</h4>
+      <ul>
+        <li>Kernel (null space) and image (range)</li>
+        <li>Rank-Nullity theorem: fundamental constraint</li>
+        <li>Matrix representation depends on choice of basis</li>
+        <li>Change of basis → similar matrices</li>
+        <li>Invertible ↔ bijective ↔ isomorphism</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>CSIR NET Focus</h4>
+      <ul>
+        <li>Rank-Nullity calculations (very common)</li>
+        <li>Finding kernel and image from matrix</li>
+        <li>Determining invertibility from rank</li>
+        <li>Computing matrix of T in a given basis</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DEFINITION & EXAMPLES -->
+<div class="sec" id="def">
+  <h2>Definition and Examples</h2>
+  <div class="def-box">
+    <div class="lbl">Definition — Linear Transformation</div>
+    <p>T: V → W is a <strong>linear transformation</strong> (linear map) if for all u,v ∈ V and α ∈ 𝔽:</p>
+    <ol>
+      <li><strong>Additivity:</strong> T(u + v) = T(u) + T(v)</li>
+      <li><strong>Homogeneity:</strong> T(αv) = αT(v)</li>
+    </ol>
+    <p>Equivalently: T(αu + βv) = αT(u) + βT(v) for all α,β ∈ 𝔽.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Basic Consequences</div>
+    <ul>
+      <li>T(0) = 0 (always maps zero to zero)</li>
+      <li>T(−v) = −T(v)</li>
+      <li>T(Σ αᵢvᵢ) = Σ αᵢ T(vᵢ) (linearity extends to all finite combinations)</li>
+      <li>T is completely determined by its values on a basis</li>
+    </ul>
+  </div>
+  <h3>Standard Examples</h3>
+  <table>
+    <tr><th>T: V → W</th><th>Rule</th><th>Kernel</th><th>Image</th></tr>
+    <tr><td>Zero map</td><td>T(v) = 0 for all v</td><td>V</td><td>{0}</td></tr>
+    <tr><td>Identity map I: V→V</td><td>I(v) = v</td><td>{0}</td><td>V</td></tr>
+    <tr><td>Scalar map cI: V→V</td><td>T(v) = cv (c≠0)</td><td>{0}</td><td>V</td></tr>
+    <tr><td>Projection π: ℝ³→ℝ²</td><td>T(x,y,z) = (x,y)</td><td>{(0,0,z)}</td><td>ℝ²</td></tr>
+    <tr><td>Differentiation D: Pₙ→Pₙ₋₁</td><td>D(p) = p'</td><td>constant polys</td><td>Pₙ₋₁</td></tr>
+    <tr><td>Reflection: ℝ²→ℝ²</td><td>T(x,y) = (x,−y)</td><td>{0}</td><td>ℝ²</td></tr>
+    <tr><td>Integration: Pₙ→Pₙ₊₁</td><td>T(p)(x) = ∫₀ˣ p(t)dt</td><td>{0}</td><td>polys with p(0)=0</td></tr>
+  </table>
+  <div class="thm-box">
+    <div class="lbl">Construction: T from Basis Values</div>
+    <p>If B = {b₁,...,bₙ} is a basis for V and w₁,...,wₙ ∈ W are arbitrary, there is a <strong>unique</strong> linear map T: V→W with T(bᵢ) = wᵢ. This is because every v = Σαᵢbᵢ forces T(v) = ΣαᵢT(bᵢ) = Σαᵢwᵢ.</p>
+  </div>
+</div>
+
+<!-- KERNEL & IMAGE -->
+<div class="sec" id="ker">
+  <h2>Kernel and Image</h2>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p><strong>Kernel</strong> (null space): ker(T) = T⁻¹({0}) = {v ∈ V : T(v) = 0}</p>
+    <p><strong>Image</strong> (range): im(T) = T(V) = {T(v) : v ∈ V} ⊆ W</p>
+    <ul>
+      <li>ker(T) is a subspace of V</li>
+      <li>im(T) is a subspace of W</li>
+    </ul>
+  </div>
+  <h3>Nullity and Rank</h3>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p><strong>Nullity</strong>: nullity(T) = dim(ker T)</p>
+    <p><strong>Rank</strong>: rank(T) = dim(im T)</p>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h4>T is Injective (one-to-one) ⟺</h4>
+      <ul>
+        <li>ker(T) = {0}</li>
+        <li>nullity(T) = 0</li>
+        <li>T maps linearly independent sets to linearly independent sets</li>
+        <li>T(u) = T(v) ⟹ u = v</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>T is Surjective (onto) ⟺</h4>
+      <ul>
+        <li>im(T) = W</li>
+        <li>rank(T) = dim W</li>
+        <li>Every w ∈ W has a preimage</li>
+        <li>T maps some spanning set of V to a spanning set of W</li>
+      </ul>
+    </div>
+  </div>
+  <svg width="500" height="165" viewBox="0 0 500 165">
+    <rect width="500" height="165" fill="#eef2ff" rx="8"/>
+    <ellipse cx="130" cy="85" rx="100" ry="65" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+    <text x="130" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#4338ca">V (domain)</text>
+    <ellipse cx="65" cy="90" rx="45" ry="35" fill="#c7d2fe" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="65" y="95" text-anchor="middle" font-size="11" fill="#4338ca" font-weight="700">ker(T)</text>
+    <ellipse cx="370" cy="85" rx="100" ry="65" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+    <text x="370" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#4338ca">W (codomain)</text>
+    <ellipse cx="390" cy="95" rx="60" ry="40" fill="#c7d2fe" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="390" y="100" text-anchor="middle" font-size="11" fill="#4338ca" font-weight="700">im(T)</text>
+    <circle cx="315" cy="75" r="4" fill="#7c3aed"/>
+    <text x="310" y="68" font-size="10" fill="#7c3aed">0_W</text>
+    <path d="M130,85 Q250,40 370,85" stroke="#4338ca" stroke-width="2" fill="none" marker-end="url(#arrowI)"/>
+    <text x="250" y="52" text-anchor="middle" font-size="11" fill="#4338ca" font-weight="700">T</text>
+    <defs><marker id="arrowI" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#4338ca"/></marker></defs>
+  </svg>
+</div>
+
+<!-- RANK-NULLITY THEOREM -->
+<div class="sec" id="rnt">
+  <h2>Rank-Nullity Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Rank-Nullity Theorem (Dimension Theorem)</div>
+    <p>Let T: V → W be a linear transformation with V finite-dimensional. Then:</p>
+    <div class="formula">dim(ker T) + dim(im T) = dim V</div>
+    <div class="formula">nullity(T) + rank(T) = dim V</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Sketch</div>
+    <p>Let {u₁,...,uₖ} be a basis for ker(T) (nullity = k). Extend to a basis {u₁,...,uₖ,v₁,...,vᵣ} of V (so dim V = k+r). Claim: {T(v₁),...,T(vᵣ)} is a basis for im(T).</p>
+    <ul>
+      <li><strong>Spanning:</strong> Any T(v) = T(Σαᵢuᵢ + Σβⱼvⱼ) = Σβⱼ T(vⱼ) ∈ span{T(v₁),...,T(vᵣ)}</li>
+      <li><strong>Independence:</strong> If Σβⱼ T(vⱼ) = 0, then T(Σβⱼvⱼ) = 0, so Σβⱼvⱼ ∈ ker(T) ⊆ span{u₁,...,uₖ}. But {u₁,...,uₖ,v₁,...,vᵣ} is independent, so all βⱼ = 0.</li>
+    </ul>
+    <p>Thus rank(T) = r = dim V − k = dim V − nullity(T). ∎</p>
+  </div>
+  <h3>Applications</h3>
+  <table>
+    <tr><th>Scenario</th><th>Consequence of RNT</th></tr>
+    <tr><td>T: V→W, dim V &lt; dim W</td><td>T cannot be surjective (rank ≤ dim V &lt; dim W)</td></tr>
+    <tr><td>T: V→W, dim V &gt; dim W</td><td>T cannot be injective (nullity = dim V − rank ≥ dim V − dim W &gt; 0)</td></tr>
+    <tr><td>T: V→V (same dimensions), injective</td><td>T is also surjective (bijective)</td></tr>
+    <tr><td>dim V = dim W, T surjective</td><td>T is also injective (bijective)</td></tr>
+  </table>
+  <div class="warn-box">
+    <div class="lbl">Key Insight</div>
+    <p>For linear maps between spaces of equal dimension: injective ⟺ surjective ⟺ bijective. This fails for non-linear maps and infinite-dimensional spaces (e.g., the shift operator on ℓ² is injective but not surjective).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example</div>
+    <p>T: ℝ⁵ → ℝ³, rank(T) = 2. Then nullity(T) = 5 − 2 = 3. The kernel is a 3-dimensional subspace of ℝ⁵ and the image is a 2-dimensional subspace of ℝ³.</p>
+  </div>
+</div>
+
+<!-- MATRIX REPRESENTATION -->
+<div class="sec" id="mat">
+  <h2>Matrix Representation</h2>
+  <div class="def-box">
+    <div class="lbl">Matrix of a Linear Transformation</div>
+    <p>Let T: V → W, B = {b₁,...,bₙ} basis for V, C = {c₁,...,cₘ} basis for W. The <strong>matrix of T with respect to B and C</strong> is the m×n matrix [T]_{C,B} whose j-th column is [T(bⱼ)]_C (the coordinate vector of T(bⱼ) in basis C).</p>
+    <p>Then: [T(v)]_C = [T]_{C,B} · [v]_B</p>
+  </div>
+  <h3>Computing the Matrix</h3>
+  <div class="proof-box">
+    <div class="lbl">Algorithm</div>
+    <ol>
+      <li>Apply T to each basis vector bⱼ of V to get T(bⱼ) ∈ W</li>
+      <li>Write each T(bⱼ) as a linear combination of the C-basis vectors</li>
+      <li>The coefficients form the j-th column of [T]_{C,B}</li>
+    </ol>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: Differentiation</div>
+    <p>T = d/dx: P₃(ℝ) → P₂(ℝ), B = {1,x,x²,x³}, C = {1,x,x²}.</p>
+    <p>T(1) = 0 = 0·1+0·x+0·x², T(x) = 1 = 1·1+0·x+0·x², T(x²) = 2x, T(x³) = 3x².</p>
+    <div class="formula">[T]_{C,B} = [[0,1,0,0],[0,0,2,0],[0,0,0,3]]</div>
+  </div>
+  <h3>Change of Basis and Similar Matrices</h3>
+  <div class="thm-box">
+    <div class="lbl">Similar Matrices</div>
+    <p>If T: V→V and B, B' are two bases for V, then [T]_{B'} = P⁻¹[T]_B P where P is the change-of-basis matrix from B to B'. Matrices A and B are <strong>similar</strong> if B = P⁻¹AP for some invertible P; they represent the same linear operator in different bases.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Invariants Under Similarity</div>
+    <p>Similar matrices have the same: rank, nullity, determinant, trace, characteristic polynomial, eigenvalues, and minimal polynomial. These are intrinsic properties of the linear operator.</p>
+  </div>
+  <h3>Composition of Linear Maps</h3>
+  <div class="def-box">
+    <div class="lbl">Matrix Multiplication = Composition</div>
+    <p>If T: V→W and S: W→U with matrices [T]_{C,B} = A and [S]_{D,C} = B, then [S∘T]_{D,B} = B·A (matrix product). This is why matrix multiplication is defined as it is!</p>
+  </div>
+</div>
+
+<!-- INVERTIBILITY -->
+<div class="sec" id="inv">
+  <h2>Invertibility and Isomorphisms</h2>
+  <div class="def-box">
+    <div class="lbl">Definitions</div>
+    <p>T: V→W is an <strong>isomorphism</strong> if T is bijective (injective + surjective). Then T⁻¹: W→V is also an isomorphism.</p>
+    <p>V and W are <strong>isomorphic</strong> (V ≅ W) if there exists an isomorphism T: V→W.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Conditions for Invertibility</div>
+    <p>T: V→W is an isomorphism iff ALL of the following (in finite dimensions, any one implies the rest):</p>
+    <ul>
+      <li>T is injective (ker T = {0})</li>
+      <li>T is surjective (im T = W)</li>
+      <li>rank(T) = dim V = dim W</li>
+      <li>[T]_{C,B} is an invertible matrix</li>
+      <li>T maps every basis of V to a basis of W</li>
+    </ul>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Classification of Vector Spaces</div>
+    <p>Over the same field 𝔽, any two n-dimensional vector spaces are isomorphic. The coordinate map v ↦ [v]_B gives an explicit isomorphism V ≅ 𝔽ⁿ.</p>
+  </div>
+  <h3>Projections</h3>
+  <div class="def-box">
+    <div class="lbl">Projection</div>
+    <p>T: V→V is a <strong>projection</strong> if T² = T (T is idempotent). Then:</p>
+    <ul>
+      <li>V = im(T) ⊕ ker(T)</li>
+      <li>T acts as identity on im(T) and zero on ker(T)</li>
+      <li>I − T is also a projection (onto ker T)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DUAL TRANSFORMATIONS -->
+<div class="sec" id="dual">
+  <h2>Dual Transformations</h2>
+  <div class="def-box">
+    <div class="lbl">Transpose (Dual) Map</div>
+    <p>Given T: V→W, the <strong>transpose</strong> (dual map) T*: W*→V* is defined by (T*f)(v) = f(T(v)) for f ∈ W*, v ∈ V.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Properties of T*</div>
+    <ul>
+      <li>rank(T*) = rank(T)</li>
+      <li>ker(T*) = (im T)⁰ (annihilator of im T)</li>
+      <li>im(T*) = (ker T)⁰ (annihilator of ker T)</li>
+      <li>If [T]_{C,B} = A, then [T*]_{B*,C*} = Aᵀ (transpose matrix)</li>
+    </ul>
+  </div>
+  <h3>Annihilators</h3>
+  <div class="def-box">
+    <div class="lbl">Annihilator</div>
+    <p>The <strong>annihilator</strong> of S ⊆ V is S⁰ = {f ∈ V* : f(v)=0 for all v∈S}. This is a subspace of V*.</p>
+    <p>dim(S⁰) = dim V − dim(span S).</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question. Instant feedback provided.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">Which of the following is a linear transformation T: ℝ² → ℝ²?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> T(x,y) = (x+1, y)</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> T(x,y) = (xy, x+y)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> T(x,y) = (2x−y, x+3y)</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> T(x,y) = (x², y²)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Let T: ℝ⁴ → ℝ³ be a linear transformation with rank(T) = 2. Then nullity(T) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> 1</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> 2</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 3</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> 4</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">If T: V→W and dim V = dim W = n, then T is injective implies:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> T may fail to be surjective</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> T is surjective</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> ker T = V</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> rank(T) &lt; n</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">T: P₃(ℝ) → P₃(ℝ) defined by T(p)(x) = xp'(x). The kernel of T is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> {0}</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> {constant polynomials}</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> P₃(ℝ)</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> {linear polynomials}</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">The matrix of T: ℝ² → ℝ² defined by T(x,y) = (x+2y, 3x−y) with respect to the standard basis is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> [[1,3],[2,−1]]</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> [[1,2],[3,−1]]</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> [[2,1],[−1,3]]</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> [[3,−1],[1,2]]</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Let T: ℝ³ → ℝ³ be a projection onto the xy-plane (T(x,y,z) = (x,y,0)). Then rank(T) + nullity(T) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> 2</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> 4</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> 3</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">A linear operator T on a finite-dimensional space V is invertible if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> T is injective only</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> T is surjective only</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> ker(T) = {0}</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> nullity(T) = dim V</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">If T: V → W is a linear map with dim V = 5 and dim W = 3, then which is NOT possible?</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> rank(T) = 3</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> rank(T) = 2</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> T is surjective</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> T is injective</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">Two matrices A and B are similar if and only if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> A = Bᵀ</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> B = P⁻¹AP for some invertible matrix P</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> A and B have the same entries</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> det(A) = det(B)</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">T: V→V satisfies T² = T (T is a projection). Which is always true?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> T = I</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> T = 0</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> V = ker(T) ⊕ im(T)</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> rank(T) = dim V</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The differentiation operator D: Pₙ→Pₙ₋₁ has rank:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> n</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> n−1</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> n+1</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">A linear map T is completely determined by:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Its values on some spanning set</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Its values on a basis (extended uniquely to all vectors)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Its kernel alone</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Its rank alone</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">For T: ℝ⁵ → ℝ⁵, if the nullity is 0, then the image of T is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> A 4-dimensional subspace</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> ℝ⁵ itself</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> {0}</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> A 3-dimensional subspace</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">Which properties are preserved under similarity transformations A ~ P⁻¹AP?</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Individual entries of the matrix</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Rank, determinant, trace, characteristic polynomial</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Row space and column space (as specific sets)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> The matrix itself</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The map T: M₂ₓ₂(ℝ) → M₂ₓ₂(ℝ) defined by T(A) = A − Aᵀ has nullity:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> 1</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> 2</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> 3</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> 4</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Linear Transformations</div>
+    <div class="hero-sub">Key facts for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">🔀</div>
+      <h4>Linear Map</h4>
+      <p>T(αu+βv)=αTu+βTv. Always: T(0)=0. Determined by values on a basis.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🎯</div>
+      <h4>Rank-Nullity</h4>
+      <p>nullity(T) + rank(T) = dim V. Must memorize and apply fluently.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📌</div>
+      <h4>Inj ↔ Sur (same dim)</h4>
+      <p>When dim V=dim W: injective ⟺ surjective ⟺ bijective ⟺ ker={0}.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">📋</div>
+      <h4>Matrix of T</h4>
+      <p>j-th column = [T(bⱼ)]_C. Composition → matrix product. Change basis → similar matrices.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🔲</div>
+      <h4>Projection</h4>
+      <p>T²=T ⟹ V=ker(T)⊕im(T). Both ker and im are T-invariant subspaces.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">~</div>
+      <h4>Similar Matrices</h4>
+      <p>Same rank, trace, det, char poly, eigenvalues. Represent same T in different bases.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U2_T03_Eigenvalues.html">Next: Eigenvalues →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'c',2:'b',3:'b',4:'b',5:'b',6:'c',7:'c',8:'d',9:'b',10:'c',11:'a',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'T(x,y)=(2x−y,x+3y) is linear: T(α(x,y)+β(u,v))=αT(x,y)+βT(u,v). Option a: T(0,0)=(1,0)≠(0,0). Option b: T(αx,αy)=(α²xy,αx+αy)≠αT. Option d: not linear (squares).',
+  2:'Rank-Nullity: nullity(T) = dim V − rank(T) = 4 − 2 = 2.',
+  3:'With dim V=dim W=n: rank+nullity=n. If T injective, nullity=0, rank=n=dim W, so T is surjective.',
+  4:'T(p)(x)=xp\'(x). ker T={p: xp\'(x)=0 for all x}. For x≠0: p\'(x)=0, so p is constant. Constant polynomials: T(c)=x·0=0. So ker T = {constant polynomials}, dim(ker T)=1.',
+  5:'Matrix columns: T(e₁)=T(1,0)=(1,3), T(e₂)=T(0,1)=(2,−1). So [T]=[[1,2],[3,−1]] (columns are T(e₁) and T(e₂)).',
+  6:'Rank-Nullity: rank(T)+nullity(T)=dim V=3. (rank=2, nullity=1 for xy-plane projection, sum=3).',
+  7:'T is invertible on finite-dimensional V iff ker(T)={0} (injective). By RNT with dim V=dim W, this forces rank=dim V=dim W, making T surjective too.',
+  8:'T: ℝ⁵→ℝ³. rank(T)≤min(5,3)=3, so T can be surjective (rank=3). But T cannot be injective since dim V=5>dim W=3: nullity=5−rank≥2>0.',
+  9:'B=P⁻¹AP for invertible P means B and A represent the same linear operator in different bases. det(A)=det(B) is necessary but not sufficient for similarity.',
+  10:'For a projection T²=T: V=ker(T)⊕im(T) always holds. T acts as identity on im(T) and zero on ker(T). Neither T=0 nor T=I is forced.',
+  11:'D: Pₙ→Pₙ₋₁. ker D = {constants}, nullity=1. By RNT: rank = (n+1)−1=n. Alternatively: image is all of Pₙ₋₁ which has dim n.',
+  12:'T is uniquely determined by its values on a basis, and this extends linearly to all vectors. Values on a spanning set determine T but may over-specify (not all assignments from a spanning set extend to a linear map).',
+  13:'nullity=0 ⟹ rank=5−0=5. So im(T) has dimension 5, meaning im(T)=ℝ⁵. T is bijective.',
+  14:'Similarity preserves rank, det, trace, characteristic polynomial, eigenvalues, and minimal polynomial. Individual entries, and the specific row/column spaces as sets, change with basis.',
+  15:'ker T = {A: A=Aᵀ} = symmetric matrices. dim(Sym₂)=3. By RNT, nullity=3. (dim M₂ₓ₂=4, rank T=dim(Skew₂)=1, nullity=4−1=3.)'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

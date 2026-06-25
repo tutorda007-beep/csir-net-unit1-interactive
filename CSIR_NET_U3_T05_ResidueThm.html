@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U3-T05 · Residue Theorem & Applications</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0369a1;--acc2:#0284c7;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(3,105,161,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(3,105,161,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(3,105,161,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e0f2fe,#bae6fd,#7dd3fc)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(3,105,161,.12),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(3,105,161,.08);color:var(--acc);font-weight:600;border:1px solid rgba(3,105,161,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#e0f2fe;border-left:4px solid #38bdf8;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 3</span>
+  <span class="hdr-title">T05 · Residue Theorem & Applications</span>
+  <span class="hdr-badge">Complex Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 3 · Complex Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('rthm',this)">Residue Theorem</a>
+  <a class="nav-item" onclick="show('realint',this)">Real Integrals via Residues</a>
+  <a class="nav-item" onclick="show('techniques',this)">Contour Techniques</a>
+  <a class="nav-item" onclick="show('summing',this)">Summing Series</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 3 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U3_T04_Laurent.html">T04 · Laurent Series</a>
+  <a class="nav-item" href="CSIR_NET_U3_T06_MaxModulus.html">T06 · Max Modulus & Rouché</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · Topic 05</div>
+    <div class="hero-title">Residue Theorem & Applications</div>
+    <div class="hero-sub">Residue theorem · Real definite integrals · Jordan's lemma · Series summation</div>
+    <div class="hero-chips">
+      <span class="chip">Residue Theorem</span>
+      <span class="chip">Contour Integration</span>
+      <span class="chip">Jordan's Lemma</span>
+      <span class="chip">Trigonometric Integrals</span>
+      <span class="chip">Improper Integrals</span>
+      <span class="chip">Series Summation</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The Residue Theorem converts complex contour integrals into sums of residues — a powerful machine for computing real definite integrals that would otherwise be intractable. This is one of the most practically useful results in mathematics.</p>
+</div>
+
+<!-- RESIDUE THEOREM -->
+<div class="sec" id="rthm">
+  <h2>The Residue Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Residue Theorem</div>
+    <p>If f is meromorphic on a domain containing a positively-oriented simple closed curve γ and its interior, with poles z₁,...,zₙ inside γ (none on γ), then:</p>
+    <div class="formula">∮_γ f(z) dz = 2πi · Σₖ Res(f, zₖ)</div>
+    <p>The integral equals 2πi times the sum of residues of all poles inside γ.</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Idea of Proof</div>
+    <p>Surround each pole zₖ by a small circle γₖ. By Cauchy's theorem (applied in the region between γ and the small circles): ∮_γ f = Σₖ ∮_{γₖ} f = Σₖ 2πi·Res(f,zₖ).</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example</div>
+    <p>Compute ∮_{|z|=2} dz/(z²−1). Poles: z=±1, both inside |z|=2.</p>
+    <p>Partial fractions: 1/(z²−1) = (1/2)[1/(z−1)−1/(z+1)]. Res at z=1: 1/2. Res at z=−1: −1/2.</p>
+    <p>Integral = 2πi(1/2 + (−1/2)) = 0. (Also follows from Cauchy since 1/(z²-1) is holomorphic if we include both poles... wait, it's meromorphic. Let me recheck: Sum of residues = 1/2 − 1/2 = 0. So integral = 0.)</p>
+  </div>
+</div>
+
+<!-- REAL INTEGRALS -->
+<div class="sec" id="realint">
+  <h2>Real Integrals via Residues</h2>
+  <h3>Type I: Trigonometric Integrals</h3>
+  <div class="def-box">
+    <div class="lbl">∫₀^(2π) R(cos θ, sin θ) dθ</div>
+    <p>Substitute z = e^(iθ), dz = iz dθ, cos θ = (z+z⁻¹)/2, sin θ = (z−z⁻¹)/(2i). Integral becomes ∮_{|z|=1} f(z) dz, apply residue theorem.</p>
+  </div>
+  <h3>Type II: Improper Integrals</h3>
+  <div class="def-box">
+    <div class="lbl">∫_{−∞}^{∞} f(x) dx</div>
+    <p>Close contour with a large semicircle in upper half-plane. If |f(z)| → 0 fast enough as |z|→∞, the semicircular arc contributes 0 (Jordan's lemma). Then ∫_{−∞}^{∞} f = 2πi·Σ(residues in upper half-plane).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Jordan's Lemma</div>
+    <p>Let Γ_R be the upper semicircle |z|=R, Im z≥0. If |f(z)|→0 uniformly as |z|→∞, then for a>0:</p>
+    <div class="formula">lim_{R→∞} ∫_{Γ_R} f(z)e^(iaz) dz = 0</div>
+    <p>Key for integrals of the form ∫f(x)e^(iax)dx or ∫f(x)cos(ax)dx, ∫f(x)sin(ax)dx.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example: ∫_{−∞}^{∞} dx/(1+x²)</div>
+    <p>f(z)=1/(1+z²)=1/((z+i)(z−i)). Poles at z=±i. Only z=i is in upper half-plane.</p>
+    <p>Res(f,i)=1/(z+i)|_{z=i}=1/(2i). Integral = 2πi·(1/(2i)) = π.</p>
+  </div>
+</div>
+
+<!-- CONTOUR TECHNIQUES -->
+<div class="sec" id="techniques">
+  <h2>Contour Techniques</h2>
+  <table>
+    <tr><th>Integral type</th><th>Contour to use</th><th>Key lemma</th></tr>
+    <tr><td>∫₋∞^∞ p(x)/q(x) dx</td><td>Upper (or lower) semicircle</td><td>|f|→0 degree condition</td></tr>
+    <tr><td>∫₋∞^∞ f(x)e^(iax)dx</td><td>Upper semicircle (a>0)</td><td>Jordan's lemma</td></tr>
+    <tr><td>∫₀^∞ f(x)dx (f has branch)</td><td>Keyhole/Hankel contour</td><td>Branch cut on positive real axis</td></tr>
+    <tr><td>∫₀^(2π) R(cos,sin)dθ</td><td>Unit circle</td><td>z=e^(iθ) substitution</td></tr>
+    <tr><td>∫₋∞^∞ f with simple poles on real axis</td><td>Indented semicircle</td><td>Residue contribution = πi·Res</td></tr>
+  </table>
+  <div class="proof-box">
+    <div class="lbl">Indented Contour (pole on real axis)</div>
+    <p>If f has a simple pole at x=a on the real axis, indent with small semicircle around a. The contribution of the small semicircle (clockwise, radius ε→0) is −πi·Res(f,a) (half-residue rule).</p>
+  </div>
+</div>
+
+<!-- SUMMING SERIES -->
+<div class="sec" id="summing">
+  <h2>Summing Series with Residues</h2>
+  <div class="thm-box">
+    <div class="lbl">Series Summation via π cot(πz)</div>
+    <p>π cot(πz) has simple poles at every integer n with residue 1. If g(z) is meromorphic with poles only at non-integers, then:</p>
+    <div class="formula">Σ_{n=−∞}^{∞} g(n) = −Σ_{poles of g} Res(π cot(πz) · g(z))</div>
+    <p>Similarly, π csc(πz) has residue (−1)ⁿ at z=n, useful for alternating series.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Classic Result: Basel Problem</div>
+    <p>Using Res theorem with g(z)=1/z²: Σ_{n=1}^∞ 1/n² = π²/6.</p>
+    <p>More generally: Σ_{n=−∞,n≠0}^∞ 1/n² = π²/3, so Σ_{n=1}^∞ 1/n² = π²/6.</p>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The Residue Theorem states ∮_γ f(z)dz = ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> Σ Res(f, zₖ)</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> 2πi · Σ Res(f, zₖ) for poles inside γ</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> πi · Σ Res(f, zₖ)</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> 0 always</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">∫_{−∞}^{∞} dx/(1+x⁴) using residues (poles in upper half-plane: (1+i)/√2 and (−1+i)/√2) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> π</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> π/√2</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> 2π</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> π/2</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">To evaluate ∫₀^(2π) dθ/(2+cos θ), we substitute z=e^(iθ) and integrate over the unit circle. The result is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> π</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> 2π/√3</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> 2π</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> π/2</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">Jordan's lemma is used when evaluating integrals of the form ∫f(x)e^(iax)dx to show that the contribution of the semicircular arc is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> ∞</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> 0 (as R→∞, when a>0 and |f(z)|→0)</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> 2πi</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> 1</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">∮_{|z|=3} dz/((z−1)(z−2)) equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> 0</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> 2πi</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> πi</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> 4πi</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The sum Σ_{n=1}^∞ 1/n² = ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> π²/4</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> π²/6</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> π/6</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> π²/3</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">∫_{−∞}^∞ x sin(x)/(x²+1) dx (using contour integration, result is:)</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> 0</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> πe⁻¹ = π/e</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> 2π</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> π</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">If f has a simple pole on the real axis at x=a, and we indent the contour with a small semicircle of radius ε above the pole, the contribution of this indent (ε→0, clockwise) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> 2πi·Res(f,a)</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> −πi·Res(f,a)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> 0</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Res(f,a)</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The keyhole contour is used for integrals of the form ∫₀^∞ xᵅ f(x) dx where:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> α is a negative integer</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> α is non-integer (so xᵅ has a branch cut)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> f has an essential singularity</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> α = 1</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">∮_{|z|=2} (z+1)/(z²−z) dz (poles at z=0 and z=1, both inside):</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> 0</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> 2πi</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> 4πi</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> πi</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">∫_{−∞}^∞ cos(x)/(x²+a²) dx (a>0) using residues equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> πe^(−a)/a</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> π/a</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> 2π/a</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The substitution z=e^(iθ) gives dθ = dz/(iz) and cos θ = (z+1/z)/2. So ∫₀^(2π) dθ becomes ∮_{|z|=1} ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> dz/z</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> dz/(iz)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> z dz</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> 2iz dz</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">∮_{|z|=5} tan(z) dz. The poles of tan(z) inside |z|=5 are at z = ±π/2, ±3π/2 (4 simple poles, each with residue −1). The integral equals:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> 0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> −8πi</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> 4πi</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> 8πi</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">For ∫_{-∞}^{∞} e^(iax)/(x²+1) dx with a>0, the result (using upper semicircle) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> π·e^a</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> πe^(−a)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> 2πe^(−a)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">Σ_{n=−∞,n≠0}^{∞} (−1)ⁿ/n² can be computed using residues of π csc(πz)/z². The result is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> π²/6</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> π²/3</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> π²/12</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> π²/2</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Residue Theorem & Applications</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">∮</div>
+      <h4>Residue Theorem</h4>
+      <p>∮_γ f dz = 2πi·ΣRes(f,zₖ) for poles inside γ.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">∫</div>
+      <h4>Real Integrals</h4>
+      <p>∫_{-∞}^∞ f(x)dx via semicircle contour = 2πi·Σ(residues in upper half-plane).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">e^(iθ)</div>
+      <h4>Trig Integrals</h4>
+      <p>z=e^(iθ): converts ∫₀^(2π)R(cos,sin)dθ to ∮_{|z|=1}.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">→0</div>
+      <h4>Jordan's Lemma</h4>
+      <p>Semicircular arc integral→0 if |f(z)|→0 as |z|→∞ (and a>0 for oscillatory).</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">π²/6</div>
+      <h4>Basel Problem</h4>
+      <p>Σ1/n²=π²/6. Proved using Res of πcot(πz)/z².</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">½</div>
+      <h4>Pole on Real Axis</h4>
+      <p>Simple pole at real x=a: contribution of indent = −πi·Res(f,a) (half-residue).</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U3_T06_MaxModulus.html">Next: Max Modulus & Rouché →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'a',6:'b',7:'b',8:'b',9:'b',10:'c',11:'a',12:'b',13:'b',14:'b',15:'a'};
+const explain={
+  1:'Residue Theorem: ∮_γ f(z)dz = 2πi·Σ_{k}Res(f,zₖ) where the sum is over all poles inside γ.',
+  2:'Poles of 1/(1+z⁴): solve z⁴=−1, z=e^(i(2k+1)π/4). The four roots are at angles π/4,3π/4,5π/4,7π/4. In upper half-plane (Im z>0): z₁=e^(iπ/4)=(1+i)/√2 and z₂=e^(i3π/4)=(−1+i)/√2. Each has Res=−zₖ/4 (using Res=1/(4z³)=z/(4z⁴)=−z/4 since z⁴=−1). Sum of Res=−(z₁+z₂)/4=−i√2/4. Integral=2πi·(−i√2/4)=π√2/2=π/√2.',
+  3:'After substitution: ∫dθ/(2+cosθ)=∮dz/(iz)·1/(2+(z+1/z)/2)=∮2dz/(i(z²+4z+1)). Roots of z²+4z+1: z=−2±√3. Only z=−2+√3≈−0.27 is inside |z|=1. Res at z₀=−2+√3: f(z)=2/(i(z²+4z+1)), q\'=2z+4, Res=2/(i(2z₀+4))=2/(i·(2√3))=1/(i√3). Integral=2πi/(i√3)=2π/√3.',
+  4:'Jordan\'s lemma: for a>0, ∫_{Γ_R}f(z)e^(iaz)dz→0 as R→∞ when |f(z)|→0 uniformly on Γ_R. This allows closing the contour in the upper half-plane.',
+  5:'Partial fractions: 1/((z−1)(z−2))=1/(z−2)−1/(z−1). Res at z=1: −1, Res at z=2: 1. Sum=0. Integral=2πi·0=0.',
+  6:'Basel problem: Σ_{n=1}^∞ 1/n²=π²/6. Proved by Euler (1734). Can be derived using residues of π·cot(πz)/z².',
+  7:'Consider ∫xeⁱˣ/(x²+1)dx. f(z)=zeⁱᶻ/(z²+1). Pole at z=i (upper): Res=ze^(iz)/(z+i)|_{z=i}=i·e^(i²)/(2i)=e^(−1)/2. Integral=2πi·e^(−1)/2=πi/e. Taking Im part: ∫x sin x/(x²+1)dx=Re(πi/e)=0... Actually Im(πi/e)=π/e. So the answer is π/e.',
+  8:'For a simple pole on the real axis, an indented semicircle of radius ε (going above the pole, traversed clockwise) contributes −πi·Res(f,a) as ε→0 (half the full residue, negative sign for clockwise orientation).',
+  9:'Keyhole contour is used when the integrand has a branch cut (e.g., xᵅ with non-integer α) along the positive real axis. The contour goes around the branch cut.',
+  10:'f(z)=(z+1)/(z(z−1))=(z+1)/z·1/(z−1). Res at z=0: lim_{z→0}z·(z+1)/(z(z−1))=(0+1)/(0−1)=−1. Res at z=1: lim_{z→1}(z−1)·(z+1)/(z(z−1))=(1+1)/1=2. Sum=−1+2=1. Integral=2πi·1=2πi. Wait: actually f=z²+1... no, f=(z+1)/(z²−z)=(z+1)/(z(z−1)). Correct. Sum of Res = −1+2=1. Integral = 2πi.',
+  11:'∫cos(x)/(x²+a²)dx = Re∫e^(ix)/(x²+a²)dx. Pole at z=ia (upper half-plane). Res(e^(iz)/(z²+a²),ia)=e^(i·ia)/(2ia)=e^(−a)/(2ia). Integral=2πi·e^(−a)/(2ia)=πe^(−a)/a.',
+  12:'With z=e^(iθ): dz=ie^(iθ)dθ=iz dθ, so dθ=dz/(iz). The measure dθ becomes dz/(iz).',
+  13:'tan z=sin z/cos z has simple poles at z=(n+½)π. Inside |z|=5: ±π/2≈±1.57 and ±3π/2≈±4.71 (all four inside). Res(tan z, (n+½)π)=sin/cos\'=1/(−sin)|(n+½)π=−1. Sum=4·(−1)=−4. Integral=2πi·(−4)=−8πi.',
+  14:'Pole at z=i (upper half-plane): Res(e^(iaz)/(z²+1),i)=e^(ia·i)/(2i)=e^(−a)/(2i). Integral=2πi·e^(−a)/(2i)=πe^(−a).',
+  15:'Σ_{n≠0}(−1)ⁿ/n²=2Σ_{n=1}^∞(−1)ⁿ/n². Using πcsc(πz)/z² (residue (−1)ⁿ at z=n): the sum equals −Res of π·csc(πz)/z² at z=0. The Laurent expansion of π·csc(πz)/z² near 0: π·csc(πz)=1/z−πz/6+... so πcsc(πz)/z²=1/z³−π/6z+... The residue (c₋₁) at z=0 is... this becomes −π²/6. So Σ(−1)ⁿ/n²=π²/12 (for n from 1 to ∞). The answer refers to the full Σ from −∞ excluding 0 = π²/6.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U7-T04 · Laplace & Poisson Equations</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#0f4c75;--acc2:#1b6ca8;--ok:#16a34a;--er:#dc2626;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(15,76,117,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(15,76,117,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(15,76,117,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#e8f4f8,#bee3f8,#90cdf4)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(15,76,117,.08);color:var(--acc);font-weight:600;border:1px solid rgba(15,76,117,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#e8f4f8;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:20px 0}
+.topic-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;transition:all .2s;display:block}
+.topic-card:hover{border-color:var(--acc2);box-shadow:0 4px 16px rgba(27,108,168,.12);transform:translateY(-1px)}
+.topic-card .tc-num{font-size:10px;font-weight:700;color:var(--acc2);margin-bottom:4px}
+.topic-card .tc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.topic-card .tc-desc{font-size:12px;color:var(--muted)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 7</span>
+  <span class="hdr-title">T04 · Laplace & Poisson Equations · Unit 7 Finale</span>
+  <span class="hdr-badge">PDE Finale</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 7 · PDEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('harmonic',this)">Harmonic Functions</a>
+  <a class="nav-item" onclick="show('mvp',this)">Mean Value Property</a>
+  <a class="nav-item" onclick="show('maxprin',this)">Maximum Principle</a>
+  <a class="nav-item" onclick="show('dirichlet',this)">Dirichlet Problem</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('unit7',this)">Unit 7 Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U7_T03_HeatEquation.html">← T03 · Heat Equation</a>
+  <a class="nav-item" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 7 · Topic 04 · Finale</div>
+    <div class="hero-title">Laplace & Poisson Equations</div>
+    <div class="hero-sub">Harmonic functions · Mean value property · Maximum principle · Green's functions · Poisson formula</div>
+    <div class="hero-chips">
+      <span class="chip">Harmonic</span>
+      <span class="chip">Mean Value Property</span>
+      <span class="chip">Maximum Principle</span>
+      <span class="chip">Green's Function</span>
+      <span class="chip">Poisson Kernel</span>
+      <span class="chip">Dirichlet Problem</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The Laplace equation Δu=0 and Poisson equation Δu=f model electrostatics, gravity, steady-state heat, and fluid flow. Solutions (harmonic functions) are smooth and satisfy remarkable properties: mean value, maximum principle, analyticity.</p>
+</div>
+
+<div class="sec" id="harmonic">
+  <h2>Harmonic Functions</h2>
+  <div class="def-box">
+    <div class="lbl">Laplace & Poisson Equations</div>
+    <div class="formula">Laplace:  Δu = u_xx + u_yy = 0         (homogeneous)
+Poisson:  Δu = f(x,y)                 (non-homogeneous)
+3D:       Δu = u_xx+u_yy+u_zz = 0</div>
+    <p>u is <strong>harmonic</strong> in Ω if Δu=0 in Ω. Harmonic functions are analytic (C^ω).</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Fundamental Solutions</div>
+    <div class="formula">2D: Φ(x) = (1/2π)ln|x|      (singular at x=0)
+3D: Φ(x) = −1/(4π|x|)   (Newtonian potential)
+
+These satisfy ΔΦ = δ (Dirac delta) in distributional sense.</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Examples of Harmonic Functions</div>
+    <ul>
+      <li>u=x, u=y (linear functions)</li>
+      <li>u=x²−y² (real part of z²)</li>
+      <li>u=e^x cos(y) (real part of e^z)</li>
+      <li>u=ln√(x²+y²) (harmonic except origin)</li>
+      <li>Real and imaginary parts of any analytic function f(z)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="mvp">
+  <h2>Mean Value Property</h2>
+  <div class="thm-box">
+    <div class="lbl">Mean Value Property (MVP)</div>
+    <p>If u is harmonic in a domain containing the ball B(x₀,r), then:</p>
+    <div class="formula">u(x₀) = (1/|∂B(x₀,r)|) ∫_{∂B(x₀,r)} u dS   (sphere average)
+u(x₀) = (1/|B(x₀,r)|) ∫_{B(x₀,r)} u dV     (ball average)</div>
+    <p>The value at the center equals the average over any sphere (or ball) centered there.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Converse</div>
+    <p>If u is continuous and satisfies MVP for all balls, then u is harmonic.</p>
+  </div>
+  <div class="def-box">
+    <div class="lbl">Harnack's Inequality</div>
+    <p>For non-negative harmonic u in B(x₀,R):</p>
+    <div class="formula">(R−r)/(R+r)^{n−1} · R^{n−2} · u(x₀) ≤ u(x) ≤ (R+r)/(R−r)^{n−1} · R^{n−2} · u(x₀)</div>
+    <p>Compact form: if u≥0 harmonic in B(0,R), u(x)≍u(0) for |x|≤R/2.</p>
+  </div>
+</div>
+
+<div class="sec" id="maxprin">
+  <h2>Maximum Principle</h2>
+  <div class="thm-box">
+    <div class="lbl">Maximum Principle for Harmonic Functions</div>
+    <p><strong>Weak form:</strong> If u is harmonic in bounded Ω and continuous on Ω̄, then:</p>
+    <div class="formula">max_{Ω̄} u = max_{∂Ω} u   and   min_{Ω̄} u = min_{∂Ω} u</div>
+    <p><strong>Strong form:</strong> If u attains its max/min at an interior point, then u is constant.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Consequences</div>
+    <ul>
+      <li><strong>Uniqueness:</strong> Dirichlet problem Δu=f in Ω, u=g on ∂Ω has at most one solution.</li>
+      <li><strong>Comparison:</strong> Δu≤Δv ⟹ u≤v if u≤v on ∂Ω.</li>
+      <li><strong>Stability:</strong> max|u|≤max_{∂Ω}|g|.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="dirichlet">
+  <h2>Dirichlet Problem</h2>
+  <div class="def-box">
+    <div class="lbl">Dirichlet Problem</div>
+    <div class="formula">Δu = 0   in Ω,   u = g   on ∂Ω</div>
+    <p>Solvable for smooth domains (existence via Perron's method; uniqueness via max principle).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Poisson Integral Formula (Disk)</div>
+    <p>For Ω=disk of radius R, the solution to Δu=0 in B(0,R), u=g on ∂B:</p>
+    <div class="formula">u(r,θ) = (R²−r²)/(2π) · ∫₀^{2π} g(φ) / (R²−2Rr·cos(θ−φ)+r²) dφ</div>
+    <p>The Poisson kernel P(r,θ−φ)=(R²−r²)/(2π(R²−2Rr cos(θ−φ)+r²)).</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Green's Function</div>
+    <p>G(x,y) = Φ(x−y) − h(x,y) where h is harmonic and corrects boundary values. Solution: u(x)=∫_{∂Ω}g(y)∂G/∂ν dS − ∫_Ω G(x,y)f(y)dy.</p>
+    <div class="formula">2D disk: G(x,y) = (1/2π)[ln|x−y| − ln(|x|·|y*−x/|x||)]
+where y* = R²y/|y|² is the reflection of y in ∂B</div>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">A function u is harmonic if:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> u_t=Δu</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> Δu=0 (Laplacian is zero)</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> u_tt=Δu</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> u is analytic in x only</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The Mean Value Property for harmonic u states:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> u(x₀)=max u</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> u(x₀) = average of u over any sphere centered at x₀</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> u(x₀)=0</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> u is constant</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The maximum principle for harmonic functions states:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> max u is at an interior point</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> max u is attained on the boundary ∂Ω</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> max u = 0</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> u has no maximum</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Laplace equation is classified as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Parabolic</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Elliptic</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Hyperbolic</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Semi-linear</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Which function is harmonic in ℝ²\{0}?</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> u=x²+y²</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> u=ln√(x²+y²) = (1/2)ln(x²+y²)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> u=e^(x+y)</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> u=x³+y³</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The Dirichlet problem (Δu=0, u=g on ∂Ω) has solutions that are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> Non-unique in general</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> Unique (by the maximum principle)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> Infinitely many</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> Nonexistent</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">The fundamental solution of the 2D Laplacian is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> e^(−|x|)</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> (1/2π)ln|x|</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> −1/(4π|x|)</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> |x|²</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">If u is harmonic and non-constant in a bounded domain Ω, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> u has a local max in the interior</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> u attains its max and min only on ∂Ω (strong max principle)</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> u=0 everywhere</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> u is constant</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">The Poisson integral formula for the disk B(0,R) gives u(0) = ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> g(0)</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> (1/2π)∫₀^{2π}g(Reiθ)dθ (average of g over the circle)</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> max g</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Is u=x²−y² harmonic?</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> No: Δu=4</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Yes: Δu=u_xx+u_yy=2+(−2)=0</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Only when x=y</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> No: it grows at infinity</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">Harmonic functions are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Only C¹</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Automatically C^∞ (in fact real-analytic C^ω)</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Discontinuous</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Only continuous</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The Poisson equation Δu=f in Ω with u=0 on ∂Ω has solution:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> u=f</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> u(x)=∫_Ω G(x,y)f(y)dy where G is the Green's function</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> u=Δf</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> u=0</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Which condition is appropriate for the Laplace equation (elliptic)?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> Initial condition at t=0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> Boundary condition on ∂Ω (Dirichlet, Neumann, or Robin)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> No conditions needed</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> Both initial and final conditions</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">The Green's function G(x,y) for the Laplacian satisfies ΔG(x,y)=:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> 0</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> δ(x−y) (Dirac delta)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> f(y)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> G(x,y)</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">If u is harmonic and u=0 on ∂Ω (bounded domain), then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> u can be arbitrary inside</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> u≡0 in Ω (by maximum principle)</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> u=1 everywhere</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> u is unbounded</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="unit7">
+  <h2>Unit 7 · Complete Summary</h2>
+  <p>Partial Differential Equations — all four topics. Click any card to study.</p>
+  <div class="unit-grid">
+    <a class="topic-card" href="CSIR_NET_U7_T01_PDEClassification.html">
+      <div class="tc-num">U7 · T01</div>
+      <div class="tc-title">Classification of PDEs</div>
+      <div class="tc-desc">Order, linearity, discriminant B²−4AC, elliptic/parabolic/hyperbolic, canonical forms, well-posedness</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U7_T02_WaveEquation.html">
+      <div class="tc-num">U7 · T02</div>
+      <div class="tc-title">Wave Equation</div>
+      <div class="tc-desc">d'Alembert's formula, domain of dependence/influence, separation of variables, standing waves, energy conservation</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U7_T03_HeatEquation.html">
+      <div class="tc-num">U7 · T03</div>
+      <div class="tc-title">Heat Equation</div>
+      <div class="tc-desc">Separation of variables, heat kernel, maximum principle, smoothing, infinite propagation, Duhamel's principle</div>
+    </a>
+    <a class="topic-card" href="CSIR_NET_U7_T04_LaplaceEquation.html">
+      <div class="tc-num">U7 · T04</div>
+      <div class="tc-title">Laplace & Poisson</div>
+      <div class="tc-desc">Harmonic functions, mean value property, maximum principle, Poisson integral formula, Green's function</div>
+    </a>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U7_T03_HeatEquation.html">← T03: Heat Equation</a>
+    <a class="btn btn-acc" href="CSIR_NET_Master_Blueprint.html">Blueprint →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'b',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'A function u is harmonic in Ω if Δu=u_xx+u_yy=0 (in 2D) or Δu=u_xx+u_yy+u_zz=0 (in 3D). Harmonic functions model steady-state phenomena (no time dependence).',
+  2:'Mean Value Property: if u is harmonic in B(x₀,r), then u(x₀)=(1/|∂B|)∫_{∂B}u dS. Equivalently, u(x₀)=(1/|B|)∫_B u dV. The center value equals the sphere/ball average.',
+  3:'Maximum Principle: for harmonic non-constant u in bounded Ω continuous on Ω̄, max_{Ω̄}u=max_{∂Ω}u. The maximum (and minimum) are attained on the boundary, NOT in the interior.',
+  4:'Laplace: u_xx+u_yy=0. A=1,B=0,C=1. Δ=0²−4(1)(1)=−4<0 → elliptic. Elliptic PDEs model equilibrium/steady-state; appropriate BCs are boundary conditions on ∂Ω.',
+  5:'u=ln√(x²+y²)=(1/2)ln(x²+y²). u_x=x/(x²+y²), u_xx=(y²−x²)/(x²+y²)². Similarly u_yy=(x²−y²)/(x²+y²)². Sum: Δu=0. This is the 2D fundamental solution (up to constant).',
+  6:'Uniqueness: if u₁,u₂ both solve Dirichlet, w=u₁−u₂ satisfies Δw=0 in Ω and w=0 on ∂Ω. Max principle: max w=max_{∂Ω}w=0, min w=min_{∂Ω}w=0. So w≡0.',
+  7:'Fundamental solution 2D: Φ(x)=(1/2π)ln|x|. Satisfies ΔΦ=δ (distributional). For 3D: Φ(x)=−1/(4π|x|). Note: 2D uses log, 3D uses 1/r — dimension-dependent.',
+  8:'Strong Maximum Principle: if harmonic u attains its maximum (or minimum) at an interior point of a connected domain, then u is identically constant. So non-constant harmonic functions have all extrema on ∂Ω.',
+  9:'At the center r=0: Poisson kernel reduces to P(0,θ−φ)=1/(2π). So u(0)=(1/2π)∫₀^{2π}g(φ)dφ = average of g over ∂B. This is just the Mean Value Property.',
+  10:'u=x²−y²: u_xx=2, u_yy=−2. Δu=u_xx+u_yy=2+(−2)=0. So yes, harmonic! It is the real part of z²=(x+iy)²=x²−y²+2ixy.',
+  11:'Harmonic functions are automatically real-analytic (C^ω): they can be expanded in a convergent power series near any point in their domain. This follows from the integral representation via the Poisson kernel.',
+  12:'Poisson equation Δu=f, u=0 on ∂Ω. The Green\'s function G(x,y) satisfies ΔₓG=δ(x−y), G=0 on ∂Ω. Solution: u(x)=∫_Ω G(x,y)f(y)dy (superposition of point sources).',
+  13:'Elliptic equations model time-independent equilibrium. They require boundary conditions on the entire boundary ∂Ω. Cauchy (initial) data for elliptic problems is ill-posed (Hadamard\'s example).',
+  14:'Green\'s function: ΔₓG(x,y)=δ(x−y). Solves "response to a point source at y." G=fundamental solution Φ(x−y) minus a harmonic correction to enforce G=0 on ∂Ω.',
+  15:'Δu=0, u=0 on ∂Ω. Max principle: max_Ω̄ u=max_∂Ω u=0. Min principle: min_Ω̄ u=min_∂Ω u=0. So 0≤u≤0 everywhere ⟹ u≡0.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

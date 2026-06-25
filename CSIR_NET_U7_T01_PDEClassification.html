@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U7-T01 · Classification of PDEs</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#7c2d12;--acc2:#c2410c;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(124,45,18,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(124,45,18,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(124,45,18,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;background:linear-gradient(135deg,#fff7ed,#ffedd5,#fed7aa)}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(124,45,18,.08);color:var(--acc);font-weight:600;border:1px solid rgba(124,45,18,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#fff7ed;border-left:4px solid var(--acc2);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 7</span>
+  <span class="hdr-title">T01 · Classification of PDEs</span>
+  <span class="hdr-badge">PDE</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 7 · PDEs</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('order',this)">Order & Linearity</a>
+  <a class="nav-item" onclick="show('classif',this)">2nd-Order Classification</a>
+  <a class="nav-item" onclick="show('canonical',this)">Canonical Forms</a>
+  <a class="nav-item" onclick="show('wellposed',this)">Well-Posedness</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Navigation</div>
+  <a class="nav-item" href="CSIR_NET_U6_T06_LaplacePDE.html">← U6 · Laplace Transform</a>
+  <a class="nav-item" href="CSIR_NET_U7_T02_WaveEquation.html">T02 · Wave Equation →</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 7 · Topic 01</div>
+    <div class="hero-title">Classification of PDEs</div>
+    <div class="hero-sub">Order, linearity, 2nd-order type · Elliptic · Parabolic · Hyperbolic · Canonical forms</div>
+    <div class="hero-chips">
+      <span class="chip">Elliptic</span>
+      <span class="chip">Parabolic</span>
+      <span class="chip">Hyperbolic</span>
+      <span class="chip">Discriminant B²−4AC</span>
+      <span class="chip">Canonical Form</span>
+      <span class="chip">Well-Posedness</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>A PDE involves a function of several variables and its partial derivatives. The classification of second-order PDEs (elliptic/parabolic/hyperbolic) determines which initial/boundary conditions are appropriate and what qualitative behavior solutions exhibit.</p>
+</div>
+
+<div class="sec" id="order">
+  <h2>Order & Linearity</h2>
+  <div class="def-box">
+    <div class="lbl">General PDE</div>
+    <p>F(x, y, u, u_x, u_y, u_xx, u_xy, u_yy, …) = 0. The <strong>order</strong> is the highest partial derivative.</p>
+  </div>
+  <table>
+    <tr><th>Type</th><th>Definition</th><th>Examples</th></tr>
+    <tr><td>Linear</td><td>Linear in u and all its derivatives (coefficients may depend on x,y)</td><td>u_xx+u_yy=0 (Laplace), u_t=ku_xx (Heat)</td></tr>
+    <tr><td>Semi-linear</td><td>Linear in highest-order derivatives; nonlinear lower terms</td><td>u_xx+u_yy=f(x,y,u)</td></tr>
+    <tr><td>Quasi-linear</td><td>Linear in highest-order derivatives; coefficients depend on lower-order terms</td><td>uu_x+u_y=0</td></tr>
+    <tr><td>Fully nonlinear</td><td>Nonlinear in highest-order derivatives</td><td>u_x²+u_y²=1 (Eikonal)</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="classif">
+  <h2>Second-Order Classification</h2>
+  <div class="def-box">
+    <div class="lbl">General 2nd-Order PDE (2 variables)</div>
+    <div class="formula">Au_xx + Bu_xy + Cu_yy + Du_x + Eu_y + Fu = G</div>
+    <p>where A, B, C may depend on x, y (quasi-linear classification done pointwise).</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Discriminant Rule</div>
+    <div class="formula">Δ = B² − 4AC
+
+Δ < 0  ⟹  Elliptic   (e.g., Laplace equation)
+Δ = 0  ⟹  Parabolic  (e.g., Heat equation)
+Δ > 0  ⟹  Hyperbolic (e.g., Wave equation)</div>
+  </div>
+  <table>
+    <tr><th>Type</th><th>Discriminant</th><th>Prototype</th><th>Physical Meaning</th></tr>
+    <tr><td>Elliptic</td><td>B²−4AC &lt; 0</td><td>u_xx+u_yy=0 (Laplace)</td><td>Steady-state, equilibrium</td></tr>
+    <tr><td>Parabolic</td><td>B²−4AC = 0</td><td>u_t=u_xx (Heat)</td><td>Diffusion, irreversible</td></tr>
+    <tr><td>Hyperbolic</td><td>B²−4AC &gt; 0</td><td>u_tt=c²u_xx (Wave)</td><td>Wave propagation, reversible</td></tr>
+  </table>
+  <div class="proof-box">
+    <div class="lbl">Examples</div>
+    <ul>
+      <li>u_xx+u_yy=0: A=1,B=0,C=1 ⟹ Δ=0−4=−4 &lt;0 → <strong>Elliptic</strong></li>
+      <li>u_t=u_xx: A=1,B=0,C=0 ⟹ Δ=0 → <strong>Parabolic</strong></li>
+      <li>u_tt=u_xx: A=1,B=0,C=−1 ⟹ Δ=0+4=4>0 → <strong>Hyperbolic</strong></li>
+      <li>u_xx+u_yy+u_zz=0 (3D Laplace): elliptic</li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec" id="canonical">
+  <h2>Canonical Forms</h2>
+  <div class="def-box">
+    <div class="lbl">Change of Variables to Canonical Form</div>
+    <p>New coordinates ξ=ξ(x,y), η=η(x,y) chosen so that the leading-order part simplifies.</p>
+  </div>
+  <table>
+    <tr><th>Type</th><th>Canonical Form</th><th>Note</th></tr>
+    <tr><td>Elliptic</td><td>u_ξξ+u_ηη = lower order</td><td>ξ,η are complex conjugate characteristics</td></tr>
+    <tr><td>Parabolic</td><td>u_ξξ = lower order</td><td>One characteristic family</td></tr>
+    <tr><td>Hyperbolic</td><td>u_ξη = lower order (first canonical form)</td><td>Two real characteristic families</td></tr>
+    <tr><td>Hyperbolic</td><td>u_αα−u_ββ = lower order (second canonical form)</td><td>α=ξ+η, β=ξ−η</td></tr>
+  </table>
+  <div class="def-box">
+    <div class="lbl">Characteristics</div>
+    <p>Characteristic curves satisfy A(dy)²−B(dx)(dy)+C(dx)²=0. For hyperbolic: two real families; parabolic: one (repeated); elliptic: none (complex).</p>
+    <div class="formula">dy/dx = [B ± √(B²−4AC)] / (2A)</div>
+  </div>
+</div>
+
+<div class="sec" id="wellposed">
+  <h2>Well-Posedness (Hadamard)</h2>
+  <div class="thm-box">
+    <div class="lbl">Hadamard Well-Posedness</div>
+    <p>A problem is <strong>well-posed</strong> if:</p>
+    <ol>
+      <li><strong>Existence:</strong> a solution exists.</li>
+      <li><strong>Uniqueness:</strong> the solution is unique.</li>
+      <li><strong>Stability:</strong> the solution depends continuously on data.</li>
+    </ol>
+  </div>
+  <table>
+    <tr><th>PDE Type</th><th>Appropriate Conditions</th><th>Ill-posed if…</th></tr>
+    <tr><td>Elliptic</td><td>Boundary conditions (Dirichlet, Neumann, Robin) on closed domain</td><td>Initial conditions prescribed</td></tr>
+    <tr><td>Parabolic</td><td>Initial condition + boundary conditions</td><td>Backward heat equation (ill-posed)</td></tr>
+    <tr><td>Hyperbolic</td><td>Initial conditions (Cauchy problem), + BCs</td><td>Over/under-determined BCs</td></tr>
+  </table>
+  <div class="def-box">
+    <div class="lbl">Hadamard's Example (Ill-posed Elliptic Cauchy Problem)</div>
+    <p>Laplace equation Δu=0 with u(x,0)=0, u_y(x,0)=sin(nx)/n. Solution: u=sin(nx)sinh(ny)/n². For large n: data→0 but solution grows exponentially → NOT stable → ill-posed.</p>
+  </div>
+</div>
+
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The discriminant for the 2nd-order PDE Au_xx+Bu_xy+Cu_yy+…=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> B²+4AC</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> B²−4AC</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> 4AC−B²</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> AC−B²</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">The heat equation u_t = ku_xx is classified as:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> Elliptic</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> Parabolic</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> Hyperbolic</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> Nonlinear</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">The wave equation u_tt = c²u_xx has discriminant:</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 0</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> −4c²</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> 4c²</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> −4</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">For B²−4AC < 0, the PDE is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> Hyperbolic</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> Elliptic</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> Parabolic</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> Linear</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">Laplace's equation u_xx+u_yy=0 is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> Parabolic everywhere</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> Elliptic everywhere</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> Hyperbolic everywhere</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> Type depends on region</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">The canonical form of a hyperbolic PDE is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> u_ξξ+u_ηη = lower order</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> u_ξη = lower order</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> u_ξξ = lower order</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> u_ξ = lower order</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">Well-posedness (Hadamard) requires:</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> Only existence of a solution</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> Existence, uniqueness, and continuous dependence on data</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> Uniqueness only</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> Differentiability of the solution</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The PDE u_xx+2u_xy+u_yy=0 (A=1,B=2,C=1) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Elliptic</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Parabolic</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Hyperbolic</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Mixed type</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">For an elliptic PDE, appropriate conditions are:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> Initial conditions (Cauchy data)</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> Boundary conditions on the closed domain</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> No conditions needed</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> Initial + periodic conditions</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Characteristics of a hyperbolic PDE satisfy:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> A single complex characteristic family</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Two distinct real characteristic families</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> No real characteristics</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> One repeated real characteristic</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">The Tricomi equation u_xx + xu_yy = 0 (A=1, B=0, C=x) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> Elliptic everywhere</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Hyperbolic for x < 0, parabolic at x=0, elliptic for x > 0</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> Parabolic everywhere</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> Hyperbolic everywhere</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">The backward heat equation u_t = −u_xx (initial condition at t=T, solve for t < T) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> Well-posed</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> Ill-posed (fails continuous dependence)</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> Only non-unique</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> Hyperbolic</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">Which ODE/PDE is quasi-linear but NOT linear?</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> u_xx+u_yy=0</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> uu_x+u_y=0</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> u_t=ku_xx</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> u_tt=c²u_xx</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">For the PDE u_xx − 3u_xy + 2u_yy = 0 (A=1,B=−3,C=2), classify:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> Elliptic (Δ=9−8=1 &lt; 0 — false)</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Hyperbolic (Δ=9−8=1 > 0)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Parabolic (Δ=0)</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> Type undefined</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">A parabolic PDE has:</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> Two distinct real characteristic families</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> One (repeated) real characteristic family</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> No real characteristics</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> Three characteristic families</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="summary-grid">
+    <div class="sum-card"><h4>Discriminant</h4><p>Δ=B²−4AC. Δ&lt;0: elliptic; Δ=0: parabolic; Δ&gt;0: hyperbolic.</p></div>
+    <div class="sum-card"><h4>Elliptic</h4><p>Laplace u_xx+u_yy=0. Steady-state. Needs BCs. No real characteristics.</p></div>
+    <div class="sum-card"><h4>Parabolic</h4><p>Heat u_t=ku_xx. Diffusion. ICs+BCs. One characteristic family.</p></div>
+    <div class="sum-card"><h4>Hyperbolic</h4><p>Wave u_tt=c²u_xx. Propagation. Cauchy ICs. Two real characteristic families.</p></div>
+    <div class="sum-card"><h4>Canonical Forms</h4><p>Transforms to u_ξξ+u_ηη (elliptic), u_ξξ (parabolic), u_ξη (hyperbolic).</p></div>
+    <div class="sum-card"><h4>Well-Posedness</h4><p>Existence + Uniqueness + Continuous dependence. Backward heat = ill-posed.</p></div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-out" href="CSIR_NET_U6_T06_LaplacePDE.html">← U6: Laplace Transform</a>
+    <a class="btn btn-acc" href="CSIR_NET_U7_T02_WaveEquation.html">T02: Wave Equation →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'b',11:'b',12:'b',13:'b',14:'b',15:'b'};
+const explain={
+  1:'The discriminant is Δ=B²−4AC, analogous to the discriminant of a quadratic. Δ<0: elliptic; Δ=0: parabolic; Δ>0: hyperbolic.',
+  2:'Heat equation u_t=ku_xx: write as A=k (coefficient of u_xx in t-x plane), B=0, C=0. Δ=0²−4(k)(0)=0 → parabolic.',
+  3:'Wave equation u_tt=c²u_xx: treat as Au_tt+Bu_tx+Cu_xx=0, so u_tt−c²u_xx=0. A=1,B=0,C=−c². Δ=0²−4(1)(−c²)=4c²>0 → hyperbolic.',
+  4:'B²−4AC<0 → Elliptic. The Laplace equation u_xx+u_yy=0 is the prototype: A=1,B=0,C=1 gives Δ=0−4=−4<0.',
+  5:'u_xx+u_yy=0: A=1,B=0,C=1. Δ=0−4(1)(1)=−4<0 everywhere. So the Laplace equation is elliptic everywhere (coefficients are constant).',
+  6:'Hyperbolic PDEs have two real characteristic families ξ=const and η=const. In these coordinates the PDE reduces to u_ξη=lower-order terms (first canonical form). Alternatively u_αα−u_ββ=lower order (second canonical form).',
+  7:'Hadamard\'s three conditions: (1) Existence: at least one solution, (2) Uniqueness: at most one, (3) Stability/continuous dependence: small changes in data cause small changes in solution. Missing any one means ill-posed.',
+  8:'A=1,B=2,C=1: Δ=4−4=0 → parabolic. Note (u_x+u_y)²=u_xx+2u_xy+u_yy, so this factors as a perfect square — one characteristic family (x−y=const).',
+  9:'Elliptic PDEs (like Laplace/Poisson) model equilibrium states. Appropriate conditions are boundary conditions on the boundary of the domain (Dirichlet, Neumann, or Robin). Initial conditions lead to ill-posedness (Hadamard\'s example).',
+  10:'Hyperbolic PDEs have two distinct real characteristic families (since Δ>0). These carry information at finite speed. Parabolic: one (repeated) real family. Elliptic: no real characteristics.',
+  11:'Tricomi: A=1,B=0,C=x. Δ=0²−4(1)(x)=−4x. When x>0: Δ<0 → elliptic; x=0: Δ=0 → parabolic; x<0: Δ>0 → hyperbolic. Type changes across x=0 (the sonic line in transonic flow).',
+  12:'Backward heat equation is ill-posed: solutions are unique but do NOT depend continuously on initial data. High-frequency perturbations e^(inx) grow like e^(n²t) backward in time, violating stability.',
+  13:'uu_x+u_y=0 is quasi-linear: the highest derivatives (u_x,u_y) appear linearly, but the coefficient of u_x is u itself (a function of u, not just x,y). Contrast with linear u_x+u_y=0 where all coefficients are functions of x,y only.',
+  14:'A=1,B=−3,C=2: Δ=(−3)²−4(1)(2)=9−8=1>0 → hyperbolic. Characteristic equations: dy/dx=[3±1]/2, giving dy/dx=2 and dy/dx=1. Characteristics: y=2x+const and y=x+const.',
+  15:'Parabolic: Δ=B²−4AC=0. The discriminant is zero meaning the characteristic equation (A dy²−B dx dy+C dx²=0) has a repeated root → one real characteristic family. Prototype: heat equation (characteristics are t=const lines).'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>

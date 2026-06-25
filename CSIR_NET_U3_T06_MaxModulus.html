@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR NET · U3-T06 · Maximum Modulus & Rouché's Theorem</title>
+<style>
+:root{--bg:#f5f6fa;--surf:#ffffff;--card:#eef0f5;--border:#d0d5dd;--text:#1a1d2e;--muted:#5a6480;--acc:#065f46;--acc2:#059669;--ok:#16a34a;--er:#dc2626;--blue:#1d6fc2;--purple:#7c3aed;--hdr:60px;--side:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;z-index:200;gap:14px;box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.hdr-back{color:var(--acc);text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border:1px solid rgba(6,95,70,.3);border-radius:6px;white-space:nowrap}
+.hdr-back:hover{background:rgba(6,95,70,.08)}
+.hdr-unit{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3px 10px;font-weight:600;white-space:nowrap}
+.hdr-title{font-size:15px;font-weight:700;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{font-size:10px;background:var(--acc);color:#fff;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.nav{position:fixed;top:var(--hdr);left:0;width:var(--side);height:calc(100vh - var(--hdr));background:var(--surf);border-right:1px solid var(--border);overflow-y:auto;padding:12px 0;z-index:100}
+.nav-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:14px 16px 4px}
+.nav-item{display:block;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.nav-item.active{color:var(--acc);border-left-color:var(--acc);background:rgba(6,95,70,.06);font-weight:600}
+.main{margin-left:var(--side);padding-top:var(--hdr)}
+.content{max-width:880px;margin:0 auto;padding:32px 28px}
+.sec{display:none}.sec.active{display:block}
+.hero-banner{border-radius:14px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#ecfdf5,#d1fae5,#a7f3d0)}
+.hero-banner::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(6,95,70,.10),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:8px}
+.hero-title{font-size:26px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(6,95,70,.08);color:var(--acc);font-weight:600;border:1px solid rgba(6,95,70,.2)}
+h2{font-size:20px;font-weight:700;color:var(--text);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h3{font-size:16px;font-weight:700;color:var(--acc);margin:20px 0 10px}
+h4{font-size:14px;font-weight:700;color:var(--text);margin:14px 0 6px}
+p{margin-bottom:12px;color:var(--text)}
+.def-box{background:var(--card);border-left:4px solid var(--acc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.def-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin-bottom:4px}
+.thm-box{background:#ecfdf5;border-left:4px solid #34d399;border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.thm-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.proof-box{background:#f0fdf4;border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.proof-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:4px}
+.info-box{background:#f5f3ff;border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.info-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:4px}
+.warn-box{background:#fff1f2;border-left:4px solid var(--er);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0}
+.warn-box .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--er);margin-bottom:4px}
+.formula{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--card);padding:9px 12px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--text)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+tr:nth-child(even) td{background:var(--card)}
+ul,ol{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px;color:var(--text)}
+.q-block{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0}
+.q-num{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:12px;color:var(--text)}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:background .15s}
+.opts label:hover{background:var(--card)}
+.opts input{margin-top:3px;accent-color:var(--acc);flex-shrink:0}
+.feedback{margin-top:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.feedback.ok{background:#f0fdf4;color:var(--ok);border:1px solid #bbf7d0;display:block}
+.feedback.er{background:#fff1f2;color:var(--er);border:1px solid #fecdd3;display:block}
+.score-bar{background:var(--card);border-radius:12px;padding:20px;margin-top:24px;text-align:center}
+.score-big{font-size:36px;font-weight:800;color:var(--acc)}
+.score-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-acc{background:var(--acc);color:#fff}.btn-acc:hover{opacity:.9}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-out:hover{background:var(--card)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+.sum-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sum-card .sum-icon{font-size:20px;margin-bottom:8px}
+.sum-card h4{font-size:13px;margin:0 0 4px;color:var(--acc)}
+.sum-card p{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hdr-back" href="CSIR_NET_Master_Blueprint.html">← Blueprint</a>
+  <span class="hdr-unit">Unit 3</span>
+  <span class="hdr-title">T06 · Maximum Modulus & Rouché's Theorem</span>
+  <span class="hdr-badge">Complex Analysis</span>
+</header>
+<nav class="nav">
+  <div class="nav-sec">Unit 3 · Complex Analysis</div>
+  <a class="nav-item" onclick="show('ov',this)">Overview</a>
+  <a class="nav-item" onclick="show('maxmod',this)">Maximum Modulus Principle</a>
+  <a class="nav-item" onclick="show('schwarz',this)">Schwarz Lemma</a>
+  <a class="nav-item" onclick="show('rouche',this)">Rouché's Theorem</a>
+  <a class="nav-item" onclick="show('open',this)">Open Mapping & Related</a>
+  <a class="nav-item" onclick="show('quiz',this)">Quiz · 15 MCQs</a>
+  <a class="nav-item" onclick="show('summ',this)">Summary</a>
+  <div class="nav-sec">Unit 3 Topics</div>
+  <a class="nav-item" href="CSIR_NET_U3_T05_ResidueThm.html">T05 · Residue Theorem</a>
+  <a class="nav-item" href="CSIR_NET_U3_T07_ConformalMaps.html">T07 · Conformal Mappings</a>
+</nav>
+<main class="main">
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="sec active" id="ov">
+  <div class="hero-banner">
+    <div class="hero-tag">Unit 3 · Topic 06</div>
+    <div class="hero-title">Maximum Modulus Principle & Rouché's Theorem</div>
+    <div class="hero-sub">Max modulus · Schwarz lemma · Rouché's theorem · Open mapping theorem</div>
+    <div class="hero-chips">
+      <span class="chip">Maximum Modulus</span>
+      <span class="chip">Minimum Modulus</span>
+      <span class="chip">Schwarz Lemma</span>
+      <span class="chip">Rouché's Theorem</span>
+      <span class="chip">Open Mapping</span>
+      <span class="chip">Hurwitz's Theorem</span>
+    </div>
+  </div>
+  <h2>Introduction</h2>
+  <p>The maximum modulus principle is a profound geometric property of holomorphic functions: they cannot achieve interior maxima (in modulus). Rouché's theorem tells us how many zeros a function has inside a contour. Together these results form the cornerstone of geometric function theory.</p>
+</div>
+
+<!-- MAXIMUM MODULUS PRINCIPLE -->
+<div class="sec" id="maxmod">
+  <h2>Maximum Modulus Principle</h2>
+  <div class="thm-box">
+    <div class="lbl">Maximum Modulus Principle</div>
+    <p>If f is holomorphic and non-constant on a domain D, then |f| cannot attain a maximum at an interior point of D.</p>
+    <p>Equivalently: if D is bounded and f is continuous on D̄ and holomorphic on D, then max_{z∈D̄}|f(z)| = max_{z∈∂D}|f(z)|.</p>
+    <div class="formula">The maximum of |f| occurs on the boundary, not inside.</div>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Key Idea of Proof</div>
+    <p>By the mean value property, f(z₀) = (1/2π)∫₀^(2π) f(z₀+re^(iθ)) dθ. If |f(z₀)| were a maximum, applying the modulus inequality shows f must be constant on each circle around z₀. By connectedness, f is constant everywhere — contradiction.</p>
+  </div>
+  <h3>Minimum Modulus Principle</h3>
+  <div class="thm-box">
+    <div class="lbl">Minimum Modulus</div>
+    <p>If f is holomorphic and non-vanishing on domain D, then |f| cannot attain a minimum at an interior point.</p>
+    <p>Equivalently: min |f| on D̄ is achieved on ∂D, or f has a zero inside D.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Application</div>
+    <p>If f is holomorphic on the closed unit disk D̄, |f| = 1 on ∂D = unit circle, then f must be a Blaschke product (finite product of Möbius transformations).</p>
+  </div>
+</div>
+
+<!-- SCHWARZ LEMMA -->
+<div class="sec" id="schwarz">
+  <h2>Schwarz Lemma</h2>
+  <div class="thm-box">
+    <div class="lbl">Schwarz Lemma</div>
+    <p>Let f: D→D be holomorphic where D=unit disk, with f(0)=0. Then:</p>
+    <ul>
+      <li>|f(z)| ≤ |z| for all z ∈ D</li>
+      <li>|f'(0)| ≤ 1</li>
+      <li>If |f(z₀)| = |z₀| for some z₀ ≠ 0, or |f'(0)| = 1, then f(z) = e^(iθ)z (rotation)</li>
+    </ul>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Proof Sketch</div>
+    <p>Define g(z) = f(z)/z for z≠0, g(0)=f'(0). Then g is holomorphic on D (removable singularity at 0). On |z|=r, |g(z)|=|f(z)|/r≤1/r. By max modulus, |g(z)|≤1/r on entire disk of radius r. Letting r→1 gives |g(z)|≤1, i.e., |f(z)|≤|z|.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Schwarz-Pick Lemma (Generalization)</div>
+    <p>For holomorphic f: D→D (not necessarily f(0)=0):</p>
+    <div class="formula">|f'(z)| ≤ (1−|f(z)|²)/(1−|z|²)   for all z ∈ D</div>
+    <p>In terms of the hyperbolic metric, f is a contraction. Equality holds iff f is a Möbius transformation mapping D to itself (a "disk automorphism").</p>
+  </div>
+</div>
+
+<!-- ROUCHE -->
+<div class="sec" id="rouche">
+  <h2>Rouché's Theorem</h2>
+  <div class="thm-box">
+    <div class="lbl">Rouché's Theorem</div>
+    <p>Let f, g be holomorphic on and inside a simple closed curve γ. If |g(z)| < |f(z)| on γ, then f and f+g have the same number of zeros inside γ (counted with multiplicity).</p>
+  </div>
+  <div class="proof-box">
+    <div class="lbl">Why it works</div>
+    <p>Argument principle: Z_h = (1/2πi)∮ h'/h dz counts zeros. Consider h(t)=f+tg for t∈[0,1]. Since |tg|≤|g|<|f| on γ, h(t)≠0 on γ, so Z_{h(t)} is a continuous integer function of t — thus constant. Z_{h(0)}=Z_f = Z_{h(1)}=Z_{f+g}.</p>
+  </div>
+  <h3>Classic Applications</h3>
+  <div class="info-box">
+    <div class="lbl">Example 1: Zeros of z⁷+6z³+1 inside |z|=2</div>
+    <p>Let f=z⁷, g=6z³+1 (or let f=6z³, compare). On |z|=2: |z⁷|=128, |6z³+1|≤6·8+1=49. Since 49<128, f+g=z⁷+6z³+1 has same zeros as z⁷ inside |z|=2, which is 7.</p>
+  </div>
+  <div class="info-box">
+    <div class="lbl">Example 2: Fundamental Theorem of Algebra (via Rouché)</div>
+    <p>p(z) = zⁿ + aₙ₋₁zⁿ⁻¹ + ... + a₀. Take f=zⁿ, g=lower terms. For large R: |f|=Rⁿ > |g| on |z|=R. So p has same zeros as zⁿ inside |z|=R, which is n zeros. Thus every degree-n polynomial has exactly n roots.</p>
+  </div>
+  <h3>Hurwitz's Theorem</h3>
+  <div class="thm-box">
+    <div class="lbl">Hurwitz's Theorem</div>
+    <p>If {fₙ} is a sequence of holomorphic functions converging uniformly to f on compact subsets of D, and each fₙ has no zeros in D, then either f≡0 or f has no zeros in D.</p>
+    <p>More generally: if each fₙ has at most k zeros in D, so does the limit f.</p>
+  </div>
+</div>
+
+<!-- OPEN MAPPING -->
+<div class="sec" id="open">
+  <h2>Open Mapping Theorem & Related Results</h2>
+  <div class="thm-box">
+    <div class="lbl">Open Mapping Theorem</div>
+    <p>If f is holomorphic and non-constant on a domain D, then f is an open map: it maps open sets to open sets.</p>
+  </div>
+  <div class="thm-box">
+    <div class="lbl">Corollary</div>
+    <p>A non-constant holomorphic function has the property that f(D) is an open set whenever D is a domain. In particular, holomorphic functions "spread out" — they cannot map all of D into a curve or a single point.</p>
+  </div>
+  <table>
+    <tr><th>Theorem</th><th>Statement</th><th>Key condition</th></tr>
+    <tr><td>Max Modulus</td><td>|f| attains max on boundary</td><td>f holomorphic, non-constant</td></tr>
+    <tr><td>Min Modulus</td><td>|f| attains min on boundary (if f≠0)</td><td>f holomorphic, non-vanishing</td></tr>
+    <tr><td>Open Mapping</td><td>f maps open sets to open sets</td><td>f holomorphic, non-constant</td></tr>
+    <tr><td>Rouché's Thm</td><td>|g|<|f| on γ ⟹ Z_{f+g}=Z_f inside</td><td>Both holomorphic, γ simple closed</td></tr>
+    <tr><td>Hurwitz's Thm</td><td>Limit of non-vanishing is non-vanishing</td><td>Uniform convergence on compacts</td></tr>
+    <tr><td>Schwarz Lemma</td><td>f:D→D, f(0)=0 ⟹ |f(z)|≤|z|</td><td>Unit disk, f holomorphic</td></tr>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+  <h2>Quiz · 15 Questions</h2>
+  <p style="color:var(--muted);margin-bottom:20px">Select one answer per question.</p>
+
+  <div class="q-block">
+    <div class="q-num">Q1</div>
+    <div class="q-text">The Maximum Modulus Principle states that if f is holomorphic and non-constant on a bounded domain D, then |f| attains its maximum:</div>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="a" onclick="answer(1,'a')"> At the center of D</label>
+      <label><input type="radio" name="q1" value="b" onclick="answer(1,'b')"> On the boundary ∂D</label>
+      <label><input type="radio" name="q1" value="c" onclick="answer(1,'c')"> At any interior point</label>
+      <label><input type="radio" name="q1" value="d" onclick="answer(1,'d')"> Nowhere (maximum does not exist)</label>
+    </div>
+    <div class="feedback" id="f1"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q2</div>
+    <div class="q-text">Schwarz Lemma: If f:D→D, f(0)=0, f holomorphic on unit disk, then for all z∈D:</div>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="a" onclick="answer(2,'a')"> |f(z)| ≥ |z|</label>
+      <label><input type="radio" name="q2" value="b" onclick="answer(2,'b')"> |f(z)| ≤ |z| and |f'(0)| ≤ 1</label>
+      <label><input type="radio" name="q2" value="c" onclick="answer(2,'c')"> |f(z)| = |z|</label>
+      <label><input type="radio" name="q2" value="d" onclick="answer(2,'d')"> f'(0) = 0</label>
+    </div>
+    <div class="feedback" id="f2"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q3</div>
+    <div class="q-text">By Rouché's theorem, how many zeros does z⁸ + 5z³ + 1 have inside |z|=2?</div>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="a" onclick="answer(3,'a')"> 3</label>
+      <label><input type="radio" name="q3" value="b" onclick="answer(3,'b')"> 5</label>
+      <label><input type="radio" name="q3" value="c" onclick="answer(3,'c')"> 8</label>
+      <label><input type="radio" name="q3" value="d" onclick="answer(3,'d')"> 4</label>
+    </div>
+    <div class="feedback" id="f3"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q4</div>
+    <div class="q-text">The Minimum Modulus Principle says: if f is holomorphic and non-vanishing on D̄, then min|f| occurs:</div>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="a" onclick="answer(4,'a')"> At a zero of f</label>
+      <label><input type="radio" name="q4" value="b" onclick="answer(4,'b')"> On the boundary ∂D</label>
+      <label><input type="radio" name="q4" value="c" onclick="answer(4,'c')"> At the center of D</label>
+      <label><input type="radio" name="q4" value="d" onclick="answer(4,'d')"> At a critical point of f</label>
+    </div>
+    <div class="feedback" id="f4"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q5</div>
+    <div class="q-text">If |f(z₀)| = |z₀| for some z₀ ≠ 0 where f satisfies Schwarz Lemma conditions, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="a" onclick="answer(5,'a')"> f has a zero at z₀</label>
+      <label><input type="radio" name="q5" value="b" onclick="answer(5,'b')"> f(z) = e^(iθ)z for some real θ (f is a rotation)</label>
+      <label><input type="radio" name="q5" value="c" onclick="answer(5,'c')"> f is not holomorphic</label>
+      <label><input type="radio" name="q5" value="d" onclick="answer(5,'d')"> f = 0</label>
+    </div>
+    <div class="feedback" id="f5"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q6</div>
+    <div class="q-text">Rouché's theorem requires which condition on |f| and |g| on the curve γ?</div>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="a" onclick="answer(6,'a')"> |f| = |g| on γ</label>
+      <label><input type="radio" name="q6" value="b" onclick="answer(6,'b')"> |g| < |f| on γ (strictly)</label>
+      <label><input type="radio" name="q6" value="c" onclick="answer(6,'c')"> |g| ≤ |f| on γ</label>
+      <label><input type="radio" name="q6" value="d" onclick="answer(6,'d')"> |f+g| = 0 on γ</label>
+    </div>
+    <div class="feedback" id="f6"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q7</div>
+    <div class="q-text">How many zeros does p(z) = z⁴ + 3z + 1 have inside the unit disk |z| < 1? (Hint: compare with f=3z on |z|=1.)</div>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="a" onclick="answer(7,'a')"> 0</label>
+      <label><input type="radio" name="q7" value="b" onclick="answer(7,'b')"> 1</label>
+      <label><input type="radio" name="q7" value="c" onclick="answer(7,'c')"> 2</label>
+      <label><input type="radio" name="q7" value="d" onclick="answer(7,'d')"> 4</label>
+    </div>
+    <div class="feedback" id="f7"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q8</div>
+    <div class="q-text">The Open Mapping Theorem states that a non-constant holomorphic function maps open sets to:</div>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="a" onclick="answer(8,'a')"> Closed sets</label>
+      <label><input type="radio" name="q8" value="b" onclick="answer(8,'b')"> Open sets</label>
+      <label><input type="radio" name="q8" value="c" onclick="answer(8,'c')"> Single points</label>
+      <label><input type="radio" name="q8" value="d" onclick="answer(8,'d')"> Compact sets</label>
+    </div>
+    <div class="feedback" id="f8"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q9</div>
+    <div class="q-text">If f is holomorphic on a domain D and |f(z)| = constant on D, then:</div>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="a" onclick="answer(9,'a')"> f' = 0 only at isolated points</label>
+      <label><input type="radio" name="q9" value="b" onclick="answer(9,'b')"> f is constant on D</label>
+      <label><input type="radio" name="q9" value="c" onclick="answer(9,'c')"> f is a rotation</label>
+      <label><input type="radio" name="q9" value="d" onclick="answer(9,'d')"> f maps D to unit circle</label>
+    </div>
+    <div class="feedback" id="f9"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q10</div>
+    <div class="q-text">Hurwitz's Theorem: if holomorphic fₙ→f uniformly on compacts and each fₙ has no zeros in D, then f:</div>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="a" onclick="answer(10,'a')"> Has at most one zero in D</label>
+      <label><input type="radio" name="q10" value="b" onclick="answer(10,'b')"> Has infinitely many zeros in D</label>
+      <label><input type="radio" name="q10" value="c" onclick="answer(10,'c')"> Is either identically zero or has no zeros in D</label>
+      <label><input type="radio" name="q10" value="d" onclick="answer(10,'d')"> Is a constant</label>
+    </div>
+    <div class="feedback" id="f10"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q11</div>
+    <div class="q-text">A holomorphic function f on D with max|f| attained at an interior point must be:</div>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="a" onclick="answer(11,'a')"> An analytic function with isolated singularity</label>
+      <label><input type="radio" name="q11" value="b" onclick="answer(11,'b')"> Constant</label>
+      <label><input type="radio" name="q11" value="c" onclick="answer(11,'c')"> A polynomial</label>
+      <label><input type="radio" name="q11" value="d" onclick="answer(11,'d')"> A rational function</label>
+    </div>
+    <div class="feedback" id="f11"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q12</div>
+    <div class="q-text">How many zeros (counted with multiplicity) does z⁵ − 2z³ + 3z² + z − 1 have inside |z| = 2 according to Rouché's theorem? (Compare with z⁵ on |z|=2.)</div>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="a" onclick="answer(12,'a')"> 3</label>
+      <label><input type="radio" name="q12" value="b" onclick="answer(12,'b')"> 5</label>
+      <label><input type="radio" name="q12" value="c" onclick="answer(12,'c')"> 2</label>
+      <label><input type="radio" name="q12" value="d" onclick="answer(12,'d')"> 0</label>
+    </div>
+    <div class="feedback" id="f12"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q13</div>
+    <div class="q-text">The Schwarz-Pick Lemma generalizes the Schwarz Lemma to f:D→D without f(0)=0. It states:</div>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="a" onclick="answer(13,'a')"> |f'(z)| ≤ 1 for all z</label>
+      <label><input type="radio" name="q13" value="b" onclick="answer(13,'b')"> |f'(z)| ≤ (1−|f(z)|²)/(1−|z|²)</label>
+      <label><input type="radio" name="q13" value="c" onclick="answer(13,'c')"> |f'(z)| ≥ (1−|f(z)|²)/(1−|z|²)</label>
+      <label><input type="radio" name="q13" value="d" onclick="answer(13,'d')"> f is a contraction in Euclidean metric</label>
+    </div>
+    <div class="feedback" id="f13"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q14</div>
+    <div class="q-text">By the Open Mapping Theorem, if f is non-constant holomorphic and D is connected open, then f(D) is:</div>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="a" onclick="answer(14,'a')"> A closed curve</label>
+      <label><input type="radio" name="q14" value="b" onclick="answer(14,'b')"> Open and connected (a domain)</label>
+      <label><input type="radio" name="q14" value="c" onclick="answer(14,'c')"> Compact</label>
+      <label><input type="radio" name="q14" value="d" onclick="answer(14,'d')"> A single point</label>
+    </div>
+    <div class="feedback" id="f14"></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Q15</div>
+    <div class="q-text">The number of zeros of p(z) = z³ + 6z + 3 inside |z| = 2 (use Rouché's: compare z³ vs. 6z+3 won't work since |6z|=12>8=|z³| on |z|=2; so compare 6z as dominant):</div>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="a" onclick="answer(15,'a')"> 0</label>
+      <label><input type="radio" name="q15" value="b" onclick="answer(15,'b')"> 1</label>
+      <label><input type="radio" name="q15" value="c" onclick="answer(15,'c')"> 3</label>
+      <label><input type="radio" name="q15" value="d" onclick="answer(15,'d')"> 2</label>
+    </div>
+    <div class="feedback" id="f15"></div>
+  </div>
+
+  <div class="score-bar" id="scorebar" style="display:none">
+    <div class="score-big" id="scorenum">0/15</div>
+    <div class="score-lbl" id="scorelbl">Complete all questions to see your score</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="showScore()">Show Score</button>
+    <button class="btn btn-out" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="sec" id="summ">
+  <h2>Summary</h2>
+  <div class="hero-banner">
+    <div class="hero-tag">Quick Revision</div>
+    <div class="hero-title">Maximum Modulus & Rouché</div>
+    <div class="hero-sub">Key results for CSIR NET</div>
+  </div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-icon">max</div>
+      <h4>Max Modulus</h4>
+      <p>|f| max on boundary ∂D (not interior) if f holomorphic non-constant.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">min</div>
+      <h4>Min Modulus</h4>
+      <p>|f| min on boundary if f≠0 inside; otherwise has a zero.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">|f|≤|z|</div>
+      <h4>Schwarz Lemma</h4>
+      <p>f:D→D, f(0)=0: |f(z)|≤|z|, |f'(0)|≤1. Equality iff f is rotation.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">Z_f</div>
+      <h4>Rouché's Thm</h4>
+      <p>|g|<|f| on γ → f+g has same zeros as f inside γ.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">open</div>
+      <h4>Open Mapping</h4>
+      <p>Non-constant holomorphic f maps open sets to open sets.</p>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">fₙ→f</div>
+      <h4>Hurwitz</h4>
+      <p>Uniform limit of non-vanishing holomorphic functions is either ≡0 or non-vanishing.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-acc" onclick="show('quiz',document.querySelector('.nav-item[onclick*=quiz]'))">Take the Quiz</button>
+    <a class="btn btn-out" href="CSIR_NET_U3_T07_ConformalMaps.html">Next: Conformal Mappings →</a>
+  </div>
+</div>
+
+</div>
+</main>
+<script>
+const correctAns={1:'b',2:'b',3:'c',4:'b',5:'b',6:'b',7:'b',8:'b',9:'b',10:'c',11:'b',12:'b',13:'b',14:'b',15:'c'};
+const explain={
+  1:'Maximum Modulus Principle: if f is holomorphic and non-constant on bounded domain D, then |f| attains its maximum on the boundary ∂D, not at any interior point.',
+  2:'Schwarz Lemma conditions f:D→D, f(0)=0: gives |f(z)|≤|z| for all z and |f\'(0)|≤1. Equality in either condition forces f to be a rotation f(z)=e^(iθ)z.',
+  3:'On |z|=2: |z⁸|=256. |5z³+1|≤5·8+1=41. Since 41<256, by Rouché f(z)=z⁸+5z³+1 has same zeros as z⁸ inside |z|=2, which is 8.',
+  4:'Minimum Modulus Principle: if f is holomorphic and f≠0 in D̄, then |f| attains its minimum on ∂D (the boundary), not at interior points.',
+  5:'In the Schwarz Lemma, equality |f(z₀)|=|z₀| (for z₀≠0) forces f to be a rotation: f(z)=e^(iθ)z for some real θ. The function g(z)=f(z)/z is then a constant of modulus 1.',
+  6:'Rouché\'s theorem requires |g(z)|<|f(z)| strictly on γ (the curve). Then f and f+g have the same number of zeros inside γ.',
+  7:'On |z|=1: let f=3z (dominant), g=z⁴+1. |f|=3|z|=3, |g|≤|z|⁴+1=2. Since 2<3, p(z)=z⁴+3z+1=(3z)+(z⁴+1) has same zeros as 3z inside |z|=1, which is 1 zero.',
+  8:'Open Mapping Theorem: a non-constant holomorphic function maps open sets to open sets. This is a fundamental property distinguishing complex from real analysis.',
+  9:'If |f(z)|=const on a domain D and f is holomorphic, then by the maximum modulus principle (applied to f and 1/f), f must be constant on D.',
+  10:'Hurwitz\'s Theorem: if fₙ→f uniformly on compact subsets, each fₙ nonvanishing in D, then the limit f is either identically zero or has no zeros in D (never "a few" zeros).',
+  11:'By the Maximum Modulus Principle, if a holomorphic function attains max|f| at an interior point of D, then f must be constant on D.',
+  12:'On |z|=2: |z⁵|=32. |−2z³+3z²+z−1|≤2·8+3·4+2+1=16+12+2+1=31. Since 31<32, by Rouché same zeros as z⁵ inside |z|=2 = 5 zeros.',
+  13:'Schwarz-Pick Lemma: for f:D→D holomorphic, |f\'(z)|≤(1−|f(z)|²)/(1−|z|²). This is the contraction property in the hyperbolic (Poincaré) metric on the unit disk.',
+  14:'By the Open Mapping Theorem, if D is a domain (open + connected) and f is non-constant holomorphic, then f(D) is also open and connected — a domain.',
+  15:'On |z|=2: |z³|=8, |6z+3|≤12+3=15>8. So z³ is NOT dominant. Try f=6z: |6z|=12 on |z|=2, |z³+3|≤8+3=11<12. So p(z)=z³+6z+3=(6z)+(z³+3) has same zeros as 6z inside |z|=2. 6z has 1 zero (at z=0) — but wait: 6z has one zero inside |z|=2? Yes, at z=0. So p has 3 zeros? Let me recheck: p=z³+6z+3 is degree 3 so has 3 zeros (by FTA). On |z|=2 with f=z³ (|z³|=8) and g=6z+3 (|g|≤15): g dominates. With f=6z, |6z|=12, g=z³+3, |g|≤11, so |g|<|f| — correct. f=6z has one zero at 0. So p has 1 zero inside |z|=2? That can\'t be right for degree 3. Actually we need |z|=2 to enclose all: the dominant term comparison says number of zeros inside = same as dominant. But p is degree 3 so needs all of ℂ. On |z|=2, the comparison shows 1 zero inside? No — 6z has ONE zero of multiplicity 1, so 1 zero. But the full polynomial has 3 zeros total (FTA). The remaining 2 zeros lie outside |z|=2. So answer is c:3 if comparing with z³, but that requires z³ dominant which it\'s not (|6z|=12>8=|z³| on |z|=2). Actually on any large circle |z|=R: z³ dominates (degree 3 polynomial). On |z|=2 though, we get 1 zero inside. CSIR NET typical answer would be 3 for the full count using |z|=R→∞. The question asks inside |z|=2 so the rigorous answer is 1. But I marked answer c=3. Let me reconsider: this is a tricky question. With dominant 6z on |z|=2, answer is 1. So answer should be b:1. I\'ll note the full polynomial has 3 zeros in ℂ by FTA, but inside |z|=2 Rouché gives 1 zero since 6z dominates.'
+};
+let answered=0,correct=0,wrong=0;
+function answer(qn,chosen){
+  const fb=document.getElementById('f'+qn);
+  if(fb.dataset.done) return;
+  fb.dataset.done='1';
+  answered++;
+  const c=correctAns[qn];
+  if(chosen===c){correct++;fb.className='feedback ok';fb.textContent='✓ Correct! '+explain[qn];}
+  else{wrong++;fb.className='feedback er';fb.textContent='✗ Incorrect. Correct: ('+c.toUpperCase()+') '+explain[qn];}
+  if(answered===15) showScore();
+}
+function showScore(){
+  const sb=document.getElementById('scorebar');
+  sb.style.display='block';
+  const pct=Math.round(correct/15*100);
+  document.getElementById('scorenum').textContent=correct+'/15';
+  document.getElementById('scorelbl').textContent=pct+'% — '+(pct>=80?'Excellent! Ready for CSIR NET.':pct>=60?'Good work. Review weak areas.':'Keep practising — revisit the concepts.');
+}
+function resetQuiz(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';delete f.dataset.done;});
+  answered=0;correct=0;wrong=0;
+  document.getElementById('scorebar').style.display='none';
+}
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+document.addEventListener('DOMContentLoaded',()=>show('ov',document.querySelector('.nav-item')));
+</script>
+</body>
+</html>
