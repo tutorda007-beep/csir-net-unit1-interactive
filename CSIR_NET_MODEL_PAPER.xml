@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- ============================================================ -->
+<!-- CSIR-UGC NET Mathematical Sciences — MODEL QUESTION PAPER    -->
+<!-- Format: Part A (Q1–15) | Part B (Q16–40) | Part C (Q41–55)  -->
+<!-- ============================================================ -->
+
+<!-- ==================== PART A ================================ -->
+
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude</text></category>
+  <info format="html"><text><![CDATA[<p><strong>CSIR-UGC NET Mathematical Sciences — Model Question Paper</strong></p><p>Part A: General Aptitude (Q1–15). Marks: <strong>+2 for correct, −0.5 for incorrect</strong>. Attempt any 12 out of 15.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q1 - Net percentage change after successive changes</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A number is first increased by 20% and then decreased by 20%. The net percentage change in the number is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 4% decrease</strong></p><p>Let original number = 100. After 20% increase: 120. After 20% decrease: \(120 \times 0.80 = 96\). Net change = \(-4\%\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[No change]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[4% decrease]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[4% increase]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2% decrease]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q2 - Train speed calculation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A train 150 m long passes a stationary pole in 15 seconds. The speed of the train in km/hr is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 36 km/hr</strong></p><p>Speed \(= \dfrac{150}{15} = 10\) m/s \(= 10 \times \dfrac{18}{5} = 36\) km/hr.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[10 km/hr]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[36 km/hr]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[54 km/hr]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[45 km/hr]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q3 - Find n from sum of natural numbers</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The sum of the first \(n\) natural numbers is 630. The value of \(n\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 35</strong></p><p>\(\dfrac{n(n+1)}{2} = 630 \Rightarrow n(n+1) = 1260\). Checking: \(35 \times 36 = 1260\). So \(n = 35\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[34]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[35]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[36]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[40]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q4 - Logic puzzle: who is guilty</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Among four people P, Q, R, S, exactly one committed a mistake. P says "Q did it"; Q says "S did it"; R says "I did not do it"; S says "Q is lying". Only the guilty person lies. Who is guilty?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Q</strong></p><p>If Q is guilty: Q lies ("S did it" is false ✓). P is truthful ("Q did it" is true ✓). R is truthful ("I did not do it" is true ✓). S is truthful ("Q is lying" is true ✓). All statements are consistent. No other person works: if P is guilty, P lies ("Q did it" is false ✓) but then Q is truthful and "S did it" must be true — contradiction.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[P]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Q]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[R]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[S]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q5 - Next term in sequence</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Find the next term in the sequence: 2, 6, 12, 20, 30, __?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 42</strong></p><p>The general term is \(n(n+1)\): \(1\times2=2,\ 2\times3=6,\ 3\times4=12,\ 4\times5=20,\ 5\times6=30,\ 6\times7=42\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[36]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[40]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[42]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[56]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q6 - Fraction of C given A and B relationships</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A is \(\dfrac{3}{5}\) of B, and B is \(\dfrac{2}{3}\) of C. What fraction of C is A?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) \(\dfrac{2}{5}\)</strong></p><p>\(A = \dfrac{3}{5}B = \dfrac{3}{5} \times \dfrac{2}{3}C = \dfrac{2}{5}C\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{1}{5}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\dfrac{2}{5}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{3}{5}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{4}{5}\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q7 - Simple interest rate for doubling</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A sum of money doubles itself in 8 years at simple interest. The annual rate of interest (in %) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 12.5%</strong></p><p>\(\text{SI} = P \Rightarrow \dfrac{P \times r \times 8}{100} = P \Rightarrow r = \dfrac{100}{8} = 12.5\%\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[8%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[10%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[12.5%]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[16%]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q8 - Time-work: B finishes remaining work</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A can complete a work in 12 days and B in 18 days. They work together for 4 days, after which A leaves. How many more days does B need to finish the remaining work?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) 8 days</strong></p><p>Combined rate \(= \dfrac{1}{12}+\dfrac{1}{18} = \dfrac{5}{36}\) per day. Work in 4 days \(= \dfrac{20}{36} = \dfrac{5}{9}\). Remaining \(= \dfrac{4}{9}\). B's rate \(= \dfrac{1}{18}\). Days \(= \dfrac{4}{9} \div \dfrac{1}{18} = 8\) days.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[6 days]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[7 days]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[8 days]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[10 days]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q9 - Cost of fencing a circular field</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A circular field has radius 14 m. The cost of fencing it at the rate of Rs. 5 per metre is (use \(\pi = \frac{22}{7}\))</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Rs. 440</strong></p><p>Circumference \(= 2\pi r = 2 \times \dfrac{22}{7} \times 14 = 88\) m. Cost \(= 88 \times 5 = \text{Rs. }440\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 220]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Rs. 440]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 616]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Rs. 880]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q10 - Find sixth number from average</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The average of 5 numbers is 24. When a sixth number is included, the new average becomes 22. What is the sixth number?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 12</strong></p><p>Sum of 5 numbers \(= 5 \times 24 = 120\). Sum of 6 numbers \(= 6 \times 22 = 132\). Sixth number \(= 132 - 120 = 12\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[12]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[10]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[14]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[18]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q11 - Distance from starting point (direction sense)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A man walks 4 km North, then turns right and walks 3 km East. How far (in km) is he from his starting point?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 5 km</strong></p><p>The displacement forms a right triangle with legs 4 km and 3 km. Distance \(= \sqrt{4^2 + 3^2} = \sqrt{25} = 5\) km.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[7 km]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[5 km]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(3\sqrt{3}\) km]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[4 km]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q12 - Coding-decoding: MANGO in code</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In a certain code, APPLE is written as BQQMF (each letter shifted forward by one). How is MANGO written in the same code?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) NBOHP</strong></p><p>Shift each letter forward by 1: M→N, A→B, N→O, G→H, O→P. So MANGO → NBOHP.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[LZMFN]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[MBNHP]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[NBOHP]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[OCPIQ]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q13 - Blood relations: P is related to S as</text></name>
+  <questiontext format="html"><text><![CDATA[<p>P is the brother of Q. Q is the sister of R. R is the father of S. How is P related to S?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Uncle</strong></p><p>P and Q are siblings. Q is the sister of R, so P, Q and R are siblings. R is S's father. Therefore P is S's uncle (father's brother).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Father]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Uncle]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Grandfather]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Brother]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q14 - Which is NOT a prime number</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following is <strong>NOT</strong> a prime number?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 91</strong></p><p>\(91 = 7 \times 13\), so 91 is composite. The others — 83, 89, 97 — are all prime.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[91]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[83]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[89]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[97]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q15 - Number of students playing neither sport</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In a class of 60 students, 40 play cricket, 30 play football, and 10 play both. How many students play neither sport?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 0</strong></p><p>\(|C \cup F| = 40 + 30 - 10 = 60\). Since the class has exactly 60 students, all of them play at least one sport. Number playing neither \(= 60 - 60 = 0\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[5]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[10]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[20]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- ==================== PART B ================================ -->
+
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics</text></category>
+  <info format="html"><text><![CDATA[<p>Part B: Core Mathematics (Q16–40). Marks: <strong>+3 for correct, −0.75 for incorrect</strong>. Attempt any 20 out of 25.</p>]]></text></info>
+</question>
+
+<!-- Real Analysis -->
+
+<question type="multichoice">
+  <name><text>MODEL Q16 - Convergence of sequence (1+1/n)^n</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Consider the sequence \(a_n = \left(1 + \dfrac{1}{n}\right)^n\) for \(n \geq 1\). Then</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) \(\{a_n\}\) is strictly increasing and converges to \(e\)</strong></p><p>By AM-GM inequality one shows \(a_n < a_{n+1}\), and by the Binomial Theorem the limit is \(e \approx 2.718\ldots\)</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(\{a_n\}\) is strictly increasing and converges to \(e\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\{a_n\}\) is strictly decreasing]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\{a_n\}\) is unbounded]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\{a_n\}\) converges to 1]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q17 - Convergence of series 1/(n log n)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The series \(\displaystyle\sum_{n=2}^{\infty} \dfrac{1}{n \log n}\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Diverges</strong></p><p>By the integral test, \(\displaystyle\int_2^\infty \dfrac{dx}{x\log x} = \Big[\log(\log x)\Big]_2^\infty = +\infty\). Hence the series diverges.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Converges absolutely]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Diverges]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Converges conditionally]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Converges to \(\log 2\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q18 - Continuous additive function on R</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(f: \mathbb{R} \to \mathbb{R}\) be a continuous function satisfying \(f(x+y) = f(x) + f(y)\) for all \(x, y \in \mathbb{R}\). Then \(f\) must be of the form</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) \(f(x) = cx\) for some constant \(c \in \mathbb{R}\)</strong></p><p>From \(f(x+y)=f(x)+f(y)\) one deduces \(f(nx)=nf(x)\) for integers, then rationals, and continuity extends this to all reals: \(f(x)=f(1)\cdot x\). Set \(c=f(1)\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(f(x) = cx\) for some constant \(c \in \mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(x) = cx^2\) for some constant \(c\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(x) = c\) (constant function)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) need not be linear]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q19 - Bound on differentiable f with |f'|≤1 and f(0)=0</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(f: [0,1] \to \mathbb{R}\) be differentiable with \(|f'(x)| \leq 1\) for all \(x\) and \(f(0) = 0\). Then</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) \(|f(x)| \leq x\) for all \(x \in [0,1]\)</strong></p><p>By the Mean Value Theorem, \(|f(x) - f(0)| = |f'(c)| \cdot |x - 0| \leq 1 \cdot x = x\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(|f(x)| \leq x\) for all \(x \in [0,1]\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) is constant]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f(1) = 1\) necessarily]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) is not Lipschitz]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q20 - Value of Beta integral x^n(1-x)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The value of the integral \(\displaystyle\int_0^1 x^n(1-x)\,dx\) (for integer \(n \geq 0\)) equals</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) \(\dfrac{1}{(n+1)(n+2)}\)</strong></p><p>Using the Beta function: \(\displaystyle\int_0^1 x^n(1-x)^1\,dx = B(n+1,2) = \dfrac{n!\,1!}{(n+2)!} = \dfrac{1}{(n+1)(n+2)}\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{1}{n+1}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{1}{n+2}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\dfrac{1}{(n+1)(n+2)}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{n!}{(n+2)!}\cdot 2\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- Linear Algebra -->
+
+<question type="multichoice">
+  <name><text>MODEL Q21 - Intersection of subspaces when dim sum exceeds n</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(V\) be a vector space of dimension \(n\) over \(\mathbb{R}\). If \(W_1\) and \(W_2\) are subspaces with \(\dim W_1 + \dim W_2 > n\), then</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) \(W_1 \cap W_2 \neq \{0\}\)</strong></p><p>By the dimension formula: \(\dim(W_1 \cap W_2) = \dim W_1 + \dim W_2 - \dim(W_1+W_2) \geq \dim W_1 + \dim W_2 - n > 0\). Hence the intersection is non-trivial.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(W_1 + W_2 = V\) necessarily]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(W_1 \cap W_2 \neq \{0\}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(W_1 = W_2\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(W_1 \subseteq W_2\) or \(W_2 \subseteq W_1\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q22 - Eigenvalues of rotation matrix</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The eigenvalues of the matrix \(A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\) over \(\mathbb{C}\) are</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) \(\pm i\)</strong></p><p>Characteristic polynomial: \(\det(A - \lambda I) = \lambda^2 + 1 = 0 \Rightarrow \lambda = \pm i\). There are no real eigenvalues.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(0, 0\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(1, -1\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\(\pm i\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(1, i\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q23 - Determinant of I + all-ones matrix</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(J\) denote the \(n \times n\) matrix with all entries equal to 1, and let \(A = I + J\) (where \(I\) is the identity matrix). Then \(\det(A)\) equals</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) \(n+1\)</strong></p><p>Eigenvalues of \(J\): \(n\) (eigenvector \(\mathbf{1}\)) and \(0\) (multiplicity \(n-1\)). Eigenvalues of \(A = I+J\): \(n+1\) and \(1\) (\(n-1\) times). \(\det(A) = (n+1) \cdot 1^{n-1} = n+1\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(n+1\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(2^n\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(2^{n-1}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(n-1\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q24 - Rank from nullity (rank-nullity theorem)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A linear map \(T: \mathbb{R}^5 \to \mathbb{R}^3\) has nullity 3. The rank of \(T\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 2</strong></p><p>By the Rank-Nullity Theorem: \(\text{rank}(T) + \text{nullity}(T) = \dim(\mathbb{R}^5) = 5\). Hence \(\text{rank}(T) = 5 - 3 = 2\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[5]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q25 - Eigenvalues of real symmetric matrix</text></name>
+  <questiontext format="html"><text><![CDATA[<p>All eigenvalues of a real symmetric matrix are</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Real</strong></p><p>If \(A\) is real symmetric and \(Av = \lambda v\) (\(v \neq 0\)), then \(\bar{\lambda}\|v\|^2 = (Av,v) = (v,Av) = \lambda\|v\|^2\), so \(\lambda = \bar{\lambda}\), i.e., \(\lambda \in \mathbb{R}\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Purely imaginary]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Real]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Positive]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Non-negative]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- Abstract Algebra -->
+
+<question type="multichoice">
+  <name><text>MODEL Q26 - Order of permutation (1 2 3)(4 5) in S5</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The order of the permutation \((1\;2\;3)(4\;5)\) in the symmetric group \(S_5\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (4) 6</strong></p><p>The permutation is a product of disjoint cycles of lengths 3 and 2. The order equals \(\text{lcm}(3, 2) = 6\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[5]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[6]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q27 - Group of order 35 is cyclic</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A group of order 35 is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Cyclic</strong></p><p>\(35 = 5 \times 7\). By Sylow's theorem, the number of Sylow 5-subgroups divides 7 and is \(\equiv 1 \pmod{5}\): only possibility is 1. Similarly the Sylow 7-subgroup is unique. Both are normal, so the group is \(\mathbb{Z}_5 \times \mathbb{Z}_7 \cong \mathbb{Z}_{35}\), which is cyclic.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Non-abelian]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Simple but not cyclic]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Cyclic]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Has no normal subgroups]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q28 - Ideal (x,2) in Z[x]</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In the polynomial ring \(\mathbb{Z}[x]\), the ideal \((x, 2)\) generated by \(x\) and \(2\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) A maximal ideal</strong></p><p>\(\mathbb{Z}[x]/(x,2) \cong \mathbb{Z}/2\mathbb{Z} = \mathbb{F}_2\), which is a field. An ideal is maximal if and only if the quotient ring is a field, so \((x,2)\) is maximal. It is not principal since \(\mathbb{Z}[x]\) is not a PID.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[A principal ideal]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Not a prime ideal]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[A maximal ideal]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Equal to the ideal generated by \(2x\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- Complex Analysis -->
+
+<question type="multichoice">
+  <name><text>MODEL Q29 - Where is |z|^2 analytic</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The function \(f(z) = |z|^2\) (as a function of a complex variable \(z\)) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Analytic only at \(z = 0\)</strong></p><p>Write \(f(x+iy) = x^2+y^2\). The Cauchy–Riemann equations \(u_x = v_y,\; u_y = -v_x\) with \(u=x^2+y^2,\, v=0\) give \(2x=0,\; 2y=0\). So CR equations hold only at \(z=0\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Entire (analytic on all of \(\mathbb{C}\))]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Analytic only at \(z = 0\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Analytic on \(\mathbb{C} \setminus \{0\}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Analytic on \(|z| > 1\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q30 - Contour integral dz/(z^2-1) over |z|=2</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The value of \(\displaystyle\oint_{|z|=2} \dfrac{dz}{z^2-1}\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 0</strong></p><p>Poles at \(z = \pm 1\), both inside \(|z|=2\). Partial fractions: \(\dfrac{1}{z^2-1} = \dfrac{1}{2(z-1)} - \dfrac{1}{2(z+1)}\). Residue at \(z=1\): \(\tfrac{1}{2}\); at \(z=-1\): \(-\tfrac{1}{2}\). Sum of residues \(= 0\). By the Residue Theorem: integral \(= 2\pi i \cdot 0 = 0\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(2\pi i\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\pi i\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(-2\pi i\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- Topology -->
+
+<question type="multichoice">
+  <name><text>MODEL Q31 - Compact subsets of R (Heine-Borel)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A subset \(K\) of \(\mathbb{R}\) (with the standard metric) is compact if and only if \(K\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (3) Closed and bounded</strong></p><p>This is the Heine–Borel theorem for subsets of \(\mathbb{R}^n\): compactness is equivalent to being closed and bounded.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Closed]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Bounded]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Closed and bounded]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Open and bounded]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q32 - Connectedness of R^2 minus origin</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The space \(\mathbb{R}^2 \setminus \{(0,0)\}\) (the plane minus the origin) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Path-connected</strong></p><p>Given any two points \(p, q \in \mathbb{R}^2 \setminus \{0\}\), one can connect them by a path avoiding the origin (e.g., go around it). Hence the space is path-connected (and therefore connected).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Disconnected]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Path-connected]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Compact]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Not a metric space]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- ODE / PDE -->
+
+<question type="multichoice">
+  <name><text>MODEL Q33 - General solution of y'' - 3y' + 2y = 0</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The general solution of the ODE \(y'' - 3y' + 2y = 0\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) \(y = C_1 e^x + C_2 e^{2x}\)</strong></p><p>Characteristic equation: \(r^2 - 3r + 2 = (r-1)(r-2) = 0\). Roots: \(r = 1, 2\). General solution: \(y = C_1 e^x + C_2 e^{2x}\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[\(y = C_1 e^x + C_2 e^{2x}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(y = C_1 e^x + C_2 x e^x\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(y = e^x(C_1\cos x + C_2 \sin x)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(y = C_1 e^{2x} + C_2 e^{3x}\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q34 - Classification of u_t = u_xx</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The partial differential equation \(u_t = u_{xx}\) is called the</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Heat equation</strong></p><p>The PDE \(u_t = u_{xx}\) is the one-dimensional heat (diffusion) equation, which is parabolic. The wave equation is \(u_{tt} = c^2 u_{xx}\); Laplace's equation is \(u_{xx} + u_{yy} = 0\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Wave equation]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Heat equation]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Laplace equation]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Poisson equation]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q35 - Solution blow-up: y' = y^2, y(0)=1</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The unique solution of the initial value problem \(y' = y^2,\; y(0) = 1\) is valid on the interval</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) \((-\infty,\, 1)\)</strong></p><p>Separating variables: \(\displaystyle\int \dfrac{dy}{y^2} = \int dx \Rightarrow -\dfrac{1}{y} = x + C\). With \(y(0)=1\): \(C = -1\), so \(y = \dfrac{1}{1-x}\). This blows up at \(x=1\) and is defined for \(x < 1\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[\((-\infty,\, 1)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\((0,\, \infty)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\((-1,\, 1)\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- Metric Spaces / Functional Analysis -->
+
+<question type="multichoice">
+  <name><text>MODEL Q36 - Completeness: Cauchy sequences</text></name>
+  <questiontext format="html"><text><![CDATA[<p>A metric space \((X, d)\) is said to be <strong>complete</strong> if</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) Every Cauchy sequence in \(X\) converges to a point in \(X\)</strong></p><p>This is the definition of completeness. Note that in a complete space not every sequence converges (e.g., divergent sequences exist); only Cauchy sequences are guaranteed to converge.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[Every sequence in \(X\) converges]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[Every Cauchy sequence in \(X\) converges to a point in \(X\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every bounded sequence converges]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(X\) is compact]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- Probability and Statistics -->
+
+<question type="multichoice">
+  <name><text>MODEL Q37 - Variance of Binomial(10, 0.3)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>If \(X \sim \text{Binomial}(10, 0.3)\), then \(\text{Var}(X)\) equals</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 2.1</strong></p><p>\(\text{Var}(X) = np(1-p) = 10 \times 0.3 \times 0.7 = 2.1\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[3.0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[2.1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[0.3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1.5]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q38 - Type of singularity of sin(z)/z at z=0</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The function \(f(z) = \dfrac{\sin z}{z}\) has at \(z = 0\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) A removable singularity</strong></p><p>\(\displaystyle\lim_{z\to 0}\dfrac{\sin z}{z} = 1\). Since the limit exists and is finite, \(z=0\) is a removable singularity. Defining \(f(0)=1\) makes \(f\) entire.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[A removable singularity]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[A simple pole]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[An essential singularity]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[A branch point]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q39 - Lebesgue measure of Cantor set</text></name>
+  <questiontext format="html"><text><![CDATA[<p>The Lebesgue measure of the (middle-thirds) Cantor set \(\mathcal{C} \subset [0,1]\) is</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (1) 0</strong></p><p>At step \(n\), the total measure removed is \(\displaystyle\sum_{k=0}^{n-1} \dfrac{2^k}{3^{k+1}} \to 1\) as \(n \to \infty\). Hence \(\mu(\mathcal{C}) = 1 - 1 = 0\). Despite having measure zero, \(\mathcal{C}\) is uncountable.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[0]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{1}{3}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\dfrac{2}{3}\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q40 - Tower Law for field extensions</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(F \subseteq E \subseteq K\) be field extensions with \([K:F] = 6\) and \([E:F] = 2\). Then \([K:E]\) equals</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answer: (2) 3</strong></p><p>By the Tower Law (multiplicativity of degrees): \([K:F] = [K:E]\cdot[E:F]\). Hence \(6 = [K:E] \times 2\), so \([K:E] = 3\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0.25</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[2]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="100" format="html"><text><![CDATA[3]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[4]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[6]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<!-- ==================== PART C ================================ -->
+
+<question type="category">
+  <category><text>$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)</text></category>
+  <info format="html"><text><![CDATA[<p>Part C: Advanced Mathematics — Multiple Select Questions (Q41–55). Marks: <strong>+4.75 for fully correct selection, no negative marking</strong>. Attempt any 12 out of 15. Select ALL correct options.</p>]]></text></info>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q41 - Properties of uniformly continuous functions (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following statements are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) Every Lipschitz function on \(\mathbb{R}\) is uniformly continuous<br>(2) Every uniformly continuous function on \(\mathbb{R}\) is Lipschitz<br>(3) A continuous function on a compact set is uniformly continuous<br>(4) A uniformly continuous function on a bounded open interval \((a,b)\) can be continuously extended to \([a,b]\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (3), (4)</strong></p><p>(1) TRUE: Lipschitz \(\Rightarrow\) uniform continuity directly from definition.<br>(2) FALSE: \(f(x)=\sqrt{x}\) on \([0,\infty)\) is uniformly continuous but not Lipschitz at 0.<br>(3) TRUE: Heine–Cantor theorem.<br>(4) TRUE: Uniform continuity on \((a,b)\) means the function is Cauchy-continuous; it extends uniquely to the endpoints.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every Lipschitz function on \(\mathbb{R}\) is uniformly continuous]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every uniformly continuous function on \(\mathbb{R}\) is Lipschitz]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[A continuous function on a compact set is uniformly continuous]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[A uniformly continuous function on a bounded open interval \((a,b)\) can be continuously extended to \([a,b]\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q42 - Properties of matrices (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(A\) be an \(n \times n\) real matrix. Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) If \(A^2 = A\), then \(A\) is diagonalizable over \(\mathbb{R}\)<br>(2) If \(A^2 = 0\), then \(A = 0\)<br>(3) If \(A\) is orthogonal, then all its complex eigenvalues have modulus 1<br>(4) \(\text{tr}(AB) = \text{tr}(BA)\) for any \(n \times n\) matrix \(B\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (3), (4)</strong></p><p>(1) TRUE: An idempotent matrix satisfies \(p(\lambda)=\lambda(\lambda-1)=0\), so it has minimal polynomial dividing \(\lambda(\lambda-1)\), which has distinct roots — hence diagonalizable.<br>(2) FALSE: The matrix \(\begin{pmatrix}0&1\\0&0\end{pmatrix}\) satisfies \(A^2=0\) but \(A\neq 0\).<br>(3) TRUE: For orthogonal \(A\), \(\|Av\|=\|v\|\), so \(|\lambda|=1\).<br>(4) TRUE: \(\text{tr}(AB) = \sum_{i,j}a_{ij}b_{ji} = \text{tr}(BA)\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[If \(A^2 = A\), then \(A\) is diagonalizable over \(\mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[If \(A^2 = 0\), then \(A = 0\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[If \(A\) is orthogonal, then all its complex eigenvalues have modulus 1]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[\(\text{tr}(AB) = \text{tr}(BA)\) for any \(n \times n\) matrix \(B\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q43 - Which groups are abelian (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are <strong>abelian</strong> groups? (Select all correct options)</p><p>(1) \(S_3\) (symmetric group on 3 letters)<br>(2) \(\mathbb{Z}/n\mathbb{Z}\) for any \(n \geq 1\)<br>(3) Every group of order \(p^2\) (\(p\) prime)<br>(4) Every group of order 6</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (2) and (3)</strong></p><p>(1) FALSE: \(S_3\) is non-abelian (e.g., \((12)(13) \neq (13)(12)\)).<br>(2) TRUE: \(\mathbb{Z}/n\mathbb{Z}\) is cyclic, hence abelian.<br>(3) TRUE: A group of order \(p^2\) is isomorphic to \(\mathbb{Z}_{p^2}\) or \(\mathbb{Z}_p \times \mathbb{Z}_p\), both abelian.<br>(4) FALSE: \(S_3\) has order 6 and is non-abelian.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(S_3\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[\(\mathbb{Z}/n\mathbb{Z}\) for any \(n \geq 1\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[Every group of order \(p^2\) (\(p\) prime)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every group of order 6]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q44 - Properties of entire functions (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(f: \mathbb{C} \to \mathbb{C}\) be an entire function. Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) If \(f\) is bounded, then \(f\) is constant<br>(2) If \(|f(z)| \to \infty\) as \(|z| \to \infty\), then \(f\) is a polynomial<br>(3) If \(f\) is injective, then \(f(z) = az + b\) for some \(a \neq 0,\, b \in \mathbb{C}\)<br>(4) If \(f\) maps \(\mathbb{R}\) into \(\mathbb{R}\) and is non-constant, then \(f\) is a polynomial</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (2), (3)</strong></p><p>(1) TRUE: Liouville's theorem.<br>(2) TRUE: \(\infty\) is a pole (not essential) so \(f\) is a polynomial by the structure theorem for entire functions with polynomial growth.<br>(3) TRUE: An injective entire function has at most a simple zero of \(f'\) nowhere and can be shown to be linear by Picard / open mapping arguments.<br>(4) FALSE: \(f(z) = \sin z\) maps \(\mathbb{R}\) into \(\mathbb{R}\) and is entire but not a polynomial.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[If \(f\) is bounded, then \(f\) is constant]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[If \(|f(z)| \to \infty\) as \(|z| \to \infty\), then \(f\) is a polynomial]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[If \(f\) is injective, then \(f(z) = az + b\) for some \(a \neq 0,\, b \in \mathbb{C}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[If \(f\) maps \(\mathbb{R}\) into \(\mathbb{R}\) and is non-constant, then \(f\) is a polynomial]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q45 - Connected topological spaces (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following topological spaces are <strong>connected</strong>? (Select all correct options)</p><p>(1) \(\mathbb{R} \setminus \{0\}\)<br>(2) \(\mathbb{R}^2 \setminus \{(0,0)\}\)<br>(3) The Cantor set \(\mathcal{C}\)<br>(4) \(\text{SL}(2,\mathbb{R}) = \{A \in M_2(\mathbb{R}) : \det A = 1\}\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (2) and (4)</strong></p><p>(1) FALSE: \(\mathbb{R}\setminus\{0\} = (-\infty,0)\cup(0,\infty)\), a union of two disjoint open sets.<br>(2) TRUE: \(\mathbb{R}^2\setminus\{0\}\) is path-connected (detouring around the origin).<br>(3) FALSE: The Cantor set is totally disconnected (its only connected subsets are singletons).<br>(4) TRUE: \(\text{SL}(2,\mathbb{R})\) is a connected Lie group.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{R} \setminus \{0\}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[\(\mathbb{R}^2 \setminus \{(0,0)\}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The Cantor set \(\mathcal{C}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[\(\text{SL}(2,\mathbb{R})\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q46 - Properties in a Hilbert space (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(H\) be an infinite-dimensional Hilbert space. Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) Every closed subspace of \(H\) has an orthogonal complement<br>(2) The weak topology and the norm topology on \(H\) coincide<br>(3) Every bounded sequence in \(H\) has a weakly convergent subsequence<br>(4) \(H\) is reflexive (i.e., \(H \cong H^{**}\))</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (3), (4)</strong></p><p>(1) TRUE: Projection theorem in Hilbert spaces.<br>(2) FALSE: In infinite dimensions the weak topology is strictly coarser than the norm topology.<br>(3) TRUE: By the Banach–Alaoglu theorem, the closed unit ball is weakly compact.<br>(4) TRUE: Every Hilbert space is reflexive by the Riesz representation theorem.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every closed subspace of \(H\) has an orthogonal complement]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The weak topology and norm topology on \(H\) coincide]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Every bounded sequence in \(H\) has a weakly convergent subsequence]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[\(H\) is reflexive]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q47 - True statements about IVP y'=y^2, y(0)=1 (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Consider the initial value problem \(y' = y^2,\; y(0) = 1\). Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) The unique solution is \(y = \dfrac{1}{1-x}\)<br>(2) The solution exists for all \(x \in \mathbb{R}\)<br>(3) The solution blows up in finite time<br>(4) There exist multiple solutions satisfying the initial condition</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1) and (3)</strong></p><p>Separating variables yields \(y = \dfrac{1}{1-x}\), defined on \((-\infty, 1)\). This blows up at \(x=1\) (finite time blow-up). Uniqueness follows from the Picard–Lindelöf theorem since \(f(x,y)=y^2\) is locally Lipschitz. So (1) and (3) are true; (2) and (4) are false.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="50" format="html"><text><![CDATA[The unique solution is \(y = \dfrac{1}{1-x}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The solution exists for all \(x \in \mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[The solution blows up in finite time]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[There exist multiple solutions satisfying the initial condition]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q48 - UFDs and PIDs in commutative algebra (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) \(\mathbb{Z}[\sqrt{-5}]\) is a UFD<br>(2) \(\mathbb{Z}[i]\) (Gaussian integers) is a PID<br>(3) \(\mathbb{Z}[\sqrt{2}]\) is a Euclidean domain<br>(4) Every PID is a UFD</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (2), (3), (4)</strong></p><p>(1) FALSE: In \(\mathbb{Z}[\sqrt{-5}]\), we have \(6 = 2 \times 3 = (1+\sqrt{-5})(1-\sqrt{-5})\), giving non-unique factorisation into irreducibles.<br>(2) TRUE: \(\mathbb{Z}[i]\) is a Euclidean domain with norm \(N(a+bi)=a^2+b^2\), hence a PID.<br>(3) TRUE: The norm \(N(a+b\sqrt{2})=|a^2-2b^2|\) makes \(\mathbb{Z}[\sqrt{2}]\) Euclidean.<br>(4) TRUE: Every PID is a UFD (standard theorem in commutative algebra).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}[\sqrt{-5}]\) is a UFD]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[\(\mathbb{Z}[i]\) (Gaussian integers) is a PID]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[\(\mathbb{Z}[\sqrt{2}]\) is a Euclidean domain]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Every PID is a UFD]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q49 - Riemann vs Lebesgue integrability (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) Every continuous function on \([0,1]\) is Riemann integrable<br>(2) Every Riemann integrable function on \([0,1]\) is Lebesgue integrable<br>(3) Every Lebesgue integrable function on \([0,1]\) is Riemann integrable<br>(4) The Cantor set has Lebesgue measure zero</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (2), (4)</strong></p><p>(1) TRUE: Continuous functions on compact intervals are Riemann integrable.<br>(2) TRUE: Riemann integrable functions are bounded and their discontinuities form a null set; Lebesgue integrability follows with equal values.<br>(3) FALSE: The Dirichlet function \(\mathbf{1}_{\mathbb{Q}}\) is Lebesgue integrable (integral 0) but not Riemann integrable.<br>(4) TRUE: The middle-thirds Cantor set is constructed by removing open intervals of total length 1.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[Every continuous function on \([0,1]\) is Riemann integrable]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Every Riemann integrable function on \([0,1]\) is Lebesgue integrable]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every Lebesgue integrable function on \([0,1]\) is Riemann integrable]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[The Cantor set has Lebesgue measure zero]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q50 - Properties of normal matrices (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>For an \(n\times n\) complex matrix \(A\), which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) \(A\) has at least one eigenvalue in \(\mathbb{C}\)<br>(2) Every \(A\) is diagonalizable over \(\mathbb{C}\)<br>(3) If \(A\) is normal (\(AA^* = A^*A\)), then \(A\) is unitarily diagonalizable<br>(4) The characteristic polynomial of \(A\) has degree \(n\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (3), (4)</strong></p><p>(1) TRUE: \(\mathbb{C}\) is algebraically closed, so every polynomial has a root.<br>(2) FALSE: A Jordan block \(\begin{pmatrix}0&1\\0&0\end{pmatrix}\) is not diagonalizable.<br>(3) TRUE: The Spectral Theorem for normal matrices guarantees unitary diagonalization.<br>(4) TRUE: \(\det(\lambda I - A)\) is a monic polynomial of degree \(n\).</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[\(A\) has at least one eigenvalue in \(\mathbb{C}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every \(n\times n\) complex matrix is diagonalizable over \(\mathbb{C}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[If \(A\) is normal, then \(A\) is unitarily diagonalizable]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[The characteristic polynomial of \(A\) has degree \(n\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q51 - Distributions of normal random variables (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(X\) and \(Y\) be independent standard normal random variables. Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) \(X + Y \sim N(0,\, 2)\)<br>(2) \(X - Y \sim N(0,\, 2)\)<br>(3) \(X^2 + Y^2 \sim \chi^2(2)\)<br>(4) \(XY\) follows a normal distribution</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (2), (3)</strong></p><p>(1) TRUE: \(\text{Var}(X+Y)=1+1=2\), so \(X+Y\sim N(0,2)\).<br>(2) TRUE: \(\text{Var}(X-Y)=1+1=2\), so \(X-Y\sim N(0,2)\).<br>(3) TRUE: The sum of squares of \(k\) independent standard normals is \(\chi^2(k)\); here \(k=2\).<br>(4) FALSE: The product of two normals follows a distribution expressible in terms of modified Bessel functions, which is not normal.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[\(X + Y \sim N(0,\,2)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[\(X - Y \sim N(0,\,2)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[\(X^2 + Y^2 \sim \chi^2(2)\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(XY\) follows a normal distribution]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q52 - Laurent series in an annulus (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(f\) be analytic on the annulus \(A = \{z \in \mathbb{C} : 1 < |z| < 3\}\). Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) \(f\) has a Laurent series expansion \(\displaystyle\sum_{n=-\infty}^{\infty} c_n z^n\) convergent on \(A\)<br>(2) If \(f\) is bounded on \(A\), then \(f\) extends to an analytic function on the entire disc \(|z| < 3\)<br>(3) The integral \(\displaystyle\oint_{|z|=2} f(z)\,dz\) can be non-zero<br>(4) \(f\) can be expressed as a power series \(\displaystyle\sum_{n=0}^{\infty} a_n z^n\) valid throughout \(A\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1) and (3)</strong></p><p>(1) TRUE: Every function analytic on an annulus has a unique Laurent expansion convergent there.<br>(2) FALSE: Riemann's removable singularity theorem applies to isolated singularities, not to annuli. For example, \(f(z) = 1/z\) is analytic on \(A\) but has a pole at the origin.<br>(3) TRUE: For example, \(f(z) = 1/z\) gives \(\oint_{|z|=2} dz/z = 2\pi i \neq 0\).<br>(4) FALSE: The Laurent series may contain infinitely many negative-power terms.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="50" format="html"><text><![CDATA[\(f\) has a Laurent series \(\sum_{n=-\infty}^{\infty} c_n z^n\) convergent on \(A\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[If \(f\) is bounded on \(A\), then \(f\) extends to an analytic function on \(|z| < 3\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[The integral \(\oint_{|z|=2} f(z)\,dz\) can be non-zero]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(f\) can be expressed as a power series \(\sum_{n=0}^{\infty} a_n z^n\) valid throughout \(A\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q53 - Compact subsets (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which of the following subsets are <strong>compact</strong> (in their standard topologies)? (Select all correct options)</p><p>(1) \([0, 1]\) with the standard topology on \(\mathbb{R}\)<br>(2) \((0, 1)\) with the standard topology on \(\mathbb{R}\)<br>(3) \(\{(x,y) \in \mathbb{R}^2 : x^2 + y^2 \leq 1\}\)<br>(4) \(\mathbb{Z}\) with the discrete topology</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1) and (3)</strong></p><p>(1) TRUE: \([0,1]\) is closed and bounded in \(\mathbb{R}\), hence compact by Heine–Borel.<br>(2) FALSE: \((0,1)\) is bounded but not closed, hence not compact (no finite subcover for the open cover \(\{(1/n, 1)\}_{n\geq 2}\)).<br>(3) TRUE: The closed unit disk is closed and bounded in \(\mathbb{R}^2\).<br>(4) FALSE: In the discrete topology on \(\mathbb{Z}\), the cover \(\{\{n\} : n \in \mathbb{Z}\}\) has no finite subcover.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="50" format="html"><text><![CDATA[\([0, 1]\) with the standard topology on \(\mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\((0, 1)\) with the standard topology on \(\mathbb{R}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="50" format="html"><text><![CDATA[\(\{(x,y) \in \mathbb{R}^2 : x^2 + y^2 \leq 1\}\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[\(\mathbb{Z}\) with the discrete topology]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q54 - Properties of Laplace equation u_xx + u_yy = 0 (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Consider the Laplace equation \(u_{xx} + u_{yy} = 0\) on a bounded domain \(\Omega \subset \mathbb{R}^2\). Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) It is an elliptic PDE<br>(2) Solutions are called harmonic functions<br>(3) A non-constant harmonic function satisfies the maximum principle (it attains its maximum on the boundary)<br>(4) A harmonic function can be non-smooth (non-\(C^\infty\)) inside \(\Omega\)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (2), (3)</strong></p><p>(1) TRUE: The discriminant \(B^2-4AC = 0-4(1)(1) < 0\) confirms ellipticity.<br>(2) TRUE: By definition, solutions of \(\Delta u = 0\) are harmonic functions.<br>(3) TRUE: The strong maximum principle states that a non-constant harmonic function on a bounded domain attains its maximum (and minimum) on the boundary.<br>(4) FALSE: Harmonic functions are real-analytic (hence \(C^\infty\)) on any open set where they satisfy the equation.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[The Laplace equation is an elliptic PDE]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[Solutions are called harmonic functions]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[A non-constant harmonic function attains its maximum on the boundary]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[A harmonic function can be non-\(C^\infty\) inside \(\Omega\)]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>MODEL Q55 - Field extensions: Tower law and algebraic extensions (MSQ)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Let \(F \subseteq E \subseteq K\) be field extensions. Which of the following are <strong>TRUE</strong>? (Select all correct options)</p><p>(1) \([K:F] = [K:E]\cdot[E:F]\) (Tower Law)<br>(2) If \([K:F] = p\) (a prime), then there are no intermediate fields strictly between \(F\) and \(K\)<br>(3) Every finite extension is algebraic<br>(4) Every algebraic extension is finite</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>Answers: (1), (2), (3)</strong></p><p>(1) TRUE: Tower Law — the degree is multiplicative in towers.<br>(2) TRUE: If \(F \subsetneq E \subsetneq K\), then \([K:F]=[K:E][E:F]\geq 2\cdot 2=4\), contradicting \([K:F]=p\) prime (with \(p\leq 3\)... actually more carefully: any intermediate \(E\) gives \([E:F]\mid p\), so \([E:F]=1\) or \(p\), meaning \(E=F\) or \(E=K\)).<br>(3) TRUE: If \([K:F]=n < \infty\), every \(\alpha\in K\) satisfies a polynomial of degree \(\leq n\) over \(F\).<br>(4) FALSE: \(\overline{\mathbb{Q}}/\mathbb{Q}\) (algebraic closure) is algebraic but has infinite degree.</p>]]></text></generalfeedback>
+  <defaultgrade>1.0</defaultgrade><penalty>0</penalty><hidden>0</hidden>
+  <single>false</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="33" format="html"><text><![CDATA[\([K:F] = [K:E]\cdot[E:F]\) (Tower Law)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="33" format="html"><text><![CDATA[If \([K:F] = p\) (prime), then there are no intermediate fields strictly between \(F\) and \(K\)]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="34" format="html"><text><![CDATA[Every finite extension is algebraic]]></text><feedback format="html"><text></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Every algebraic extension is finite]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+
+</quiz>

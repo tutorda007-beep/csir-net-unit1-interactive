@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR-UGC NET Mathematical Sciences — Model Question Paper</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{
+    --bg:#f4f6fb; --panel:#ffffff; --ink:#1b2436; --muted:#65708a; --line:#e2e6f0;
+    --brand:#3b52d9; --brand-ink:#ffffff; --brand-soft:#eef0fe;
+    --ok:#1a9c6b; --ok-soft:#e6f7ef; --bad:#d8452f; --bad-soft:#fdeceb;
+    --warn:#c98a12; --warn-soft:#fff4e0; --purple:#7c4fe0; --purple-soft:#f1ebfd;
+    --radius:14px; --shadow:0 8px 24px rgba(30,40,80,0.08);
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+    --sans:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  }
+  [data-theme="dark"]{
+    --bg:#10131c; --panel:#171c2b; --ink:#e7ebf7; --muted:#8b93ad; --line:#2a3247;
+    --brand:#6f83ff; --brand-ink:#0d1120; --brand-soft:#1c2340;
+    --ok:#3fd394; --ok-soft:#123626; --bad:#ff6b57; --bad-soft:#3a1a17;
+    --warn:#e8b64f; --warn-soft:#3a2c0e; --purple:#a689ff; --purple-soft:#241c40;
+    --shadow:0 8px 24px rgba(0,0,0,0.4);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);transition:background .2s,color .2s;}
+  ::selection{background:var(--brand);color:var(--brand-ink);}
+  a{color:var(--brand);}
+  button{font-family:inherit;cursor:pointer;}
+  .hidden{display:none !important;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow);
+  }
+  .topbar .title{font-weight:700;font-size:14.5px;letter-spacing:.2px;}
+  .topbar .title small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;}
+  .spacer{flex:1;}
+  .timer{
+    display:flex;align-items:center;gap:8px;background:var(--brand-soft);color:var(--brand);
+    padding:7px 14px;border-radius:999px;font-weight:700;font-variant-numeric:tabular-nums;font-size:14px;
+  }
+  .timer.low{background:var(--bad-soft);color:var(--bad);animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  .icon-btn{
+    border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;
+    padding:7px 11px;font-size:13px;display:flex;align-items:center;gap:6px;
+  }
+  .icon-btn:hover{background:var(--brand-soft);border-color:var(--brand);}
+
+  /* ---------- start screen ---------- */
+  .start-wrap{max-width:880px;margin:36px auto;padding:0 18px 60px;}
+  .hero{background:linear-gradient(135deg,var(--brand),#7c4fe0);color:#fff;border-radius:20px;padding:36px 32px;box-shadow:var(--shadow);}
+  .hero h1{margin:0 0 8px;font-size:26px;}
+  .hero p{margin:0;opacity:.92;font-size:14.5px;max-width:560px;}
+  .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+  .badge{background:rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:600;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+  .card h3{margin:0 0 6px;font-size:14px;}
+  .card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55;}
+  .card .num{font-size:26px;font-weight:800;color:var(--brand);}
+  .legend-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+  .legend-chip{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);}
+  .dot{width:12px;height:12px;border-radius:4px;display:inline-block;}
+  .setup{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:18px;box-shadow:var(--shadow);}
+  .setup label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;}
+  .setup select{padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:13.5px;}
+  .check-row{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--muted);}
+  .primary-btn{
+    background:var(--brand);color:var(--brand-ink);border:none;border-radius:12px;padding:13px 26px;
+    font-weight:700;font-size:15px;box-shadow:0 6px 18px rgba(59,82,217,.35);
+  }
+  .primary-btn:hover{filter:brightness(1.06);}
+  .primary-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .ghost-btn{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 22px;font-weight:600;font-size:14px;}
+  .ghost-btn:hover{border-color:var(--brand);color:var(--brand);}
+  .cta-row{display:flex;gap:12px;margin-top:22px;align-items:center;flex-wrap:wrap;}
+  .resume-note{font-size:12.5px;color:var(--warn);background:var(--warn-soft);padding:8px 12px;border-radius:10px;margin-top:14px;display:inline-block;}
+
+  /* ---------- exam layout ---------- */
+  .exam-wrap{display:flex;max-width:1400px;margin:0 auto;min-height:calc(100vh - 54px);}
+  .main-col{flex:1;min-width:0;padding:20px 22px 100px;}
+  .side-col{width:290px;flex-shrink:0;border-left:1px solid var(--line);background:var(--panel);padding:16px;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;}
+  @media (max-width:980px){
+    .exam-wrap{flex-direction:column;}
+    .side-col{width:100%;height:auto;position:static;border-left:none;border-top:1px solid var(--line);}
+  }
+
+  .part-banner{
+    background:var(--brand-soft);color:var(--brand);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:13px;line-height:1.5;
+  }
+  .part-banner b{font-size:14px;}
+  .q-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);}
+  .q-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .q-tag{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+  .q-marks{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--ok-soft);color:var(--ok);}
+  .q-marks.msq{background:var(--purple-soft);color:var(--purple);}
+  .q-text{font-size:15.5px;line-height:1.75;}
+  .q-text p{margin:0 0 10px;}
+  .msq-hint{font-size:12px;color:var(--purple);background:var(--purple-soft);display:inline-block;padding:5px 10px;border-radius:8px;margin-bottom:10px;font-weight:600;}
+  .options{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;
+    padding:12px 14px;cursor:pointer;transition:border-color .15s, background .15s;
+  }
+  .opt:hover{border-color:var(--brand);background:var(--brand-soft);}
+  .opt.selected{border-color:var(--brand);background:var(--brand-soft);}
+  .opt input{margin-top:3px;accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;}
+  .opt .opt-label{font-weight:700;color:var(--muted);width:20px;flex-shrink:0;}
+  .opt .opt-text{font-size:14.5px;line-height:1.6;}
+
+  /* review mode coloring */
+  .opt.rev-correct{border-color:var(--ok);background:var(--ok-soft);}
+  .opt.rev-wrong{border-color:var(--bad);background:var(--bad-soft);}
+  .opt.rev-missed{border-color:var(--ok);background:var(--ok-soft);border-style:dashed;}
+
+  .explain{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px;font-size:13.5px;color:var(--ink);line-height:1.7;}
+  .explain .lbl{font-weight:700;color:var(--brand);font-size:12px;text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px;}
+
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px;flex-wrap:wrap;}
+  .nav-row .left-grp, .nav-row .right-grp{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{border-radius:10px;padding:10px 16px;font-weight:600;font-size:13.5px;border:1px solid var(--line);background:var(--panel);color:var(--ink);}
+  .btn:hover{border-color:var(--brand);color:var(--brand);}
+  .btn.solid{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);}
+  .btn.solid:hover{filter:brightness(1.07);color:var(--brand-ink);}
+  .btn.warn-o{border-color:var(--warn);color:var(--warn);}
+  .btn.warn-o:hover{background:var(--warn-soft);}
+  .btn.danger-o{border-color:var(--bad);color:var(--bad);}
+  .btn.danger-o:hover{background:var(--bad-soft);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  /* palette */
+  .prog-mini{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:10px;}
+  .prog-bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:16px;}
+  .prog-bar > div{height:100%;background:var(--brand);}
+  .side-col h4{font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin:16px 0 8px;}
+  .side-col h4:first-child{margin-top:0;}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .stat{border-radius:10px;padding:8px 10px;font-size:12px;}
+  .stat b{display:block;font-size:16px;}
+  .stat.answered{background:var(--ok-soft);color:var(--ok);}
+  .stat.notans{background:var(--bad-soft);color:var(--bad);}
+  .stat.marked{background:var(--purple-soft);color:var(--purple);}
+  .stat.notvis{background:var(--line);color:var(--muted);}
+  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:6px;}
+  .pnum{
+    aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);
+    font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .pnum:hover{outline:2px solid var(--brand);}
+  .pnum.cur{outline:2px solid var(--brand);outline-offset:1px;}
+  .pnum.st-answered{background:var(--ok);color:#fff;border-color:var(--ok);}
+  .pnum.st-notanswered{background:var(--bad);color:#fff;border-color:var(--bad);}
+  .pnum.st-marked{background:var(--purple);color:#fff;border-color:var(--purple);}
+  .pnum.st-marked.has-ans::after{content:'';position:absolute;bottom:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--ok);border:1px solid #fff;}
+  .pnum.st-notvisited{background:var(--bg);color:var(--muted);}
+  .submit-btn{width:100%;margin-top:18px;padding:13px;border-radius:12px;background:var(--ok);color:#fff;border:none;font-weight:700;font-size:14px;}
+  .submit-btn:hover{filter:brightness(1.05);}
+
+  /* modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(10,14,25,.55);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px;}
+  .modal{background:var(--panel);border-radius:16px;padding:26px;max-width:460px;width:100%;box-shadow:var(--shadow);}
+  .modal h3{margin:0 0 10px;font-size:17px;}
+  .modal p{font-size:13.5px;color:var(--muted);line-height:1.6;}
+  .modal .stat-grid{margin:16px 0;}
+  .modal .btn-row{display:flex;gap:10px;margin-top:18px;justify-content:flex-end;}
+
+  /* results screen */
+  .results-wrap{max-width:1000px;margin:0 auto;padding:24px 18px 80px;}
+  .score-hero{background:linear-gradient(135deg,var(--brand),#7c4fe0);color:#fff;border-radius:20px;padding:30px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;box-shadow:var(--shadow);}
+  .score-circle{width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+  .score-circle b{font-size:30px;}
+  .score-circle span{font-size:12px;opacity:.85;}
+  .score-hero .info h2{margin:0 0 4px;font-size:20px;}
+  .score-hero .info p{margin:0;opacity:.9;font-size:13.5px;}
+  .part-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px;}
+  .pr-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+  .pr-card h4{margin:0 0 10px;font-size:13.5px;}
+  .pr-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);padding:4px 0;}
+  .pr-row b{color:var(--ink);}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 16px;}
+  .filter-btn{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600;color:var(--ink);}
+  .filter-btn.active{background:var(--brand);border-color:var(--brand);color:var(--brand-ink);}
+  .review-item{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .review-item .rh{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
+  .status-pill{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;}
+  .status-pill.ok{background:var(--ok-soft);color:var(--ok);}
+  .status-pill.bad{background:var(--bad-soft);color:var(--bad);}
+  .status-pill.skip{background:var(--line);color:var(--muted);}
+  .end-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;}
+
+  footer.note{text-align:center;color:var(--muted);font-size:11.5px;padding:20px;}
+
+  @media print{
+    .topbar,.side-col,.nav-row,.filter-row,.end-actions,.icon-btn{display:none !important;}
+    .exam-wrap{display:block;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<div class="topbar">
+  <div class="title">CSIR-UGC NET — Mathematical Sciences<small>Model Question Paper · Interactive Mock Test</small></div>
+  <div class="spacer"></div>
+  <div id="timerBox" class="timer hidden">⏱ <span id="timerText">03:00:00</span></div>
+  <button class="icon-btn" id="themeToggle" title="Toggle dark mode">🌓 Theme</button>
+</div>
+
+<!-- ================= START SCREEN ================= -->
+<div id="startScreen" class="start-wrap">
+  <div class="hero">
+    <h1>CSIR-UGC NET Mathematical Sciences</h1>
+    <p>Full-length model question paper with 55 questions across three parts. Attempt it like the real exam — timed, negatively marked, and auto-evaluated with detailed solutions.</p>
+    <div class="badges">
+      <span class="badge">55 Questions</span>
+      <span class="badge">3 Hours</span>
+      <span class="badge">Best-of Attempt Scoring</span>
+      <span class="badge">Instant Solutions</span>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="num">15</div><h3>Part A — General Aptitude</h3><p>Q1–15 · Single choice · +2 / −0.5 · Best 12 of 15 counted</p></div>
+    <div class="card"><div class="num">25</div><h3>Part B — Core Mathematics</h3><p>Q16–40 · Single choice · +3 / −0.75 · Best 20 of 25 counted</p></div>
+    <div class="card"><div class="num">15</div><h3>Part C — Advanced Mathematics</h3><p>Q41–55 · Multi-select (MSQ) · +4.75 / 0 · Best 12 of 15 counted</p></div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-chip"><span class="dot" style="background:var(--bg);border:1px solid var(--line);"></span>Not visited</div>
+    <div class="legend-chip"><span class="dot" style="background:var(--bad);"></span>Not answered</div>
+    <div class="legend-chip"><span class="dot" style="background:var(--ok);"></span>Answered</div>
+    <div class="legend-chip"><span class="dot" style="background:var(--purple);"></span>Marked for review</div>
+  </div>
+
+  <div class="setup">
+    <label for="durationSel">Test duration</label>
+    <select id="durationSel">
+      <option value="180" selected>3 hours (full exam)</option>
+      <option value="90">1.5 hours (half, practice)</option>
+      <option value="30">30 minutes (quick drill)</option>
+      <option value="0">No timer (untimed practice)</option>
+    </select>
+    <div class="check-row"><input type="checkbox" id="autoScrollChk" checked> Auto-scroll to top on question change</div>
+    <div id="resumeNote"></div>
+  </div>
+
+  <div class="cta-row">
+    <button class="primary-btn" id="startBtn">Start Test →</button>
+    <button class="ghost-btn hidden" id="resumeBtn">Resume in-progress attempt</button>
+  </div>
+</div>
+
+<!-- ================= EXAM SCREEN ================= -->
+<div id="examScreen" class="exam-wrap hidden">
+  <div class="main-col">
+    <div id="partBanner" class="part-banner"></div>
+    <div class="q-card">
+      <div class="q-head">
+        <div>
+          <div class="q-tag" id="qTag"></div>
+        </div>
+        <div class="q-marks" id="qMarks"></div>
+      </div>
+      <div id="msqHint" class="msq-hint hidden">◇ Select ALL correct options — full marks only if your selection exactly matches</div>
+      <div class="q-text" id="qText"></div>
+      <div class="options" id="optionsBox"></div>
+    </div>
+
+    <div class="nav-row">
+      <div class="left-grp">
+        <button class="btn" id="prevBtn">← Previous</button>
+        <button class="btn danger-o" id="clearBtn">Clear Response</button>
+      </div>
+      <div class="right-grp">
+        <button class="btn warn-o" id="markBtn">🔖 Mark for Review & Next</button>
+        <button class="btn solid" id="nextBtn">Save & Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-col">
+    <h4>Progress</h4>
+    <div class="prog-mini"><span id="progLabel">0 / 55 answered</span><span id="progPct">0%</span></div>
+    <div class="prog-bar"><div id="progFill" style="width:0%"></div></div>
+    <div class="stat-grid">
+      <div class="stat answered"><b id="statAnswered">0</b>Answered</div>
+      <div class="stat notans"><b id="statNotAnswered">0</b>Not answered</div>
+      <div class="stat marked"><b id="statMarked">0</b>Marked</div>
+      <div class="stat notvis"><b id="statNotVisited">55</b>Not visited</div>
+    </div>
+
+    <h4>Part A · General Aptitude</h4>
+    <div class="palette" id="paletteA"></div>
+    <h4>Part B · Core Mathematics</h4>
+    <div class="palette" id="paletteB"></div>
+    <h4>Part C · Advanced Mathematics</h4>
+    <div class="palette" id="paletteC"></div>
+
+    <button class="submit-btn" id="submitBtn">Submit Test</button>
+  </div>
+</div>
+
+<!-- ================= SUBMIT CONFIRM MODAL ================= -->
+<div id="submitModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h3>Submit the test?</h3>
+    <p>Once submitted, your responses will be locked and evaluated. Review the summary below before confirming.</p>
+    <div class="stat-grid">
+      <div class="stat answered"><b id="mAnswered">0</b>Answered</div>
+      <div class="stat notans"><b id="mNotAnswered">0</b>Not answered</div>
+      <div class="stat marked"><b id="mMarked">0</b>Marked</div>
+      <div class="stat notvis"><b id="mNotVisited">0</b>Not visited</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="cancelSubmit">Continue Test</button>
+      <button class="btn solid" id="confirmSubmit">Submit Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= RESULTS SCREEN ================= -->
+<div id="resultsScreen" class="results-wrap hidden">
+  <div class="score-hero">
+    <div class="score-circle"><b id="scoreVal">0</b><span id="scoreMax">/ 0</span></div>
+    <div class="info">
+      <h2 id="scoreHeadline">Test complete</h2>
+      <p id="scoreSub"></p>
+    </div>
+  </div>
+
+  <div class="part-results" id="partResults"></div>
+
+  <div class="filter-row" id="filterRow">
+    <button class="filter-btn active" data-f="all">All (55)</button>
+    <button class="filter-btn" data-f="correct">Correct</button>
+    <button class="filter-btn" data-f="incorrect">Incorrect</button>
+    <button class="filter-btn" data-f="unattempted">Unattempted</button>
+    <button class="filter-btn" data-f="marked">Marked</button>
+  </div>
+
+  <div id="reviewList"></div>
+
+  <div class="end-actions">
+    <button class="ghost-btn" id="printBtn">🖨 Print Result</button>
+    <button class="ghost-btn" id="retakeBtn">↺ Retake Test</button>
+  </div>
+</div>
+
+<footer class="note">CSIR-UGC NET Mathematical Sciences — Model Question Paper · Self-contained interactive mock test · Not an official CSIR publication</footer>
+
+<script>
+/* ======================= QUESTION DATA ======================= */
+const QUIZ_DATA = {"parts":[{"title":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","info":"\u003cp\u003e\u003cstrong\u003eCSIR-UGC NET Mathematical Sciences — Model Question Paper\u003c/strong\u003e\u003c/p\u003e\u003cp\u003ePart A: General Aptitude (Q1–15). Marks: \u003cstrong\u003e+2 for correct, −0.5 for incorrect\u003c/strong\u003e. Attempt any 12 out of 15.\u003c/p\u003e"},{"title":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","info":"\u003cp\u003ePart B: Core Mathematics (Q16–40). Marks: \u003cstrong\u003e+3 for correct, −0.75 for incorrect\u003c/strong\u003e. Attempt any 20 out of 25.\u003c/p\u003e"},{"title":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","info":"\u003cp\u003ePart C: Advanced Mathematics — Multiple Select Questions (Q41–55). Marks: \u003cstrong\u003e+4.75 for fully correct selection, no negative marking\u003c/strong\u003e. Attempt any 12 out of 15. Select ALL correct options.\u003c/p\u003e"}],"questions":[{"num":1,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q1 - Net percentage change after successive changes","qtext":"\u003cp\u003eA number is first increased by 20% and then decreased by 20%. The net percentage change in the number is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 4% decrease\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eLet original number = 100. After 20% increase: 120. After 20% decrease: \\(120 \\times 0.80 = 96\\). Net change = \\(-4\\%\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"No change"},{"fraction":100,"text":"4% decrease"},{"fraction":0,"text":"4% increase"},{"fraction":0,"text":"2% decrease"}]},{"num":2,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q2 - Train speed calculation","qtext":"\u003cp\u003eA train 150 m long passes a stationary pole in 15 seconds. The speed of the train in km/hr is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 36 km/hr\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eSpeed \\(= \\dfrac{150}{15} = 10\\) m/s \\(= 10 \\times \\dfrac{18}{5} = 36\\) km/hr.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"10 km/hr"},{"fraction":100,"text":"36 km/hr"},{"fraction":0,"text":"54 km/hr"},{"fraction":0,"text":"45 km/hr"}]},{"num":3,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q3 - Find n from sum of natural numbers","qtext":"\u003cp\u003eThe sum of the first \\(n\\) natural numbers is 630. The value of \\(n\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 35\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(\\dfrac{n(n+1)}{2} = 630 \\Rightarrow n(n+1) = 1260\\). Checking: \\(35 \\times 36 = 1260\\). So \\(n = 35\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"34"},{"fraction":100,"text":"35"},{"fraction":0,"text":"36"},{"fraction":0,"text":"40"}]},{"num":4,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q4 - Logic puzzle: who is guilty","qtext":"\u003cp\u003eAmong four people P, Q, R, S, exactly one committed a mistake. P says \"Q did it\"; Q says \"S did it\"; R says \"I did not do it\"; S says \"Q is lying\". Only the guilty person lies. Who is guilty?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Q\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eIf Q is guilty: Q lies (\"S did it\" is false ✓). P is truthful (\"Q did it\" is true ✓). R is truthful (\"I did not do it\" is true ✓). S is truthful (\"Q is lying\" is true ✓). All statements are consistent. No other person works: if P is guilty, P lies (\"Q did it\" is false ✓) but then Q is truthful and \"S did it\" must be true — contradiction.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"P"},{"fraction":100,"text":"Q"},{"fraction":0,"text":"R"},{"fraction":0,"text":"S"}]},{"num":5,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q5 - Next term in sequence","qtext":"\u003cp\u003eFind the next term in the sequence: 2, 6, 12, 20, 30, __?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) 42\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eThe general term is \\(n(n+1)\\): \\(1\\times2=2,\\ 2\\times3=6,\\ 3\\times4=12,\\ 4\\times5=20,\\ 5\\times6=30,\\ 6\\times7=42\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"36"},{"fraction":0,"text":"40"},{"fraction":100,"text":"42"},{"fraction":0,"text":"56"}]},{"num":6,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q6 - Fraction of C given A and B relationships","qtext":"\u003cp\u003eA is \\(\\dfrac{3}{5}\\) of B, and B is \\(\\dfrac{2}{3}\\) of C. What fraction of C is A?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) \\(\\dfrac{2}{5}\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(A = \\dfrac{3}{5}B = \\dfrac{3}{5} \\times \\dfrac{2}{3}C = \\dfrac{2}{5}C\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"\\(\\dfrac{1}{5}\\)"},{"fraction":100,"text":"\\(\\dfrac{2}{5}\\)"},{"fraction":0,"text":"\\(\\dfrac{3}{5}\\)"},{"fraction":0,"text":"\\(\\dfrac{4}{5}\\)"}]},{"num":7,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q7 - Simple interest rate for doubling","qtext":"\u003cp\u003eA sum of money doubles itself in 8 years at simple interest. The annual rate of interest (in %) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) 12.5%\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(\\text{SI} = P \\Rightarrow \\dfrac{P \\times r \\times 8}{100} = P \\Rightarrow r = \\dfrac{100}{8} = 12.5\\%\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"8%"},{"fraction":0,"text":"10%"},{"fraction":100,"text":"12.5%"},{"fraction":0,"text":"16%"}]},{"num":8,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q8 - Time-work: B finishes remaining work","qtext":"\u003cp\u003eA can complete a work in 12 days and B in 18 days. They work together for 4 days, after which A leaves. How many more days does B need to finish the remaining work?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) 8 days\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eCombined rate \\(= \\dfrac{1}{12}+\\dfrac{1}{18} = \\dfrac{5}{36}\\) per day. Work in 4 days \\(= \\dfrac{20}{36} = \\dfrac{5}{9}\\). Remaining \\(= \\dfrac{4}{9}\\). B\u0027s rate \\(= \\dfrac{1}{18}\\). Days \\(= \\dfrac{4}{9} \\div \\dfrac{1}{18} = 8\\) days.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"6 days"},{"fraction":0,"text":"7 days"},{"fraction":100,"text":"8 days"},{"fraction":0,"text":"10 days"}]},{"num":9,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q9 - Cost of fencing a circular field","qtext":"\u003cp\u003eA circular field has radius 14 m. The cost of fencing it at the rate of Rs. 5 per metre is (use \\(\\pi = \\frac{22}{7}\\))\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Rs. 440\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eCircumference \\(= 2\\pi r = 2 \\times \\dfrac{22}{7} \\times 14 = 88\\) m. Cost \\(= 88 \\times 5 = \\text{Rs. }440\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Rs. 220"},{"fraction":100,"text":"Rs. 440"},{"fraction":0,"text":"Rs. 616"},{"fraction":0,"text":"Rs. 880"}]},{"num":10,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q10 - Find sixth number from average","qtext":"\u003cp\u003eThe average of 5 numbers is 24. When a sixth number is included, the new average becomes 22. What is the sixth number?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) 12\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eSum of 5 numbers \\(= 5 \\times 24 = 120\\). Sum of 6 numbers \\(= 6 \\times 22 = 132\\). Sixth number \\(= 132 - 120 = 12\\).\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"12"},{"fraction":0,"text":"10"},{"fraction":0,"text":"14"},{"fraction":0,"text":"18"}]},{"num":11,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q11 - Distance from starting point (direction sense)","qtext":"\u003cp\u003eA man walks 4 km North, then turns right and walks 3 km East. How far (in km) is he from his starting point?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 5 km\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eThe displacement forms a right triangle with legs 4 km and 3 km. Distance \\(= \\sqrt{4^2 + 3^2} = \\sqrt{25} = 5\\) km.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"7 km"},{"fraction":100,"text":"5 km"},{"fraction":0,"text":"\\(3\\sqrt{3}\\) km"},{"fraction":0,"text":"4 km"}]},{"num":12,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q12 - Coding-decoding: MANGO in code","qtext":"\u003cp\u003eIn a certain code, APPLE is written as BQQMF (each letter shifted forward by one). How is MANGO written in the same code?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) NBOHP\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eShift each letter forward by 1: M→N, A→B, N→O, G→H, O→P. So MANGO → NBOHP.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"LZMFN"},{"fraction":0,"text":"MBNHP"},{"fraction":100,"text":"NBOHP"},{"fraction":0,"text":"OCPIQ"}]},{"num":13,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q13 - Blood relations: P is related to S as","qtext":"\u003cp\u003eP is the brother of Q. Q is the sister of R. R is the father of S. How is P related to S?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Uncle\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eP and Q are siblings. Q is the sister of R, so P, Q and R are siblings. R is S\u0027s father. Therefore P is S\u0027s uncle (father\u0027s brother).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Father"},{"fraction":100,"text":"Uncle"},{"fraction":0,"text":"Grandfather"},{"fraction":0,"text":"Brother"}]},{"num":14,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q14 - Which is NOT a prime number","qtext":"\u003cp\u003eWhich of the following is \u003cstrong\u003eNOT\u003c/strong\u003e a prime number?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) 91\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(91 = 7 \\times 13\\), so 91 is composite. The others — 83, 89, 97 — are all prime.\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"91"},{"fraction":0,"text":"83"},{"fraction":0,"text":"89"},{"fraction":0,"text":"97"}]},{"num":15,"part":"$course$/CSIR NET Mathematics/Model Paper/Part A - General Aptitude","name":"MODEL Q15 - Number of students playing neither sport","qtext":"\u003cp\u003eIn a class of 60 students, 40 play cricket, 30 play football, and 10 play both. How many students play neither sport?\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) 0\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(|C \\cup F| = 40 + 30 - 10 = 60\\). Since the class has exactly 60 students, all of them play at least one sport. Number playing neither \\(= 60 - 60 = 0\\).\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"0"},{"fraction":0,"text":"5"},{"fraction":0,"text":"10"},{"fraction":0,"text":"20"}]},{"num":16,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q16 - Convergence of sequence (1+1/n)^n","qtext":"\u003cp\u003eConsider the sequence \\(a_n = \\left(1 + \\dfrac{1}{n}\\right)^n\\) for \\(n \\geq 1\\). Then\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) \\(\\{a_n\\}\\) is strictly increasing and converges to \\(e\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eBy AM-GM inequality one shows \\(a_n \u003c a_{n+1}\\), and by the Binomial Theorem the limit is \\(e \\approx 2.718\\ldots\\)\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"\\(\\{a_n\\}\\) is strictly increasing and converges to \\(e\\)"},{"fraction":0,"text":"\\(\\{a_n\\}\\) is strictly decreasing"},{"fraction":0,"text":"\\(\\{a_n\\}\\) is unbounded"},{"fraction":0,"text":"\\(\\{a_n\\}\\) converges to 1"}]},{"num":17,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q17 - Convergence of series 1/(n log n)","qtext":"\u003cp\u003eThe series \\(\\displaystyle\\sum_{n=2}^{\\infty} \\dfrac{1}{n \\log n}\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Diverges\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eBy the integral test, \\(\\displaystyle\\int_2^\\infty \\dfrac{dx}{x\\log x} = \\Big[\\log(\\log x)\\Big]_2^\\infty = +\\infty\\). Hence the series diverges.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Converges absolutely"},{"fraction":100,"text":"Diverges"},{"fraction":0,"text":"Converges conditionally"},{"fraction":0,"text":"Converges to \\(\\log 2\\)"}]},{"num":18,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q18 - Continuous additive function on R","qtext":"\u003cp\u003eLet \\(f: \\mathbb{R} \\to \\mathbb{R}\\) be a continuous function satisfying \\(f(x+y) = f(x) + f(y)\\) for all \\(x, y \\in \\mathbb{R}\\). Then \\(f\\) must be of the form\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) \\(f(x) = cx\\) for some constant \\(c \\in \\mathbb{R}\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eFrom \\(f(x+y)=f(x)+f(y)\\) one deduces \\(f(nx)=nf(x)\\) for integers, then rationals, and continuity extends this to all reals: \\(f(x)=f(1)\\cdot x\\). Set \\(c=f(1)\\).\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"\\(f(x) = cx\\) for some constant \\(c \\in \\mathbb{R}\\)"},{"fraction":0,"text":"\\(f(x) = cx^2\\) for some constant \\(c\\)"},{"fraction":0,"text":"\\(f(x) = c\\) (constant function)"},{"fraction":0,"text":"\\(f\\) need not be linear"}]},{"num":19,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q19 - Bound on differentiable f with |f\u0027|≤1 and f(0)=0","qtext":"\u003cp\u003eLet \\(f: [0,1] \\to \\mathbb{R}\\) be differentiable with \\(|f\u0027(x)| \\leq 1\\) for all \\(x\\) and \\(f(0) = 0\\). Then\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) \\(|f(x)| \\leq x\\) for all \\(x \\in [0,1]\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eBy the Mean Value Theorem, \\(|f(x) - f(0)| = |f\u0027(c)| \\cdot |x - 0| \\leq 1 \\cdot x = x\\).\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"\\(|f(x)| \\leq x\\) for all \\(x \\in [0,1]\\)"},{"fraction":0,"text":"\\(f\\) is constant"},{"fraction":0,"text":"\\(f(1) = 1\\) necessarily"},{"fraction":0,"text":"\\(f\\) is not Lipschitz"}]},{"num":20,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q20 - Value of Beta integral x^n(1-x)","qtext":"\u003cp\u003eThe value of the integral \\(\\displaystyle\\int_0^1 x^n(1-x)\\,dx\\) (for integer \\(n \\geq 0\\)) equals\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) \\(\\dfrac{1}{(n+1)(n+2)}\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eUsing the Beta function: \\(\\displaystyle\\int_0^1 x^n(1-x)^1\\,dx = B(n+1,2) = \\dfrac{n!\\,1!}{(n+2)!} = \\dfrac{1}{(n+1)(n+2)}\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"\\(\\dfrac{1}{n+1}\\)"},{"fraction":0,"text":"\\(\\dfrac{1}{n+2}\\)"},{"fraction":100,"text":"\\(\\dfrac{1}{(n+1)(n+2)}\\)"},{"fraction":0,"text":"\\(\\dfrac{n!}{(n+2)!}\\cdot 2\\)"}]},{"num":21,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q21 - Intersection of subspaces when dim sum exceeds n","qtext":"\u003cp\u003eLet \\(V\\) be a vector space of dimension \\(n\\) over \\(\\mathbb{R}\\). If \\(W_1\\) and \\(W_2\\) are subspaces with \\(\\dim W_1 + \\dim W_2 \u003e n\\), then\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) \\(W_1 \\cap W_2 \\neq \\{0\\}\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eBy the dimension formula: \\(\\dim(W_1 \\cap W_2) = \\dim W_1 + \\dim W_2 - \\dim(W_1+W_2) \\geq \\dim W_1 + \\dim W_2 - n \u003e 0\\). Hence the intersection is non-trivial.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"\\(W_1 + W_2 = V\\) necessarily"},{"fraction":100,"text":"\\(W_1 \\cap W_2 \\neq \\{0\\}\\)"},{"fraction":0,"text":"\\(W_1 = W_2\\)"},{"fraction":0,"text":"\\(W_1 \\subseteq W_2\\) or \\(W_2 \\subseteq W_1\\)"}]},{"num":22,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q22 - Eigenvalues of rotation matrix","qtext":"\u003cp\u003eThe eigenvalues of the matrix \\(A = \\begin{pmatrix} 0 \u0026 1 \\\\ -1 \u0026 0 \\end{pmatrix}\\) over \\(\\mathbb{C}\\) are\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) \\(\\pm i\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eCharacteristic polynomial: \\(\\det(A - \\lambda I) = \\lambda^2 + 1 = 0 \\Rightarrow \\lambda = \\pm i\\). There are no real eigenvalues.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"\\(0, 0\\)"},{"fraction":0,"text":"\\(1, -1\\)"},{"fraction":100,"text":"\\(\\pm i\\)"},{"fraction":0,"text":"\\(1, i\\)"}]},{"num":23,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q23 - Determinant of I + all-ones matrix","qtext":"\u003cp\u003eLet \\(J\\) denote the \\(n \\times n\\) matrix with all entries equal to 1, and let \\(A = I + J\\) (where \\(I\\) is the identity matrix). Then \\(\\det(A)\\) equals\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) \\(n+1\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eEigenvalues of \\(J\\): \\(n\\) (eigenvector \\(\\mathbf{1}\\)) and \\(0\\) (multiplicity \\(n-1\\)). Eigenvalues of \\(A = I+J\\): \\(n+1\\) and \\(1\\) (\\(n-1\\) times). \\(\\det(A) = (n+1) \\cdot 1^{n-1} = n+1\\).\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"\\(n+1\\)"},{"fraction":0,"text":"\\(2^n\\)"},{"fraction":0,"text":"\\(2^{n-1}\\)"},{"fraction":0,"text":"\\(n-1\\)"}]},{"num":24,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q24 - Rank from nullity (rank-nullity theorem)","qtext":"\u003cp\u003eA linear map \\(T: \\mathbb{R}^5 \\to \\mathbb{R}^3\\) has nullity 3. The rank of \\(T\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 2\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eBy the Rank-Nullity Theorem: \\(\\text{rank}(T) + \\text{nullity}(T) = \\dim(\\mathbb{R}^5) = 5\\). Hence \\(\\text{rank}(T) = 5 - 3 = 2\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"1"},{"fraction":100,"text":"2"},{"fraction":0,"text":"3"},{"fraction":0,"text":"5"}]},{"num":25,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q25 - Eigenvalues of real symmetric matrix","qtext":"\u003cp\u003eAll eigenvalues of a real symmetric matrix are\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Real\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eIf \\(A\\) is real symmetric and \\(Av = \\lambda v\\) (\\(v \\neq 0\\)), then \\(\\bar{\\lambda}\\|v\\|^2 = (Av,v) = (v,Av) = \\lambda\\|v\\|^2\\), so \\(\\lambda = \\bar{\\lambda}\\), i.e., \\(\\lambda \\in \\mathbb{R}\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Purely imaginary"},{"fraction":100,"text":"Real"},{"fraction":0,"text":"Positive"},{"fraction":0,"text":"Non-negative"}]},{"num":26,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q26 - Order of permutation (1 2 3)(4 5) in S5","qtext":"\u003cp\u003eThe order of the permutation \\((1\\;2\\;3)(4\\;5)\\) in the symmetric group \\(S_5\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (4) 6\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eThe permutation is a product of disjoint cycles of lengths 3 and 2. The order equals \\(\\text{lcm}(3, 2) = 6\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"2"},{"fraction":0,"text":"3"},{"fraction":0,"text":"5"},{"fraction":100,"text":"6"}]},{"num":27,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q27 - Group of order 35 is cyclic","qtext":"\u003cp\u003eA group of order 35 is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) Cyclic\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(35 = 5 \\times 7\\). By Sylow\u0027s theorem, the number of Sylow 5-subgroups divides 7 and is \\(\\equiv 1 \\pmod{5}\\): only possibility is 1. Similarly the Sylow 7-subgroup is unique. Both are normal, so the group is \\(\\mathbb{Z}_5 \\times \\mathbb{Z}_7 \\cong \\mathbb{Z}_{35}\\), which is cyclic.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Non-abelian"},{"fraction":0,"text":"Simple but not cyclic"},{"fraction":100,"text":"Cyclic"},{"fraction":0,"text":"Has no normal subgroups"}]},{"num":28,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q28 - Ideal (x,2) in Z[x]","qtext":"\u003cp\u003eIn the polynomial ring \\(\\mathbb{Z}[x]\\), the ideal \\((x, 2)\\) generated by \\(x\\) and \\(2\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) A maximal ideal\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(\\mathbb{Z}[x]/(x,2) \\cong \\mathbb{Z}/2\\mathbb{Z} = \\mathbb{F}_2\\), which is a field. An ideal is maximal if and only if the quotient ring is a field, so \\((x,2)\\) is maximal. It is not principal since \\(\\mathbb{Z}[x]\\) is not a PID.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"A principal ideal"},{"fraction":0,"text":"Not a prime ideal"},{"fraction":100,"text":"A maximal ideal"},{"fraction":0,"text":"Equal to the ideal generated by \\(2x\\)"}]},{"num":29,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q29 - Where is |z|^2 analytic","qtext":"\u003cp\u003eThe function \\(f(z) = |z|^2\\) (as a function of a complex variable \\(z\\)) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Analytic only at \\(z = 0\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eWrite \\(f(x+iy) = x^2+y^2\\). The Cauchy–Riemann equations \\(u_x = v_y,\\; u_y = -v_x\\) with \\(u=x^2+y^2,\\, v=0\\) give \\(2x=0,\\; 2y=0\\). So CR equations hold only at \\(z=0\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Entire (analytic on all of \\(\\mathbb{C}\\))"},{"fraction":100,"text":"Analytic only at \\(z = 0\\)"},{"fraction":0,"text":"Analytic on \\(\\mathbb{C} \\setminus \\{0\\}\\)"},{"fraction":0,"text":"Analytic on \\(|z| \u003e 1\\)"}]},{"num":30,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q30 - Contour integral dz/(z^2-1) over |z|=2","qtext":"\u003cp\u003eThe value of \\(\\displaystyle\\oint_{|z|=2} \\dfrac{dz}{z^2-1}\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 0\u003c/strong\u003e\u003c/p\u003e\u003cp\u003ePoles at \\(z = \\pm 1\\), both inside \\(|z|=2\\). Partial fractions: \\(\\dfrac{1}{z^2-1} = \\dfrac{1}{2(z-1)} - \\dfrac{1}{2(z+1)}\\). Residue at \\(z=1\\): \\(\\tfrac{1}{2}\\); at \\(z=-1\\): \\(-\\tfrac{1}{2}\\). Sum of residues \\(= 0\\). By the Residue Theorem: integral \\(= 2\\pi i \\cdot 0 = 0\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"\\(2\\pi i\\)"},{"fraction":100,"text":"0"},{"fraction":0,"text":"\\(\\pi i\\)"},{"fraction":0,"text":"\\(-2\\pi i\\)"}]},{"num":31,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q31 - Compact subsets of R (Heine-Borel)","qtext":"\u003cp\u003eA subset \\(K\\) of \\(\\mathbb{R}\\) (with the standard metric) is compact if and only if \\(K\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (3) Closed and bounded\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eThis is the Heine–Borel theorem for subsets of \\(\\mathbb{R}^n\\): compactness is equivalent to being closed and bounded.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Closed"},{"fraction":0,"text":"Bounded"},{"fraction":100,"text":"Closed and bounded"},{"fraction":0,"text":"Open and bounded"}]},{"num":32,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q32 - Connectedness of R^2 minus origin","qtext":"\u003cp\u003eThe space \\(\\mathbb{R}^2 \\setminus \\{(0,0)\\}\\) (the plane minus the origin) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Path-connected\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eGiven any two points \\(p, q \\in \\mathbb{R}^2 \\setminus \\{0\\}\\), one can connect them by a path avoiding the origin (e.g., go around it). Hence the space is path-connected (and therefore connected).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Disconnected"},{"fraction":100,"text":"Path-connected"},{"fraction":0,"text":"Compact"},{"fraction":0,"text":"Not a metric space"}]},{"num":33,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q33 - General solution of y\u0027\u0027 - 3y\u0027 + 2y = 0","qtext":"\u003cp\u003eThe general solution of the ODE \\(y\u0027\u0027 - 3y\u0027 + 2y = 0\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) \\(y = C_1 e^x + C_2 e^{2x}\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eCharacteristic equation: \\(r^2 - 3r + 2 = (r-1)(r-2) = 0\\). Roots: \\(r = 1, 2\\). General solution: \\(y = C_1 e^x + C_2 e^{2x}\\).\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"\\(y = C_1 e^x + C_2 e^{2x}\\)"},{"fraction":0,"text":"\\(y = C_1 e^x + C_2 x e^x\\)"},{"fraction":0,"text":"\\(y = e^x(C_1\\cos x + C_2 \\sin x)\\)"},{"fraction":0,"text":"\\(y = C_1 e^{2x} + C_2 e^{3x}\\)"}]},{"num":34,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q34 - Classification of u_t = u_xx","qtext":"\u003cp\u003eThe partial differential equation \\(u_t = u_{xx}\\) is called the\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Heat equation\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eThe PDE \\(u_t = u_{xx}\\) is the one-dimensional heat (diffusion) equation, which is parabolic. The wave equation is \\(u_{tt} = c^2 u_{xx}\\); Laplace\u0027s equation is \\(u_{xx} + u_{yy} = 0\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Wave equation"},{"fraction":100,"text":"Heat equation"},{"fraction":0,"text":"Laplace equation"},{"fraction":0,"text":"Poisson equation"}]},{"num":35,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q35 - Solution blow-up: y\u0027 = y^2, y(0)=1","qtext":"\u003cp\u003eThe unique solution of the initial value problem \\(y\u0027 = y^2,\\; y(0) = 1\\) is valid on the interval\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) \\((-\\infty,\\, 1)\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eSeparating variables: \\(\\displaystyle\\int \\dfrac{dy}{y^2} = \\int dx \\Rightarrow -\\dfrac{1}{y} = x + C\\). With \\(y(0)=1\\): \\(C = -1\\), so \\(y = \\dfrac{1}{1-x}\\). This blows up at \\(x=1\\) and is defined for \\(x \u003c 1\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"\\(\\mathbb{R}\\)"},{"fraction":100,"text":"\\((-\\infty,\\, 1)\\)"},{"fraction":0,"text":"\\((0,\\, \\infty)\\)"},{"fraction":0,"text":"\\((-1,\\, 1)\\)"}]},{"num":36,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q36 - Completeness: Cauchy sequences","qtext":"\u003cp\u003eA metric space \\((X, d)\\) is said to be \u003cstrong\u003ecomplete\u003c/strong\u003e if\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) Every Cauchy sequence in \\(X\\) converges to a point in \\(X\\)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eThis is the definition of completeness. Note that in a complete space not every sequence converges (e.g., divergent sequences exist); only Cauchy sequences are guaranteed to converge.\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"Every sequence in \\(X\\) converges"},{"fraction":100,"text":"Every Cauchy sequence in \\(X\\) converges to a point in \\(X\\)"},{"fraction":0,"text":"Every bounded sequence converges"},{"fraction":0,"text":"\\(X\\) is compact"}]},{"num":37,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q37 - Variance of Binomial(10, 0.3)","qtext":"\u003cp\u003eIf \\(X \\sim \\text{Binomial}(10, 0.3)\\), then \\(\\text{Var}(X)\\) equals\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 2.1\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(\\text{Var}(X) = np(1-p) = 10 \\times 0.3 \\times 0.7 = 2.1\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"3.0"},{"fraction":100,"text":"2.1"},{"fraction":0,"text":"0.3"},{"fraction":0,"text":"1.5"}]},{"num":38,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q38 - Type of singularity of sin(z)/z at z=0","qtext":"\u003cp\u003eThe function \\(f(z) = \\dfrac{\\sin z}{z}\\) has at \\(z = 0\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) A removable singularity\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e\\(\\displaystyle\\lim_{z\\to 0}\\dfrac{\\sin z}{z} = 1\\). Since the limit exists and is finite, \\(z=0\\) is a removable singularity. Defining \\(f(0)=1\\) makes \\(f\\) entire.\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"A removable singularity"},{"fraction":0,"text":"A simple pole"},{"fraction":0,"text":"An essential singularity"},{"fraction":0,"text":"A branch point"}]},{"num":39,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q39 - Lebesgue measure of Cantor set","qtext":"\u003cp\u003eThe Lebesgue measure of the (middle-thirds) Cantor set \\(\\mathcal{C} \\subset [0,1]\\) is\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (1) 0\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eAt step \\(n\\), the total measure removed is \\(\\displaystyle\\sum_{k=0}^{n-1} \\dfrac{2^k}{3^{k+1}} \\to 1\\) as \\(n \\to \\infty\\). Hence \\(\\mu(\\mathcal{C}) = 1 - 1 = 0\\). Despite having measure zero, \\(\\mathcal{C}\\) is uncountable.\u003c/p\u003e","single":"true","answers":[{"fraction":100,"text":"0"},{"fraction":0,"text":"1"},{"fraction":0,"text":"\\(\\dfrac{1}{3}\\)"},{"fraction":0,"text":"\\(\\dfrac{2}{3}\\)"}]},{"num":40,"part":"$course$/CSIR NET Mathematics/Model Paper/Part B - Core Mathematics","name":"MODEL Q40 - Tower Law for field extensions","qtext":"\u003cp\u003eLet \\(F \\subseteq E \\subseteq K\\) be field extensions with \\([K:F] = 6\\) and \\([E:F] = 2\\). Then \\([K:E]\\) equals\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswer: (2) 3\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eBy the Tower Law (multiplicativity of degrees): \\([K:F] = [K:E]\\cdot[E:F]\\). Hence \\(6 = [K:E] \\times 2\\), so \\([K:E] = 3\\).\u003c/p\u003e","single":"true","answers":[{"fraction":0,"text":"2"},{"fraction":100,"text":"3"},{"fraction":0,"text":"4"},{"fraction":0,"text":"6"}]},{"num":41,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q41 - Properties of uniformly continuous functions (MSQ)","qtext":"\u003cp\u003eWhich of the following statements are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) Every Lipschitz function on \\(\\mathbb{R}\\) is uniformly continuous\u003cbr\u003e(2) Every uniformly continuous function on \\(\\mathbb{R}\\) is Lipschitz\u003cbr\u003e(3) A continuous function on a compact set is uniformly continuous\u003cbr\u003e(4) A uniformly continuous function on a bounded open interval \\((a,b)\\) can be continuously extended to \\([a,b]\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (3), (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: Lipschitz \\(\\Rightarrow\\) uniform continuity directly from definition.\u003cbr\u003e(2) FALSE: \\(f(x)=\\sqrt{x}\\) on \\([0,\\infty)\\) is uniformly continuous but not Lipschitz at 0.\u003cbr\u003e(3) TRUE: Heine–Cantor theorem.\u003cbr\u003e(4) TRUE: Uniform continuity on \\((a,b)\\) means the function is Cauchy-continuous; it extends uniquely to the endpoints.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"Every Lipschitz function on \\(\\mathbb{R}\\) is uniformly continuous"},{"fraction":0,"text":"Every uniformly continuous function on \\(\\mathbb{R}\\) is Lipschitz"},{"fraction":33,"text":"A continuous function on a compact set is uniformly continuous"},{"fraction":34,"text":"A uniformly continuous function on a bounded open interval \\((a,b)\\) can be continuously extended to \\([a,b]\\)"}]},{"num":42,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q42 - Properties of matrices (MSQ)","qtext":"\u003cp\u003eLet \\(A\\) be an \\(n \\times n\\) real matrix. Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) If \\(A^2 = A\\), then \\(A\\) is diagonalizable over \\(\\mathbb{R}\\)\u003cbr\u003e(2) If \\(A^2 = 0\\), then \\(A = 0\\)\u003cbr\u003e(3) If \\(A\\) is orthogonal, then all its complex eigenvalues have modulus 1\u003cbr\u003e(4) \\(\\text{tr}(AB) = \\text{tr}(BA)\\) for any \\(n \\times n\\) matrix \\(B\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (3), (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: An idempotent matrix satisfies \\(p(\\lambda)=\\lambda(\\lambda-1)=0\\), so it has minimal polynomial dividing \\(\\lambda(\\lambda-1)\\), which has distinct roots — hence diagonalizable.\u003cbr\u003e(2) FALSE: The matrix \\(\\begin{pmatrix}0\u00261\\\\0\u00260\\end{pmatrix}\\) satisfies \\(A^2=0\\) but \\(A\\neq 0\\).\u003cbr\u003e(3) TRUE: For orthogonal \\(A\\), \\(\\|Av\\|=\\|v\\|\\), so \\(|\\lambda|=1\\).\u003cbr\u003e(4) TRUE: \\(\\text{tr}(AB) = \\sum_{i,j}a_{ij}b_{ji} = \\text{tr}(BA)\\).\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"If \\(A^2 = A\\), then \\(A\\) is diagonalizable over \\(\\mathbb{R}\\)"},{"fraction":0,"text":"If \\(A^2 = 0\\), then \\(A = 0\\)"},{"fraction":33,"text":"If \\(A\\) is orthogonal, then all its complex eigenvalues have modulus 1"},{"fraction":34,"text":"\\(\\text{tr}(AB) = \\text{tr}(BA)\\) for any \\(n \\times n\\) matrix \\(B\\)"}]},{"num":43,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q43 - Which groups are abelian (MSQ)","qtext":"\u003cp\u003eWhich of the following are \u003cstrong\u003eabelian\u003c/strong\u003e groups? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\(S_3\\) (symmetric group on 3 letters)\u003cbr\u003e(2) \\(\\mathbb{Z}/n\\mathbb{Z}\\) for any \\(n \\geq 1\\)\u003cbr\u003e(3) Every group of order \\(p^2\\) (\\(p\\) prime)\u003cbr\u003e(4) Every group of order 6\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (2) and (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) FALSE: \\(S_3\\) is non-abelian (e.g., \\((12)(13) \\neq (13)(12)\\)).\u003cbr\u003e(2) TRUE: \\(\\mathbb{Z}/n\\mathbb{Z}\\) is cyclic, hence abelian.\u003cbr\u003e(3) TRUE: A group of order \\(p^2\\) is isomorphic to \\(\\mathbb{Z}_{p^2}\\) or \\(\\mathbb{Z}_p \\times \\mathbb{Z}_p\\), both abelian.\u003cbr\u003e(4) FALSE: \\(S_3\\) has order 6 and is non-abelian.\u003c/p\u003e","single":"false","answers":[{"fraction":0,"text":"\\(S_3\\)"},{"fraction":50,"text":"\\(\\mathbb{Z}/n\\mathbb{Z}\\) for any \\(n \\geq 1\\)"},{"fraction":50,"text":"Every group of order \\(p^2\\) (\\(p\\) prime)"},{"fraction":0,"text":"Every group of order 6"}]},{"num":44,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q44 - Properties of entire functions (MSQ)","qtext":"\u003cp\u003eLet \\(f: \\mathbb{C} \\to \\mathbb{C}\\) be an entire function. Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) If \\(f\\) is bounded, then \\(f\\) is constant\u003cbr\u003e(2) If \\(|f(z)| \\to \\infty\\) as \\(|z| \\to \\infty\\), then \\(f\\) is a polynomial\u003cbr\u003e(3) If \\(f\\) is injective, then \\(f(z) = az + b\\) for some \\(a \\neq 0,\\, b \\in \\mathbb{C}\\)\u003cbr\u003e(4) If \\(f\\) maps \\(\\mathbb{R}\\) into \\(\\mathbb{R}\\) and is non-constant, then \\(f\\) is a polynomial\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (2), (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: Liouville\u0027s theorem.\u003cbr\u003e(2) TRUE: \\(\\infty\\) is a pole (not essential) so \\(f\\) is a polynomial by the structure theorem for entire functions with polynomial growth.\u003cbr\u003e(3) TRUE: An injective entire function has at most a simple zero of \\(f\u0027\\) nowhere and can be shown to be linear by Picard / open mapping arguments.\u003cbr\u003e(4) FALSE: \\(f(z) = \\sin z\\) maps \\(\\mathbb{R}\\) into \\(\\mathbb{R}\\) and is entire but not a polynomial.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"If \\(f\\) is bounded, then \\(f\\) is constant"},{"fraction":33,"text":"If \\(|f(z)| \\to \\infty\\) as \\(|z| \\to \\infty\\), then \\(f\\) is a polynomial"},{"fraction":34,"text":"If \\(f\\) is injective, then \\(f(z) = az + b\\) for some \\(a \\neq 0,\\, b \\in \\mathbb{C}\\)"},{"fraction":0,"text":"If \\(f\\) maps \\(\\mathbb{R}\\) into \\(\\mathbb{R}\\) and is non-constant, then \\(f\\) is a polynomial"}]},{"num":45,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q45 - Connected topological spaces (MSQ)","qtext":"\u003cp\u003eWhich of the following topological spaces are \u003cstrong\u003econnected\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\(\\mathbb{R} \\setminus \\{0\\}\\)\u003cbr\u003e(2) \\(\\mathbb{R}^2 \\setminus \\{(0,0)\\}\\)\u003cbr\u003e(3) The Cantor set \\(\\mathcal{C}\\)\u003cbr\u003e(4) \\(\\text{SL}(2,\\mathbb{R}) = \\{A \\in M_2(\\mathbb{R}) : \\det A = 1\\}\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (2) and (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) FALSE: \\(\\mathbb{R}\\setminus\\{0\\} = (-\\infty,0)\\cup(0,\\infty)\\), a union of two disjoint open sets.\u003cbr\u003e(2) TRUE: \\(\\mathbb{R}^2\\setminus\\{0\\}\\) is path-connected (detouring around the origin).\u003cbr\u003e(3) FALSE: The Cantor set is totally disconnected (its only connected subsets are singletons).\u003cbr\u003e(4) TRUE: \\(\\text{SL}(2,\\mathbb{R})\\) is a connected Lie group.\u003c/p\u003e","single":"false","answers":[{"fraction":0,"text":"\\(\\mathbb{R} \\setminus \\{0\\}\\)"},{"fraction":50,"text":"\\(\\mathbb{R}^2 \\setminus \\{(0,0)\\}\\)"},{"fraction":0,"text":"The Cantor set \\(\\mathcal{C}\\)"},{"fraction":50,"text":"\\(\\text{SL}(2,\\mathbb{R})\\)"}]},{"num":46,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q46 - Properties in a Hilbert space (MSQ)","qtext":"\u003cp\u003eLet \\(H\\) be an infinite-dimensional Hilbert space. Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) Every closed subspace of \\(H\\) has an orthogonal complement\u003cbr\u003e(2) The weak topology and the norm topology on \\(H\\) coincide\u003cbr\u003e(3) Every bounded sequence in \\(H\\) has a weakly convergent subsequence\u003cbr\u003e(4) \\(H\\) is reflexive (i.e., \\(H \\cong H^{**}\\))\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (3), (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: Projection theorem in Hilbert spaces.\u003cbr\u003e(2) FALSE: In infinite dimensions the weak topology is strictly coarser than the norm topology.\u003cbr\u003e(3) TRUE: By the Banach–Alaoglu theorem, the closed unit ball is weakly compact.\u003cbr\u003e(4) TRUE: Every Hilbert space is reflexive by the Riesz representation theorem.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"Every closed subspace of \\(H\\) has an orthogonal complement"},{"fraction":0,"text":"The weak topology and norm topology on \\(H\\) coincide"},{"fraction":33,"text":"Every bounded sequence in \\(H\\) has a weakly convergent subsequence"},{"fraction":34,"text":"\\(H\\) is reflexive"}]},{"num":47,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q47 - True statements about IVP y\u0027=y^2, y(0)=1 (MSQ)","qtext":"\u003cp\u003eConsider the initial value problem \\(y\u0027 = y^2,\\; y(0) = 1\\). Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) The unique solution is \\(y = \\dfrac{1}{1-x}\\)\u003cbr\u003e(2) The solution exists for all \\(x \\in \\mathbb{R}\\)\u003cbr\u003e(3) The solution blows up in finite time\u003cbr\u003e(4) There exist multiple solutions satisfying the initial condition\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1) and (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003eSeparating variables yields \\(y = \\dfrac{1}{1-x}\\), defined on \\((-\\infty, 1)\\). This blows up at \\(x=1\\) (finite time blow-up). Uniqueness follows from the Picard–Lindelöf theorem since \\(f(x,y)=y^2\\) is locally Lipschitz. So (1) and (3) are true; (2) and (4) are false.\u003c/p\u003e","single":"false","answers":[{"fraction":50,"text":"The unique solution is \\(y = \\dfrac{1}{1-x}\\)"},{"fraction":0,"text":"The solution exists for all \\(x \\in \\mathbb{R}\\)"},{"fraction":50,"text":"The solution blows up in finite time"},{"fraction":0,"text":"There exist multiple solutions satisfying the initial condition"}]},{"num":48,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q48 - UFDs and PIDs in commutative algebra (MSQ)","qtext":"\u003cp\u003eWhich of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\(\\mathbb{Z}[\\sqrt{-5}]\\) is a UFD\u003cbr\u003e(2) \\(\\mathbb{Z}[i]\\) (Gaussian integers) is a PID\u003cbr\u003e(3) \\(\\mathbb{Z}[\\sqrt{2}]\\) is a Euclidean domain\u003cbr\u003e(4) Every PID is a UFD\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (2), (3), (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) FALSE: In \\(\\mathbb{Z}[\\sqrt{-5}]\\), we have \\(6 = 2 \\times 3 = (1+\\sqrt{-5})(1-\\sqrt{-5})\\), giving non-unique factorisation into irreducibles.\u003cbr\u003e(2) TRUE: \\(\\mathbb{Z}[i]\\) is a Euclidean domain with norm \\(N(a+bi)=a^2+b^2\\), hence a PID.\u003cbr\u003e(3) TRUE: The norm \\(N(a+b\\sqrt{2})=|a^2-2b^2|\\) makes \\(\\mathbb{Z}[\\sqrt{2}]\\) Euclidean.\u003cbr\u003e(4) TRUE: Every PID is a UFD (standard theorem in commutative algebra).\u003c/p\u003e","single":"false","answers":[{"fraction":0,"text":"\\(\\mathbb{Z}[\\sqrt{-5}]\\) is a UFD"},{"fraction":33,"text":"\\(\\mathbb{Z}[i]\\) (Gaussian integers) is a PID"},{"fraction":33,"text":"\\(\\mathbb{Z}[\\sqrt{2}]\\) is a Euclidean domain"},{"fraction":34,"text":"Every PID is a UFD"}]},{"num":49,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q49 - Riemann vs Lebesgue integrability (MSQ)","qtext":"\u003cp\u003eWhich of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) Every continuous function on \\([0,1]\\) is Riemann integrable\u003cbr\u003e(2) Every Riemann integrable function on \\([0,1]\\) is Lebesgue integrable\u003cbr\u003e(3) Every Lebesgue integrable function on \\([0,1]\\) is Riemann integrable\u003cbr\u003e(4) The Cantor set has Lebesgue measure zero\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (2), (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: Continuous functions on compact intervals are Riemann integrable.\u003cbr\u003e(2) TRUE: Riemann integrable functions are bounded and their discontinuities form a null set; Lebesgue integrability follows with equal values.\u003cbr\u003e(3) FALSE: The Dirichlet function \\(\\mathbf{1}_{\\mathbb{Q}}\\) is Lebesgue integrable (integral 0) but not Riemann integrable.\u003cbr\u003e(4) TRUE: The middle-thirds Cantor set is constructed by removing open intervals of total length 1.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"Every continuous function on \\([0,1]\\) is Riemann integrable"},{"fraction":33,"text":"Every Riemann integrable function on \\([0,1]\\) is Lebesgue integrable"},{"fraction":0,"text":"Every Lebesgue integrable function on \\([0,1]\\) is Riemann integrable"},{"fraction":34,"text":"The Cantor set has Lebesgue measure zero"}]},{"num":50,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q50 - Properties of normal matrices (MSQ)","qtext":"\u003cp\u003eFor an \\(n\\times n\\) complex matrix \\(A\\), which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\(A\\) has at least one eigenvalue in \\(\\mathbb{C}\\)\u003cbr\u003e(2) Every \\(A\\) is diagonalizable over \\(\\mathbb{C}\\)\u003cbr\u003e(3) If \\(A\\) is normal (\\(AA^* = A^*A\\)), then \\(A\\) is unitarily diagonalizable\u003cbr\u003e(4) The characteristic polynomial of \\(A\\) has degree \\(n\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (3), (4)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: \\(\\mathbb{C}\\) is algebraically closed, so every polynomial has a root.\u003cbr\u003e(2) FALSE: A Jordan block \\(\\begin{pmatrix}0\u00261\\\\0\u00260\\end{pmatrix}\\) is not diagonalizable.\u003cbr\u003e(3) TRUE: The Spectral Theorem for normal matrices guarantees unitary diagonalization.\u003cbr\u003e(4) TRUE: \\(\\det(\\lambda I - A)\\) is a monic polynomial of degree \\(n\\).\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"\\(A\\) has at least one eigenvalue in \\(\\mathbb{C}\\)"},{"fraction":0,"text":"Every \\(n\\times n\\) complex matrix is diagonalizable over \\(\\mathbb{C}\\)"},{"fraction":33,"text":"If \\(A\\) is normal, then \\(A\\) is unitarily diagonalizable"},{"fraction":34,"text":"The characteristic polynomial of \\(A\\) has degree \\(n\\)"}]},{"num":51,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q51 - Distributions of normal random variables (MSQ)","qtext":"\u003cp\u003eLet \\(X\\) and \\(Y\\) be independent standard normal random variables. Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\(X + Y \\sim N(0,\\, 2)\\)\u003cbr\u003e(2) \\(X - Y \\sim N(0,\\, 2)\\)\u003cbr\u003e(3) \\(X^2 + Y^2 \\sim \\chi^2(2)\\)\u003cbr\u003e(4) \\(XY\\) follows a normal distribution\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (2), (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: \\(\\text{Var}(X+Y)=1+1=2\\), so \\(X+Y\\sim N(0,2)\\).\u003cbr\u003e(2) TRUE: \\(\\text{Var}(X-Y)=1+1=2\\), so \\(X-Y\\sim N(0,2)\\).\u003cbr\u003e(3) TRUE: The sum of squares of \\(k\\) independent standard normals is \\(\\chi^2(k)\\); here \\(k=2\\).\u003cbr\u003e(4) FALSE: The product of two normals follows a distribution expressible in terms of modified Bessel functions, which is not normal.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"\\(X + Y \\sim N(0,\\,2)\\)"},{"fraction":33,"text":"\\(X - Y \\sim N(0,\\,2)\\)"},{"fraction":34,"text":"\\(X^2 + Y^2 \\sim \\chi^2(2)\\)"},{"fraction":0,"text":"\\(XY\\) follows a normal distribution"}]},{"num":52,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q52 - Laurent series in an annulus (MSQ)","qtext":"\u003cp\u003eLet \\(f\\) be analytic on the annulus \\(A = \\{z \\in \\mathbb{C} : 1 \u003c |z| \u003c 3\\}\\). Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\(f\\) has a Laurent series expansion \\(\\displaystyle\\sum_{n=-\\infty}^{\\infty} c_n z^n\\) convergent on \\(A\\)\u003cbr\u003e(2) If \\(f\\) is bounded on \\(A\\), then \\(f\\) extends to an analytic function on the entire disc \\(|z| \u003c 3\\)\u003cbr\u003e(3) The integral \\(\\displaystyle\\oint_{|z|=2} f(z)\\,dz\\) can be non-zero\u003cbr\u003e(4) \\(f\\) can be expressed as a power series \\(\\displaystyle\\sum_{n=0}^{\\infty} a_n z^n\\) valid throughout \\(A\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1) and (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: Every function analytic on an annulus has a unique Laurent expansion convergent there.\u003cbr\u003e(2) FALSE: Riemann\u0027s removable singularity theorem applies to isolated singularities, not to annuli. For example, \\(f(z) = 1/z\\) is analytic on \\(A\\) but has a pole at the origin.\u003cbr\u003e(3) TRUE: For example, \\(f(z) = 1/z\\) gives \\(\\oint_{|z|=2} dz/z = 2\\pi i \\neq 0\\).\u003cbr\u003e(4) FALSE: The Laurent series may contain infinitely many negative-power terms.\u003c/p\u003e","single":"false","answers":[{"fraction":50,"text":"\\(f\\) has a Laurent series \\(\\sum_{n=-\\infty}^{\\infty} c_n z^n\\) convergent on \\(A\\)"},{"fraction":0,"text":"If \\(f\\) is bounded on \\(A\\), then \\(f\\) extends to an analytic function on \\(|z| \u003c 3\\)"},{"fraction":50,"text":"The integral \\(\\oint_{|z|=2} f(z)\\,dz\\) can be non-zero"},{"fraction":0,"text":"\\(f\\) can be expressed as a power series \\(\\sum_{n=0}^{\\infty} a_n z^n\\) valid throughout \\(A\\)"}]},{"num":53,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q53 - Compact subsets (MSQ)","qtext":"\u003cp\u003eWhich of the following subsets are \u003cstrong\u003ecompact\u003c/strong\u003e (in their standard topologies)? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\([0, 1]\\) with the standard topology on \\(\\mathbb{R}\\)\u003cbr\u003e(2) \\((0, 1)\\) with the standard topology on \\(\\mathbb{R}\\)\u003cbr\u003e(3) \\(\\{(x,y) \\in \\mathbb{R}^2 : x^2 + y^2 \\leq 1\\}\\)\u003cbr\u003e(4) \\(\\mathbb{Z}\\) with the discrete topology\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1) and (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: \\([0,1]\\) is closed and bounded in \\(\\mathbb{R}\\), hence compact by Heine–Borel.\u003cbr\u003e(2) FALSE: \\((0,1)\\) is bounded but not closed, hence not compact (no finite subcover for the open cover \\(\\{(1/n, 1)\\}_{n\\geq 2}\\)).\u003cbr\u003e(3) TRUE: The closed unit disk is closed and bounded in \\(\\mathbb{R}^2\\).\u003cbr\u003e(4) FALSE: In the discrete topology on \\(\\mathbb{Z}\\), the cover \\(\\{\\{n\\} : n \\in \\mathbb{Z}\\}\\) has no finite subcover.\u003c/p\u003e","single":"false","answers":[{"fraction":50,"text":"\\([0, 1]\\) with the standard topology on \\(\\mathbb{R}\\)"},{"fraction":0,"text":"\\((0, 1)\\) with the standard topology on \\(\\mathbb{R}\\)"},{"fraction":50,"text":"\\(\\{(x,y) \\in \\mathbb{R}^2 : x^2 + y^2 \\leq 1\\}\\)"},{"fraction":0,"text":"\\(\\mathbb{Z}\\) with the discrete topology"}]},{"num":54,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q54 - Properties of Laplace equation u_xx + u_yy = 0 (MSQ)","qtext":"\u003cp\u003eConsider the Laplace equation \\(u_{xx} + u_{yy} = 0\\) on a bounded domain \\(\\Omega \\subset \\mathbb{R}^2\\). Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) It is an elliptic PDE\u003cbr\u003e(2) Solutions are called harmonic functions\u003cbr\u003e(3) A non-constant harmonic function satisfies the maximum principle (it attains its maximum on the boundary)\u003cbr\u003e(4) A harmonic function can be non-smooth (non-\\(C^\\infty\\)) inside \\(\\Omega\\)\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (2), (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: The discriminant \\(B^2-4AC = 0-4(1)(1) \u003c 0\\) confirms ellipticity.\u003cbr\u003e(2) TRUE: By definition, solutions of \\(\\Delta u = 0\\) are harmonic functions.\u003cbr\u003e(3) TRUE: The strong maximum principle states that a non-constant harmonic function on a bounded domain attains its maximum (and minimum) on the boundary.\u003cbr\u003e(4) FALSE: Harmonic functions are real-analytic (hence \\(C^\\infty\\)) on any open set where they satisfy the equation.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"The Laplace equation is an elliptic PDE"},{"fraction":33,"text":"Solutions are called harmonic functions"},{"fraction":34,"text":"A non-constant harmonic function attains its maximum on the boundary"},{"fraction":0,"text":"A harmonic function can be non-\\(C^\\infty\\) inside \\(\\Omega\\)"}]},{"num":55,"part":"$course$/CSIR NET Mathematics/Model Paper/Part C - Advanced Mathematics (MSQ)","name":"MODEL Q55 - Field extensions: Tower law and algebraic extensions (MSQ)","qtext":"\u003cp\u003eLet \\(F \\subseteq E \\subseteq K\\) be field extensions. Which of the following are \u003cstrong\u003eTRUE\u003c/strong\u003e? (Select all correct options)\u003c/p\u003e\u003cp\u003e(1) \\([K:F] = [K:E]\\cdot[E:F]\\) (Tower Law)\u003cbr\u003e(2) If \\([K:F] = p\\) (a prime), then there are no intermediate fields strictly between \\(F\\) and \\(K\\)\u003cbr\u003e(3) Every finite extension is algebraic\u003cbr\u003e(4) Every algebraic extension is finite\u003c/p\u003e","feedback":"\u003cp\u003e\u003cstrong\u003eAnswers: (1), (2), (3)\u003c/strong\u003e\u003c/p\u003e\u003cp\u003e(1) TRUE: Tower Law — the degree is multiplicative in towers.\u003cbr\u003e(2) TRUE: If \\(F \\subsetneq E \\subsetneq K\\), then \\([K:F]=[K:E][E:F]\\geq 2\\cdot 2=4\\), contradicting \\([K:F]=p\\) prime (with \\(p\\leq 3\\)... actually more carefully: any intermediate \\(E\\) gives \\([E:F]\\mid p\\), so \\([E:F]=1\\) or \\(p\\), meaning \\(E=F\\) or \\(E=K\\)).\u003cbr\u003e(3) TRUE: If \\([K:F]=n \u003c \\infty\\), every \\(\\alpha\\in K\\) satisfies a polynomial of degree \\(\\leq n\\) over \\(F\\).\u003cbr\u003e(4) FALSE: \\(\\overline{\\mathbb{Q}}/\\mathbb{Q}\\) (algebraic closure) is algebraic but has infinite degree.\u003c/p\u003e","single":"false","answers":[{"fraction":33,"text":"\\([K:F] = [K:E]\\cdot[E:F]\\) (Tower Law)"},{"fraction":33,"text":"If \\([K:F] = p\\) (prime), then there are no intermediate fields strictly between \\(F\\) and \\(K\\)"},{"fraction":34,"text":"Every finite extension is algebraic"},{"fraction":0,"text":"Every algebraic extension is finite"}]}]}
+;
+
+/* ======================= CONFIG ======================= */
+const PART_CONFIG = {
+  1: { key:'A', label:'Part A — General Aptitude', range:[1,15], correct:2, incorrect:-0.5, allowed:12, msq:false },
+  2: { key:'B', label:'Part B — Core Mathematics', range:[16,40], correct:3, incorrect:-0.75, allowed:20, msq:false },
+  3: { key:'C', label:'Part C — Advanced Mathematics (MSQ)', range:[41,55], correct:4.75, incorrect:0, allowed:12, msq:true }
+};
+function partOf(num){
+  if(num<=15) return 1;
+  if(num<=40) return 2;
+  return 3;
+}
+
+/* ======================= STATE ======================= */
+const STORAGE_KEY = 'csir_net_model_attempt_v1';
+let questions = [];   // normalized
+let state = {};       // per-question: {selected:Set, status:'notvisited'|'notanswered'|'answered'|'marked'|'answered-marked'}
+let current = 1;
+let timerInterval = null;
+let secondsLeft = 0;
+let durationMinutes = 180;
+let submitted = false;
+let startedAt = null;
+
+/* normalize question data: attach correctness, shuffle-stable indices */
+function buildQuestions(){
+  questions = QUIZ_DATA.questions.map(q => {
+    const single = q.single === 'true';
+    const answers = q.answers.map((a,i) => ({ idx:i, text:a.text, correct: a.fraction > 0 }));
+    return { num:q.num, part:partOf(q.num), name:q.name, qtext:q.qtext, feedback:q.feedback, single, answers };
+  });
+}
+
+function freshState(){
+  const s = {};
+  questions.forEach(q => { s[q.num] = { selected:new Set(), status:'notvisited' }; });
+  return s;
+}
+
+/* ======================= PERSISTENCE ======================= */
+function saveProgress(){
+  if(submitted) return;
+  const serial = {};
+  Object.keys(state).forEach(k=>{ serial[k] = { selected:[...state[k].selected], status:state[k].status }; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    state:serial, current, secondsLeft, durationMinutes, startedAt
+  }));
+}
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  }catch(e){ return null; }
+}
+function clearProgress(){ localStorage.removeItem(STORAGE_KEY); }
+
+/* ======================= INIT ======================= */
+buildQuestions();
+state = freshState();
+
+const saved = loadProgress();
+if(saved){
+  document.getElementById('resumeNote').innerHTML =
+    '<div class="resume-note">⚠ An in-progress attempt was found (saved locally). You can resume it or start fresh.</div>';
+  document.getElementById('resumeBtn').classList.remove('hidden');
+}
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  durationMinutes = parseInt(document.getElementById('durationSel').value,10);
+  clearProgress();
+  state = freshState();
+  current = 1;
+  startedAt = Date.now();
+  beginExam();
+});
+document.getElementById('resumeBtn').addEventListener('click', () => {
+  const serial = saved.state;
+  Object.keys(serial).forEach(k=>{
+    state[k] = { selected:new Set(serial[k].selected), status:serial[k].status };
+  });
+  current = saved.current || 1;
+  secondsLeft = saved.secondsLeft;
+  durationMinutes = saved.durationMinutes;
+  startedAt = saved.startedAt || Date.now();
+  beginExam(true);
+});
+
+function beginExam(isResume){
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('examScreen').classList.remove('hidden');
+  buildPalettes();
+  if(durationMinutes > 0){
+    document.getElementById('timerBox').classList.remove('hidden');
+    if(!isResume) secondsLeft = durationMinutes*60;
+    startTimer();
+  }
+  renderQuestion(current);
+  updateProgress();
+}
+
+/* ======================= TIMER ======================= */
+function startTimer(){
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    secondsLeft--;
+    if(secondsLeft <= 0){
+      secondsLeft = 0;
+      renderTimer();
+      clearInterval(timerInterval);
+      doSubmit(true);
+      return;
+    }
+    renderTimer();
+    if(secondsLeft % 5 === 0) saveProgress();
+  },1000);
+  renderTimer();
+}
+function renderTimer(){
+  const h = Math.floor(secondsLeft/3600);
+  const m = Math.floor((secondsLeft%3600)/60);
+  const s = secondsLeft%60;
+  const txt = [h,m,s].map(v=>String(v).padStart(2,'0')).join(':');
+  document.getElementById('timerText').textContent = txt;
+  document.getElementById('timerBox').classList.toggle('low', secondsLeft <= 300);
+}
+
+/* ======================= RENDER QUESTION ======================= */
+function markVisited(num){
+  const st = state[num];
+  if(st.status === 'notvisited') st.status = 'notanswered';
+}
+
+function renderQuestion(num){
+  current = num;
+  markVisited(num);
+  const q = questions[num-1];
+  const cfg = PART_CONFIG[q.part];
+
+  document.getElementById('partBanner').innerHTML =
+    '<b>'+cfg.label+'</b> — Question '+num+' of '+cfg.range[1]+
+    ' &nbsp;·&nbsp; +'+cfg.correct+' / '+cfg.incorrect+' marks'+
+    ' &nbsp;·&nbsp; Best '+cfg.allowed+' of '+(cfg.range[1]-cfg.range[0]+1)+' attempts counted';
+
+  document.getElementById('qTag').textContent = 'Question '+num+' · '+cfg.key+ (q.name ? ' — '+q.name.replace(/^MODEL Q\d+\s*-\s*/,'') : '');
+  document.getElementById('qMarks').textContent = '+'+cfg.correct+' / '+cfg.incorrect;
+  document.getElementById('qMarks').classList.toggle('msq', cfg.msq);
+  document.getElementById('msqHint').classList.toggle('hidden', !cfg.msq);
+  document.getElementById('qText').innerHTML = q.qtext;
+
+  const box = document.getElementById('optionsBox');
+  box.innerHTML = '';
+  const letters = ['A','B','C','D','E','F'];
+  q.answers.forEach((a,i)=>{
+    const wrap = document.createElement('label');
+    wrap.className = 'opt';
+    const isSel = state[num].selected.has(i);
+    if(isSel) wrap.classList.add('selected');
+    const inp = document.createElement('input');
+    inp.type = q.single ? 'radio' : 'checkbox';
+    inp.name = 'q'+num;
+    inp.checked = isSel;
+    inp.addEventListener('change', ()=> toggleAnswer(num,i,q.single));
+    const lab = document.createElement('span'); lab.className='opt-label'; lab.textContent = letters[i]+'.';
+    const txt = document.createElement('span'); txt.className='opt-text'; txt.innerHTML = a.text;
+    wrap.appendChild(inp); wrap.appendChild(lab); wrap.appendChild(txt);
+    box.appendChild(wrap);
+  });
+
+  document.getElementById('prevBtn').disabled = (num === 1);
+  document.getElementById('nextBtn').textContent = (num === questions.length) ? 'Save & Finish' : 'Save & Next →';
+
+  if(document.getElementById('autoScrollChk').checked !== false){
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+  }
+  refreshPaletteHighlight();
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([box, document.getElementById('qText')]); }
+}
+
+function toggleAnswer(num,i,single){
+  const st = state[num];
+  if(single){
+    st.selected = new Set([i]);
+  }else{
+    if(st.selected.has(i)) st.selected.delete(i); else st.selected.add(i);
+  }
+  st.status = st.status === 'marked' || st.status === 'answered-marked' ? 'answered-marked' : 'answered';
+  if(st.selected.size === 0) st.status = st.status.includes('marked') ? 'marked' : 'notanswered';
+  renderQuestion(num);
+  updateProgress();
+  saveProgress();
+}
+
+/* ======================= NAV BUTTONS ======================= */
+document.getElementById('prevBtn').addEventListener('click', ()=>{ if(current>1) renderQuestion(current-1); });
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  if(current < questions.length) renderQuestion(current+1);
+  else openSubmitModal();
+  updateProgress(); saveProgress();
+});
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  const st = state[current];
+  st.selected = new Set();
+  st.status = st.status.includes('marked') ? 'marked' : 'notanswered';
+  renderQuestion(current); updateProgress(); saveProgress();
+});
+document.getElementById('markBtn').addEventListener('click', ()=>{
+  const st = state[current];
+  st.status = st.selected.size>0 ? 'answered-marked' : 'marked';
+  if(current < questions.length) renderQuestion(current+1);
+  updateProgress(); saveProgress();
+});
+
+/* ======================= PALETTE ======================= */
+function buildPalettes(){
+  const containers = { 1:document.getElementById('paletteA'), 2:document.getElementById('paletteB'), 3:document.getElementById('paletteC') };
+  Object.values(containers).forEach(c=>c.innerHTML='');
+  questions.forEach(q=>{
+    const btn = document.createElement('button');
+    btn.className = 'pnum';
+    btn.textContent = q.num;
+    btn.id = 'pnum-'+q.num;
+    btn.addEventListener('click', ()=>{ renderQuestion(q.num); });
+    containers[q.part].appendChild(btn);
+  });
+}
+function statusClass(status){
+  switch(status){
+    case 'answered': return 'st-answered';
+    case 'notanswered': return 'st-notanswered';
+    case 'marked': return 'st-marked';
+    case 'answered-marked': return 'st-marked has-ans';
+    default: return 'st-notvisited';
+  }
+}
+function refreshPaletteHighlight(){
+  questions.forEach(q=>{
+    const el = document.getElementById('pnum-'+q.num);
+    if(!el) return;
+    el.className = 'pnum '+statusClass(state[q.num].status);
+    el.classList.toggle('cur', q.num === current);
+  });
+}
+
+/* ======================= PROGRESS ======================= */
+function counts(){
+  let answered=0, notanswered=0, marked=0, notvisited=0;
+  questions.forEach(q=>{
+    const s = state[q.num].status;
+    if(s==='answered') answered++;
+    else if(s==='answered-marked'){ answered++; marked++; }
+    else if(s==='marked') marked++;
+    else if(s==='notanswered') notanswered++;
+    else notvisited++;
+  });
+  return {answered, notanswered, marked, notvisited, total:questions.length};
+}
+function updateProgress(){
+  const c = counts();
+  const pct = Math.round((c.answered/c.total)*100);
+  document.getElementById('progLabel').textContent = c.answered+' / '+c.total+' answered';
+  document.getElementById('progPct').textContent = pct+'%';
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('statAnswered').textContent = c.answered;
+  document.getElementById('statNotAnswered').textContent = c.notanswered;
+  document.getElementById('statMarked').textContent = c.marked;
+  document.getElementById('statNotVisited').textContent = c.notvisited;
+  refreshPaletteHighlight();
+}
+
+/* ======================= SUBMIT ======================= */
+document.getElementById('submitBtn').addEventListener('click', openSubmitModal);
+function openSubmitModal(){
+  const c = counts();
+  document.getElementById('mAnswered').textContent = c.answered;
+  document.getElementById('mNotAnswered').textContent = c.notanswered;
+  document.getElementById('mMarked').textContent = c.marked;
+  document.getElementById('mNotVisited').textContent = c.notvisited;
+  document.getElementById('submitModal').classList.remove('hidden');
+}
+document.getElementById('cancelSubmit').addEventListener('click', ()=> document.getElementById('submitModal').classList.add('hidden'));
+document.getElementById('confirmSubmit').addEventListener('click', ()=> doSubmit(false));
+
+function isCorrectSelection(q, selectedSet){
+  const correctIdxs = q.answers.map((a,i)=>a.correct?i:-1).filter(i=>i>=0);
+  if(q.single){
+    return selectedSet.size===1 && correctIdxs.includes([...selectedSet][0]);
+  }
+  if(selectedSet.size !== correctIdxs.length) return false;
+  return correctIdxs.every(i=>selectedSet.has(i));
+}
+
+function evaluate(){
+  clearInterval(timerInterval);
+  submitted = true;
+
+  const perQ = questions.map(q=>{
+    const st = state[q.num];
+    const attempted = st.selected.size>0;
+    const correct = attempted && isCorrectSelection(q, st.selected);
+    return { num:q.num, part:q.part, attempted, correct, marked: st.status==='marked'||st.status==='answered-marked' };
+  });
+
+  const partScores = {};
+  [1,2,3].forEach(p=>{
+    const cfg = PART_CONFIG[p];
+    const inPart = perQ.filter(x=>x.part===p);
+    const attempted = inPart.filter(x=>x.attempted);
+    // marks per attempted question
+    const marksList = attempted.map(x=> x.correct ? cfg.correct : cfg.incorrect);
+    // Best-of rule: if attempted more than allowed, keep only the highest-scoring `allowed` responses
+    marksList.sort((a,b)=>b-a);
+    const counted = marksList.slice(0, cfg.allowed);
+    const rawTotal = counted.reduce((s,v)=>s+v,0);
+    const maxPossible = cfg.allowed * cfg.correct;
+    partScores[p] = {
+      attempted: attempted.length,
+      countedAttempts: counted.length,
+      correctCount: attempted.filter(x=>x.correct).length,
+      incorrectCount: attempted.filter(x=>!x.correct).length,
+      score: Math.round(rawTotal*100)/100,
+      max: maxPossible
+    };
+  });
+
+  const totalScore = Math.round((partScores[1].score+partScores[2].score+partScores[3].score)*100)/100;
+  const totalMax = partScores[1].max+partScores[2].max+partScores[3].max;
+
+  clearProgress();
+  renderResults(perQ, partScores, totalScore, totalMax);
+}
+
+function doSubmit(auto){
+  document.getElementById('submitModal').classList.add('hidden');
+  document.getElementById('examScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+  document.getElementById('timerBox').classList.add('hidden');
+  evaluate();
+  if(auto){
+    document.getElementById('scoreSub').textContent = '⏰ Time expired — test was auto-submitted. ' + document.getElementById('scoreSub').textContent;
+  }
+  window.scrollTo({top:0});
+}
+document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+document.getElementById('retakeBtn').addEventListener('click', ()=>{
+  clearProgress();
+  location.reload();
+});
+
+/* ======================= RESULTS RENDER ======================= */
+let lastReviewData = null;
+
+function renderResults(perQ, partScores, totalScore, totalMax){
+  document.getElementById('scoreVal').textContent = totalScore;
+  document.getElementById('scoreMax').textContent = '/ '+totalMax;
+  const c = counts();
+  const accuracy = c.answered>0 ? Math.round((perQ.filter(x=>x.correct).length / c.answered)*1000)/10 : 0;
+  document.getElementById('scoreHeadline').textContent = 'You scored '+totalScore+' out of '+totalMax;
+  document.getElementById('scoreSub').textContent =
+    perQ.filter(x=>x.correct).length+' correct · '+perQ.filter(x=>x.attempted && !x.correct).length+' incorrect · '+
+    (c.total-c.answered)+' unattempted · '+accuracy+'% accuracy on attempted questions.';
+
+  const pr = document.getElementById('partResults');
+  pr.innerHTML='';
+  [1,2,3].forEach(p=>{
+    const cfg = PART_CONFIG[p];
+    const ps = partScores[p];
+    const div = document.createElement('div');
+    div.className = 'pr-card';
+    div.innerHTML = '<h4>'+cfg.label+'</h4>'+
+      '<div class="pr-row"><span>Score</span><b>'+ps.score+' / '+ps.max+'</b></div>'+
+      '<div class="pr-row"><span>Attempted</span><b>'+ps.attempted+'</b></div>'+
+      '<div class="pr-row"><span>Correct</span><b>'+ps.correctCount+'</b></div>'+
+      '<div class="pr-row"><span>Incorrect</span><b>'+ps.incorrectCount+'</b></div>'+
+      '<div class="pr-row"><span>Counted (best-of '+cfg.allowed+')</span><b>'+ps.countedAttempts+'</b></div>';
+    pr.appendChild(div);
+  });
+
+  lastReviewData = perQ;
+  renderReviewList('all');
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([pr]); }
+}
+
+document.getElementById('filterRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReviewList(btn.dataset.f);
+});
+
+function renderReviewList(filter){
+  const list = document.getElementById('reviewList');
+  list.innerHTML='';
+  const map = {};
+  lastReviewData.forEach(x=>map[x.num]=x);
+
+  questions.forEach(q=>{
+    const meta = map[q.num];
+    const st = state[q.num];
+    let show = true;
+    if(filter==='correct') show = meta.correct;
+    else if(filter==='incorrect') show = meta.attempted && !meta.correct;
+    else if(filter==='unattempted') show = !meta.attempted;
+    else if(filter==='marked') show = meta.marked;
+    if(!show) return;
+
+    const cfg = PART_CONFIG[q.part];
+    const item = document.createElement('div');
+    item.className = 'review-item';
+
+    let pillClass = 'skip', pillText = 'Unattempted';
+    if(meta.attempted && meta.correct){ pillClass='ok'; pillText='Correct'; }
+    else if(meta.attempted && !meta.correct){ pillClass='bad'; pillText='Incorrect'; }
+
+    const letters = ['A','B','C','D','E','F'];
+    let optsHtml = '';
+    q.answers.forEach((a,i)=>{
+      let cls='opt';
+      const wasSel = st.selected.has(i);
+      if(a.correct) cls += ' rev-correct';
+      else if(wasSel && !a.correct) cls += ' rev-wrong';
+      let mark = '';
+      if(wasSel) mark = a.correct ? ' ✓ (your answer)' : ' ✕ (your answer)';
+      else if(a.correct) mark = ' ✓ (correct answer)';
+      optsHtml += '<div class="'+cls+'"><span class="opt-label">'+letters[i]+'.</span><span class="opt-text">'+a.text+mark+'</span></div>';
+    });
+
+    item.innerHTML =
+      '<div class="rh"><div><b>Q'+q.num+'.</b> <span style="color:var(--muted);font-size:12.5px;">'+cfg.label+'</span></div>'+
+      '<span class="status-pill '+pillClass+'">'+pillText+'</span></div>'+
+      '<div class="q-text">'+q.qtext+'</div>'+
+      '<div class="options">'+optsHtml+'</div>'+
+      '<div class="explain"><span class="lbl">Explanation</span>'+q.feedback+'</div>';
+    list.appendChild(item);
+  });
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([list]); }
+}
+
+/* ======================= THEME ======================= */
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  const cur = document.body.getAttribute('data-theme');
+  const next = cur==='dark' ? 'light':'dark';
+  document.body.setAttribute('data-theme', next);
+  localStorage.setItem('csir_net_theme', next);
+});
+const savedTheme = localStorage.getItem('csir_net_theme');
+if(savedTheme) document.body.setAttribute('data-theme', savedTheme);
+
+/* ======================= KEYBOARD SHORTCUTS ======================= */
+document.addEventListener('keydown', (e)=>{
+  if(document.getElementById('examScreen').classList.contains('hidden')) return;
+  if(e.target.tagName==='INPUT' || e.target.tagName==='SELECT') return;
+  if(e.key==='ArrowRight'){ if(current<questions.length) renderQuestion(current+1); }
+  if(e.key==='ArrowLeft'){ if(current>1) renderQuestion(current-1); }
+});
+</script>
+</body>
+</html>
